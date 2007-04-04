@@ -8,6 +8,7 @@ import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 import javax.portlet.PortletException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,8 +23,13 @@ public class RecentTasks extends GenericPortlet {
     public void doView(RenderRequest request,RenderResponse response) throws PortletException,IOException {
         response.setContentType("text/html");        
         TaskService ts = new TaskServiceImpl();
-        List list = ts.findRecentEmployeeTask("archana");
-        request.setAttribute("recentTask", list);
+        List list = ts.findRecentEmployeeTask(request.getRemoteUser());
+        System.out.println(request.getRemoteUser() + "  " + list );
+        if ( list == null ) {
+            list = new ArrayList();
+        }
+        
+        request.setAttribute("recentAccount", list);
         PortletRequestDispatcher dispatcher =
                 getPortletContext().getRequestDispatcher("/WEB-INF/jsp/view.jsp");
         dispatcher.include(request, response);
