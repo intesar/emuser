@@ -19,4 +19,22 @@
             <short-title>RecentTasks</short-title>
         </portlet-info>
  </portlet>
+
+ <portlet>
+        <description>RecentAccounts</description>
+        <portlet-name>RecentAccounts</portlet-name>
+        <display-name>RecentAccounts</display-name>
+        <portlet-class>com.abbt.crm.portal.portlets.RecentAccounts</portlet-class>
+        <expiration-cache>0</expiration-cache>
+        <supports>
+            <mime-type>text/html</mime-type>          
+            <portlet-mode>VIEW</portlet-mode>
+            <portlet-mode>EDIT</portlet-mode>
+            <portlet-mode>HELP</portlet-mode>
+        </supports>
+        <portlet-info>
+            <title>RecentAccounts</title>
+            <short-title>RecentAccounts</short-title>
+        </portlet-info>
+ </portlet>
 </portlet-app>
