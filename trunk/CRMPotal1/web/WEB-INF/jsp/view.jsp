@@ -9,14 +9,23 @@
 <%PortletPreferences prefs = renderRequest.getPreferences();%> 
 --%>
 
-<b>No. of recent task </b>
 
 
-<%
-java.util.List list = (java.util.List) request.getAttribute("recentTask");
-try {
-    System.out.println( "Size : " + list.size() );
-} catch ( Exception e) {
-    e.printStackTrace();
-}
+
+<%    
+    try {
+        
+        java.util.List list = (java.util.List) request.getAttribute("recentTask");
+        java.util.Iterator iter = list.iterator();
+        while ( iter.hasNext() ) {
+            com.abbt.crm.base.entity.Tasks task = (com.abbt.crm.base.entity.Tasks) iter.next();
+            out.print(task.getAssignedBy() + "  ");
+            out.println(task.getStatus()+" ");
+            out.println(task.getDescription());
+            
+        }
+        
+    } catch ( Exception e) {
+        e.printStackTrace();
+    }
 %>
