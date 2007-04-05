@@ -63,5 +63,9 @@
 
 </table>
 
+<c:if test="${empty recentTask}" >
+    No Recent Task's Found...
+</c:if>
+
 <!-- Recent Accounts Results END -->
 
