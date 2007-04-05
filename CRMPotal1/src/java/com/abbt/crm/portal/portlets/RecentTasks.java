@@ -29,9 +29,9 @@ public class RecentTasks extends GenericPortlet {
             list = new ArrayList();
         }
         
-        request.setAttribute("recentAccount", list);
+        request.setAttribute("recentTask", list);
         PortletRequestDispatcher dispatcher =
-                getPortletContext().getRequestDispatcher("/WEB-INF/jsp/view.jsp");
+                getPortletContext().getRequestDispatcher("/WEB-INF/jsp/RecentTask/view.jsp");
         dispatcher.include(request, response);
 
     }
@@ -39,7 +39,7 @@ public class RecentTasks extends GenericPortlet {
     public void doEdit(RenderRequest request,RenderResponse response) throws PortletException,IOException {
         response.setContentType("text/html");        
         PortletRequestDispatcher dispatcher =
-                getPortletContext().getRequestDispatcher("/WEB-INF/jsp/edit.jsp");
+                getPortletContext().getRequestDispatcher("/WEB-INF/jsp/RecentTask/edit.jsp");
         dispatcher.include(request, response);
 
     }
@@ -47,7 +47,7 @@ public class RecentTasks extends GenericPortlet {
     public void doHelp(RenderRequest request, RenderResponse response) throws PortletException, IOException {
         response.setContentType("text/html");        
         PortletRequestDispatcher dispatcher =
-                getPortletContext().getRequestDispatcher("/WEB-INF/jsp/help.jsp");
+                getPortletContext().getRequestDispatcher("/WEB-INF/jsp/RecentTask/help.jsp");
         dispatcher.include(request, response);
     }
 
