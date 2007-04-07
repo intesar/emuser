@@ -16,14 +16,14 @@ package com.abbt.crm.base.services;
  * returns an service object which needs to be type caste
  *
  */
-public class ServiceFactory {
+public final class ServiceFactory {
     private static final ServiceFactory instance = new ServiceFactory();
     /** Creates a new instance of ServiceFactory */
     private ServiceFactory() {
     }
    
     /** returns a single instance **/
-    public ServiceFactory getInstance() {
+    public static final ServiceFactory getInstance() {
         return instance;
     }
 
