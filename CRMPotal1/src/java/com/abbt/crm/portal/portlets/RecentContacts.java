@@ -1,6 +1,7 @@
 package com.abbt.crm.portal.portlets;
-import com.abbt.crm.base.services.Contact;
-import com.abbt.crm.base.services.ContactImpl;
+
+import com.abbt.crm.base.services.IContactService;
+import com.abbt.crm.base.services.ServiceFactory;
 import java.util.List;
 import javax.portlet.GenericPortlet;
 import javax.portlet.ActionRequest;
@@ -23,7 +24,8 @@ public class RecentContacts extends GenericPortlet {
                       
         try{           
         response.setContentType("text/html");        
-        Contact contact = new ContactImpl();
+        IContactService contact = (IContactService) ServiceFactory.getInstance()
+                .getService("IContactService");
         List list = contact.findRecentContacts();
         
         System.out.println(request.getRemoteUser() + "  " + list );

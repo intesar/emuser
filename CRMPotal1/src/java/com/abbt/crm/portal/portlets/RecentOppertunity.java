@@ -1,18 +1,14 @@
 package com.abbt.crm.portal.portlets;
-import com.abbt.crm.base.services.Oppertunity;
-import com.abbt.crm.base.services.OppertunityImpl;
+import com.abbt.crm.base.services.IOppertunityService;
+
+import com.abbt.crm.base.services.ServiceFactory;
 import javax.portlet.GenericPortlet;
 import javax.portlet.ActionRequest;
 import javax.portlet.RenderRequest;
 import javax.portlet.ActionResponse;
 import javax.portlet.RenderResponse;
 import javax.portlet.PortletException;
-import javax.portlet.PortletURL;
-import javax.portlet.PortletMode;
-import javax.portlet.PortletPreferences;
-import javax.portlet.WindowState;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import javax.portlet.PortletRequestDispatcher;
 
@@ -27,7 +23,8 @@ public class RecentOppertunity extends GenericPortlet {
           
             try{           
         response.setContentType("text/html");        
-        Oppertunity oppertunity = new OppertunityImpl();
+        IOppertunityService oppertunity = (IOppertunityService)
+            ServiceFactory.getInstance().getService("IOppertunityService");
         java.util.List list = oppertunity.findRecentOppertunity();
         
         System.out.println(request.getRemoteUser() + "  " + list );
