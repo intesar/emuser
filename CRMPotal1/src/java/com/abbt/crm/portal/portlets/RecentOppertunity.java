@@ -1,5 +1,5 @@
 package com.abbt.crm.portal.portlets;
-import com.abbt.crm.base.services.IOppertunityService;
+import com.abbt.crm.base.services.IOpportunityService;
 
 import com.abbt.crm.base.services.ServiceFactory;
 import javax.portlet.GenericPortlet;
@@ -23,7 +23,7 @@ public class RecentOppertunity extends GenericPortlet {
           
             try{           
         response.setContentType("text/html");        
-        IOppertunityService oppertunity = (IOppertunityService)
+        IOpportunityService oppertunity = (IOpportunityService)
             ServiceFactory.getInstance().getService("IOppertunityService");
         java.util.List list = oppertunity.findRecentOppertunity();
         
