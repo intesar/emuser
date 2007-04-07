@@ -1,7 +1,7 @@
 /*
  * CompanyAddress.java
  *
- * Created on April 2, 2007, 10:11 PM
+ * Created on April 7, 2007, 1:27 PM
  *
  * To change this template, choose Tools | Template Manager
  * and open the template in the editor.
@@ -23,7 +23,7 @@ import javax.persistence.TemporalType;
 /**
  * Entity class CompanyAddress
  * 
- * @author shannan
+ * @author Mohammed Hamed
  */
 @Entity
 @Table(name = "company_address")
@@ -67,14 +67,14 @@ public class CompanyAddress implements Serializable {
     @Column(name = "country", nullable = false)
     private String country;
 
-    @Column(name = "creationDate", nullable = false)
+    @Column(name = "creationDate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date creationDate;
 
     @Column(name = "createdUser", nullable = false)
     private String createdUser;
 
-    @Column(name = "lastModifiedDate", nullable = false)
+    @Column(name = "lastModifiedDate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastModifiedDate;
 
@@ -89,7 +89,7 @@ public class CompanyAddress implements Serializable {
 
     @Column(name = "isDefault", nullable = false)
     private boolean isDefault;
-
+    
     /** Creates a new instance of CompanyAddress */
     public CompanyAddress() {
     }
@@ -111,15 +111,13 @@ public class CompanyAddress implements Serializable {
      * @param state the state of the CompanyAddress
      * @param zipCode the zipCode of the CompanyAddress
      * @param country the country of the CompanyAddress
-     * @param creationDate the creationDate of the CompanyAddress
      * @param createdUser the createdUser of the CompanyAddress
-     * @param lastModifiedDate the lastModifiedDate of the CompanyAddress
      * @param lastModifiedUser the lastModifiedUser of the CompanyAddress
      * @param companyId the companyId of the CompanyAddress
      * @param street2 the street2 of the CompanyAddress
      * @param isDefault the isDefault of the CompanyAddress
      */
-    public CompanyAddress(Integer id, int versionId, String street1, String city, String state, String zipCode, String country, Date creationDate, String createdUser, Date lastModifiedDate, String lastModifiedUser, int companyId, String street2, boolean isDefault) {
+    public CompanyAddress(Integer id, int versionId, String street1, String city, String state, String zipCode, String country, String createdUser, String lastModifiedUser, int companyId, String street2, boolean isDefault) {
         this.id = id;
         this.versionId = versionId;
         this.street1 = street1;
@@ -127,9 +125,7 @@ public class CompanyAddress implements Serializable {
         this.state = state;
         this.zipCode = zipCode;
         this.country = country;
-        this.creationDate = creationDate;
         this.createdUser = createdUser;
-        this.lastModifiedDate = lastModifiedDate;
         this.lastModifiedUser = lastModifiedUser;
         this.companyId = companyId;
         this.street2 = street2;
@@ -400,5 +396,5 @@ public class CompanyAddress implements Serializable {
     public String toString() {
         return "com.abbt.crm.base.entity.CompanyAddress[id=" + id + "]";
     }
-
+    
 }

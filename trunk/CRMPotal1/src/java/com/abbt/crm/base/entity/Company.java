@@ -1,7 +1,7 @@
 /*
  * Company.java
  *
- * Created on April 2, 2007, 10:11 PM
+ * Created on April 7, 2007, 1:27 PM
  *
  * To change this template, choose Tools | Template Manager
  * and open the template in the editor.
@@ -23,7 +23,7 @@ import javax.persistence.TemporalType;
 /**
  * Entity class Company
  * 
- * @author shannan
+ * @author Mohammed Hamed
  */
 @Entity
 @Table(name = "company")
@@ -39,7 +39,13 @@ import javax.persistence.TemporalType;
         @NamedQuery(name = "Company.findByCreationDate", query = "SELECT c FROM Company c WHERE c.creationDate = :creationDate"),
         @NamedQuery(name = "Company.findByCreatedUser", query = "SELECT c FROM Company c WHERE c.createdUser = :createdUser"),
         @NamedQuery(name = "Company.findByLastModifiedDate", query = "SELECT c FROM Company c WHERE c.lastModifiedDate = :lastModifiedDate"),
-        @NamedQuery(name = "Company.findByLastModifiedUser", query = "SELECT c FROM Company c WHERE c.lastModifiedUser = :lastModifiedUser")
+        @NamedQuery(name = "Company.findByLastModifiedUser", query = "SELECT c FROM Company c WHERE c.lastModifiedUser = :lastModifiedUser"),
+        @NamedQuery(name = "Company.findByHomePhone", query = "SELECT c FROM Company c WHERE c.homePhone = :homePhone"),
+        @NamedQuery(name = "Company.findByOfficePhone1", query = "SELECT c FROM Company c WHERE c.officePhone1 = :officePhone1"),
+        @NamedQuery(name = "Company.findByOfficePhone2", query = "SELECT c FROM Company c WHERE c.officePhone2 = :officePhone2"),
+        @NamedQuery(name = "Company.findByOfficePhone3", query = "SELECT c FROM Company c WHERE c.officePhone3 = :officePhone3"),
+        @NamedQuery(name = "Company.findByOfficePhone4", query = "SELECT c FROM Company c WHERE c.officePhone4 = :officePhone4"),
+        @NamedQuery(name = "Company.findByFax", query = "SELECT c FROM Company c WHERE c.fax = :fax")
     })
 public class Company implements Serializable {
 
@@ -62,27 +68,45 @@ public class Company implements Serializable {
     @Column(name = "licenceType", nullable = false)
     private String licenceType;
 
-    @Column(name = "expirationDate", nullable = false)
+    @Column(name = "expirationDate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date expirationDate;
 
     @Column(name = "maxLicenceUser", nullable = false)
     private int maxLicenceUser;
 
-    @Column(name = "creationDate", nullable = false)
+    @Column(name = "creationDate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date creationDate;
 
     @Column(name = "createdUser", nullable = false)
     private String createdUser;
 
-    @Column(name = "lastModifiedDate", nullable = false)
+    @Column(name = "lastModifiedDate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastModifiedDate;
 
     @Column(name = "lastModifiedUser", nullable = false)
     private String lastModifiedUser;
 
+    @Column(name = "homePhone")
+    private String homePhone;
+
+    @Column(name = "officePhone1")
+    private String officePhone1;
+
+    @Column(name = "officePhone2")
+    private String officePhone2;
+
+    @Column(name = "officePhone3")
+    private String officePhone3;
+
+    @Column(name = "officePhone4")
+    private String officePhone4;
+
+    @Column(name = "fax")
+    private String fax;
+    
     /** Creates a new instance of Company */
     public Company() {
     }
@@ -103,25 +127,19 @@ public class Company implements Serializable {
      * @param name the name of the Company
      * @param isEnabled the isEnabled of the Company
      * @param licenceType the licenceType of the Company
-     * @param expirationDate the expirationDate of the Company
      * @param maxLicenceUser the maxLicenceUser of the Company
-     * @param creationDate the creationDate of the Company
      * @param createdUser the createdUser of the Company
-     * @param lastModifiedDate the lastModifiedDate of the Company
      * @param lastModifiedUser the lastModifiedUser of the Company
      */
-    public Company(Integer id, int versionId, int companyId, String name, boolean isEnabled, String licenceType, Date expirationDate, int maxLicenceUser, Date creationDate, String createdUser, Date lastModifiedDate, String lastModifiedUser) {
+    public Company(Integer id, int versionId, int companyId, String name, boolean isEnabled, String licenceType, int maxLicenceUser, String createdUser, String lastModifiedUser) {
         this.id = id;
         this.versionId = versionId;
         this.companyId = companyId;
         this.name = name;
         this.isEnabled = isEnabled;
         this.licenceType = licenceType;
-        this.expirationDate = expirationDate;
         this.maxLicenceUser = maxLicenceUser;
-        this.creationDate = creationDate;
         this.createdUser = createdUser;
-        this.lastModifiedDate = lastModifiedDate;
         this.lastModifiedUser = lastModifiedUser;
     }
 
@@ -318,6 +336,102 @@ public class Company implements Serializable {
     }
 
     /**
+     * Gets the homePhone of this Company.
+     * @return the homePhone
+     */
+    public String getHomePhone() {
+        return this.homePhone;
+    }
+
+    /**
+     * Sets the homePhone of this Company to the specified value.
+     * @param homePhone the new homePhone
+     */
+    public void setHomePhone(String homePhone) {
+        this.homePhone = homePhone;
+    }
+
+    /**
+     * Gets the officePhone1 of this Company.
+     * @return the officePhone1
+     */
+    public String getOfficePhone1() {
+        return this.officePhone1;
+    }
+
+    /**
+     * Sets the officePhone1 of this Company to the specified value.
+     * @param officePhone1 the new officePhone1
+     */
+    public void setOfficePhone1(String officePhone1) {
+        this.officePhone1 = officePhone1;
+    }
+
+    /**
+     * Gets the officePhone2 of this Company.
+     * @return the officePhone2
+     */
+    public String getOfficePhone2() {
+        return this.officePhone2;
+    }
+
+    /**
+     * Sets the officePhone2 of this Company to the specified value.
+     * @param officePhone2 the new officePhone2
+     */
+    public void setOfficePhone2(String officePhone2) {
+        this.officePhone2 = officePhone2;
+    }
+
+    /**
+     * Gets the officePhone3 of this Company.
+     * @return the officePhone3
+     */
+    public String getOfficePhone3() {
+        return this.officePhone3;
+    }
+
+    /**
+     * Sets the officePhone3 of this Company to the specified value.
+     * @param officePhone3 the new officePhone3
+     */
+    public void setOfficePhone3(String officePhone3) {
+        this.officePhone3 = officePhone3;
+    }
+
+    /**
+     * Gets the officePhone4 of this Company.
+     * @return the officePhone4
+     */
+    public String getOfficePhone4() {
+        return this.officePhone4;
+    }
+
+    /**
+     * Sets the officePhone4 of this Company to the specified value.
+     * @param officePhone4 the new officePhone4
+     */
+    public void setOfficePhone4(String officePhone4) {
+        this.officePhone4 = officePhone4;
+    }
+
+    /**
+     * Gets the fax of this Company.
+     * @return the fax
+     */
+    public String getFax() {
+        return this.fax;
+    }
+
+    /**
+     * Sets the fax of this Company to the specified value.
+     * @param fax the new fax
+     */
+    public void setFax(String fax) {
+        this.fax = fax;
+    }
+
+    /**
      * Returns a hash code value for the object.  This implementation computes 
      * a hash code value based on the id fields in this object.
      * @return a hash code value for this object.
@@ -357,5 +471,5 @@ public class Company implements Serializable {
     public String toString() {
         return "com.abbt.crm.base.entity.Company[id=" + id + "]";
     }
-
+    
 }

@@ -1,7 +1,7 @@
 /*
  * Faq.java
  *
- * Created on April 2, 2007, 10:11 PM
+ * Created on April 7, 2007, 1:27 PM
  *
  * To change this template, choose Tools | Template Manager
  * and open the template in the editor.
@@ -23,7 +23,7 @@ import javax.persistence.TemporalType;
 /**
  * Entity class Faq
  * 
- * @author shannan
+ * @author Mohammed Hamed
  */
 @Entity
 @Table(name = "faq")
@@ -56,20 +56,20 @@ public class Faq implements Serializable {
     @Column(name = "type", nullable = false)
     private String type;
 
-    @Column(name = "creationDate", nullable = false)
+    @Column(name = "creationDate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date creationDate;
 
     @Column(name = "createdUser", nullable = false)
     private String createdUser;
 
-    @Column(name = "lastModifiedDate", nullable = false)
+    @Column(name = "lastModifiedDate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastModifiedDate;
 
     @Column(name = "lastModifiedUser", nullable = false)
     private String lastModifiedUser;
-
+    
     /** Creates a new instance of Faq */
     public Faq() {
     }
@@ -89,20 +89,16 @@ public class Faq implements Serializable {
      * @param question the question of the Faq
      * @param answer the answer of the Faq
      * @param type the type of the Faq
-     * @param creationDate the creationDate of the Faq
      * @param createdUser the createdUser of the Faq
-     * @param lastModifiedDate the lastModifiedDate of the Faq
      * @param lastModifiedUser the lastModifiedUser of the Faq
      */
-    public Faq(Integer id, int versionId, String question, String answer, String type, Date creationDate, String createdUser, Date lastModifiedDate, String lastModifiedUser) {
+    public Faq(Integer id, int versionId, String question, String answer, String type, String createdUser, String lastModifiedUser) {
         this.id = id;
         this.versionId = versionId;
         this.question = question;
         this.answer = answer;
         this.type = type;
-        this.creationDate = creationDate;
         this.createdUser = createdUser;
-        this.lastModifiedDate = lastModifiedDate;
         this.lastModifiedUser = lastModifiedUser;
     }
 
@@ -290,5 +286,5 @@ public class Faq implements Serializable {
     public String toString() {
         return "com.abbt.crm.base.entity.Faq[id=" + id + "]";
     }
-
+    
 }

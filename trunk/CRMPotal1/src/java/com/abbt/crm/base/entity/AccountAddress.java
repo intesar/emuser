@@ -1,7 +1,7 @@
 /*
  * AccountAddress.java
  *
- * Created on April 2, 2007, 10:11 PM
+ * Created on April 7, 2007, 1:27 PM
  *
  * To change this template, choose Tools | Template Manager
  * and open the template in the editor.
@@ -23,7 +23,7 @@ import javax.persistence.TemporalType;
 /**
  * Entity class AccountAddress
  * 
- * @author shannan
+ * @author Mohammed Hamed
  */
 @Entity
 @Table(name = "account_address")
@@ -67,14 +67,14 @@ public class AccountAddress implements Serializable {
     @Column(name = "country", nullable = false)
     private String country;
 
-    @Column(name = "creationDate", nullable = false)
+    @Column(name = "creationDate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date creationDate;
 
     @Column(name = "createdUser", nullable = false)
     private String createdUser;
 
-    @Column(name = "lastModifiedDate", nullable = false)
+    @Column(name = "lastModifiedDate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastModifiedDate;
 
@@ -89,7 +89,7 @@ public class AccountAddress implements Serializable {
 
     @Column(name = "isDefault", nullable = false)
     private boolean isDefault;
-
+    
     /** Creates a new instance of AccountAddress */
     public AccountAddress() {
     }
@@ -111,15 +111,13 @@ public class AccountAddress implements Serializable {
      * @param state the state of the AccountAddress
      * @param zipCode the zipCode of the AccountAddress
      * @param country the country of the AccountAddress
-     * @param creationDate the creationDate of the AccountAddress
      * @param createdUser the createdUser of the AccountAddress
-     * @param lastModifiedDate the lastModifiedDate of the AccountAddress
      * @param lastModifiedUser the lastModifiedUser of the AccountAddress
      * @param accountId the accountId of the AccountAddress
      * @param street2 the street2 of the AccountAddress
      * @param isDefault the isDefault of the AccountAddress
      */
-    public AccountAddress(Integer id, int versionId, String street1, String city, String state, int zipCode, String country, Date creationDate, String createdUser, Date lastModifiedDate, String lastModifiedUser, int accountId, String street2, boolean isDefault) {
+    public AccountAddress(Integer id, int versionId, String street1, String city, String state, int zipCode, String country, String createdUser, String lastModifiedUser, int accountId, String street2, boolean isDefault) {
         this.id = id;
         this.versionId = versionId;
         this.street1 = street1;
@@ -127,9 +125,7 @@ public class AccountAddress implements Serializable {
         this.state = state;
         this.zipCode = zipCode;
         this.country = country;
-        this.creationDate = creationDate;
         this.createdUser = createdUser;
-        this.lastModifiedDate = lastModifiedDate;
         this.lastModifiedUser = lastModifiedUser;
         this.accountId = accountId;
         this.street2 = street2;
@@ -400,5 +396,5 @@ public class AccountAddress implements Serializable {
     public String toString() {
         return "com.abbt.crm.base.entity.AccountAddress[id=" + id + "]";
     }
-
+    
 }

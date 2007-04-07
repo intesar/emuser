@@ -1,7 +1,7 @@
 /*
  * TasksActivity.java
  *
- * Created on April 2, 2007, 10:11 PM
+ * Created on April 7, 2007, 1:27 PM
  *
  * To change this template, choose Tools | Template Manager
  * and open the template in the editor.
@@ -23,7 +23,7 @@ import javax.persistence.TemporalType;
 /**
  * Entity class TasksActivity
  * 
- * @author shannan
+ * @author Mohammed Hamed
  */
 @Entity
 @Table(name = "tasks_activity")
@@ -48,20 +48,20 @@ public class TasksActivity implements Serializable {
     @Column(name = "activity", nullable = false)
     private String activity;
 
-    @Column(name = "creationDate", nullable = false)
+    @Column(name = "creationDate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date creationDate;
 
     @Column(name = "createdUser", nullable = false)
     private String createdUser;
 
-    @Column(name = "lastModifiedDate", nullable = false)
+    @Column(name = "lastModifiedDate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastModifiedDate;
 
     @Column(name = "lastModifiedUser", nullable = false)
     private String lastModifiedUser;
-
+    
     /** Creates a new instance of TasksActivity */
     public TasksActivity() {
     }
@@ -79,18 +79,14 @@ public class TasksActivity implements Serializable {
      * @param id the id of the TasksActivity
      * @param version the version of the TasksActivity
      * @param activity the activity of the TasksActivity
-     * @param creationDate the creationDate of the TasksActivity
      * @param createdUser the createdUser of the TasksActivity
-     * @param lastModifiedDate the lastModifiedDate of the TasksActivity
      * @param lastModifiedUser the lastModifiedUser of the TasksActivity
      */
-    public TasksActivity(Integer id, int version, String activity, Date creationDate, String createdUser, Date lastModifiedDate, String lastModifiedUser) {
+    public TasksActivity(Integer id, int version, String activity, String createdUser, String lastModifiedUser) {
         this.id = id;
         this.version = version;
         this.activity = activity;
-        this.creationDate = creationDate;
         this.createdUser = createdUser;
-        this.lastModifiedDate = lastModifiedDate;
         this.lastModifiedUser = lastModifiedUser;
     }
 
@@ -246,5 +242,5 @@ public class TasksActivity implements Serializable {
     public String toString() {
         return "com.abbt.crm.base.entity.TasksActivity[id=" + id + "]";
     }
-
+    
 }

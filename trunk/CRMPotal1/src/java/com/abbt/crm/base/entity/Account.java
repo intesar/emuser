@@ -1,7 +1,7 @@
 /*
  * Account.java
  *
- * Created on April 2, 2007, 10:11 PM
+ * Created on April 7, 2007, 1:27 PM
  *
  * To change this template, choose Tools | Template Manager
  * and open the template in the editor.
@@ -23,7 +23,7 @@ import javax.persistence.TemporalType;
 /**
  * Entity class Account
  * 
- * @author shannan
+ * @author Mohammed Hamed
  */
 @Entity
 @Table(name = "account")
@@ -40,7 +40,13 @@ import javax.persistence.TemporalType;
         @NamedQuery(name = "Account.findByCreationDate", query = "SELECT a FROM Account a WHERE a.creationDate = :creationDate"),
         @NamedQuery(name = "Account.findByLastModifiedDate", query = "SELECT a FROM Account a WHERE a.lastModifiedDate = :lastModifiedDate"),
         @NamedQuery(name = "Account.findByLastModifiedUser", query = "SELECT a FROM Account a WHERE a.lastModifiedUser = :lastModifiedUser"),
-        @NamedQuery(name = "Account.findByIsEnabled", query = "SELECT a FROM Account a WHERE a.isEnabled = :isEnabled")
+        @NamedQuery(name = "Account.findByIsEnabled", query = "SELECT a FROM Account a WHERE a.isEnabled = :isEnabled"),
+        @NamedQuery(name = "Account.findByHomePhone", query = "SELECT a FROM Account a WHERE a.homePhone = :homePhone"),
+        @NamedQuery(name = "Account.findByOfficePhone1", query = "SELECT a FROM Account a WHERE a.officePhone1 = :officePhone1"),
+        @NamedQuery(name = "Account.findByOfficePhone2", query = "SELECT a FROM Account a WHERE a.officePhone2 = :officePhone2"),
+        @NamedQuery(name = "Account.findByOfficePhone3", query = "SELECT a FROM Account a WHERE a.officePhone3 = :officePhone3"),
+        @NamedQuery(name = "Account.findByOfficePhone4", query = "SELECT a FROM Account a WHERE a.officePhone4 = :officePhone4"),
+        @NamedQuery(name = "Account.findByFax", query = "SELECT a FROM Account a WHERE a.fax = :fax")
     })
 public class Account implements Serializable {
 
@@ -72,11 +78,11 @@ public class Account implements Serializable {
     @Column(name = "createdUser", nullable = false)
     private String createdUser;
 
-    @Column(name = "creationDate", nullable = false)
+    @Column(name = "creationDate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date creationDate;
 
-    @Column(name = "lastModifiedDate", nullable = false)
+    @Column(name = "lastModifiedDate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastModifiedDate;
 
@@ -86,6 +92,24 @@ public class Account implements Serializable {
     @Column(name = "isEnabled", nullable = false)
     private boolean isEnabled;
 
+    @Column(name = "homePhone")
+    private String homePhone;
+
+    @Column(name = "officePhone1")
+    private String officePhone1;
+
+    @Column(name = "officePhone2")
+    private String officePhone2;
+
+    @Column(name = "officePhone3")
+    private String officePhone3;
+
+    @Column(name = "officePhone4")
+    private String officePhone4;
+
+    @Column(name = "fax")
+    private String fax;
+    
     /** Creates a new instance of Account */
     public Account() {
     }
@@ -109,12 +133,10 @@ public class Account implements Serializable {
      * @param rating the rating of the Account
      * @param description the description of the Account
      * @param createdUser the createdUser of the Account
-     * @param creationDate the creationDate of the Account
-     * @param lastModifiedDate the lastModifiedDate of the Account
      * @param lastModifiedUser the lastModifiedUser of the Account
      * @param isEnabled the isEnabled of the Account
      */
-    public Account(Integer id, int versionId, int accountId, String name, String website, String type, String rating, String description, String createdUser, Date creationDate, Date lastModifiedDate, String lastModifiedUser, boolean isEnabled) {
+    public Account(Integer id, int versionId, int accountId, String name, String website, String type, String rating, String description, String createdUser, String lastModifiedUser, boolean isEnabled) {
         this.id = id;
         this.versionId = versionId;
         this.accountId = accountId;
@@ -124,8 +146,6 @@ public class Account implements Serializable {
         this.rating = rating;
         this.description = description;
         this.createdUser = createdUser;
-        this.creationDate = creationDate;
-        this.lastModifiedDate = lastModifiedDate;
         this.lastModifiedUser = lastModifiedUser;
         this.isEnabled = isEnabled;
     }
@@ -339,6 +359,102 @@ public class Account implements Serializable {
     }
 
     /**
+     * Gets the homePhone of this Account.
+     * @return the homePhone
+     */
+    public String getHomePhone() {
+        return this.homePhone;
+    }
+
+    /**
+     * Sets the homePhone of this Account to the specified value.
+     * @param homePhone the new homePhone
+     */
+    public void setHomePhone(String homePhone) {
+        this.homePhone = homePhone;
+    }
+
+    /**
+     * Gets the officePhone1 of this Account.
+     * @return the officePhone1
+     */
+    public String getOfficePhone1() {
+        return this.officePhone1;
+    }
+
+    /**
+     * Sets the officePhone1 of this Account to the specified value.
+     * @param officePhone1 the new officePhone1
+     */
+    public void setOfficePhone1(String officePhone1) {
+        this.officePhone1 = officePhone1;
+    }
+
+    /**
+     * Gets the officePhone2 of this Account.
+     * @return the officePhone2
+     */
+    public String getOfficePhone2() {
+        return this.officePhone2;
+    }
+
+    /**
+     * Sets the officePhone2 of this Account to the specified value.
+     * @param officePhone2 the new officePhone2
+     */
+    public void setOfficePhone2(String officePhone2) {
+        this.officePhone2 = officePhone2;
+    }
+
+    /**
+     * Gets the officePhone3 of this Account.
+     * @return the officePhone3
+     */
+    public String getOfficePhone3() {
+        return this.officePhone3;
+    }
+
+    /**
+     * Sets the officePhone3 of this Account to the specified value.
+     * @param officePhone3 the new officePhone3
+     */
+    public void setOfficePhone3(String officePhone3) {
+        this.officePhone3 = officePhone3;
+    }
+
+    /**
+     * Gets the officePhone4 of this Account.
+     * @return the officePhone4
+     */
+    public String getOfficePhone4() {
+        return this.officePhone4;
+    }
+
+    /**
+     * Sets the officePhone4 of this Account to the specified value.
+     * @param officePhone4 the new officePhone4
+     */
+    public void setOfficePhone4(String officePhone4) {
+        this.officePhone4 = officePhone4;
+    }
+
+    /**
+     * Gets the fax of this Account.
+     * @return the fax
+     */
+    public String getFax() {
+        return this.fax;
+    }
+
+    /**
+     * Sets the fax of this Account to the specified value.
+     * @param fax the new fax
+     */
+    public void setFax(String fax) {
+        this.fax = fax;
+    }
+
+    /**
      * Returns a hash code value for the object.  This implementation computes 
      * a hash code value based on the id fields in this object.
      * @return a hash code value for this object.
@@ -378,5 +494,5 @@ public class Account implements Serializable {
     public String toString() {
         return "com.abbt.crm.base.entity.Account[id=" + id + "]";
     }
-
+    
 }

@@ -1,7 +1,7 @@
 /*
  * LeadAddress.java
  *
- * Created on April 2, 2007, 10:11 PM
+ * Created on April 7, 2007, 1:27 PM
  *
  * To change this template, choose Tools | Template Manager
  * and open the template in the editor.
@@ -20,7 +20,7 @@ import javax.persistence.Table;
 /**
  * Entity class LeadAddress
  * 
- * @author shannan
+ * @author Mohammed Hamed
  */
 @Entity
 @Table(name = "lead_address")
@@ -80,7 +80,7 @@ public class LeadAddress implements Serializable {
 
     @Column(name = "isDefault", nullable = false)
     private boolean isDefault;
-
+    
     /** Creates a new instance of LeadAddress */
     public LeadAddress() {
     }
@@ -373,5 +373,5 @@ public class LeadAddress implements Serializable {
     public String toString() {
         return "com.abbt.crm.base.entity.LeadAddress[id=" + id + "]";
     }
-
+    
 }

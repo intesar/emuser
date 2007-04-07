@@ -1,7 +1,7 @@
 /*
  * Lead.java
  *
- * Created on April 2, 2007, 10:11 PM
+ * Created on April 7, 2007, 1:27 PM
  *
  * To change this template, choose Tools | Template Manager
  * and open the template in the editor.
@@ -23,7 +23,7 @@ import javax.persistence.TemporalType;
 /**
  * Entity class Lead
  * 
- * @author shannan
+ * @author Mohammed Hamed
  */
 @Entity
 @Table(name = "lead")
@@ -40,7 +40,17 @@ import javax.persistence.TemporalType;
         @NamedQuery(name = "Lead.findByCreationDate", query = "SELECT l FROM Lead l WHERE l.creationDate = :creationDate"),
         @NamedQuery(name = "Lead.findByCreatedUser", query = "SELECT l FROM Lead l WHERE l.createdUser = :createdUser"),
         @NamedQuery(name = "Lead.findByLastModifiedUser", query = "SELECT l FROM Lead l WHERE l.lastModifiedUser = :lastModifiedUser"),
-        @NamedQuery(name = "Lead.findByLastModifiedDate", query = "SELECT l FROM Lead l WHERE l.lastModifiedDate = :lastModifiedDate")
+        @NamedQuery(name = "Lead.findByLastModifiedDate", query = "SELECT l FROM Lead l WHERE l.lastModifiedDate = :lastModifiedDate"),
+        @NamedQuery(name = "Lead.findByHomePhone", query = "SELECT l FROM Lead l WHERE l.homePhone = :homePhone"),
+        @NamedQuery(name = "Lead.findByOfficePhone1", query = "SELECT l FROM Lead l WHERE l.officePhone1 = :officePhone1"),
+        @NamedQuery(name = "Lead.findByOfficePhone2", query = "SELECT l FROM Lead l WHERE l.officePhone2 = :officePhone2"),
+        @NamedQuery(name = "Lead.findByFax", query = "SELECT l FROM Lead l WHERE l.fax = :fax"),
+        @NamedQuery(name = "Lead.findByOtherPhone", query = "SELECT l FROM Lead l WHERE l.otherPhone = :otherPhone"),
+        @NamedQuery(name = "Lead.findByMobile", query = "SELECT l FROM Lead l WHERE l.mobile = :mobile"),
+        @NamedQuery(name = "Lead.findByOfficeAddressLine1", query = "SELECT l FROM Lead l WHERE l.officeAddressLine1 = :officeAddressLine1"),
+        @NamedQuery(name = "Lead.findByOfficeAddressLine2", query = "SELECT l FROM Lead l WHERE l.officeAddressLine2 = :officeAddressLine2"),
+        @NamedQuery(name = "Lead.findByHomeAddressLine1", query = "SELECT l FROM Lead l WHERE l.homeAddressLine1 = :homeAddressLine1"),
+        @NamedQuery(name = "Lead.findByHomeAddressLine2", query = "SELECT l FROM Lead l WHERE l.homeAddressLine2 = :homeAddressLine2")
     })
 public class Lead implements Serializable {
 
@@ -72,7 +82,7 @@ public class Lead implements Serializable {
     @Column(name = "title", nullable = false)
     private String title;
 
-    @Column(name = "creationDate", nullable = false)
+    @Column(name = "creationDate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date creationDate;
 
@@ -82,10 +92,40 @@ public class Lead implements Serializable {
     @Column(name = "lastModifiedUser", nullable = false)
     private String lastModifiedUser;
 
-    @Column(name = "lastModifiedDate", nullable = false)
+    @Column(name = "lastModifiedDate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastModifiedDate;
 
+    @Column(name = "homePhone")
+    private String homePhone;
+
+    @Column(name = "officePhone1")
+    private String officePhone1;
+
+    @Column(name = "officePhone2")
+    private String officePhone2;
+
+    @Column(name = "fax")
+    private String fax;
+
+    @Column(name = "otherPhone")
+    private String otherPhone;
+
+    @Column(name = "mobile")
+    private String mobile;
+
+    @Column(name = "officeAddressLine1")
+    private String officeAddressLine1;
+
+    @Column(name = "officeAddressLine2")
+    private String officeAddressLine2;
+
+    @Column(name = "homeAddressLine1")
+    private String homeAddressLine1;
+
+    @Column(name = "homeAddressLine2")
+    private String homeAddressLine2;
+    
     /** Creates a new instance of Lead */
     public Lead() {
     }
@@ -109,12 +149,10 @@ public class Lead implements Serializable {
      * @param website the website of the Lead
      * @param description the description of the Lead
      * @param title the title of the Lead
-     * @param creationDate the creationDate of the Lead
      * @param createdUser the createdUser of the Lead
      * @param lastModifiedUser the lastModifiedUser of the Lead
-     * @param lastModifiedDate the lastModifiedDate of the Lead
      */
-    public Lead(Integer id, int versionId, String firstName, String lastName, String email, String company, String website, String description, String title, Date creationDate, String createdUser, String lastModifiedUser, Date lastModifiedDate) {
+    public Lead(Integer id, int versionId, String firstName, String lastName, String email, String company, String website, String description, String title, String createdUser, String lastModifiedUser) {
         this.id = id;
         this.versionId = versionId;
         this.firstName = firstName;
@@ -124,10 +162,8 @@ public class Lead implements Serializable {
         this.website = website;
         this.description = description;
         this.title = title;
-        this.creationDate = creationDate;
         this.createdUser = createdUser;
         this.lastModifiedUser = lastModifiedUser;
-        this.lastModifiedDate = lastModifiedDate;
     }
 
     /**
@@ -339,6 +375,166 @@ public class Lead implements Serializable {
     }
 
     /**
+     * Gets the homePhone of this Lead.
+     * @return the homePhone
+     */
+    public String getHomePhone() {
+        return this.homePhone;
+    }
+
+    /**
+     * Sets the homePhone of this Lead to the specified value.
+     * @param homePhone the new homePhone
+     */
+    public void setHomePhone(String homePhone) {
+        this.homePhone = homePhone;
+    }
+
+    /**
+     * Gets the officePhone1 of this Lead.
+     * @return the officePhone1
+     */
+    public String getOfficePhone1() {
+        return this.officePhone1;
+    }
+
+    /**
+     * Sets the officePhone1 of this Lead to the specified value.
+     * @param officePhone1 the new officePhone1
+     */
+    public void setOfficePhone1(String officePhone1) {
+        this.officePhone1 = officePhone1;
+    }
+
+    /**
+     * Gets the officePhone2 of this Lead.
+     * @return the officePhone2
+     */
+    public String getOfficePhone2() {
+        return this.officePhone2;
+    }
+
+    /**
+     * Sets the officePhone2 of this Lead to the specified value.
+     * @param officePhone2 the new officePhone2
+     */
+    public void setOfficePhone2(String officePhone2) {
+        this.officePhone2 = officePhone2;
+    }
+
+    /**
+     * Gets the fax of this Lead.
+     * @return the fax
+     */
+    public String getFax() {
+        return this.fax;
+    }
+
+    /**
+     * Sets the fax of this Lead to the specified value.
+     * @param fax the new fax
+     */
+    public void setFax(String fax) {
+        this.fax = fax;
+    }
+
+    /**
+     * Gets the otherPhone of this Lead.
+     * @return the otherPhone
+     */
+    public String getOtherPhone() {
+        return this.otherPhone;
+    }
+
+    /**
+     * Sets the otherPhone of this Lead to the specified value.
+     * @param otherPhone the new otherPhone
+     */
+    public void setOtherPhone(String otherPhone) {
+        this.otherPhone = otherPhone;
+    }
+
+    /**
+     * Gets the mobile of this Lead.
+     * @return the mobile
+     */
+    public String getMobile() {
+        return this.mobile;
+    }
+
+    /**
+     * Sets the mobile of this Lead to the specified value.
+     * @param mobile the new mobile
+     */
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+    /**
+     * Gets the officeAddressLine1 of this Lead.
+     * @return the officeAddressLine1
+     */
+    public String getOfficeAddressLine1() {
+        return this.officeAddressLine1;
+    }
+
+    /**
+     * Sets the officeAddressLine1 of this Lead to the specified value.
+     * @param officeAddressLine1 the new officeAddressLine1
+     */
+    public void setOfficeAddressLine1(String officeAddressLine1) {
+        this.officeAddressLine1 = officeAddressLine1;
+    }
+
+    /**
+     * Gets the officeAddressLine2 of this Lead.
+     * @return the officeAddressLine2
+     */
+    public String getOfficeAddressLine2() {
+        return this.officeAddressLine2;
+    }
+
+    /**
+     * Sets the officeAddressLine2 of this Lead to the specified value.
+     * @param officeAddressLine2 the new officeAddressLine2
+     */
+    public void setOfficeAddressLine2(String officeAddressLine2) {
+        this.officeAddressLine2 = officeAddressLine2;
+    }
+
+    /**
+     * Gets the homeAddressLine1 of this Lead.
+     * @return the homeAddressLine1
+     */
+    public String getHomeAddressLine1() {
+        return this.homeAddressLine1;
+    }
+
+    /**
+     * Sets the homeAddressLine1 of this Lead to the specified value.
+     * @param homeAddressLine1 the new homeAddressLine1
+     */
+    public void setHomeAddressLine1(String homeAddressLine1) {
+        this.homeAddressLine1 = homeAddressLine1;
+    }
+
+    /**
+     * Gets the homeAddressLine2 of this Lead.
+     * @return the homeAddressLine2
+     */
+    public String getHomeAddressLine2() {
+        return this.homeAddressLine2;
+    }
+
+    /**
+     * Sets the homeAddressLine2 of this Lead to the specified value.
+     * @param homeAddressLine2 the new homeAddressLine2
+     */
+    public void setHomeAddressLine2(String homeAddressLine2) {
+        this.homeAddressLine2 = homeAddressLine2;
+    }
+
+    /**
      * Returns a hash code value for the object.  This implementation computes 
      * a hash code value based on the id fields in this object.
      * @return a hash code value for this object.
@@ -378,5 +574,5 @@ public class Lead implements Serializable {
     public String toString() {
         return "com.abbt.crm.base.entity.Lead[id=" + id + "]";
     }
-
+    
 }

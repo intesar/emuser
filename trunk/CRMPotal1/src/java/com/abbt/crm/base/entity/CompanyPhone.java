@@ -1,7 +1,7 @@
 /*
  * CompanyPhone.java
  *
- * Created on April 2, 2007, 10:11 PM
+ * Created on April 7, 2007, 1:27 PM
  *
  * To change this template, choose Tools | Template Manager
  * and open the template in the editor.
@@ -23,7 +23,7 @@ import javax.persistence.TemporalType;
 /**
  * Entity class CompanyPhone
  * 
- * @author shannan
+ * @author Mohammed Hamed
  */
 @Entity
 @Table(name = "company_phone")
@@ -56,7 +56,7 @@ public class CompanyPhone implements Serializable {
     @Column(name = "companyId", nullable = false)
     private int companyId;
 
-    @Column(name = "creationDate", nullable = false)
+    @Column(name = "creationDate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date creationDate;
 
@@ -66,10 +66,10 @@ public class CompanyPhone implements Serializable {
     @Column(name = "lastModifiedUser", nullable = false)
     private String lastModifiedUser;
 
-    @Column(name = "lastModifiedDate", nullable = false)
+    @Column(name = "lastModifiedDate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastModifiedDate;
-
+    
     /** Creates a new instance of CompanyPhone */
     public CompanyPhone() {
     }
@@ -89,21 +89,17 @@ public class CompanyPhone implements Serializable {
      * @param faxNo the faxNo of the CompanyPhone
      * @param phoneNo the phoneNo of the CompanyPhone
      * @param companyId the companyId of the CompanyPhone
-     * @param creationDate the creationDate of the CompanyPhone
      * @param createdUser the createdUser of the CompanyPhone
      * @param lastModifiedUser the lastModifiedUser of the CompanyPhone
-     * @param lastModifiedDate the lastModifiedDate of the CompanyPhone
      */
-    public CompanyPhone(Integer id, int versionId, String faxNo, String phoneNo, int companyId, Date creationDate, String createdUser, String lastModifiedUser, Date lastModifiedDate) {
+    public CompanyPhone(Integer id, int versionId, String faxNo, String phoneNo, int companyId, String createdUser, String lastModifiedUser) {
         this.id = id;
         this.versionId = versionId;
         this.faxNo = faxNo;
         this.phoneNo = phoneNo;
         this.companyId = companyId;
-        this.creationDate = creationDate;
         this.createdUser = createdUser;
         this.lastModifiedUser = lastModifiedUser;
-        this.lastModifiedDate = lastModifiedDate;
     }
 
     /**
@@ -290,5 +286,5 @@ public class CompanyPhone implements Serializable {
     public String toString() {
         return "com.abbt.crm.base.entity.CompanyPhone[id=" + id + "]";
     }
-
+    
 }

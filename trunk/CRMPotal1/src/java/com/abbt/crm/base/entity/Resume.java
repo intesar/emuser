@@ -1,7 +1,7 @@
 /*
  * Resume.java
  *
- * Created on April 2, 2007, 10:11 PM
+ * Created on April 7, 2007, 1:27 PM
  *
  * To change this template, choose Tools | Template Manager
  * and open the template in the editor.
@@ -24,7 +24,7 @@ import javax.persistence.TemporalType;
 /**
  * Entity class Resume
  * 
- * @author shannan
+ * @author Mohammed Hamed
  */
 @Entity
 @Table(name = "resume")
@@ -64,7 +64,7 @@ public class Resume implements Serializable {
     @Column(name = "visibility", nullable = false)
     private boolean visibility;
 
-    @Column(name = "creationDate", nullable = false)
+    @Column(name = "creationDate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date creationDate;
 
@@ -74,7 +74,7 @@ public class Resume implements Serializable {
     @Column(name = "lastModifiedUser", nullable = false)
     private String lastModifiedUser;
 
-    @Column(name = "lastModifiedDate", nullable = false)
+    @Column(name = "lastModifiedDate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastModifiedDate;
 
@@ -86,7 +86,7 @@ public class Resume implements Serializable {
 
     @Column(name = "contents", nullable = false)
     private String contents;
-
+    
     /** Creates a new instance of Resume */
     public Resume() {
     }
@@ -107,25 +107,21 @@ public class Resume implements Serializable {
      * @param description the description of the Resume
      * @param file the file of the Resume
      * @param visibility the visibility of the Resume
-     * @param creationDate the creationDate of the Resume
      * @param createdUser the createdUser of the Resume
      * @param lastModifiedUser the lastModifiedUser of the Resume
-     * @param lastModifiedDate the lastModifiedDate of the Resume
      * @param employeeId the employeeId of the Resume
      * @param resumeId the resumeId of the Resume
      * @param contents the contents of the Resume
      */
-    public Resume(Integer id, int versionId, String name, String description, byte [] file, boolean visibility, Date creationDate, String createdUser, String lastModifiedUser, Date lastModifiedDate, int employeeId, int resumeId, String contents) {
+    public Resume(Integer id, int versionId, String name, String description, byte [] file, boolean visibility, String createdUser, String lastModifiedUser, int employeeId, int resumeId, String contents) {
         this.id = id;
         this.versionId = versionId;
         this.name = name;
         this.description = description;
         this.file = file;
         this.visibility = visibility;
-        this.creationDate = creationDate;
         this.createdUser = createdUser;
         this.lastModifiedUser = lastModifiedUser;
-        this.lastModifiedDate = lastModifiedDate;
         this.employeeId = employeeId;
         this.resumeId = resumeId;
         this.contents = contents;
@@ -379,5 +375,5 @@ public class Resume implements Serializable {
     public String toString() {
         return "com.abbt.crm.base.entity.Resume[id=" + id + "]";
     }
-
+    
 }

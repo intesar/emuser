@@ -1,7 +1,7 @@
 /*
  * AccountPhone.java
  *
- * Created on April 2, 2007, 10:11 PM
+ * Created on April 7, 2007, 1:27 PM
  *
  * To change this template, choose Tools | Template Manager
  * and open the template in the editor.
@@ -23,7 +23,7 @@ import javax.persistence.TemporalType;
 /**
  * Entity class AccountPhone
  * 
- * @author shannan
+ * @author Mohammed Hamed
  */
 @Entity
 @Table(name = "account_phone")
@@ -56,7 +56,7 @@ public class AccountPhone implements Serializable {
     @Column(name = "accountId", nullable = false)
     private String accountId;
 
-    @Column(name = "creationDate", nullable = false)
+    @Column(name = "creationDate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date creationDate;
 
@@ -66,10 +66,10 @@ public class AccountPhone implements Serializable {
     @Column(name = "lastModifiedUser", nullable = false)
     private String lastModifiedUser;
 
-    @Column(name = "lastModifiedDate", nullable = false)
+    @Column(name = "lastModifiedDate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastModifiedDate;
-
+    
     /** Creates a new instance of AccountPhone */
     public AccountPhone() {
     }
@@ -89,21 +89,17 @@ public class AccountPhone implements Serializable {
      * @param faxNo the faxNo of the AccountPhone
      * @param phoneNo the phoneNo of the AccountPhone
      * @param accountId the accountId of the AccountPhone
-     * @param creationDate the creationDate of the AccountPhone
      * @param createdUser the createdUser of the AccountPhone
      * @param lastModifiedUser the lastModifiedUser of the AccountPhone
-     * @param lastModifiedDate the lastModifiedDate of the AccountPhone
      */
-    public AccountPhone(Integer id, int versionId, int faxNo, String phoneNo, String accountId, Date creationDate, String createdUser, String lastModifiedUser, Date lastModifiedDate) {
+    public AccountPhone(Integer id, int versionId, int faxNo, String phoneNo, String accountId, String createdUser, String lastModifiedUser) {
         this.id = id;
         this.versionId = versionId;
         this.faxNo = faxNo;
         this.phoneNo = phoneNo;
         this.accountId = accountId;
-        this.creationDate = creationDate;
         this.createdUser = createdUser;
         this.lastModifiedUser = lastModifiedUser;
-        this.lastModifiedDate = lastModifiedDate;
     }
 
     /**
@@ -290,5 +286,5 @@ public class AccountPhone implements Serializable {
     public String toString() {
         return "com.abbt.crm.base.entity.AccountPhone[id=" + id + "]";
     }
-
+    
 }

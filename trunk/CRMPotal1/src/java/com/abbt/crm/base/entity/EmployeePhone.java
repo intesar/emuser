@@ -1,7 +1,7 @@
 /*
  * EmployeePhone.java
  *
- * Created on April 2, 2007, 10:11 PM
+ * Created on April 7, 2007, 1:27 PM
  *
  * To change this template, choose Tools | Template Manager
  * and open the template in the editor.
@@ -23,7 +23,7 @@ import javax.persistence.TemporalType;
 /**
  * Entity class EmployeePhone
  * 
- * @author shannan
+ * @author Mohammed Hamed
  */
 @Entity
 @Table(name = "employee_phone")
@@ -55,14 +55,14 @@ public class EmployeePhone implements Serializable {
     @Column(name = "employeeUserName", nullable = false)
     private String employeeUserName;
 
-    @Column(name = "creationDate", nullable = false)
+    @Column(name = "creationDate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date creationDate;
 
     @Column(name = "creationUser", nullable = false)
     private String creationUser;
 
-    @Column(name = "lastModifiedDate", nullable = false)
+    @Column(name = "lastModifiedDate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastModifiedDate;
 
@@ -77,7 +77,7 @@ public class EmployeePhone implements Serializable {
 
     @Column(name = "isDefault", nullable = false)
     private boolean isDefault;
-
+    
     /** Creates a new instance of EmployeePhone */
     public EmployeePhone() {
     }
@@ -96,22 +96,18 @@ public class EmployeePhone implements Serializable {
      * @param versionId the versionId of the EmployeePhone
      * @param phoneNo the phoneNo of the EmployeePhone
      * @param employeeUserName the employeeUserName of the EmployeePhone
-     * @param creationDate the creationDate of the EmployeePhone
      * @param creationUser the creationUser of the EmployeePhone
-     * @param lastModifiedDate the lastModifiedDate of the EmployeePhone
      * @param lastModifiedUser the lastModifiedUser of the EmployeePhone
      * @param type the type of the EmployeePhone
      * @param isEnabled the isEnabled of the EmployeePhone
      * @param isDefault the isDefault of the EmployeePhone
      */
-    public EmployeePhone(Integer id, int versionId, String phoneNo, String employeeUserName, Date creationDate, String creationUser, Date lastModifiedDate, String lastModifiedUser, String type, boolean isEnabled, boolean isDefault) {
+    public EmployeePhone(Integer id, int versionId, String phoneNo, String employeeUserName, String creationUser, String lastModifiedUser, String type, boolean isEnabled, boolean isDefault) {
         this.id = id;
         this.versionId = versionId;
         this.phoneNo = phoneNo;
         this.employeeUserName = employeeUserName;
-        this.creationDate = creationDate;
         this.creationUser = creationUser;
-        this.lastModifiedDate = lastModifiedDate;
         this.lastModifiedUser = lastModifiedUser;
         this.type = type;
         this.isEnabled = isEnabled;
@@ -334,5 +330,5 @@ public class EmployeePhone implements Serializable {
     public String toString() {
         return "com.abbt.crm.base.entity.EmployeePhone[id=" + id + "]";
     }
-
+    
 }
