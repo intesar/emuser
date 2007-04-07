@@ -1,5 +1,5 @@
 /*
- * AccountService.java
+ * IAccountService.java
  *
  * Created on April 3, 2007, 8:32 PM
  *
@@ -17,7 +17,7 @@ import com.abbt.crm.base.entity.Account;
  *
  * @author Osman
  */
-public interface AccountService {
+public interface IAccountService {
     /*
      * declaring the interface for recent employee accounts
      */

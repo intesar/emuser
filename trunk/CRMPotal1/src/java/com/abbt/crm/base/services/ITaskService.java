@@ -1,5 +1,5 @@
 /*
- * TaskService.java
+ * ITaskService.java
  *
  * Created on April 2, 2007, 9:07 PM
  *
@@ -16,7 +16,7 @@ import java.util.List;
  *
  * @author shannan
  */
-public interface TaskService {
+public interface ITaskService {
     List<Tasks> findRecentEmployeeTask(String username);
 
 }

@@ -1,5 +1,5 @@
 /*
- * Contact.java
+ * IContactService.java
  *
  * Created on April 4, 2007, 9:37 PM
  *
@@ -15,8 +15,8 @@ import java.util.List;
  *
  * @author Osman
  */
-public interface Contact {
+public interface IContactService {
  
-    List<Contact> findRecentContacts();
+    List<IContactService> findRecentContacts();
  
 }
