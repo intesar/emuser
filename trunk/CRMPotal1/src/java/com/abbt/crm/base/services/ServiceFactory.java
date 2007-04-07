@@ -31,7 +31,27 @@ public final class ServiceFactory {
      *  ICRUDService iCRUDService = (ICRUDService)  getService ( "ICRUDService"); 
      */
     public Object getService(String name) {
-         return null;
+      if ( name.equals("ICRUDService")) {
+        return new CRUDServiceImpl();
+        }
+      else if ( name.equals("IAccountService")) {
+        return accountService;
+      } 
+      else if ( name.equals("IContactService") ){
+        return contactService;
+      }
+      else if ( name.equals("IOpportunityService")) {
+            return opportunityService;
+      }
+      else if ( name.equals("ITaskService")) {   
+        return taskService;
+      }
+      else return null;
     }
+    
+    private IAccountService accountService = new AccountServiceImpl();
+    private IContactService contactService = new ContactServiceImpl();
+    private IOpportunityService opportunityService = new OpportunityServiceImpl();
+    private ITaskService taskService = new TaskServiceImpl();
 
 }
