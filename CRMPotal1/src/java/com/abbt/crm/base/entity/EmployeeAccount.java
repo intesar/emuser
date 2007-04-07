@@ -1,7 +1,7 @@
 /*
  * EmployeeAccount.java
  *
- * Created on April 2, 2007, 10:11 PM
+ * Created on April 7, 2007, 1:27 PM
  *
  * To change this template, choose Tools | Template Manager
  * and open the template in the editor.
@@ -23,7 +23,7 @@ import javax.persistence.TemporalType;
 /**
  * Entity class EmployeeAccount
  * 
- * @author shannan
+ * @author Mohammed Hamed
  */
 @Entity
 @Table(name = "employee_account")
@@ -49,7 +49,7 @@ public class EmployeeAccount implements Serializable {
     @Column(name = "employeeUserName", nullable = false)
     private String employeeUserName;
 
-    @Column(name = "creationDate", nullable = false)
+    @Column(name = "creationDate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date creationDate;
 
@@ -59,13 +59,13 @@ public class EmployeeAccount implements Serializable {
     @Column(name = "lastModifiedUser", nullable = false)
     private String lastModifiedUser;
 
-    @Column(name = "lastModifiedDate", nullable = false)
+    @Column(name = "lastModifiedDate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastModifiedDate;
 
     @Column(name = "employeeId", nullable = false)
     private int employeeId;
-
+    
     /** Creates a new instance of EmployeeAccount */
     public EmployeeAccount() {
     }
@@ -83,20 +83,16 @@ public class EmployeeAccount implements Serializable {
      * @param id the id of the EmployeeAccount
      * @param versionId the versionId of the EmployeeAccount
      * @param employeeUserName the employeeUserName of the EmployeeAccount
-     * @param creationDate the creationDate of the EmployeeAccount
      * @param createdUser the createdUser of the EmployeeAccount
      * @param lastModifiedUser the lastModifiedUser of the EmployeeAccount
-     * @param lastModifiedDate the lastModifiedDate of the EmployeeAccount
      * @param employeeId the employeeId of the EmployeeAccount
      */
-    public EmployeeAccount(Integer id, int versionId, String employeeUserName, Date creationDate, String createdUser, String lastModifiedUser, Date lastModifiedDate, int employeeId) {
+    public EmployeeAccount(Integer id, int versionId, String employeeUserName, String createdUser, String lastModifiedUser, int employeeId) {
         this.id = id;
         this.versionId = versionId;
         this.employeeUserName = employeeUserName;
-        this.creationDate = creationDate;
         this.createdUser = createdUser;
         this.lastModifiedUser = lastModifiedUser;
-        this.lastModifiedDate = lastModifiedDate;
         this.employeeId = employeeId;
     }
 
@@ -268,5 +264,5 @@ public class EmployeeAccount implements Serializable {
     public String toString() {
         return "com.abbt.crm.base.entity.EmployeeAccount[id=" + id + "]";
     }
-
+    
 }

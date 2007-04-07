@@ -1,7 +1,7 @@
 /*
  * Tasks.java
  *
- * Created on April 2, 2007, 10:11 PM
+ * Created on April 7, 2007, 1:27 PM
  *
  * To change this template, choose Tools | Template Manager
  * and open the template in the editor.
@@ -23,7 +23,7 @@ import javax.persistence.TemporalType;
 /**
  * Entity class Tasks
  * 
- * @author shannan
+ * @author Mohammed Hamed
  */
 @Entity
 @Table(name = "tasks")
@@ -80,20 +80,20 @@ public class Tasks implements Serializable {
     @Column(name = "createdUser", nullable = false)
     private String createdUser;
 
-    @Column(name = "creationDate", nullable = false)
+    @Column(name = "creationDate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date creationDate;
 
     @Column(name = "lastModifiedUser", nullable = false)
     private String lastModifiedUser;
 
-    @Column(name = "lastModifiedDate", nullable = false)
+    @Column(name = "lastModifiedDate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastModifiedDate;
 
     @Column(name = "taskId", nullable = false)
     private int taskId;
-
+    
     /** Creates a new instance of Tasks */
     public Tasks() {
     }
@@ -119,12 +119,10 @@ public class Tasks implements Serializable {
      * @param explaination the explaination of the Tasks
      * @param parentTaskId the parentTaskId of the Tasks
      * @param createdUser the createdUser of the Tasks
-     * @param creationDate the creationDate of the Tasks
      * @param lastModifiedUser the lastModifiedUser of the Tasks
-     * @param lastModifiedDate the lastModifiedDate of the Tasks
      * @param taskId the taskId of the Tasks
      */
-    public Tasks(Integer id, int versionId, String title, String description, String type, String assignedBy, String assignedTo, String status, String explaination, int parentTaskId, String createdUser, Date creationDate, String lastModifiedUser, Date lastModifiedDate, int taskId) {
+    public Tasks(Integer id, int versionId, String title, String description, String type, String assignedBy, String assignedTo, String status, String explaination, int parentTaskId, String createdUser, String lastModifiedUser, int taskId) {
         this.id = id;
         this.versionId = versionId;
         this.title = title;
@@ -136,9 +134,7 @@ public class Tasks implements Serializable {
         this.explaination = explaination;
         this.parentTaskId = parentTaskId;
         this.createdUser = createdUser;
-        this.creationDate = creationDate;
         this.lastModifiedUser = lastModifiedUser;
-        this.lastModifiedDate = lastModifiedDate;
         this.taskId = taskId;
     }
 
@@ -422,5 +418,5 @@ public class Tasks implements Serializable {
     public String toString() {
         return "com.abbt.crm.base.entity.Tasks[id=" + id + "]";
     }
-
+    
 }

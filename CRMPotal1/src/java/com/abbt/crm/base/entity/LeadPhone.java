@@ -1,7 +1,7 @@
 /*
  * LeadPhone.java
  *
- * Created on April 2, 2007, 10:11 PM
+ * Created on April 7, 2007, 1:27 PM
  *
  * To change this template, choose Tools | Template Manager
  * and open the template in the editor.
@@ -23,7 +23,7 @@ import javax.persistence.TemporalType;
 /**
  * Entity class LeadPhone
  * 
- * @author shannan
+ * @author Mohammed Hamed
  */
 @Entity
 @Table(name = "lead_phone")
@@ -52,20 +52,20 @@ public class LeadPhone implements Serializable {
     @Column(name = "phoneNo", nullable = false)
     private String phoneNo;
 
-    @Column(name = "creationDate", nullable = false)
+    @Column(name = "creationDate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date creationDate;
 
     @Column(name = "createdUser", nullable = false)
     private String createdUser;
 
-    @Column(name = "lastModifiedDate", nullable = false)
+    @Column(name = "lastModifiedDate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastModifiedDate;
 
     @Column(name = "lastModifiedUser", nullable = false)
     private String lastModifiedUser;
-
+    
     /** Creates a new instance of LeadPhone */
     public LeadPhone() {
     }
@@ -84,19 +84,15 @@ public class LeadPhone implements Serializable {
      * @param versionId the versionId of the LeadPhone
      * @param faxNo the faxNo of the LeadPhone
      * @param phoneNo the phoneNo of the LeadPhone
-     * @param creationDate the creationDate of the LeadPhone
      * @param createdUser the createdUser of the LeadPhone
-     * @param lastModifiedDate the lastModifiedDate of the LeadPhone
      * @param lastModifiedUser the lastModifiedUser of the LeadPhone
      */
-    public LeadPhone(Integer id, int versionId, int faxNo, String phoneNo, Date creationDate, String createdUser, Date lastModifiedDate, String lastModifiedUser) {
+    public LeadPhone(Integer id, int versionId, int faxNo, String phoneNo, String createdUser, String lastModifiedUser) {
         this.id = id;
         this.versionId = versionId;
         this.faxNo = faxNo;
         this.phoneNo = phoneNo;
-        this.creationDate = creationDate;
         this.createdUser = createdUser;
-        this.lastModifiedDate = lastModifiedDate;
         this.lastModifiedUser = lastModifiedUser;
     }
 
@@ -268,5 +264,5 @@ public class LeadPhone implements Serializable {
     public String toString() {
         return "com.abbt.crm.base.entity.LeadPhone[id=" + id + "]";
     }
-
+    
 }

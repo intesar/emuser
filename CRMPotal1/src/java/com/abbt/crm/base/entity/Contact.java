@@ -1,7 +1,7 @@
 /*
  * Contact.java
  *
- * Created on April 2, 2007, 10:11 PM
+ * Created on April 7, 2007, 1:27 PM
  *
  * To change this template, choose Tools | Template Manager
  * and open the template in the editor.
@@ -23,7 +23,7 @@ import javax.persistence.TemporalType;
 /**
  * Entity class Contact
  * 
- * @author shannan
+ * @author Mohammed Hamed
  */
 @Entity
 @Table(name = "contact")
@@ -40,7 +40,17 @@ import javax.persistence.TemporalType;
         @NamedQuery(name = "Contact.findByLastModifiedUser", query = "SELECT c FROM Contact c WHERE c.lastModifiedUser = :lastModifiedUser"),
         @NamedQuery(name = "Contact.findByLastModifiedDate", query = "SELECT c FROM Contact c WHERE c.lastModifiedDate = :lastModifiedDate"),
         @NamedQuery(name = "Contact.findByAccountId", query = "SELECT c FROM Contact c WHERE c.accountId = :accountId"),
-        @NamedQuery(name = "Contact.findByContactId", query = "SELECT c FROM Contact c WHERE c.contactId = :contactId")
+        @NamedQuery(name = "Contact.findByContactId", query = "SELECT c FROM Contact c WHERE c.contactId = :contactId"),
+        @NamedQuery(name = "Contact.findByHomePhone", query = "SELECT c FROM Contact c WHERE c.homePhone = :homePhone"),
+        @NamedQuery(name = "Contact.findByOfficePhone1", query = "SELECT c FROM Contact c WHERE c.officePhone1 = :officePhone1"),
+        @NamedQuery(name = "Contact.findByOfficePhone2", query = "SELECT c FROM Contact c WHERE c.officePhone2 = :officePhone2"),
+        @NamedQuery(name = "Contact.findByMobile", query = "SELECT c FROM Contact c WHERE c.mobile = :mobile"),
+        @NamedQuery(name = "Contact.findByFax", query = "SELECT c FROM Contact c WHERE c.fax = :fax"),
+        @NamedQuery(name = "Contact.findByOtherPhone", query = "SELECT c FROM Contact c WHERE c.otherPhone = :otherPhone"),
+        @NamedQuery(name = "Contact.findByOfficeAddressLine1", query = "SELECT c FROM Contact c WHERE c.officeAddressLine1 = :officeAddressLine1"),
+        @NamedQuery(name = "Contact.findByOfficeAddressLine2", query = "SELECT c FROM Contact c WHERE c.officeAddressLine2 = :officeAddressLine2"),
+        @NamedQuery(name = "Contact.findByHomeAddressLine1", query = "SELECT c FROM Contact c WHERE c.homeAddressLine1 = :homeAddressLine1"),
+        @NamedQuery(name = "Contact.findByHomeAddressLine2", query = "SELECT c FROM Contact c WHERE c.homeAddressLine2 = :homeAddressLine2")
     })
 public class Contact implements Serializable {
 
@@ -66,7 +76,7 @@ public class Contact implements Serializable {
     @Column(name = "rating", nullable = false)
     private String rating;
 
-    @Column(name = "creationDate", nullable = false)
+    @Column(name = "creationDate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date creationDate;
 
@@ -76,7 +86,7 @@ public class Contact implements Serializable {
     @Column(name = "lastModifiedUser", nullable = false)
     private String lastModifiedUser;
 
-    @Column(name = "lastModifiedDate", nullable = false)
+    @Column(name = "lastModifiedDate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastModifiedDate;
 
@@ -86,6 +96,36 @@ public class Contact implements Serializable {
     @Column(name = "contactId", nullable = false)
     private int contactId;
 
+    @Column(name = "homePhone")
+    private String homePhone;
+
+    @Column(name = "officePhone1")
+    private String officePhone1;
+
+    @Column(name = "officePhone2")
+    private String officePhone2;
+
+    @Column(name = "mobile")
+    private String mobile;
+
+    @Column(name = "fax")
+    private String fax;
+
+    @Column(name = "otherPhone")
+    private String otherPhone;
+
+    @Column(name = "officeAddressLine1")
+    private String officeAddressLine1;
+
+    @Column(name = "officeAddressLine2")
+    private String officeAddressLine2;
+
+    @Column(name = "homeAddressLine1")
+    private String homeAddressLine1;
+
+    @Column(name = "homeAddressLine2")
+    private String homeAddressLine2;
+    
     /** Creates a new instance of Contact */
     public Contact() {
     }
@@ -107,14 +147,12 @@ public class Contact implements Serializable {
      * @param email the email of the Contact
      * @param titile the titile of the Contact
      * @param rating the rating of the Contact
-     * @param creationDate the creationDate of the Contact
      * @param createdUser the createdUser of the Contact
      * @param lastModifiedUser the lastModifiedUser of the Contact
-     * @param lastModifiedDate the lastModifiedDate of the Contact
      * @param accountId the accountId of the Contact
      * @param contactId the contactId of the Contact
      */
-    public Contact(Integer id, int versionId, String firstName, String lastName, String email, String titile, String rating, Date creationDate, String createdUser, String lastModifiedUser, Date lastModifiedDate, String accountId, int contactId) {
+    public Contact(Integer id, int versionId, String firstName, String lastName, String email, String titile, String rating, String createdUser, String lastModifiedUser, String accountId, int contactId) {
         this.id = id;
         this.versionId = versionId;
         this.firstName = firstName;
@@ -122,10 +160,8 @@ public class Contact implements Serializable {
         this.email = email;
         this.titile = titile;
         this.rating = rating;
-        this.creationDate = creationDate;
         this.createdUser = createdUser;
         this.lastModifiedUser = lastModifiedUser;
-        this.lastModifiedDate = lastModifiedDate;
         this.accountId = accountId;
         this.contactId = contactId;
     }
@@ -339,6 +375,166 @@ public class Contact implements Serializable {
     }
 
     /**
+     * Gets the homePhone of this Contact.
+     * @return the homePhone
+     */
+    public String getHomePhone() {
+        return this.homePhone;
+    }
+
+    /**
+     * Sets the homePhone of this Contact to the specified value.
+     * @param homePhone the new homePhone
+     */
+    public void setHomePhone(String homePhone) {
+        this.homePhone = homePhone;
+    }
+
+    /**
+     * Gets the officePhone1 of this Contact.
+     * @return the officePhone1
+     */
+    public String getOfficePhone1() {
+        return this.officePhone1;
+    }
+
+    /**
+     * Sets the officePhone1 of this Contact to the specified value.
+     * @param officePhone1 the new officePhone1
+     */
+    public void setOfficePhone1(String officePhone1) {
+        this.officePhone1 = officePhone1;
+    }
+
+    /**
+     * Gets the officePhone2 of this Contact.
+     * @return the officePhone2
+     */
+    public String getOfficePhone2() {
+        return this.officePhone2;
+    }
+
+    /**
+     * Sets the officePhone2 of this Contact to the specified value.
+     * @param officePhone2 the new officePhone2
+     */
+    public void setOfficePhone2(String officePhone2) {
+        this.officePhone2 = officePhone2;
+    }
+
+    /**
+     * Gets the mobile of this Contact.
+     * @return the mobile
+     */
+    public String getMobile() {
+        return this.mobile;
+    }
+
+    /**
+     * Sets the mobile of this Contact to the specified value.
+     * @param mobile the new mobile
+     */
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+    /**
+     * Gets the fax of this Contact.
+     * @return the fax
+     */
+    public String getFax() {
+        return this.fax;
+    }
+
+    /**
+     * Sets the fax of this Contact to the specified value.
+     * @param fax the new fax
+     */
+    public void setFax(String fax) {
+        this.fax = fax;
+    }
+
+    /**
+     * Gets the otherPhone of this Contact.
+     * @return the otherPhone
+     */
+    public String getOtherPhone() {
+        return this.otherPhone;
+    }
+
+    /**
+     * Sets the otherPhone of this Contact to the specified value.
+     * @param otherPhone the new otherPhone
+     */
+    public void setOtherPhone(String otherPhone) {
+        this.otherPhone = otherPhone;
+    }
+
+    /**
+     * Gets the officeAddressLine1 of this Contact.
+     * @return the officeAddressLine1
+     */
+    public String getOfficeAddressLine1() {
+        return this.officeAddressLine1;
+    }
+
+    /**
+     * Sets the officeAddressLine1 of this Contact to the specified value.
+     * @param officeAddressLine1 the new officeAddressLine1
+     */
+    public void setOfficeAddressLine1(String officeAddressLine1) {
+        this.officeAddressLine1 = officeAddressLine1;
+    }
+
+    /**
+     * Gets the officeAddressLine2 of this Contact.
+     * @return the officeAddressLine2
+     */
+    public String getOfficeAddressLine2() {
+        return this.officeAddressLine2;
+    }
+
+    /**
+     * Sets the officeAddressLine2 of this Contact to the specified value.
+     * @param officeAddressLine2 the new officeAddressLine2
+     */
+    public void setOfficeAddressLine2(String officeAddressLine2) {
+        this.officeAddressLine2 = officeAddressLine2;
+    }
+
+    /**
+     * Gets the homeAddressLine1 of this Contact.
+     * @return the homeAddressLine1
+     */
+    public String getHomeAddressLine1() {
+        return this.homeAddressLine1;
+    }
+
+    /**
+     * Sets the homeAddressLine1 of this Contact to the specified value.
+     * @param homeAddressLine1 the new homeAddressLine1
+     */
+    public void setHomeAddressLine1(String homeAddressLine1) {
+        this.homeAddressLine1 = homeAddressLine1;
+    }
+
+    /**
+     * Gets the homeAddressLine2 of this Contact.
+     * @return the homeAddressLine2
+     */
+    public String getHomeAddressLine2() {
+        return this.homeAddressLine2;
+    }
+
+    /**
+     * Sets the homeAddressLine2 of this Contact to the specified value.
+     * @param homeAddressLine2 the new homeAddressLine2
+     */
+    public void setHomeAddressLine2(String homeAddressLine2) {
+        this.homeAddressLine2 = homeAddressLine2;
+    }
+
+    /**
      * Returns a hash code value for the object.  This implementation computes 
      * a hash code value based on the id fields in this object.
      * @return a hash code value for this object.
@@ -378,5 +574,5 @@ public class Contact implements Serializable {
     public String toString() {
         return "com.abbt.crm.base.entity.Contact[id=" + id + "]";
     }
-
+    
 }

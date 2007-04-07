@@ -1,7 +1,7 @@
 /*
  * OpportunityAppliedByEmployee.java
  *
- * Created on April 2, 2007, 10:11 PM
+ * Created on April 7, 2007, 1:27 PM
  *
  * To change this template, choose Tools | Template Manager
  * and open the template in the editor.
@@ -23,7 +23,7 @@ import javax.persistence.TemporalType;
 /**
  * Entity class OpportunityAppliedByEmployee
  * 
- * @author shannan
+ * @author Mohammed Hamed
  */
 @Entity
 @Table(name = "opportunity_applied_by_employee")
@@ -54,18 +54,18 @@ public class OpportunityAppliedByEmployee implements Serializable {
     @Column(name = "employeeUserName", nullable = false)
     private String employeeUserName;
 
-    @Column(name = "timeStamp", nullable = false)
+    @Column(name = "timeStamp")
     @Temporal(TemporalType.TIMESTAMP)
     private Date timeStamp;
 
-    @Column(name = "creationDate", nullable = false)
+    @Column(name = "creationDate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date creationDate;
 
     @Column(name = "createdUser", nullable = false)
     private String createdUser;
 
-    @Column(name = "lastModifiedDate", nullable = false)
+    @Column(name = "lastModifiedDate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastModifiedDate;
 
@@ -74,7 +74,7 @@ public class OpportunityAppliedByEmployee implements Serializable {
 
     @Column(name = "details", nullable = false)
     private String details;
-
+    
     /** Creates a new instance of OpportunityAppliedByEmployee */
     public OpportunityAppliedByEmployee() {
     }
@@ -93,22 +93,16 @@ public class OpportunityAppliedByEmployee implements Serializable {
      * @param versionId the versionId of the OpportunityAppliedByEmployee
      * @param opportunityId the opportunityId of the OpportunityAppliedByEmployee
      * @param employeeUserName the employeeUserName of the OpportunityAppliedByEmployee
-     * @param timeStamp the timeStamp of the OpportunityAppliedByEmployee
-     * @param creationDate the creationDate of the OpportunityAppliedByEmployee
      * @param createdUser the createdUser of the OpportunityAppliedByEmployee
-     * @param lastModifiedDate the lastModifiedDate of the OpportunityAppliedByEmployee
      * @param lastModifiedUser the lastModifiedUser of the OpportunityAppliedByEmployee
      * @param details the details of the OpportunityAppliedByEmployee
      */
-    public OpportunityAppliedByEmployee(Integer id, String versionId, String opportunityId, String employeeUserName, Date timeStamp, Date creationDate, String createdUser, Date lastModifiedDate, String lastModifiedUser, String details) {
+    public OpportunityAppliedByEmployee(Integer id, String versionId, String opportunityId, String employeeUserName, String createdUser, String lastModifiedUser, String details) {
         this.id = id;
         this.versionId = versionId;
         this.opportunityId = opportunityId;
         this.employeeUserName = employeeUserName;
-        this.timeStamp = timeStamp;
-        this.creationDate = creationDate;
         this.createdUser = createdUser;
-        this.lastModifiedDate = lastModifiedDate;
         this.lastModifiedUser = lastModifiedUser;
         this.details = details;
     }
@@ -313,5 +307,5 @@ public class OpportunityAppliedByEmployee implements Serializable {
     public String toString() {
         return "com.abbt.crm.base.entity.OpportunityAppliedByEmployee[id=" + id + "]";
     }
-
+    
 }

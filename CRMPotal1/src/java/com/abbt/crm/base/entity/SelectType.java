@@ -1,7 +1,7 @@
 /*
  * SelectType.java
  *
- * Created on April 2, 2007, 10:11 PM
+ * Created on April 7, 2007, 1:27 PM
  *
  * To change this template, choose Tools | Template Manager
  * and open the template in the editor.
@@ -23,7 +23,7 @@ import javax.persistence.TemporalType;
 /**
  * Entity class SelectType
  * 
- * @author shannan
+ * @author Mohammed Hamed
  */
 @Entity
 @Table(name = "select_type")
@@ -62,7 +62,7 @@ public class SelectType implements Serializable {
     @Column(name = "sortNumber", nullable = false)
     private String sortNumber;
 
-    @Column(name = "creationDate", nullable = false)
+    @Column(name = "creationDate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date creationDate;
 
@@ -72,7 +72,7 @@ public class SelectType implements Serializable {
     @Column(name = "lastModifiedUser", nullable = false)
     private String lastModifiedUser;
 
-    @Column(name = "lastModifiedDate", nullable = false)
+    @Column(name = "lastModifiedDate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastModifiedDate;
 
@@ -81,7 +81,7 @@ public class SelectType implements Serializable {
 
     @Column(name = "ownedCompany", nullable = false)
     private boolean ownedCompany;
-
+    
     /** Creates a new instance of SelectType */
     public SelectType() {
     }
@@ -102,24 +102,20 @@ public class SelectType implements Serializable {
      * @param description the description of the SelectType
      * @param type the type of the SelectType
      * @param sortNumber the sortNumber of the SelectType
-     * @param creationDate the creationDate of the SelectType
      * @param createdUser the createdUser of the SelectType
      * @param lastModifiedUser the lastModifiedUser of the SelectType
-     * @param lastModifiedDate the lastModifiedDate of the SelectType
      * @param isGlobal the isGlobal of the SelectType
      * @param ownedCompany the ownedCompany of the SelectType
      */
-    public SelectType(Integer id, int versionId, String name, String description, String type, String sortNumber, Date creationDate, String createdUser, String lastModifiedUser, Date lastModifiedDate, boolean isGlobal, boolean ownedCompany) {
+    public SelectType(Integer id, int versionId, String name, String description, String type, String sortNumber, String createdUser, String lastModifiedUser, boolean isGlobal, boolean ownedCompany) {
         this.id = id;
         this.versionId = versionId;
         this.name = name;
         this.description = description;
         this.type = type;
         this.sortNumber = sortNumber;
-        this.creationDate = creationDate;
         this.createdUser = createdUser;
         this.lastModifiedUser = lastModifiedUser;
-        this.lastModifiedDate = lastModifiedDate;
         this.isGlobal = isGlobal;
         this.ownedCompany = ownedCompany;
     }
@@ -356,5 +352,5 @@ public class SelectType implements Serializable {
     public String toString() {
         return "com.abbt.crm.base.entity.SelectType[id=" + id + "]";
     }
-
+    
 }

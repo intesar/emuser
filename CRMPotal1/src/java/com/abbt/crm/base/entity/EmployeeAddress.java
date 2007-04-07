@@ -1,7 +1,7 @@
 /*
  * EmployeeAddress.java
  *
- * Created on April 2, 2007, 10:11 PM
+ * Created on April 7, 2007, 1:27 PM
  *
  * To change this template, choose Tools | Template Manager
  * and open the template in the editor.
@@ -23,7 +23,7 @@ import javax.persistence.TemporalType;
 /**
  * Entity class EmployeeAddress
  * 
- * @author shannan
+ * @author Mohammed Hamed
  */
 @Entity
 @Table(name = "employee_address")
@@ -68,14 +68,14 @@ public class EmployeeAddress implements Serializable {
     @Column(name = "country", nullable = false)
     private String country;
 
-    @Column(name = "creationDate", nullable = false)
+    @Column(name = "creationDate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date creationDate;
 
     @Column(name = "createdUser", nullable = false)
     private String createdUser;
 
-    @Column(name = "lastModifiedDate", nullable = false)
+    @Column(name = "lastModifiedDate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastModifiedDate;
 
@@ -93,7 +93,7 @@ public class EmployeeAddress implements Serializable {
 
     @Column(name = "street2", nullable = false)
     private String street2;
-
+    
     /** Creates a new instance of EmployeeAddress */
     public EmployeeAddress() {
     }
@@ -115,16 +115,14 @@ public class EmployeeAddress implements Serializable {
      * @param state the state of the EmployeeAddress
      * @param zipCode the zipCode of the EmployeeAddress
      * @param country the country of the EmployeeAddress
-     * @param creationDate the creationDate of the EmployeeAddress
      * @param createdUser the createdUser of the EmployeeAddress
-     * @param lastModifiedDate the lastModifiedDate of the EmployeeAddress
      * @param lastModifiedUser the lastModifiedUser of the EmployeeAddress
      * @param employeeUserName the employeeUserName of the EmployeeAddress
      * @param type the type of the EmployeeAddress
      * @param isDefault the isDefault of the EmployeeAddress
      * @param street2 the street2 of the EmployeeAddress
      */
-    public EmployeeAddress(Integer id, int versionId, String street1, String city, String state, int zipCode, String country, Date creationDate, String createdUser, Date lastModifiedDate, String lastModifiedUser, String employeeUserName, String type, boolean isDefault, String street2) {
+    public EmployeeAddress(Integer id, int versionId, String street1, String city, String state, int zipCode, String country, String createdUser, String lastModifiedUser, String employeeUserName, String type, boolean isDefault, String street2) {
         this.id = id;
         this.versionId = versionId;
         this.street1 = street1;
@@ -132,9 +130,7 @@ public class EmployeeAddress implements Serializable {
         this.state = state;
         this.zipCode = zipCode;
         this.country = country;
-        this.creationDate = creationDate;
         this.createdUser = createdUser;
-        this.lastModifiedDate = lastModifiedDate;
         this.lastModifiedUser = lastModifiedUser;
         this.employeeUserName = employeeUserName;
         this.type = type;
@@ -422,5 +418,5 @@ public class EmployeeAddress implements Serializable {
     public String toString() {
         return "com.abbt.crm.base.entity.EmployeeAddress[id=" + id + "]";
     }
-
+    
 }

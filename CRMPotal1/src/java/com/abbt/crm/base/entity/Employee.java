@@ -1,7 +1,7 @@
 /*
  * Employee.java
  *
- * Created on April 2, 2007, 10:11 PM
+ * Created on April 7, 2007, 1:27 PM
  *
  * To change this template, choose Tools | Template Manager
  * and open the template in the editor.
@@ -23,7 +23,7 @@ import javax.persistence.TemporalType;
 /**
  * Entity class Employee
  * 
- * @author shannan
+ * @author Mohammed Hamed
  */
 @Entity
 @Table(name = "employee")
@@ -46,7 +46,13 @@ import javax.persistence.TemporalType;
         @NamedQuery(name = "Employee.findByLastModifiedUser", query = "SELECT e FROM Employee e WHERE e.lastModifiedUser = :lastModifiedUser"),
         @NamedQuery(name = "Employee.findByLastModifiedDate", query = "SELECT e FROM Employee e WHERE e.lastModifiedDate = :lastModifiedDate"),
         @NamedQuery(name = "Employee.findByCompanyId", query = "SELECT e FROM Employee e WHERE e.companyId = :companyId"),
-        @NamedQuery(name = "Employee.findByManagerId", query = "SELECT e FROM Employee e WHERE e.managerId = :managerId")
+        @NamedQuery(name = "Employee.findByManagerId", query = "SELECT e FROM Employee e WHERE e.managerId = :managerId"),
+        @NamedQuery(name = "Employee.findByHomePhone", query = "SELECT e FROM Employee e WHERE e.homePhone = :homePhone"),
+        @NamedQuery(name = "Employee.findByOfficePhone1", query = "SELECT e FROM Employee e WHERE e.officePhone1 = :officePhone1"),
+        @NamedQuery(name = "Employee.findByOfficePhone2", query = "SELECT e FROM Employee e WHERE e.officePhone2 = :officePhone2"),
+        @NamedQuery(name = "Employee.findByMobile", query = "SELECT e FROM Employee e WHERE e.mobile = :mobile"),
+        @NamedQuery(name = "Employee.findByFax", query = "SELECT e FROM Employee e WHERE e.fax = :fax"),
+        @NamedQuery(name = "Employee.findByOtherPhone", query = "SELECT e FROM Employee e WHERE e.otherPhone = :otherPhone")
     })
 public class Employee implements Serializable {
 
@@ -75,11 +81,11 @@ public class Employee implements Serializable {
     @Column(name = "isEnabled", nullable = false)
     private boolean isEnabled;
 
-    @Column(name = "terminationDate", nullable = false)
+    @Column(name = "terminationDate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date terminationDate;
 
-    @Column(name = "joinedDate", nullable = false)
+    @Column(name = "joinedDate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date joinedDate;
 
@@ -95,14 +101,14 @@ public class Employee implements Serializable {
     @Column(name = "createdUser", nullable = false)
     private String createdUser;
 
-    @Column(name = "creationDate", nullable = false)
+    @Column(name = "creationDate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date creationDate;
 
     @Column(name = "lastModifiedUser", nullable = false)
     private String lastModifiedUser;
 
-    @Column(name = "lastModifiedDate", nullable = false)
+    @Column(name = "lastModifiedDate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastModifiedDate;
 
@@ -112,6 +118,24 @@ public class Employee implements Serializable {
     @Column(name = "managerId", nullable = false)
     private int managerId;
 
+    @Column(name = "homePhone")
+    private String homePhone;
+
+    @Column(name = "officePhone1")
+    private String officePhone1;
+
+    @Column(name = "officePhone2")
+    private String officePhone2;
+
+    @Column(name = "mobile")
+    private String mobile;
+
+    @Column(name = "fax")
+    private String fax;
+
+    @Column(name = "otherPhone")
+    private String otherPhone;
+    
     /** Creates a new instance of Employee */
     public Employee() {
     }
@@ -134,19 +158,15 @@ public class Employee implements Serializable {
      * @param title the title of the Employee
      * @param description the description of the Employee
      * @param isEnabled the isEnabled of the Employee
-     * @param terminationDate the terminationDate of the Employee
-     * @param joinedDate the joinedDate of the Employee
      * @param firstName the firstName of the Employee
      * @param lastName the lastName of the Employee
      * @param email the email of the Employee
      * @param createdUser the createdUser of the Employee
-     * @param creationDate the creationDate of the Employee
      * @param lastModifiedUser the lastModifiedUser of the Employee
-     * @param lastModifiedDate the lastModifiedDate of the Employee
      * @param companyId the companyId of the Employee
      * @param managerId the managerId of the Employee
      */
-    public Employee(Integer id, int versionId, int employeeId, int ssn, String userName, String title, String description, boolean isEnabled, Date terminationDate, Date joinedDate, String firstName, String lastName, String email, String createdUser, Date creationDate, String lastModifiedUser, Date lastModifiedDate, int companyId, int managerId) {
+    public Employee(Integer id, int versionId, int employeeId, int ssn, String userName, String title, String description, boolean isEnabled, String firstName, String lastName, String email, String createdUser, String lastModifiedUser, int companyId, int managerId) {
         this.id = id;
         this.versionId = versionId;
         this.employeeId = employeeId;
@@ -155,15 +175,11 @@ public class Employee implements Serializable {
         this.title = title;
         this.description = description;
         this.isEnabled = isEnabled;
-        this.terminationDate = terminationDate;
-        this.joinedDate = joinedDate;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.createdUser = createdUser;
-        this.creationDate = creationDate;
         this.lastModifiedUser = lastModifiedUser;
-        this.lastModifiedDate = lastModifiedDate;
         this.companyId = companyId;
         this.managerId = managerId;
     }
@@ -473,6 +489,102 @@ public class Employee implements Serializable {
     }
 
     /**
+     * Gets the homePhone of this Employee.
+     * @return the homePhone
+     */
+    public String getHomePhone() {
+        return this.homePhone;
+    }
+
+    /**
+     * Sets the homePhone of this Employee to the specified value.
+     * @param homePhone the new homePhone
+     */
+    public void setHomePhone(String homePhone) {
+        this.homePhone = homePhone;
+    }
+
+    /**
+     * Gets the officePhone1 of this Employee.
+     * @return the officePhone1
+     */
+    public String getOfficePhone1() {
+        return this.officePhone1;
+    }
+
+    /**
+     * Sets the officePhone1 of this Employee to the specified value.
+     * @param officePhone1 the new officePhone1
+     */
+    public void setOfficePhone1(String officePhone1) {
+        this.officePhone1 = officePhone1;
+    }
+
+    /**
+     * Gets the officePhone2 of this Employee.
+     * @return the officePhone2
+     */
+    public String getOfficePhone2() {
+        return this.officePhone2;
+    }
+
+    /**
+     * Sets the officePhone2 of this Employee to the specified value.
+     * @param officePhone2 the new officePhone2
+     */
+    public void setOfficePhone2(String officePhone2) {
+        this.officePhone2 = officePhone2;
+    }
+
+    /**
+     * Gets the mobile of this Employee.
+     * @return the mobile
+     */
+    public String getMobile() {
+        return this.mobile;
+    }
+
+    /**
+     * Sets the mobile of this Employee to the specified value.
+     * @param mobile the new mobile
+     */
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+    /**
+     * Gets the fax of this Employee.
+     * @return the fax
+     */
+    public String getFax() {
+        return this.fax;
+    }
+
+    /**
+     * Sets the fax of this Employee to the specified value.
+     * @param fax the new fax
+     */
+    public void setFax(String fax) {
+        this.fax = fax;
+    }
+
+    /**
+     * Gets the otherPhone of this Employee.
+     * @return the otherPhone
+     */
+    public String getOtherPhone() {
+        return this.otherPhone;
+    }
+
+    /**
+     * Sets the otherPhone of this Employee to the specified value.
+     * @param otherPhone the new otherPhone
+     */
+    public void setOtherPhone(String otherPhone) {
+        this.otherPhone = otherPhone;
+    }
+
+    /**
      * Returns a hash code value for the object.  This implementation computes 
      * a hash code value based on the id fields in this object.
      * @return a hash code value for this object.
@@ -512,5 +624,5 @@ public class Employee implements Serializable {
     public String toString() {
         return "com.abbt.crm.base.entity.Employee[id=" + id + "]";
     }
-
+    
 }

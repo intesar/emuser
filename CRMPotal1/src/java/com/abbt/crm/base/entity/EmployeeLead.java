@@ -1,7 +1,7 @@
 /*
  * EmployeeLead.java
  *
- * Created on April 2, 2007, 10:11 PM
+ * Created on April 7, 2007, 1:27 PM
  *
  * To change this template, choose Tools | Template Manager
  * and open the template in the editor.
@@ -23,7 +23,7 @@ import javax.persistence.TemporalType;
 /**
  * Entity class EmployeeLead
  * 
- * @author shannan
+ * @author Mohammed Hamed
  */
 @Entity
 @Table(name = "employee_lead")
@@ -53,7 +53,7 @@ public class EmployeeLead implements Serializable {
     @Column(name = "leadCompanyName", nullable = false)
     private String leadCompanyName;
 
-    @Column(name = "creationDate", nullable = false)
+    @Column(name = "creationDate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date creationDate;
 
@@ -63,13 +63,13 @@ public class EmployeeLead implements Serializable {
     @Column(name = "lastModifiedUser", nullable = false)
     private String lastModifiedUser;
 
-    @Column(name = "lastModifiedDate", nullable = false)
+    @Column(name = "lastModifiedDate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastModifiedDate;
 
     @Column(name = "taskId", nullable = false)
     private int taskId;
-
+    
     /** Creates a new instance of EmployeeLead */
     public EmployeeLead() {
     }
@@ -88,21 +88,17 @@ public class EmployeeLead implements Serializable {
      * @param versionId the versionId of the EmployeeLead
      * @param employeeUserName the employeeUserName of the EmployeeLead
      * @param leadCompanyName the leadCompanyName of the EmployeeLead
-     * @param creationDate the creationDate of the EmployeeLead
      * @param createdUser the createdUser of the EmployeeLead
      * @param lastModifiedUser the lastModifiedUser of the EmployeeLead
-     * @param lastModifiedDate the lastModifiedDate of the EmployeeLead
      * @param taskId the taskId of the EmployeeLead
      */
-    public EmployeeLead(Integer id, int versionId, String employeeUserName, String leadCompanyName, Date creationDate, String createdUser, String lastModifiedUser, Date lastModifiedDate, int taskId) {
+    public EmployeeLead(Integer id, int versionId, String employeeUserName, String leadCompanyName, String createdUser, String lastModifiedUser, int taskId) {
         this.id = id;
         this.versionId = versionId;
         this.employeeUserName = employeeUserName;
         this.leadCompanyName = leadCompanyName;
-        this.creationDate = creationDate;
         this.createdUser = createdUser;
         this.lastModifiedUser = lastModifiedUser;
-        this.lastModifiedDate = lastModifiedDate;
         this.taskId = taskId;
     }
 
@@ -290,5 +286,5 @@ public class EmployeeLead implements Serializable {
     public String toString() {
         return "com.abbt.crm.base.entity.EmployeeLead[id=" + id + "]";
     }
-
+    
 }

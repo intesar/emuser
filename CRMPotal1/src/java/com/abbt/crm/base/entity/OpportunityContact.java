@@ -1,7 +1,7 @@
 /*
  * OpportunityContact.java
  *
- * Created on April 2, 2007, 10:11 PM
+ * Created on April 7, 2007, 1:27 PM
  *
  * To change this template, choose Tools | Template Manager
  * and open the template in the editor.
@@ -23,7 +23,7 @@ import javax.persistence.TemporalType;
 /**
  * Entity class OpportunityContact
  * 
- * @author shannan
+ * @author Mohammed Hamed
  */
 @Entity
 @Table(name = "opportunity_contact")
@@ -49,7 +49,7 @@ public class OpportunityContact implements Serializable {
     @Column(name = "opportunityId", nullable = false)
     private String opportunityId;
 
-    @Column(name = "creationDate", nullable = false)
+    @Column(name = "creationDate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date creationDate;
 
@@ -59,13 +59,13 @@ public class OpportunityContact implements Serializable {
     @Column(name = "lastModifiedUser", nullable = false)
     private String lastModifiedUser;
 
-    @Column(name = "lastModifiedDate", nullable = false)
+    @Column(name = "lastModifiedDate")
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastModifiedDate;
 
     @Column(name = "contactId", nullable = false)
     private int contactId;
-
+    
     /** Creates a new instance of OpportunityContact */
     public OpportunityContact() {
     }
@@ -83,20 +83,16 @@ public class OpportunityContact implements Serializable {
      * @param id the id of the OpportunityContact
      * @param versionId the versionId of the OpportunityContact
      * @param opportunityId the opportunityId of the OpportunityContact
-     * @param creationDate the creationDate of the OpportunityContact
      * @param createdUser the createdUser of the OpportunityContact
      * @param lastModifiedUser the lastModifiedUser of the OpportunityContact
-     * @param lastModifiedDate the lastModifiedDate of the OpportunityContact
      * @param contactId the contactId of the OpportunityContact
      */
-    public OpportunityContact(Integer id, int versionId, String opportunityId, Date creationDate, String createdUser, String lastModifiedUser, Date lastModifiedDate, int contactId) {
+    public OpportunityContact(Integer id, int versionId, String opportunityId, String createdUser, String lastModifiedUser, int contactId) {
         this.id = id;
         this.versionId = versionId;
         this.opportunityId = opportunityId;
-        this.creationDate = creationDate;
         this.createdUser = createdUser;
         this.lastModifiedUser = lastModifiedUser;
-        this.lastModifiedDate = lastModifiedDate;
         this.contactId = contactId;
     }
 
@@ -268,5 +264,5 @@ public class OpportunityContact implements Serializable {
     public String toString() {
         return "com.abbt.crm.base.entity.OpportunityContact[id=" + id + "]";
     }
-
+    
 }
