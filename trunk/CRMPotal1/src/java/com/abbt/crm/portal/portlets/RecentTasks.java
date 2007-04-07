@@ -1,5 +1,5 @@
 package com.abbt.crm.portal.portlets;
-import com.abbt.crm.base.services.TaskService;
+import com.abbt.crm.base.services.ITaskService;
 import com.abbt.crm.base.services.TaskServiceImpl;
 import javax.portlet.GenericPortlet;
 import javax.portlet.PortletConfig;
@@ -22,7 +22,7 @@ public class RecentTasks extends GenericPortlet {
 
     public void doView(RenderRequest request,RenderResponse response) throws PortletException,IOException {
         response.setContentType("text/html");        
-        TaskService ts = new TaskServiceImpl();
+        ITaskService ts = new TaskServiceImpl();
         List list = ts.findRecentEmployeeTask(request.getRemoteUser());
         System.out.println(request.getRemoteUser() + "  " + list );
         if ( list == null ) {
