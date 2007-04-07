@@ -1,6 +1,7 @@
 package com.abbt.crm.portal.portlets;
-import com.abbt.crm.base.services.AccountService;
-import com.abbt.crm.base.services.AccountServiceImpl;
+import com.abbt.crm.base.services.IAccountService;
+
+import com.abbt.crm.base.services.ServiceFactory;
 import javax.portlet.GenericPortlet;
 import javax.portlet.ActionRequest;
 import javax.portlet.PortletRequestDispatcher;
@@ -23,7 +24,7 @@ public class RecentAccounts extends GenericPortlet {
           
          try{           
         response.setContentType("text/html");        
-        AccountService As = new AccountServiceImpl();
+        IAccountService As = (IAccountService) ServiceFactory.getInstance().getService("IAccountService");
         List list = As.findRecentEmployeeAccounts();
         
         System.out.println(request.getRemoteUser() + "  " + list );
