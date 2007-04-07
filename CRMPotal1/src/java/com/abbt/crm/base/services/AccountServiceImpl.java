@@ -18,7 +18,7 @@ import java.util.List;
  *
  * @author Osman
  */
-public class AccountServiceImpl implements AccountService {
+class AccountServiceImpl implements IAccountService {
     
     private GenericDAO dao = new GenericDAOImpl();
     /** Creates a new instance of AccountServiceImpl */

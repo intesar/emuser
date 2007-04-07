@@ -18,7 +18,7 @@ import java.util.List;
  *
  * @author shannan
  */
-public class TaskServiceImpl implements TaskService {
+class TaskServiceImpl implements ITaskService {
     private GenericDAO dao = new GenericDAOImpl();
     /**
      * Creates a new instance of TaskServiceImpl

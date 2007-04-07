@@ -1,5 +1,5 @@
 /*
- * Oppertunity.java
+ * IOppertunityService.java
  *
  * Created on April 4, 2007, 10:35 PM
  *
@@ -15,7 +15,7 @@ import java.util.List;
  *
  * @author Osman
  */
-public interface Oppertunity {
+public interface IOppertunityService {
     
-    List<Oppertunity> findRecentOppertunity();
+    List<IOppertunityService> findRecentOppertunity();
 }

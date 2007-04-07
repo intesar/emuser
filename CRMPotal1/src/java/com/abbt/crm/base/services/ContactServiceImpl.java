@@ -1,5 +1,5 @@
 /*
- * ContactImpl.java
+ * ContactServiceImpl.java
  *
  * Created on April 4, 2007, 9:39 PM
  *
@@ -17,19 +17,21 @@ import com.abbt.crm.base.dao.GenericDAOImpl;
  *
  * @author Osman
  */
-public class ContactImpl implements Contact {
+class ContactServiceImpl implements IContactService {
     
     private GenericDAO dao = new GenericDAOImpl();
     /*
      *generating the object of generic DAO
      */
     
-    /** Creates a new instance of ContactImpl */
-    public ContactImpl() {
+    /**
+     * Creates a new instance of ContactServiceImpl
+     */
+    public ContactServiceImpl() {
             
     }
     
-    public List<Contact> findRecentContacts() {
+    public List<IContactService> findRecentContacts() {
         
         /*
          * Passing the query to the DAO.

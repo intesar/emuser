@@ -19,7 +19,7 @@ import javax.persistence.EntityManagerFactory;
  *
  * @author shannan
  */
-public class CRUDServiceImpl implements ICRUDService {
+class CRUDServiceImpl implements ICRUDService {
 
     private EntityManagerFactory emf = javax.persistence.Persistence.createEntityManagerFactory("CRMPotal1PU");
 

@@ -1,5 +1,5 @@
 /*
- * OppertunityImpl.java
+ * OppertunityServiceImpl.java
  *
  * Created on April 4, 2007, 10:36 PM
  *
@@ -17,13 +17,15 @@ import java.util.List;
  *
  * @author Osman
  */
-public class OppertunityImpl implements  Oppertunity {
+public class OppertunityServiceImpl implements  IOppertunityService {
     
      private GenericDAO dao = new GenericDAOImpl();
-    /** Creates a new instance of OppertunityImpl */
-    public OppertunityImpl() {
+    /**
+     * Creates a new instance of OppertunityServiceImpl
+     */
+    public OppertunityServiceImpl() {
     }
-     public List<Oppertunity> findRecentOppertunity()
+     public List<IOppertunityService> findRecentOppertunity()
     {
         String jpaQuery = " select oppertunity from Opportunity oppertunity order by oppertunity.lastModifiedDate";
         return dao.find(jpaQuery);        
