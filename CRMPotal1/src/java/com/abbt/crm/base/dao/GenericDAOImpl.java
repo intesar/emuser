@@ -18,7 +18,7 @@ import javax.persistence.Persistence;
  *
  * @author shannan
  */
-public class GenericDAOImpl implements GenericDAO {
+public class GenericDAOImpl implements IGenericDAO {
 
     private static EntityManagerFactory emf = Persistence.createEntityManagerFactory("CRMPotal1PU");
 

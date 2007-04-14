@@ -9,7 +9,7 @@
 
 package com.abbt.crm.base.services;
 
-import com.abbt.crm.base.dao.GenericDAO;
+import com.abbt.crm.base.dao.IGenericDAO;
 import com.abbt.crm.base.dao.GenericDAOImpl;
 import java.util.List;
 
@@ -19,7 +19,7 @@ import java.util.List;
  */
 public class OpportunityServiceImpl implements  IOpportunityService {
     
-     private GenericDAO dao = new GenericDAOImpl();
+     private IGenericDAO dao = new GenericDAOImpl();
     /**
      * Creates a new instance of OpportunityServiceImpl
      */
@@ -31,7 +31,7 @@ public class OpportunityServiceImpl implements  IOpportunityService {
         return dao.find(jpaQuery);        
     }
     
-    public void setGenericDAO( GenericDAO dao) {
+    public void setGenericDAO( IGenericDAO dao) {
         this.dao = dao;
     }
 
