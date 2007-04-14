@@ -9,6 +9,11 @@
 
 package com.abbt.crm.base.services;
 
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.xml.XmlBeanFactory;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+
 /**
  *
  * @author shannan
@@ -30,28 +35,12 @@ public final class ServiceFactory {
     /*  return a Service instance takes an service name 
      *  ICRUDService iCRUDService = (ICRUDService)  getService ( "ICRUDService"); 
      */
-    public Object getService(String name) {
-      if ( name.equals("ICRUDService")) {
-        return new CRUDServiceImpl();
-        }
-      else if ( name.equals("IAccountService")) {
-        return accountService;
-      } 
-      else if ( name.equals("IContactService") ){
-        return contactService;
-      }
-      else if ( name.equals("IOpportunityService")) {
-            return opportunityService;
-      }
-      else if ( name.equals("ITaskService")) {   
-        return taskService;
-      }
-      else return null;
+    public Object getService(String name ) {
+        Resource resource = new ClassPathResource("context/applicationContext.xml");       
+        BeanFactory factory = new XmlBeanFactory(resource);
+        return factory.getBean(name);
     }
-    
-    private IAccountService accountService = new AccountServiceImpl();
-    private IContactService contactService = new ContactServiceImpl();
-    private IOpportunityService opportunityService = new OpportunityServiceImpl();
-    private ITaskService taskService = new TaskServiceImpl();
+
+
 
 }

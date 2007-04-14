@@ -1,5 +1,5 @@
 /*
- * GenericDAO.java
+ * IGenericDAO.java
  *
  * Created on April 2, 2007, 8:07 PM
  *
@@ -15,7 +15,7 @@ import java.util.List;
  *
  * @author shannan
  */
-public interface GenericDAO {
+public interface IGenericDAO {
 
     List find(String jpaQuery );
 

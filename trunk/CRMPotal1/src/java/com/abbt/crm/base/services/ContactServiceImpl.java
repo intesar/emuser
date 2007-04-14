@@ -10,7 +10,7 @@
 package com.abbt.crm.base.services;
 
 import java.util.List;
-import com.abbt.crm.base.dao.GenericDAO;
+import com.abbt.crm.base.dao.IGenericDAO;
 import com.abbt.crm.base.dao.GenericDAOImpl;
 
 /**
@@ -19,7 +19,7 @@ import com.abbt.crm.base.dao.GenericDAOImpl;
  */
 class ContactServiceImpl implements IContactService {
     
-    private GenericDAO dao = new GenericDAOImpl();
+    private IGenericDAO dao = new GenericDAOImpl();
     /*
      *generating the object of generic DAO
      */
@@ -42,7 +42,7 @@ class ContactServiceImpl implements IContactService {
     
     }
     
-    public void setGenericDAO( GenericDAO dao) {
+    public void setGenericDAO( IGenericDAO dao) {
         this.dao = dao;
     }
     

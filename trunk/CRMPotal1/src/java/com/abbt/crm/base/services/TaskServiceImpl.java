@@ -9,7 +9,7 @@
 
 package com.abbt.crm.base.services;
 
-import com.abbt.crm.base.dao.GenericDAO;
+import com.abbt.crm.base.dao.IGenericDAO;
 import com.abbt.crm.base.dao.GenericDAOImpl;
 import com.abbt.crm.base.entity.Tasks;
 import java.util.List;
@@ -19,7 +19,7 @@ import java.util.List;
  * @author shannan
  */
 class TaskServiceImpl implements ITaskService {
-    private GenericDAO dao = new GenericDAOImpl();
+    private IGenericDAO dao = new GenericDAOImpl();
     /**
      * Creates a new instance of TaskServiceImpl
      */
@@ -36,7 +36,7 @@ class TaskServiceImpl implements ITaskService {
         return dao.find(jpaQuery);
     }
 
-    public void setGenericDAO( GenericDAO dao) {
+    public void setGenericDAO( IGenericDAO dao) {
         this.dao = dao;
     }
 }
