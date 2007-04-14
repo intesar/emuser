@@ -10,4 +10,20 @@
             <ref bean="GenericDAO"></ref>
         </property>
     </bean>              
+    <bean id="IContactService" class="com.abbt.crm.base.services.ContactServiceImpl" >
+        <property name="dao">
+            <ref bean="GenericDAO"></ref>
+        </property>
+    </bean>  
+    <bean id="IOpportunityService" class="com.abbt.crm.base.services.OpportunityServiceImpl" >
+        <property name="dao">
+            <ref bean="GenericDAO"></ref>
+        </property>
+    </bean>  
+    <bean id="ITaskService" class="com.abbt.crm.base.services.TaskServiceImpl" >
+        <property name="dao">
+            <ref bean="GenericDAO"></ref>
+        </property>
+    </bean>      
+    
 </beans>                
