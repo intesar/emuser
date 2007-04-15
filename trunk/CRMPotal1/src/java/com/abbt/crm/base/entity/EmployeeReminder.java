@@ -1,7 +1,7 @@
 /*
  * EmployeeReminder.java
  *
- * Created on April 7, 2007, 1:27 PM
+ * Created on April 14, 2007, 7:49 PM
  *
  * To change this template, choose Tools | Template Manager
  * and open the template in the editor.
@@ -23,7 +23,7 @@ import javax.persistence.TemporalType;
 /**
  * Entity class EmployeeReminder
  * 
- * @author Mohammed Hamed
+ * @author shannan
  */
 @Entity
 @Table(name = "employee_reminder")
@@ -48,7 +48,7 @@ public class EmployeeReminder implements Serializable {
     @Column(name = "versionId", nullable = false)
     private int versionId;
 
-    @Column(name = "reminderTimeStamp")
+    @Column(name = "reminderTimeStamp", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date reminderTimeStamp;
 
@@ -58,7 +58,7 @@ public class EmployeeReminder implements Serializable {
     @Column(name = "detail", nullable = false)
     private String detail;
 
-    @Column(name = "creationDate")
+    @Column(name = "creationDate", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date creationDate;
 
@@ -68,13 +68,13 @@ public class EmployeeReminder implements Serializable {
     @Column(name = "lastModifiedUser", nullable = false)
     private String lastModifiedUser;
 
-    @Column(name = "lastModifiedDate")
+    @Column(name = "lastModifiedDate", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastModifiedDate;
 
     @Column(name = "employeeId", nullable = false)
     private String employeeId;
-    
+
     /** Creates a new instance of EmployeeReminder */
     public EmployeeReminder() {
     }
@@ -91,19 +91,25 @@ public class EmployeeReminder implements Serializable {
      * Creates a new instance of EmployeeReminder with the specified values.
      * @param id the id of the EmployeeReminder
      * @param versionId the versionId of the EmployeeReminder
+     * @param reminderTimeStamp the reminderTimeStamp of the EmployeeReminder
      * @param title the title of the EmployeeReminder
      * @param detail the detail of the EmployeeReminder
+     * @param creationDate the creationDate of the EmployeeReminder
      * @param createdUser the createdUser of the EmployeeReminder
      * @param lastModifiedUser the lastModifiedUser of the EmployeeReminder
+     * @param lastModifiedDate the lastModifiedDate of the EmployeeReminder
      * @param employeeId the employeeId of the EmployeeReminder
      */
-    public EmployeeReminder(Integer id, int versionId, String title, String detail, String createdUser, String lastModifiedUser, String employeeId) {
+    public EmployeeReminder(Integer id, int versionId, Date reminderTimeStamp, String title, String detail, Date creationDate, String createdUser, String lastModifiedUser, Date lastModifiedDate, String employeeId) {
         this.id = id;
         this.versionId = versionId;
+        this.reminderTimeStamp = reminderTimeStamp;
         this.title = title;
         this.detail = detail;
+        this.creationDate = creationDate;
         this.createdUser = createdUser;
         this.lastModifiedUser = lastModifiedUser;
+        this.lastModifiedDate = lastModifiedDate;
         this.employeeId = employeeId;
     }
 
@@ -307,5 +313,5 @@ public class EmployeeReminder implements Serializable {
     public String toString() {
         return "com.abbt.crm.base.entity.EmployeeReminder[id=" + id + "]";
     }
-    
+
 }

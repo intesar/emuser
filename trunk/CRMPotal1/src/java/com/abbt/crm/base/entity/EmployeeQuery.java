@@ -1,7 +1,7 @@
 /*
  * EmployeeQuery.java
  *
- * Created on April 7, 2007, 1:27 PM
+ * Created on April 14, 2007, 7:49 PM
  *
  * To change this template, choose Tools | Template Manager
  * and open the template in the editor.
@@ -23,7 +23,7 @@ import javax.persistence.TemporalType;
 /**
  * Entity class EmployeeQuery
  * 
- * @author Mohammed Hamed
+ * @author shannan
  */
 @Entity
 @Table(name = "employee_query")
@@ -49,10 +49,10 @@ public class EmployeeQuery implements Serializable {
     @Column(name = "message", nullable = false)
     private String message;
 
-    @Column(name = "creationDate")
+    @Column(name = "creationDate", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date creationDate;
-    
+
     /** Creates a new instance of EmployeeQuery */
     public EmployeeQuery() {
     }
@@ -71,12 +71,14 @@ public class EmployeeQuery implements Serializable {
      * @param to the to of the EmployeeQuery
      * @param from the from of the EmployeeQuery
      * @param message the message of the EmployeeQuery
+     * @param creationDate the creationDate of the EmployeeQuery
      */
-    public EmployeeQuery(Integer id, String to, String from, String message) {
+    public EmployeeQuery(Integer id, String to, String from, String message, Date creationDate) {
         this.id = id;
         this.to = to;
         this.from = from;
         this.message = message;
+        this.creationDate = creationDate;
     }
 
     /**
@@ -199,5 +201,5 @@ public class EmployeeQuery implements Serializable {
     public String toString() {
         return "com.abbt.crm.base.entity.EmployeeQuery[id=" + id + "]";
     }
-    
+
 }

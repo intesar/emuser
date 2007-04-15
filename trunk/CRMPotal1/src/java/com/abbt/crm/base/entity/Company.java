@@ -1,7 +1,7 @@
 /*
  * Company.java
  *
- * Created on April 7, 2007, 1:27 PM
+ * Created on April 14, 2007, 7:49 PM
  *
  * To change this template, choose Tools | Template Manager
  * and open the template in the editor.
@@ -23,7 +23,7 @@ import javax.persistence.TemporalType;
 /**
  * Entity class Company
  * 
- * @author Mohammed Hamed
+ * @author shannan
  */
 @Entity
 @Table(name = "company")
@@ -40,12 +40,22 @@ import javax.persistence.TemporalType;
         @NamedQuery(name = "Company.findByCreatedUser", query = "SELECT c FROM Company c WHERE c.createdUser = :createdUser"),
         @NamedQuery(name = "Company.findByLastModifiedDate", query = "SELECT c FROM Company c WHERE c.lastModifiedDate = :lastModifiedDate"),
         @NamedQuery(name = "Company.findByLastModifiedUser", query = "SELECT c FROM Company c WHERE c.lastModifiedUser = :lastModifiedUser"),
-        @NamedQuery(name = "Company.findByHomePhone", query = "SELECT c FROM Company c WHERE c.homePhone = :homePhone"),
-        @NamedQuery(name = "Company.findByOfficePhone1", query = "SELECT c FROM Company c WHERE c.officePhone1 = :officePhone1"),
-        @NamedQuery(name = "Company.findByOfficePhone2", query = "SELECT c FROM Company c WHERE c.officePhone2 = :officePhone2"),
-        @NamedQuery(name = "Company.findByOfficePhone3", query = "SELECT c FROM Company c WHERE c.officePhone3 = :officePhone3"),
-        @NamedQuery(name = "Company.findByOfficePhone4", query = "SELECT c FROM Company c WHERE c.officePhone4 = :officePhone4"),
-        @NamedQuery(name = "Company.findByFax", query = "SELECT c FROM Company c WHERE c.fax = :fax")
+        @NamedQuery(name = "Company.findByPhone1", query = "SELECT c FROM Company c WHERE c.phone1 = :phone1"),
+        @NamedQuery(name = "Company.findByPhone2", query = "SELECT c FROM Company c WHERE c.phone2 = :phone2"),
+        @NamedQuery(name = "Company.findByPhone3", query = "SELECT c FROM Company c WHERE c.phone3 = :phone3"),
+        @NamedQuery(name = "Company.findByPhone4", query = "SELECT c FROM Company c WHERE c.phone4 = :phone4"),
+        @NamedQuery(name = "Company.findByFax", query = "SELECT c FROM Company c WHERE c.fax = :fax"),
+        @NamedQuery(name = "Company.findByBillingStreet", query = "SELECT c FROM Company c WHERE c.billingStreet = :billingStreet"),
+        @NamedQuery(name = "Company.findByBillingCity", query = "SELECT c FROM Company c WHERE c.billingCity = :billingCity"),
+        @NamedQuery(name = "Company.findByBillingState", query = "SELECT c FROM Company c WHERE c.billingState = :billingState"),
+        @NamedQuery(name = "Company.findByBillingZipcode", query = "SELECT c FROM Company c WHERE c.billingZipcode = :billingZipcode"),
+        @NamedQuery(name = "Company.findByBillingCountry", query = "SELECT c FROM Company c WHERE c.billingCountry = :billingCountry"),
+        @NamedQuery(name = "Company.findByShippingStreet", query = "SELECT c FROM Company c WHERE c.shippingStreet = :shippingStreet"),
+        @NamedQuery(name = "Company.findByShippingCity", query = "SELECT c FROM Company c WHERE c.shippingCity = :shippingCity"),
+        @NamedQuery(name = "Company.findByShippingState", query = "SELECT c FROM Company c WHERE c.shippingState = :shippingState"),
+        @NamedQuery(name = "Company.findByShippingZipcode", query = "SELECT c FROM Company c WHERE c.shippingZipcode = :shippingZipcode"),
+        @NamedQuery(name = "Company.findByShippingCountry", query = "SELECT c FROM Company c WHERE c.shippingCountry = :shippingCountry"),
+        @NamedQuery(name = "Company.findByIsShippingSameAsBillingAddress", query = "SELECT c FROM Company c WHERE c.isShippingSameAsBillingAddress = :isShippingSameAsBillingAddress")
     })
 public class Company implements Serializable {
 
@@ -53,60 +63,90 @@ public class Company implements Serializable {
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @Column(name = "versionId", nullable = false)
-    private int versionId;
+    @Column(name = "versionId")
+    private Integer versionId;
 
-    @Column(name = "companyId", nullable = false)
-    private int companyId;
+    @Column(name = "companyId")
+    private Integer companyId;
 
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "isEnabled", nullable = false)
-    private boolean isEnabled;
+    @Column(name = "isEnabled")
+    private Boolean isEnabled;
 
-    @Column(name = "licenceType", nullable = false)
+    @Column(name = "licenceType")
     private String licenceType;
 
-    @Column(name = "expirationDate")
+    @Column(name = "expirationDate", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date expirationDate;
 
-    @Column(name = "maxLicenceUser", nullable = false)
-    private int maxLicenceUser;
+    @Column(name = "maxLicenceUser")
+    private Integer maxLicenceUser;
 
-    @Column(name = "creationDate")
+    @Column(name = "creationDate", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date creationDate;
 
-    @Column(name = "createdUser", nullable = false)
+    @Column(name = "createdUser")
     private String createdUser;
 
-    @Column(name = "lastModifiedDate")
+    @Column(name = "lastModifiedDate", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastModifiedDate;
 
-    @Column(name = "lastModifiedUser", nullable = false)
+    @Column(name = "lastModifiedUser")
     private String lastModifiedUser;
 
-    @Column(name = "homePhone")
-    private String homePhone;
+    @Column(name = "phone1")
+    private String phone1;
 
-    @Column(name = "officePhone1")
-    private String officePhone1;
+    @Column(name = "phone2")
+    private String phone2;
 
-    @Column(name = "officePhone2")
-    private String officePhone2;
+    @Column(name = "phone3")
+    private String phone3;
 
-    @Column(name = "officePhone3")
-    private String officePhone3;
-
-    @Column(name = "officePhone4")
-    private String officePhone4;
+    @Column(name = "phone4")
+    private String phone4;
 
     @Column(name = "fax")
     private String fax;
-    
+
+    @Column(name = "billingStreet")
+    private String billingStreet;
+
+    @Column(name = "billingCity")
+    private String billingCity;
+
+    @Column(name = "billingState")
+    private String billingState;
+
+    @Column(name = "billingZipcode")
+    private String billingZipcode;
+
+    @Column(name = "billingCountry")
+    private String billingCountry;
+
+    @Column(name = "shippingStreet")
+    private String shippingStreet;
+
+    @Column(name = "shippingCity")
+    private String shippingCity;
+
+    @Column(name = "shippingState")
+    private String shippingState;
+
+    @Column(name = "shippingZipcode")
+    private String shippingZipcode;
+
+    @Column(name = "shippingCountry")
+    private String shippingCountry;
+
+    @Column(name = "isShippingSameAsBillingAddress")
+    private Boolean isShippingSameAsBillingAddress;
+
     /** Creates a new instance of Company */
     public Company() {
     }
@@ -122,25 +162,17 @@ public class Company implements Serializable {
     /**
      * Creates a new instance of Company with the specified values.
      * @param id the id of the Company
-     * @param versionId the versionId of the Company
-     * @param companyId the companyId of the Company
      * @param name the name of the Company
-     * @param isEnabled the isEnabled of the Company
-     * @param licenceType the licenceType of the Company
-     * @param maxLicenceUser the maxLicenceUser of the Company
-     * @param createdUser the createdUser of the Company
-     * @param lastModifiedUser the lastModifiedUser of the Company
+     * @param expirationDate the expirationDate of the Company
+     * @param creationDate the creationDate of the Company
+     * @param lastModifiedDate the lastModifiedDate of the Company
      */
-    public Company(Integer id, int versionId, int companyId, String name, boolean isEnabled, String licenceType, int maxLicenceUser, String createdUser, String lastModifiedUser) {
+    public Company(Integer id, String name, Date expirationDate, Date creationDate, Date lastModifiedDate) {
         this.id = id;
-        this.versionId = versionId;
-        this.companyId = companyId;
         this.name = name;
-        this.isEnabled = isEnabled;
-        this.licenceType = licenceType;
-        this.maxLicenceUser = maxLicenceUser;
-        this.createdUser = createdUser;
-        this.lastModifiedUser = lastModifiedUser;
+        this.expirationDate = expirationDate;
+        this.creationDate = creationDate;
+        this.lastModifiedDate = lastModifiedDate;
     }
 
     /**
@@ -163,7 +195,7 @@ public class Company implements Serializable {
      * Gets the versionId of this Company.
      * @return the versionId
      */
-    public int getVersionId() {
+    public Integer getVersionId() {
         return this.versionId;
     }
 
@@ -171,7 +203,7 @@ public class Company implements Serializable {
      * Sets the versionId of this Company to the specified value.
      * @param versionId the new versionId
      */
-    public void setVersionId(int versionId) {
+    public void setVersionId(Integer versionId) {
         this.versionId = versionId;
     }
 
@@ -179,7 +211,7 @@ public class Company implements Serializable {
      * Gets the companyId of this Company.
      * @return the companyId
      */
-    public int getCompanyId() {
+    public Integer getCompanyId() {
         return this.companyId;
     }
 
@@ -187,7 +219,7 @@ public class Company implements Serializable {
      * Sets the companyId of this Company to the specified value.
      * @param companyId the new companyId
      */
-    public void setCompanyId(int companyId) {
+    public void setCompanyId(Integer companyId) {
         this.companyId = companyId;
     }
 
@@ -211,7 +243,7 @@ public class Company implements Serializable {
      * Gets the isEnabled of this Company.
      * @return the isEnabled
      */
-    public boolean getIsEnabled() {
+    public Boolean getIsEnabled() {
         return this.isEnabled;
     }
 
@@ -219,7 +251,7 @@ public class Company implements Serializable {
      * Sets the isEnabled of this Company to the specified value.
      * @param isEnabled the new isEnabled
      */
-    public void setIsEnabled(boolean isEnabled) {
+    public void setIsEnabled(Boolean isEnabled) {
         this.isEnabled = isEnabled;
     }
 
@@ -259,7 +291,7 @@ public class Company implements Serializable {
      * Gets the maxLicenceUser of this Company.
      * @return the maxLicenceUser
      */
-    public int getMaxLicenceUser() {
+    public Integer getMaxLicenceUser() {
         return this.maxLicenceUser;
     }
 
@@ -267,7 +299,7 @@ public class Company implements Serializable {
      * Sets the maxLicenceUser of this Company to the specified value.
      * @param maxLicenceUser the new maxLicenceUser
      */
-    public void setMaxLicenceUser(int maxLicenceUser) {
+    public void setMaxLicenceUser(Integer maxLicenceUser) {
         this.maxLicenceUser = maxLicenceUser;
     }
 
@@ -336,83 +368,67 @@ public class Company implements Serializable {
     }
 
     /**
-     * Gets the homePhone of this Company.
-     * @return the homePhone
+     * Gets the phone1 of this Company.
+     * @return the phone1
      */
-    public String getHomePhone() {
-        return this.homePhone;
+    public String getPhone1() {
+        return this.phone1;
     }
 
     /**
-     * Sets the homePhone of this Company to the specified value.
-     * @param homePhone the new homePhone
+     * Sets the phone1 of this Company to the specified value.
+     * @param phone1 the new phone1
      */
-    public void setHomePhone(String homePhone) {
-        this.homePhone = homePhone;
+    public void setPhone1(String phone1) {
+        this.phone1 = phone1;
     }
 
     /**
-     * Gets the officePhone1 of this Company.
-     * @return the officePhone1
+     * Gets the phone2 of this Company.
+     * @return the phone2
      */
-    public String getOfficePhone1() {
-        return this.officePhone1;
+    public String getPhone2() {
+        return this.phone2;
     }
 
     /**
-     * Sets the officePhone1 of this Company to the specified value.
-     * @param officePhone1 the new officePhone1
+     * Sets the phone2 of this Company to the specified value.
+     * @param phone2 the new phone2
      */
-    public void setOfficePhone1(String officePhone1) {
-        this.officePhone1 = officePhone1;
+    public void setPhone2(String phone2) {
+        this.phone2 = phone2;
     }
 
     /**
-     * Gets the officePhone2 of this Company.
-     * @return the officePhone2
+     * Gets the phone3 of this Company.
+     * @return the phone3
      */
-    public String getOfficePhone2() {
-        return this.officePhone2;
+    public String getPhone3() {
+        return this.phone3;
     }
 
     /**
-     * Sets the officePhone2 of this Company to the specified value.
-     * @param officePhone2 the new officePhone2
+     * Sets the phone3 of this Company to the specified value.
+     * @param phone3 the new phone3
      */
-    public void setOfficePhone2(String officePhone2) {
-        this.officePhone2 = officePhone2;
+    public void setPhone3(String phone3) {
+        this.phone3 = phone3;
     }
 
     /**
-     * Gets the officePhone3 of this Company.
-     * @return the officePhone3
+     * Gets the phone4 of this Company.
+     * @return the phone4
      */
-    public String getOfficePhone3() {
-        return this.officePhone3;
+    public String getPhone4() {
+        return this.phone4;
     }
 
     /**
-     * Sets the officePhone3 of this Company to the specified value.
-     * @param officePhone3 the new officePhone3
+     * Sets the phone4 of this Company to the specified value.
+     * @param phone4 the new phone4
      */
-    public void setOfficePhone3(String officePhone3) {
-        this.officePhone3 = officePhone3;
-    }
-
-    /**
-     * Gets the officePhone4 of this Company.
-     * @return the officePhone4
-     */
-    public String getOfficePhone4() {
-        return this.officePhone4;
-    }
-
-    /**
-     * Sets the officePhone4 of this Company to the specified value.
-     * @param officePhone4 the new officePhone4
-     */
-    public void setOfficePhone4(String officePhone4) {
-        this.officePhone4 = officePhone4;
+    public void setPhone4(String phone4) {
+        this.phone4 = phone4;
     }
 
     /**
@@ -429,6 +445,182 @@ public class Company implements Serializable {
      */
     public void setFax(String fax) {
         this.fax = fax;
+    }
+
+    /**
+     * Gets the billingStreet of this Company.
+     * @return the billingStreet
+     */
+    public String getBillingStreet() {
+        return this.billingStreet;
+    }
+
+    /**
+     * Sets the billingStreet of this Company to the specified value.
+     * @param billingStreet the new billingStreet
+     */
+    public void setBillingStreet(String billingStreet) {
+        this.billingStreet = billingStreet;
+    }
+
+    /**
+     * Gets the billingCity of this Company.
+     * @return the billingCity
+     */
+    public String getBillingCity() {
+        return this.billingCity;
+    }
+
+    /**
+     * Sets the billingCity of this Company to the specified value.
+     * @param billingCity the new billingCity
+     */
+    public void setBillingCity(String billingCity) {
+        this.billingCity = billingCity;
+    }
+
+    /**
+     * Gets the billingState of this Company.
+     * @return the billingState
+     */
+    public String getBillingState() {
+        return this.billingState;
+    }
+
+    /**
+     * Sets the billingState of this Company to the specified value.
+     * @param billingState the new billingState
+     */
+    public void setBillingState(String billingState) {
+        this.billingState = billingState;
+    }
+
+    /**
+     * Gets the billingZipcode of this Company.
+     * @return the billingZipcode
+     */
+    public String getBillingZipcode() {
+        return this.billingZipcode;
+    }
+
+    /**
+     * Sets the billingZipcode of this Company to the specified value.
+     * @param billingZipcode the new billingZipcode
+     */
+    public void setBillingZipcode(String billingZipcode) {
+        this.billingZipcode = billingZipcode;
+    }
+
+    /**
+     * Gets the billingCountry of this Company.
+     * @return the billingCountry
+     */
+    public String getBillingCountry() {
+        return this.billingCountry;
+    }
+
+    /**
+     * Sets the billingCountry of this Company to the specified value.
+     * @param billingCountry the new billingCountry
+     */
+    public void setBillingCountry(String billingCountry) {
+        this.billingCountry = billingCountry;
+    }
+
+    /**
+     * Gets the shippingStreet of this Company.
+     * @return the shippingStreet
+     */
+    public String getShippingStreet() {
+        return this.shippingStreet;
+    }
+
+    /**
+     * Sets the shippingStreet of this Company to the specified value.
+     * @param shippingStreet the new shippingStreet
+     */
+    public void setShippingStreet(String shippingStreet) {
+        this.shippingStreet = shippingStreet;
+    }
+
+    /**
+     * Gets the shippingCity of this Company.
+     * @return the shippingCity
+     */
+    public String getShippingCity() {
+        return this.shippingCity;
+    }
+
+    /**
+     * Sets the shippingCity of this Company to the specified value.
+     * @param shippingCity the new shippingCity
+     */
+    public void setShippingCity(String shippingCity) {
+        this.shippingCity = shippingCity;
+    }
+
+    /**
+     * Gets the shippingState of this Company.
+     * @return the shippingState
+     */
+    public String getShippingState() {
+        return this.shippingState;
+    }
+
+    /**
+     * Sets the shippingState of this Company to the specified value.
+     * @param shippingState the new shippingState
+     */
+    public void setShippingState(String shippingState) {
+        this.shippingState = shippingState;
+    }
+
+    /**
+     * Gets the shippingZipcode of this Company.
+     * @return the shippingZipcode
+     */
+    public String getShippingZipcode() {
+        return this.shippingZipcode;
+    }
+
+    /**
+     * Sets the shippingZipcode of this Company to the specified value.
+     * @param shippingZipcode the new shippingZipcode
+     */
+    public void setShippingZipcode(String shippingZipcode) {
+        this.shippingZipcode = shippingZipcode;
+    }
+
+    /**
+     * Gets the shippingCountry of this Company.
+     * @return the shippingCountry
+     */
+    public String getShippingCountry() {
+        return this.shippingCountry;
+    }
+
+    /**
+     * Sets the shippingCountry of this Company to the specified value.
+     * @param shippingCountry the new shippingCountry
+     */
+    public void setShippingCountry(String shippingCountry) {
+        this.shippingCountry = shippingCountry;
+    }
+
+    /**
+     * Gets the isShippingSameAsBillingAddress of this Company.
+     * @return the isShippingSameAsBillingAddress
+     */
+    public Boolean getIsShippingSameAsBillingAddress() {
+        return this.isShippingSameAsBillingAddress;
+    }
+
+    /**
+     * Sets the isShippingSameAsBillingAddress of this Company to the specified value.
+     * @param isShippingSameAsBillingAddress the new isShippingSameAsBillingAddress
+     */
+    public void setIsShippingSameAsBillingAddress(Boolean isShippingSameAsBillingAddress) {
+        this.isShippingSameAsBillingAddress = isShippingSameAsBillingAddress;
     }
 
     /**
@@ -471,5 +663,5 @@ public class Company implements Serializable {
     public String toString() {
         return "com.abbt.crm.base.entity.Company[id=" + id + "]";
     }
-    
+
 }

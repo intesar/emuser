@@ -1,7 +1,7 @@
 /*
  * Employee.java
  *
- * Created on April 7, 2007, 1:27 PM
+ * Created on April 14, 2007, 7:49 PM
  *
  * To change this template, choose Tools | Template Manager
  * and open the template in the editor.
@@ -23,7 +23,7 @@ import javax.persistence.TemporalType;
 /**
  * Entity class Employee
  * 
- * @author Mohammed Hamed
+ * @author shannan
  */
 @Entity
 @Table(name = "employee")
@@ -40,19 +40,30 @@ import javax.persistence.TemporalType;
         @NamedQuery(name = "Employee.findByJoinedDate", query = "SELECT e FROM Employee e WHERE e.joinedDate = :joinedDate"),
         @NamedQuery(name = "Employee.findByFirstName", query = "SELECT e FROM Employee e WHERE e.firstName = :firstName"),
         @NamedQuery(name = "Employee.findByLastName", query = "SELECT e FROM Employee e WHERE e.lastName = :lastName"),
-        @NamedQuery(name = "Employee.findByEmail", query = "SELECT e FROM Employee e WHERE e.email = :email"),
+        @NamedQuery(name = "Employee.findByPrimaryEmail", query = "SELECT e FROM Employee e WHERE e.primaryEmail = :primaryEmail"),
         @NamedQuery(name = "Employee.findByCreatedUser", query = "SELECT e FROM Employee e WHERE e.createdUser = :createdUser"),
         @NamedQuery(name = "Employee.findByCreationDate", query = "SELECT e FROM Employee e WHERE e.creationDate = :creationDate"),
         @NamedQuery(name = "Employee.findByLastModifiedUser", query = "SELECT e FROM Employee e WHERE e.lastModifiedUser = :lastModifiedUser"),
         @NamedQuery(name = "Employee.findByLastModifiedDate", query = "SELECT e FROM Employee e WHERE e.lastModifiedDate = :lastModifiedDate"),
-        @NamedQuery(name = "Employee.findByCompanyId", query = "SELECT e FROM Employee e WHERE e.companyId = :companyId"),
-        @NamedQuery(name = "Employee.findByManagerId", query = "SELECT e FROM Employee e WHERE e.managerId = :managerId"),
+        @NamedQuery(name = "Employee.findByCompanyName", query = "SELECT e FROM Employee e WHERE e.companyName = :companyName"),
+        @NamedQuery(name = "Employee.findBySecondaryEmail", query = "SELECT e FROM Employee e WHERE e.secondaryEmail = :secondaryEmail"),
         @NamedQuery(name = "Employee.findByHomePhone", query = "SELECT e FROM Employee e WHERE e.homePhone = :homePhone"),
         @NamedQuery(name = "Employee.findByOfficePhone1", query = "SELECT e FROM Employee e WHERE e.officePhone1 = :officePhone1"),
         @NamedQuery(name = "Employee.findByOfficePhone2", query = "SELECT e FROM Employee e WHERE e.officePhone2 = :officePhone2"),
         @NamedQuery(name = "Employee.findByMobile", query = "SELECT e FROM Employee e WHERE e.mobile = :mobile"),
         @NamedQuery(name = "Employee.findByFax", query = "SELECT e FROM Employee e WHERE e.fax = :fax"),
-        @NamedQuery(name = "Employee.findByOtherPhone", query = "SELECT e FROM Employee e WHERE e.otherPhone = :otherPhone")
+        @NamedQuery(name = "Employee.findByOtherPhone", query = "SELECT e FROM Employee e WHERE e.otherPhone = :otherPhone"),
+        @NamedQuery(name = "Employee.findByMailingStreet", query = "SELECT e FROM Employee e WHERE e.mailingStreet = :mailingStreet"),
+        @NamedQuery(name = "Employee.findByMailingCity", query = "SELECT e FROM Employee e WHERE e.mailingCity = :mailingCity"),
+        @NamedQuery(name = "Employee.findByMailingState", query = "SELECT e FROM Employee e WHERE e.mailingState = :mailingState"),
+        @NamedQuery(name = "Employee.findByMailingZipcode", query = "SELECT e FROM Employee e WHERE e.mailingZipcode = :mailingZipcode"),
+        @NamedQuery(name = "Employee.findByMailingCountry", query = "SELECT e FROM Employee e WHERE e.mailingCountry = :mailingCountry"),
+        @NamedQuery(name = "Employee.findByHomeStreet", query = "SELECT e FROM Employee e WHERE e.homeStreet = :homeStreet"),
+        @NamedQuery(name = "Employee.findByHomeCity", query = "SELECT e FROM Employee e WHERE e.homeCity = :homeCity"),
+        @NamedQuery(name = "Employee.findByHomeState", query = "SELECT e FROM Employee e WHERE e.homeState = :homeState"),
+        @NamedQuery(name = "Employee.findByHomeZipcode", query = "SELECT e FROM Employee e WHERE e.homeZipcode = :homeZipcode"),
+        @NamedQuery(name = "Employee.findByHomeCountry", query = "SELECT e FROM Employee e WHERE e.homeCountry = :homeCountry"),
+        @NamedQuery(name = "Employee.findByMailingSameAsHome", query = "SELECT e FROM Employee e WHERE e.mailingSameAsHome = :mailingSameAsHome")
     })
 public class Employee implements Serializable {
 
@@ -60,32 +71,32 @@ public class Employee implements Serializable {
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @Column(name = "versionId", nullable = false)
-    private int versionId;
+    @Column(name = "versionId")
+    private Integer versionId;
 
-    @Column(name = "employeeId", nullable = false)
-    private int employeeId;
+    @Column(name = "employeeId")
+    private Integer employeeId;
 
-    @Column(name = "ssn", nullable = false)
-    private int ssn;
+    @Column(name = "ssn")
+    private Integer ssn;
 
     @Column(name = "userName", nullable = false)
     private String userName;
 
-    @Column(name = "title", nullable = false)
+    @Column(name = "title")
     private String title;
 
-    @Column(name = "description", nullable = false)
+    @Column(name = "description")
     private String description;
 
-    @Column(name = "isEnabled", nullable = false)
-    private boolean isEnabled;
+    @Column(name = "isEnabled")
+    private Boolean isEnabled;
 
-    @Column(name = "terminationDate")
+    @Column(name = "terminationDate", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date terminationDate;
 
-    @Column(name = "joinedDate")
+    @Column(name = "joinedDate", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date joinedDate;
 
@@ -95,28 +106,28 @@ public class Employee implements Serializable {
     @Column(name = "lastName", nullable = false)
     private String lastName;
 
-    @Column(name = "email", nullable = false)
-    private String email;
+    @Column(name = "primaryEmail")
+    private String primaryEmail;
 
     @Column(name = "createdUser", nullable = false)
     private String createdUser;
 
-    @Column(name = "creationDate")
+    @Column(name = "creationDate", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date creationDate;
 
     @Column(name = "lastModifiedUser", nullable = false)
     private String lastModifiedUser;
 
-    @Column(name = "lastModifiedDate")
+    @Column(name = "lastModifiedDate", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastModifiedDate;
 
-    @Column(name = "companyId", nullable = false)
-    private int companyId;
+    @Column(name = "companyName")
+    private String companyName;
 
-    @Column(name = "managerId", nullable = false)
-    private int managerId;
+    @Column(name = "secondaryEmail")
+    private String secondaryEmail;
 
     @Column(name = "homePhone")
     private String homePhone;
@@ -135,7 +146,40 @@ public class Employee implements Serializable {
 
     @Column(name = "otherPhone")
     private String otherPhone;
-    
+
+    @Column(name = "mailingStreet")
+    private String mailingStreet;
+
+    @Column(name = "mailingCity")
+    private String mailingCity;
+
+    @Column(name = "mailingState")
+    private String mailingState;
+
+    @Column(name = "mailingZipcode")
+    private String mailingZipcode;
+
+    @Column(name = "mailingCountry")
+    private String mailingCountry;
+
+    @Column(name = "homeStreet")
+    private String homeStreet;
+
+    @Column(name = "homeCity")
+    private String homeCity;
+
+    @Column(name = "homeState")
+    private String homeState;
+
+    @Column(name = "homeZipcode")
+    private String homeZipcode;
+
+    @Column(name = "homeCountry")
+    private String homeCountry;
+
+    @Column(name = "mailingSameAsHome")
+    private Short mailingSameAsHome;
+
     /** Creates a new instance of Employee */
     public Employee() {
     }
@@ -151,37 +195,27 @@ public class Employee implements Serializable {
     /**
      * Creates a new instance of Employee with the specified values.
      * @param id the id of the Employee
-     * @param versionId the versionId of the Employee
-     * @param employeeId the employeeId of the Employee
-     * @param ssn the ssn of the Employee
      * @param userName the userName of the Employee
-     * @param title the title of the Employee
-     * @param description the description of the Employee
-     * @param isEnabled the isEnabled of the Employee
+     * @param terminationDate the terminationDate of the Employee
+     * @param joinedDate the joinedDate of the Employee
      * @param firstName the firstName of the Employee
      * @param lastName the lastName of the Employee
-     * @param email the email of the Employee
      * @param createdUser the createdUser of the Employee
+     * @param creationDate the creationDate of the Employee
      * @param lastModifiedUser the lastModifiedUser of the Employee
-     * @param companyId the companyId of the Employee
-     * @param managerId the managerId of the Employee
+     * @param lastModifiedDate the lastModifiedDate of the Employee
      */
-    public Employee(Integer id, int versionId, int employeeId, int ssn, String userName, String title, String description, boolean isEnabled, String firstName, String lastName, String email, String createdUser, String lastModifiedUser, int companyId, int managerId) {
+    public Employee(Integer id, String userName, Date terminationDate, Date joinedDate, String firstName, String lastName, String createdUser, Date creationDate, String lastModifiedUser, Date lastModifiedDate) {
         this.id = id;
-        this.versionId = versionId;
-        this.employeeId = employeeId;
-        this.ssn = ssn;
         this.userName = userName;
-        this.title = title;
-        this.description = description;
-        this.isEnabled = isEnabled;
+        this.terminationDate = terminationDate;
+        this.joinedDate = joinedDate;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.email = email;
         this.createdUser = createdUser;
+        this.creationDate = creationDate;
         this.lastModifiedUser = lastModifiedUser;
-        this.companyId = companyId;
-        this.managerId = managerId;
+        this.lastModifiedDate = lastModifiedDate;
     }
 
     /**
@@ -204,7 +238,7 @@ public class Employee implements Serializable {
      * Gets the versionId of this Employee.
      * @return the versionId
      */
-    public int getVersionId() {
+    public Integer getVersionId() {
         return this.versionId;
     }
 
@@ -212,7 +246,7 @@ public class Employee implements Serializable {
      * Sets the versionId of this Employee to the specified value.
      * @param versionId the new versionId
      */
-    public void setVersionId(int versionId) {
+    public void setVersionId(Integer versionId) {
         this.versionId = versionId;
     }
 
@@ -220,7 +254,7 @@ public class Employee implements Serializable {
      * Gets the employeeId of this Employee.
      * @return the employeeId
      */
-    public int getEmployeeId() {
+    public Integer getEmployeeId() {
         return this.employeeId;
     }
 
@@ -228,7 +262,7 @@ public class Employee implements Serializable {
      * Sets the employeeId of this Employee to the specified value.
      * @param employeeId the new employeeId
      */
-    public void setEmployeeId(int employeeId) {
+    public void setEmployeeId(Integer employeeId) {
         this.employeeId = employeeId;
     }
 
@@ -236,7 +270,7 @@ public class Employee implements Serializable {
      * Gets the ssn of this Employee.
      * @return the ssn
      */
-    public int getSsn() {
+    public Integer getSsn() {
         return this.ssn;
     }
 
@@ -244,7 +278,7 @@ public class Employee implements Serializable {
      * Sets the ssn of this Employee to the specified value.
      * @param ssn the new ssn
      */
-    public void setSsn(int ssn) {
+    public void setSsn(Integer ssn) {
         this.ssn = ssn;
     }
 
@@ -300,7 +334,7 @@ public class Employee implements Serializable {
      * Gets the isEnabled of this Employee.
      * @return the isEnabled
      */
-    public boolean getIsEnabled() {
+    public Boolean getIsEnabled() {
         return this.isEnabled;
     }
 
@@ -308,7 +342,7 @@ public class Employee implements Serializable {
      * Sets the isEnabled of this Employee to the specified value.
      * @param isEnabled the new isEnabled
      */
-    public void setIsEnabled(boolean isEnabled) {
+    public void setIsEnabled(Boolean isEnabled) {
         this.isEnabled = isEnabled;
     }
 
@@ -377,19 +411,19 @@ public class Employee implements Serializable {
     }
 
     /**
-     * Gets the email of this Employee.
-     * @return the email
+     * Gets the primaryEmail of this Employee.
+     * @return the primaryEmail
      */
-    public String getEmail() {
-        return this.email;
+    public String getPrimaryEmail() {
+        return this.primaryEmail;
     }
 
     /**
-     * Sets the email of this Employee to the specified value.
-     * @param email the new email
+     * Sets the primaryEmail of this Employee to the specified value.
+     * @param primaryEmail the new primaryEmail
      */
-    public void setEmail(String email) {
-        this.email = email;
+    public void setPrimaryEmail(String primaryEmail) {
+        this.primaryEmail = primaryEmail;
     }
 
     /**
@@ -457,35 +491,35 @@ public class Employee implements Serializable {
     }
 
     /**
-     * Gets the companyId of this Employee.
-     * @return the companyId
+     * Gets the companyName of this Employee.
+     * @return the companyName
      */
-    public int getCompanyId() {
-        return this.companyId;
+    public String getCompanyName() {
+        return this.companyName;
     }
 
     /**
-     * Sets the companyId of this Employee to the specified value.
-     * @param companyId the new companyId
+     * Sets the companyName of this Employee to the specified value.
+     * @param companyName the new companyName
      */
-    public void setCompanyId(int companyId) {
-        this.companyId = companyId;
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
     }
 
     /**
-     * Gets the managerId of this Employee.
-     * @return the managerId
+     * Gets the secondaryEmail of this Employee.
+     * @return the secondaryEmail
      */
-    public int getManagerId() {
-        return this.managerId;
+    public String getSecondaryEmail() {
+        return this.secondaryEmail;
     }
 
     /**
-     * Sets the managerId of this Employee to the specified value.
-     * @param managerId the new managerId
+     * Sets the secondaryEmail of this Employee to the specified value.
+     * @param secondaryEmail the new secondaryEmail
      */
-    public void setManagerId(int managerId) {
-        this.managerId = managerId;
+    public void setSecondaryEmail(String secondaryEmail) {
+        this.secondaryEmail = secondaryEmail;
     }
 
     /**
@@ -585,6 +619,182 @@ public class Employee implements Serializable {
     }
 
     /**
+     * Gets the mailingStreet of this Employee.
+     * @return the mailingStreet
+     */
+    public String getMailingStreet() {
+        return this.mailingStreet;
+    }
+
+    /**
+     * Sets the mailingStreet of this Employee to the specified value.
+     * @param mailingStreet the new mailingStreet
+     */
+    public void setMailingStreet(String mailingStreet) {
+        this.mailingStreet = mailingStreet;
+    }
+
+    /**
+     * Gets the mailingCity of this Employee.
+     * @return the mailingCity
+     */
+    public String getMailingCity() {
+        return this.mailingCity;
+    }
+
+    /**
+     * Sets the mailingCity of this Employee to the specified value.
+     * @param mailingCity the new mailingCity
+     */
+    public void setMailingCity(String mailingCity) {
+        this.mailingCity = mailingCity;
+    }
+
+    /**
+     * Gets the mailingState of this Employee.
+     * @return the mailingState
+     */
+    public String getMailingState() {
+        return this.mailingState;
+    }
+
+    /**
+     * Sets the mailingState of this Employee to the specified value.
+     * @param mailingState the new mailingState
+     */
+    public void setMailingState(String mailingState) {
+        this.mailingState = mailingState;
+    }
+
+    /**
+     * Gets the mailingZipcode of this Employee.
+     * @return the mailingZipcode
+     */
+    public String getMailingZipcode() {
+        return this.mailingZipcode;
+    }
+
+    /**
+     * Sets the mailingZipcode of this Employee to the specified value.
+     * @param mailingZipcode the new mailingZipcode
+     */
+    public void setMailingZipcode(String mailingZipcode) {
+        this.mailingZipcode = mailingZipcode;
+    }
+
+    /**
+     * Gets the mailingCountry of this Employee.
+     * @return the mailingCountry
+     */
+    public String getMailingCountry() {
+        return this.mailingCountry;
+    }
+
+    /**
+     * Sets the mailingCountry of this Employee to the specified value.
+     * @param mailingCountry the new mailingCountry
+     */
+    public void setMailingCountry(String mailingCountry) {
+        this.mailingCountry = mailingCountry;
+    }
+
+    /**
+     * Gets the homeStreet of this Employee.
+     * @return the homeStreet
+     */
+    public String getHomeStreet() {
+        return this.homeStreet;
+    }
+
+    /**
+     * Sets the homeStreet of this Employee to the specified value.
+     * @param homeStreet the new homeStreet
+     */
+    public void setHomeStreet(String homeStreet) {
+        this.homeStreet = homeStreet;
+    }
+
+    /**
+     * Gets the homeCity of this Employee.
+     * @return the homeCity
+     */
+    public String getHomeCity() {
+        return this.homeCity;
+    }
+
+    /**
+     * Sets the homeCity of this Employee to the specified value.
+     * @param homeCity the new homeCity
+     */
+    public void setHomeCity(String homeCity) {
+        this.homeCity = homeCity;
+    }
+
+    /**
+     * Gets the homeState of this Employee.
+     * @return the homeState
+     */
+    public String getHomeState() {
+        return this.homeState;
+    }
+
+    /**
+     * Sets the homeState of this Employee to the specified value.
+     * @param homeState the new homeState
+     */
+    public void setHomeState(String homeState) {
+        this.homeState = homeState;
+    }
+
+    /**
+     * Gets the homeZipcode of this Employee.
+     * @return the homeZipcode
+     */
+    public String getHomeZipcode() {
+        return this.homeZipcode;
+    }
+
+    /**
+     * Sets the homeZipcode of this Employee to the specified value.
+     * @param homeZipcode the new homeZipcode
+     */
+    public void setHomeZipcode(String homeZipcode) {
+        this.homeZipcode = homeZipcode;
+    }
+
+    /**
+     * Gets the homeCountry of this Employee.
+     * @return the homeCountry
+     */
+    public String getHomeCountry() {
+        return this.homeCountry;
+    }
+
+    /**
+     * Sets the homeCountry of this Employee to the specified value.
+     * @param homeCountry the new homeCountry
+     */
+    public void setHomeCountry(String homeCountry) {
+        this.homeCountry = homeCountry;
+    }
+
+    /**
+     * Gets the mailingSameAsHome of this Employee.
+     * @return the mailingSameAsHome
+     */
+    public Short getMailingSameAsHome() {
+        return this.mailingSameAsHome;
+    }
+
+    /**
+     * Sets the mailingSameAsHome of this Employee to the specified value.
+     * @param mailingSameAsHome the new mailingSameAsHome
+     */
+    public void setMailingSameAsHome(Short mailingSameAsHome) {
+        this.mailingSameAsHome = mailingSameAsHome;
+    }
+
+    /**
      * Returns a hash code value for the object.  This implementation computes 
      * a hash code value based on the id fields in this object.
      * @return a hash code value for this object.
@@ -624,5 +834,5 @@ public class Employee implements Serializable {
     public String toString() {
         return "com.abbt.crm.base.entity.Employee[id=" + id + "]";
     }
-    
+
 }

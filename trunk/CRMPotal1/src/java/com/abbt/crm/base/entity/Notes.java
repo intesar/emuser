@@ -1,7 +1,7 @@
 /*
  * Notes.java
  *
- * Created on April 7, 2007, 1:27 PM
+ * Created on April 14, 2007, 7:50 PM
  *
  * To change this template, choose Tools | Template Manager
  * and open the template in the editor.
@@ -23,7 +23,7 @@ import javax.persistence.TemporalType;
 /**
  * Entity class Notes
  * 
- * @author Mohammed Hamed
+ * @author shannan
  */
 @Entity
 @Table(name = "notes")
@@ -43,13 +43,13 @@ public class Notes implements Serializable {
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @Column(name = "versionId", nullable = false)
-    private int versionId;
+    @Column(name = "versionId")
+    private Integer versionId;
 
-    @Column(name = "description", nullable = false)
+    @Column(name = "description")
     private String description;
 
-    @Column(name = "creationDate")
+    @Column(name = "creationDate", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date creationDate;
 
@@ -59,13 +59,13 @@ public class Notes implements Serializable {
     @Column(name = "lastModifiedUser", nullable = false)
     private String lastModifiedUser;
 
-    @Column(name = "lastModifiedDate")
+    @Column(name = "lastModifiedDate", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastModifiedDate;
 
-    @Column(name = "contactid", nullable = false)
+    @Column(name = "contactid")
     private String contactid;
-    
+
     /** Creates a new instance of Notes */
     public Notes() {
     }
@@ -81,19 +81,17 @@ public class Notes implements Serializable {
     /**
      * Creates a new instance of Notes with the specified values.
      * @param id the id of the Notes
-     * @param versionId the versionId of the Notes
-     * @param description the description of the Notes
+     * @param creationDate the creationDate of the Notes
      * @param createdUser the createdUser of the Notes
      * @param lastModifiedUser the lastModifiedUser of the Notes
-     * @param contactid the contactid of the Notes
+     * @param lastModifiedDate the lastModifiedDate of the Notes
      */
-    public Notes(Integer id, int versionId, String description, String createdUser, String lastModifiedUser, String contactid) {
+    public Notes(Integer id, Date creationDate, String createdUser, String lastModifiedUser, Date lastModifiedDate) {
         this.id = id;
-        this.versionId = versionId;
-        this.description = description;
+        this.creationDate = creationDate;
         this.createdUser = createdUser;
         this.lastModifiedUser = lastModifiedUser;
-        this.contactid = contactid;
+        this.lastModifiedDate = lastModifiedDate;
     }
 
     /**
@@ -116,7 +114,7 @@ public class Notes implements Serializable {
      * Gets the versionId of this Notes.
      * @return the versionId
      */
-    public int getVersionId() {
+    public Integer getVersionId() {
         return this.versionId;
     }
 
@@ -124,7 +122,7 @@ public class Notes implements Serializable {
      * Sets the versionId of this Notes to the specified value.
      * @param versionId the new versionId
      */
-    public void setVersionId(int versionId) {
+    public void setVersionId(Integer versionId) {
         this.versionId = versionId;
     }
 
@@ -264,5 +262,5 @@ public class Notes implements Serializable {
     public String toString() {
         return "com.abbt.crm.base.entity.Notes[id=" + id + "]";
     }
-    
+
 }

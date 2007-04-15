@@ -1,7 +1,7 @@
 /*
  * ResumeExperience.java
  *
- * Created on April 7, 2007, 1:27 PM
+ * Created on April 14, 2007, 7:49 PM
  *
  * To change this template, choose Tools | Template Manager
  * and open the template in the editor.
@@ -23,7 +23,7 @@ import javax.persistence.TemporalType;
 /**
  * Entity class ResumeExperience
  * 
- * @author Mohammed Hamed
+ * @author shannan
  */
 @Entity
 @Table(name = "resume_experience")
@@ -55,22 +55,22 @@ public class ResumeExperience implements Serializable {
     @Column(name = "title", nullable = false)
     private String title;
 
-    @Column(name = "startDate")
+    @Column(name = "startDate", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date startDate;
 
-    @Column(name = "endDate")
+    @Column(name = "endDate", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date endDate;
 
-    @Column(name = "creationDate")
+    @Column(name = "creationDate", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date creationDate;
 
     @Column(name = "createdUser", nullable = false)
     private String createdUser;
 
-    @Column(name = "lastModifiedDate")
+    @Column(name = "lastModifiedDate", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastModifiedDate;
 
@@ -79,7 +79,7 @@ public class ResumeExperience implements Serializable {
 
     @Column(name = "resumeId", nullable = false)
     private int resumeId;
-    
+
     /** Creates a new instance of ResumeExperience */
     public ResumeExperience() {
     }
@@ -98,16 +98,24 @@ public class ResumeExperience implements Serializable {
      * @param versionId the versionId of the ResumeExperience
      * @param company the company of the ResumeExperience
      * @param title the title of the ResumeExperience
+     * @param startDate the startDate of the ResumeExperience
+     * @param endDate the endDate of the ResumeExperience
+     * @param creationDate the creationDate of the ResumeExperience
      * @param createdUser the createdUser of the ResumeExperience
+     * @param lastModifiedDate the lastModifiedDate of the ResumeExperience
      * @param lastModifiedUser the lastModifiedUser of the ResumeExperience
      * @param resumeId the resumeId of the ResumeExperience
      */
-    public ResumeExperience(Integer id, int versionId, String company, String title, String createdUser, String lastModifiedUser, int resumeId) {
+    public ResumeExperience(Integer id, int versionId, String company, String title, Date startDate, Date endDate, Date creationDate, String createdUser, Date lastModifiedDate, String lastModifiedUser, int resumeId) {
         this.id = id;
         this.versionId = versionId;
         this.company = company;
         this.title = title;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.creationDate = creationDate;
         this.createdUser = createdUser;
+        this.lastModifiedDate = lastModifiedDate;
         this.lastModifiedUser = lastModifiedUser;
         this.resumeId = resumeId;
     }
@@ -328,5 +336,5 @@ public class ResumeExperience implements Serializable {
     public String toString() {
         return "com.abbt.crm.base.entity.ResumeExperience[id=" + id + "]";
     }
-    
+
 }

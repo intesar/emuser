@@ -1,7 +1,7 @@
 /*
  * EmployeeViewedAccount.java
  *
- * Created on April 7, 2007, 1:27 PM
+ * Created on April 14, 2007, 7:49 PM
  *
  * To change this template, choose Tools | Template Manager
  * and open the template in the editor.
@@ -23,7 +23,7 @@ import javax.persistence.TemporalType;
 /**
  * Entity class EmployeeViewedAccount
  * 
- * @author Mohammed Hamed
+ * @author shannan
  */
 @Entity
 @Table(name = "employee_viewed_account")
@@ -49,10 +49,10 @@ public class EmployeeViewedAccount implements Serializable {
     @Column(name = "accountName")
     private String accountName;
 
-    @Column(name = "dateTime")
+    @Column(name = "dateTime", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateTime;
-    
+
     /** Creates a new instance of EmployeeViewedAccount */
     public EmployeeViewedAccount() {
     }
@@ -63,6 +63,16 @@ public class EmployeeViewedAccount implements Serializable {
      */
     public EmployeeViewedAccount(Integer id) {
         this.id = id;
+    }
+
+    /**
+     * Creates a new instance of EmployeeViewedAccount with the specified values.
+     * @param id the id of the EmployeeViewedAccount
+     * @param dateTime the dateTime of the EmployeeViewedAccount
+     */
+    public EmployeeViewedAccount(Integer id, Date dateTime) {
+        this.id = id;
+        this.dateTime = dateTime;
     }
 
     /**
@@ -185,5 +195,5 @@ public class EmployeeViewedAccount implements Serializable {
     public String toString() {
         return "com.abbt.crm.base.entity.EmployeeViewedAccount[id=" + id + "]";
     }
-    
+
 }

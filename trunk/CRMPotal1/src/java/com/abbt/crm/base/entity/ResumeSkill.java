@@ -1,7 +1,7 @@
 /*
  * ResumeSkill.java
  *
- * Created on April 7, 2007, 1:27 PM
+ * Created on April 14, 2007, 7:50 PM
  *
  * To change this template, choose Tools | Template Manager
  * and open the template in the editor.
@@ -23,7 +23,7 @@ import javax.persistence.TemporalType;
 /**
  * Entity class ResumeSkill
  * 
- * @author Mohammed Hamed
+ * @author shannan
  */
 @Entity
 @Table(name = "resume_skill")
@@ -55,17 +55,17 @@ public class ResumeSkill implements Serializable {
     @Column(name = "createdUser", nullable = false)
     private String createdUser;
 
-    @Column(name = "creationDate")
+    @Column(name = "creationDate", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date creationDate;
 
-    @Column(name = "lastModifiedDate")
+    @Column(name = "lastModifiedDate", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastModifiedDate;
 
     @Column(name = "lastModifiedUser", nullable = false)
     private String lastModifiedUser;
-    
+
     /** Creates a new instance of ResumeSkill */
     public ResumeSkill() {
     }
@@ -85,14 +85,18 @@ public class ResumeSkill implements Serializable {
      * @param skill the skill of the ResumeSkill
      * @param resumeId the resumeId of the ResumeSkill
      * @param createdUser the createdUser of the ResumeSkill
+     * @param creationDate the creationDate of the ResumeSkill
+     * @param lastModifiedDate the lastModifiedDate of the ResumeSkill
      * @param lastModifiedUser the lastModifiedUser of the ResumeSkill
      */
-    public ResumeSkill(Integer id, int versionId, String skill, int resumeId, String createdUser, String lastModifiedUser) {
+    public ResumeSkill(Integer id, int versionId, String skill, int resumeId, String createdUser, Date creationDate, Date lastModifiedDate, String lastModifiedUser) {
         this.id = id;
         this.versionId = versionId;
         this.skill = skill;
         this.resumeId = resumeId;
         this.createdUser = createdUser;
+        this.creationDate = creationDate;
+        this.lastModifiedDate = lastModifiedDate;
         this.lastModifiedUser = lastModifiedUser;
     }
 
@@ -264,5 +268,5 @@ public class ResumeSkill implements Serializable {
     public String toString() {
         return "com.abbt.crm.base.entity.ResumeSkill[id=" + id + "]";
     }
-    
+
 }
