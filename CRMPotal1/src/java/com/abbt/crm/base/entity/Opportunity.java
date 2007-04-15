@@ -1,7 +1,7 @@
 /*
  * Opportunity.java
  *
- * Created on April 7, 2007, 1:27 PM
+ * Created on April 14, 2007, 7:49 PM
  *
  * To change this template, choose Tools | Template Manager
  * and open the template in the editor.
@@ -23,7 +23,7 @@ import javax.persistence.TemporalType;
 /**
  * Entity class Opportunity
  * 
- * @author Mohammed Hamed
+ * @author shannan
  */
 @Entity
 @Table(name = "opportunity")
@@ -77,7 +77,7 @@ public class Opportunity implements Serializable {
     @Column(name = "status", nullable = false)
     private String status;
 
-    @Column(name = "creationDate")
+    @Column(name = "creationDate", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date creationDate;
 
@@ -87,13 +87,13 @@ public class Opportunity implements Serializable {
     @Column(name = "lastModifiedUser", nullable = false)
     private String lastModifiedUser;
 
-    @Column(name = "lastModifiedDate")
+    @Column(name = "lastModifiedDate", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastModifiedDate;
 
     @Column(name = "accountId", nullable = false)
     private int accountId;
-    
+
     /** Creates a new instance of Opportunity */
     public Opportunity() {
     }
@@ -118,11 +118,13 @@ public class Opportunity implements Serializable {
      * @param level the level of the Opportunity
      * @param next the next of the Opportunity
      * @param status the status of the Opportunity
+     * @param creationDate the creationDate of the Opportunity
      * @param createdUser the createdUser of the Opportunity
      * @param lastModifiedUser the lastModifiedUser of the Opportunity
+     * @param lastModifiedDate the lastModifiedDate of the Opportunity
      * @param accountId the accountId of the Opportunity
      */
-    public Opportunity(Integer id, int versionId, String opportunityId, String title, String description, String clientCompany, int rate, String level, String next, String status, String createdUser, String lastModifiedUser, int accountId) {
+    public Opportunity(Integer id, int versionId, String opportunityId, String title, String description, String clientCompany, int rate, String level, String next, String status, Date creationDate, String createdUser, String lastModifiedUser, Date lastModifiedDate, int accountId) {
         this.id = id;
         this.versionId = versionId;
         this.opportunityId = opportunityId;
@@ -133,8 +135,10 @@ public class Opportunity implements Serializable {
         this.level = level;
         this.next = next;
         this.status = status;
+        this.creationDate = creationDate;
         this.createdUser = createdUser;
         this.lastModifiedUser = lastModifiedUser;
+        this.lastModifiedDate = lastModifiedDate;
         this.accountId = accountId;
     }
 
@@ -418,5 +422,5 @@ public class Opportunity implements Serializable {
     public String toString() {
         return "com.abbt.crm.base.entity.Opportunity[id=" + id + "]";
     }
-    
+
 }

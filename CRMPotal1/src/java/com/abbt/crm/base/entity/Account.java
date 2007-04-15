@@ -1,7 +1,7 @@
 /*
  * Account.java
  *
- * Created on April 7, 2007, 1:27 PM
+ * Created on April 14, 2007, 7:50 PM
  *
  * To change this template, choose Tools | Template Manager
  * and open the template in the editor.
@@ -23,7 +23,7 @@ import javax.persistence.TemporalType;
 /**
  * Entity class Account
  * 
- * @author Mohammed Hamed
+ * @author shannan
  */
 @Entity
 @Table(name = "account")
@@ -41,12 +41,22 @@ import javax.persistence.TemporalType;
         @NamedQuery(name = "Account.findByLastModifiedDate", query = "SELECT a FROM Account a WHERE a.lastModifiedDate = :lastModifiedDate"),
         @NamedQuery(name = "Account.findByLastModifiedUser", query = "SELECT a FROM Account a WHERE a.lastModifiedUser = :lastModifiedUser"),
         @NamedQuery(name = "Account.findByIsEnabled", query = "SELECT a FROM Account a WHERE a.isEnabled = :isEnabled"),
-        @NamedQuery(name = "Account.findByHomePhone", query = "SELECT a FROM Account a WHERE a.homePhone = :homePhone"),
-        @NamedQuery(name = "Account.findByOfficePhone1", query = "SELECT a FROM Account a WHERE a.officePhone1 = :officePhone1"),
-        @NamedQuery(name = "Account.findByOfficePhone2", query = "SELECT a FROM Account a WHERE a.officePhone2 = :officePhone2"),
-        @NamedQuery(name = "Account.findByOfficePhone3", query = "SELECT a FROM Account a WHERE a.officePhone3 = :officePhone3"),
-        @NamedQuery(name = "Account.findByOfficePhone4", query = "SELECT a FROM Account a WHERE a.officePhone4 = :officePhone4"),
-        @NamedQuery(name = "Account.findByFax", query = "SELECT a FROM Account a WHERE a.fax = :fax")
+        @NamedQuery(name = "Account.findByPhone1", query = "SELECT a FROM Account a WHERE a.phone1 = :phone1"),
+        @NamedQuery(name = "Account.findByPhone2", query = "SELECT a FROM Account a WHERE a.phone2 = :phone2"),
+        @NamedQuery(name = "Account.findByPhone3", query = "SELECT a FROM Account a WHERE a.phone3 = :phone3"),
+        @NamedQuery(name = "Account.findByPhone4", query = "SELECT a FROM Account a WHERE a.phone4 = :phone4"),
+        @NamedQuery(name = "Account.findByFax", query = "SELECT a FROM Account a WHERE a.fax = :fax"),
+        @NamedQuery(name = "Account.findByBillingStreet", query = "SELECT a FROM Account a WHERE a.billingStreet = :billingStreet"),
+        @NamedQuery(name = "Account.findByBillingCity", query = "SELECT a FROM Account a WHERE a.billingCity = :billingCity"),
+        @NamedQuery(name = "Account.findByBillingState", query = "SELECT a FROM Account a WHERE a.billingState = :billingState"),
+        @NamedQuery(name = "Account.findByBillingZipcode", query = "SELECT a FROM Account a WHERE a.billingZipcode = :billingZipcode"),
+        @NamedQuery(name = "Account.findByBillingCountry", query = "SELECT a FROM Account a WHERE a.billingCountry = :billingCountry"),
+        @NamedQuery(name = "Account.findByShippingStreet", query = "SELECT a FROM Account a WHERE a.shippingStreet = :shippingStreet"),
+        @NamedQuery(name = "Account.findByShippingCity", query = "SELECT a FROM Account a WHERE a.shippingCity = :shippingCity"),
+        @NamedQuery(name = "Account.findByShippingState", query = "SELECT a FROM Account a WHERE a.shippingState = :shippingState"),
+        @NamedQuery(name = "Account.findByShippingZipcode", query = "SELECT a FROM Account a WHERE a.shippingZipcode = :shippingZipcode"),
+        @NamedQuery(name = "Account.findByShippingCountry", query = "SELECT a FROM Account a WHERE a.shippingCountry = :shippingCountry"),
+        @NamedQuery(name = "Account.findByIsShippingSameAsBillingAddress", query = "SELECT a FROM Account a WHERE a.isShippingSameAsBillingAddress = :isShippingSameAsBillingAddress")
     })
 public class Account implements Serializable {
 
@@ -54,62 +64,92 @@ public class Account implements Serializable {
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @Column(name = "versionId", nullable = false)
-    private int versionId;
+    @Column(name = "versionId")
+    private Integer versionId;
 
-    @Column(name = "accountId", nullable = false)
-    private int accountId;
+    @Column(name = "accountId")
+    private Integer accountId;
 
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "website", nullable = false)
+    @Column(name = "website")
     private String website;
 
-    @Column(name = "type", nullable = false)
+    @Column(name = "type")
     private String type;
 
-    @Column(name = "rating", nullable = false)
+    @Column(name = "rating")
     private String rating;
 
-    @Column(name = "description", nullable = false)
+    @Column(name = "description")
     private String description;
 
-    @Column(name = "createdUser", nullable = false)
+    @Column(name = "createdUser")
     private String createdUser;
 
-    @Column(name = "creationDate")
+    @Column(name = "creationDate", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date creationDate;
 
-    @Column(name = "lastModifiedDate")
+    @Column(name = "lastModifiedDate", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastModifiedDate;
 
-    @Column(name = "lastModifiedUser", nullable = false)
+    @Column(name = "lastModifiedUser")
     private String lastModifiedUser;
 
-    @Column(name = "isEnabled", nullable = false)
-    private boolean isEnabled;
+    @Column(name = "isEnabled")
+    private Boolean isEnabled;
 
-    @Column(name = "homePhone")
-    private String homePhone;
+    @Column(name = "phone1")
+    private String phone1;
 
-    @Column(name = "officePhone1")
-    private String officePhone1;
+    @Column(name = "phone2")
+    private String phone2;
 
-    @Column(name = "officePhone2")
-    private String officePhone2;
+    @Column(name = "phone3")
+    private String phone3;
 
-    @Column(name = "officePhone3")
-    private String officePhone3;
-
-    @Column(name = "officePhone4")
-    private String officePhone4;
+    @Column(name = "phone4")
+    private String phone4;
 
     @Column(name = "fax")
     private String fax;
-    
+
+    @Column(name = "billingStreet")
+    private String billingStreet;
+
+    @Column(name = "billingCity")
+    private String billingCity;
+
+    @Column(name = "billingState")
+    private String billingState;
+
+    @Column(name = "billingZipcode")
+    private String billingZipcode;
+
+    @Column(name = "billingCountry")
+    private String billingCountry;
+
+    @Column(name = "shippingStreet")
+    private String shippingStreet;
+
+    @Column(name = "shippingCity")
+    private String shippingCity;
+
+    @Column(name = "shippingState")
+    private String shippingState;
+
+    @Column(name = "shippingZipcode")
+    private String shippingZipcode;
+
+    @Column(name = "shippingCountry")
+    private String shippingCountry;
+
+    @Column(name = "isShippingSameAsBillingAddress")
+    private Short isShippingSameAsBillingAddress;
+
     /** Creates a new instance of Account */
     public Account() {
     }
@@ -125,29 +165,15 @@ public class Account implements Serializable {
     /**
      * Creates a new instance of Account with the specified values.
      * @param id the id of the Account
-     * @param versionId the versionId of the Account
-     * @param accountId the accountId of the Account
      * @param name the name of the Account
-     * @param website the website of the Account
-     * @param type the type of the Account
-     * @param rating the rating of the Account
-     * @param description the description of the Account
-     * @param createdUser the createdUser of the Account
-     * @param lastModifiedUser the lastModifiedUser of the Account
-     * @param isEnabled the isEnabled of the Account
+     * @param creationDate the creationDate of the Account
+     * @param lastModifiedDate the lastModifiedDate of the Account
      */
-    public Account(Integer id, int versionId, int accountId, String name, String website, String type, String rating, String description, String createdUser, String lastModifiedUser, boolean isEnabled) {
+    public Account(Integer id, String name, Date creationDate, Date lastModifiedDate) {
         this.id = id;
-        this.versionId = versionId;
-        this.accountId = accountId;
         this.name = name;
-        this.website = website;
-        this.type = type;
-        this.rating = rating;
-        this.description = description;
-        this.createdUser = createdUser;
-        this.lastModifiedUser = lastModifiedUser;
-        this.isEnabled = isEnabled;
+        this.creationDate = creationDate;
+        this.lastModifiedDate = lastModifiedDate;
     }
 
     /**
@@ -170,7 +196,7 @@ public class Account implements Serializable {
      * Gets the versionId of this Account.
      * @return the versionId
      */
-    public int getVersionId() {
+    public Integer getVersionId() {
         return this.versionId;
     }
 
@@ -178,7 +204,7 @@ public class Account implements Serializable {
      * Sets the versionId of this Account to the specified value.
      * @param versionId the new versionId
      */
-    public void setVersionId(int versionId) {
+    public void setVersionId(Integer versionId) {
         this.versionId = versionId;
     }
 
@@ -186,7 +212,7 @@ public class Account implements Serializable {
      * Gets the accountId of this Account.
      * @return the accountId
      */
-    public int getAccountId() {
+    public Integer getAccountId() {
         return this.accountId;
     }
 
@@ -194,7 +220,7 @@ public class Account implements Serializable {
      * Sets the accountId of this Account to the specified value.
      * @param accountId the new accountId
      */
-    public void setAccountId(int accountId) {
+    public void setAccountId(Integer accountId) {
         this.accountId = accountId;
     }
 
@@ -346,7 +372,7 @@ public class Account implements Serializable {
      * Gets the isEnabled of this Account.
      * @return the isEnabled
      */
-    public boolean getIsEnabled() {
+    public Boolean getIsEnabled() {
         return this.isEnabled;
     }
 
@@ -354,88 +380,72 @@ public class Account implements Serializable {
      * Sets the isEnabled of this Account to the specified value.
      * @param isEnabled the new isEnabled
      */
-    public void setIsEnabled(boolean isEnabled) {
+    public void setIsEnabled(Boolean isEnabled) {
         this.isEnabled = isEnabled;
     }
 
     /**
-     * Gets the homePhone of this Account.
-     * @return the homePhone
+     * Gets the phone1 of this Account.
+     * @return the phone1
      */
-    public String getHomePhone() {
-        return this.homePhone;
+    public String getPhone1() {
+        return this.phone1;
     }
 
     /**
-     * Sets the homePhone of this Account to the specified value.
-     * @param homePhone the new homePhone
+     * Sets the phone1 of this Account to the specified value.
+     * @param phone1 the new phone1
      */
-    public void setHomePhone(String homePhone) {
-        this.homePhone = homePhone;
+    public void setPhone1(String phone1) {
+        this.phone1 = phone1;
     }
 
     /**
-     * Gets the officePhone1 of this Account.
-     * @return the officePhone1
+     * Gets the phone2 of this Account.
+     * @return the phone2
      */
-    public String getOfficePhone1() {
-        return this.officePhone1;
+    public String getPhone2() {
+        return this.phone2;
     }
 
     /**
-     * Sets the officePhone1 of this Account to the specified value.
-     * @param officePhone1 the new officePhone1
+     * Sets the phone2 of this Account to the specified value.
+     * @param phone2 the new phone2
      */
-    public void setOfficePhone1(String officePhone1) {
-        this.officePhone1 = officePhone1;
+    public void setPhone2(String phone2) {
+        this.phone2 = phone2;
     }
 
     /**
-     * Gets the officePhone2 of this Account.
-     * @return the officePhone2
+     * Gets the phone3 of this Account.
+     * @return the phone3
      */
-    public String getOfficePhone2() {
-        return this.officePhone2;
+    public String getPhone3() {
+        return this.phone3;
     }
 
     /**
-     * Sets the officePhone2 of this Account to the specified value.
-     * @param officePhone2 the new officePhone2
+     * Sets the phone3 of this Account to the specified value.
+     * @param phone3 the new phone3
      */
-    public void setOfficePhone2(String officePhone2) {
-        this.officePhone2 = officePhone2;
+    public void setPhone3(String phone3) {
+        this.phone3 = phone3;
     }
 
     /**
-     * Gets the officePhone3 of this Account.
-     * @return the officePhone3
+     * Gets the phone4 of this Account.
+     * @return the phone4
      */
-    public String getOfficePhone3() {
-        return this.officePhone3;
+    public String getPhone4() {
+        return this.phone4;
     }
 
     /**
-     * Sets the officePhone3 of this Account to the specified value.
-     * @param officePhone3 the new officePhone3
+     * Sets the phone4 of this Account to the specified value.
+     * @param phone4 the new phone4
      */
-    public void setOfficePhone3(String officePhone3) {
-        this.officePhone3 = officePhone3;
-    }
-
-    /**
-     * Gets the officePhone4 of this Account.
-     * @return the officePhone4
-     */
-    public String getOfficePhone4() {
-        return this.officePhone4;
-    }
-
-    /**
-     * Sets the officePhone4 of this Account to the specified value.
-     * @param officePhone4 the new officePhone4
-     */
-    public void setOfficePhone4(String officePhone4) {
-        this.officePhone4 = officePhone4;
+    public void setPhone4(String phone4) {
+        this.phone4 = phone4;
     }
 
     /**
@@ -452,6 +462,182 @@ public class Account implements Serializable {
      */
     public void setFax(String fax) {
         this.fax = fax;
+    }
+
+    /**
+     * Gets the billingStreet of this Account.
+     * @return the billingStreet
+     */
+    public String getBillingStreet() {
+        return this.billingStreet;
+    }
+
+    /**
+     * Sets the billingStreet of this Account to the specified value.
+     * @param billingStreet the new billingStreet
+     */
+    public void setBillingStreet(String billingStreet) {
+        this.billingStreet = billingStreet;
+    }
+
+    /**
+     * Gets the billingCity of this Account.
+     * @return the billingCity
+     */
+    public String getBillingCity() {
+        return this.billingCity;
+    }
+
+    /**
+     * Sets the billingCity of this Account to the specified value.
+     * @param billingCity the new billingCity
+     */
+    public void setBillingCity(String billingCity) {
+        this.billingCity = billingCity;
+    }
+
+    /**
+     * Gets the billingState of this Account.
+     * @return the billingState
+     */
+    public String getBillingState() {
+        return this.billingState;
+    }
+
+    /**
+     * Sets the billingState of this Account to the specified value.
+     * @param billingState the new billingState
+     */
+    public void setBillingState(String billingState) {
+        this.billingState = billingState;
+    }
+
+    /**
+     * Gets the billingZipcode of this Account.
+     * @return the billingZipcode
+     */
+    public String getBillingZipcode() {
+        return this.billingZipcode;
+    }
+
+    /**
+     * Sets the billingZipcode of this Account to the specified value.
+     * @param billingZipcode the new billingZipcode
+     */
+    public void setBillingZipcode(String billingZipcode) {
+        this.billingZipcode = billingZipcode;
+    }
+
+    /**
+     * Gets the billingCountry of this Account.
+     * @return the billingCountry
+     */
+    public String getBillingCountry() {
+        return this.billingCountry;
+    }
+
+    /**
+     * Sets the billingCountry of this Account to the specified value.
+     * @param billingCountry the new billingCountry
+     */
+    public void setBillingCountry(String billingCountry) {
+        this.billingCountry = billingCountry;
+    }
+
+    /**
+     * Gets the shippingStreet of this Account.
+     * @return the shippingStreet
+     */
+    public String getShippingStreet() {
+        return this.shippingStreet;
+    }
+
+    /**
+     * Sets the shippingStreet of this Account to the specified value.
+     * @param shippingStreet the new shippingStreet
+     */
+    public void setShippingStreet(String shippingStreet) {
+        this.shippingStreet = shippingStreet;
+    }
+
+    /**
+     * Gets the shippingCity of this Account.
+     * @return the shippingCity
+     */
+    public String getShippingCity() {
+        return this.shippingCity;
+    }
+
+    /**
+     * Sets the shippingCity of this Account to the specified value.
+     * @param shippingCity the new shippingCity
+     */
+    public void setShippingCity(String shippingCity) {
+        this.shippingCity = shippingCity;
+    }
+
+    /**
+     * Gets the shippingState of this Account.
+     * @return the shippingState
+     */
+    public String getShippingState() {
+        return this.shippingState;
+    }
+
+    /**
+     * Sets the shippingState of this Account to the specified value.
+     * @param shippingState the new shippingState
+     */
+    public void setShippingState(String shippingState) {
+        this.shippingState = shippingState;
+    }
+
+    /**
+     * Gets the shippingZipcode of this Account.
+     * @return the shippingZipcode
+     */
+    public String getShippingZipcode() {
+        return this.shippingZipcode;
+    }
+
+    /**
+     * Sets the shippingZipcode of this Account to the specified value.
+     * @param shippingZipcode the new shippingZipcode
+     */
+    public void setShippingZipcode(String shippingZipcode) {
+        this.shippingZipcode = shippingZipcode;
+    }
+
+    /**
+     * Gets the shippingCountry of this Account.
+     * @return the shippingCountry
+     */
+    public String getShippingCountry() {
+        return this.shippingCountry;
+    }
+
+    /**
+     * Sets the shippingCountry of this Account to the specified value.
+     * @param shippingCountry the new shippingCountry
+     */
+    public void setShippingCountry(String shippingCountry) {
+        this.shippingCountry = shippingCountry;
+    }
+
+    /**
+     * Gets the isShippingSameAsBillingAddress of this Account.
+     * @return the isShippingSameAsBillingAddress
+     */
+    public Short getIsShippingSameAsBillingAddress() {
+        return this.isShippingSameAsBillingAddress;
+    }
+
+    /**
+     * Sets the isShippingSameAsBillingAddress of this Account to the specified value.
+     * @param isShippingSameAsBillingAddress the new isShippingSameAsBillingAddress
+     */
+    public void setIsShippingSameAsBillingAddress(Short isShippingSameAsBillingAddress) {
+        this.isShippingSameAsBillingAddress = isShippingSameAsBillingAddress;
     }
 
     /**
@@ -494,5 +680,5 @@ public class Account implements Serializable {
     public String toString() {
         return "com.abbt.crm.base.entity.Account[id=" + id + "]";
     }
-    
+
 }
