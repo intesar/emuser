@@ -5,22 +5,22 @@
                 
     <bean id="IGenericDAO" class="com.abbt.crm.base.dao.GenericDAOImpl"/>
   
-    <bean id="IAccountService" class="com.abbt.crm.base.services.AccountServiceImpl" >
+    <bean id="IAccountService" class="com.abbt.crm.base.services.impl.AccountServiceImpl" >
         <property name="dao">
             <ref bean="GenericDAO"></ref>
         </property>
     </bean>              
-    <bean id="IContactService" class="com.abbt.crm.base.services.ContactServiceImpl" >
+    <bean id="IContactService" class="com.abbt.crm.base.services.impl.ContactServiceImpl" >
         <property name="dao">
             <ref bean="GenericDAO"></ref>
         </property>
     </bean>  
-    <bean id="IOpportunityService" class="com.abbt.crm.base.services.OpportunityServiceImpl" >
+    <bean id="IOpportunityService" class="com.abbt.crm.base.services.impl.OpportunityServiceImpl" >
         <property name="dao">
             <ref bean="GenericDAO"></ref>
         </property>
     </bean>  
-    <bean id="ITaskService" class="com.abbt.crm.base.services.TaskServiceImpl" >
+    <bean id="ITaskService" class="com.abbt.crm.base.services.impl.TaskServiceImpl" >
         <property name="dao">
             <ref bean="GenericDAO"></ref>
         </property>
