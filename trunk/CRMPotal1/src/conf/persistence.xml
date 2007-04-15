@@ -2,37 +2,35 @@
 <persistence version="1.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd">
   <persistence-unit name="CRMPotal1PU" transaction-type="RESOURCE_LOCAL">
     <provider>oracle.toplink.essentials.ejb.cmp3.EntityManagerFactoryProvider</provider>
+    <class>com.abbt.crm.base.entity.EmployeeContacts</class>
+    <class>com.abbt.crm.base.entity.EmployeeViewedAccount</class>
     <class>com.abbt.crm.base.entity.SelectType</class>
     <class>com.abbt.crm.base.entity.Lead</class>
-    <class>com.abbt.crm.base.entity.EmployeeAddress</class>
     <class>com.abbt.crm.base.entity.Contact</class>
+    <class>com.abbt.crm.base.entity.CustomQueryOrderbyFields</class>
     <class>com.abbt.crm.base.entity.EmployeeReminder</class>
+    <class>com.abbt.crm.base.entity.EmployeeQuery</class>
     <class>com.abbt.crm.base.entity.OpportunityAppliedByEmployee</class>
-    <class>com.abbt.crm.base.entity.AccountAddress</class>
     <class>com.abbt.crm.base.entity.EmployeeAccount</class>
-    <class>com.abbt.crm.base.entity.CompanyPhone</class>
-    <class>com.abbt.crm.base.entity.LeadAddress</class>
     <class>com.abbt.crm.base.entity.Employee</class>
-    <class>com.abbt.crm.base.entity.CompanyAddress</class>
+    <class>com.abbt.crm.base.entity.CustomedQueries</class>
     <class>com.abbt.crm.base.entity.TasksActivity</class>
-    <class>com.abbt.crm.base.entity.LeadPhone</class>
     <class>com.abbt.crm.base.entity.OpportunityContact</class>
     <class>com.abbt.crm.base.entity.Faq</class>
     <class>com.abbt.crm.base.entity.Tasks</class>
-    <class>com.abbt.crm.base.entity.EmployeePhone</class>
+    <class>com.abbt.crm.base.entity.Message</class>
     <class>com.abbt.crm.base.entity.ResumeExperience</class>
     <class>com.abbt.crm.base.entity.EmployeeLead</class>
     <class>com.abbt.crm.base.entity.Resume</class>
     <class>com.abbt.crm.base.entity.Opportunity</class>
     <class>com.abbt.crm.base.entity.Company</class>
-    <class>com.abbt.crm.base.entity.AccountPhone</class>
     <class>com.abbt.crm.base.entity.Account</class>
-    <class>com.abbt.crm.base.entity.ResumeSkill</class>
     <class>com.abbt.crm.base.entity.Notes</class>
+    <class>com.abbt.crm.base.entity.ResumeSkill</class>
     <properties>
       <property name="toplink.jdbc.user" value="root"/>
       <property name="toplink.jdbc.password" value="apple123"/>
-      <property name="toplink.jdbc.url" value="jdbc:mysql://localhost:3306/crm"/>
+      <property name="toplink.jdbc.url" value="jdbc:mysql:///crm"/>
       <property name="toplink.jdbc.driver" value="com.mysql.jdbc.Driver"/>
     </properties>
   </persistence-unit>
