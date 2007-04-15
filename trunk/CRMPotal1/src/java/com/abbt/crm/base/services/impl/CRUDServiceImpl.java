@@ -7,8 +7,9 @@
  * and open the template in the editor.
  */
 
-package com.abbt.crm.base.services;
+package com.abbt.crm.base.services.impl;
 
+import com.abbt.crm.base.services.*;
 import com.abbt.crm.base.services.exceptions.InvalidEntityException;
 import com.abbt.crm.base.services.exceptions.UniqueEntityException;
 import com.abbt.crm.base.services.exceptions.VariableNotNullException;

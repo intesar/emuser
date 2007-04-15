@@ -7,11 +7,12 @@
  * and open the template in the editor.
  */
 
-package com.abbt.crm.base.services;
+package com.abbt.crm.base.services.impl;
 
 import com.abbt.crm.base.dao.IGenericDAO;
 import com.abbt.crm.base.dao.GenericDAOImpl;
 import com.abbt.crm.base.entity.Account;
+import com.abbt.crm.base.services.*;
 import java.util.List;
  
 /**
