@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<portlet-app xmlns="http://java.sun.com/xml/ns/portlet/portlet-app_1_0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/portlet/portlet-app_1_0.xsd/etc/opt/SUNWportal/dtd/portlet.xsd" version="1.0">
+
+
+ <portlet>
+        <description>Courses</description>
+        <portlet-name>Courses</portlet-name>
+        <display-name>Courses</display-name>
+        <portlet-class>com.abbt.training.portlets.Courses</portlet-class>
+        <expiration-cache>0</expiration-cache>
+        <supports>
+            <mime-type>text/html</mime-type>          
+            <portlet-mode>VIEW</portlet-mode>
+            <portlet-mode>EDIT</portlet-mode>
+            <portlet-mode>HELP</portlet-mode>
+        </supports>
+        <portlet-info>
+            <title>Courses</title>
+            <short-title>Courses</short-title>
+        </portlet-info>
+ </portlet>
+
+ <portlet>
+        <description>InstructorP</description>
+        <portlet-name>InstructorP</portlet-name>
+        <display-name>InstructorP</display-name>
+        <portlet-class>com.abbt.training.portlets.InstructorPortlet</portlet-class>
+        <expiration-cache>0</expiration-cache>
+        <supports>
+            <mime-type>text/html</mime-type>          
+            <portlet-mode>VIEW</portlet-mode>
+            <portlet-mode>EDIT</portlet-mode>
+            <portlet-mode>HELP</portlet-mode>
+        </supports>
+        <portlet-info>
+            <title>InstructorP</title>
+            <short-title>InstructorP</short-title>
+        </portlet-info>
+ </portlet>
+
+ <portlet>
+        <description>CourseDetail</description>
+        <portlet-name>CourseDetail</portlet-name>
+        <display-name>CourseDetail</display-name>
+        <portlet-class>com.abbt.training.portlets.CourseDetailP</portlet-class>
+        <expiration-cache>0</expiration-cache>
+        <supports>
+            <mime-type>text/html</mime-type>          
+            <portlet-mode>VIEW</portlet-mode>
+            <portlet-mode>EDIT</portlet-mode>
+            <portlet-mode>HELP</portlet-mode>
+        </supports>
+        <portlet-info>
+            <title>CourseDetail</title>
+            <short-title>CourseDetail</short-title>
+        </portlet-info>
+ </portlet>
+
+ <portlet>
+        <description>ContactedUsP</description>
+        <portlet-name>ContactedUsP</portlet-name>
+        <display-name>ContactedUsP</display-name>
+        <portlet-class>com.abbt.training.portlets.ContactedUsP</portlet-class>
+        <expiration-cache>0</expiration-cache>
+        <supports>
+            <mime-type>text/html</mime-type>          
+            <portlet-mode>VIEW</portlet-mode>
+            <portlet-mode>EDIT</portlet-mode>
+            <portlet-mode>HELP</portlet-mode>
+        </supports>
+        <portlet-info>
+            <title>ContactedUsP</title>
+            <short-title>ContactedUsP</short-title>
+        </portlet-info>
+ </portlet>
+</portlet-app>
