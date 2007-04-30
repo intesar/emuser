@@ -10,6 +10,8 @@
 package com.abbt.timesheet.daos;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityExistsException;
@@ -68,6 +70,7 @@ public class TimesheetDBDaoImpl {
         }
         return object;
     }
+  
     public void delete(Object object) {
         EntityManager em = null;
         try {
@@ -133,4 +136,44 @@ public class TimesheetDBDaoImpl {
         }
         return list;
     }
+    
+    public Object findSingleResultByNamedQuery( String namedQuery, Map map ) {
+        Object resultObj = null;
+        EntityManager em = null;
+        try {
+            em = emf.createEntityManager();
+            Query q = em.createNamedQuery(namedQuery);
+            Set<Object> keys = map.keySet();
+            for ( Object o : keys ) {
+                q.setParameter((String)o, map.get(o));
+            }
+            resultObj = q.getSingleResult();
+        } catch(Exception e) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE,"exception caught", e);
+        } finally {
+            em.close();
+        }
+        return resultObj;
+    }
+    
+    public List findResultListByNamedQuery( String namedQuery,  Map map)  {
+        List list = null;
+        EntityManager em = null;
+        try {
+            em = emf.createEntityManager();
+            Query q = em.createNamedQuery(namedQuery);
+            Set<Object> keys = map.keySet();
+            for ( Object o : keys ) {
+                q.setParameter((String)o, map.get(o));
+            }
+            list = q.getResultList();
+        } catch(Exception e) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE,"exception caught", e);
+        } finally {
+            em.close();
+        }
+        return list;
+    }
+
+
 }
