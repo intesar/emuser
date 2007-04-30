@@ -26,9 +26,7 @@ import javax.persistence.Query;
  */
 public class TimesheetDBDaoImpl {
     
-    private EntityManagerFactory emf = Persistence.createEntityManagerFactory("TimesheetSysPortalPU");
-    
-    
+    private EntityManagerFactory emf = Persistence.createEntityManagerFactory("TimesheetSysPortalPU");    
     
     /** Creates a new instance of TimesheetDBDaoImpl */
     public TimesheetDBDaoImpl() {
