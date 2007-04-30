@@ -12,6 +12,7 @@ package com.abbt.timesheet.daos;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -31,16 +32,21 @@ public class TimesheetDBDaoImpl {
     public TimesheetDBDaoImpl() {
     }
     
-    public void save(Object object) {
+    public void save(Object object) throws com.abbt.timesheet.exceptions.EntityExistsException, IllegalArgumentException {
         EntityManager em = null;
         try {
             em = emf.createEntityManager();
             em.getTransaction().begin();
             em.persist(object);
             em.getTransaction().commit();
-        } catch(Exception e) {
-            Logger.getLogger(getClass().getName()).log(Level.SEVERE,"exception caught", e);
+        } catch (EntityExistsException eee ) {
             em.getTransaction().rollback();
+            // use log4j to print
+            throw new com.abbt.timesheet.exceptions.EntityExistsException(eee.getMessage());
+        } catch (IllegalArgumentException iae ) {
+            em.getTransaction().rollback();
+            // use log4j to print
+            throw iae;
         } finally {
             em.close();
         }
@@ -103,7 +109,7 @@ public class TimesheetDBDaoImpl {
             }
             resultObj = q.getSingleResult();
         } catch(Exception e) {
-            Logger.getLogger(getClass().getName()).log(Level.SEVERE,"exception caught", e);            
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE,"exception caught", e);
         } finally {
             em.close();
         }
