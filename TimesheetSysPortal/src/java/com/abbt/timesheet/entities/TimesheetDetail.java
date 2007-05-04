@@ -1,7 +1,7 @@
 /*
  * TimesheetDetail.java
  *
- * Created on April 29, 2007, 9:38 PM
+ * Created on May 2, 2007, 7:09 PM
  *
  * To change this template, choose Tools | Template Manager
  * and open the template in the editor.
@@ -12,8 +12,8 @@ package com.abbt.timesheet.entities;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
@@ -30,8 +30,6 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "timesheet_detail")
 @NamedQueries( {
-        @NamedQuery(name = "TimesheetDetail.findByTimesheetId", query = "SELECT t FROM TimesheetDetail t WHERE t.timesheetDetailPK.timesheetId = :timesheetId"),
-        @NamedQuery(name = "TimesheetDetail.findByTimesheetDate", query = "SELECT t FROM TimesheetDetail t WHERE t.timesheetDetailPK.timesheetDate = :timesheetDate"),
         @NamedQuery(name = "TimesheetDetail.findByRegularHours", query = "SELECT t FROM TimesheetDetail t WHERE t.regularHours = :regularHours"),
         @NamedQuery(name = "TimesheetDetail.findByOverTimeHours", query = "SELECT t FROM TimesheetDetail t WHERE t.overTimeHours = :overTimeHours"),
         @NamedQuery(name = "TimesheetDetail.findByComments", query = "SELECT t FROM TimesheetDetail t WHERE t.comments = :comments"),
@@ -39,18 +37,18 @@ import javax.persistence.TemporalType;
         @NamedQuery(name = "TimesheetDetail.findByCreatedDate", query = "SELECT t FROM TimesheetDetail t WHERE t.createdDate = :createdDate"),
         @NamedQuery(name = "TimesheetDetail.findByLastUpdatedBy", query = "SELECT t FROM TimesheetDetail t WHERE t.lastUpdatedBy = :lastUpdatedBy"),
         @NamedQuery(name = "TimesheetDetail.findByLastUpdatedDate", query = "SELECT t FROM TimesheetDetail t WHERE t.lastUpdatedDate = :lastUpdatedDate"),
-        @NamedQuery(name = "TimesheetDetail.findById", query = "SELECT t FROM TimesheetDetail t WHERE t.id = :id")
+        @NamedQuery(name = "TimesheetDetail.findById", query = "SELECT t FROM TimesheetDetail t WHERE t.id = :id"),
+        @NamedQuery(name = "TimesheetDetail.findByTimesheetDate", query = "SELECT t FROM TimesheetDetail t WHERE t.timesheetDate = :timesheetDate"),
+        @NamedQuery(name = "TimesheetDetail.findByTimesheetUser", query = "SELECT t FROM TimesheetDetail t WHERE t.timesheetUser = :timesheetUser"),
+        @NamedQuery(name = "TimesheetDetail.findByTimesheetDetailDate", query = "SELECT t FROM TimesheetDetail t WHERE t.timesheetDetailDate = :timesheetDetailDate"),
+        @NamedQuery(name = "TimesheetDetail.findByVid", query = "SELECT t FROM TimesheetDetail t WHERE t.vid = :vid"),
+        @NamedQuery(name = "TimesheetDetail.findByEnabled", query = "SELECT t FROM TimesheetDetail t WHERE t.enabled = :enabled"),
+        @NamedQuery(name = "TimesheetDetail.findByDay", query = "SELECT t FROM TimesheetDetail t WHERE t.day = :day")
     })
 public class TimesheetDetail implements Serializable {
 
-    /**
-     * EmbeddedId primary key field
-     */
-    @EmbeddedId
-    protected TimesheetDetailPK timesheetDetailPK;
-
-    @Column(name = "regularHours", nullable = false)
-    private double regularHours;
+    @Column(name = "regularHours")
+    private Double regularHours;
 
     @Column(name = "overTimeHours")
     private Double overTimeHours;
@@ -72,12 +70,33 @@ public class TimesheetDetail implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date lastUpdatedDate;
 
-    @Column(name = "id")
+    @Id
+    @Column(name = "id", nullable = false)
     private Integer id;
 
-    @JoinColumn(name = "timesheetId", referencedColumnName = "id", insertable = false, updatable = false)
+    @Column(name = "timesheetDate", nullable = false)
+    @Temporal(TemporalType.DATE)
+    private Date timesheetDate;
+
+    @Column(name = "timesheetUser", nullable = false)
+    private String timesheetUser;
+
+    @Column(name = "timesheetDetailDate", nullable = false)
+    @Temporal(TemporalType.DATE)
+    private Date timesheetDetailDate;
+
+    @Column(name = "vid")
+    private Integer vid;
+
+    @Column(name = "enabled")
+    private Boolean enabled;
+
+    @Column(name = "day")
+    private String day;
+
+    @JoinColumn(name = "timesheetId", referencedColumnName = "id")
     @ManyToOne
-    private Timesheet timesheet;
+    private Timesheet timesheetId;
     
     /** Creates a new instance of TimesheetDetail */
     public TimesheetDetail() {
@@ -85,52 +104,31 @@ public class TimesheetDetail implements Serializable {
 
     /**
      * Creates a new instance of TimesheetDetail with the specified values.
-     * @param timesheetDetailPK the timesheetDetailPK of the TimesheetDetail
+     * @param id the id of the TimesheetDetail
      */
-    public TimesheetDetail(TimesheetDetailPK timesheetDetailPK) {
-        this.timesheetDetailPK = timesheetDetailPK;
+    public TimesheetDetail(Integer id) {
+        this.id = id;
     }
 
     /**
      * Creates a new instance of TimesheetDetail with the specified values.
-     * @param timesheetDetailPK the timesheetDetailPK of the TimesheetDetail
-     * @param regularHours the regularHours of the TimesheetDetail
+     * @param id the id of the TimesheetDetail
+     * @param timesheetDate the timesheetDate of the TimesheetDetail
+     * @param timesheetUser the timesheetUser of the TimesheetDetail
+     * @param timesheetDetailDate the timesheetDetailDate of the TimesheetDetail
      */
-    public TimesheetDetail(TimesheetDetailPK timesheetDetailPK, double regularHours) {
-        this.timesheetDetailPK = timesheetDetailPK;
-        this.regularHours = regularHours;
-    }
-
-    /**
-     * Creates a new instance of TimesheetDetailPK with the specified values.
-     * @param timesheetDate the timesheetDate of the TimesheetDetailPK
-     * @param timesheetId the timesheetId of the TimesheetDetailPK
-     */
-    public TimesheetDetail(Date timesheetDate, int timesheetId) {
-        this.timesheetDetailPK = new TimesheetDetailPK(timesheetDate, timesheetId);
-    }
-
-    /**
-     * Gets the timesheetDetailPK of this TimesheetDetail.
-     * @return the timesheetDetailPK
-     */
-    public TimesheetDetailPK getTimesheetDetailPK() {
-        return this.timesheetDetailPK;
-    }
-
-    /**
-     * Sets the timesheetDetailPK of this TimesheetDetail to the specified value.
-     * @param timesheetDetailPK the new timesheetDetailPK
-     */
-    public void setTimesheetDetailPK(TimesheetDetailPK timesheetDetailPK) {
-        this.timesheetDetailPK = timesheetDetailPK;
+    public TimesheetDetail(Integer id, Date timesheetDate, String timesheetUser, Date timesheetDetailDate) {
+        this.id = id;
+        this.timesheetDate = timesheetDate;
+        this.timesheetUser = timesheetUser;
+        this.timesheetDetailDate = timesheetDetailDate;
     }
 
     /**
      * Gets the regularHours of this TimesheetDetail.
      * @return the regularHours
      */
-    public double getRegularHours() {
+    public Double getRegularHours() {
         return this.regularHours;
     }
 
@@ -138,7 +136,7 @@ public class TimesheetDetail implements Serializable {
      * Sets the regularHours of this TimesheetDetail to the specified value.
      * @param regularHours the new regularHours
      */
-    public void setRegularHours(double regularHours) {
+    public void setRegularHours(Double regularHours) {
         this.regularHours = regularHours;
     }
 
@@ -255,19 +253,115 @@ public class TimesheetDetail implements Serializable {
     }
 
     /**
-     * Gets the timesheet of this TimesheetDetail.
-     * @return the timesheet
+     * Gets the timesheetDate of this TimesheetDetail.
+     * @return the timesheetDate
      */
-    public Timesheet getTimesheet() {
-        return this.timesheet;
+    public Date getTimesheetDate() {
+        return this.timesheetDate;
     }
 
     /**
-     * Sets the timesheet of this TimesheetDetail to the specified value.
-     * @param timesheet the new timesheet
+     * Sets the timesheetDate of this TimesheetDetail to the specified value.
+     * @param timesheetDate the new timesheetDate
      */
-    public void setTimesheet(Timesheet timesheet) {
-        this.timesheet = timesheet;
+    public void setTimesheetDate(Date timesheetDate) {
+        this.timesheetDate = timesheetDate;
+    }
+
+    /**
+     * Gets the timesheetUser of this TimesheetDetail.
+     * @return the timesheetUser
+     */
+    public String getTimesheetUser() {
+        return this.timesheetUser;
+    }
+
+    /**
+     * Sets the timesheetUser of this TimesheetDetail to the specified value.
+     * @param timesheetUser the new timesheetUser
+     */
+    public void setTimesheetUser(String timesheetUser) {
+        this.timesheetUser = timesheetUser;
+    }
+
+    /**
+     * Gets the timesheetDetailDate of this TimesheetDetail.
+     * @return the timesheetDetailDate
+     */
+    public Date getTimesheetDetailDate() {
+        return this.timesheetDetailDate;
+    }
+
+    /**
+     * Sets the timesheetDetailDate of this TimesheetDetail to the specified value.
+     * @param timesheetDetailDate the new timesheetDetailDate
+     */
+    public void setTimesheetDetailDate(Date timesheetDetailDate) {
+        this.timesheetDetailDate = timesheetDetailDate;
+    }
+
+    /**
+     * Gets the vid of this TimesheetDetail.
+     * @return the vid
+     */
+    public Integer getVid() {
+        return this.vid;
+    }
+
+    /**
+     * Sets the vid of this TimesheetDetail to the specified value.
+     * @param vid the new vid
+     */
+    public void setVid(Integer vid) {
+        this.vid = vid;
+    }
+
+    /**
+     * Gets the enabled of this TimesheetDetail.
+     * @return the enabled
+     */
+    public Boolean getEnabled() {
+        return this.enabled;
+    }
+
+    /**
+     * Sets the enabled of this TimesheetDetail to the specified value.
+     * @param enabled the new enabled
+     */
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    /**
+     * Gets the day of this TimesheetDetail.
+     * @return the day
+     */
+    public String getDay() {
+        return this.day;
+    }
+
+    /**
+     * Sets the day of this TimesheetDetail to the specified value.
+     * @param day the new day
+     */
+    public void setDay(String day) {
+        this.day = day;
+    }
+
+    /**
+     * Gets the timesheetId of this TimesheetDetail.
+     * @return the timesheetId
+     */
+    public Timesheet getTimesheetId() {
+        return this.timesheetId;
+    }
+
+    /**
+     * Sets the timesheetId of this TimesheetDetail to the specified value.
+     * @param timesheetId the new timesheetId
+     */
+    public void setTimesheetId(Timesheet timesheetId) {
+        this.timesheetId = timesheetId;
     }
 
     /**
@@ -278,7 +372,7 @@ public class TimesheetDetail implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (this.timesheetDetailPK != null ? this.timesheetDetailPK.hashCode() : 0);
+        hash += (this.id != null ? this.id.hashCode() : 0);
         return hash;
     }
 
@@ -297,7 +391,7 @@ public class TimesheetDetail implements Serializable {
             return false;
         }
         TimesheetDetail other = (TimesheetDetail)object;
-        if (this.timesheetDetailPK != other.timesheetDetailPK && (this.timesheetDetailPK == null || !this.timesheetDetailPK.equals(other.timesheetDetailPK))) return false;
+        if (this.id != other.id && (this.id == null || !this.id.equals(other.id))) return false;
         return true;
     }
 
@@ -308,7 +402,7 @@ public class TimesheetDetail implements Serializable {
      */
     @Override
     public String toString() {
-        return "com.abbt.timesheet.entities.TimesheetDetail[timesheetDetailPK=" + timesheetDetailPK + "]";
+        return "com.abbt.timesheet.entities.TimesheetDetail[id=" + id + "]";
     }
     
 }
