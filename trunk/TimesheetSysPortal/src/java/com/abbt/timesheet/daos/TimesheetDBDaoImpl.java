@@ -24,12 +24,13 @@ import javax.persistence.Query;
  *
  * @author shannan
  */
-public class TimesheetDBDaoImpl {
+public class TimesheetDBDaoImpl implements TimesheetDBDao {
     
-    private EntityManagerFactory emf = Persistence.createEntityManagerFactory("TimesheetSysPortalPU");    
+    
     
     /** Creates a new instance of TimesheetDBDaoImpl */
     public TimesheetDBDaoImpl() {
+         emf = Persistence.createEntityManagerFactory("TimesheetSysPortalPU");    
     }
     
     public void save(Object object) throws com.abbt.timesheet.exceptions.EntityExistsException, IllegalArgumentException {
@@ -173,5 +174,7 @@ public class TimesheetDBDaoImpl {
         return list;
     }
 
+    
+    private EntityManagerFactory emf;
 
 }

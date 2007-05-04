@@ -19,4 +19,22 @@
             <short-title>RecentTimesheets</short-title>
         </portlet-info>
  </portlet>
+
+ <portlet>
+        <description>TimesheetCreator</description>
+        <portlet-name>TimesheetCreator</portlet-name>
+        <display-name>TimesheetCreator</display-name>
+        <portlet-class>com.abbt.timesheet.portlets.TimesheetCreator</portlet-class>
+        <expiration-cache>0</expiration-cache>
+        <supports>
+            <mime-type>text/html</mime-type>          
+            <portlet-mode>VIEW</portlet-mode>
+            <portlet-mode>EDIT</portlet-mode>
+            <portlet-mode>HELP</portlet-mode>
+        </supports>
+        <portlet-info>
+            <title>TimesheetCreator</title>
+            <short-title>TimesheetCreator</short-title>
+        </portlet-info>
+ </portlet>
 </portlet-app>

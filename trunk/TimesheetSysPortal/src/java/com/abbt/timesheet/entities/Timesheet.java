@@ -1,7 +1,7 @@
 /*
  * Timesheet.java
  *
- * Created on April 29, 2007, 9:38 PM
+ * Created on May 2, 2007, 7:09 PM
  *
  * To change this template, choose Tools | Template Manager
  * and open the template in the editor.
@@ -12,7 +12,6 @@ package com.abbt.timesheet.entities;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -68,7 +67,7 @@ public class Timesheet implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date lastUpdatedDate;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "timesheet")
+    @OneToMany(mappedBy = "timesheetId")
     private Collection<TimesheetDetail> timesheetDetailCollection;
 
     @JoinColumn(name = "userEmail", referencedColumnName = "email")
