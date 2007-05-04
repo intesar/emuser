@@ -5,12 +5,12 @@
                 
     <bean id="TimesheetDBDao" class="com.abbt.timesheet.daos.TimesheetDBDaoImpl"/>
   
-    <!--
-    <bean id="IAccountService" class="com.abbt.crm.base.services.impl.AccountServiceImpl" >
-        <property name="dao">
-            <ref bean="IGenericDAO"></ref>
+    
+    <bean id="TimesheetService" class="com.abbt.timesheet.services.TimesheetServiceImpl" >
+        <property name="timesheetDBDao">
+            <ref bean="TimesheetDBDao"></ref>
         </property>
     </bean>              
-    -->
+    
     
 </beans>                
