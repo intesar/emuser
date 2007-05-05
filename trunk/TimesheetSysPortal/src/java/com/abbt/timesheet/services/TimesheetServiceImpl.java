@@ -15,7 +15,8 @@ import com.abbt.timesheet.entities.TimesheetDetail;
 import com.abbt.timesheet.entities.TimesheetStatus;
 import com.abbt.timesheet.entities.User;
 import com.abbt.timesheet.exceptions.EntityExistsException;
-import com.abbt.timesheet.services.util.DateUtil;
+import com.abbt.timesheet.util.DateUtil;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
