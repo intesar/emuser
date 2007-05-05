@@ -29,16 +29,17 @@ public class TimesheetCreator extends GenericPortlet {
         String loggedUser = request.getRemoteUser();
         // Add your date format here.
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
-        
+        System.out.println( " Logged User " + loggedUser );
+        System.out.println( " Start Date :" + startDate );
         try {
             
             Date utilDate = new Date( sdf.parse(startDate).getTime() );
             DateValidator.validate( utilDate );
-            
+            System.out.println( " validated :" + startDate );
             // get service and save timesheet object
             TimesheetService timesheetService = (TimesheetService) ServiceFactory.getService("TimesheetService");            
             timesheetService.createTimesheetAndTimesheetDetails(loggedUser, utilDate, clientCompany);
-            
+            System.out.println( " Saved Successfully :" + startDate );
             response.setRenderParameter("success", " Save Successful");
             
         } catch (ParseException ex) {            
