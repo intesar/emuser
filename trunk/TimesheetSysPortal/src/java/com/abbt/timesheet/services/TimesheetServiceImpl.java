@@ -15,6 +15,7 @@ import com.abbt.timesheet.entities.TimesheetDetail;
 import com.abbt.timesheet.entities.TimesheetStatus;
 import com.abbt.timesheet.entities.User;
 import com.abbt.timesheet.exceptions.EntityExistsException;
+import com.abbt.timesheet.services.util.DateUtil;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -76,15 +77,17 @@ public class TimesheetServiceImpl implements TimesheetService {
             TimesheetDetail timesheetDetail = new TimesheetDetail();
             timesheetDetail.setComments("");
             timesheetDetail.setCreatedBy(loggedUser);
-            timesheetDetail.setCreatedDate(todaysDate);
-            timesheetDetail.setDay("");
+            timesheetDetail.setCreatedDate(todaysDate);            
             timesheetDetail.setEnabled(true);
             timesheetDetail.setLastUpdatedBy(loggedUser);
             timesheetDetail.setLastUpdatedDate(todaysDate);
             calendarStartDate.add(Calendar.DAY_OF_MONTH, 1);
             java.sql.Date dt = new java.sql.Date(calendarStartDate.getTimeInMillis());
             timesheetDetail.setTimesheetDetailDate(dt);
-            timesheetDetail.setDay(calendarStartDate.get(Calendar.DAY_OF_WEEK)+"");
+            // finding day
+            if ( calendarStartDate.get(Calendar.DAY_OF_WEEK) == Calendar.MONDAY )
+            // finds day then finds String representation of day and assignes it     
+            timesheetDetail.setDay(DateUtil.getDay(calendarStartDate.get(Calendar.DAY_OF_WEEK)));
             if ( calendarStartDate.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY ||
                 calendarStartDate.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY ) {
                 timesheetDetail.setRegularHours(0.0);
@@ -137,6 +140,8 @@ public class TimesheetServiceImpl implements TimesheetService {
     public void setTimesheetDBDao(TimesheetDBDao timesheetDBDao) {
         this.timesheetDBDao = timesheetDBDao;
     }
+    
+   
     
     private TimesheetDBDao timesheetDBDao;
     
