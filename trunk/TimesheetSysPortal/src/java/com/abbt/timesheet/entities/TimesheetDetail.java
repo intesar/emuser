@@ -43,7 +43,8 @@ import javax.persistence.TemporalType;
         @NamedQuery(name = "TimesheetDetail.findByTimesheetDetailDate", query = "SELECT t FROM TimesheetDetail t WHERE t.timesheetDetailDate = :timesheetDetailDate"),
         @NamedQuery(name = "TimesheetDetail.findByVid", query = "SELECT t FROM TimesheetDetail t WHERE t.vid = :vid"),
         @NamedQuery(name = "TimesheetDetail.findByEnabled", query = "SELECT t FROM TimesheetDetail t WHERE t.enabled = :enabled"),
-        @NamedQuery(name = "TimesheetDetail.findByDay", query = "SELECT t FROM TimesheetDetail t WHERE t.day = :day")
+        @NamedQuery(name = "TimesheetDetail.findByDay", query = "SELECT t FROM TimesheetDetail t WHERE t.day = :day"),
+        @NamedQuery(name = "TimesheetDetail.findByUserAndStartDate", query = "SELECT t FROM TimesheetDetail t WHERE t.timesheetUser = ?1 AND t.timesheetDate = ?2")
     })
 public class TimesheetDetail implements Serializable {
 
