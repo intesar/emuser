@@ -113,7 +113,7 @@ public class TimesheetDBDaoImpl implements TimesheetDBDao {
             em = emf.createEntityManager();
             Query q = em.createNamedQuery(namedQuery);
             for ( int i = 0; i < obj.length; i++) {
-                q.setParameter(i, obj[i]);
+                q.setParameter( ( i + 1 ), obj[i]);
             }
             resultObj = q.getSingleResult();
         } catch(Exception e) {
@@ -131,7 +131,7 @@ public class TimesheetDBDaoImpl implements TimesheetDBDao {
             em = emf.createEntityManager();
             Query q = em.createNamedQuery(namedQuery);
             for ( int i = 0; i < obj.length; i++) {
-                q.setParameter(i, obj[i]);
+                q.setParameter( (i + 1), obj[i]);
             }
             list = q.getResultList();
         } catch(Exception e) {
