@@ -19,12 +19,30 @@
 </span>
 
 <form method="post" action="<portlet:actionURL></portlet:actionURL>" >
-    <b> Start Date </b>
-    <input type="text" name="startDate" value="MM/dd/yyyy" />
-    <br>
-    <b> Company </b>
-    <input type="text" name="clientCompany" value="" />
-    <br>
-    <input class="portlet-form-button" type="reset" name="Refresh"> </input>   
-    <input class="portlet-form-button" type="submit" value="Create"> </input>   
+      <table width="90%" align="center" >
+        <%-- Table Headings --%>           
+        <tr >
+            <td>
+                <b> Start Date </b>
+            </td>
+            <td>
+                <input type="text" name="startDate" value="MM/dd/yyyy" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <b> Company </b>
+            </td>
+            <td>
+                <input type="text" name="clientCompany" value="" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input class="portlet-form-button" type="reset" name="Refresh"> </input>   
+            </td>
+            <td>
+                <input class="portlet-form-button" type="submit" value="Create"> </input>   
+            </td>
+        </tr>
 </form>
