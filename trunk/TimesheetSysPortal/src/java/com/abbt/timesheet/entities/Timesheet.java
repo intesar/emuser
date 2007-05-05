@@ -12,6 +12,7 @@ package com.abbt.timesheet.entities;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -67,7 +68,7 @@ public class Timesheet implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date lastUpdatedDate;
 
-    @OneToMany(mappedBy = "timesheetId")
+    @OneToMany(cascade=CascadeType.PERSIST, mappedBy = "timesheetId")
     private Collection<TimesheetDetail> timesheetDetailCollection;
 
     @JoinColumn(name = "userEmail", referencedColumnName = "email")
