@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -117,6 +118,11 @@ public class TimesheetServiceImpl implements TimesheetService {
         }
     }
     
+    public List<Timesheet> findRecentTimesheets(String loggedUser) {
+        List<Timesheet> list = this.getTimesheetDBDao().findResultListByNamedQuery("Timesheet.findByUserEmail", loggedUser);
+        return list;
+    }
+    
     public TimesheetDBDao getTimesheetDBDao() {
         return timesheetDBDao;
     }
@@ -132,15 +138,18 @@ public class TimesheetServiceImpl implements TimesheetService {
         Date startDate = new Date();
         String company = "UROOJ";
         TimesheetService instance = (TimesheetService) ServiceFactory.getService("TimesheetService");
-        try {
-            
-            instance.createTimesheetAndTimesheetDetails(loggedUser, startDate, company);
-        } catch (EntityExistsException ex) {
-            ex.printStackTrace();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        
+//        try {
+            List list = instance.findRecentTimesheets("liferay.com.1");
+            System.out.println ( " List : " + list );
+            //instance.createTimesheetAndTimesheetDetails(loggedUser, startDate, company);
+//        } catch (EntityExistsException ex) {
+//            ex.printStackTrace();
+//        } catch (Exception ex) {
+//            ex.printStackTrace();
+//        }
+//        
     }
+
+    
     
 }

@@ -12,6 +12,7 @@ package com.abbt.timesheet.services;
 import com.abbt.timesheet.entities.Timesheet;
 import com.abbt.timesheet.exceptions.EntityExistsException;
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -22,5 +23,7 @@ public interface TimesheetService {
     void save(Timesheet timesheet) throws EntityExistsException;
     
     void createTimesheetAndTimesheetDetails( String loggedUser, Date startDate, String company ) throws EntityExistsException, Exception;
+    
+    List<Timesheet> findRecentTimesheets ( String loggedUser );
     
 }
