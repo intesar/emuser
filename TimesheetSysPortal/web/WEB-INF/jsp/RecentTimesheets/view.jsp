@@ -37,7 +37,7 @@
         <%-- 
             displays timesheets
         --%>
-        <c:set var="timesheetDateVar" value="${list.timesheetDate}"/>
+        <c:set var="timesheetDateVar" value="${list.timesheetDateString}"/>
         
         
         
@@ -55,7 +55,7 @@
             </td>
             <td>
                 <a href="<%= actionURL %>" 
-                    onmouseover="return overlib('<c:out value="${list.status.statusKey.assignedBy}" />, <c:out value="${list.status.statusKey.comments}" /> ');" 
+                    onmouseover="return overlib('<c:out value="${list.status.assignedBy}" />, <c:out value="${list.status.comments}" /> ');" 
                     onmouseout="return nd();">
                     <c:out value="${list.status.statusKey}" />
                 </a>
@@ -73,7 +73,7 @@
     
 </c:if>
 
-<c:if test="${not empty recentTimesheets}" >
+<c:if test="${empty recentTimesheets}" >
     <span style="color:red">
         No Timesheets Created
     </span>
