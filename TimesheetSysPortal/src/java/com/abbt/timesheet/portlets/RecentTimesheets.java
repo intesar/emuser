@@ -1,18 +1,17 @@
 package com.abbt.timesheet.portlets;
+import com.abbt.timesheet.entities.Timesheet;
+import com.abbt.timesheet.services.ServiceFactory;
+import com.abbt.timesheet.services.TimesheetService;
 import javax.portlet.GenericPortlet;
-import javax.portlet.ActionRequest;
 import javax.portlet.PortletConfig;
 import javax.portlet.PortletRequestDispatcher;
 import javax.portlet.RenderRequest;
-import javax.portlet.ActionResponse;
 import javax.portlet.RenderResponse;
 import javax.portlet.PortletException;
-import javax.portlet.PortletURL;
-import javax.portlet.PortletMode;
-import javax.portlet.PortletPreferences;
-import javax.portlet.WindowState;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
 * This is a RecentTimesheets
 */
@@ -23,9 +22,20 @@ public class RecentTimesheets extends GenericPortlet {
     }
 
     public void doView(RenderRequest request,RenderResponse response) throws PortletException,IOException {
-        response.setContentType("text/html");        
+        response.setContentType("text/html");      
+        // get service and save timesheet object
+        TimesheetService timesheetService = (TimesheetService) ServiceFactory.getService("TimesheetService");            
+        List<Timesheet> list = new ArrayList<Timesheet>();
+        try {
+            list = timesheetService.findRecentTimesheets(request.getRemoteUser());
+        } catch ( Exception e) {
+            e.printStackTrace();
+        }
+        
+        System.out.println ( " List : " + list );
+        request.setAttribute("recentTimesheets", list);
         PortletRequestDispatcher dispatcher =
-                getPortletContext().getRequestDispatcher("/WEB-INF/jsp/view.jsp");
+                getPortletContext().getRequestDispatcher("/WEB-INF/jsp/RecentTimesheets/view.jsp");
         dispatcher.include(request, response);
 
     }
@@ -33,7 +43,7 @@ public class RecentTimesheets extends GenericPortlet {
     public void doEdit(RenderRequest request,RenderResponse response) throws PortletException,IOException {
         response.setContentType("text/html");        
         PortletRequestDispatcher dispatcher =
-                getPortletContext().getRequestDispatcher("/WEB-INF/jsp/edit.jsp");
+                getPortletContext().getRequestDispatcher("/WEB-INF/jsp/RecentTimesheets/edit.jsp");
         dispatcher.include(request, response);
 
     }
@@ -41,7 +51,7 @@ public class RecentTimesheets extends GenericPortlet {
     public void doHelp(RenderRequest request, RenderResponse response) throws PortletException, IOException {
         response.setContentType("text/html");        
         PortletRequestDispatcher dispatcher =
-                getPortletContext().getRequestDispatcher("/WEB-INF/jsp/help.jsp");
+                getPortletContext().getRequestDispatcher("/WEB-INF/jsp/RecentTimesheets/help.jsp");
         dispatcher.include(request, response);
     }
 
