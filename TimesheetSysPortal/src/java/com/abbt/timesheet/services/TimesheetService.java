@@ -11,12 +11,16 @@ package com.abbt.timesheet.services;
 
 import com.abbt.timesheet.entities.Timesheet;
 import com.abbt.timesheet.exceptions.EntityExistsException;
+import java.util.Date;
 
 /**
  *
  * @author shannan
  */
 public interface TimesheetService {
+    
     void save(Timesheet timesheet) throws EntityExistsException;
+    
+    void createTimesheetAndTimesheetDetails( String loggedUser, Date startDate, String company ) throws EntityExistsException, Exception;
     
 }

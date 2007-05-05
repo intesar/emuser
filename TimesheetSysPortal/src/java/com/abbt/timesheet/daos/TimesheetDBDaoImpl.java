@@ -30,12 +30,14 @@ public class TimesheetDBDaoImpl implements TimesheetDBDao {
     
     /** Creates a new instance of TimesheetDBDaoImpl */
     public TimesheetDBDaoImpl() {
-         emf = Persistence.createEntityManagerFactory("TimesheetSysPortalPU");    
+        emf = Persistence.createEntityManagerFactory("TimesheetSysPortalPU");
     }
     
     public void save(Object object) throws com.abbt.timesheet.exceptions.EntityExistsException, IllegalArgumentException {
         EntityManager em = null;
         try {
+            System.out.println( " emf ");
+            System.out.println( emf );
             em = emf.createEntityManager();
             em.getTransaction().begin();
             em.persist(object);
@@ -43,13 +45,17 @@ public class TimesheetDBDaoImpl implements TimesheetDBDao {
         } catch (EntityExistsException eee ) {
             em.getTransaction().rollback();
             // use log4j to print
+            eee.printStackTrace();
             throw new com.abbt.timesheet.exceptions.EntityExistsException(eee.getMessage());
         } catch (IllegalArgumentException iae ) {
             em.getTransaction().rollback();
             // use log4j to print
+            iae.printStackTrace();
             throw iae;
         } finally {
-            em.close();
+            if ( em != null && em.isOpen() ) {
+                em.close();
+            }
         }
         
     }
@@ -69,7 +75,7 @@ public class TimesheetDBDaoImpl implements TimesheetDBDao {
         }
         return object;
     }
-  
+    
     public void delete(Object object) {
         EntityManager em = null;
         try {
@@ -173,8 +179,8 @@ public class TimesheetDBDaoImpl implements TimesheetDBDao {
         }
         return list;
     }
-
+    
     
     private EntityManagerFactory emf;
-
+    
 }
