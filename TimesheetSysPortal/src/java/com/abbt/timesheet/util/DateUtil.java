@@ -7,9 +7,10 @@
  * and open the template in the editor.
  */
 
-package com.abbt.timesheet.services.util;
+package com.abbt.timesheet.util;
 
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  *
@@ -39,6 +40,18 @@ public class DateUtil {
             return "FRI";
         } else  {
             return "SAT";
+        }
+        
+    }
+    
+    public static void isDateStartsWith1or16 (Date date ) throws IllegalArgumentException {
+        
+        Calendar c = Calendar.getInstance();
+        c.setTime(date);
+        int day =  c.get(Calendar.DAY_OF_MONTH);
+        
+        if  ( ! (day == 1 || day == 16) ) {           
+            throw new IllegalArgumentException();
         }
         
     }

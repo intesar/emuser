@@ -1,12 +1,11 @@
-package com.abbt.timesheet.portlets.timesheetCreator;
-import com.abbt.timesheet.entities.Timesheet;
-import com.abbt.timesheet.entities.TimesheetDetail;
-import com.abbt.timesheet.entities.User;
+package com.abbt.timesheet.portlets;
 import com.abbt.timesheet.exceptions.EntityExistsException;
 import com.abbt.timesheet.services.ServiceFactory;
 import com.abbt.timesheet.services.TimesheetService;
+import com.abbt.timesheet.util.DateUtil;
+
+
 import java.text.ParseException;
-import java.util.Collection;
 import java.util.Date;
 import javax.portlet.GenericPortlet;
 import javax.portlet.ActionRequest;
@@ -16,8 +15,6 @@ import javax.portlet.RenderResponse;
 import javax.portlet.PortletException;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
 import javax.portlet.PortletRequestDispatcher;
 
 public class TimesheetCreator extends GenericPortlet {
@@ -34,7 +31,7 @@ public class TimesheetCreator extends GenericPortlet {
         try {
             
             Date utilDate = new Date( sdf.parse(startDate).getTime() );
-            DateValidator.validate( utilDate );
+            DateUtil.isDateStartsWith1or16( utilDate );
             System.out.println( " validated :" + startDate );
             // get service and save timesheet object
             TimesheetService timesheetService = (TimesheetService) ServiceFactory.getService("TimesheetService");            
