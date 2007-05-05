@@ -37,4 +37,22 @@
             <short-title>TimesheetCreator</short-title>
         </portlet-info>
  </portlet>
+
+ <portlet>
+        <description>TimeSheetDetail</description>
+        <portlet-name>TimeSheetDetail</portlet-name>
+        <display-name>TimeSheetDetail</display-name>
+        <portlet-class>com.abbt.timesheet.portlets.TimeSheetDetail</portlet-class>
+        <expiration-cache>0</expiration-cache>
+        <supports>
+            <mime-type>text/html</mime-type>          
+            <portlet-mode>VIEW</portlet-mode>
+            <portlet-mode>EDIT</portlet-mode>
+            <portlet-mode>HELP</portlet-mode>
+        </supports>
+        <portlet-info>
+            <title>TimeSheetDetail</title>
+            <short-title>TimeSheetDetail</short-title>
+        </portlet-info>
+ </portlet>
 </portlet-app>
