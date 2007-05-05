@@ -24,7 +24,7 @@
         <description>TimesheetCreator</description>
         <portlet-name>TimesheetCreator</portlet-name>
         <display-name>TimesheetCreator</display-name>
-        <portlet-class>com.abbt.timesheet.portlets.timesheetCreator.TimesheetCreator</portlet-class>
+        <portlet-class>com.abbt.timesheet.portlets.TimesheetCreator</portlet-class>
         <expiration-cache>0</expiration-cache>
         <supports>
             <mime-type>text/html</mime-type>          
