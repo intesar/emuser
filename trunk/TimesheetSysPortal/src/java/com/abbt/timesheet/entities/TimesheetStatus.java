@@ -39,7 +39,8 @@ import javax.persistence.TemporalType;
         @NamedQuery(name = "TimesheetStatus.findByCreatedBy", query = "SELECT t FROM TimesheetStatus t WHERE t.createdBy = :createdBy"),
         @NamedQuery(name = "TimesheetStatus.findByCreatedDate", query = "SELECT t FROM TimesheetStatus t WHERE t.createdDate = :createdDate"),
         @NamedQuery(name = "TimesheetStatus.findByLastUpdatedBy", query = "SELECT t FROM TimesheetStatus t WHERE t.lastUpdatedBy = :lastUpdatedBy"),
-        @NamedQuery(name = "TimesheetStatus.findByLastUpdatedDate", query = "SELECT t FROM TimesheetStatus t WHERE t.lastUpdatedDate = :lastUpdatedDate")
+        @NamedQuery(name = "TimesheetStatus.findByLastUpdatedDate", query = "SELECT t FROM TimesheetStatus t WHERE t.lastUpdatedDate = :lastUpdatedDate"),
+        @NamedQuery(name = "TimesheetStatus.findAllStatuses", query = "SELECT t FROM TimesheetStatus t order by t.statusKey asc")
     })
 public class TimesheetStatus implements Serializable {
 
