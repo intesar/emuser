@@ -22,26 +22,48 @@
 <form method="post" action="<portlet:actionURL></portlet:actionURL>" >
     
     <input type="hidden" name="advanceSearch" value="true" />
+    <table border="0">
+        
+        <tr>
+            <td> 
+                <select name="user" >
+                    <c:forEach items="${userList}" var="user">
+                        <option><c:out value="${user['email']}" /></option>
+                    </c:forEach>        
+                </select>
+            </td>
+        </tr>
+        
+        
+        <tr>
+            <td>
+                <select name="status" >
+                    <c:forEach items="${statusList}" var="status">
+                        <option><c:out value="${status['statusKey']}" /></option>
+                    </c:forEach>     
+                </select>
+            </td>
+        </tr>
+        
+        <tr>
+            <td> 
+                <select name="month" >
+                    <c:forEach items="${monthList}" var="month">
+                        <option><c:out value="${month['name']}" /></option>
+                    </c:forEach>     
+                </select>
+            </td>
+        </tr>
+        
+        <tr>
+            <td>
+                <input class="portlet-form-button" type="reset" name="Refresh"> </input>   
+                <input class="portlet-form-button" type="submit" value="Search"> </input>
+            </td>
+        </tr>
+        
+        
+    </table>  
     
-    <select name="user" >
-        <c:forEach items="${userList}" var="user">
-            <option><c:out value="${user['email']}" /></option>
-        </c:forEach>        
-    </select>
-    
-    <select name="status" >
-        <c:forEach items="${statusList}" var="status">
-            <option><c:out value="${status['statusKey']}" /></option>
-        </c:forEach>     
-    </select>
-    
-    <select name="month" >
-        <c:forEach items="${monthList}" var="month">
-            <option><c:out value="${month['name']}" /></option>
-        </c:forEach>     
-    </select>
-    
-    <input class="portlet-form-button" type="reset" name="Refresh"> </input>   
-    <input class="portlet-form-button" type="submit" value="Search"> </input>   
     
 </form>
