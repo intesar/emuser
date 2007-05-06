@@ -12,5 +12,10 @@
         </property>
     </bean>              
     
+    <bean id="UserService" class="com.abbt.timesheet.services.UserServiceImpl" >
+        <property name="timesheetDBDao">
+            <ref bean="TimesheetDBDao"></ref>
+        </property>
+    </bean>       
     
 </beans>                
