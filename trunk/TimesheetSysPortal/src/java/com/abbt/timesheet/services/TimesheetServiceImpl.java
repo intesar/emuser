@@ -9,7 +9,9 @@
 
 package com.abbt.timesheet.services;
 
+import abbt.com.paginationframework.PageHandler;
 import abbt.com.paginationframework.PageHandlerDao;
+import abbt.com.paginationframework.PageHandlerFactory;
 import com.abbt.timesheet.daos.TimesheetDBDao;
 import com.abbt.timesheet.entities.Timesheet;
 import com.abbt.timesheet.entities.TimesheetDetail;
@@ -122,9 +124,10 @@ public class TimesheetServiceImpl implements TimesheetService {
         }
     }
     
-    public List<Timesheet> findRecentTimesheets(String loggedUser) {
-        List<Timesheet> list = this.getTimesheetDBDao().findResultListByNamedQuery("Timesheet.findByUserEmail", loggedUser);
-        return list;
+    public PageHandler findRecentTimesheets(String loggedUser) {
+        
+        return PageHandlerFactory.getInstance(this.getPageHandlerDao(), "Timesheet.findCountByUserEmail", "Timesheet.findByUserEmail", loggedUser);
+        
     }
     
     public List<TimesheetDetail> findTimesheetDetailsByStartDate(String loggedUser, Date sDate) {
@@ -207,7 +210,18 @@ public class TimesheetServiceImpl implements TimesheetService {
 //    }
 //
 
-   
+   public static void main(String []args) {
+       TimesheetService instance = (TimesheetService) ServiceFactory.getService("TimesheetService");
+       PageHandler p = instance.findRecentTimesheets("liferay.com.1");
+       System.out.println ( " P : " + p );
+       p.createList(1);
+       List<Timesheet> list = p.getCurrentResultList();
+       for ( Timesheet t : list ) {
+           System.out.println ( t.getUserEmail() );
+           System.out.println ( t.getTimesheetDate() );
+       }
+       
+   }
     
     
 }

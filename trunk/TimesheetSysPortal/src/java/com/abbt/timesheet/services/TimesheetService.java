@@ -9,6 +9,7 @@
 
 package com.abbt.timesheet.services;
 
+import abbt.com.paginationframework.PageHandler;
 import com.abbt.timesheet.entities.Timesheet;
 import com.abbt.timesheet.entities.TimesheetDetail;
 import com.abbt.timesheet.entities.TimesheetStatus;
@@ -26,7 +27,7 @@ public interface TimesheetService {
     
     void createTimesheetAndTimesheetDetails( String loggedUser, Date startDate, String company ) throws EntityExistsException, Exception;
     
-    List<Timesheet> findRecentTimesheets ( String loggedUser );
+    PageHandler findRecentTimesheets ( String loggedUser );
     
     List<TimesheetDetail> findTimesheetDetailsByStartDate ( String loggedUser, Date sDate);
     
