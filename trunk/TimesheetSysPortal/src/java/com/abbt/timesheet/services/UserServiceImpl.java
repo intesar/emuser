@@ -9,6 +9,7 @@
 
 package com.abbt.timesheet.services;
 
+import abbt.com.paginationframework.PageHandlerDao;
 import com.abbt.timesheet.daos.TimesheetDBDao;
 import com.abbt.timesheet.entities.User;
 import java.util.ArrayList;
@@ -44,12 +45,20 @@ public class UserServiceImpl implements UserService {
     public void setTimesheetDBDao(TimesheetDBDao timesheetDBDao) {
         this.timesheetDBDao = timesheetDBDao;
     }
-     
     
+    public PageHandlerDao getPageHandlerDao() {
+        return pageHandlerDao;
+    }
+    
+    public void setPageHandlerDao(PageHandlerDao pageHandlerDao) {
+        this.pageHandlerDao = pageHandlerDao;
+    }
+    
+    private PageHandlerDao pageHandlerDao;
     private TimesheetDBDao timesheetDBDao;
     
 //    public static void main ( String [] args) {
-//        
+//
 //        UserService us = (UserService) ServiceFactory.getService("UserService");
 //        List<User> list = us.findAllUserEmails();
 //        System.out.println ( " list size " + list.get(0) );
