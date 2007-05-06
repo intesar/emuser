@@ -4,6 +4,7 @@ import java.util.Date;
 import javax.portlet.GenericPortlet;
 import javax.portlet.ActionRequest;
 import javax.portlet.PortletRequestDispatcher;
+import javax.portlet.PortletSession;
 import javax.portlet.RenderRequest;
 import javax.portlet.ActionResponse;
 import javax.portlet.RenderResponse;
@@ -22,11 +23,32 @@ public class TimeSheetDetail extends GenericPortlet {
  
     public static  String formSubmit ="SUBMIT";
     public void processAction(ActionRequest request, ActionResponse response) throws PortletException,IOException {
+        String str="";
+        Double regHours,overTime;
         
         if(request.getParameter(formSubmit)!=null)
             
-        {
-            request.getParameter("");
+        {   
+            
+            TimesheetDetail detail;
+            ArrayList list = (ArrayList) request.getPortletSession().getAttribute("detailList");
+            for(int i =0;i <list.size();i++)
+            {
+                detail = (TimesheetDetail) list.get(i);
+                str = detail.getId().toString();
+                       
+               regHours = new Double(request.getParameter("regHours_"+str));
+               detail.setRegularHours(regHours);
+               overTime = new Double(request.getParameter("overTime_"+str));
+               detail.setOverTimeHours(overTime);
+               request.getParameter("overTime_"+str);
+               detail.setComments(request.getParameter("comment_"+str));
+               System.out.println(detail.getRegularHours());
+            }
+          
+         
+            
+     
         }
 
     }
@@ -45,11 +67,14 @@ public class TimeSheetDetail extends GenericPortlet {
           detail1.setTimesheetDate(new Date());
           detail1.setOverTimeHours(10.0);
           detail1.setComments("Hello");
-          detail2.setRegularHours(10.11);
+          detail1.setRegularHours(10.11);
+          detail1.setId(new Integer(1));
           detail2.setTimesheetDate(new Date());
           detail2.setOverTimeHours(10.0);
           detail2.setComments("Hello");
-          detail3.setRegularHours(10.11);
+          detail2.setRegularHours(10.11);
+           detail2.setId(new Integer(2));
+            detail3.setId(new Integer(3));
           detail3.setTimesheetDate(new Date());
           detail3.setOverTimeHours(10.0);
           detail3.setComments("Hello");
@@ -59,7 +84,7 @@ public class TimeSheetDetail extends GenericPortlet {
           list.add(detail2);
           list.add(detail3);
            System.out.println("Reaching here");
-          request.setAttribute("detailList",list);
+          request.getPortletSession().setAttribute("detailList",list,PortletSession.PORTLET_SCOPE);
           
              System.out.println("Reaching here2");
             //Uncomment below lines to see the output
