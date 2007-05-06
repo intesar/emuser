@@ -29,15 +29,23 @@ public class Search extends GenericPortlet {
         // find all users
         UserService userService = (UserService) ServiceFactory.getService("UserService");
         List<User> userList = userService.findAllUserEmails();
+        User u = new User("All");
+        userList.add(0, u);
         request.setAttribute("userList", userList);
         
         // find all Statuses
         TimesheetService timesheetService = (TimesheetService) ServiceFactory.getService("TimesheetService");
         List<TimesheetStatus> statusList = timesheetService.findAllStatuses();
+        TimesheetStatus ts = new TimesheetStatus();
+        ts.setStatusKey("All");
+        statusList.add(0, ts);
         request.setAttribute("statusList", statusList);
         
         // find all Months
         List<Month> monthList = DateUtil.findAllMonths();
+        Month m = new Month();
+        m.setName("All");
+        monthList.add(0, m);
         request.setAttribute("monthList", monthList);
         
         PortletRequestDispatcher dispatcher =
