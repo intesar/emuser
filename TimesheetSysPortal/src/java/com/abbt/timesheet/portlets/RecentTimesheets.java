@@ -36,7 +36,7 @@ public class RecentTimesheets extends GenericPortlet {
             try {
                 pageNo = Integer.parseInt(page);
             } catch ( Exception e) {
-                e.printStackTrace();;
+                //e.printStackTrace();;
             }
             if ( pageHandler instanceof PageHandler ) {
                 pageHandler.createList(pageNo);
