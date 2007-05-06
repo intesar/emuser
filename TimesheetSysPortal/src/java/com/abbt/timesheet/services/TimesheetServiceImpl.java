@@ -9,6 +9,7 @@
 
 package com.abbt.timesheet.services;
 
+import abbt.com.paginationframework.PageHandlerDao;
 import com.abbt.timesheet.daos.TimesheetDBDao;
 import com.abbt.timesheet.entities.Timesheet;
 import com.abbt.timesheet.entities.TimesheetDetail;
@@ -16,9 +17,6 @@ import com.abbt.timesheet.entities.TimesheetStatus;
 import com.abbt.timesheet.entities.User;
 import com.abbt.timesheet.exceptions.EntityExistsException;
 import com.abbt.timesheet.util.DateUtil;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
@@ -78,7 +76,7 @@ public class TimesheetServiceImpl implements TimesheetService {
             TimesheetDetail timesheetDetail = new TimesheetDetail();
             timesheetDetail.setComments("");
             timesheetDetail.setCreatedBy(loggedUser);
-            timesheetDetail.setCreatedDate(todaysDate);            
+            timesheetDetail.setCreatedDate(todaysDate);
             timesheetDetail.setEnabled(true);
             timesheetDetail.setLastUpdatedBy(loggedUser);
             timesheetDetail.setLastUpdatedDate(todaysDate);
@@ -87,10 +85,10 @@ public class TimesheetServiceImpl implements TimesheetService {
             timesheetDetail.setTimesheetDetailDate(dt);
             // finding day
             if ( calendarStartDate.get(Calendar.DAY_OF_WEEK) == Calendar.MONDAY )
-            // finds day then finds String representation of day and assignes it     
-            timesheetDetail.setDay(DateUtil.getDay(calendarStartDate.get(Calendar.DAY_OF_WEEK)));
+                // finds day then finds String representation of day and assignes it
+                timesheetDetail.setDay(DateUtil.getDay(calendarStartDate.get(Calendar.DAY_OF_WEEK)));
             if ( calendarStartDate.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY ||
-                calendarStartDate.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY ) {
+                    calendarStartDate.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY ) {
                 timesheetDetail.setRegularHours(0.0);
             } else {
                 timesheetDetail.setRegularHours(8.0);
@@ -152,9 +150,19 @@ public class TimesheetServiceImpl implements TimesheetService {
         this.timesheetDBDao = timesheetDBDao;
     }
     
-   
+    
+    public PageHandlerDao getPageHandlerDao() {
+        return pageHandlerDao;
+    }
+
+    public void setPageHandlerDao(PageHandlerDao pageHandlerDao) {
+        this.pageHandlerDao = pageHandlerDao;
+    }
     
     private TimesheetDBDao timesheetDBDao;
+    
+    private PageHandlerDao pageHandlerDao;
+    
     
 //    public static void main(String []args) {
 //        String loggedUser = "mohdshannan@yahoo.com";
@@ -182,7 +190,7 @@ public class TimesheetServiceImpl implements TimesheetService {
 ////        c.setTime(new Date());
 ////        String dtStr = "";
 ////        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
-////        
+////
 ////        dtStr += c.get(Calendar.MONTH) + "/";
 ////        dtStr += c.get(Calendar.DAY_OF_MONTH) + "/";
 ////        dtStr += c.get(Calendar.YEAR);
@@ -197,8 +205,9 @@ public class TimesheetServiceImpl implements TimesheetService {
 ////            ex.printStackTrace();
 ////        }
 //    }
-//    
-    
+//
+
+   
     
     
 }
