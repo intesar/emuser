@@ -41,7 +41,7 @@ public class Search extends GenericPortlet {
         request.setAttribute("monthList", monthList);
         
         PortletRequestDispatcher dispatcher =
-                getPortletContext().getRequestDispatcher("/WEB-INF/jsp/RecentTimesheets/edit.jsp");
+                getPortletContext().getRequestDispatcher("/WEB-INF/jsp/Search/view.jsp");
         dispatcher.include(request, response);
         
     }
@@ -49,7 +49,7 @@ public class Search extends GenericPortlet {
     public void doEdit(RenderRequest request,RenderResponse response) throws PortletException,IOException {
         response.setContentType("text/html");
         PortletRequestDispatcher dispatcher =
-                getPortletContext().getRequestDispatcher("/WEB-INF/jsp/RecentTimesheets/edit.jsp");
+                getPortletContext().getRequestDispatcher("/WEB-INF/jsp/Search/edit.jsp");
         dispatcher.include(request, response);
         
     }
@@ -58,7 +58,7 @@ public class Search extends GenericPortlet {
         
         response.setContentType("text/html");
         PortletRequestDispatcher dispatcher =
-                getPortletContext().getRequestDispatcher("/WEB-INF/jsp/RecentTimesheets/edit.jsp");
+                getPortletContext().getRequestDispatcher("/WEB-INF/jsp/Search/help.jsp");
         dispatcher.include(request, response);
         
     }
