@@ -58,7 +58,7 @@ public class DateUtil {
         
     }
     
-    public List<Month> findAllMonths() {
+    public static List<Month> findAllMonths() {
         
         List<Month> list = new ArrayList<Month> ();
         for ( int i = 0; i < months.length; i++ ) {
