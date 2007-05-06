@@ -16,24 +16,27 @@
     <input class="portlet-form-button" type="submit" value="Search"> </input>   
 </form>
 
+<br/>
+<br/>
+
 <form method="post" action="<portlet:actionURL></portlet:actionURL>" >
     
     <input type="hidden" name="advanceSearch" value="true" />
     
-    <select name="user" size="3">
+    <select name="user" >
         <c:forEach items="${userList}" var="user">
             <option><c:out value="${user['email']}" /></option>
         </c:forEach>        
     </select>
     
-    <select name="status" size="3">
+    <select name="status" >
         <c:forEach items="${statusList}" var="status">
             <option><c:out value="${status['statusKey']}" /></option>
         </c:forEach>     
     </select>
     
-    <select name="month" size="3">
-        <c:forEach items="${monthList}" var="montht">
+    <select name="month" >
+        <c:forEach items="${monthList}" var="month">
             <option><c:out value="${month['name']}" /></option>
         </c:forEach>     
     </select>
