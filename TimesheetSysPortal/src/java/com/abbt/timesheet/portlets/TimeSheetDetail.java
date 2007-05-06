@@ -19,7 +19,7 @@ import com.abbt.timesheet.entities.TimesheetDetail;
 public class TimeSheetDetail extends GenericPortlet {
 
     
-    public static  String detailList = "list";
+ 
     public static  String formSubmit ="SUBMIT";
     public void processAction(ActionRequest request, ActionResponse response) throws PortletException,IOException {
         
@@ -59,7 +59,7 @@ public class TimeSheetDetail extends GenericPortlet {
           list.add(detail2);
           list.add(detail3);
            System.out.println("Reaching here");
-          request.setAttribute(detailList,list);
+          request.setAttribute("detailList",list);
           
              System.out.println("Reaching here2");
             //Uncomment below lines to see the output
