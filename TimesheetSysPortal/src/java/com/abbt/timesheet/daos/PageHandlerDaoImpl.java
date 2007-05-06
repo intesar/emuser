@@ -31,11 +31,15 @@ public class PageHandlerDaoImpl implements PageHandlerDao {
         emf = Persistence.createEntityManagerFactory("TimesheetSysPortalPU");
     }
     
-    public int findResultSize(String string) {
+    public int findResultSize(String string, Object... params) {
         EntityManager em = null;
         try {
             em = emf.createEntityManager();
-            Long size = (Long) em.createNamedQuery(string).getSingleResult();
+            Query query = em.createNamedQuery(string);
+            for ( int k = 0; k < params.length; k++) {
+                query.setParameter( ( k + 1 ), params[k]);
+            }
+            Long size = (Long) query.getSingleResult();
             return size.intValue();
         } catch ( Exception e) {
             e.printStackTrace();
@@ -43,12 +47,15 @@ public class PageHandlerDaoImpl implements PageHandlerDao {
         return 0;
     }
     
-    public List executeQuery(String string, int i, int i0) {
+    public List executeQuery(String string, int i, int i0, Object... params) {
         EntityManager em = null;
         List list = new ArrayList();
         try {
             em = emf.createEntityManager();
             Query query = em.createNamedQuery(string);
+            for ( int k = 0; k < params.length; k++) {
+                query.setParameter( ( k + 1 ), params[k]);
+            }
             query.setFirstResult(i);
             query.setMaxResults(i0);
             list = query.getResultList();
