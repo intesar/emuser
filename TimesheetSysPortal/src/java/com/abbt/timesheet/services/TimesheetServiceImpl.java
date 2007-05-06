@@ -134,6 +134,16 @@ public class TimesheetServiceImpl implements TimesheetService {
         return list;
     }
     
+    public List<TimesheetStatus> findAllStatuses() {
+        
+        List<TimesheetStatus> list = this.getTimesheetDBDao().findResultListByNamedQuery("TimesheetStatus.findAllStatuses");
+        if ( ! (list instanceof List) ) {
+            list = new ArrayList<TimesheetStatus>();
+        }
+        
+        return list;
+    }
+    
     public TimesheetDBDao getTimesheetDBDao() {
         return timesheetDBDao;
     }
@@ -146,46 +156,48 @@ public class TimesheetServiceImpl implements TimesheetService {
     
     private TimesheetDBDao timesheetDBDao;
     
-    public static void main(String []args) {
-        String loggedUser = "mohdshannan@yahoo.com";
-        Date startDate = new Date();
-        String company = "UROOJ";
-        Calendar c = Calendar.getInstance();
-        c.set(Calendar.DAY_OF_MONTH, 1);
-        c.set(Calendar.MONTH, 1);
-        c.set(Calendar.YEAR, 2006);
-        //Date dt = new Date ()
-        TimesheetService instance = (TimesheetService) ServiceFactory.getService("TimesheetService");
-//        try {
-        List list = instance.findTimesheetDetailsByStartDate("liferay.com.1", c.getTime());//findRecentTimesheets("liferay.com.1");
-        System.out.println( " List : " + list.size() );
-        //instance.createTimesheetAndTimesheetDetails(loggedUser, startDate, company);
-//        } catch (EntityExistsException ex) {
-//            ex.printStackTrace();
-//        } catch (Exception ex) {
-//            ex.printStackTrace();
-//        }
-//
-        //Calendar c = Calendar.getInstance();
-        c.setTime(new Date());
-        String dtStr = "";
-        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
-        
-        dtStr += c.get(Calendar.MONTH) + "/";
-        dtStr += c.get(Calendar.DAY_OF_MONTH) + "/";
-        dtStr += c.get(Calendar.YEAR);
-        System.out.println( c.get(Calendar.DAY_OF_MONTH));
-        System.out.println( c.get(Calendar.MONTH));
-        System.out.println( c.get(Calendar.YEAR));
-        System.out.println( dtStr );
-        try {
-            Date utilDate = new Date( sdf.parse(dtStr).getTime() );
-            System.out.println( utilDate );
-        } catch (ParseException ex) {
-            ex.printStackTrace();
-        }
-    }
-    
+//    public static void main(String []args) {
+//        String loggedUser = "mohdshannan@yahoo.com";
+//        Date startDate = new Date();
+//        String company = "UROOJ";
+//        Calendar c = Calendar.getInstance();
+//        c.set(Calendar.DAY_OF_MONTH, 1);
+//        c.set(Calendar.MONTH, 1);
+//        c.set(Calendar.YEAR, 2006);
+//        //Date dt = new Date ()
+//        TimesheetService instance = (TimesheetService) ServiceFactory.getService("TimesheetService");
+//        List<TimesheetStatus> i = instance.findAllStatuses();
+//        System.out.println ( i.get(0));
+////        try {
+//        List list = instance.findTimesheetDetailsByStartDate("liferay.com.1", c.getTime());//findRecentTimesheets("liferay.com.1");
+//        System.out.println( " List : " + list.size() );
+//        //instance.createTimesheetAndTimesheetDetails(loggedUser, startDate, company);
+////        } catch (EntityExistsException ex) {
+////            ex.printStackTrace();
+////        } catch (Exception ex) {
+////            ex.printStackTrace();
+////        }
+////
+//        //Calendar c = Calendar.getInstance();
+////        c.setTime(new Date());
+////        String dtStr = "";
+////        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+////        
+////        dtStr += c.get(Calendar.MONTH) + "/";
+////        dtStr += c.get(Calendar.DAY_OF_MONTH) + "/";
+////        dtStr += c.get(Calendar.YEAR);
+////        System.out.println( c.get(Calendar.DAY_OF_MONTH));
+////        System.out.println( c.get(Calendar.MONTH));
+////        System.out.println( c.get(Calendar.YEAR));
+////        System.out.println( dtStr );
+////        try {
+////            Date utilDate = new Date( sdf.parse(dtStr).getTime() );
+////            System.out.println( utilDate );
+////        } catch (ParseException ex) {
+////            ex.printStackTrace();
+////        }
+//    }
+//    
     
     
     
