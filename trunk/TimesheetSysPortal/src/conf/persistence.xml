@@ -11,10 +11,11 @@
     <class>com.abbt.timesheet.entities.User</class>
     <class>com.abbt.timesheet.entities.TimesheetDetail</class>
     <class>com.abbt.timesheet.entities.Timesheet</class>
+    <class>com.abbt.timesheet.entities.UserRole</class>
     <properties>
       <property name="toplink.jdbc.user" value="root"/>
-      <property name="toplink.jdbc.password" value="abbt123"/>
-      <property name="toplink.jdbc.url" value="jdbc:mysql://192.168.1.110:3306/timesheetdb"/>
+      <property name="toplink.jdbc.password" value="apple123"/>
+      <property name="toplink.jdbc.url" value="jdbc:mysql:///timesheetdb"/>
       <property name="toplink.jdbc.driver" value="com.mysql.jdbc.Driver"/>
     </properties>
   </persistence-unit>
