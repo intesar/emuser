@@ -25,6 +25,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 /**
  * Entity class Timesheet
@@ -85,6 +86,7 @@ public class Timesheet implements Serializable {
     @ManyToOne
     private TimesheetStatus status;
     
+    @Transient
     private String timesheetDateString;
     
     /** Creates a new instance of Timesheet */
@@ -281,12 +283,15 @@ public class Timesheet implements Serializable {
     
     public String getTimesheetDateString() {
         Calendar c = Calendar.getInstance();
-        c.setTime(this.timesheetDate);
-        String dtStr = "";
         
-        dtStr += c.get(Calendar.MONTH) + "/";
-        dtStr += c.get(Calendar.DAY_OF_MONTH) + "/";
-        dtStr += c.get(Calendar.YEAR);
+        if ( this.timesheetDate != null ) {
+            c.setTime(this.timesheetDate);
+            String dtStr = "";            
+            dtStr += c.get(Calendar.MONTH) + "/";
+            dtStr += c.get(Calendar.DAY_OF_MONTH) + "/";
+            dtStr += c.get(Calendar.YEAR);
+            timesheetDateString = dtStr;            
+        }
         return timesheetDateString;
     }
     
