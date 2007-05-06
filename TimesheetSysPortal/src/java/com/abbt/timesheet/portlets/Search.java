@@ -19,7 +19,9 @@ import javax.portlet.PortletRequestDispatcher;
 public class Search extends GenericPortlet {
     
     public void processAction(ActionRequest request, ActionResponse response) throws PortletException,IOException {
-        
+        String user = request.getParameter("user");
+        String status = request.getParameter("status");
+        String month = request.getParameter("month");
     }
     
     

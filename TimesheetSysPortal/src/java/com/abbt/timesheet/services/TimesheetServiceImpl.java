@@ -17,7 +17,9 @@ import com.abbt.timesheet.entities.Timesheet;
 import com.abbt.timesheet.entities.TimesheetDetail;
 import com.abbt.timesheet.entities.TimesheetStatus;
 import com.abbt.timesheet.entities.User;
+import com.abbt.timesheet.exceptions.AccessDeniedException;
 import com.abbt.timesheet.exceptions.EntityExistsException;
+import com.abbt.timesheet.exceptions.UserNotAdminException;
 import com.abbt.timesheet.util.DateUtil;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -145,6 +147,66 @@ public class TimesheetServiceImpl implements TimesheetService {
         return list;
     }
     
+    public PageHandler advanceSearch( String loggedUser, String userEmail, String timesheetStatus, 
+            Date startDate, Date endDate ) throws AccessDeniedException {
+        
+        
+        UserService userService = (UserService) ServiceFactory.getService("UserService");
+        try {
+            userService.isAdmin(loggedUser);
+        } catch (UserNotAdminException ex) {
+            ex.printStackTrace();
+            throw new AccessDeniedException();
+        }
+        
+        PageHandler pageHandler = null;
+        String email = null;
+        String status = null;
+        
+        
+        // validating
+        if (! (userEmail instanceof String ) ) {
+            email = "%";
+        }
+        if ( !(timesheetStatus instanceof String) ){
+            status = "%";
+        }
+        
+        pageHandler = PageHandlerFactory.getInstance(this.getPageHandlerDao(), "Timesheet.findCountByUserStatusMonth",
+                "Timesheet.findByUserStatusMonth", email, status, startDate, endDate );
+        
+        return pageHandler;
+    }
+    
+    public PageHandler advanceSearch( String loggedUser, String userEmail, String timesheetStatus)  throws AccessDeniedException {
+       
+         UserService userService = (UserService) ServiceFactory.getService("UserService");
+        try {
+            userService.isAdmin(loggedUser);
+        } catch (UserNotAdminException ex) {
+            ex.printStackTrace();
+            throw new AccessDeniedException();
+        }
+        
+        PageHandler pageHandler = null;
+        String email = null;
+        String status = null;
+        
+        
+        // validating
+        if (! (userEmail instanceof String ) ) {
+            email = "%";
+        }
+        if ( !(timesheetStatus instanceof String) ){
+            status = "%";
+        }
+        
+        pageHandler = PageHandlerFactory.getInstance(this.getPageHandlerDao(), "Timesheet.findCountByUserStatus",
+                "Timesheet.findByUserStatus", email, status );
+        
+        return pageHandler;
+    }
+    
     public TimesheetDBDao getTimesheetDBDao() {
         return timesheetDBDao;
     }
@@ -157,7 +219,7 @@ public class TimesheetServiceImpl implements TimesheetService {
     public PageHandlerDao getPageHandlerDao() {
         return pageHandlerDao;
     }
-
+    
     public void setPageHandlerDao(PageHandlerDao pageHandlerDao) {
         this.pageHandlerDao = pageHandlerDao;
     }
@@ -209,19 +271,19 @@ public class TimesheetServiceImpl implements TimesheetService {
 ////        }
 //    }
 //
-
-   public static void main(String []args) {
-       TimesheetService instance = (TimesheetService) ServiceFactory.getService("TimesheetService");
-       PageHandler p = instance.findRecentTimesheets("liferay.com.1");
-       System.out.println ( " P : " + p );
-       p.createList(1);
-       List<Timesheet> list = p.getCurrentResultList();
-       for ( Timesheet t : list ) {
-           System.out.println ( t.getUserEmail() );
-           System.out.println ( t.getTimesheetDate() );
-       }
-       
-   }
+    
+    public static void main(String []args) {
+        TimesheetService instance = (TimesheetService) ServiceFactory.getService("TimesheetService");
+        PageHandler p = instance.findRecentTimesheets("liferay.com.1");
+        System.out.println( " P : " + p );
+        p.createList(1);
+        List<Timesheet> list = p.getCurrentResultList();
+        for ( Timesheet t : list ) {
+            System.out.println( t.getUserEmail() );
+            System.out.println( t.getTimesheetDate() );
+        }
+        
+    }
     
     
 }

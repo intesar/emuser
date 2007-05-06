@@ -71,6 +71,14 @@ public class DateUtil {
         return list;
     }
     
+    public int getMonthNo ( String month )   {
+        for  ( int i = 0; i < months.length; i++ ) {
+            if ( months[i].equals(month)) {
+                return i;
+            }           
+        }
+        throw new IllegalArgumentException ();
+    }
     private static String[] months = {
         "JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"
     };

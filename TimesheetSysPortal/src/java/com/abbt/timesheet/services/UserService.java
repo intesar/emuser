@@ -10,6 +10,7 @@
 package com.abbt.timesheet.services;
 
 import com.abbt.timesheet.entities.User;
+import com.abbt.timesheet.exceptions.UserNotAdminException;
 import java.util.List;
 
 /**
@@ -17,6 +18,8 @@ import java.util.List;
  * @author shannan
  */
 public interface UserService {
+    
     List<User> findAllUserEmails();
     
+    void isAdmin( String userEmail) throws UserNotAdminException;
 }
