@@ -39,7 +39,8 @@ public class RecentTimesheets extends GenericPortlet {
                 //e.printStackTrace();;
             }
             if ( pageHandler instanceof PageHandler ) {
-                pageHandler.createList(pageNo);
+                //pageHandler.createList(pageNo);
+                pageHandler.setCurrentPageNo(pageNo);
             }
         } else {
             String dt = request.getParameter("timesheetDate");
@@ -66,11 +67,12 @@ public class RecentTimesheets extends GenericPortlet {
         response.setContentType("text/html");
         // get service and save timesheet object
         TimesheetService timesheetService = (TimesheetService) ServiceFactory.getService("TimesheetService");
-        List<Timesheet> list = new ArrayList<Timesheet>();
+        List list = new ArrayList();
         List pageNoList = new ArrayList();
         PageHandler pageHandler = (PageHandler)request.getPortletSession().getAttribute("pageHandler");
         
         if ( pageHandler instanceof PageHandler ) {
+            pageHandler.createList(pageHandler.getCurrentPageNo());
             list = pageHandler.getCurrentResultList();
             pageNoList = pageHandler.getCurrentPageNoList();
         } else {
