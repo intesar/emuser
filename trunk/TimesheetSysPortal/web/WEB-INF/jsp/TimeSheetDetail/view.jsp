@@ -10,7 +10,7 @@
 
 Testing
 <c:if test="${not empty detailList}">
-    <form name="<%TimeSheetDetail.formSubmit%>" method=post action="<portlet:actionURL/>">
+    <form  method=post action="<portlet:actionURL/>">
 <table width="100%">
     <tr>
         <th>TimeSheetDate</th>
