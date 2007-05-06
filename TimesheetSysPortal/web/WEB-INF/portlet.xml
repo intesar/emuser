@@ -73,4 +73,22 @@
             <short-title>Search</short-title>
         </portlet-info>
  </portlet>
+
+ <portlet>
+        <description>SearchResult</description>
+        <portlet-name>SearchResult</portlet-name>
+        <display-name>SearchResult</display-name>
+        <portlet-class>com.abbt.timesheet.portlets.SearchResult</portlet-class>
+        <expiration-cache>0</expiration-cache>
+        <supports>
+            <mime-type>text/html</mime-type>          
+            <portlet-mode>VIEW</portlet-mode>
+            <portlet-mode>EDIT</portlet-mode>
+            <portlet-mode>HELP</portlet-mode>
+        </supports>
+        <portlet-info>
+            <title>SearchResult</title>
+            <short-title>SearchResult</short-title>
+        </portlet-info>
+ </portlet>
 </portlet-app>
