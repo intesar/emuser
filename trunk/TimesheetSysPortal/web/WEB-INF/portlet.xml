@@ -55,4 +55,22 @@
             <short-title>TimeSheetDetail</short-title>
         </portlet-info>
  </portlet>
+
+ <portlet>
+        <description>Search</description>
+        <portlet-name>Search</portlet-name>
+        <display-name>Search</display-name>
+        <portlet-class>com.abbt.timesheet.portlets.Search</portlet-class>
+        <expiration-cache>0</expiration-cache>
+        <supports>
+            <mime-type>text/html</mime-type>          
+            <portlet-mode>VIEW</portlet-mode>
+            <portlet-mode>EDIT</portlet-mode>
+            <portlet-mode>HELP</portlet-mode>
+        </supports>
+        <portlet-info>
+            <title>Search</title>
+            <short-title>Search</short-title>
+        </portlet-info>
+ </portlet>
 </portlet-app>
