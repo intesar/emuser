@@ -9,8 +9,10 @@
 
 package com.abbt.timesheet.util;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -44,15 +46,33 @@ public class DateUtil {
         
     }
     
-    public static void isDateStartsWith1or16 (Date date ) throws IllegalArgumentException {
+    public static void isDateStartsWith1or16(Date date ) throws IllegalArgumentException {
         
         Calendar c = Calendar.getInstance();
         c.setTime(date);
         int day =  c.get(Calendar.DAY_OF_MONTH);
         
-        if  ( ! (day == 1 || day == 16) ) {           
+        if  ( ! (day == 1 || day == 16) ) {
             throw new IllegalArgumentException();
         }
         
     }
+    
+    public List<Month> findAllMonths() {
+        
+        List<Month> list = new ArrayList<Month> ();
+        for ( int i = 0; i < months.length; i++ ) {
+            Month month = new Month();
+            month.setName(months[i]);
+            month.setSortNumber(i);
+            list.add(month);
+        }
+        
+        return list;
+    }
+    
+    private static String[] months = {
+        "JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"
+    };
+    
 }
