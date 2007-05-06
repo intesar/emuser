@@ -13,6 +13,7 @@ import abbt.com.paginationframework.PageHandler;
 import com.abbt.timesheet.entities.Timesheet;
 import com.abbt.timesheet.entities.TimesheetDetail;
 import com.abbt.timesheet.entities.TimesheetStatus;
+import com.abbt.timesheet.exceptions.AccessDeniedException;
 import com.abbt.timesheet.exceptions.EntityExistsException;
 import java.util.Date;
 import java.util.List;
@@ -32,5 +33,9 @@ public interface TimesheetService {
     List<TimesheetDetail> findTimesheetDetailsByStartDate ( String loggedUser, Date sDate);
     
     List<TimesheetStatus> findAllStatuses();
+    
+    PageHandler advanceSearch (String loggedUser, String userEmail, String timesheetStatu, Date startDate, Date endDate)  throws AccessDeniedException ;
+    
+    PageHandler advanceSearch (String loggedUser, String userEmail, String timesheetStatu)  throws AccessDeniedException ;
     
 }

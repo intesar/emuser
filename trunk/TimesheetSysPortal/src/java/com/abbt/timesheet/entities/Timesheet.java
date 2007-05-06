@@ -43,7 +43,15 @@ import javax.persistence.Transient;
     @NamedQuery(name = "Timesheet.findByLastUpdatedBy", query = "SELECT t FROM Timesheet t WHERE t.lastUpdatedBy = :lastUpdatedBy"),
     @NamedQuery(name = "Timesheet.findByLastUpdatedDate", query = "SELECT t FROM Timesheet t WHERE t.lastUpdatedDate = :lastUpdatedDate"),
     @NamedQuery(name = "Timesheet.findByUserEmail", query = "SELECT t FROM Timesheet t WHERE t.userEmail.email = ?1 order by t.timesheetDate desc"),
-    @NamedQuery(name = "Timesheet.findCountByUserEmail", query = "SELECT COUNT(t) FROM Timesheet t WHERE t.userEmail.email = ?1")
+    @NamedQuery(name = "Timesheet.findCountByUserEmail", query = "SELECT COUNT(t) FROM Timesheet t WHERE t.userEmail.email = ?1"),
+    @NamedQuery(name = "Timesheet.findCountByUserStatusMonth", query = "SELECT COUNT(t) FROM Timesheet t " +
+        "WHERE t.userEmail.email = ?1 and t.status.statusKey = ?2 and  ( t.timesheetDate > ?3 and t.timesheetDate < ?4 )" ),
+    @NamedQuery(name = "Timesheet.findByUserStatusMonth", query = "SELECT t FROM Timesheet t " +
+        "WHERE t.userEmail.email = ?1 and t.status.statusKey = ?2 and  ( t.timesheetDate > ?3 and t.timesheetDate < ?4 )" ),
+    @NamedQuery(name = "Timesheet.findCountByUserStatus", query = "SELECT COUNT(t) FROM Timesheet t " +
+        "WHERE t.userEmail.email = ?1 and t.status.statusKey = ?2" ),
+    @NamedQuery(name = "Timesheet.findByUserStatus", query = "SELECT t FROM Timesheet t " +
+        "WHERE t.userEmail.email = ?1 and t.status.statusKey = ?2" )            
 })
 public class Timesheet implements Serializable {
     

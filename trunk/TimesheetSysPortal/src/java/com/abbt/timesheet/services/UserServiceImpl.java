@@ -12,6 +12,8 @@ package com.abbt.timesheet.services;
 import abbt.com.paginationframework.PageHandlerDao;
 import com.abbt.timesheet.daos.TimesheetDBDao;
 import com.abbt.timesheet.entities.User;
+import com.abbt.timesheet.entities.UserRole;
+import com.abbt.timesheet.exceptions.UserNotAdminException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +27,18 @@ public class UserServiceImpl implements UserService {
     public UserServiceImpl() {
     }
     
+    public void isAdmin(String userEmail) throws UserNotAdminException {
+        UserRole userRole = null;
+        try {
+            userRole = (UserRole) this.getTimesheetDBDao().
+                    findResultListByNamedQuery("UserRole.findByUserAndRole", userEmail, "ADMIN");
+        } catch ( Exception e) {
+            // log here
+        }
+        if ( userRole instanceof UserRole ) {
+            throw new UserNotAdminException();
+        }
+    }
     /*
      * returns all User objects with just emails in it
      */
@@ -53,6 +67,8 @@ public class UserServiceImpl implements UserService {
     public void setPageHandlerDao(PageHandlerDao pageHandlerDao) {
         this.pageHandlerDao = pageHandlerDao;
     }
+    
+    
     
     private PageHandlerDao pageHandlerDao;
     private TimesheetDBDao timesheetDBDao;
