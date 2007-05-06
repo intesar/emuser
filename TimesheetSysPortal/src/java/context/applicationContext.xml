@@ -1,20 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
 <beans>
-
-                
+    
+    
     <bean id="TimesheetDBDao" class="com.abbt.timesheet.daos.TimesheetDBDaoImpl"/>
-  
+    
+    <bean id="PageHandlerDao" class="com.abbt.timesheet.daos.PageHandlerDaoImpl" />
     
     <bean id="TimesheetService" class="com.abbt.timesheet.services.TimesheetServiceImpl" >
         <property name="timesheetDBDao">
             <ref bean="TimesheetDBDao"></ref>
+        </property>
+        <property name="pageHandlerDao">
+            <ref bean="PageHandlerDao"></ref>
         </property>
     </bean>              
     
     <bean id="UserService" class="com.abbt.timesheet.services.UserServiceImpl" >
         <property name="timesheetDBDao">
             <ref bean="TimesheetDBDao"></ref>
+        </property>
+        <property name="pageHandlerDao">
+            <ref bean="PageHandlerDao"></ref>
         </property>
     </bean>       
     
