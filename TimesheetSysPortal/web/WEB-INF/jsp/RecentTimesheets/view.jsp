@@ -70,14 +70,66 @@
     </c:forEach>
     <!-- Loop END -->    
 </table>
+
+<!-- Page Numbers BEGIN --> 
+<div style="text-align:center">
+
+    <c:if test="${not empty pageNoList}"> 
+
+        <%-- Loop through the [List] containing the current page numbers --%> 
+        <c:forEach items="${pageNoList}" var="pageNumber">            
+        
+            <c:set var="pageNo" value="${pageNumber}" />
+
+            <c:choose>
+            
+                <%-- Make the page number a hyperlink if it is not the currently viewed page --%>
+                <c:when test="${pageNumber ne selectedPageNo}"> 
+
+                    <portlet:actionURL var="pageURL">
+                        <portlet:param name="isPageNoClicked" value='isPageNoClicked' /> 
+                        <portlet:param name="pageNo" value='<%= pageContext.getAttribute("pageNo").toString() %>' /> 
+                    </portlet:actionURL>
+                    
+                    <a href="<%= pageURL %>">
+                        <c:out value="${pageNumber}" />
+                    </a>
+
+                </c:when>
+                <%-- Simply print the page number if it is the currently viewed page --%>
+                <c:otherwise>
+                    
+                        <c:out value="${pageNumber}" />
+                        
+                </c:otherwise>
+            </c:choose>
+            
+            &nbsp;
+            
+        </c:forEach>
+
+        <%-- Allow the user to enter a page number --%>    
+        <form style="display:inline" method="POST" action="<portlet:actionURL />"> 
+            <input type="hidden" name="isPageNoClicked" value="isPageNoClicked" />
+            <input type="text" name="pageNo" size="4" />
+            <input class="portlet-form-button" type="submit" value="Go" /> 
+        </form>
+        
+    </c:if>
+
+</div>
+<!-- Page Numbers END -->
+
+
     
 </c:if>
 
 <c:if test="${empty recentTimesheets}" >
-    <span style="color:red">
-        No Timesheets Created
-    </span>
+    
+        No Timesheets To Display
+    
 </c:if>
+
 
 
 
