@@ -42,7 +42,8 @@ import javax.persistence.Transient;
     @NamedQuery(name = "Timesheet.findByCreatedDate", query = "SELECT t FROM Timesheet t WHERE t.createdDate = :createdDate"),
     @NamedQuery(name = "Timesheet.findByLastUpdatedBy", query = "SELECT t FROM Timesheet t WHERE t.lastUpdatedBy = :lastUpdatedBy"),
     @NamedQuery(name = "Timesheet.findByLastUpdatedDate", query = "SELECT t FROM Timesheet t WHERE t.lastUpdatedDate = :lastUpdatedDate"),
-    @NamedQuery(name = "Timesheet.findByUserEmail", query = "SELECT t FROM Timesheet t WHERE t.userEmail.email = ?1 order by t.timesheetDate desc")
+    @NamedQuery(name = "Timesheet.findByUserEmail", query = "SELECT t FROM Timesheet t WHERE t.userEmail.email = ?1 order by t.timesheetDate desc"),
+    @NamedQuery(name = "Timesheet.findCountByUserEmail", query = "SELECT COUNT(t) FROM Timesheet t WHERE t.userEmail.email = ?1")
 })
 public class Timesheet implements Serializable {
     
