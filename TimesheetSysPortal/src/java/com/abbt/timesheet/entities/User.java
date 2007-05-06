@@ -48,7 +48,8 @@ import javax.persistence.TemporalType;
         @NamedQuery(name = "User.findByCreatedBy", query = "SELECT u FROM User u WHERE u.createdBy = :createdBy"),
         @NamedQuery(name = "User.findByCreatedDate", query = "SELECT u FROM User u WHERE u.createdDate = :createdDate"),
         @NamedQuery(name = "User.findByLastUpdatedBy", query = "SELECT u FROM User u WHERE u.lastUpdatedBy = :lastUpdatedBy"),
-        @NamedQuery(name = "User.findByLastUpdatedDate", query = "SELECT u FROM User u WHERE u.lastUpdatedDate = :lastUpdatedDate")
+        @NamedQuery(name = "User.findByLastUpdatedDate", query = "SELECT u FROM User u WHERE u.lastUpdatedDate = :lastUpdatedDate"),
+        @NamedQuery(name = "User.findAllEmails", query = "SELECT u FROM User u")
     })
 public class User implements Serializable {
 
