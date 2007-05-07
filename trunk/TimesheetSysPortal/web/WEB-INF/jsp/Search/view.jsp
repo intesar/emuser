@@ -47,11 +47,8 @@
         
         <tr>
             <td> 
-                <select name="month" >
-                    <c:forEach items="${monthList}" var="month">
-                        <option><c:out value="${month['name']}" /></option>
-                    </c:forEach>     
-                </select>
+                <input type="text" name="startDate" />
+                <input type="text" name="endDate" />
             </td>
         </tr>
         
