@@ -9,6 +9,8 @@
 
 package com.abbt.timesheet.util;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -71,14 +73,27 @@ public class DateUtil {
         return list;
     }
     
-    public int getMonthNo ( String month )   {
+    public int getMonthNo( String month )   {
         for  ( int i = 0; i < months.length; i++ ) {
             if ( months[i].equals(month)) {
                 return i;
-            }           
+            }
         }
-        throw new IllegalArgumentException ();
+        throw new IllegalArgumentException();
     }
+    
+    public static Date convert( String date ) {
+        
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+        Date dt = null;
+        try {
+            dt = new Date(sdf.parse(date).getTime());
+        } catch (ParseException ex) {
+            ex.printStackTrace();
+        }
+        return dt;
+    }
+    
     private static String[] months = {
         "JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"
     };

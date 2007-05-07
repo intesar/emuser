@@ -28,14 +28,16 @@ public interface TimesheetService {
     
     void createTimesheetAndTimesheetDetails( String loggedUser, Date startDate, String company ) throws EntityExistsException, Exception;
     
-    PageHandler findRecentTimesheets ( String loggedUser );
+    PageHandler findRecentTimesheets( String loggedUser );
     
-    List<TimesheetDetail> findTimesheetDetailsByStartDate ( String loggedUser, Date sDate);
+    List<TimesheetDetail> findTimesheetDetailsByStartDate( String loggedUser, Date sDate);
     
     List<TimesheetStatus> findAllStatuses();
     
-    PageHandler advanceSearch (String loggedUser, String userEmail, String timesheetStatu, Date startDate, Date endDate)  throws AccessDeniedException ;
+    PageHandler advanceSearch(String loggedUser, String userEmail, String timesheetStatu, Date startDate, Date endDate)  throws AccessDeniedException ;
     
-    PageHandler advanceSearch (String loggedUser, String userEmail, String timesheetStatu)  throws AccessDeniedException ;
+    PageHandler advanceSearch(String loggedUser, String userEmail, String timesheetStatu)  throws AccessDeniedException ;
+    
+    PageHandler generalSearch( String loggedUser, String key )   throws AccessDeniedException;
     
 }
