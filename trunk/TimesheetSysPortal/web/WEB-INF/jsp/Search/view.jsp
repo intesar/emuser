@@ -12,7 +12,7 @@
 
 <form method="post" action="<portlet:actionURL></portlet:actionURL>" >
     <input type="hidden" name="generalSearch" value="true" />
-    <input type="text" name="search" value="" />
+    <input type="text" name="key" value="" />
     <input class="portlet-form-button" type="submit" value="Search"> </input>   
 </form>
 
