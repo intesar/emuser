@@ -51,7 +51,13 @@ import javax.persistence.Transient;
     @NamedQuery(name = "Timesheet.findCountByUserStatus", query = "SELECT COUNT(t) FROM Timesheet t " +
         "WHERE t.userEmail.email = ?1 and t.status.statusKey = ?2" ),
     @NamedQuery(name = "Timesheet.findByUserStatus", query = "SELECT t FROM Timesheet t " +
-        "WHERE t.userEmail.email = ?1 and t.status.statusKey = ?2" )            
+        "WHERE t.userEmail.email = ?1 and t.status.statusKey = ?2" ),
+    @NamedQuery(name ="Timesheet.findByGeneralSearch", query = "SELECT t FROM Timesheet t where t.timesheetDate like ?1 or " +
+        "t.daysFor like ?2 or t.createdBy like ?3 or t.createdDate like ?4 or t.lastUpdatedBy ?5 or t.userEmail.email like ?5 " +
+         " or t.status.statusKey like ?6"),
+    @NamedQuery(name ="Timesheet.findCountByGeneralSearch", query = "SELECT COUNT(t) FROM Timesheet t where t.timesheetDate like ?1 or " +
+        "t.daysFor like ?2 or t.createdBy like ?3 or t.createdDate like ?4 or t.lastUpdatedBy ?5 or t.userEmail.email like ?5 " +
+         " or t.status.statusKey like ?6")
 })
 public class Timesheet implements Serializable {
     

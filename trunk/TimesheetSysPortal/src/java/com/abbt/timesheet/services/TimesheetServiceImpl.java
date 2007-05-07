@@ -21,6 +21,7 @@ import com.abbt.timesheet.exceptions.AccessDeniedException;
 import com.abbt.timesheet.exceptions.EntityExistsException;
 import com.abbt.timesheet.exceptions.UserNotAdminException;
 import com.abbt.timesheet.util.DateUtil;
+import com.abbt.timesheet.util.SQLInjector;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
@@ -147,7 +148,7 @@ public class TimesheetServiceImpl implements TimesheetService {
         return list;
     }
     
-    public PageHandler advanceSearch( String loggedUser, String userEmail, String timesheetStatus, 
+    public PageHandler advanceSearch( String loggedUser, String userEmail, String timesheetStatus,
             Date startDate, Date endDate ) throws AccessDeniedException {
         
         
@@ -165,10 +166,10 @@ public class TimesheetServiceImpl implements TimesheetService {
         
         
         // validating
-        if (! (userEmail instanceof String ) ) {
+        if (! (userEmail != null && userEmail.length() > 0 ) ) {
             email = "%";
         }
-        if ( !(timesheetStatus instanceof String) ){
+        if ( !(timesheetStatus != null && timesheetStatus.length() > 0) ){
             status = "%";
         }
         
@@ -179,8 +180,8 @@ public class TimesheetServiceImpl implements TimesheetService {
     }
     
     public PageHandler advanceSearch( String loggedUser, String userEmail, String timesheetStatus)  throws AccessDeniedException {
-       
-         UserService userService = (UserService) ServiceFactory.getService("UserService");
+        
+        UserService userService = (UserService) ServiceFactory.getService("UserService");
         try {
             userService.isAdmin(loggedUser);
         } catch (UserNotAdminException ex) {
@@ -194,10 +195,10 @@ public class TimesheetServiceImpl implements TimesheetService {
         
         
         // validating
-        if (! (userEmail instanceof String ) ) {
+        if (! (userEmail != null && userEmail.length() > 0 ) ) {
             email = "%";
         }
-        if ( !(timesheetStatus instanceof String) ){
+        if ( !(timesheetStatus != null && timesheetStatus.length() > 0) ){
             status = "%";
         }
         
@@ -207,6 +208,17 @@ public class TimesheetServiceImpl implements TimesheetService {
         return pageHandler;
     }
     
+    public PageHandler generalSearch( String loggedUser, String key )   throws AccessDeniedException {
+        
+        key = SQLInjector.removeCommentsAndQuotes(key);
+        String _key = "%" + key + "%";
+        PageHandler pageHandler = null;
+        
+        pageHandler = PageHandlerFactory.getInstance(this.getPageHandlerDao(), "Timesheet.findCountByGeneralSearch",
+                "Timesheet.findByGeneralSearch", _key, _key, _key, _key, _key, _key  );
+        
+        return pageHandler;
+    }
     public TimesheetDBDao getTimesheetDBDao() {
         return timesheetDBDao;
     }
