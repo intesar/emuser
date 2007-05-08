@@ -1,7 +1,7 @@
 /*
  * Company.java
  *
- * Created on April 29, 2007, 9:38 PM
+ * Created on May 7, 2007, 11:05 PM
  *
  * To change this template, choose Tools | Template Manager
  * and open the template in the editor.
@@ -33,33 +33,20 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "company")
 @NamedQueries( {
-        @NamedQuery(name = "Company.findById", query = "SELECT c FROM Company c WHERE c.id = :id"),
         @NamedQuery(name = "Company.findByName", query = "SELECT c FROM Company c WHERE c.name = :name"),
-        @NamedQuery(name = "Company.findByPhone1", query = "SELECT c FROM Company c WHERE c.phone1 = :phone1"),
-        @NamedQuery(name = "Company.findByPhone2", query = "SELECT c FROM Company c WHERE c.phone2 = :phone2"),
-        @NamedQuery(name = "Company.findByFax", query = "SELECT c FROM Company c WHERE c.fax = :fax"),
         @NamedQuery(name = "Company.findByCreatedBy", query = "SELECT c FROM Company c WHERE c.createdBy = :createdBy"),
         @NamedQuery(name = "Company.findByCreatedDate", query = "SELECT c FROM Company c WHERE c.createdDate = :createdDate"),
         @NamedQuery(name = "Company.findByLastUpdatedBy", query = "SELECT c FROM Company c WHERE c.lastUpdatedBy = :lastUpdatedBy"),
-        @NamedQuery(name = "Company.findByLastUpdatedDate", query = "SELECT c FROM Company c WHERE c.lastUpdatedDate = :lastUpdatedDate")
+        @NamedQuery(name = "Company.findByLastUpdatedDate", query = "SELECT c FROM Company c WHERE c.lastUpdatedDate = :lastUpdatedDate"),
+        @NamedQuery(name = "Company.findByDescription", query = "SELECT c FROM Company c WHERE c.description = :description"),
+        @NamedQuery(name = "Company.findByIsEnabled", query = "SELECT c FROM Company c WHERE c.isEnabled = :isEnabled"),
+        @NamedQuery(name = "Company.findById", query = "SELECT c FROM Company c WHERE c.id = :id")
     })
 public class Company implements Serializable {
-
-    @Column(name = "id")
-    private Integer id;
 
     @Id
     @Column(name = "name", nullable = false)
     private String name;
-
-    @Column(name = "phone1")
-    private String phone1;
-
-    @Column(name = "phone2")
-    private String phone2;
-
-    @Column(name = "fax")
-    private String fax;
 
     @Column(name = "createdBy")
     private String createdBy;
@@ -75,12 +62,37 @@ public class Company implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date lastUpdatedDate;
 
+    @Column(name = "description")
+    private String description;
+
+    @Column(name = "isEnabled")
+    private Boolean isEnabled;
+
+    @Column(name = "id")
+    private Integer id;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "companyName")
     private Collection<UserCompany> userCompanyCollection;
+
+    @JoinColumn(name = "phone3", referencedColumnName = "id")
+    @ManyToOne
+    private Phone phone3;
 
     @JoinColumn(name = "billingAddress", referencedColumnName = "id")
     @ManyToOne
     private Address billingAddress;
+
+    @JoinColumn(name = "otherAddress", referencedColumnName = "id")
+    @ManyToOne
+    private Address otherAddress;
+
+    @JoinColumn(name = "phone1", referencedColumnName = "id")
+    @ManyToOne
+    private Phone phone1;
+
+    @JoinColumn(name = "phone2", referencedColumnName = "id")
+    @ManyToOne
+    private Phone phone2;
     
     /** Creates a new instance of Company */
     public Company() {
@@ -92,22 +104,6 @@ public class Company implements Serializable {
      */
     public Company(String name) {
         this.name = name;
-    }
-
-    /**
-     * Gets the id of this Company.
-     * @return the id
-     */
-    public Integer getId() {
-        return this.id;
-    }
-
-    /**
-     * Sets the id of this Company to the specified value.
-     * @param id the new id
-     */
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     /**
@@ -124,54 +120,6 @@ public class Company implements Serializable {
      */
     public void setName(String name) {
         this.name = name;
-    }
-
-    /**
-     * Gets the phone1 of this Company.
-     * @return the phone1
-     */
-    public String getPhone1() {
-        return this.phone1;
-    }
-
-    /**
-     * Sets the phone1 of this Company to the specified value.
-     * @param phone1 the new phone1
-     */
-    public void setPhone1(String phone1) {
-        this.phone1 = phone1;
-    }
-
-    /**
-     * Gets the phone2 of this Company.
-     * @return the phone2
-     */
-    public String getPhone2() {
-        return this.phone2;
-    }
-
-    /**
-     * Sets the phone2 of this Company to the specified value.
-     * @param phone2 the new phone2
-     */
-    public void setPhone2(String phone2) {
-        this.phone2 = phone2;
-    }
-
-    /**
-     * Gets the fax of this Company.
-     * @return the fax
-     */
-    public String getFax() {
-        return this.fax;
-    }
-
-    /**
-     * Sets the fax of this Company to the specified value.
-     * @param fax the new fax
-     */
-    public void setFax(String fax) {
-        this.fax = fax;
     }
 
     /**
@@ -239,6 +187,54 @@ public class Company implements Serializable {
     }
 
     /**
+     * Gets the description of this Company.
+     * @return the description
+     */
+    public String getDescription() {
+        return this.description;
+    }
+
+    /**
+     * Sets the description of this Company to the specified value.
+     * @param description the new description
+     */
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    /**
+     * Gets the isEnabled of this Company.
+     * @return the isEnabled
+     */
+    public Boolean getIsEnabled() {
+        return this.isEnabled;
+    }
+
+    /**
+     * Sets the isEnabled of this Company to the specified value.
+     * @param isEnabled the new isEnabled
+     */
+    public void setIsEnabled(Boolean isEnabled) {
+        this.isEnabled = isEnabled;
+    }
+
+    /**
+     * Gets the id of this Company.
+     * @return the id
+     */
+    public Integer getId() {
+        return this.id;
+    }
+
+    /**
+     * Sets the id of this Company to the specified value.
+     * @param id the new id
+     */
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    /**
      * Gets the userCompanyCollection of this Company.
      * @return the userCompanyCollection
      */
@@ -255,6 +251,22 @@ public class Company implements Serializable {
     }
 
     /**
+     * Gets the phone3 of this Company.
+     * @return the phone3
+     */
+    public Phone getPhone3() {
+        return this.phone3;
+    }
+
+    /**
+     * Sets the phone3 of this Company to the specified value.
+     * @param phone3 the new phone3
+     */
+    public void setPhone3(Phone phone3) {
+        this.phone3 = phone3;
+    }
+
+    /**
      * Gets the billingAddress of this Company.
      * @return the billingAddress
      */
@@ -268,6 +280,54 @@ public class Company implements Serializable {
      */
     public void setBillingAddress(Address billingAddress) {
         this.billingAddress = billingAddress;
+    }
+
+    /**
+     * Gets the otherAddress of this Company.
+     * @return the otherAddress
+     */
+    public Address getOtherAddress() {
+        return this.otherAddress;
+    }
+
+    /**
+     * Sets the otherAddress of this Company to the specified value.
+     * @param otherAddress the new otherAddress
+     */
+    public void setOtherAddress(Address otherAddress) {
+        this.otherAddress = otherAddress;
+    }
+
+    /**
+     * Gets the phone1 of this Company.
+     * @return the phone1
+     */
+    public Phone getPhone1() {
+        return this.phone1;
+    }
+
+    /**
+     * Sets the phone1 of this Company to the specified value.
+     * @param phone1 the new phone1
+     */
+    public void setPhone1(Phone phone1) {
+        this.phone1 = phone1;
+    }
+
+    /**
+     * Gets the phone2 of this Company.
+     * @return the phone2
+     */
+    public Phone getPhone2() {
+        return this.phone2;
+    }
+
+    /**
+     * Sets the phone2 of this Company to the specified value.
+     * @param phone2 the new phone2
+     */
+    public void setPhone2(Phone phone2) {
+        this.phone2 = phone2;
     }
 
     /**

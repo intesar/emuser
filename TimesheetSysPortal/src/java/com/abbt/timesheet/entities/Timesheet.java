@@ -1,7 +1,7 @@
 /*
  * Timesheet.java
  *
- * Created on May 2, 2007, 7:09 PM
+ * Created on May 7, 2007, 11:06 PM
  *
  * To change this template, choose Tools | Template Manager
  * and open the template in the editor.
@@ -42,22 +42,21 @@ import javax.persistence.Transient;
     @NamedQuery(name = "Timesheet.findByCreatedDate", query = "SELECT t FROM Timesheet t WHERE t.createdDate = :createdDate"),
     @NamedQuery(name = "Timesheet.findByLastUpdatedBy", query = "SELECT t FROM Timesheet t WHERE t.lastUpdatedBy = :lastUpdatedBy"),
     @NamedQuery(name = "Timesheet.findByLastUpdatedDate", query = "SELECT t FROM Timesheet t WHERE t.lastUpdatedDate = :lastUpdatedDate"),
-    @NamedQuery(name = "Timesheet.findByUserEmail", query = "SELECT t FROM Timesheet t WHERE t.userEmail.email = ?1 order by t.timesheetDate desc"),
-    @NamedQuery(name = "Timesheet.findCountByUserEmail", query = "SELECT COUNT(t) FROM Timesheet t WHERE t.userEmail.email = ?1"),
+    @NamedQuery(name = "Timesheet.findByComment", query = "SELECT t FROM Timesheet t WHERE t.comment = :comment"),
     @NamedQuery(name = "Timesheet.findCountByUserStatusMonth", query = "SELECT COUNT(t) FROM Timesheet t " +
-        "WHERE t.userEmail.email = ?1 and t.status.statusKey = ?2 and  ( t.timesheetDate > ?3 and t.timesheetDate < ?4 )" ),
-    @NamedQuery(name = "Timesheet.findByUserStatusMonth", query = "SELECT t FROM Timesheet t " +
-        "WHERE t.userEmail.email = ?1 and t.status.statusKey = ?2 and  ( t.timesheetDate > ?3 and t.timesheetDate < ?4 )" ),
-    @NamedQuery(name = "Timesheet.findCountByUserStatus", query = "SELECT COUNT(t) FROM Timesheet t " +
-        "WHERE t.userEmail.email = ?1 and t.status.statusKey = ?2" ),
-    @NamedQuery(name = "Timesheet.findByUserStatus", query = "SELECT t FROM Timesheet t " +
-        "WHERE t.userEmail.email = ?1 and t.status.statusKey = ?2" ),
-    @NamedQuery(name ="Timesheet.findByGeneralSearch", query = "SELECT t FROM Timesheet t where t.timesheetDate like ?1 or " +
-        "t.daysFor like ?2 or t.createdBy like ?3 or t.createdDate like ?4 or t.lastUpdatedBy ?5 or t.userEmail.email like ?5 " +
-         " or t.status.statusKey like ?6"),
-    @NamedQuery(name ="Timesheet.findCountByGeneralSearch", query = "SELECT COUNT(t) FROM Timesheet t where t.timesheetDate like ?1 or " +
-        "t.daysFor like ?2 or t.createdBy like ?3 or t.createdDate like ?4 or t.lastUpdatedBy ?5 or t.userEmail.email like ?5 " +
-         " or t.status.statusKey like ?6")
+    "WHERE t.userEmail.email = ?1 and t.status.statusKey = ?2 and  ( t.timesheetDate > ?3 and t.timesheetDate < ?4 )" ),
+            @NamedQuery(name = "Timesheet.findByUserStatusMonth", query = "SELECT t FROM Timesheet t " +
+    "WHERE t.userEmail.email = ?1 and t.status.statusKey = ?2 and  ( t.timesheetDate > ?3 and t.timesheetDate < ?4 )" ),
+            @NamedQuery(name = "Timesheet.findCountByUserStatus", query = "SELECT COUNT(t) FROM Timesheet t " +
+    "WHERE t.userEmail.email = ?1 and t.status.statusKey = ?2" ),
+            @NamedQuery(name = "Timesheet.findByUserStatus", query = "SELECT t FROM Timesheet t " +
+    "WHERE t.userEmail.email = ?1 and t.status.statusKey = ?2" ),
+            @NamedQuery(name ="Timesheet.findByGeneralSearch", query = "SELECT t FROM Timesheet t where t.timesheetDate like ?1 or " +
+    "t.daysFor like ?2 or t.createdBy like ?3 or t.createdDate like ?4 or t.lastUpdatedBy ?5 or t.userEmail.email like ?5 " +
+            " or t.status.statusKey like ?6"),
+            @NamedQuery(name ="Timesheet.findCountByGeneralSearch", query = "SELECT COUNT(t) FROM Timesheet t where t.timesheetDate like ?1 or " +
+    "t.daysFor like ?2 or t.createdBy like ?3 or t.createdDate like ?4 or t.lastUpdatedBy ?5 or t.userEmail.email like ?5 " +
+            " or t.status.statusKey like ?6")
 })
 public class Timesheet implements Serializable {
     
@@ -86,8 +85,15 @@ public class Timesheet implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date lastUpdatedDate;
     
+    @Column(name = "comment")
+    private String comment;
+    
     @OneToMany(cascade=CascadeType.PERSIST, mappedBy = "timesheetId")
     private Collection<TimesheetDetail> timesheetDetailCollection;
+    
+    @JoinColumn(name = "status", referencedColumnName = "id")
+    @ManyToOne
+    private TimesheetStatus status;
     
     @JoinColumn(name = "userEmail", referencedColumnName = "email")
     @ManyToOne
@@ -96,10 +102,6 @@ public class Timesheet implements Serializable {
     @JoinColumn(name = "clientCompany", referencedColumnName = "id")
     @ManyToOne
     private UserCompany clientCompany;
-    
-    @JoinColumn(name = "status", referencedColumnName = "id")
-    @ManyToOne
-    private TimesheetStatus status;
     
     @Transient
     private String timesheetDateString;
@@ -241,6 +243,22 @@ public class Timesheet implements Serializable {
     }
     
     /**
+     * Gets the comment of this Timesheet.
+     * @return the comment
+     */
+    public String getComment() {
+        return this.comment;
+    }
+    
+    /**
+     * Sets the comment of this Timesheet to the specified value.
+     * @param comment the new comment
+     */
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+    
+    /**
      * Gets the timesheetDetailCollection of this Timesheet.
      * @return the timesheetDetailCollection
      */
@@ -254,6 +272,22 @@ public class Timesheet implements Serializable {
      */
     public void setTimesheetDetailCollection(Collection<TimesheetDetail> timesheetDetailCollection) {
         this.timesheetDetailCollection = timesheetDetailCollection;
+    }
+    
+    /**
+     * Gets the status of this Timesheet.
+     * @return the status
+     */
+    public TimesheetStatus getStatus() {
+        return this.status;
+    }
+    
+    /**
+     * Sets the status of this Timesheet to the specified value.
+     * @param status the new status
+     */
+    public void setStatus(TimesheetStatus status) {
+        this.status = status;
     }
     
     /**
@@ -288,38 +322,22 @@ public class Timesheet implements Serializable {
         this.clientCompany = clientCompany;
     }
     
-    /**
-     * Gets the status of this Timesheet.
-     * @return the status
-     */
-    public TimesheetStatus getStatus() {
-        return this.status;
-    }
-    
     public String getTimesheetDateString() {
         Calendar c = Calendar.getInstance();
         
         if ( this.timesheetDate != null ) {
             c.setTime(this.timesheetDate);
-            String dtStr = "";            
+            String dtStr = "";
             dtStr += c.get(Calendar.MONTH) + "/";
             dtStr += c.get(Calendar.DAY_OF_MONTH) + "/";
             dtStr += c.get(Calendar.YEAR);
-            timesheetDateString = dtStr;            
+            timesheetDateString = dtStr;
         }
         return timesheetDateString;
     }
     
     public void setTimesheetDateString(String timesheetDateString) {
         this.timesheetDateString = timesheetDateString;
-    }
-    
-    /**
-     * Sets the status of this Timesheet to the specified value.
-     * @param status the new status
-     */
-    public void setStatus(TimesheetStatus status) {
-        this.status = status;
     }
     
     /**
@@ -362,6 +380,5 @@ public class Timesheet implements Serializable {
     public String toString() {
         return "com.abbt.timesheet.entities.Timesheet[id=" + id + "]";
     }
-    
     
 }

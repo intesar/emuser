@@ -1,7 +1,7 @@
 /*
  * TimesheetStatus.java
  *
- * Created on April 29, 2007, 9:38 PM
+ * Created on May 7, 2007, 11:05 PM
  *
  * To change this template, choose Tools | Template Manager
  * and open the template in the editor.
@@ -39,8 +39,7 @@ import javax.persistence.TemporalType;
         @NamedQuery(name = "TimesheetStatus.findByCreatedBy", query = "SELECT t FROM TimesheetStatus t WHERE t.createdBy = :createdBy"),
         @NamedQuery(name = "TimesheetStatus.findByCreatedDate", query = "SELECT t FROM TimesheetStatus t WHERE t.createdDate = :createdDate"),
         @NamedQuery(name = "TimesheetStatus.findByLastUpdatedBy", query = "SELECT t FROM TimesheetStatus t WHERE t.lastUpdatedBy = :lastUpdatedBy"),
-        @NamedQuery(name = "TimesheetStatus.findByLastUpdatedDate", query = "SELECT t FROM TimesheetStatus t WHERE t.lastUpdatedDate = :lastUpdatedDate"),
-        @NamedQuery(name = "TimesheetStatus.findAllStatuses", query = "SELECT t FROM TimesheetStatus t order by t.statusKey asc")
+        @NamedQuery(name = "TimesheetStatus.findByLastUpdatedDate", query = "SELECT t FROM TimesheetStatus t WHERE t.lastUpdatedDate = :lastUpdatedDate")
     })
 public class TimesheetStatus implements Serializable {
 
