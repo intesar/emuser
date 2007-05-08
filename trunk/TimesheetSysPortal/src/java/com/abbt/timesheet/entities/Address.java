@@ -1,7 +1,7 @@
 /*
  * Address.java
  *
- * Created on April 29, 2007, 9:38 PM
+ * Created on May 7, 2007, 11:05 PM
  *
  * To change this template, choose Tools | Template Manager
  * and open the template in the editor.
@@ -90,6 +90,9 @@ public class Address implements Serializable {
 
     @OneToMany(mappedBy = "billingAddress")
     private Collection<Company> companyCollection;
+
+    @OneToMany(mappedBy = "otherAddress")
+    private Collection<Company> companyCollection1;
 
     @OneToMany(mappedBy = "primaryAddress")
     private Collection<User> userCollection;
@@ -344,6 +347,22 @@ public class Address implements Serializable {
      */
     public void setCompanyCollection(Collection<Company> companyCollection) {
         this.companyCollection = companyCollection;
+    }
+
+    /**
+     * Gets the companyCollection1 of this Address.
+     * @return the companyCollection1
+     */
+    public Collection<Company> getCompanyCollection1() {
+        return this.companyCollection1;
+    }
+
+    /**
+     * Sets the companyCollection1 of this Address to the specified value.
+     * @param companyCollection1 the new companyCollection1
+     */
+    public void setCompanyCollection1(Collection<Company> companyCollection1) {
+        this.companyCollection1 = companyCollection1;
     }
 
     /**

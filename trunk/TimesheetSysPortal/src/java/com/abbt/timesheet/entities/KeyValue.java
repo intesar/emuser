@@ -1,7 +1,7 @@
 /*
  * KeyValue.java
  *
- * Created on April 29, 2007, 9:38 PM
+ * Created on May 7, 2007, 11:05 PM
  *
  * To change this template, choose Tools | Template Manager
  * and open the template in the editor.
@@ -29,7 +29,7 @@ import javax.persistence.TemporalType;
 @Table(name = "key_value")
 @NamedQueries( {
         @NamedQuery(name = "KeyValue.findById", query = "SELECT k FROM KeyValue k WHERE k.id = :id"),
-        @NamedQuery(name = "KeyValue.findByType", query = "SELECT k FROM KeyValue k WHERE k.type = :type"),
+        @NamedQuery(name = "KeyValue.findByKey", query = "SELECT k FROM KeyValue k WHERE k.key = :key"),
         @NamedQuery(name = "KeyValue.findByValue", query = "SELECT k FROM KeyValue k WHERE k.value = :value"),
         @NamedQuery(name = "KeyValue.findByDescription", query = "SELECT k FROM KeyValue k WHERE k.description = :description"),
         @NamedQuery(name = "KeyValue.findBySortNumber", query = "SELECT k FROM KeyValue k WHERE k.sortNumber = :sortNumber"),
@@ -44,8 +44,8 @@ public class KeyValue implements Serializable {
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @Column(name = "type", nullable = false)
-    private String type;
+    @Column(name = "key", nullable = false)
+    private String key;
 
     @Column(name = "value", nullable = false)
     private String value;
@@ -85,12 +85,12 @@ public class KeyValue implements Serializable {
     /**
      * Creates a new instance of KeyValue with the specified values.
      * @param id the id of the KeyValue
-     * @param type the type of the KeyValue
+     * @param key the key of the KeyValue
      * @param value the value of the KeyValue
      */
-    public KeyValue(Integer id, String type, String value) {
+    public KeyValue(Integer id, String key, String value) {
         this.id = id;
-        this.type = type;
+        this.key = key;
         this.value = value;
     }
 
@@ -111,19 +111,19 @@ public class KeyValue implements Serializable {
     }
 
     /**
-     * Gets the type of this KeyValue.
-     * @return the type
+     * Gets the key of this KeyValue.
+     * @return the key
      */
-    public String getType() {
-        return this.type;
+    public String getKey() {
+        return this.key;
     }
 
     /**
-     * Sets the type of this KeyValue to the specified value.
-     * @param type the new type
+     * Sets the key of this KeyValue to the specified value.
+     * @param key the new key
      */
-    public void setType(String type) {
-        this.type = type;
+    public void setKey(String key) {
+        this.key = key;
     }
 
     /**
