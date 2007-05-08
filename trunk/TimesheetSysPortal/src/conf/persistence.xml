@@ -3,15 +3,16 @@
   <persistence-unit name="TimesheetSysPortalPU" transaction-type="RESOURCE_LOCAL">
     <provider>oracle.toplink.essentials.ejb.cmp3.EntityManagerFactoryProvider</provider>
     <class>com.abbt.timesheet.entities.UserCompany</class>
+    <class>com.abbt.timesheet.entities.Phone</class>
     <class>com.abbt.timesheet.entities.TimesheetStatus</class>
     <class>com.abbt.timesheet.entities.Address</class>
     <class>com.abbt.timesheet.entities.TimesheetStatusHistory</class>
     <class>com.abbt.timesheet.entities.Company</class>
     <class>com.abbt.timesheet.entities.KeyValue</class>
-    <class>com.abbt.timesheet.entities.User</class>
     <class>com.abbt.timesheet.entities.TimesheetDetail</class>
+    <class>com.abbt.timesheet.entities.UserCompanyRole</class>
     <class>com.abbt.timesheet.entities.Timesheet</class>
-    <class>com.abbt.timesheet.entities.UserRole</class>
+    <class>com.abbt.timesheet.entities.User</class>
     <properties>
       <property name="toplink.jdbc.user" value="root"/>
       <property name="toplink.jdbc.password" value="apple123"/>
