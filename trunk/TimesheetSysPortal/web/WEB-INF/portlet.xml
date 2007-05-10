@@ -91,4 +91,22 @@
             <short-title>SearchResult</short-title>
         </portlet-info>
  </portlet>
+
+ <portlet>
+        <description>SearchCompanies</description>
+        <portlet-name>SearchCompanies</portlet-name>
+        <display-name>SearchCompanies</display-name>
+        <portlet-class>com.abbt.timesheet.portlets.CompanySearch</portlet-class>
+        <expiration-cache>0</expiration-cache>
+        <supports>
+            <mime-type>text/html</mime-type>          
+            <portlet-mode>VIEW</portlet-mode>
+            <portlet-mode>EDIT</portlet-mode>
+            <portlet-mode>HELP</portlet-mode>
+        </supports>
+        <portlet-info>
+            <title>SearchCompanies</title>
+            <short-title>SearchCompanies</short-title>
+        </portlet-info>
+ </portlet>
 </portlet-app>
