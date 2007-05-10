@@ -40,7 +40,11 @@ import javax.persistence.TemporalType;
         @NamedQuery(name = "Company.findByLastUpdatedDate", query = "SELECT c FROM Company c WHERE c.lastUpdatedDate = :lastUpdatedDate"),
         @NamedQuery(name = "Company.findByDescription", query = "SELECT c FROM Company c WHERE c.description = :description"),
         @NamedQuery(name = "Company.findByIsEnabled", query = "SELECT c FROM Company c WHERE c.isEnabled = :isEnabled"),
-        @NamedQuery(name = "Company.findById", query = "SELECT c FROM Company c WHERE c.id = :id")
+        @NamedQuery(name = "Company.findById", query = "SELECT c FROM Company c WHERE c.id = :id"),
+        @NamedQuery(name = "Company.findAllOrderByCreatedDate", query = "SELECT c FROM Company c ORDER BY c.createdDate DESC"),
+        @NamedQuery(name = "Company.findCountAllOrderByCreatedDate", query = "SELECT COUNT(c) FROM Company c ORDER BY c.createdDate DESC"),
+        @NamedQuery(name = "Company.searchByKey", query = "SELECT c FROM Company c WHERE c.name like ?1 AND c.billingAddress.city like ?2 ORDER BY c.createdDate DESC"),
+        @NamedQuery(name = "Company.searchCountByKey", query = "SELECT COUNT(c) FROM Company c  WHERE c.name like ?1 AND c.billingAddress.city like ?2 ORDER BY c.createdDate DESC")
     })
 public class Company implements Serializable {
 
