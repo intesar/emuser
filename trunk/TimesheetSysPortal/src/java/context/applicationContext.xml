@@ -25,4 +25,12 @@
         </property>
     </bean>       
     
+    <bean id="CompanyService" class="com.abbt.timesheet.services.CompanyServiceImpl" >
+        <property name="timesheetDBDao">
+            <ref bean="TimesheetDBDao"></ref>
+        </property>
+        <property name="pageHandlerDao">
+            <ref bean="PageHandlerDao"></ref>
+        </property>
+    </bean>    
 </beans>                
