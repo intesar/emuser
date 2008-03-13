@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.abbhsoft</groupId>
+    <artifactId>Laft</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0-SNAPSHOT</version>
+    <name>Laft</name>
+    <url>http://maven.apache.org</url>
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>RELEASE</version>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                </configuration>
+            </plugin>
+        </plugins>
+        
+        
+        <resources>
+            <resource>
+                <filtering>true</filtering>
+                <directory>src/main/resources/context</directory>
+            </resource>
+        </resources>
+        <testResources>
+            <testResource>
+                <filtering>true</filtering>
+                <directory>src/main/resources/context</directory>
+            </testResource>
+            <testResource>
+                <filtering>true</filtering>
+                <directory>src/test/resources/context</directory>
+            </testResource>
+        </testResources>
+        
+    </build>
+    <!-- module defination -->
+    <modules>        
+        <module>Laft-Services</module>
+        <module>Laft-Web</module>        
+    </modules>
+    <!-- dependencies for all moduels -->
+    <dependencies>
+        <!-- jars used across all modules -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>3.8.1</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.15</version>
+            <scope>compile</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>javax.mail</groupId>
+                    <artifactId>mail</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>javax.jms</groupId>
+                    <artifactId>jms</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.sun.jdmk</groupId>
+                    <artifactId>jmxtools</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.sun.jmx</groupId>
+                    <artifactId>jmxri</artifactId>
+                </exclusion>
+            </exclusions>                
+        </dependency>
+        
+        <!-- jars used in services and dao module -->
+        
+        <!-- jars used in web module -->
+        
+        
+        <dependency>
+            <groupId>ehcache</groupId>
+            <artifactId>ehcache</artifactId>
+            <version>1.2.3</version>
+            <scope>compile</scope>
+        </dependency>
+        
+        
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>2.3</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>jstl</groupId> 
+            <artifactId>jstl</artifactId> 
+            <version>1.0</version> 
+            <scope>compile</scope>
+        </dependency>
+        <!-- Common because Service Log4J Filter uses the Servlet API -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>2.4</version>
+            <scope>compile</scope>
+        </dependency>
+        
+        
+        <!-- Spring Framework -->
+        <dependency>            
+            <groupId>org.springframework</groupId>            
+            <artifactId>spring</artifactId>            
+            <version>2.5</version>            
+            <scope>compile</scope>            
+        </dependency>
+        <dependency>            
+            <groupId>org.springframework</groupId>            
+            <artifactId>spring-test</artifactId>            
+            <version>2.5</version>            
+            <scope>compile</scope>            
+        </dependency>
+        <dependency>            
+            <groupId>org.springframework</groupId>            
+            <artifactId>spring-aop</artifactId>            
+            <version>2.5</version>            
+            <scope>compile</scope>            
+        </dependency> 
+        <dependency>            
+            <groupId>org.springframework</groupId>            
+            <artifactId>spring-orm</artifactId>            
+            <version>2.5</version>            
+            <scope>compile</scope>            
+        </dependency> 
+        <dependency>            
+            <groupId>org.springframework</groupId>            
+            <artifactId>spring-jpa</artifactId>            
+            <version>2.0.7</version>            
+            <scope>compile</scope>            
+        </dependency> 
+        <dependency>            
+            <groupId>aspectj</groupId>            
+            <artifactId>aspectjweaver</artifactId>            
+            <version>1.5.3</version>            
+            <scope>compile</scope>            
+        </dependency> 
+        <!-- hibernate  -->
+        <dependency>
+            <groupId>javax.persistence</groupId>
+            <artifactId>persistence-api</artifactId>
+            <version>1.0</version>
+            <scope>compile</scope>
+        </dependency>
+        
+        <dependency>            
+            <groupId>dom4j</groupId>            
+            <artifactId>dom4j</artifactId>            
+            <version>1.6.1</version>            
+            <scope>compile</scope>            
+        </dependency> 
+        <dependency>            
+            <groupId>org.hibernate</groupId>            
+            <artifactId>hibernate</artifactId>            
+            <version>3.2.5.ga</version>            
+            <scope>compile</scope>            
+        </dependency> 
+        <dependency>            
+            <groupId>javax.annotation</groupId>            
+            <artifactId>jsr250-api</artifactId>            
+            <version>1.0</version>            
+            <scope>compile</scope>            
+        </dependency> 
+        <dependency>            
+            <groupId>org.hibernate</groupId>            
+            <artifactId>hibernate-annotations</artifactId>            
+            <version>3.3.0.ga</version>            
+            <scope>compile</scope>            
+        </dependency> 
+        <dependency>            
+            <groupId>org.hibernate</groupId>            
+            <artifactId>hibernate-commons-annotations</artifactId>            
+            <version>3.3.0.ga</version>            
+            <scope>compile</scope>            
+        </dependency> 
+        <dependency>            
+            <groupId>org.hibernate</groupId>            
+            <artifactId>hibernate-entitymanager</artifactId>            
+            <version>3.3.1.ga</version>            
+            <scope>compile</scope>            
+        </dependency> 
+        <dependency>            
+            <groupId>javax.transaction</groupId>            
+            <artifactId>jta</artifactId>            
+            <version>1.0.1B</version>            
+            <scope>compile</scope>            
+        </dependency>         
+        <dependency>
+            <groupId>toplink.essentials</groupId>
+            <artifactId>toplink-essentials</artifactId>
+            <version>2.0-36</version>
+        </dependency>   
+        <dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>mail</artifactId>
+            <version>1.4</version>
+        </dependency> 
+        
+        <!-- mysql driver -->
+        
+        <!-- jsf -->
+        
+        <!-- rich faces -->
+        
+        <!-- lucene -->
+        
+        <!-- acegi -->
+    </dependencies>
+    <repositories>
+        <!--   Public global repository. -->
+        <repository>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <id>central</id>
+            <name>Maven Repository Switchboard</name>
+            <url>http://repo1.maven.org/maven2</url>
+        </repository>
+    </repositories>
+    <pluginRepositories>
+        
+    </pluginRepositories>
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-project-info-reports-plugin</artifactId>
+                <!-- This is a plugin that generates reports information about the project. -->
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <configuration>
+                    <configLocation>src/checkstyle/configuration.xml</configLocation>
+                </configuration>
+                <!-- Checkstyle plugin generates report regarding the code style of the developer. -->
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jxr-plugin</artifactId>
+                <!-- The report generated includes a cross-reference of the project's sources.
+					Each source entry is also linked with its corresponding Javadoc (if Javadoc was generated) -->
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <configuration>
+                    <linkXref>true</linkXref>
+                    <sourceEncoding>utf-8</sourceEncoding>
+                    <minimumTokens>100</minimumTokens>
+                    <targetJdk>1.5</targetJdk>
+                </configuration>
+                <!-- PMD scans Java source code and looks for potential problems like:
+					* Possible bugs - empty try/catch/finally/switch statements
+					* Dead code - unused local variables, parameters and private methods
+					* Suboptimal code - wasteful String/StringBuffer usage
+					* Overcomplicated expressions - unnecessary if statements, for loops that could be while loops
+					* Duplicate code - copied/pasted code means copied/pasted bugs -->
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>jdepend-maven-plugin</artifactId>
+                <!-- JDepend is a tool that traverses Java class file directories and generates design
+					quality metrics for each Java package. JDepend allows you to automatically measure the
+					quality of a design in terms of its extensibility, reusability, and maintainability to
+					manage package dependencies effectively. -->
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>javancss-maven-plugin</artifactId>
+                <!--  <version>2.0-beta-1</version>-->
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <configuration>
+                    <minmemory>128m</minmemory>
+                    <maxmemory>512m</maxmemory>
+                </configuration>
+                <!-- Generates documentation for the Java code in the project using the standard Javadoc tool. -->
+            </plugin>
+            <!-- The Cobertura report generated by this plugin is the result of executing the
+				Cobertura tool against your compiled classes to help you determine how well the unit testing efforts
+				have been, and can then be used to identify which parts of your Java program are lacking test coverage.
+			-->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>cobertura-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.cargo</groupId>
+                <artifactId>cargo-maven2-plugin</artifactId>
+                <configuration>
+                    <deployer>
+                        <deployables>
+                            <deployable>
+                                <artifactId>${pom.artifactId}</artifactId>
+                                <groupId>${pom.groupId}</groupId>
+                                <pingURL>http://nyccmsdp1rnbz71:8080/${pom.artifactId}</pingURL>
+                            </deployable>
+                        </deployables>
+                    </deployer>
+                </configuration>
+                
+            </plugin>
+        </plugins>
+    </reporting>
+    
+</project>
