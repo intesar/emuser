@@ -40,6 +40,7 @@
     </build>
     <!-- module defination -->
     <modules>        
+        <module>Laft-Dao</module>
         <module>Laft-Services</module>
         <module>Laft-Web</module>        
     </modules>
