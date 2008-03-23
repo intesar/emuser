@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd
+http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
+    
+    <bean id="myTxManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory"/>
+    </bean>
+    
+    <aop:config>
+        <!--
+        <aop:pointcut id="serviceMethods" expression="execution(* com.mck.mailrx.service.*.*(..))"/>
+        -->
+        <aop:pointcut id="serviceMethods" expression="within(com.abbhsoft.laft.service..*)"/>
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="serviceMethods"/>
+    </aop:config>
+    
+    <tx:advice id="txAdvice" transaction-manager="myTxManager">
+        <tx:attributes>                        
+            <tx:method name="get*" propagation="SUPPORTS" read-only="true"/>            
+            <tx:method name="*" propagation="REQUIRED" />       
+            <!--<tx:method name="someOtherBusinessMethod" propagation="REQUIRES_NEW"/>-->
+            <!--<tx:method name="*" propagation="SUPPORTS" read-only="true"/>-->
+            <!-- <tx:method name="delete*" propagation="REQUIRES_NEW" /> -->
+        </tx:attributes>
+    </tx:advice>
+    
+</beans>
