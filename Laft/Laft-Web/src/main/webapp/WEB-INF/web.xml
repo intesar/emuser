@@ -4,4 +4,14 @@
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
+   <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>        
+		classpath:/ApplicationContext-JpaDaoFramework.xml,
+		classpath:/ApplicationContext-Dao.xml,
+		classpath:/ApplicationContext-Service.xml,
+                classpath:/ApplicationContext-Transactions.xml,
+                /WEB-INF/applicationContext-*.xml 
+    </param-value>
+  </context-param>
 </web-app>
