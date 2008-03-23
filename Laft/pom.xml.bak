@@ -5,7 +5,7 @@
     <artifactId>Laft</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
-    <name>Hugin</name>
+    <name>Laft</name>
     <url>http://maven.apache.org</url>
     <build>
         <plugins>
@@ -13,13 +13,13 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>RELEASE</version>
                 <configuration>
-                    <source>1.5</source>
-                    <target>1.5</target>
+                    <source>1.6</source>
+                    <target>1.6</target>
                 </configuration>
             </plugin>
         </plugins>
         
-        <!-- all spring configuration files go here -->
+        
         <resources>
             <resource>
                 <filtering>true</filtering>
@@ -40,23 +40,19 @@
     </build>
     <!-- module defination -->
     <modules>        
+        <module>Laft-Dao</module>
         <module>Laft-Services</module>
         <module>Laft-Web</module>        
     </modules>
+    <!-- dependencies for all moduels -->
     <dependencies>
+        <!-- jars used across all modules -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>3.8.1</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>ehcache</groupId>
-            <artifactId>ehcache</artifactId>
-            <version>1.2.3</version>
-            <scope>compile</scope>
-        </dependency>
-        
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
@@ -81,6 +77,20 @@
                 </exclusion>
             </exclusions>                
         </dependency>
+        
+        <!-- jars used in services and dao module -->
+        
+        <!-- jars used in web module -->
+        
+        
+        <dependency>
+            <groupId>ehcache</groupId>
+            <artifactId>ehcache</artifactId>
+            <version>1.2.3</version>
+            <scope>compile</scope>
+        </dependency>
+        
+        
         <dependency>
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
@@ -101,6 +111,7 @@
             <scope>compile</scope>
         </dependency>
         
+        
         <!-- Spring Framework -->
         <dependency>            
             <groupId>org.springframework</groupId>            
@@ -119,29 +130,97 @@
             <artifactId>spring-aop</artifactId>            
             <version>2.5</version>            
             <scope>compile</scope>            
+        </dependency> 
+        <dependency>            
+            <groupId>org.springframework</groupId>            
+            <artifactId>spring-orm</artifactId>            
+            <version>2.5</version>            
+            <scope>compile</scope>            
+        </dependency> 
+        <dependency>            
+            <groupId>org.springframework</groupId>            
+            <artifactId>spring-jpa</artifactId>            
+            <version>2.0.7</version>            
+            <scope>compile</scope>            
+        </dependency> 
+        <dependency>            
+            <groupId>aspectj</groupId>            
+            <artifactId>aspectjweaver</artifactId>            
+            <version>1.5.3</version>            
+            <scope>compile</scope>            
+        </dependency> 
+        <!-- hibernate  -->
+        <dependency>
+            <groupId>javax.persistence</groupId>
+            <artifactId>persistence-api</artifactId>
+            <version>1.0</version>
+            <scope>compile</scope>
+        </dependency>
+        
+        <dependency>            
+            <groupId>dom4j</groupId>            
+            <artifactId>dom4j</artifactId>            
+            <version>1.6.1</version>            
+            <scope>compile</scope>            
+        </dependency> 
+        <dependency>            
+            <groupId>org.hibernate</groupId>            
+            <artifactId>hibernate</artifactId>            
+            <version>3.2.5.ga</version>            
+            <scope>compile</scope>            
+        </dependency> 
+        <dependency>            
+            <groupId>javax.annotation</groupId>            
+            <artifactId>jsr250-api</artifactId>            
+            <version>1.0</version>            
+            <scope>compile</scope>            
+        </dependency> 
+        <dependency>            
+            <groupId>org.hibernate</groupId>            
+            <artifactId>hibernate-annotations</artifactId>            
+            <version>3.3.0.ga</version>            
+            <scope>compile</scope>            
+        </dependency> 
+        <dependency>            
+            <groupId>org.hibernate</groupId>            
+            <artifactId>hibernate-commons-annotations</artifactId>            
+            <version>3.3.0.ga</version>            
+            <scope>compile</scope>            
+        </dependency> 
+        <dependency>            
+            <groupId>org.hibernate</groupId>            
+            <artifactId>hibernate-entitymanager</artifactId>            
+            <version>3.3.1.ga</version>            
+            <scope>compile</scope>            
+        </dependency> 
+        <dependency>            
+            <groupId>javax.transaction</groupId>            
+            <artifactId>jta</artifactId>            
+            <version>1.0.1B</version>            
+            <scope>compile</scope>            
+        </dependency>         
+        <dependency>
+            <groupId>toplink.essentials</groupId>
+            <artifactId>toplink-essentials</artifactId>
+            <version>2.0-36</version>
         </dependency>   
+        <dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>mail</artifactId>
+            <version>1.4</version>
+        </dependency> 
+        
+        <!-- mysql driver -->
+        
+        <!-- jsf -->
+        
+        <!-- rich faces -->
+        
+        <!-- lucene -->
+        
+        <!-- acegi -->
     </dependencies>
     <repositories>
-        
-        <repository>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-            <id>central</id>
-            <name>Maven Repository Switchboard</name>
-            <!--  this url is ipcoded to allow india group to access it withut name
-				Real URL is http://eqjtest1.mhf1.mhf.mhc:8081/artifactory/repo
-				This also needs the userID and Password in the settingls .xml as below...
-				<servers>
-				    <server>
-				      <id>deploymentRepo</id>
-				      <username>artifactory userid</username>
-				      <password>artifactory password</password>
-				    </server>
-				  </servers>
-			-->
-            <url>http://152.159.89.139:8081/artifactory/repo</url>
-        </repository>
         <!--   Public global repository. -->
         <repository>
             <snapshots>
@@ -153,11 +232,7 @@
         </repository>
     </repositories>
     <pluginRepositories>
-        <pluginRepository>
-            <id>central</id>
-            <name>Central Maven Repository</name>
-            <url>http://152.159.89.139:8081/artifactory/repo</url>
-        </pluginRepository>
+        
     </pluginRepositories>
     <reporting>
         <plugins>
@@ -222,27 +297,27 @@
 				Cobertura tool against your compiled classes to help you determine how well the unit testing efforts
 				have been, and can then be used to identify which parts of your Java program are lacking test coverage.
 			-->
-                        <plugin>
-                            <groupId>org.codehaus.mojo</groupId>
-                            <artifactId>cobertura-maven-plugin</artifactId>
-                        </plugin>
-                        <plugin>
-                            <groupId>org.codehaus.cargo</groupId>
-                            <artifactId>cargo-maven2-plugin</artifactId>
-                            <configuration>
-                                <deployer>
-                                    <deployables>
-                                        <deployable>
-                                            <artifactId>${pom.artifactId}</artifactId>
-                                            <groupId>${pom.groupId}</groupId>
-                                            <pingURL>http://nyccmsdp1rnbz71:8080/${pom.artifactId}</pingURL>
-                                        </deployable>
-                                    </deployables>
-                                </deployer>
-                            </configuration>
-                            
-                        </plugin>
-                    </plugins>
-                </reporting>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>cobertura-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.cargo</groupId>
+                <artifactId>cargo-maven2-plugin</artifactId>
+                <configuration>
+                    <deployer>
+                        <deployables>
+                            <deployable>
+                                <artifactId>${pom.artifactId}</artifactId>
+                                <groupId>${pom.groupId}</groupId>
+                                <pingURL>http://nyccmsdp1rnbz71:8080/${pom.artifactId}</pingURL>
+                            </deployable>
+                        </deployables>
+                    </deployer>
+                </configuration>
                 
-            </project>
+            </plugin>
+        </plugins>
+    </reporting>
+    
+</project>
