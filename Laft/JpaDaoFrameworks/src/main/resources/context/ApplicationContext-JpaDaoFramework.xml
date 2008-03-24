@@ -51,7 +51,7 @@
     
   <!-- 
     datasource bean is used by spring unit testing 
-  
+    Uncomment this bean when testing application against some local database
     
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
       <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
