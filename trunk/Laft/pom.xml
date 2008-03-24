@@ -7,6 +7,120 @@
     <version>1.0-SNAPSHOT</version>
     <name>Laft</name>
     <url>http://maven.apache.org</url>
+    <contributors>
+        <contributor>
+            <organizationUrl>http://www.abbhsoft.com</organizationUrl>
+            <organization>Abbhsoft LLC</organization>
+            <name>Intesar Shannan Mohammed</name>
+            <email>mdshannan@gmail.com</email>
+            <roles>
+                <role>System Architect</role>
+                <role>Project Manager</role>
+            </roles>            
+        </contributor>
+        <!-- Database Team -->
+        <contributor>
+            <organizationUrl>http://www.abbhsoft.com</organizationUrl>
+            <organization>Abbhsoft LLC</organization>
+            <name>Syed Irshan</name>
+            <email></email>
+            <roles>
+                <role></role>
+            </roles>            
+        </contributor>
+        <contributor>
+            <organizationUrl>http://www.abbhsoft.com</organizationUrl>
+            <organization>Abbhsoft LLC</organization>
+            <name>Atef Ahmed</name>
+            <email></email>
+            <roles>
+                <role></role>
+            </roles>            
+        </contributor>
+        <contributor>
+            <organizationUrl>http://www.abbhsoft.com</organizationUrl>
+            <organization>Abbhsoft LLC</organization>
+            <name>Moiz Arshad</name>
+            <email></email>
+            <roles>
+                <role></role>
+            </roles>            
+        </contributor>
+        <!-- Business Logic Team -->
+        <contributor>
+            <organizationUrl>http://www.abbhsoft.com</organizationUrl>
+            <organization>Abbhsoft LLC</organization>
+            <name>Mir Khurram Ali</name>
+            <email></email>
+            <roles>
+                <role></role>
+            </roles>            
+        </contributor>
+        <contributor>
+            <organizationUrl>http://www.abbhsoft.com</organizationUrl>
+            <organization>Abbhsoft LLC</organization>
+            <name>Mohammed Amer</name>
+            <email></email>
+            <roles>
+                <role></role>
+            </roles>            
+        </contributor>
+        <contributor>
+            <organizationUrl>http://www.abbhsoft.com</organizationUrl>
+            <organization>Abbhsoft LLC</organization>
+            <name>Mohammed Vaseem Taj</name>
+            <email></email>
+            <roles>
+                <role></role>
+            </roles>            
+        </contributor>
+        <contributor>
+            <organizationUrl>http://www.abbhsoft.com</organizationUrl>
+            <organization>Abbhsoft LLC</organization>
+            <name>Syed Khader</name>
+            <email></email>
+            <roles>
+                <role></role>
+            </roles>            
+        </contributor>
+        <!-- UX Team -->
+        <contributor>
+            <organizationUrl>http://www.abbhsoft.com</organizationUrl>
+            <organization>Abbhsoft LLC</organization>
+            <name>Mohammed Hamed</name>
+            <email></email>
+            <roles>
+                <role></role>
+            </roles>            
+        </contributor>
+        <contributor>
+            <organizationUrl>http://www.abbhsoft.com</organizationUrl>
+            <organization>Abbhsoft LLC</organization>
+            <name>Maqbool Khan</name>
+            <email></email>
+            <roles>
+                <role></role>
+            </roles>            
+        </contributor>
+        <contributor>
+            <organizationUrl>http://www.abbhsoft.com</organizationUrl>
+            <organization>Abbhsoft LLC</organization>
+            <name>Faraz</name>
+            <email></email>
+            <roles>
+                <role></role>
+            </roles>            
+        </contributor>
+        <contributor>
+            <organizationUrl>http://www.abbhsoft.com</organizationUrl>
+            <organization>Abbhsoft LLC</organization>
+            <name>Mohammed Sumair</name>
+            <email></email>
+            <roles>
+                <role></role>
+            </roles>            
+        </contributor>
+    </contributors>
     <build>
         <plugins>
             <plugin>
@@ -40,7 +154,7 @@
     </build>
     <!-- module defination -->
     <modules>        
-		<module>JpaDaoFrameworks</module>
+        <module>JpaDaoFrameworks</module>
         <module>Laft-Dao</module>
         <module>Laft-Services</module>
         <module>Laft-Web</module>        
@@ -254,7 +368,7 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jxr-plugin</artifactId>
                 <!-- The report generated includes a cross-reference of the project's sources.
-					Each source entry is also linked with its corresponding Javadoc (if Javadoc was generated) -->
+                                        Each source entry is also linked with its corresponding Javadoc (if Javadoc was generated) -->
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -266,19 +380,19 @@
                     <targetJdk>1.5</targetJdk>
                 </configuration>
                 <!-- PMD scans Java source code and looks for potential problems like:
-					* Possible bugs - empty try/catch/finally/switch statements
-					* Dead code - unused local variables, parameters and private methods
-					* Suboptimal code - wasteful String/StringBuffer usage
-					* Overcomplicated expressions - unnecessary if statements, for loops that could be while loops
-					* Duplicate code - copied/pasted code means copied/pasted bugs -->
+                                        * Possible bugs - empty try/catch/finally/switch statements
+                                        * Dead code - unused local variables, parameters and private methods
+                                        * Suboptimal code - wasteful String/StringBuffer usage
+                                        * Overcomplicated expressions - unnecessary if statements, for loops that could be while loops
+                                        * Duplicate code - copied/pasted code means copied/pasted bugs -->
             </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>jdepend-maven-plugin</artifactId>
                 <!-- JDepend is a tool that traverses Java class file directories and generates design
-					quality metrics for each Java package. JDepend allows you to automatically measure the
-					quality of a design in terms of its extensibility, reusability, and maintainability to
-					manage package dependencies effectively. -->
+                                        quality metrics for each Java package. JDepend allows you to automatically measure the
+                                        quality of a design in terms of its extensibility, reusability, and maintainability to
+                                        manage package dependencies effectively. -->
             </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
@@ -295,9 +409,9 @@
                 <!-- Generates documentation for the Java code in the project using the standard Javadoc tool. -->
             </plugin>
             <!-- The Cobertura report generated by this plugin is the result of executing the
-				Cobertura tool against your compiled classes to help you determine how well the unit testing efforts
-				have been, and can then be used to identify which parts of your Java program are lacking test coverage.
-			-->
+                                Cobertura tool against your compiled classes to help you determine how well the unit testing efforts
+                                have been, and can then be used to identify which parts of your Java program are lacking test coverage.
+                        -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>cobertura-maven-plugin</artifactId>
