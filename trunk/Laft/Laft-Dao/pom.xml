@@ -21,5 +21,13 @@
             <version>3.8.1</version>
             <scope>test</scope>
         </dependency>
+        <!-- hibernate search module uses lucene -->        
+        <!-- tutorial url -->
+        <!-- http://www.hibernate.org/hib_docs/search/reference/en/html_single/ -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-search</artifactId>
+            <version>3.0.0.ga</version>
+        </dependency>
     </dependencies>
 </project>
