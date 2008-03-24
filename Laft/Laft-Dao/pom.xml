@@ -14,7 +14,14 @@
     <version>1.0-SNAPSHOT</version>
     <name>Laft-Dao</name>
     <url>http://maven.apache.org</url>
+    
     <dependencies>
+        <dependency>
+            <groupId>com.abbhsoft</groupId>
+            <artifactId>JpaDaoFrameworks</artifactId>            
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -24,10 +31,13 @@
         <!-- hibernate search module uses lucene -->        
         <!-- tutorial url -->
         <!-- http://www.hibernate.org/hib_docs/search/reference/en/html_single/ -->
+        <!--
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-search</artifactId>
             <version>3.0.0.ga</version>
         </dependency>
+        -->
     </dependencies>
+    
 </project>
