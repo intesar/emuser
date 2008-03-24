@@ -345,6 +345,13 @@
             <name>Maven Repository Switchboard</name>
             <url>http://repo1.maven.org/maven2</url>
         </repository>
+        <!-- JBoss repository -->
+        <repository>
+            <id>repository.jboss.org</id>
+            <name>JBoss Maven Repository</name>
+            <url>http://repository.jboss.org/maven2</url>
+            <layout>default</layout>
+        </repository>       
     </repositories>
     <pluginRepositories>
         
