@@ -17,32 +17,32 @@
     -->
     
     <!-- advisor -->
-   <bean id="finderIntroductionAdvisor" class="com.abbhsoft.jpadaoframework.dao.advisor.FinderIntroductionAdvisor" />
-
-   <!-- helper bean resolves the finder method name -->   
-   <bean id="extendedFinderNamingStrategy" class="com.abbhsoft.jpadaoframework.dao.finderhelper.ExtendedFinderNamingStrategy" />
-   
-   <!-- target -->
-   <bean id="abstractDaoTarget" class="com.abbhsoft.jpadaoframework.dao.GenericDaoJPAImpl" abstract="true">
-      <property name="entityManagerFactory"><ref bean="entityManagerFactory"/></property>
-      <property name="namingStrategy">
-         <ref bean="extendedFinderNamingStrategy" />
-      </property>
-   </bean>
-
-   <!-- base Proxy -->
-   <bean id="abstractDao" class="org.springframework.aop.framework.ProxyFactoryBean" abstract="true">
-       <property name="exposeProxy" value="true" />
-      <property name="interceptorNames">
-         <list>
-            <value>finderIntroductionAdvisor</value>
-         </list>
-      </property>
-   </bean>
-
-
-   
-
+    <bean id="finderIntroductionAdvisor" class="com.abbhsoft.jpadaoframework.dao.advisor.FinderIntroductionAdvisor" />
+    
+    <!-- helper bean resolves the finder method name -->   
+    <bean id="extendedFinderNamingStrategy" class="com.abbhsoft.jpadaoframework.dao.finderhelper.ExtendedFinderNamingStrategy" />
+    
+    <!-- target -->
+    <bean id="abstractDaoTarget" class="com.abbhsoft.jpadaoframework.dao.GenericDaoJPAImpl" abstract="true">
+        <property name="entityManagerFactory"><ref bean="entityManagerFactory"/></property>
+        <property name="namingStrategy">
+            <ref bean="extendedFinderNamingStrategy" />
+        </property>
+    </bean>
+    
+    <!-- base Proxy -->
+    <bean id="abstractDao" class="org.springframework.aop.framework.ProxyFactoryBean" abstract="true">
+        <property name="exposeProxy" value="true" />
+        <property name="interceptorNames">
+            <list>
+                <value>finderIntroductionAdvisor</value>
+            </list>
+        </property>
+    </bean>
+    
+    
+    
+    
     <!--
      ##########################################################################
                             Base Declerations End
@@ -52,21 +52,14 @@
   <!-- 
     datasource bean is used by spring unit testing 
     Uncomment this bean when testing application against some local database
+    -->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://98.210.111.226:3306/laft"/>
+        <property name="username" value="root"/>
+        <property name="password" value="admin"/>
+    </bean>
     
-    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-      <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-      <property name="url" value="jdbc:mysql:///mail_rx"/>
-      <property name="username" value="root"/>
-      <property name="password" value="apple123"/>
-    </bean>
-   
-   
-    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-      <property name="driverClassName" value="com.sybase.jdbc3.jdbc.SybDriver"/>
-      <property name="url" value="jdbc:sybase:Tds:thresher.techrx.com:4101/devfr56"/>
-      <property name="username" value="ff"/>
-      <property name="password" value=""/>   
-    </bean>
-   -->
+    
     
 </beans>
