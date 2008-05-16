@@ -1,7 +1,10 @@
 <dwr>
   <allow>
-    <create creator="new" javascript="JUsersService">
-      <param name="class" value="service.UserService"/>
+    <create creator="new" javascript="JUserAjaxService">
+      <param name="class" value="com.bia.payroll.service.ajax.UserAjaxService"/>
+    </create>
+    <create creator="new" javascript="JTimesheetAjaxService">
+      <param name="class" value="com.bia.payroll.service.ajax.UserAjaxService"/>
     </create>
   </allow>
 </dwr>
