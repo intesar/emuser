@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+    
+     
+    <!-- EntityManagerFactory -->
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">
+        <property name="persistenceUnitName" value="BizPayrollServicesPU"/>
+    </bean>
+    
+    <!-- 
+    datasource bean is used by spring unit testing 
+    Uncomment this bean when testing application against some local database
+    -->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql:///bizpayroll"/>
+        <property name="username" value="root"/>
+        <property name="password" value="apple123"/>
+    </bean>
+    <!--
+    #####################################################################
+            Dao Declaration Begin
+    #####################################################################    
+    -->
+
+    
+   <!--  Dao instances 
+   <bean id="personDao" parent="abstractDao">
+      <property name="proxyInterfaces">
+         <value>com.company.dao.PersonDao</value>
+      </property>
+      <property name="target">
+         <bean parent="abstractDaoTarget">
+            <constructor-arg>
+               <value>com.company.model.Person</value>
+            </constructor-arg>
+         </bean>
+      </property>
+   </bean>
+   
+   -->
+   <!-- 
+            To add new dao copy the entire bean defination from above and change
+            3 things
+            1. bean id
+            2. proxyInterfaces value to new dao 
+            3. constructor-arg to dao model class
+   -->
+   
+   <!-- common package dao's -->
+   
+    <bean id="organizationDao" parent="abstractDao">
+      <property name="proxyInterfaces">
+         <value>com.bia.payroll.dao.OrganizationDao</value>
+      </property>
+      <property name="target">
+         <bean parent="abstractDaoTarget">
+            <constructor-arg>
+               <value>com.bia.payroll.entity.Organization</value>
+            </constructor-arg>
+         </bean>
+      </property>
+   </bean>
+   
+   <bean id="timesheetDao" parent="abstractDao">
+      <property name="proxyInterfaces">
+         <value>com.bia.payroll.dao.TimesheetDao</value>
+      </property>
+      <property name="target">
+         <bean parent="abstractDaoTarget">
+            <constructor-arg>
+               <value>com.bia.payroll.entity.TimeSheet</value>
+            </constructor-arg>
+         </bean>
+      </property>
+   </bean>
+   
+   <bean id="timesheetDetailDao" parent="abstractDao">
+      <property name="proxyInterfaces">
+         <value>com.bia.payroll.dao.TimesheetDetailDao</value>
+      </property>
+      <property name="target">
+         <bean parent="abstractDaoTarget">
+            <constructor-arg>
+               <value>com.bia.payroll.entity.TimesheetDetail</value>
+            </constructor-arg>
+         </bean>
+      </property>
+   </bean>
+   
+   <bean id="usersDao" parent="abstractDao">
+      <property name="proxyInterfaces">
+         <value>com.bia.payroll.dao.UsersDao</value>
+      </property>
+      <property name="target">
+         <bean parent="abstractDaoTarget">
+            <constructor-arg>
+               <value>com.bia.payroll.entity.Users</value>
+            </constructor-arg>
+         </bean>
+      </property>
+   </bean>
+   
+   
+</beans>
