@@ -1,0 +1,7 @@
+<dwr>
+  <allow>
+    <create creator="new" javascript="JUsersService">
+      <param name="class" value="service.UserService"/>
+    </create>
+  </allow>
+</dwr>
