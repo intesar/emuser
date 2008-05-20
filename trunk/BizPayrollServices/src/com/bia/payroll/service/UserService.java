@@ -2,8 +2,11 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.bia.payroll.service;
+
+import com.abbhsoft.jpadaoframework.dao.PagedResult;
+import com.bia.payroll.entity.Oraganization;
+import com.bia.payroll.entity.Users;
 
 /**
  *
@@ -11,4 +14,11 @@ package com.bia.payroll.service;
  */
 public interface UserService {
 
+    public void createUser(Oraganization organization, Users user);
+
+    public PagedResult<Users> getAllUsers(Integer userId);
+
+    public void editUser(Users user);
+
+    public void changePassword(Integer userId, String oldPassword, String newPassword);
 }
