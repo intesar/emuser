@@ -153,17 +153,6 @@
       </property>
    </bean>
    
-   <bean id="authorityDao" parent="abstractDao">
-      <property name="proxyInterfaces">
-         <value>com.bia.payroll.dao.AuthorityDao</value>
-      </property>
-      <property name="target">
-         <bean parent="abstractDaoTarget">
-            <constructor-arg>
-               <value>com.bia.payroll.entity.Authority</value>
-            </constructor-arg>
-         </bean>
-      </property>
-   </bean>
+   
    
 </beans>

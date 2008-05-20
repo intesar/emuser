@@ -23,8 +23,10 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     public void createUser(Oraganization organization, Users user) {
-        organization.getUsersCollection().add(user);
+        //organization.getUsersCollection().add(user);
         organizationDao.create(organization);
+        organization = organizationDao.findByName(organization.getName());
+        user.setOrganization(organization);
         usersDao.create(user);
         Authorities a1 = new Authorities(user.getUsername(), "ROLE_ADMIN");
         authoritiesDao.create(a1);
@@ -36,7 +38,7 @@ public class UserServiceImpl implements UserService {
         Users user = usersDao.read(userId);
         List<Authorities> list = authoritiesDao.findByUsername(user.getUsername());
         for (Authorities authorities : list) {
-            if (authorities.getAuthoritiesPK().getAuthority().equalsIgnoreCase("role_admin")) {
+            if (authorities.getAuthority().equalsIgnoreCase("role_admin")) {
                 return usersDao.readAll();
             } else {
                 List<Users> users = new ArrayList<Users>();
@@ -52,8 +54,9 @@ public class UserServiceImpl implements UserService {
         usersDao.update(user);
     }
 
-    public void changePassword(Integer userId, String oldPassword, String newPassword) {
-        Users user = usersDao.read(userId);
+    public void changePassword(String username, String oldPassword, String newPassword) {
+        
+        Users user = usersDao.findByUsername(username);
         if (user.getPassword().equals(oldPassword)) {
             user.setPassword(newPassword);
             usersDao.update(user);

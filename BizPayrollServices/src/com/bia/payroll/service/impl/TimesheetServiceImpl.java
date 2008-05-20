@@ -29,7 +29,7 @@ public class TimesheetServiceImpl implements TimesheetService {
         Users user = usersDao.read(userId);
         List<Authorities> list = authoritiesDao.findByUsername(user.getUsername());
         for (Authorities authorities : list) {
-            if (authorities.getAuthoritiesPK().getAuthority().equalsIgnoreCase("role_admin")) {
+            if (authorities.getAuthority().equalsIgnoreCase("role_admin")) {
                 return timesheetDao.findByStatus(status);
             } else {
                 return timesheetDao.findByUserIdAndStatus(userId, status);

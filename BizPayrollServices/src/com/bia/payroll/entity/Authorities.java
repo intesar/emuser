@@ -6,10 +6,9 @@
 package com.bia.payroll.entity;
 
 import java.io.Serializable;
-import javax.persistence.EmbeddedId;
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -20,46 +19,57 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "authorities")
-@NamedQueries({@NamedQuery(name = "Authorities.findByUsername", query = "SELECT a FROM Authorities a WHERE a.authoritiesPK.username = ?1"), @NamedQuery(name = "Authorities.findByAuthority", query = "SELECT a FROM Authorities a WHERE a.authoritiesPK.authority = :authority")})
+@NamedQueries({@NamedQuery(name = "Authorities.findByUsername", query = "SELECT a FROM Authorities a WHERE a.username = :username"), @NamedQuery(name = "Authorities.findByAuthority", query = "SELECT a FROM Authorities a WHERE a.authority = :authority"), @NamedQuery(name = "Authorities.findById", query = "SELECT a FROM Authorities a WHERE a.id = :id")})
 public class Authorities implements Serializable {
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected AuthoritiesPK authoritiesPK;
-    @JoinColumn(name = "authority", referencedColumnName = "role", insertable = false, updatable = false)
-    @ManyToOne
-    private Authority authority1;
+    @Column(name = "username", nullable = false)
+    private String username;
+    @Column(name = "authority", nullable = false)
+    private String authority;
+    @Id
+    @Column(name = "id", nullable = false)
+    private Integer id;
 
     public Authorities() {
     }
 
-    public Authorities(AuthoritiesPK authoritiesPK) {
-        this.authoritiesPK = authoritiesPK;
+    public Authorities(Integer id) {
+        this.id = id;
     }
 
-    public Authorities(String username, String authority) {
-        this.authoritiesPK = new AuthoritiesPK(username, authority);
+    public Authorities( String username, String authority) {        
+        this.username = username;
+        this.authority = authority;
     }
 
-    public AuthoritiesPK getAuthoritiesPK() {
-        return authoritiesPK;
+    public String getUsername() {
+        return username;
     }
 
-    public void setAuthoritiesPK(AuthoritiesPK authoritiesPK) {
-        this.authoritiesPK = authoritiesPK;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public Authority getAuthority1() {
-        return authority1;
+    public String getAuthority() {
+        return authority;
     }
 
-    public void setAuthority1(Authority authority1) {
-        this.authority1 = authority1;
+    public void setAuthority(String authority) {
+        this.authority = authority;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (authoritiesPK != null ? authoritiesPK.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -70,7 +80,7 @@ public class Authorities implements Serializable {
             return false;
         }
         Authorities other = (Authorities) object;
-        if ((this.authoritiesPK == null && other.authoritiesPK != null) || (this.authoritiesPK != null && !this.authoritiesPK.equals(other.authoritiesPK))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -78,7 +88,7 @@ public class Authorities implements Serializable {
 
     @Override
     public String toString() {
-        return "com.bia.payroll.entity.Authorities[authoritiesPK=" + authoritiesPK + "]";
+        return "com.bia.payroll.entity.Authorities[id=" + id + "]";
     }
 
 }
