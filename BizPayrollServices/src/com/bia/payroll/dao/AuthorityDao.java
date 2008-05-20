@@ -6,12 +6,12 @@
 package com.bia.payroll.dao;
 
 import com.abbhsoft.jpadaoframework.dao.GenericDao;
-import com.bia.payroll.entity.Oraganization;
+import com.bia.payroll.entity.Authority;
 
 /**
  *
  * @author intesar
  */
-public interface OrganizationDao extends GenericDao<Oraganization, Integer> {
+public interface AuthorityDao extends GenericDao<Authority, String> {
 
-}
+} 

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
 <beans>
     
      
@@ -18,6 +19,43 @@
         <property name="username" value="root"/>
         <property name="password" value="apple123"/>
     </bean>
+    
+     
+    <!-- advisor -->
+    <bean id="finderIntroductionAdvisor" class="com.abbhsoft.jpadaoframework.dao.advisor.FinderIntroductionAdvisor" />
+    
+    <!-- helper bean resolves the finder method name -->   
+    <bean id="extendedFinderNamingStrategy" class="com.abbhsoft.jpadaoframework.dao.finderhelper.ExtendedFinderNamingStrategy" />
+    
+    <!-- target -->
+    <bean id="abstractDaoTarget" class="com.abbhsoft.jpadaoframework.dao.GenericDaoJPAImpl" abstract="true">
+        <property name="entityManagerFactory"><ref bean="entityManagerFactory"/></property>
+        <property name="namingStrategy">
+            <ref bean="extendedFinderNamingStrategy" />
+        </property>
+    </bean>
+    
+    <!-- base Proxy -->
+    <bean id="abstractDao" class="org.springframework.aop.framework.ProxyFactoryBean" abstract="true">
+        <property name="exposeProxy" value="true" />
+        <property name="interceptorNames">
+            <list>
+                <value>finderIntroductionAdvisor</value>
+            </list>
+        </property>
+    </bean>
+    
+    
+    
+    
+    <!--
+     ##########################################################################
+                            Base Declerations End
+     ##########################################################################
+    <import resource="classpath:ApplicationContext-JpaDaoFramework.xml" />
+    -->
+    
+    
     <!--
     #####################################################################
             Dao Declaration Begin
@@ -57,7 +95,7 @@
       <property name="target">
          <bean parent="abstractDaoTarget">
             <constructor-arg>
-               <value>com.bia.payroll.entity.Organization</value>
+               <value>com.bia.payroll.entity.Oraganization</value>
             </constructor-arg>
          </bean>
       </property>
@@ -70,7 +108,7 @@
       <property name="target">
          <bean parent="abstractDaoTarget">
             <constructor-arg>
-               <value>com.bia.payroll.entity.TimeSheet</value>
+               <value>com.bia.payroll.entity.Timesheet</value>
             </constructor-arg>
          </bean>
       </property>
@@ -102,5 +140,30 @@
       </property>
    </bean>
    
+   <bean id="authoritiesDao" parent="abstractDao">
+      <property name="proxyInterfaces">
+         <value>com.bia.payroll.dao.AuthoritiesDao</value>
+      </property>
+      <property name="target">
+         <bean parent="abstractDaoTarget">
+            <constructor-arg>
+               <value>com.bia.payroll.entity.Authorities</value>
+            </constructor-arg>
+         </bean>
+      </property>
+   </bean>
+   
+   <bean id="authorityDao" parent="abstractDao">
+      <property name="proxyInterfaces">
+         <value>com.bia.payroll.dao.AuthorityDao</value>
+      </property>
+      <property name="target">
+         <bean parent="abstractDaoTarget">
+            <constructor-arg>
+               <value>com.bia.payroll.entity.Authority</value>
+            </constructor-arg>
+         </bean>
+      </property>
+   </bean>
    
 </beans>

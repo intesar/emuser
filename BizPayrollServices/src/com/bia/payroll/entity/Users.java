@@ -6,6 +6,8 @@
 package com.bia.payroll.entity;
 
 import java.io.Serializable;
+import java.util.Collection;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -13,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -44,6 +47,8 @@ public class Users implements Serializable {
     @JoinColumn(name = "organization", referencedColumnName = "id")
     @ManyToOne
     private Oraganization organization;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private Collection<Timesheet> timesheetCollection;
 
     public Users() {
     }
@@ -133,6 +138,14 @@ public class Users implements Serializable {
 
     public void setOrganization(Oraganization organization) {
         this.organization = organization;
+    }
+
+    public Collection<Timesheet> getTimesheetCollection() {
+        return timesheetCollection;
+    }
+
+    public void setTimesheetCollection(Collection<Timesheet> timesheetCollection) {
+        this.timesheetCollection = timesheetCollection;
     }
 
     @Override

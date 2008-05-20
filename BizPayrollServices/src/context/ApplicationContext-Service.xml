@@ -21,10 +21,12 @@
     <bean id="userServiceImpl" class="com.bia.payroll.service.impl.UserServiceImpl" >
         <property name="organizationDao" ref="organizationDao" />
         <property name="usersDao" ref="usersDao" />
+        <property name="authoritiesDao" ref="authoritiesDao" />
     </bean>
     <bean id="timesheetServiceImpl" class="com.bia.payroll.service.impl.TimesheetServiceImpl" >        
         <property name="usersDao" ref="usersDao" />
         <property name="timesheetDao" ref="timesheetDao" />
         <property name="timesheetDetailDao" ref="timesheetDetailDao" />
+        <property name="authoritiesDao" ref="authoritiesDao" />
     </bean>
 </beans>

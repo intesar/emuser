@@ -45,7 +45,7 @@ public class TimesheetDetail implements Serializable {
     private String lastAction;
     @JoinColumn(name = "timesheet", referencedColumnName = "id")
     @ManyToOne
-    private TimeSheet timesheet;
+    private Timesheet timesheet;
 
     public TimesheetDetail() {
     }
@@ -120,11 +120,11 @@ public class TimesheetDetail implements Serializable {
         this.lastAction = lastAction;
     }
 
-    public TimeSheet getTimesheet() {
+    public Timesheet getTimesheet() {
         return timesheet;
     }
 
-    public void setTimesheet(TimeSheet timesheet) {
+    public void setTimesheet(Timesheet timesheet) {
         this.timesheet = timesheet;
     }
 

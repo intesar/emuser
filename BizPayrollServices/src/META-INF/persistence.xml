@@ -4,8 +4,11 @@
     <provider>oracle.toplink.essentials.PersistenceProvider</provider>
     <class>com.bia.payroll.entity.Oraganization</class>
     <class>com.bia.payroll.entity.Users</class>
+    <class>com.bia.payroll.entity.Timesheet</class>
     <class>com.bia.payroll.entity.TimesheetDetail</class>
-    <class>com.bia.payroll.entity.TimeSheet</class>
+    <class>com.bia.payroll.entity.Authorities</class>
+    <class>com.bia.payroll.entity.Authority</class>
+    <class>com.bia.payroll.entity.Timesheet</class>
     <properties>
       <property name="toplink.jdbc.user" value="root"/>
       <property name="toplink.jdbc.password" value="apple123"/>
