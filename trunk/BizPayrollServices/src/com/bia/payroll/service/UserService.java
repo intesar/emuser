@@ -20,5 +20,5 @@ public interface UserService {
 
     public void editUser(Users user);
 
-    public void changePassword(Integer userId, String oldPassword, String newPassword);
+    public void changePassword(String username, String oldPassword, String newPassword);
 }

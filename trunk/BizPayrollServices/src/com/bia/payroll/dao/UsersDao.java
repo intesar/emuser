@@ -13,5 +13,5 @@ import com.bia.payroll.entity.Users;
  * @author intesar
  */
 public interface UsersDao extends GenericDao<Users, Integer>{
-
+    Users findByUsername ( String username );
 }

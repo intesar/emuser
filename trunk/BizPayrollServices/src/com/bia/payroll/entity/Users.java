@@ -24,7 +24,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "users")
-@NamedQueries({@NamedQuery(name = "Users.findById", query = "SELECT u FROM Users u WHERE u.id = :id"), @NamedQuery(name = "Users.findByUsername", query = "SELECT u FROM Users u WHERE u.username = :username"), @NamedQuery(name = "Users.findByPassword", query = "SELECT u FROM Users u WHERE u.password = :password"), @NamedQuery(name = "Users.findByFirstName", query = "SELECT u FROM Users u WHERE u.firstName = :firstName"), @NamedQuery(name = "Users.findByLastName", query = "SELECT u FROM Users u WHERE u.lastName = :lastName"), @NamedQuery(name = "Users.findByEnabled", query = "SELECT u FROM Users u WHERE u.enabled = :enabled"), @NamedQuery(name = "Users.findByLastUser", query = "SELECT u FROM Users u WHERE u.lastUser = :lastUser"), @NamedQuery(name = "Users.findByLastAciton", query = "SELECT u FROM Users u WHERE u.lastAciton = :lastAciton")})
+@NamedQueries({@NamedQuery(name = "Users.findById", query = "SELECT u FROM Users u WHERE u.id = :id"), @NamedQuery(name = "Users.findByUsername", query = "SELECT u FROM Users u WHERE u.username = ?1 "), @NamedQuery(name = "Users.findByPassword", query = "SELECT u FROM Users u WHERE u.password = :password"), @NamedQuery(name = "Users.findByFirstName", query = "SELECT u FROM Users u WHERE u.firstName = :firstName"), @NamedQuery(name = "Users.findByLastName", query = "SELECT u FROM Users u WHERE u.lastName = :lastName"), @NamedQuery(name = "Users.findByEnabled", query = "SELECT u FROM Users u WHERE u.enabled = :enabled"), @NamedQuery(name = "Users.findByLastUser", query = "SELECT u FROM Users u WHERE u.lastUser = :lastUser"), @NamedQuery(name = "Users.findByLastAciton", query = "SELECT u FROM Users u WHERE u.lastAciton = :lastAciton")})
 public class Users implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -45,7 +45,7 @@ public class Users implements Serializable {
     @Column(name = "last_aciton", nullable = false)
     private String lastAciton;
     @JoinColumn(name = "organization", referencedColumnName = "id")
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     private Oraganization organization;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private Collection<Timesheet> timesheetCollection;

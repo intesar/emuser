@@ -6,6 +6,7 @@
 package com.bia.payroll.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -22,7 +23,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "oraganization")
-@NamedQueries({@NamedQuery(name = "Oraganization.findById", query = "SELECT o FROM Oraganization o WHERE o.id = :id"), @NamedQuery(name = "Oraganization.findByName", query = "SELECT o FROM Oraganization o WHERE o.name = :name"), @NamedQuery(name = "Oraganization.findByType", query = "SELECT o FROM Oraganization o WHERE o.type = :type"), @NamedQuery(name = "Oraganization.findByDescription", query = "SELECT o FROM Oraganization o WHERE o.description = :description"), @NamedQuery(name = "Oraganization.findByLastUser", query = "SELECT o FROM Oraganization o WHERE o.lastUser = :lastUser"), @NamedQuery(name = "Oraganization.findByLastAction", query = "SELECT o FROM Oraganization o WHERE o.lastAction = :lastAction")})
+@NamedQueries({@NamedQuery(name = "Oraganization.findById", query = "SELECT o FROM Oraganization o WHERE o.id = :id"), @NamedQuery(name = "Oraganization.findByName", query = "SELECT o FROM Oraganization o WHERE o.name = ?1 "), @NamedQuery(name = "Oraganization.findByType", query = "SELECT o FROM Oraganization o WHERE o.type = :type"), @NamedQuery(name = "Oraganization.findByDescription", query = "SELECT o FROM Oraganization o WHERE o.description = :description"), @NamedQuery(name = "Oraganization.findByLastUser", query = "SELECT o FROM Oraganization o WHERE o.lastUser = :lastUser"), @NamedQuery(name = "Oraganization.findByLastAction", query = "SELECT o FROM Oraganization o WHERE o.lastAction = :lastAction")})
 public class Oraganization implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -39,7 +40,7 @@ public class Oraganization implements Serializable {
     @Column(name = "last_action", nullable = false)
     private String lastAction;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "organization")
-    private Collection<Users> usersCollection;
+    private Collection<Users> usersCollection = new ArrayList<Users>();
 
     public Oraganization() {
     }
