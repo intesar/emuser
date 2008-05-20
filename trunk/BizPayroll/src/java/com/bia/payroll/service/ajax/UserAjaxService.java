@@ -26,8 +26,7 @@ public class UserAjaxService {
         o.setType(type);
         Users u = new Users();
         u.setFirstName(firstName);
-        u.setLastName(lastName);
-        u.setOrganization(o);
+        u.setLastName(lastName);        
         u.setPassword(password);
         u.setUsername(username);
         try {
@@ -46,7 +45,9 @@ public class UserAjaxService {
     public void editUser() {
     }
 
-    public void changePassword() {
+    public void changePassword(String oldPassword, String newPassword) {
+        String username = AcegiUtil.getUsername();        
+        userService.changePassword(username, oldPassword, newPassword);
     }
 
     public void setUserService(UserService userService) {
