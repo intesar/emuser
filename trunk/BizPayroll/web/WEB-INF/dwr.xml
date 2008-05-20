@@ -4,7 +4,7 @@
       <param name="class" value="com.bia.payroll.service.ajax.UserAjaxService"/>
     </create>
     <create creator="new" javascript="JTimesheetAjaxService">
-      <param name="class" value="com.bia.payroll.service.ajax.UserAjaxService"/>
+      <param name="class" value="com.bia.payroll.service.ajax.TimesheetAjaxService"/>
     </create>
   </allow>
 </dwr>
