@@ -11,8 +11,10 @@ import com.bia.payroll.dao.TimesheetDetailDao;
 import com.bia.payroll.dao.UsersDao;
 import com.bia.payroll.entity.Authorities;
 import com.bia.payroll.entity.Timesheet;
+import com.bia.payroll.entity.TimesheetDetail;
 import com.bia.payroll.entity.Users;
 import com.bia.payroll.service.TimesheetService;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -70,6 +72,10 @@ public class TimesheetServiceImpl implements TimesheetService {
 
     public void updateTimesheet(Timesheet timeSheet) {
         timesheetDao.update(timeSheet);
+    }
+    
+    public TimesheetDetail getTimesheetDetail ( Integer timesheetId, Date timesheetDetailDate) {
+        return timesheetDetailDao.findByTimesheetIdAndDate(timesheetId, timesheetDetailDate);
     }
 
     public void setAuthoritiesDao(AuthoritiesDao authoritiesDao) {

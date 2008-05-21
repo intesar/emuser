@@ -24,20 +24,22 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "timesheet_detail")
-@NamedQueries({@NamedQuery(name = "TimesheetDetail.findById", query = "SELECT t FROM TimesheetDetail t WHERE t.id = :id"), @NamedQuery(name = "TimesheetDetail.findByCurrentDate", query = "SELECT t FROM TimesheetDetail t WHERE t.currentDate = :currentDate"), @NamedQuery(name = "TimesheetDetail.findByRegularHour", query = "SELECT t FROM TimesheetDetail t WHERE t.regularHour = :regularHour"), @NamedQuery(name = "TimesheetDetail.findByOverTimeHour", query = "SELECT t FROM TimesheetDetail t WHERE t.overTimeHour = :overTimeHour"), @NamedQuery(name = "TimesheetDetail.findByDay", query = "SELECT t FROM TimesheetDetail t WHERE t.day = :day"), @NamedQuery(name = "TimesheetDetail.findByLastUser", query = "SELECT t FROM TimesheetDetail t WHERE t.lastUser = :lastUser"), @NamedQuery(name = "TimesheetDetail.findByLastAction", query = "SELECT t FROM TimesheetDetail t WHERE t.lastAction = :lastAction")})
+@NamedQueries({@NamedQuery(name = "TimesheetDetail.findById", query = "SELECT t FROM TimesheetDetail t WHERE t.id = :id"), 
+@NamedQuery(name = "TimesheetDetail.findByTimesheetIdAndDate", query = "SELECT t FROM TimesheetDetail t WHERE t.timesheet.id = ?1 and t.curDate like ?2 "), 
+@NamedQuery(name = "TimesheetDetail.findByCurrentDate", query = "SELECT t FROM TimesheetDetail t WHERE t.currentDate = :currentDate"), @NamedQuery(name = "TimesheetDetail.findByRegularHour", query = "SELECT t FROM TimesheetDetail t WHERE t.regularHour = :regularHour"), @NamedQuery(name = "TimesheetDetail.findByOverTimeHour", query = "SELECT t FROM TimesheetDetail t WHERE t.overTimeHour = :overTimeHour"), @NamedQuery(name = "TimesheetDetail.findByDay", query = "SELECT t FROM TimesheetDetail t WHERE t.day = :day"), @NamedQuery(name = "TimesheetDetail.findByLastUser", query = "SELECT t FROM TimesheetDetail t WHERE t.lastUser = :lastUser"), @NamedQuery(name = "TimesheetDetail.findByLastAction", query = "SELECT t FROM TimesheetDetail t WHERE t.lastAction = :lastAction")})
 public class TimesheetDetail implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Column(name = "id", nullable = false)
     private Integer id;
-    @Column(name = "current_date", nullable = false)
+    @Column(name = "timesheet_detail_date", nullable = false)
     @Temporal(TemporalType.DATE)
-    private Date currentDate;
+    private Date curDate;
     @Column(name = "regular_hour", nullable = false)
     private double regularHour;
     @Column(name = "over_time_hour", nullable = false)
     private double overTimeHour;
-    @Column(name = "day", nullable = false)
+    @Column(name = "day_name", nullable = false)
     private String day;
     @Column(name = "last_user", nullable = false)
     private String lastUser;
@@ -56,7 +58,7 @@ public class TimesheetDetail implements Serializable {
 
     public TimesheetDetail(Integer id, Date currentDate, double regularHour, double overTimeHour, String day, String lastUser, String lastAction) {
         this.id = id;
-        this.currentDate = currentDate;
+        this.curDate = currentDate;
         this.regularHour = regularHour;
         this.overTimeHour = overTimeHour;
         this.day = day;
@@ -72,12 +74,12 @@ public class TimesheetDetail implements Serializable {
         this.id = id;
     }
 
-    public Date getCurrentDate() {
-        return currentDate;
+    public Date getCurDate() {
+        return curDate;
     }
 
     public void setCurrentDate(Date currentDate) {
-        this.currentDate = currentDate;
+        this.curDate = currentDate;
     }
 
     public double getRegularHour() {
