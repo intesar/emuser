@@ -6,6 +6,7 @@
 package com.bia.payroll.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.CascadeType;
@@ -55,7 +56,7 @@ public class Timesheet implements Serializable {
     @Column(name = "status", nullable = false)
     private String status;
     @Column(name = "paid_amount", nullable = false)
-    private int paidAmount;
+    private Double paidAmount;
     @Column(name = "status_date", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date statusDate;
@@ -66,7 +67,7 @@ public class Timesheet implements Serializable {
     @Column(name = "last_action", nullable = false)
     private String lastAction;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "timesheet")
-    private Collection<TimesheetDetail> timesheetDetailCollection;
+    private Collection<TimesheetDetail> timesheetDetailCollection = new ArrayList<TimesheetDetail>();
     @JoinColumn(name = "user", referencedColumnName = "id")
     @ManyToOne
     private Users user;
@@ -78,7 +79,7 @@ public class Timesheet implements Serializable {
         this.id = id;
     }
 
-    public Timesheet(Integer id, Date startDate, Date endDate, Date submisionDate, String status, int paidAmount, Date statusDate, String comment, String lastUser, String lastAction) {
+    public Timesheet(Integer id, Date startDate, Date endDate, Date submisionDate, String status, Double paidAmount, Date statusDate, String comment, String lastUser, String lastAction) {
         this.id = id;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -131,11 +132,11 @@ public class Timesheet implements Serializable {
         this.status = status;
     }
 
-    public int getPaidAmount() {
+    public Double getPaidAmount() {
         return paidAmount;
     }
 
-    public void setPaidAmount(int paidAmount) {
+    public void setPaidAmount(Double paidAmount) {
         this.paidAmount = paidAmount;
     }
 
