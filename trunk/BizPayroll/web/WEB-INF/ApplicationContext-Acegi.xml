@@ -26,7 +26,7 @@
     <bean id="authenticationProcessingFilter" class="net.sf.acegisecurity.ui.webapp.AuthenticationProcessingFilter">
         <property name="authenticationManager"><ref bean="authenticationManager"/></property>
         <property name="authenticationFailureUrl"><value>/acegilogin.jsp?login_error=1</value></property>
-        <property name="defaultTargetUrl"><value>/secured/</value></property>
+        <property name="defaultTargetUrl"><value>/dwr</value></property>
         <property name="alwaysUseDefaultTargetUrl"><value>true</value></property>
         <property name="filterProcessesUrl"><value>/j_acegi_security_check</value></property>
     </bean>
@@ -101,7 +101,7 @@
                 CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
                 PATTERN_TYPE_APACHE_ANT
                 /acegilogin.jsp*=ROLE_ANONYMOUS,ROLE_USER,ROLE_ADMIN
-                /secured*=ROLE_ADMIN
+                /**=ROLE_USER,ROLE_ADMIN
                 /a.jsp*=ROLE_A
                 /b.jsp*=ROLE_B
                 /c.jsp=ROLE_C
