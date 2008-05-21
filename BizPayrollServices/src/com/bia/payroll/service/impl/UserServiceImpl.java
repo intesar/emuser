@@ -69,6 +69,9 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    public Users getUser( String username ) {
+        return usersDao.findByUsername(username);
+    }
     public void setUsersDao(UsersDao usersDao) {
         this.usersDao = usersDao;
     }

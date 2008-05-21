@@ -25,19 +25,43 @@ public class TimesheetServiceImpl implements TimesheetService {
         timesheetDao.create(timesheet);
     }
 
-    public PagedResult<Timesheet> getAllTimesheetsByStatus(Integer userId, String status) {
-        Users user = usersDao.read(userId);
+    /**
+     * three types of users admin, accountant, general_user
+     * admin's rights  approve, reject, view All, view approved, view saved, 
+     *      view rejected, view submitted, View My Approved, view my saved, view my rejected,
+     *      view my submitted, view my saved etc
+     * general_user rights will only see his timesheets view my All, view my approved, view my saved, 
+     *      view my rejected, view my submitted
+     * accountant's rights view approved, create check and mark paid
+     * @param username
+     * @param status
+     * @return
+     */
+    public PagedResult<Timesheet> getAllTimesheetsByStatus(String username, String status) {
+        Users user = usersDao.findByUsername(username);
         List<Authorities> list = authoritiesDao.findByUsername(user.getUsername());
+        boolean isAdmin = false;
+        boolean isAccountant = false;
+
         for (Authorities authorities : list) {
             if (authorities.getAuthority().equalsIgnoreCase("role_admin")) {
-                return timesheetDao.findByStatus(status);
-            } else {
-                return timesheetDao.findByUserIdAndStatus(userId, status);
+                isAdmin = true;
+            } else if (authorities.getAuthority().equalsIgnoreCase("role_accountant") &&
+                    status.equalsIgnoreCase("approved")) {
+                isAccountant = true;
             }
         }
-        return null;
 
+        if (isAdmin || isAccountant) {
+            return timesheetDao.findByStatus(status);
+        } else {
+            return timesheetDao.findByUserIdAndStatus(user.getId(), status);
+        }
+    }
 
+    public PagedResult<Timesheet> getAllMyTimesheetsByStatus(String username, String status) {
+        Users user = usersDao.findByUsername(username);
+        return timesheetDao.findByUserIdAndStatus(user.getId(), status);
     }
 
     public Timesheet getTimesheet(Integer timesheetId) {
@@ -63,8 +87,6 @@ public class TimesheetServiceImpl implements TimesheetService {
     public void setUsersDao(UsersDao usersDao) {
         this.usersDao = usersDao;
     }
-
-    
     private TimesheetDao timesheetDao;
     private UsersDao usersDao;
     private AuthoritiesDao authoritiesDao;

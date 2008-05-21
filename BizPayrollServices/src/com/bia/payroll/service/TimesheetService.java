@@ -14,8 +14,10 @@ import com.bia.payroll.entity.Timesheet;
 public interface TimesheetService {
 
     public void createTimesheet(Timesheet timesheet);
+    
+     public PagedResult<Timesheet> getAllMyTimesheetsByStatus(String username, String status);
 
-    public PagedResult<Timesheet> getAllTimesheetsByStatus(Integer userId, String status);
+    public PagedResult<Timesheet> getAllTimesheetsByStatus(String username, String status);
 
     public Timesheet getTimesheet(Integer timesheetId);
 
