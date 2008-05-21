@@ -6,6 +6,7 @@ package com.bia.payroll.service.ajax;
 
 import com.abbhsoft.jpadaoframework.dao.PagedResult;
 import com.bia.payroll.entity.Timesheet;
+import com.bia.payroll.entity.TimesheetDetail;
 import com.bia.payroll.entity.Users;
 import com.bia.payroll.model.TimesheetConverter;
 import com.bia.payroll.model.TimesheetDto;
@@ -85,10 +86,40 @@ public class TimesheetAjaxService {
         return dto;
     }
 
-    public void updateTimesheet(TimesheetDto dto) {
+    public String updateTimesheet(TimesheetDto dto) {
         Timesheet timesheet = timesheetService.getTimesheet(dto.getId());
-        timesheetConverter.copy(dto, timesheet);
+        
+        
+        TimesheetDetail td = timesheetService.getTimesheetDetail(dto.getId(), dto.getMondayDate());
+        timesheet.getTimesheetDetailCollection().add(td);
+        
+         td = timesheetService.getTimesheetDetail(dto.getId(), dto.getTuesdayDate());
+        timesheet.getTimesheetDetailCollection().add(td);
+        
+         td = timesheetService.getTimesheetDetail(dto.getId(), dto.getWednesdayDate());
+        timesheet.getTimesheetDetailCollection().add(td);
+        
+         td = timesheetService.getTimesheetDetail(dto.getId(), dto.getThursdayDate());
+        timesheet.getTimesheetDetailCollection().add(td);
+        
+         td = timesheetService.getTimesheetDetail(dto.getId(), dto.getFridayDate());
+        timesheet.getTimesheetDetailCollection().add(td);
+        
+         td = timesheetService.getTimesheetDetail(dto.getId(), dto.getSaturdayDate());
+        timesheet.getTimesheetDetailCollection().add(td);
+        
+         td = timesheetService.getTimesheetDetail(dto.getId(), dto.getSundayDate());
+        timesheet.getTimesheetDetailCollection().add(td);
+            
+        timesheetConverter.copyToDetail(dto, timesheet);
+        
+        try {
         timesheetService.updateTimesheet(timesheet);
+        } catch ( Exception e) {
+            e.printStackTrace();
+            return e.getMessage();            
+        }
+        return " Operational Successful! ";
     //copy input values into timesheet and merge into db
     // handle exceptions if successfull send success message else not successful
     }

@@ -13,8 +13,8 @@ import com.bia.payroll.entity.Users;
  */
 public class UsersConverter {
 
-    public UsersDto convert ( Users user) {
-        UsersDto dto = new UsersDto();
+    public void copy ( Users user, UsersDto dto) {
+        
         if ( user != null ) {
             dto.setFirstname(user.getFirstName());
             dto.setId(user.getId());
@@ -23,11 +23,11 @@ public class UsersConverter {
             dto.setPassword(user.getPassword());
             dto.setUsername(user.getUsername());
         }
-        return dto;        
+        
     }
     
-    public Users convert ( UsersDto dto) {
-        Users u = new Users();
+    public void copy ( UsersDto dto, Users u) {
+        
         if ( dto != null ) {
             u.setEnabled(dto.getIsEnabled());
             u.setFirstName(dto.getFirstname());
@@ -36,6 +36,6 @@ public class UsersConverter {
             u.setPassword(dto.getPassword());
             u.setUsername(dto.getUsername());
         }
-        return u;
+        
     }
 }

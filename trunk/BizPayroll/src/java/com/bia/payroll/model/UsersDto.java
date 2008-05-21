@@ -17,6 +17,7 @@ public class UsersDto {
     private String firstname;
     private String lastname;
     private Short isEnabled;
+    private String organization;
 
     public String getFirstname() {
         return firstname;
@@ -65,6 +66,15 @@ public class UsersDto {
     public void setUsername(String username) {
         this.username = username;
     }
+
+    public String getOrganization() {
+        return organization;
+    }
+
+    public void setOrganization(String organization) {
+        this.organization = organization;
+    }
+    
     
     
 }
