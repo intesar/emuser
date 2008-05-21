@@ -4,10 +4,12 @@
  */
 package com.bia.payroll.service.ajax;
 
+import com.abbhsoft.jpadaoframework.dao.PagedResult;
 import com.bia.payroll.entity.Oraganization;
 import com.bia.payroll.entity.Users;
 import com.bia.payroll.service.ServiceFactory;
 import com.bia.payroll.service.UserService;
+import java.util.List;
 
 
 
@@ -39,7 +41,10 @@ public class UserAjaxService {
 
     }
 
-    public void getAllUsers() {
+    public List<Users> getAllUsers() {
+        String username = AcegiUtil.getUsername(); 
+        PagedResult<Users> result = userService.getAllUsers(username);
+        return result.getResults();
     }
 
     public void editUser() {
