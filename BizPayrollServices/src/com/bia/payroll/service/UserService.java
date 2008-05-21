@@ -16,6 +16,8 @@ public interface UserService {
 
     public void createUser(Oraganization organization, Users user);
 
+    public void addUser ( Users user );
+    
     public PagedResult<Users> getAllUsers(Integer userId);
 
     public void editUser(Users user);
