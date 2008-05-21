@@ -1,0 +1,149 @@
+<!-- 
+    Document   : users
+    Created on : 21 May, 2008, 10:46:48 AM
+    Author     : imran
+-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+    <head>
+        <title>User Information</title>
+        <script type='text/javascript' src='/BizPayroll/dwr/interface/JUserAjaxService.js'></script>
+        <script type='text/javascript' src='/BizPayroll/dwr/engine.js'></script>
+        <script type='text/javascript' src='/BizPayroll/dwr/util.js'></script>
+        
+        
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script type='text/javascript'>
+            function objectEval(text)
+            {
+                // eval() breaks when we use it to get an object using the { a:42, b:'x' }
+                // syntax because it thinks that { and } surround a block and not an object
+                // So we wrap it in an array and extract the first element to get around
+                // this.
+                // This code is only needed for interpreting the parameter input fields,
+                // so you can ignore this for normal use.
+                // The regex = [start of line][whitespace]{[stuff]}[whitespace][end of line]
+                text = text.replace(/\n/g, ' ');
+                text = text.replace(/\r/g, ' ');
+                if (text.match(/^\s*\{.*\}\s*$/))
+                {
+                    text = '[' + text + '][0]';
+                }
+                return eval(text);
+            }
+        </script>
+        
+        <style>
+            input.itext { font-size: smaller; background: #E4E4E4; border: 0; }
+            input.ibutton { font-size: xx-small; border: 1px outset; margin: 0px; padding: 0px; }
+            span.reply { background: #ffffdd; white-space: pre; }
+            span.warning { font-size: smaller; color: red; }
+        </style>
+        
+    </head>
+    <form action="lform">
+        
+        <body>
+        <p align ="center">
+        <h3>User Details</h3>  
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>&nbsp;Username&nbsp;</th>
+                    <th>&nbsp;Firstname&nbsp;</th>
+                    <th>&nbsp;Lastname&nbsp;</th>
+                    <th>&nbsp;Password&nbsp;</th>
+                    <th>&nbsp;Actions&nbsp;</th>
+                    
+                </tr>
+            </thead>
+            <tbody>    
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td><input type="submit" value="Edit" name="Edit" onclick="editClicked(this.id)" />
+                    <input type="submit" value="Delete" name="Delete" onclick="deleteClicked(this.id)" /></td>
+                    <td>
+                    </td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+        <br><br>   
+        
+        <table border="0">
+            <thead>
+                <tr>
+                    <th>Edit User Details</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Username</td>
+                    <td><input class='itext'type="text" name="Username" value='' id='p10' /></td>
+                </tr>
+                <tr>
+                    <td>Firstname</td>
+                    <td><input class='itext'type="text" name="Firstname" value='' id='p12' /></td>
+                </tr>
+                <tr>
+                    <td>Lastname</td>
+                    <td><input class='itext'type="text" name="Lastname" value='' id='p13' /></td>
+                </tr>
+                <tr>
+                    <td>Password</td>
+                    <td><input class='itext' type="password" name="Password" id='p11' /></td>
+                </tr>
+                <tr>
+                    <td> Confirm Password</td>
+                    <td><input class='itext' type="password" name="confirmPassword"   id='p14' /></td>
+                </tr>
+                <tr>
+                    <td><input  class='ibutton' type='button' value="save" name="save" onclick='addUserFunction();' value='Execute'  title='Calls JUserAjaxService.addUser(). View source for details.' /></td>
+                    <script type='text/javascript'>
+                        function addUserFunction() {
+                            
+                            var username = '"' + $("p10").value + '"';
+                            username = objectEval(username);
+                            
+                            var firstname  = '"' + $("p12").value + '"';
+                            firstname = objectEval(firstname);
+                            
+                            var lastname  = '"' + $("p13").value + '"';
+                            lastname = objectEval(lastname);
+                            
+                            var password  = '"' + $("p11").value + '"';
+                            password = objectEval(password);
+                            
+                            var confirmPassword  = '"' + $("p14").value  + '"';
+                            confirmPassword = objectEval(confirmPassword);
+                            
+                            
+                            if ( password == confirmPassword )  {
+                                JUserAjaxService.addUser(username, firstname, lastname, password, reply1);
+                            } else {
+                                alert ( " Password & Confirm Password Do Not match !");
+                            }
+                            
+                            
+                        }
+                        var reply1 = function(data)
+                        {
+                            if (data != null && typeof data == 'object') alert(dwr.util.toDescriptiveString(data, 2));
+                            else dwr.util.setValue('d1', dwr.util.toDescriptiveString(data, 1));
+                        }
+                    </script>
+                    <td> <input type="reset" value="clear" name="clear" /></td>
+                </tr>
+            </tbody>
+        </table>
+        <span id='d1' class='reply'></span>
+        
+        <p align ="center">
+    </form>
+    
+    </body>
+</html>
