@@ -33,6 +33,10 @@ public class UserServiceImpl implements UserService {
         Authorities a2 = new Authorities(user.getUsername(), "ROLE_USER");
         authoritiesDao.create(a2);
     }
+    
+    public void addUser ( Users user ) {
+        usersDao.create(user);
+    }
 
     public PagedResult<Users> getAllUsers(Integer userId) {
         Users user = usersDao.read(userId);
