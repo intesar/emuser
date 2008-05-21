@@ -6,6 +6,8 @@ package com.bia.payroll.service;
 
 import com.abbhsoft.jpadaoframework.dao.PagedResult;
 import com.bia.payroll.entity.Timesheet;
+import com.bia.payroll.entity.TimesheetDetail;
+import java.util.Date;
 
 /**
  *
@@ -22,4 +24,6 @@ public interface TimesheetService {
     public Timesheet getTimesheet(Integer timesheetId);
 
     public void updateTimesheet(Timesheet timeSheet);
+    
+    public TimesheetDetail getTimesheetDetail ( Integer timesheetId, Date timesheetDetailDate);
 }

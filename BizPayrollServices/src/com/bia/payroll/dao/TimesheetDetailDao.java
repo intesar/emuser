@@ -6,11 +6,14 @@
 package com.bia.payroll.dao;
 
 import com.abbhsoft.jpadaoframework.dao.GenericDao;
+import com.bia.payroll.entity.TimesheetDetail;
+import java.util.Date;
 
 /**
  *
  * @author intesar
  */
-public interface TimesheetDetailDao extends GenericDao<TimesheetDetailDao, Integer> {
+public interface TimesheetDetailDao extends GenericDao<TimesheetDetail, Integer> {
+    public TimesheetDetail findByTimesheetIdAndDate ( Integer id, Date dt);
 
 }
