@@ -6,6 +6,7 @@
 package com.bia.payroll.dao;
 
 import com.abbhsoft.jpadaoframework.dao.GenericDao;
+import com.abbhsoft.jpadaoframework.dao.PagedResult;
 import com.bia.payroll.entity.Users;
 
 /**
@@ -14,4 +15,5 @@ import com.bia.payroll.entity.Users;
  */
 public interface UsersDao extends GenericDao<Users, Integer>{
     Users findByUsername ( String username );
+    PagedResult<Users> findByOrganization ( Integer id);
 }

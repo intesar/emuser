@@ -38,12 +38,12 @@ public class UserServiceImpl implements UserService {
         usersDao.create(user);
     }
 
-    public PagedResult<Users> getAllUsers(Integer userId) {
-        Users user = usersDao.read(userId);
-        List<Authorities> list = authoritiesDao.findByUsername(user.getUsername());
+    public PagedResult<Users> getAllUsers(String username) {
+        Users user = usersDao.findByUsername(username);
+        List<Authorities> list = authoritiesDao.findByUsername(username);
         for (Authorities authorities : list) {
             if (authorities.getAuthority().equalsIgnoreCase("role_admin")) {
-                return usersDao.readAll();
+                return usersDao.findByOrganization(user.getOrganization().getId());
             } else {
                 List<Users> users = new ArrayList<Users>();
                 users.add(user);

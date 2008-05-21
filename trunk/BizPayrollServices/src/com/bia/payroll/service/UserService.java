@@ -18,7 +18,7 @@ public interface UserService {
 
     public void addUser ( Users user );
     
-    public PagedResult<Users> getAllUsers(Integer userId);
+    public PagedResult<Users> getAllUsers(String userId);
 
     public void editUser(Users user);
 
