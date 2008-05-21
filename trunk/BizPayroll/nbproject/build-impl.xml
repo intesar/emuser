@@ -369,8 +369,12 @@ or ant -Dj2ee.platform.classpath=&lt;server_classpath&gt; (where no properties f
     <!--
                 COMPILATION SECTION
             -->
-    <target depends="init" if="no.dist.ear.dir" name="deps-module-jar" unless="no.deps"/>
-    <target depends="init" if="dist.ear.dir" name="deps-ear-jar" unless="no.deps"/>
+    <target depends="init" if="no.dist.ear.dir" name="deps-module-jar" unless="no.deps">
+        <ant antfile="${project.BizPayrollServices}/build.xml" inheritall="false" target="jar"/>
+    </target>
+    <target depends="init" if="dist.ear.dir" name="deps-ear-jar" unless="no.deps">
+        <ant antfile="${project.BizPayrollServices}/build.xml" inheritall="false" target="jar"/>
+    </target>
     <target depends="init, deps-module-jar, deps-ear-jar" name="deps-jar" unless="no.deps"/>
     <target depends="init,deps-jar" name="-pre-pre-compile">
         <mkdir dir="${build.classes.dir}"/>
@@ -509,11 +513,158 @@ or ant -Dj2ee.platform.classpath=&lt;server_classpath&gt; (where no properties f
     </target>
     <target depends="init,compile,compile-jsps,-pre-dist,-do-dist-with-manifest,-do-dist-without-manifest" name="do-dist"/>
     <target depends="init" if="dist.ear.dir" name="library-inclusion-in-manifest">
+        <basename file="${file.reference.acegi-security-0.8.3.jar}" property="included.lib.file.reference.acegi-security-0.8.3.jar"/>
+        <copy-ear-war file="${file.reference.acegi-security-0.8.3.jar}" propname="included.lib.file.reference.acegi-security-0.8.3.jar.X"/>
+        <basename file="${file.reference.activation-1.1.jar}" property="included.lib.file.reference.activation-1.1.jar"/>
+        <copy-ear-war file="${file.reference.activation-1.1.jar}" propname="included.lib.file.reference.activation-1.1.jar.X"/>
+        <basename file="${file.reference.antlr-2.7.6.jar}" property="included.lib.file.reference.antlr-2.7.6.jar"/>
+        <copy-ear-war file="${file.reference.antlr-2.7.6.jar}" propname="included.lib.file.reference.antlr-2.7.6.jar.X"/>
+        <basename file="${file.reference.aopalliance-1.0.jar}" property="included.lib.file.reference.aopalliance-1.0.jar"/>
+        <copy-ear-war file="${file.reference.aopalliance-1.0.jar}" propname="included.lib.file.reference.aopalliance-1.0.jar.X"/>
+        <basename file="${file.reference.asm-1.5.3.jar}" property="included.lib.file.reference.asm-1.5.3.jar"/>
+        <copy-ear-war file="${file.reference.asm-1.5.3.jar}" propname="included.lib.file.reference.asm-1.5.3.jar.X"/>
+        <basename file="${file.reference.asm-attrs-1.5.3.jar}" property="included.lib.file.reference.asm-attrs-1.5.3.jar"/>
+        <copy-ear-war file="${file.reference.asm-attrs-1.5.3.jar}" propname="included.lib.file.reference.asm-attrs-1.5.3.jar.X"/>
+        <basename file="${file.reference.aspectjweaver-1.5.3.jar}" property="included.lib.file.reference.aspectjweaver-1.5.3.jar"/>
+        <copy-ear-war file="${file.reference.aspectjweaver-1.5.3.jar}" propname="included.lib.file.reference.aspectjweaver-1.5.3.jar.X"/>
+        <basename file="${file.reference.cglib-2.1_3.jar}" property="included.lib.file.reference.cglib-2.1_3.jar"/>
+        <copy-ear-war file="${file.reference.cglib-2.1_3.jar}" propname="included.lib.file.reference.cglib-2.1_3.jar.X"/>
+        <basename file="${file.reference.commons-collections-3.1.jar}" property="included.lib.file.reference.commons-collections-3.1.jar"/>
+        <copy-ear-war file="${file.reference.commons-collections-3.1.jar}" propname="included.lib.file.reference.commons-collections-3.1.jar.X"/>
+        <basename file="${file.reference.commons-lang-2.3.jar}" property="included.lib.file.reference.commons-lang-2.3.jar"/>
+        <copy-ear-war file="${file.reference.commons-lang-2.3.jar}" propname="included.lib.file.reference.commons-lang-2.3.jar.X"/>
+        <basename file="${file.reference.commons-logging-1.1.jar}" property="included.lib.file.reference.commons-logging-1.1.jar"/>
+        <copy-ear-war file="${file.reference.commons-logging-1.1.jar}" propname="included.lib.file.reference.commons-logging-1.1.jar.X"/>
+        <basename file="${file.reference.dom4j-1.6.1.jar}" property="included.lib.file.reference.dom4j-1.6.1.jar"/>
+        <copy-ear-war file="${file.reference.dom4j-1.6.1.jar}" propname="included.lib.file.reference.dom4j-1.6.1.jar.X"/>
+        <basename file="${file.reference.dwr.jar}" property="included.lib.file.reference.dwr.jar"/>
+        <copy-ear-war file="${file.reference.dwr.jar}" propname="included.lib.file.reference.dwr.jar.X"/>
+        <basename file="${file.reference.ehcache-1.2.3.jar}" property="included.lib.file.reference.ehcache-1.2.3.jar"/>
+        <copy-ear-war file="${file.reference.ehcache-1.2.3.jar}" propname="included.lib.file.reference.ehcache-1.2.3.jar.X"/>
+        <basename file="${file.reference.hibernate-3.2.5.ga.jar}" property="included.lib.file.reference.hibernate-3.2.5.ga.jar"/>
+        <copy-ear-war file="${file.reference.hibernate-3.2.5.ga.jar}" propname="included.lib.file.reference.hibernate-3.2.5.ga.jar.X"/>
+        <basename file="${file.reference.hibernate-annotations-3.3.0.ga.jar}" property="included.lib.file.reference.hibernate-annotations-3.3.0.ga.jar"/>
+        <copy-ear-war file="${file.reference.hibernate-annotations-3.3.0.ga.jar}" propname="included.lib.file.reference.hibernate-annotations-3.3.0.ga.jar.X"/>
+        <basename file="${file.reference.hibernate-commons-annotations-3.3.0.ga.jar}" property="included.lib.file.reference.hibernate-commons-annotations-3.3.0.ga.jar"/>
+        <copy-ear-war file="${file.reference.hibernate-commons-annotations-3.3.0.ga.jar}" propname="included.lib.file.reference.hibernate-commons-annotations-3.3.0.ga.jar.X"/>
+        <basename file="${file.reference.hibernate-entitymanager-3.3.1.ga.jar}" property="included.lib.file.reference.hibernate-entitymanager-3.3.1.ga.jar"/>
+        <copy-ear-war file="${file.reference.hibernate-entitymanager-3.3.1.ga.jar}" propname="included.lib.file.reference.hibernate-entitymanager-3.3.1.ga.jar.X"/>
+        <basename file="${file.reference.hibernate-validator-3.0.0.ga.jar}" property="included.lib.file.reference.hibernate-validator-3.0.0.ga.jar"/>
+        <copy-ear-war file="${file.reference.hibernate-validator-3.0.0.ga.jar}" propname="included.lib.file.reference.hibernate-validator-3.0.0.ga.jar.X"/>
+        <basename file="${file.reference.JavaApplication2.jar}" property="included.lib.file.reference.JavaApplication2.jar"/>
+        <copy-ear-war file="${file.reference.JavaApplication2.jar}" propname="included.lib.file.reference.JavaApplication2.jar.X"/>
+        <basename file="${file.reference.javassist-3.3.ga.jar}" property="included.lib.file.reference.javassist-3.3.ga.jar"/>
+        <copy-ear-war file="${file.reference.javassist-3.3.ga.jar}" propname="included.lib.file.reference.javassist-3.3.ga.jar.X"/>
+        <basename file="${file.reference.jboss-common-core-2.0.4.GA.jar}" property="included.lib.file.reference.jboss-common-core-2.0.4.GA.jar"/>
+        <copy-ear-war file="${file.reference.jboss-common-core-2.0.4.GA.jar}" propname="included.lib.file.reference.jboss-common-core-2.0.4.GA.jar.X"/>
+        <basename file="${file.reference.JpaDaoFrameworks-1.0-SNAPSHOT.jar}" property="included.lib.file.reference.JpaDaoFrameworks-1.0-SNAPSHOT.jar"/>
+        <copy-ear-war file="${file.reference.JpaDaoFrameworks-1.0-SNAPSHOT.jar}" propname="included.lib.file.reference.JpaDaoFrameworks-1.0-SNAPSHOT.jar.X"/>
+        <basename file="${file.reference.jsr250-api-1.0.jar}" property="included.lib.file.reference.jsr250-api-1.0.jar"/>
+        <copy-ear-war file="${file.reference.jsr250-api-1.0.jar}" propname="included.lib.file.reference.jsr250-api-1.0.jar.X"/>
+        <basename file="${file.reference.jstl-1.0.jar}" property="included.lib.file.reference.jstl-1.0.jar"/>
+        <copy-ear-war file="${file.reference.jstl-1.0.jar}" propname="included.lib.file.reference.jstl-1.0.jar.X"/>
+        <basename file="${file.reference.jta-1.0.1B.jar}" property="included.lib.file.reference.jta-1.0.1B.jar"/>
+        <copy-ear-war file="${file.reference.jta-1.0.1B.jar}" propname="included.lib.file.reference.jta-1.0.1B.jar.X"/>
+        <basename file="${file.reference.log4j-1.2.15.jar}" property="included.lib.file.reference.log4j-1.2.15.jar"/>
+        <copy-ear-war file="${file.reference.log4j-1.2.15.jar}" propname="included.lib.file.reference.log4j-1.2.15.jar.X"/>
+        <basename file="${file.reference.mail-1.4.jar}" property="included.lib.file.reference.mail-1.4.jar"/>
+        <copy-ear-war file="${file.reference.mail-1.4.jar}" propname="included.lib.file.reference.mail-1.4.jar.X"/>
+        <basename file="${file.reference.mysql-connector-java-5.1.5-bin.jar}" property="included.lib.file.reference.mysql-connector-java-5.1.5-bin.jar"/>
+        <copy-ear-war file="${file.reference.mysql-connector-java-5.1.5-bin.jar}" propname="included.lib.file.reference.mysql-connector-java-5.1.5-bin.jar.X"/>
+        <basename file="${file.reference.oro-2.0.8.jar}" property="included.lib.file.reference.oro-2.0.8.jar"/>
+        <copy-ear-war file="${file.reference.oro-2.0.8.jar}" propname="included.lib.file.reference.oro-2.0.8.jar.X"/>
+        <basename file="${file.reference.persistence-api-1.0.jar}" property="included.lib.file.reference.persistence-api-1.0.jar"/>
+        <copy-ear-war file="${file.reference.persistence-api-1.0.jar}" propname="included.lib.file.reference.persistence-api-1.0.jar.X"/>
+        <basename file="${file.reference.servlet-api-2.4.jar}" property="included.lib.file.reference.servlet-api-2.4.jar"/>
+        <copy-ear-war file="${file.reference.servlet-api-2.4.jar}" propname="included.lib.file.reference.servlet-api-2.4.jar.X"/>
+        <basename file="${file.reference.spring-2.5.jar}" property="included.lib.file.reference.spring-2.5.jar"/>
+        <copy-ear-war file="${file.reference.spring-2.5.jar}" propname="included.lib.file.reference.spring-2.5.jar.X"/>
+        <basename file="${file.reference.spring-aop-2.5.jar}" property="included.lib.file.reference.spring-aop-2.5.jar"/>
+        <copy-ear-war file="${file.reference.spring-aop-2.5.jar}" propname="included.lib.file.reference.spring-aop-2.5.jar.X"/>
+        <basename file="${file.reference.spring-beans-2.5.jar}" property="included.lib.file.reference.spring-beans-2.5.jar"/>
+        <copy-ear-war file="${file.reference.spring-beans-2.5.jar}" propname="included.lib.file.reference.spring-beans-2.5.jar.X"/>
+        <basename file="${file.reference.spring-context-2.5.jar}" property="included.lib.file.reference.spring-context-2.5.jar"/>
+        <copy-ear-war file="${file.reference.spring-context-2.5.jar}" propname="included.lib.file.reference.spring-context-2.5.jar.X"/>
+        <basename file="${file.reference.spring-core-2.5.jar}" property="included.lib.file.reference.spring-core-2.5.jar"/>
+        <copy-ear-war file="${file.reference.spring-core-2.5.jar}" propname="included.lib.file.reference.spring-core-2.5.jar.X"/>
+        <basename file="${file.reference.spring-dao-2.0.7.jar}" property="included.lib.file.reference.spring-dao-2.0.7.jar"/>
+        <copy-ear-war file="${file.reference.spring-dao-2.0.7.jar}" propname="included.lib.file.reference.spring-dao-2.0.7.jar.X"/>
+        <basename file="${file.reference.spring-jdbc-2.0.7.jar}" property="included.lib.file.reference.spring-jdbc-2.0.7.jar"/>
+        <copy-ear-war file="${file.reference.spring-jdbc-2.0.7.jar}" propname="included.lib.file.reference.spring-jdbc-2.0.7.jar.X"/>
+        <basename file="${file.reference.spring-jpa-2.0.7.jar}" property="included.lib.file.reference.spring-jpa-2.0.7.jar"/>
+        <copy-ear-war file="${file.reference.spring-jpa-2.0.7.jar}" propname="included.lib.file.reference.spring-jpa-2.0.7.jar.X"/>
+        <basename file="${file.reference.spring-orm-2.5.jar}" property="included.lib.file.reference.spring-orm-2.5.jar"/>
+        <copy-ear-war file="${file.reference.spring-orm-2.5.jar}" propname="included.lib.file.reference.spring-orm-2.5.jar.X"/>
+        <basename file="${file.reference.spring-test-2.5.jar}" property="included.lib.file.reference.spring-test-2.5.jar"/>
+        <copy-ear-war file="${file.reference.spring-test-2.5.jar}" propname="included.lib.file.reference.spring-test-2.5.jar.X"/>
+        <basename file="${file.reference.spring-tx-2.5.jar}" property="included.lib.file.reference.spring-tx-2.5.jar"/>
+        <copy-ear-war file="${file.reference.spring-tx-2.5.jar}" propname="included.lib.file.reference.spring-tx-2.5.jar.X"/>
+        <basename file="${file.reference.toplink-essentials-2.0-36.jar}" property="included.lib.file.reference.toplink-essentials-2.0-36.jar"/>
+        <copy-ear-war file="${file.reference.toplink-essentials-2.0-36.jar}" propname="included.lib.file.reference.toplink-essentials-2.0-36.jar.X"/>
+        <basename file="${file.reference.toplink-essentials-agent.jar}" property="included.lib.file.reference.toplink-essentials-agent.jar"/>
+        <copy-ear-war file="${file.reference.toplink-essentials-agent.jar}" propname="included.lib.file.reference.toplink-essentials-agent.jar.X"/>
+        <basename file="${file.reference.toplink-essentials.jar}" property="included.lib.file.reference.toplink-essentials.jar"/>
+        <copy-ear-war file="${file.reference.toplink-essentials.jar}" propname="included.lib.file.reference.toplink-essentials.jar.X"/>
+        <basename file="${file.reference.xml-apis-1.0.b2.jar}" property="included.lib.file.reference.xml-apis-1.0.b2.jar"/>
+        <copy-ear-war file="${file.reference.xml-apis-1.0.b2.jar}" propname="included.lib.file.reference.xml-apis-1.0.b2.jar.X"/>
+        <basename file="${reference.BizPayrollServices.jar}" property="included.lib.reference.BizPayrollServices.jar"/>
+        <copy-ear-war file="${reference.BizPayrollServices.jar}" propname="included.lib.reference.BizPayrollServices.jar.X"/>
         <mkdir dir="${build.web.dir}/META-INF"/>
-        <manifest file="${build.web.dir}/META-INF/MANIFEST.MF" mode="update"/>
+        <manifest file="${build.web.dir}/META-INF/MANIFEST.MF" mode="update">
+            <attribute name="Class-Path" value="${included.lib.file.reference.acegi-security-0.8.3.jar} ${included.lib.file.reference.activation-1.1.jar} ${included.lib.file.reference.antlr-2.7.6.jar} ${included.lib.file.reference.aopalliance-1.0.jar} ${included.lib.file.reference.asm-1.5.3.jar} ${included.lib.file.reference.asm-attrs-1.5.3.jar} ${included.lib.file.reference.aspectjweaver-1.5.3.jar} ${included.lib.file.reference.cglib-2.1_3.jar} ${included.lib.file.reference.commons-collections-3.1.jar} ${included.lib.file.reference.commons-lang-2.3.jar} ${included.lib.file.reference.commons-logging-1.1.jar} ${included.lib.file.reference.dom4j-1.6.1.jar} ${included.lib.file.reference.dwr.jar} ${included.lib.file.reference.ehcache-1.2.3.jar} ${included.lib.file.reference.hibernate-3.2.5.ga.jar} ${included.lib.file.reference.hibernate-annotations-3.3.0.ga.jar} ${included.lib.file.reference.hibernate-commons-annotations-3.3.0.ga.jar} ${included.lib.file.reference.hibernate-entitymanager-3.3.1.ga.jar} ${included.lib.file.reference.hibernate-validator-3.0.0.ga.jar} ${included.lib.file.reference.JavaApplication2.jar} ${included.lib.file.reference.javassist-3.3.ga.jar} ${included.lib.file.reference.jboss-common-core-2.0.4.GA.jar} ${included.lib.file.reference.JpaDaoFrameworks-1.0-SNAPSHOT.jar} ${included.lib.file.reference.jsr250-api-1.0.jar} ${included.lib.file.reference.jstl-1.0.jar} ${included.lib.file.reference.jta-1.0.1B.jar} ${included.lib.file.reference.log4j-1.2.15.jar} ${included.lib.file.reference.mail-1.4.jar} ${included.lib.file.reference.mysql-connector-java-5.1.5-bin.jar} ${included.lib.file.reference.oro-2.0.8.jar} ${included.lib.file.reference.persistence-api-1.0.jar} ${included.lib.file.reference.servlet-api-2.4.jar} ${included.lib.file.reference.spring-2.5.jar} ${included.lib.file.reference.spring-aop-2.5.jar} ${included.lib.file.reference.spring-beans-2.5.jar} ${included.lib.file.reference.spring-context-2.5.jar} ${included.lib.file.reference.spring-core-2.5.jar} ${included.lib.file.reference.spring-dao-2.0.7.jar} ${included.lib.file.reference.spring-jdbc-2.0.7.jar} ${included.lib.file.reference.spring-jpa-2.0.7.jar} ${included.lib.file.reference.spring-orm-2.5.jar} ${included.lib.file.reference.spring-test-2.5.jar} ${included.lib.file.reference.spring-tx-2.5.jar} ${included.lib.file.reference.toplink-essentials-2.0-36.jar} ${included.lib.file.reference.toplink-essentials-agent.jar} ${included.lib.file.reference.toplink-essentials.jar} ${included.lib.file.reference.xml-apis-1.0.b2.jar} ${included.lib.reference.BizPayrollServices.jar} "/>
+        </manifest>
         <delete dir="${dist.ear.dir}/temp"/>
     </target>
-    <target depends="init" name="library-inclusion-in-archive" unless="dist.ear.dir"/>
+    <target depends="init" name="library-inclusion-in-archive" unless="dist.ear.dir">
+        <copy file="${file.reference.acegi-security-0.8.3.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${file.reference.activation-1.1.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${file.reference.antlr-2.7.6.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${file.reference.aopalliance-1.0.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${file.reference.asm-1.5.3.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${file.reference.asm-attrs-1.5.3.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${file.reference.aspectjweaver-1.5.3.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${file.reference.cglib-2.1_3.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${file.reference.commons-collections-3.1.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${file.reference.commons-lang-2.3.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${file.reference.commons-logging-1.1.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${file.reference.dom4j-1.6.1.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${file.reference.dwr.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${file.reference.ehcache-1.2.3.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${file.reference.hibernate-3.2.5.ga.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${file.reference.hibernate-annotations-3.3.0.ga.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${file.reference.hibernate-commons-annotations-3.3.0.ga.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${file.reference.hibernate-entitymanager-3.3.1.ga.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${file.reference.hibernate-validator-3.0.0.ga.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${file.reference.JavaApplication2.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${file.reference.javassist-3.3.ga.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${file.reference.jboss-common-core-2.0.4.GA.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${file.reference.JpaDaoFrameworks-1.0-SNAPSHOT.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${file.reference.jsr250-api-1.0.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${file.reference.jstl-1.0.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${file.reference.jta-1.0.1B.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${file.reference.log4j-1.2.15.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${file.reference.mail-1.4.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${file.reference.mysql-connector-java-5.1.5-bin.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${file.reference.oro-2.0.8.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${file.reference.persistence-api-1.0.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${file.reference.servlet-api-2.4.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${file.reference.spring-2.5.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${file.reference.spring-aop-2.5.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${file.reference.spring-beans-2.5.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${file.reference.spring-context-2.5.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${file.reference.spring-core-2.5.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${file.reference.spring-dao-2.0.7.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${file.reference.spring-jdbc-2.0.7.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${file.reference.spring-jpa-2.0.7.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${file.reference.spring-orm-2.5.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${file.reference.spring-test-2.5.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${file.reference.spring-tx-2.5.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${file.reference.toplink-essentials-2.0-36.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${file.reference.toplink-essentials-agent.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${file.reference.toplink-essentials.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${file.reference.xml-apis-1.0.b2.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+        <copy file="${reference.BizPayrollServices.jar}" todir="${build.web.dir}/WEB-INF/lib"/>
+    </target>
     <target depends="init,compile,compile-jsps,-pre-dist,library-inclusion-in-manifest" name="do-ear-dist">
         <dirname file="${dist.ear.war}" property="dist.jar.dir"/>
         <mkdir dir="${dist.jar.dir}"/>
@@ -795,7 +946,9 @@ or ant -Dj2ee.platform.classpath=&lt;server_classpath&gt; (where no properties f
                 
                 CLEANUP SECTION
             -->
-    <target depends="init" if="no.dist.ear.dir" name="deps-clean" unless="no.deps"/>
+    <target depends="init" if="no.dist.ear.dir" name="deps-clean" unless="no.deps">
+        <ant antfile="${project.BizPayrollServices}/build.xml" inheritall="false" target="clean"/>
+    </target>
     <target depends="init" name="do-clean">
         <condition property="build.dir.to.clean" value="${build.web.dir}">
             <isset property="dist.ear.dir"/>
