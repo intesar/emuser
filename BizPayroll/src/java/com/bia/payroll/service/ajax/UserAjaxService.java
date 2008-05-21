@@ -46,6 +46,10 @@ public class UserAjaxService {
         PagedResult<Users> result = userService.getAllUsers(username);
         return result.getResults();
     }
+    
+    public String getMyUsername() {
+        return AcegiUtil.getUsername(); 
+    }
 
     public void editUser() {
     }
@@ -59,4 +63,9 @@ public class UserAjaxService {
         this.userService = userService;
     }
     private UserService userService = (UserService) ServiceFactory.getService("userServiceImpl");
+    
+    public static void main(String []args) {
+        UserAjaxService u = new UserAjaxService();
+        System.out.println ( u.getAllUsers() );
+    }
 }
