@@ -11,9 +11,6 @@ import com.bia.payroll.service.ServiceFactory;
 import com.bia.payroll.service.UserService;
 import java.util.List;
 
-
-
-
 /**
  *
  * @author intesar
@@ -28,7 +25,7 @@ public class UserAjaxService {
         o.setType(type);
         Users u = new Users();
         u.setFirstName(firstName);
-        u.setLastName(lastName);        
+        u.setLastName(lastName);
         u.setPassword(password);
         u.setUsername(username);
         try {
@@ -42,20 +39,27 @@ public class UserAjaxService {
     }
 
     public List<Users> getAllUsers() {
-        String username = AcegiUtil.getUsername(); 
+        String username = AcegiUtil.getUsername();
         PagedResult<Users> result = userService.getAllUsers(username);
         return result.getResults();
     }
-    
+
     public String getMyUsername() {
-        return AcegiUtil.getUsername(); 
+        return AcegiUtil.getUsername();
     }
 
-    public void editUser() {
+    public String editUser(Users user) {
+        try {
+            userService.editUser(user);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return e.getMessage();
+        }
+        return " User Updated Sucessfully ! ";
     }
 
     public void changePassword(String oldPassword, String newPassword) {
-        String username = AcegiUtil.getUsername();        
+        String username = AcegiUtil.getUsername();
         userService.changePassword(username, oldPassword, newPassword);
     }
 
@@ -63,9 +67,9 @@ public class UserAjaxService {
         this.userService = userService;
     }
     private UserService userService = (UserService) ServiceFactory.getService("userServiceImpl");
-    
-    public static void main(String []args) {
+
+    public static void main(String[] args) {
         UserAjaxService u = new UserAjaxService();
-        System.out.println ( u.getAllUsers() );
+        System.out.println(u.getAllUsers());
     }
 }
