@@ -6,6 +6,7 @@
     <create creator="new" javascript="JTimesheetAjaxService">
       <param name="class" value="com.bia.payroll.service.ajax.TimesheetAjaxService"/>
     </create>
-    <convert match="com.bia.payroll.entity.Users" converter="bean"/>
+    <convert match="com.bia.payroll.model.TimesheetDto" converter="bean"/>
+    <convert match="com.bia.payroll.model.UsersDto" converter="bean"/>
   </allow>
 </dwr>

@@ -81,11 +81,30 @@
                 });
             }
 
-            function editClicked(eleid) {
+            function editClicked(eleid) 
+            {
+                 viewed = eleid.substring(4);
                 // we were an id of the form "edit{id}", eg "edit42". We lookup the "42"
-                var user = peopleCache[eleid.substring(4)];
+                var user = usersCache[eleid.substring(4)];
                 dwr.util.setValues(user);
             }
+            function writeUser() {
+                var user = { id:viewed, username:null, firstname:null, lastname:null, password:null };
+                dwr.util.getValues(user);
+
+               // dwr.engine.beginBatch();
+                JUserAjaxService.addUser(user);
+                fillTable();
+                //dwr.engine.endBatch();
+            }
+
+            
+            function clearUser() {
+                viewed = -1;
+                dwr.util.setValues({ id:-1, username:null, firstname:null, lastname:null, password:null });
+            }
+
+
 
         </script>
         <p align ="center">
@@ -103,8 +122,9 @@
                 
                 <tr id="pattern" style="display:none;">
                     <td>
-                        <span id="tableName">Name</span><br/>                        
+                        <span id="tableName">Name</span><br/> 
                     </td>
+                    
                     <td><span id="tableUsername">Username</span></td>
                     <td>
                         <input id="edit" type="button" value="Edit" onclick="editClicked(this.id)"/>
@@ -126,32 +146,32 @@
             <tbody>
                 <tr>
                     <td>Username</td>
-                    <td><input class='itext'type="text" name="Username" value='' id='p10' /></td>
+                    <td><input class='itext'type="text" name="username" value='' id='p10' /></td>
                 </tr>
                 <tr>
                     <td>Firstname</td>
-                    <td><input class='itext'type="text" name="Firstname" value='' id='p12' /></td>
+                    <td><input class='itext'type="text" name="firstname" value='' id='p12' /></td>
                 </tr>
                 <tr>
                     <td>Lastname</td>
-                    <td><input class='itext'type="text" name="Lastname" value='' id='p13' /></td>
+                    <td><input class='itext'type="text" name="lastname" value='' id='p13' /></td>
                 </tr>
                 <tr>
                     <td>Password</td>
-                    <td><input class='itext' type="password" name="Password" id='p11' /></td>
+                    <td><input class='itext' type="password" name="password" id='p11' /></td>
                 </tr>
                 <tr>
                     <td> Confirm Password</td>
-                    <td><input class='itext' type="password" name="confirmPassword"   id='p14' /></td>
+                    <td><input class='itext' type="password" name="confirmpassword"   id='p14' /></td>
                 </tr>
                 <tr>
-                    <td><input  class='ibutton' type='button' value="save" name="save" onclick='addUserFunction();' value='Execute'  title='Calls JUserAjaxService.addUser(). View source for details.' /></td>
+                    <td><input  class='ibutton' type='button' value="save" name="save" onclick='writeUser();' value='Execute'  title='Calls JUserAjaxService.addUser(). View source for details.' /></td>
                     <script type='text/javascript'>
                         function addUserFunction() {
                             
                             var username = '"' + $("p10").value + '"';
                             username = objectEval(username);
-                            
+                                    
                             var firstname  = '"' + $("p12").value + '"';
                             firstname = objectEval(firstname);
                             
@@ -163,8 +183,7 @@
                             
                             var confirmPassword  = '"' + $("p14").value  + '"';
                             confirmPassword = objectEval(confirmPassword);
-                            
-                            
+                            alert("here");              
                             if ( password == confirmPassword )  {
                                 JUserAjaxService.addUser(username, firstname, lastname, password, reply1);
                             } else {
@@ -179,7 +198,7 @@
                             else dwr.util.setValue('d1', dwr.util.toDescriptiveString(data, 1));
                         }
                     </script>
-                    <td> <input type="reset" value="clear" name="clear" /></td>
+                    <td> <input type="reset" value="clear" name="clear" onclick="clearUser();" /></td>
                 </tr>
             </tbody>
         </table>
