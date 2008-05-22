@@ -16,7 +16,7 @@ public class UsersDto {
     private String password;
     private String firstname;
     private String lastname;
-    private Short isEnabled;
+    private Short isEnabled = 1;
     private String organization;
 
     public String getFirstname() {
@@ -54,10 +54,14 @@ public class UsersDto {
     public String getPassword() {
         return password;
     }
-
+  
+ 
     public void setPassword(String password) {
         this.password = password;
     }
+    
+     
+    
 
     public String getUsername() {
         return username;

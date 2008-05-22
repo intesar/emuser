@@ -1,9 +1,13 @@
-<!-- 
+<%-- 
     Document   : Login
-    Created on : 22 May, 2008, 11:44:53 AM
+    Created on : 22 May, 2008, 12:34:39 PM
     Author     : imran
--->
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+   "http://www.w3.org/TR/html4/loose.dtd">
+
 <html>
     <head>
         <title>Get Logged</title>
@@ -27,7 +31,6 @@
                         <td>Password</td>
                         <td><input type="password" name="" value="" /> </td>
                     </tr>
-                    
                     <tr></tr><tr></tr><tr></tr><tr></tr><tr></tr>
                     <tr>
                         <td></td>
@@ -42,3 +45,4 @@
         </p>
     </body>
 </html>
+

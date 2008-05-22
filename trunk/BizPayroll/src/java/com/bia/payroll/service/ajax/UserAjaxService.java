@@ -21,11 +21,12 @@ import java.util.List;
 public class UserAjaxService {
 
     public String addUser ( UsersDto dto ) {
-        Users user = userService.getUser(AcegiUtil.getUsername());
+        String username = "abc";//AcegiUtil.getUsername();
+        //Users user = userService.getUser("abc");//AcegiUtil.getUsername());
         Users u = new Users();
         usersConverter.copy(dto, u);
         try {
-            userService.createUser(user.getOrganization(), u);
+            userService.addUser(username, u);
         } catch (Exception e) {
             e.printStackTrace();
             return e.getMessage();
@@ -94,6 +95,12 @@ public class UserAjaxService {
 
     public static void main(String[] args) {
         UserAjaxService u = new UserAjaxService();
-        System.out.println(u.getAllUsers());
+        UsersDto dto = new UsersDto();
+        dto.setFirstname("fn");
+        dto.setLastname("ln");
+        dto.setPassword("ps");
+        dto.setUsername("us");
+        u.addUser(dto);
+        //System.out.println(u.getAllUsers());
     }
 }
