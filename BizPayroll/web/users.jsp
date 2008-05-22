@@ -6,7 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-   "http://www.w3.org/TR/html4/loose.dtd">
+"http://www.w3.org/TR/html4/loose.dtd">
 
 <html>
     <head>
@@ -35,6 +35,8 @@
                 }
                 return eval(text);
             }
+            
+            
         </script>
         
         <style>
@@ -48,31 +50,68 @@
     <form action="lform">
         
         <body>
+        
+        <script type="text/javascript">
+            function init() {                
+                fillTable();
+            }
+            window.onload=init;
+
+            var usersCache = { };
+            var viewed = -1;
+
+            function fillTable() {
+                JUserAjaxService.getAllUsers(function(users) {
+                    // Delete all the rows except for the "pattern" row
+                    dwr.util.removeAllRows("usersbody", { filter:function(tr) {
+                            return (tr.id != "pattern");
+                        }});
+                    // Create a new set cloned from the pattern row
+                    var user, id;
+                    users.sort(function(p1, p2) { return p1.firstname.localeCompare(p2.firstname); });
+                    for (var i = 0; i < users.length; i++) {
+                        user = users[i];
+                        id = user.id;
+                        dwr.util.cloneNode("pattern", { idSuffix:id });
+                        dwr.util.setValue("tableName" + id, user.firstname + " " + user.lastname);                        
+                        dwr.util.setValue("tableUsername" + id, user.username);
+                        $("pattern" + id).style.display = "table-row";
+                        usersCache[id] = user;
+                    }
+                });
+            }
+
+            function editClicked(eleid) {
+                // we were an id of the form "edit{id}", eg "edit42". We lookup the "42"
+                var user = peopleCache[eleid.substring(4)];
+                dwr.util.setValues(user);
+            }
+
+        </script>
         <p align ="center">
         <h3>User Details</h3>  
         <table border="1">
             <thead>
                 <tr>
-                    <th>&nbsp;Username&nbsp;</th>
-                    <th>&nbsp;Firstname&nbsp;</th>
-                    <th>&nbsp;Lastname&nbsp;</th>
-                    <th>&nbsp;Password&nbsp;</th>
+                    <th>&nbsp;Name&nbsp;</th>
+                    <th>&nbsp;Username&nbsp;</th>            
                     <th>&nbsp;Actions&nbsp;</th>
                     
                 </tr>
             </thead>
-            <tbody>    
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td><input type="submit" value="Edit" name="Edit" onclick="editClicked(this.id)" />
-                    <input type="submit" value="Delete" name="Delete" onclick="deleteClicked(this.id)" /></td>
+            <tbody id="usersbody">    
+                
+                <tr id="pattern" style="display:none;">
                     <td>
+                        <span id="tableName">Name</span><br/>                        
                     </td>
-                    <td></td>
-                </tr>
+                    <td><span id="tableUsername">Username</span></td>
+                    <td>
+                        <input id="edit" type="button" value="Edit" onclick="editClicked(this.id)"/>
+                        <input id="delete" type="button" value="Delete" onclick="deleteClicked(this.id)"/>
+                    </td>
+                </tr>            
+                
             </tbody>
         </table>
         <br><br>   
