@@ -1,0 +1,11 @@
+<dwr>
+  <allow>
+    <create creator="new" javascript="JUserAjaxService">
+      <param name="class" value="com.bia.payroll.service.ajax.UserAjaxService"/>
+    </create>
+    <create creator="new" javascript="JTimesheetAjaxService">
+      <param name="class" value="com.bia.payroll.service.ajax.TimesheetAjaxService"/>
+    </create>
+    <convert match="com.bia.payroll.entity.Users" converter="bean"/>
+  </allow>
+</dwr>
