@@ -33,9 +33,15 @@ public class UserServiceImpl implements UserService {
         Authorities a2 = new Authorities(user.getUsername(), "ROLE_USER");
         authoritiesDao.create(a2);
     }
-    
-    public void addUser ( Users user ) {
-        usersDao.create(user);
+
+    public void addUser(String username, Users user) {
+        Users user1 = usersDao.findByUsername(username);
+        user.setOrganization(user1.getOrganization());
+        if (user.getId() == null) {
+            usersDao.create(user);
+        } else {
+            usersDao.update(user);
+        }
     }
 
     public PagedResult<Users> getAllUsers(String username) {
@@ -59,7 +65,7 @@ public class UserServiceImpl implements UserService {
     }
 
     public void changePassword(String username, String oldPassword, String newPassword) {
-        
+
         Users user = usersDao.findByUsername(username);
         if (user.getPassword().equals(oldPassword)) {
             user.setPassword(newPassword);
@@ -69,9 +75,10 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    public Users getUser( String username ) {
+    public Users getUser(String username) {
         return usersDao.findByUsername(username);
     }
+
     public void setUsersDao(UsersDao usersDao) {
         this.usersDao = usersDao;
     }
@@ -83,8 +90,6 @@ public class UserServiceImpl implements UserService {
     public void setOrganizationDao(OrganizationDao organizationDao) {
         this.organizationDao = organizationDao;
     }
-    
-    
     private OrganizationDao organizationDao;
     private AuthoritiesDao authoritiesDao;
     private UsersDao usersDao;
