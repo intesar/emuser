@@ -16,6 +16,7 @@
         <script type='text/javascript' src='/BizPayroll/dwr/util.js'></script>
         
         
+        
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <script type='text/javascript'>
             function objectEval(text)
@@ -39,17 +40,12 @@
             
         </script>
         
-        <style>
-            input.itext { font-size: smaller; background: #E4E4E4; border: 0; }
-            input.ibutton { font-size: xx-small; border: 1px outset; margin: 0px; padding: 0px; }
-            span.reply { background: #ffffdd; white-space: pre; }
-            span.warning { font-size: smaller; color: red; }
-        </style>
+        
         
     </head>
     <form action="lform">
         
-        <body>
+        <body bgcolor="CCFFFF">
         
         <script type="text/javascript">
             function init() {                
@@ -108,7 +104,9 @@
 
         </script>
         <p align ="center">
-        <h3>User Details</h3>  
+         <center>    
+             <h3><u>User Details</u></h3>  
+       
         <table border="1">
             <thead>
                 <tr>
@@ -134,13 +132,15 @@
                 
             </tbody>
         </table>
+    </center>
         <br><br>   
-        
-        <table border="0">
+        <center>    
+             <h3>Edit User Details</h3> 
+        <table border="1">
             <thead>
                 <tr>
-                    <th>Edit User Details</th>
-                    <th></th>
+                    
+                    
                 </tr>
             </thead>
             <tbody>
@@ -165,7 +165,7 @@
                     <td><input class='itext' type="password" name="confirmpassword"   id='p14' /></td>
                 </tr>
                 <tr>
-                    <td><input  class='ibutton' type='button' value="save" name="save" onclick='writeUser();' value='Execute'  title='Calls JUserAjaxService.addUser(). View source for details.' /></td>
+                    <td></td>
                     <script type='text/javascript'>
                         function addUserFunction() {
                             
@@ -198,10 +198,12 @@
                             else dwr.util.setValue('d1', dwr.util.toDescriptiveString(data, 1));
                         }
                     </script>
-                    <td> <input type="reset" value="clear" name="clear" onclick="clearUser();" /></td>
+                    
+                    <td><input  class='ibutton' type='button'  value=" Save " name="save" onclick='writeUser();' value='Execute'  title='Calls JUserAjaxService.addUser(). View source for details.' /> <input type="reset" value=" Clear " name="clear" onclick="clearUser();" /></td>
                 </tr>
             </tbody>
         </table>
+    </center>
         <span id='d1' class='reply'></span>
         
         <p align ="center">
