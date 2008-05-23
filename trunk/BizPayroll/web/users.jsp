@@ -8,6 +8,16 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 
+<%-- 
+    Document   : users
+    Created on : 22 May, 2008, 10:40:56 AM
+    Author     : imran
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+
 <html>
     <head>
         <title>User Information</title>
@@ -168,10 +178,10 @@
                     <td></td>
                     <script type='text/javascript'>
                         function addUserFunction() {
-                            
+                        
                             var username = '"' + $("p10").value + '"';
                             username = objectEval(username);
-                                    
+                                       
                             var firstname  = '"' + $("p12").value + '"';
                             firstname = objectEval(firstname);
                             
@@ -210,4 +220,6 @@
     </form>
     </body>
 </html>
+
+
 
