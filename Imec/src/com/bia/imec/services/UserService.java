@@ -5,8 +5,9 @@
 
 package com.bia.imec.services;
 
+import com.abbhsoft.jpadaoframework.dao.PagedResult;
+import com.abbhsoft.jpadaoframework.dao.PagingParams;
 import com.bia.imec.entity.User;
-import java.util.List;
 
 /**
  *
@@ -14,10 +15,10 @@ import java.util.List;
  */
 public interface UserService {
 
-    public List<User> getAll(String users);
+    public PagedResult<User> getAll(PagingParams pagingParams);
     
-    public void createUser(String users);
+    public void createUser(User users);
     
-    public void updateUser(String users);
+    public void updateUser(User users);
     
 }
