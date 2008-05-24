@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.bia.imec.converter;
 
 import com.bia.imec.dto.*;
@@ -14,7 +13,8 @@ import com.bia.imec.entity.Emails;
  * @author imran
  */
 public class EmailsConverter {
-     public void copy(EmailsDto emailsDto, Emails emails) {
+
+    public void copy(EmailsDto emailsDto, Emails emails) {
 
         if (emailsDto != null) {
             emails.setId(emailsDto.getId());
@@ -30,8 +30,9 @@ public class EmailsConverter {
             emails.setStatusDate(emailsDto.getStatusDate());
             emails.setReplyOf(emailsDto.getReplyOf());
         }
-     }
-      public void copy(Emails emails, EmailsDto emailsDto) {
+    }
+
+    public void copy(Emails emails, EmailsDto emailsDto) {
 
         if (emails != null) {
             emailsDto.setId(emails.getId());
@@ -47,5 +48,5 @@ public class EmailsConverter {
             emailsDto.setStatusDate(emails.getStatusDate());
             emailsDto.setReplyOf(emails.getReplyOf());
         }
-     }
+    }
 }
