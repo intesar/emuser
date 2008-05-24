@@ -1,13 +1,25 @@
 <dwr>
   <allow>
-      <!--
+      
+    <create creator="new" javascript="JContactsAjaxService">
+      <param name="class" value="com.bia.imec.service.ajax.ContactsAjaxService"/>
+    </create>
+    
+    <create creator="new" javascript="JEmailAjaxService">
+      <param name="class" value="com.bia.imec.service.ajax.EmailAjaxService"/>
+    </create>
+    
     <create creator="new" javascript="JUserAjaxService">
-      <param name="class" value="com.bia.payroll.service.ajax.UserAjaxService"/>
+      <param name="class" value="com.bia.imec.service.ajax.UserAjaxService"/>
     </create>
-    <create creator="new" javascript="JTimesheetAjaxService">
-      <param name="class" value="com.bia.payroll.service.ajax.TimesheetAjaxService"/>
-    </create>
-    <convert match="com.bia.payroll.entity.Users" converter="bean"/>
-    -->
+    
+    
+    
+    <convert match="com.bia.imec.entity.AuthoritiesDto" converter="bean"/>
+    <convert match="com.bia.imec.entity.ContactsDto" converter="bean"/>
+    <convert match="com.bia.imec.entity.EmailsDto" converter="bean"/>
+    <convert match="com.bia.imec.entity.MailServersDto" converter="bean"/>
+    <convert match="com.bia.imec.entity.UserDto" converter="bean"/>
+    
   </allow>
 </dwr>
