@@ -4,8 +4,6 @@
  */
 package com.bia.imec.dto;
 
-import com.bia.imec.entity.AuthoritiesPK;
-
 /**
  *
  * @author imran
