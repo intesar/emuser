@@ -8,15 +8,6 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 
-<%-- 
-    Document   : users
-    Created on : 22 May, 2008, 10:40:56 AM
-    Author     : imran
---%>
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-"http://www.w3.org/TR/html4/loose.dtd">
 
 <html>
     <head>
@@ -55,7 +46,7 @@
     </head>
     <form action="lform">
         
-        <body bgcolor="CCFFFF">
+        <body>
         
         <script type="text/javascript">
             function init() {                
