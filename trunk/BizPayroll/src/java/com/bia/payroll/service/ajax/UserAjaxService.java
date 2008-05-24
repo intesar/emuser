@@ -21,7 +21,7 @@ import java.util.List;
 public class UserAjaxService {
 
     public String addUser ( UsersDto dto ) {
-        String username = "abc";//AcegiUtil.getUsername();
+        String username = AcegiUtil.getUsername();
         //Users user = userService.getUser("abc");//AcegiUtil.getUsername());
         Users u = new Users();
         usersConverter.copy(dto, u);
