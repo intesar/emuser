@@ -18,6 +18,7 @@ public class UsersDto {
     private String lastname;
     private Short isEnabled = 1;
     private String organization;
+    
 
     public String getFirstname() {
         return firstname;

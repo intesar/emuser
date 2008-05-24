@@ -101,10 +101,9 @@
                 CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
                 PATTERN_TYPE_APACHE_ANT
                 /acegilogin.jsp*=ROLE_ANONYMOUS,ROLE_USER,ROLE_ADMIN
-                /**=ROLE_USER,ROLE_ADMIN
-                /a.jsp*=ROLE_A
-                /b.jsp*=ROLE_B
-                /c.jsp=ROLE_C
+                /forgot.jsp*=ROLE_ANONYMOUS,ROLE_USER,ROLE_ADMIN
+                /registration.jsp*=ROLE_ANONYMOUS,ROLE_USER,ROLE_ADMIN
+                /**=ROLE_USER,ROLE_ADMIN                
             </value>
         </property>
     </bean>
