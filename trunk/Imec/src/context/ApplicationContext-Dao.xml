@@ -136,9 +136,9 @@
          </bean>
       </property>
    </bean>
-   <bean id="mailserversDao" parent="abstractDao">
+   <bean id="mailServersDao" parent="abstractDao">
       <property name="proxyInterfaces">
-         <value>com.bis.imec.dao.MailserversDao</value>
+         <value>com.bis.imec.dao.MailServersDao</value>
       </property>
       <property name="target">
          <bean parent="abstractDaoTarget">

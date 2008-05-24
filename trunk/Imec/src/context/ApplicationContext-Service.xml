@@ -18,5 +18,17 @@
 
     
     -->
-   
+    <bean id="contactServiceImpl" class="com.bia.imec.services.impl.ContactServiceImpl" >
+        <property name="contactsDao" ref="contactsDao" />
+    </bean>
+    
+    <bean id="emailsServiceImpl" class="com.bia.imec.services.impl.EmailsServiceImpl" >
+        <property name="mailServersDao" ref="mailServersDao" />
+        <property name="emailsDao" ref="emailsDao" />
+    </bean>
+    
+    <bean id="userServiceImpl" class="com.bia.imec.services.impl.UserServiceImpl" >
+        <property name="usersDao" ref="usersDao" />
+    </bean>
+    
 </beans>

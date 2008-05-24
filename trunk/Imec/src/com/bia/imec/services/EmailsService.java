@@ -2,13 +2,13 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.bia.imec.services;
 
+import com.abbhsoft.jpadaoframework.dao.PagedResult;
+import com.abbhsoft.jpadaoframework.dao.PagingParams;
 import com.bia.imec.entity.Emails;
 import com.bia.imec.entity.MailServers;
 import java.util.Date;
-import java.util.List;
 
 /**
  *
@@ -16,15 +16,17 @@ import java.util.List;
  */
 public interface EmailsService {
 
-    public List<Emails> getAll(String status);
-    
-    public void createEmail(Integer email);
-    
+    public PagedResult<Emails> getAll(PagingParams pagingParams);
+
+    public void createEmail(Emails emails);
+
     public void changeStatus(Integer email, String status);
 
     public int getEmailCount(Date startdate, Date enddate);
-    
-    public  int getUserReplyCount(String username, Date dt1, Date dt2);
-    
-    public void addEmailservice(MailServers es);
-    }
+
+    public int getUserReplyCount(String username, Date dt1, Date dt2);
+
+    public void createEmailserver(MailServers mailServers);
+
+    public void updateEmailServer(MailServers mailServers);
+}

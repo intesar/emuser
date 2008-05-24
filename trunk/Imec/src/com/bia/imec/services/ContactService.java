@@ -5,8 +5,9 @@
 
 package com.bia.imec.services;
 
+import com.abbhsoft.jpadaoframework.dao.PagedResult;
+import com.abbhsoft.jpadaoframework.dao.PagingParams;
 import com.bia.imec.entity.Contacts;
-import java.util.List;
 
 /**
  *
@@ -14,5 +15,5 @@ import java.util.List;
  */
 public interface ContactService {
 
-    public List<Contacts> getAll(String Contacts);
+    public PagedResult<Contacts> getAll(PagingParams pagingParams);
 }
