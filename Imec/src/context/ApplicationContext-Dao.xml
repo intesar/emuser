@@ -100,4 +100,52 @@
             </bean>
         </property>
     </bean>
+    <bean id="authoritiesDao" parent="abstractDao">
+      <property name="proxyInterfaces">
+         <value>com.bis.imec.dao.AuthoritiesDao</value>
+      </property>
+      <property name="target">
+         <bean parent="abstractDaoTarget">
+            <constructor-arg>
+               <value>com.bia.imec.entity.Authorities</value>
+            </constructor-arg>
+         </bean>
+      </property>
+   </bean>
+   <bean id="contactsDao" parent="abstractDao">
+      <property name="proxyInterfaces">
+         <value>com.bis.imec.dao.ContactsDao</value>
+      </property>
+      <property name="target">
+         <bean parent="abstractDaoTarget">
+            <constructor-arg>
+               <value>com.bis.imec.dao.entity.Contacts</value>
+            </constructor-arg>
+         </bean>
+      </property>
+   </bean>
+   <bean id="emailsDao" parent="abstractDao">
+      <property name="proxyInterfaces">
+         <value>com.bis.imec.dao.EmailsDao</value>
+      </property>
+      <property name="target">
+         <bean parent="abstractDaoTarget">
+            <constructor-arg>
+               <value>com.bis.imec.dao.entity.Emails</value>
+            </constructor-arg>
+         </bean>
+      </property>
+   </bean>
+   <bean id="mailserversDao" parent="abstractDao">
+      <property name="proxyInterfaces">
+         <value>com.bis.imec.dao.MailserversDao</value>
+      </property>
+      <property name="target">
+         <bean parent="abstractDaoTarget">
+            <constructor-arg>
+               <value>com.bis.imec.dao.entity.MailServers</value>
+            </constructor-arg>
+         </bean>
+      </property>
+   </bean>
 </beans>
