@@ -28,22 +28,22 @@ public class Emails implements Serializable {
     @Id
     @Column(name = "id", nullable = false)
     private Integer id;
-    @Column(name = "from")
+    @Column(name = "_from")
     private String from;
-    @Column(name = "to")
+    @Column(name = "_to")
     private String to;
     @Column(name = "cc")
     private String cc;
     @Column(name = "bcc")
     private String bcc;
-    @Column(name = "subject")
+    @Column(name = "_subject")
     private String subject;
     @Column(name = "context_text")
     private String contextText;
     @Column(name = "email_date")
     @Temporal(TemporalType.DATE)
     private Date emailDate;
-    @Column(name = "status")
+    @Column(name = "_status")
     private String status;
     @Column(name = "agent")
     private String agent;

@@ -5,7 +5,7 @@
      
     <!-- EntityManagerFactory -->
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">
-        <property name="persistenceUnitName" value="BizPayrollServicesPU"/>
+        <property name="persistenceUnitName" value="ImecPU"/>
     </bean>
     
     <!-- 
@@ -102,7 +102,7 @@
     </bean>
     <bean id="authoritiesDao" parent="abstractDao">
       <property name="proxyInterfaces">
-         <value>com.bis.imec.dao.AuthoritiesDao</value>
+         <value>com.bia.imec.dao.AuthoritiesDao</value>
       </property>
       <property name="target">
          <bean parent="abstractDaoTarget">
@@ -114,36 +114,36 @@
    </bean>
    <bean id="contactsDao" parent="abstractDao">
       <property name="proxyInterfaces">
-         <value>com.bis.imec.dao.ContactsDao</value>
+         <value>com.bia.imec.dao.ContactsDao</value>
       </property>
       <property name="target">
          <bean parent="abstractDaoTarget">
             <constructor-arg>
-               <value>com.bis.imec.dao.entity.Contacts</value>
+               <value>com.bia.imec.entity.Contacts</value>
             </constructor-arg>
          </bean>
       </property>
    </bean>
    <bean id="emailsDao" parent="abstractDao">
       <property name="proxyInterfaces">
-         <value>com.bis.imec.dao.EmailsDao</value>
+         <value>com.bia.imec.dao.EmailsDao</value>
       </property>
       <property name="target">
          <bean parent="abstractDaoTarget">
             <constructor-arg>
-               <value>com.bis.imec.dao.entity.Emails</value>
+               <value>com.bia.imec.entity.Emails</value>
             </constructor-arg>
          </bean>
       </property>
    </bean>
    <bean id="mailServersDao" parent="abstractDao">
       <property name="proxyInterfaces">
-         <value>com.bis.imec.dao.MailServersDao</value>
+         <value>com.bia.imec.dao.MailServersDao</value>
       </property>
       <property name="target">
          <bean parent="abstractDaoTarget">
             <constructor-arg>
-               <value>com.bis.imec.dao.entity.MailServers</value>
+               <value>com.bia.imec.entity.MailServers</value>
             </constructor-arg>
          </bean>
       </property>

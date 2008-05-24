@@ -18,12 +18,12 @@ import javax.persistence.Table;
  * @author intesar
  */
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 @NamedQueries({@NamedQuery(name = "User.findByUsersname", query = "SELECT u FROM User u WHERE u.usersname = :usersname"), @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password"), @NamedQuery(name = "User.findByFirstname", query = "SELECT u FROM User u WHERE u.firstname = :firstname"), @NamedQuery(name = "User.findByLastname", query = "SELECT u FROM User u WHERE u.lastname = :lastname"), @NamedQuery(name = "User.findByEnable", query = "SELECT u FROM User u WHERE u.enable = :enable"), @NamedQuery(name = "User.findByIsadmin", query = "SELECT u FROM User u WHERE u.isadmin = :isadmin")})
 public class User implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @Column(name = "usersname", nullable = false)
+    @Column(name = "username", nullable = false)
     private String usersname;
     @Column(name = "password", nullable = false)
     private String password;
@@ -31,7 +31,7 @@ public class User implements Serializable {
     private String firstname;
     @Column(name = "lastname")
     private String lastname;
-    @Column(name = "enable")
+    @Column(name = "enabled")
     private Short enable;
     @Column(name = "Is_admin")
     private Short isadmin;
