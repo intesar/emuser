@@ -17,6 +17,30 @@
         <script type='text/javascript' src='/BizPayroll/dwr/util.js'></script>
         
         
+        <style type="text/css">
+            @import "http://o.aolcdn.com/dojo/1.0.0/dijit/themes/tundra/tundra.css";
+            @import "http://o.aolcdn.com/dojo/1.0.0/dojo/resources/dojo.css";
+        </style>
+        <script type="text/javascript" src="http://o.aolcdn.com/dojo/1.0.0/dojo/dojo.xd.js"
+                djConfig="parseOnLoad: true"></script>
+        <script type="text/javascript">
+            dojo.require("dojo.parser");
+            dojo.require("dijit.form.Button");
+            function call_function() {
+                console.debug("Button was clicked.");
+            }
+        </script>
+        
+        <style type="text/css">
+            @import "http://o.aolcdn.com/dojo/1.0/dijit/themes/tundra/tundra.css";
+            @import "http://o.aolcdn.com/dojo/1.0/dojo/resources/dojo.css";
+        </style>
+        <script type="text/javascript" src="http://o.aolcdn.com/dojo/1.0/dojo/dojo.xd.js"
+                djConfig="parseOnLoad: true"></script>
+        <script type="text/javascript">
+            dojo.require("dojo.parser");
+            dojo.require("dijit.form.ValidationTextBox");
+        </script>
         
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <script type='text/javascript'>
@@ -46,7 +70,7 @@
     </head>
     <form action="lform">
         
-        <body>
+        <body class="tundra">
         
         <script type="text/javascript">
             function init() {                
@@ -86,31 +110,23 @@
                 dwr.util.setValues(user);
             }
             
-            //function deleteClicked(eleid) {
-                // we were an id of the form "delete{id}", eg "delete42". We lookup the "42"
-              //  var user = usersCache[eleid.substring(6)];
-                //if (confirm("Are you sure you want to delete " + user.username + "?")) {
-                    //dwr.engine.beginBatch();
-                  //  users.deleteUser({ id:id });
-                    //fillTable();
-                   // dwr.engine.endBatch();
-                //}
+            
 
-                function writeUser() {
-                    var user = { id:viewed, username:null, firstname:null, lastname:null, password:null };
-                    dwr.util.getValues(user);
+            function writeUser() {
+                var user = { id:viewed, username:null, firstname:null, lastname:null, password:null };
+                dwr.util.getValues(user);
 
-                    // dwr.engine.beginBatch();
-                    JUserAjaxService.addUser(user);
-                    fillTable();
-                    //dwr.engine.endBatch();
-                }
+                // dwr.engine.beginBatch();
+                JUserAjaxService.addUser(user);
+                fillTable();
+                //dwr.engine.endBatch();
+            }
 
             
-                function clearUser() {
-                    viewed = -1;
-                    dwr.util.setValues({ id:-1, username:null, firstname:null, lastname:null, password:null });
-                }
+            function clearUser() {
+                viewed = -1;
+                dwr.util.setValues({ id:-1, username:null, firstname:null, lastname:null, password:null });
+            }
 
 
 
@@ -119,7 +135,7 @@
         <center>    
             <h3><u>User Details</u></h3>  
             
-            <table border="1">
+            <table border="1" id="userTable">
                 <thead>
                     <tr>
                         <th>&nbsp;Name&nbsp;</th>
@@ -130,15 +146,17 @@
                 </thead>
                 <tbody id="usersbody">    
                     
-                    <tr id="pattern" style="display:none;">
+                    <tr id="pattern"  style="display:none;">
                         <td>
                             <span id="tableName">Name</span><br/> 
-                        </td>
-                        
+                        </td>                        
                         <td><span id="tableUsername">Username</span></td>
                         <td>
                             <input id="edit" type="button" value="Edit" onclick="editClicked(this.id)"/>
-                            <input id="delete" type="button" value="Delete" onclick="deleteClicked(this.id)"/>
+                            <!--<button id="edit" value="Edit"dojoType="dijit.form.Button" onclick="editClicked(this.id)" >                                
+                                Edit
+                            </button>-->
+                            
                         </td>
                     </tr>            
                     
@@ -148,7 +166,7 @@
         <br><br>   
         <center>    
             <h3>Edit User Details</h3> 
-            <table border="1">
+            <table border="0">
                 <thead>
                     <tr>
                         
@@ -158,60 +176,92 @@
                 <tbody>
                     <tr>
                         <td>Username</td>
-                        <td><input class='itext'type="text" name="username" value='' id='p10' /></td>
-                    </tr>
+                        <td><input class='itext' type="text" name="username" class="small" value='' id='p10'
+                                       dojoType="dijit.form.ValidationTextBox"
+                                       regExp="[\w]+"
+                                       required="true"
+                                       invalidMessage="Enter Username.">
+                    </td></tr>
+                    <!--<input class='itext'type="text" name="username" value='' id='p10' />-->
+                    
                     <tr>
                         <td>Firstname</td>
-                        <td><input class='itext'type="text" name="firstname" value='' id='p12' /></td>
+                        <td><input class='itext' type="text" name="firstname" class="small" value='' id='p12'
+                                       dojoType="dijit.form.ValidationTextBox"
+                                       regExp="[\w]+"
+                                       required="true"
+                                       invalidMessage="Enter Firstname.">
+                            <!--<input class='itext'type="text" name="firstname" value='' id='p12' />-->
+                        </td>
                     </tr>
                     <tr>
                         <td>Lastname</td>
-                        <td><input class='itext'type="text" name="lastname" value='' id='p13' /></td>
+                        <td><input class='itext' type="text" name="lastname" class="small" value='' id='p13'
+                                       dojoType="dijit.form.ValidationTextBox"
+                                       regExp="[\w]+"
+                                       required="true"
+                                       invalidMessage="Enter Lastname.">
+                        <!--<input class='itext'type="text" name="lastname" value='' id='p13' />--></td>
                     </tr>
                     <tr>
                         <td>Password</td>
-                        <td><input class='itext' type="password" name="password" id='p11' /></td>
+                        <td><input class='itext' type="password" name="password" class="small" value='' id='p11'
+                                       dojoType="dijit.form.ValidationTextBox"
+                                       regExp="[\w]+"
+                                       required="true"
+                                       invalidMessage="Enter Password.">
+                        <!--<input class='itext' type="password" name="password" id='p11' />--></td>
                     </tr>
                     <tr>
                         <td> Confirm Password</td>
-                        <td><input class='itext' type="password" name="confirmpassword"   id='p14' /></td>
+                        <td><input class='itext' type="password" name="confirmpassword" class="small" value='' id='p14'
+                                       dojoType="dijit.form.ValidationTextBox"
+                                       regExp="[\w]+"
+                                       required="true"
+                                       invalidMessage="Enter Confirm Password">
+                        <!--<input class='itext' type="password" name="confirmpassword"   id='p14' />--></td>
                     </tr>
                     <tr>
                         <td></td>
                         <script type='text/javascript'>
-                                function addUserFunction() {
+                            function addUserFunction() {
                         
-                                    var username = '"' + $("p10").value + '"';
-                                    username = objectEval(username);
+                                var username = '"' + $("p10").value + '"';
+                                username = objectEval(username);
                                        
-                                    var firstname  = '"' + $("p12").value + '"';
-                                    firstname = objectEval(firstname);
+                                var firstname  = '"' + $("p12").value + '"';
+                                firstname = objectEval(firstname);
                             
-                                    var lastname  = '"' + $("p13").value + '"';
-                                    lastname = objectEval(lastname);
+                                var lastname  = '"' + $("p13").value + '"';
+                                lastname = objectEval(lastname);
                             
-                                    var password  = '"' + $("p11").value + '"';
-                                    password = objectEval(password);
+                                var password  = '"' + $("p11").value + '"';
+                                password = objectEval(password);
                             
-                                    var confirmPassword  = '"' + $("p14").value  + '"';
-                                    confirmPassword = objectEval(confirmPassword);
-                                    alert("here");              
-                                    if ( password == confirmPassword )  {
-                                        JUserAjaxService.addUser(username, firstname, lastname, password, reply1);
-                                    } else {
-                                        alert ( " Password & Confirm Password Do Not match !");
-                                    }
-                            
-                            
+                                var confirmPassword  = '"' + $("p14").value  + '"';
+                                confirmPassword = objectEval(confirmPassword);
+                                alert("here");              
+                                if ( password == confirmPassword )  {
+                                    JUserAjaxService.addUser(username, firstname, lastname, password, reply1);
+                                } else {
+                                    alert ( " Password & Confirm Password Do Not match !");
                                 }
-                                var reply1 = function(data)
-                                {
-                                    if (data != null && typeof data == 'object') alert(dwr.util.toDescriptiveString(data, 2));
-                                    else dwr.util.setValue('d1', dwr.util.toDescriptiveString(data, 1));
-                                }
+                            
+                            
+                            }
+                            var reply1 = function(data)
+                            {
+                                if (data != null && typeof data == 'object') alert(dwr.util.toDescriptiveString(data, 2));
+                                else dwr.util.setValue('d1', dwr.util.toDescriptiveString(data, 1));
+                            }
                         </script>
                         
-                        <td><input  class='ibutton' type='button'  value=" Save " name="save" onclick='writeUser();' value='Execute'  title='Calls JUserAjaxService.addUser(). View source for details.' /> <input type="reset" value=" Clear " name="clear" onclick="clearUser();" /></td>
+                        <td><button dojoType="dijit.form.Button" onclick="writeUser();">
+                                Save
+                            </button> <button dojoType="dijit.form.Button" onclick="clearUser();">
+                                Clear
+                        </button></td>
+                        
                     </tr>
                 </tbody>
             </table>
