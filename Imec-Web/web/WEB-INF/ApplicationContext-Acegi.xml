@@ -59,7 +59,7 @@
             <value>com.mysql.jdbc.Driver</value>
         </property>
         <property name="url">
-            <value>jdbc:mysql:///imec</value>
+            <value>jdbc:mysql:///imea</value>
         </property>
         <property name="username">
             <value>imec</value>
@@ -100,11 +100,8 @@
             <value>
                 CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
                 PATTERN_TYPE_APACHE_ANT
-                /acegilogin.jsp*=ROLE_ANONYMOUS,ROLE_USER,ROLE_ADMIN
-                /**=ROLE_USER,ROLE_ADMIN
-                /a.jsp*=ROLE_A
-                /b.jsp*=ROLE_B
-                /c.jsp=ROLE_C
+                /login.jsp*=ROLE_ANONYMOUS,ROLE_USER,ROLE_ADMIN
+                /**=ROLE_USER,ROLE_ADMIN                
             </value>
         </property>
     </bean>
@@ -123,7 +120,7 @@
     <bean id="roleVoter" class="net.sf.acegisecurity.vote.RoleVoter"/>
     
     <bean id="authenticationProcessingFilterEntryPoint" class="net.sf.acegisecurity.ui.webapp.AuthenticationProcessingFilterEntryPoint">
-        <property name="loginFormUrl"><value>/acegilogin.jsp</value></property>
+        <property name="loginFormUrl"><value>/login.jsp</value></property>
         <property name="forceHttps"><value>false</value></property>
     </bean>
     

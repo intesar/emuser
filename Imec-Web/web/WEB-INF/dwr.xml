@@ -15,11 +15,12 @@
     
     
     
-    <convert match="com.bia.imec.entity.AuthoritiesDto" converter="bean"/>
-    <convert match="com.bia.imec.entity.ContactsDto" converter="bean"/>
-    <convert match="com.bia.imec.entity.EmailsDto" converter="bean"/>
-    <convert match="com.bia.imec.entity.MailServersDto" converter="bean"/>
-    <convert match="com.bia.imec.entity.UserDto" converter="bean"/>
+    <convert match="com.bia.imec.dto.AuthoritiesDto" converter="bean"/>
+    <convert match="com.bia.imec.dto.ContactsDto" converter="bean"/>
+    <convert match="com.bia.imec.dto.EmailsDto" converter="bean"/>
+    <convert match="com.bia.imec.dto.MailServersDto" converter="bean"/>
+    <convert match="com.bia.imec.dto.UserDto" converter="bean"/>
     
+    <convert converter="bean" match="com.bia.imec.dto.*"/>
   </allow>
 </dwr>
