@@ -27,36 +27,56 @@
         </script>
         
     </head>
-    
-    <body class="Tundra">
+    <center>
+        <body background="bg_blue.jpg" class="Tundra">
         <% if (request.getParameter("login_error") != null) {%> <b> <font color=RED> Sorry, but either the username or password is incorrect.
         </font></b> <% }%>
-        <h1>Login Details</h1>
-        <form action="j_acegi_security_check" method="POST">
-            <h4>Welcome to all Users</h4>
-            <p>Please login to obtain the secret account of BizPayroll.</p>
-            
-            <table>
-                <tr><td>User:</td><td><!--<input type='text' name='j_username'>(sapient)</td></tr>-->
-                
-                        <input type="text" name="j_username" class="small"
-                               dojoType="dijit.form.ValidationTextBox"
-                               regExp="[\w]+"
-                               required="true"
-                       invalidMessage="Invalid Non-Space Text."></td></tr>
-                
-                <tr><td>Password:</td><td><!--<input type='password' name='j_password'> (password)</td></tr>-->
-                
-                        <input type="password" name="j_password" class="small"
-                               dojoType="dijit.form.ValidationTextBox"
-                               regExp="[\w]+"
-                               required="true"
-                       invalidMessage="Enter Password."></td></tr>
-                <tr></tr>
-                <tr><td colspan='2'><input name="submit" type="submit"></td>
+        <br><br><br><br>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th><center><h2>Welcome to all Users</h2><img src="login_icon.jpg" width="133" height="135" alt="login_icon"/>
+                        </center>
+                    </th>
                 </tr>
-            </table>
-            <a href="Forgot Password.html">Forgot Password</a>
-        </form>
+            </thead>
+            <tbody background="login.jpg">
+                <tr>
+                    <td> 
+                        <form action="j_acegi_security_check" method="POST">
+                            <center>
+                                <table>
+                                    <br><br><br><br><br>                                    
+                                    <tr><td>User:</td><td><!--<input type='text' name='j_username'>(sapient)</td></tr>-->
+                
+                                            <input type="text" name="j_username" class="small"
+                                                   dojoType="dijit.form.ValidationTextBox"
+                                                   regExp="[\w]+"
+                                                   required="true"
+                                           invalidMessage="Invalid Non-Space Text."></td></tr>
+                                    
+                                    <tr><td>Password:</td><td><!--<input type='password' name='j_password'> (password)</td></tr>-->
+                
+                                            <input type="password" name="j_password" class="small"
+                                                   dojoType="dijit.form.ValidationTextBox"
+                                                   regExp="[\w]+"
+                                                   required="true"
+                                           invalidMessage="Enter Password."></td></tr>
+                                    <tr></tr>
+                                    <tr><td colspan='2'><a href="Forgot Password.html">Forgot Password ?</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input name="submit" type="submit"></td>
+                                    </tr>
+                                </table>
+                            </center>
+                    </form></td>
+                </tr>
+                
+                <tr>
+                    <td></td>
+                </tr>
+            </tbody>
+    </table></center>
+    
+    
     </body>
 </html>
+

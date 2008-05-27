@@ -80,11 +80,7 @@
     <tr><td colspan='2'><input name="submit" type="submit"></td>
     </tr>
 </table>
-<button dojoType="dijit.form.Button"Forgot Password>
-    <button dojoType="dijit.form.Button" onclick="writeUser();"> 
-                               Save   
-</button> 
-</button>
+
 
 
 </form>

@@ -61,7 +61,7 @@
             }
         </script>
     </head>
-    <body class="Tundra">
+    <body background="bg_blue.jpg" class="Tundra">
         
         <p align="center">
         <center>
