@@ -16,14 +16,16 @@ import java.util.Date;
 public interface TimesheetService {
 
     public void createTimesheet(Timesheet timesheet);
-    
-     public PagedResult<Timesheet> getAllMyTimesheetsByStatus(String username, String status);
+
+    public void createTimesheet(String username);
+
+    public PagedResult<Timesheet> getAllMyTimesheetsByStatus(String username, String status);
 
     public PagedResult<Timesheet> getAllTimesheetsByStatus(String username, String status);
 
     public Timesheet getTimesheet(Integer timesheetId);
 
     public void updateTimesheet(Timesheet timeSheet);
-    
-    public TimesheetDetail getTimesheetDetail ( Integer timesheetId, Date timesheetDetailDate);
+
+    public TimesheetDetail getTimesheetDetail(Integer timesheetId, Date timesheetDetailDate);
 }
