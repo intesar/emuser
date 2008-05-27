@@ -176,50 +176,50 @@
                 <tbody>
                     <tr>
                         <td>Username</td>
-                        <td><input class='itext' type="text" name="username" class="small" value='' id='p10'
+                        <td><!--<input class='itext' type="text" name="username" class="small" value='' id='p10'
                                        dojoType="dijit.form.ValidationTextBox"
                                        regExp="[\w]+"
                                        required="true"
-                                       invalidMessage="Enter Username.">
-                    </td></tr>
-                    <!--<input class='itext'type="text" name="username" value='' id='p10' />-->
+                                       invalidMessage="Enter Username.">-->
                     
+                    <input class='itext'type="text" name="username" value='' id='p10' />
+                    </td></tr>
                     <tr>
                         <td>Firstname</td>
-                        <td><input class='itext' type="text" name="firstname" class="small" value='' id='p12'
+                        <td><!--<input class='itext' type="text" name="firstname" class="small" value='' id='p12'
                                        dojoType="dijit.form.ValidationTextBox"
                                        regExp="[\w]+"
                                        required="true"
-                                       invalidMessage="Enter Firstname.">
-                            <!--<input class='itext'type="text" name="firstname" value='' id='p12' />-->
+                                       invalidMessage="Enter Firstname."/>-->
+                            <input class='itext'type="text" name="firstname" value='' id='p12' />
                         </td>
                     </tr>
                     <tr>
                         <td>Lastname</td>
-                        <td><input class='itext' type="text" name="lastname" class="small" value='' id='p13'
+                        <td><!--<input class='itext' type="text" name="lastname" class="small" value='' id='p13'
                                        dojoType="dijit.form.ValidationTextBox"
                                        regExp="[\w]+"
                                        required="true"
-                                       invalidMessage="Enter Lastname.">
-                        <!--<input class='itext'type="text" name="lastname" value='' id='p13' />--></td>
+                                       invalidMessage="Enter Lastname.">-->
+                        <input class='itext'type="text" name="lastname" value='' id='p13' /></td>
                     </tr>
                     <tr>
                         <td>Password</td>
-                        <td><input class='itext' type="password" name="password" class="small" value='' id='p11'
+                        <td><!--<input class='itext' type="password" name="password" class="small" value='' id='p11'
                                        dojoType="dijit.form.ValidationTextBox"
                                        regExp="[\w]+"
                                        required="true"
-                                       invalidMessage="Enter Password.">
-                        <!--<input class='itext' type="password" name="password" id='p11' />--></td>
+                                       invalidMessage="Enter Password.">-->
+                        <input class='itext' type="password" name="password" id='p11' /></td>
                     </tr>
                     <tr>
                         <td> Confirm Password</td>
-                        <td><input class='itext' type="password" name="confirmpassword" class="small" value='' id='p14'
+                        <td><!--<input class='itext' type="password" name="confirmpassword" class="small" value='' id='p14'
                                        dojoType="dijit.form.ValidationTextBox"
                                        regExp="[\w]+"
                                        required="true"
-                                       invalidMessage="Enter Confirm Password">
-                        <!--<input class='itext' type="password" name="confirmpassword"   id='p14' />--></td>
+                                       invalidMessage="Enter Confirm Password">-->
+                        <input class='itext' type="password" name="confirmpassword"   id='p14' /></td>
                     </tr>
                     <tr>
                         <td></td>
