@@ -65,7 +65,50 @@
             
         </script>
         
-        
+        <style type="text/css">
+        @import "http://o.aolcdn.com/dojo/1.0.0/dojox/grid/_grid/tundraGrid.css";
+        @import "http://o.aolcdn.com/dojo/1.0.0/dijit/themes/tundra/tundra.css";
+        @import "http://o.aolcdn.com/dojo/1.0.0/dojo/resources/dojo.css";
+                body {
+                        font-size: 0.9em;
+                        font-family: Geneva, Arial, Helvetica, sans-serif;
+                }
+                .heading {
+                        font-weight: bold;
+                        padding-bottom: 0.25em;
+                }
+                               
+                #grid {
+                        border: 1px solid #333;
+                        width: 35em;
+                        height: 30em;
+                }
+        </style>
+        <script type="text/javascript" src="http://o.aolcdn.com/dojo/1.0.0/dojo/dojo.xd.js"
+                djConfig="isDebug:false, parseOnLoad: true"></script>
+        <script type="text/javascript">
+            dojo.require("dojo.data.ItemFileReadStore");
+                dojo.require("dojox.grid.Grid");
+                dojo.require("dojox.grid._data.model");
+                dojo.require("dojo.parser");
+       
+                // a grid view is a group of columns. 
+                //var view1 = {
+                  //      cells: [[
+                    //            {name: 'Name', field: "name"},
+                      //          {name: 'Class', width: "25em", field: "className"}
+                        //  ],
+                         // [
+                           //     {name: 'Username', colSpan:"2", field: "username"}
+                          //]
+                         // [
+                          //      {name: 'Action', colSpan:"2", field: "action"}
+                          //]
+                        //]
+                //};
+                // a grid layout is an array of views.
+                var layout = [ view1 ];
+</script>
         
     </head>
     <form action="lform">
@@ -134,6 +177,41 @@
         <p align ="center">
         <center>    
             <h3><u>User Details</u></h3>  
+            <div dojoType="dojo.data.ItemFileReadStore"
+                jsId="jsonStore" url="dijits.txt">
+        </div>
+        <div dojoType="dojox.grid.data.DojoData" jsId="model"
+                rowsPerPage="20" store="jsonStore" query="{ namespace: '*' }">
+        </div>
+        <div id="grid" dojoType="dojox.Grid" model="model" structure="layout">
+            <table border="1" id="userTable">
+                <thead>
+                    <tr>
+                        <th>&nbsp;Name&nbsp;</th>
+                        <th>&nbsp;Username&nbsp;</th>            
+                        <th>&nbsp;Actions&nbsp;</th>
+                        
+                    </tr>
+                </thead>
+                <tbody id="usersbody">    
+                    
+                    <tr id="pattern"  style="display:none;">
+                        <td>
+                            <span id="tableName">Name</span><br/> 
+                        </td>                        
+                        <td><span id="tableUsername">Username</span></td>
+                        <td>
+                            <input id="edit" type="button" value="Edit" onclick="editClicked(this.id)"/>
+                            <!--<button id="edit" value="Edit"dojoType="dijit.form.Button" onclick="editClicked(this.id)" >                                
+                                Edit
+                            </button>-->
+                            
+                        </td>
+                    </tr>            
+                    
+                </tbody>
+            </table>
+        </div>
             
             <table border="1" id="userTable">
                 <thead>
