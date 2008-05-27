@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.bia.payroll.entity;
 
 import java.io.Serializable;
@@ -28,37 +27,43 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "timesheet")
-@NamedQueries({@NamedQuery(name = "Timesheet.findById", query = "SELECT t FROM Timesheet t WHERE t.id = :id"), 
-@NamedQuery(name = "Timesheet.findByUserIdAndStatus", query = "SELECT t FROM Timesheet t WHERE t.user.id = ?1 and t.status like ?2 "), 
-@NamedQuery(name = "Timesheet.findByStartDate", query = "SELECT t FROM Timesheet t WHERE t.startDate = :startDate"), 
-@NamedQuery(name = "Timesheet.findByEndDate", query = "SELECT t FROM Timesheet t WHERE t.endDate = :endDate"), 
-@NamedQuery(name = "Timesheet.findBySubmisionDate", query = "SELECT t FROM Timesheet t WHERE t.submisionDate = :submisionDate"), 
-@NamedQuery(name = "Timesheet.findByStatus", query = "SELECT t FROM Timesheet t WHERE t.status like ?1 "),
-@NamedQuery(name = "Timesheet.findByPaidAmount", query = "SELECT t FROM Timesheet t WHERE t.paidAmount = :paidAmount"), 
-@NamedQuery(name = "Timesheet.findByStatusDate", query = "SELECT t FROM Timesheet t WHERE t.statusDate = :statusDate"),
-@NamedQuery(name = "Timesheet.findByComment", query = "SELECT t FROM Timesheet t WHERE t.comment = :comment"),
-@NamedQuery(name = "Timesheet.findByLastUser", query = "SELECT t FROM Timesheet t WHERE t.lastUser = :lastUser"), 
-@NamedQuery(name = "Timesheet.findByLastAction", query = "SELECT t FROM Timesheet t WHERE t.lastAction = :lastAction")})
+@NamedQueries({
+    @NamedQuery(name = "Timesheet.findById", query = "SELECT t FROM Timesheet t WHERE t.id = :id"),
+    @NamedQuery(name = "Timesheet.findByUserIdAndStatus", query = "SELECT t FROM Timesheet t WHERE t.user.id = ?1 and t.status like ?2 "),
+    @NamedQuery(name = "Timesheet.findByStartDate", query = "SELECT t FROM Timesheet t WHERE t.startDate = :startDate"),
+    @NamedQuery(name = "Timesheet.findByEndDate", query = "SELECT t FROM Timesheet t WHERE t.endDate = :endDate"),
+    @NamedQuery(name = "Timesheet.findBySubmisionDate", query = "SELECT t FROM Timesheet t WHERE t.submisionDate = :submisionDate"),
+    @NamedQuery(name = "Timesheet.findByStatus", query = "SELECT t FROM Timesheet t WHERE t.status like ?1 "),
+    @NamedQuery(name = "Timesheet.findByPaidAmount", query = "SELECT t FROM Timesheet t WHERE t.paidAmount = :paidAmount"),
+    @NamedQuery(name = "Timesheet.findByStatusDate", query = "SELECT t FROM Timesheet t WHERE t.statusDate = :statusDate"),
+    @NamedQuery(name = "Timesheet.findByComment", query = "SELECT t FROM Timesheet t WHERE t.comment = :comment"),
+    @NamedQuery(name = "Timesheet.findByLastUser", query = "SELECT t FROM Timesheet t WHERE t.lastUser = :lastUser"),
+    @NamedQuery(name = "Timesheet.findByLastAction", query = "SELECT t FROM Timesheet t WHERE t.lastAction = :lastAction"),
+    @NamedQuery(name = "Timesheet.findMaxStartDate", query = " select max(t1.startDate) from Timesheet t1 where t1.user.id = ?1 "),
+    @NamedQuery(name = "Timesheet.findByStartDateAndUserId", query = " select t from Timesheet t where t.startDate = ?1 and t.user.id = ?2 "),
+    @NamedQuery(name = "Timesheet.findMaxOfId", query = " select max(t.id) from Timesheet t ")
+})
 public class Timesheet implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @Column(name = "id", nullable = false)
     private Integer id;
     @Column(name = "start_date", nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     private Date startDate;
     @Column(name = "end_date", nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     private Date endDate;
     @Column(name = "submision_date", nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     private Date submisionDate;
     @Column(name = "status", nullable = false)
     private String status;
     @Column(name = "paid_amount", nullable = false)
     private Double paidAmount;
     @Column(name = "status_date", nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     private Date statusDate;
     @Column(name = "comment", nullable = false)
     private String comment;
@@ -212,5 +217,4 @@ public class Timesheet implements Serializable {
     public String toString() {
         return "com.bia.payroll.entity.Timesheet[id=" + id + "]";
     }
-
 }
