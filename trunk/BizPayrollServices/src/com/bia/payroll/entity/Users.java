@@ -7,6 +7,7 @@ package com.bia.payroll.entity;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,6 +18,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
 
 /**
  *
@@ -47,12 +49,16 @@ public class Users implements Serializable {
     private String lastUser;
     @Column(name = "last_aciton", nullable = false)
     private String lastAciton;
+    @Column(name = "start_date", nullable = true)
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date startDate = new Date();    
     @JoinColumn(name = "organization", referencedColumnName = "id")
     @ManyToOne(cascade = CascadeType.MERGE)
     private Oraganization organization;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private Collection<Timesheet> timesheetCollection;
 
+    
     public Users() {
     }
 
@@ -119,6 +125,15 @@ public class Users implements Serializable {
         this.enabled = enabled;
     }
 
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    
     public String getLastUser() {
         return lastUser;
     }
