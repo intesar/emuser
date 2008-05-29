@@ -69,7 +69,8 @@
             <tbody>
                 <tr valign="top">
                     <td width="1%">
-                    <img height="53" border="0" align="left" width="175" vspace="10" alt="Gmail" src="images/logo.bmp"/>
+                        
+                    <img height="45" border="0" align="left" width="175" vspace="10" alt="Gmail" src="images/biz2.bmp"/>
                     </td>
                     <td bgcolor="#ffffff" width="99%" valign="top">
                         <table cellpadding="1" width="100%">
