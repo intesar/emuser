@@ -52,6 +52,13 @@
                                                     <br> 
                                                     <td class="bubble" style="padding: 5px 0pt; font-family: arial; text-align: left; font-weight: bold;" rowspan="2">
                                                         <b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Forget your ID or password? </b>
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        <a href="../BizPayroll/j_acegi_logout">Logout</a> 
                                                     </td>
                                                     <td class="bubble tr" align="right" valign="top">
                                                         <img class="c" alt="" src="https://mail.google.com/mail/images/corner_tr.gif"/>
@@ -87,7 +94,7 @@
                                    </thead>
                 <tbody class="tundra">
                     <tr>
-                        <td>User Name</td>
+                        <td>User Email</td>
                         <td><input class='itext' type="text" name="username" class="small" value='' 
                                        dojoType="dijit.form.ValidationTextBox"
                                        regExp="[\w]+"

@@ -4,10 +4,7 @@
  */
 package com.bia.payroll.service.ajax;
 
-import net.sf.acegisecurity.context.security.SecureContext;
-import net.sf.acegisecurity.context.security.SecureContextUtils;
-import net.sf.acegisecurity.providers.dao.User;
-
+import org.acegisecurity.context.SecurityContextHolder;
 
 /**
  *
@@ -19,10 +16,9 @@ public class AcegiUtil {
      *  returns logged in user
      */
     public static final String getUsername() {
-        SecureContext ctx = SecureContextUtils.getSecureContext();
-        User u = (User) ctx.getAuthentication().getPrincipal();
-        return u.getUsername();
-//        return null;
+
+        return SecurityContextHolder.getContext().getAuthentication().getName();
+
     }
 }
 

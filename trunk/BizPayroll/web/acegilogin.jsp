@@ -125,7 +125,7 @@
                                                         </td>
                                                     </tr>
                                                 </table>
-                                                <a href="Forgot Password.html"><h5>Forget your ID or password?</h5> </a>
+                                                <a href="forgotpwd.jsp"><h5>Forget your ID or password?</h5> </a>
                                                 
                                                 
                                                 <hr>
