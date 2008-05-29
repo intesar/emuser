@@ -26,7 +26,7 @@ public class UserAjaxService {
         Users u = new Users();
         usersConverter.copy(dto, u);
         try {
-            userService.addUser(username, u);
+           userService.addUser(username, u);
         } catch (Exception e) {
             e.printStackTrace();
             return e.getMessage();

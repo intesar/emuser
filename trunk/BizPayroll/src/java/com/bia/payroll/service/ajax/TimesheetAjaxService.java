@@ -22,6 +22,14 @@ import java.util.List;
  * @author intesar
  */
 public class TimesheetAjaxService {
+    
+    public TimesheetDto createTimesheet () {
+        String username = AcegiUtil.getUsername();
+        Timesheet t = timesheetService.createTimesheet(username);
+        TimesheetDto timesheetDto = new TimesheetDto();
+        timesheetConverter.copy(t, timesheetDto);
+        return timesheetDto;
+    }
 
     public String createTimesheet(TimesheetDto timesheetDto) {
         Timesheet t = new Timesheet();
@@ -49,7 +57,7 @@ public class TimesheetAjaxService {
 
     public List<TimesheetDto> getTimesheetsByStatus(String status) {
         List<TimesheetDto> timesheetDtos = new ArrayList<TimesheetDto>();
-        String username = AcegiUtil.getUsername();
+        String username = "abc" ;//AcegiUtil.getUsername();
         PagedResult<Timesheet> pagedResult = timesheetService.getAllTimesheetsByStatus(username, status);
         List<Timesheet> timesheets = pagedResult.getResults();
         for (Timesheet timesheet : timesheets) {
@@ -130,4 +138,12 @@ public class TimesheetAjaxService {
     private UserService userService = (UserService) ServiceFactory.getService("userServiceImpl");
     private TimesheetConverter timesheetConverter = new TimesheetConverter();
     private TimesheetService timesheetService = (TimesheetService) ServiceFactory.getService("timesheetServiceImpl");
+    
+   
+    public static void main(String []args) {
+        String name = "abc";
+        TimesheetAjaxService tas = new TimesheetAjaxService();
+        System.out.println ( tas.getTimesheetsByStatus("saved"));
+                
+    }
 }

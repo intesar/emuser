@@ -76,31 +76,31 @@ public class TimesheetConverter {
             Collection<TimesheetDetail> details = timesheet.getTimesheetDetailCollection();
 
             for (TimesheetDetail d : details) {
-                if (d.getDay().equalsIgnoreCase("monday")) {
+                if (d.getDay().equalsIgnoreCase("mon")) {
                     timesheetDto.setMondayDate(d.getCurDate());
                     timesheetDto.setMondayRegularHours(d.getRegularHour());
                     timesheetDto.setMondayOverTimeHours(d.getOverTimeHour());
-                } else if (d.getDay().equalsIgnoreCase("tuesday")) {
+                } else if (d.getDay().equalsIgnoreCase("tue")) {
                     timesheetDto.setTuesdayDate(d.getCurDate());
                     timesheetDto.setTuesdayRegularHours(d.getRegularHour());
                     timesheetDto.setTuesdayOverTimeHours(d.getOverTimeHour());
-                } else if (d.getDay().equalsIgnoreCase("wednesday")) {
+                } else if (d.getDay().equalsIgnoreCase("wed")) {
                     timesheetDto.setWednesdayDate(d.getCurDate());
                     timesheetDto.setWednesdayRegularHours(d.getRegularHour());
                     timesheetDto.setWednesdayOverTimeHours(d.getOverTimeHour());
-                } else if (d.getDay().equalsIgnoreCase("thursday")) {
+                } else if (d.getDay().equalsIgnoreCase("thu")) {
                     timesheetDto.setThursdayDate(d.getCurDate());
                     timesheetDto.setThursdayRegularHours(d.getRegularHour());
                     timesheetDto.setThursdayOverTimeHours(d.getOverTimeHour());
-                } else if (d.getDay().equalsIgnoreCase("friday")) {
+                } else if (d.getDay().equalsIgnoreCase("fri")) {
                     timesheetDto.setFridayDate(d.getCurDate());
                     timesheetDto.setFridayRegularHours(d.getRegularHour());
                     timesheetDto.setFridayOverTimeHours(d.getOverTimeHour());
-                } else if (d.getDay().equalsIgnoreCase("saturday")) {
+                } else if (d.getDay().equalsIgnoreCase("sat")) {
                     timesheetDto.setSaturdayDate(d.getCurDate());
                     timesheetDto.setSaturdayRegularHours(d.getRegularHour());
                     timesheetDto.setSaturdayOverTimeHours(d.getOverTimeHour());
-                } else if (d.getDay().equalsIgnoreCase("sunday")) {
+                } else if (d.getDay().equalsIgnoreCase("sun")) {
                     timesheetDto.setSundayDate(d.getCurDate());
                     timesheetDto.setSundayRegularHours(d.getRegularHour());
                     timesheetDto.setSundayOverTimeHours(d.getOverTimeHour());

@@ -5,6 +5,7 @@
 
 package com.bia.payroll.model;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -38,6 +39,13 @@ public class TimesheetDto {
     private Double sundayRegularHours;
     private Double sundayOverTimeHours;
     
+    private String mondayDateString;
+    private String tuesdayDateString;
+    private String wednesdayDateString;
+    private String thursdayDateString;
+    private String fridayDateString;
+    private String saturdayDateString;
+    private String sundayDateString;
     
     
     
@@ -241,6 +249,40 @@ public class TimesheetDto {
 
     public void setWednesdayRegularHours(Double wednesdayRegularHours) {
         this.wednesdayRegularHours = wednesdayRegularHours;
+    }
+
+    public String getMondayDateString() {
+        SimpleDateFormat sdf = new SimpleDateFormat("EEE, MMM d, ''yy");
+        return sdf.format(mondayDate);
+    }
+    
+    
+    
+    public String toString0() {
+        return this.status + " " + this.mondayDate;
+    }
+    public String toString1() {
+        return this.status + " " + this.tuesdayDate;
+    }
+    
+    public String toString2() {
+        return this.status + " " + this.wednesdayDate;
+    }
+    
+    public String toString3() {
+        return this.status + " " + this.thursdayDate;
+    }
+    
+    public String toString4() {
+        return this.status + " " + this.fridayDate;
+    }
+    
+    public String toString5() {
+        return this.status + " " + this.saturdayDate;
+    }
+    
+    public String toString6() {
+        return this.status + " " + this.sundayDate;
     }
     
     
