@@ -8,5 +8,6 @@
     </create>
     <convert match="com.bia.payroll.model.TimesheetDto" converter="bean"/>
     <convert match="com.bia.payroll.model.UsersDto" converter="bean"/>
+    <convert match="java.util.Date" converter="bean" />
   </allow>
 </dwr>
