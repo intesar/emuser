@@ -1,7 +1,7 @@
 <html>
     <head>
         <title>Login</title>
-        <style type="text/css">
+       <!-- <style type="text/css">
             @import "http://o.aolcdn.com/dojo/1.0.0/dijit/themes/Tundra/Tundra.css";
             @import "http://o.aolcdn.com/dojo/1.0.0/dojo/resources/dojo.css";
         </style>
@@ -25,56 +25,162 @@
             dojo.require("dojo.parser");
             dojo.require("dijit.form.ValidationTextBox");
         </script>
-        
+        -->
     </head>
-    <center>
-        <body background="bg_blue.jpg" class="Tundra">
+    
+        <body class="tundra">
+        <table cellspacing="0" cellpadding="0" border="0" align="center" width="95%">
+            <tbody>
+                <tr valign="top">
+                    <td width="1%">
+                    <img height="53" border="0" align="left" width="175" vspace="15" alt="BizIntelapps" src="images/logo.bmp"/>
+                    </td>
+                    <td bgcolor="#ffffff" width="99%" valign="top">
+                        <table cellpadding="1" width="100%">
+                            <tbody>
+                                <tr valign="bottom">
+                                    <td>
+                                        <div align="right"> </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td nowrap="nowrap">
+                                        <table cellspacing="0" cellpadding="0" bgcolor="#c3d9ff" align="center" width="100%" style="margin-bottom: 5px;">
+                                            <tbody>
+                                                <tr>
+                                                    <td class="bubble tl" align="left" valign="top">
+                                                        <img class="c" alt="" src="https://mail.google.com/mail/images/corner_tl.gif"/>
+                                                    </td>
+                                                    <br>                                                    <td class="bubble" style="padding: 5px 0pt; font-family: arial; text-align: left; font-weight: bold;" rowspan="2">
+                                                        <b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Welcome to BizPayroll </b>
+                                                    </td>
+                                                    <td class="bubble tr" align="right" valign="top">
+                                                        <img class="c" alt="" src="https://mail.google.com/mail/images/corner_tr.gif"/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="bubble bl" align="left" valign="bottom">
+                                                        <img class="c" alt="" src="https://mail.google.com/mail/images/corner_bl.gif"/>
+                                                    </td>
+                                                    <td class="bubble br" align="right" valign="bottom">
+                                                        <img class="c" alt="" src="https://mail.google.com/mail/images/corner_br.gif"/>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        
+        
+        
+        
         <% if (request.getParameter("login_error") != null) {%> <b> <font color=RED> Sorry, but either the username or password is incorrect.
         </font></b> <% }%>
-        <br><br><br><br>
-        <table border="1">
+              
+        <table border="1" align="right" hspace="30" vspace="15">
             <thead>
                 <tr>
-                    <th><center><h2>Welcome to all Users</h2><img src="login_icon.jpg" width="133" height="135" alt="login_icon"/>
-                        </center>
-                    </th>
+                    <th>
+                        <table border="0" >
+                            <thead>
+                                <tr>
+                                    <th><center><h4>Welcome to all Users</h4><img src="images/loginkey.bmp" width="105" height="70" alt="login_icon"/>
+                                        </center>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td> 
+                                        <form action="j_acegi_security_check" method="POST">
+                                            <center>
+                                                <table>
+                                                    <br>
+                                                    
+                                                    <tr><td>User:</td><td><!--<input type='text' name='j_username'>(sapient)</td></tr>-->
+                
+                                                            <input type="text" name="j_username" class="small"
+                                                                   dojoType="dijit.form.ValidationTextBox"
+                                                                   regExp="[\w]+"
+                                                                   required="true"
+                                                           invalidMessage="Invalid Non-Space Text."></td></tr>
+                                                    
+                                                    <tr><td>Password:</td><td><!--<input type='password' name='j_password'> (password)</td></tr>-->
+                
+                                                            <input type="password" name="j_password" class="small"
+                                                                   dojoType="dijit.form.ValidationTextBox"
+                                                                   regExp="[\w]+"
+                                                                   required="true"
+                                                           invalidMessage="Enter Password."></td></tr>
+                                                                                                               
+                                                                                                               <tr><tr></tr><tr></tr><td colspan='2'><p align="right"><input name="submit" value="Sign in" type="submit" ></p>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                                <a href="Forgot Password.html"><h5>Forget your ID or password?</h5> </a>
+                                                                                      
+                                                
+                                                <hr>
+                                                <h5><p align="left">Not Registered Yet ?</p></h5>
+                                                <p align="right"><a href="http://localhost:8084/BizPayroll/registration.jsp">Sign Up !</a></p> 
+                                            </center>
+                                            
+                                    </form></td>
+                                </tr>
+                                
+                                
+                            </tbody>
+                    </table></th>
                 </tr>
             </thead>
-            <tbody background="login.jpg">
-                <tr>
-                    <td> 
-                        <form action="j_acegi_security_check" method="POST">
-                            <center>
-                                <table>
-                                    <br><br><br><br><br>                                    
-                                    <tr><td>User:</td><td><!--<input type='text' name='j_username'>(sapient)</td></tr>-->
-                
-                                            <input type="text" name="j_username" class="small"
-                                                   dojoType="dijit.form.ValidationTextBox"
-                                                   regExp="[\w]+"
-                                                   required="true"
-                                           invalidMessage="Invalid Non-Space Text."></td></tr>
-                                    
-                                    <tr><td>Password:</td><td><!--<input type='password' name='j_password'> (password)</td></tr>-->
-                
-                                            <input type="password" name="j_password" class="small"
-                                                   dojoType="dijit.form.ValidationTextBox"
-                                                   regExp="[\w]+"
-                                                   required="true"
-                                           invalidMessage="Enter Password."></td></tr>
-                                    <tr></tr>
-                                    <tr><td colspan='2'><a href="Forgot Password.html">Forgot Password ?</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input name="submit" type="submit"></td>
-                                    </tr>
-                                </table>
-                            </center>
-                    </form></td>
-                </tr>
-                
+            <tbody>
                 <tr>
                     <td></td>
                 </tr>
             </tbody>
-    </table></center>
+        </table>
+        
+        
+    
+    <table cellspacing="0" cellpadding="3" bgcolor="#c3d9ff" align="center" width="95%" style="margin-bottom: 5px;">
+        <tbody>
+            <tr>
+                <td class="bubble tl" align="left" valign="top">
+                    <img class="c" alt="" src="https://mail.google.com/mail/images/corner_tl.gif"/>
+                </td>
+                <td class="bubble" style="text-align: left;" rowspan="2">
+                    <div align="center">
+                        <font color="#666666" size="-1">
+                            Copyright © 2008 -
+                            <a href="http://www.bizintelapps.com">BizIntelApps</a>
+                            
+                        </font>
+                    </div>
+                </td>
+                <td class="bubble tr" align="right" valign="top">
+                    <img class="c" alt="" src="https://mail.google.com/mail/images/corner_tr.gif"/>
+                </td>
+            </tr>
+            <tr>
+                <td class="bubble bl" align="left" valign="bottom">
+                    <img class="c" alt="" src="https://mail.google.com/mail/images/corner_bl.gif"/>
+                </td>
+                <td class="bubble br" align="right" valign="bottom">
+                    <img class="c" alt="" src="https://mail.google.com/mail/images/corner_br.gif"/>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    
+    
+    
+    
     
     
     </body>
