@@ -111,9 +111,7 @@
                             
                         </tr>
                     </tbody>
-                    
-                    <span id='d5' class='reply'></span>
-                    
+           
                     <tbody >
                         <tr>
                             <td></td>
@@ -180,15 +178,15 @@
 
                     var timesheetCache = { };
                     var viewed = -1;
-                   var selectedStatus = "saved";
-                    var selectedStatus = "submit";
-                    var selectedStatus = "approved";
-                    var selectedStatus = "paid";
-                    var selectedStatus = "rejected";
-                    function Select()
-                    {
+                    var selectedStatus = "saved";
+                  // var selectedStatus = "submit";
+                   // var selectedStatus = "approved";
+                   // var selectedStatus = "paid";
+                   // var selectedStatus = "rejected";
+                   // function Select()
+                   // {
                     
-                    }
+                   // }
     
                     function fillTable() {
                         JTimesheetAjaxService.getTimesheetsByStatus(selectedStatus, function(timesheets) {
