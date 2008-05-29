@@ -101,7 +101,7 @@
                                                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                             
                                                             
-                                                            <a href="js/Timesheet.jsp">View Timesheet</a>
+                                                            <a href="Timesheet.jsp">View Timesheet</a>
                                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="../BizPayroll/j_acegi_logout">Logout</a> </b>
                                                     </td>
                                                     <td class="bubble tr" align="right" valign="top">
