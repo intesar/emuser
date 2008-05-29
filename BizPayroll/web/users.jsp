@@ -31,7 +31,7 @@
             }
         </script>
         
-        <style type="text/css">
+        <!-- <style type="text/css">
             @import "http://o.aolcdn.com/dojo/1.0/dijit/themes/tundra/tundra.css";
             @import "http://o.aolcdn.com/dojo/1.0/dojo/resources/dojo.css";
         </style>
@@ -40,7 +40,7 @@
         <script type="text/javascript">
             dojo.require("dojo.parser");
             dojo.require("dijit.form.ValidationTextBox");
-        </script>
+        </script>-->
         
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <script type='text/javascript'>
@@ -68,16 +68,13 @@
         
     </head>
     <form action="lform">
-        
         <body  class="tundra">
-        
-        
         
         <table cellspacing="0" cellpadding="0" border="0" align="center" width="95%">
             <tbody>
                 <tr valign="top">
                     <td width="1%">
-                        <img height="53" border="0" align="left" width="175" vspace="10" alt="Gmail" src="images/logo.bmp"/>
+                     <img height="45" border="0" align="left" width="175" vspace="10" alt="Gmail" src="images/biz2.bmp"/>
                     </td>
                     <td bgcolor="#ffffff" width="99%" valign="top">
                         <table cellpadding="1" width="100%">
