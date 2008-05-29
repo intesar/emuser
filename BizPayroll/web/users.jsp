@@ -339,7 +339,7 @@
                 <td class="bubble" style="text-align: left;" rowspan="2">
                     <div align="center">
                         <font color="#666666" size="-1">
-                            Copyright © 2008 -
+                            © Copyrights Bizintelapps 2008 All Rights Reserved. 
                             <a href="http://www.bizintelapps.com">BizIntelApps</a>
                             
                         </font>

@@ -1,7 +1,7 @@
 <html>
     <head>
         <title>Login</title>
-       <!-- <style type="text/css">
+        <!-- <style type="text/css">
             @import "http://o.aolcdn.com/dojo/1.0.0/dijit/themes/Tundra/Tundra.css";
             @import "http://o.aolcdn.com/dojo/1.0.0/dojo/resources/dojo.css";
         </style>
@@ -28,12 +28,12 @@
         -->
     </head>
     
-        <body class="tundra">
+    <body class="tundra">
         <table cellspacing="0" cellpadding="0" border="0" align="center" width="95%">
             <tbody>
                 <tr valign="top">
                     <td width="1%">
-                    <img height="53" border="0" align="left" width="175" vspace="15" alt="BizIntelapps" src="images/logo.bmp"/>
+                        <img height="53" border="0" align="left" width="175" vspace="15" alt="BizIntelapps" src="images/logo1.bmp"/>
                     </td>
                     <td bgcolor="#ffffff" width="99%" valign="top">
                         <table cellpadding="1" width="100%">
@@ -80,17 +80,18 @@
         
         
         
-        <% if (request.getParameter("login_error") != null) {%> <b> <font color=RED> Sorry, but either the username or password is incorrect.
-        </font></b> <% }%>
-              
-        <table border="1" align="right" hspace="30" vspace="15">
+        
+        
+ 
+        <table border="1" align="right" hspace="30" vspace="10">
             <thead>
                 <tr>
-                    <th>
-                        <table border="0" >
+                    <th>  
+                        <table border="0" bgcolor="#e8eefa" >
                             <thead>
                                 <tr>
-                                    <th><center><h4>Welcome to all Users</h4><img src="images/loginkey.bmp" width="105" height="70" alt="login_icon"/>
+                                    <th><center><% if (request.getParameter("login_error") != null) {%> <h6><font color=RED > Sorry, but either the username or <br>password is incorrect.
+                        </font></h6> <% }%><h5>Sign in to BizPayroll with your</h5><h3><b><i><font color="3399ff">BizPayroll</font></i></b>&nbsp;Account</h3><!--<img src="images/bizpayrol.bmp" width="145" height="28" align="center" alt="login_icon"<h4>Account</h4>--> 
                                         </center>
                                     </th>
                                 </tr>
@@ -118,13 +119,13 @@
                                                                    regExp="[\w]+"
                                                                    required="true"
                                                            invalidMessage="Enter Password."></td></tr>
-                                                                                                               
-                                                                                                               <tr><tr></tr><tr></tr><td colspan='2'><p align="right"><input name="submit" value="Sign in" type="submit" ></p>
+                                                    
+                                                    <tr><tr></tr><tr></tr><td colspan='2'><p align="right"><input name="submit" value="Sign in" type="submit" ></p>
                                                         </td>
                                                     </tr>
                                                 </table>
                                                 <a href="Forgot Password.html"><h5>Forget your ID or password?</h5> </a>
-                                                                                      
+                                                
                                                 
                                                 <hr>
                                                 <h5><p align="left">Not Registered Yet ?</p></h5>
@@ -147,42 +148,42 @@
         </table>
         
         
-    
-    <table cellspacing="0" cellpadding="3" bgcolor="#c3d9ff" align="center" width="95%" style="margin-bottom: 5px;">
-        <tbody>
-            <tr>
-                <td class="bubble tl" align="left" valign="top">
-                    <img class="c" alt="" src="https://mail.google.com/mail/images/corner_tl.gif"/>
-                </td>
-                <td class="bubble" style="text-align: left;" rowspan="2">
-                    <div align="center">
-                        <font color="#666666" size="-1">
-                            Copyright © 2008 -
-                            <a href="http://www.bizintelapps.com">BizIntelApps</a>
-                            
-                        </font>
-                    </div>
-                </td>
-                <td class="bubble tr" align="right" valign="top">
-                    <img class="c" alt="" src="https://mail.google.com/mail/images/corner_tr.gif"/>
-                </td>
-            </tr>
-            <tr>
-                <td class="bubble bl" align="left" valign="bottom">
-                    <img class="c" alt="" src="https://mail.google.com/mail/images/corner_bl.gif"/>
-                </td>
-                <td class="bubble br" align="right" valign="bottom">
-                    <img class="c" alt="" src="https://mail.google.com/mail/images/corner_br.gif"/>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    
-    
-    
-    
-    
-    
+        
+        <table cellspacing="0" cellpadding="3" bgcolor="#c3d9ff" vspace="15" align="center" width="95%" style="margin-bottom: 5px;">
+            <tbody>
+                <tr>
+                    <td class="bubble tl" align="left" valign="top">
+                        <img class="c" alt="" src="https://mail.google.com/mail/images/corner_tl.gif"/>
+                    </td>
+                    <td class="bubble" style="text-align: left;" rowspan="2">
+                        <div align="center">
+                            <font color="#666666" size="-1">
+                               © Copyrights Bizintelapps 2008 All Rights Reserved. 
+                                <a href="http://www.bizintelapps.com">BizIntelApps</a>
+                                
+                            </font>
+                        </div>
+                    </td>
+                    <td class="bubble tr" align="right" valign="top">
+                        <img class="c" alt="" src="https://mail.google.com/mail/images/corner_tr.gif"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="bubble bl" align="left" valign="bottom">
+                        <img class="c" alt="" src="https://mail.google.com/mail/images/corner_bl.gif"/>
+                    </td>
+                    <td class="bubble br" align="right" valign="bottom">
+                        <img class="c" alt="" src="https://mail.google.com/mail/images/corner_br.gif"/>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        
+        
+        
+        
+        
+        
     </body>
 </html>
 
