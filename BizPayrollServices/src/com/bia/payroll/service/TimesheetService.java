@@ -17,7 +17,7 @@ public interface TimesheetService {
 
     public void createTimesheet(Timesheet timesheet);
 
-    public void createTimesheet(String username);
+    public Timesheet createTimesheet(String username);
 
     public PagedResult<Timesheet> getAllMyTimesheetsByStatus(String username, String status);
 
