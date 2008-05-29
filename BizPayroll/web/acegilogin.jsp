@@ -30,11 +30,12 @@
     
     <body class="tundra">
         <table cellspacing="0" cellpadding="0" border="0" align="center" width="95%">
+            
             <tbody>
                 <tr valign="top">
-                    <td width="1%">
-                        <img height="53" border="0" align="left" width="175" vspace="15" alt="BizIntelapps" src="images/logo1.bmp"/>
-                    </td>
+                                   
+                    <td width="1%"><vspace="10"> <h1><b><i><font color="3399ff">BizPayroll&nbsp;</font></i></b></h1>
+                       <!-- <img height="53" border="0" align="left" width="175" vspace="15" alt="BizIntelapps" src="images/logo1.bmp"/> </td> -->
                     <td bgcolor="#ffffff" width="99%" valign="top">
                         <table cellpadding="1" width="100%">
                             <tbody>
@@ -82,7 +83,7 @@
         
         
         
- 
+        
         <table border="1" align="right" hspace="30" vspace="10">
             <thead>
                 <tr>
@@ -91,7 +92,7 @@
                             <thead>
                                 <tr>
                                     <th><center><% if (request.getParameter("login_error") != null) {%> <h6><font color=RED > Sorry, but either the username or <br>password is incorrect.
-                        </font></h6> <% }%><h5>Sign in to BizPayroll with your</h5><h3><b><i><font color="3399ff">BizPayroll</font></i></b>&nbsp;Account</h3><!--<img src="images/bizpayrol.bmp" width="145" height="28" align="center" alt="login_icon"<h4>Account</h4>--> 
+                                            </font></h6> <% }%><h5>Sign in to BizPayroll with your</h5><h3><b><i><font color="3399ff">BizPayroll</font></i></b>&nbsp;Account</h3><!--<img src="images/bizpayrol.bmp" width="145" height="28" align="center" alt="login_icon"<h4>Account</h4>--> 
                                         </center>
                                     </th>
                                 </tr>
@@ -158,7 +159,7 @@
                     <td class="bubble" style="text-align: left;" rowspan="2">
                         <div align="center">
                             <font color="#666666" size="-1">
-                               © Copyrights Bizintelapps 2008 All Rights Reserved. 
+                                © Copyrights Bizintelapps 2008 All Rights Reserved. 
                                 <a href="http://www.bizintelapps.com">BizIntelApps</a>
                                 
                             </font>
