@@ -57,7 +57,7 @@ public class TimesheetAjaxService {
 
     public List<TimesheetDto> getTimesheetsByStatus(String status) {
         List<TimesheetDto> timesheetDtos = new ArrayList<TimesheetDto>();
-        String username = "abc" ;//AcegiUtil.getUsername();
+        String username = "abc";// AcegiUtil.getUsername();
         PagedResult<Timesheet> pagedResult = timesheetService.getAllTimesheetsByStatus(username, status);
         List<Timesheet> timesheets = pagedResult.getResults();
         for (Timesheet timesheet : timesheets) {
@@ -142,8 +142,8 @@ public class TimesheetAjaxService {
    
     public static void main(String []args) {
         String name = "abc";
-        TimesheetAjaxService tas = new TimesheetAjaxService();
-        System.out.println ( tas.getTimesheetsByStatus("saved"));
+       TimesheetAjaxService tas = new TimesheetAjaxService();
+       System.out.println ( tas.getTimesheetsByStatus("saved"));
                 
     }
 }

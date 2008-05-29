@@ -251,39 +251,64 @@ public class TimesheetDto {
         this.wednesdayRegularHours = wednesdayRegularHours;
     }
 
-    public String getMondayDateString() {
+   
+     public String getMondayDateString() {
         SimpleDateFormat sdf = new SimpleDateFormat("EEE, MMM d, ''yy");
         return sdf.format(mondayDate);
-    }
-    
+     }
+        
+         public String getTuesdayDateString() {
+        SimpleDateFormat sdf = new SimpleDateFormat("EEE, MMM d, ''yy");
+        return sdf.format(tuesdayDate);
+         }
+        
+         public String getWednesdayDateString() {
+        SimpleDateFormat sdf = new SimpleDateFormat("EEE, MMM d, ''yy");
+        return sdf.format(wednesdayDate);
+         }
+        
+         public String getThursdayDateString() {
+        SimpleDateFormat sdf = new SimpleDateFormat("EEE, MMM d, ''yy");
+        return sdf.format(thursdayDate);
+         }
+        
+         public String getFridayDateString() {
+        SimpleDateFormat sdf = new SimpleDateFormat("EEE, MMM d, ''yy");
+        return sdf.format(fridayDate);
+         }
+        
+         public String getSaturdayDateString() {
+        SimpleDateFormat sdf = new SimpleDateFormat("EEE, MMM d, ''yy");
+        return sdf.format(saturdayDate);
+         }
+        
     
     
     public String toString0() {
         return this.status + " " + this.mondayDate;
     }
     public String toString1() {
-        return this.status + " " + this.tuesdayDate;
+               return this.status + " " + this.tuesdayDate;
     }
     
     public String toString2() {
-        return this.status + " " + this.wednesdayDate;
+               return this.status + " " + this.wednesdayDate;
     }
     
     public String toString3() {
-        return this.status + " " + this.thursdayDate;
+               return this.status + " " + this.thursdayDate;
     }
     
     public String toString4() {
-        return this.status + " " + this.fridayDate;
+               return this.status + " " + this.fridayDate;
     }
     
     public String toString5() {
-        return this.status + " " + this.saturdayDate;
+               return this.status + " " + this.saturdayDate;
     }
     
     public String toString6() {
-        return this.status + " " + this.sundayDate;
+               return this.status + " " + this.sundayDate;
     }
-    
     
 }
