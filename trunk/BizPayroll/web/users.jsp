@@ -74,7 +74,8 @@
             <tbody>
                 <tr valign="top">
                     <td width="1%">
-                        <img height="45" border="0" align="left" width="175" vspace="10" alt="Gmail" src="images/biz2.bmp"/>
+                        
+                        <img height="45" border="0" align="left" width="175" vspace="15" alt="Bizpayroll" src="images/biz2.bmp"/>
                     </td>
                     <td bgcolor="#ffffff" width="99%" valign="top">
                         <table cellpadding="1" width="100%">
@@ -92,19 +93,18 @@
                                                     <td class="bubble tl" align="left" valign="top">
                                                         <img class="c" alt="" src="https://mail.google.com/mail/images/corner_tl.gif"/>
                                                     </td>
-                                                    <br> 
-                                                    <td class="bubble" style="padding: 5px 0pt; font-family: arial; text-align: left; font-weight: bold;" rowspan="2">
-                                                    <b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="images/icon2-normal.gif" width="28" height="28" alt="icon2-normal"/>
-User Details
-                                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                            
-                                                            
-                                                            <a href="Timesheet.jsp"><img src="images/icon3-normal.gif" width="28" height="27" alt="icon3-normal"/>
-                                                            View Timesheet</a>
-                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="../BizPayroll/j_acegi_logout">Logout</a> </b>
+                                                    <br>                                                     <td class="bubble" style="padding: 5px 0pt; font-family: arial; text-align: left; font-weight: bold;" rowspan="2">
+                                                        <b>&nbsp;&nbsp;<img src="images/icon2-normal.gif" width="23" height="23" alt="icon2-normal"/>
+                                                        User Details </b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        <img src="images/icon3-normal.gif" width="23" height="23" alt="icon3-normal"/>
+ <a href="Timesheet.jsp">View Timesheet</a>
+                                                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                     <a href="acegilogin.jsp">logout</a>
+                                                        
                                                     </td>
                                                     <td class="bubble tr" align="right" valign="top">
                                                         <img class="c" alt="" src="https://mail.google.com/mail/images/corner_tr.gif"/>
@@ -128,6 +128,8 @@ User Details
                 </tr>
             </tbody>
         </table>
+        
+        
         
         
         
