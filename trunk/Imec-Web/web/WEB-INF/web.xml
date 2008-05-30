@@ -40,10 +40,10 @@
     <!-- 2. Setup the Acegi Filter Chain Proxy -->
     <filter>
         <filter-name>Acegi Filter Chain Proxy</filter-name>
-        <filter-class>net.sf.acegisecurity.util.FilterToBeanProxy</filter-class>
+        <filter-class>org.acegisecurity.util.FilterToBeanProxy</filter-class>
         <init-param>
             <param-name>targetClass</param-name>
-            <param-value>net.sf.acegisecurity.util.FilterChainProxy</param-value>
+            <param-value>org.acegisecurity.util.FilterChainProxy</param-value>
         </init-param>
     </filter>
     <filter-mapping>
@@ -64,6 +64,6 @@
     
     <!--    c) Setup ACEGI to subscribe to http session events in the web context -->
     <listener>
-        <listener-class>net.sf.acegisecurity.ui.session.HttpSessionEventPublisher</listener-class>
+        <listener-class>org.acegisecurity.ui.session.HttpSessionEventPublisher</listener-class>
     </listener>
 </web-app>
