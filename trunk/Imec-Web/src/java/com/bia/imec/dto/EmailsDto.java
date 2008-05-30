@@ -19,7 +19,12 @@ public class EmailsDto {
     private String bcc;
     private String subject;
     private String contextText;
-
+    private Date emailDate;
+    private String status;
+    private String agent;
+    private Date statusDate;
+    private Integer replyOf;
+    
     public String getAgent() {
         return agent;
     }
@@ -115,9 +120,5 @@ public class EmailsDto {
     public void setTo(String to) {
         this.to = to;
     }
-    private Date emailDate;
-    private String status;
-    private String agent;
-    private Date statusDate;
-    private Integer replyOf;
+   
 }
