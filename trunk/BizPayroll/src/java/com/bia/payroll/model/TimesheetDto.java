@@ -39,13 +39,14 @@ public class TimesheetDto {
     private Double sundayRegularHours;
     private Double sundayOverTimeHours;
     
+    private String sundayDateString;
     private String mondayDateString;
     private String tuesdayDateString;
     private String wednesdayDateString;
     private String thursdayDateString;
     private String fridayDateString;
     private String saturdayDateString;
-    private String sundayDateString;
+   
     
     
     
@@ -252,6 +253,10 @@ public class TimesheetDto {
     }
 
    
+      public String getSundayDateString() {
+        SimpleDateFormat sdf = new SimpleDateFormat("EEE, MMM d, ''yy");
+        return sdf.format(sundayDate);
+         }
      public String getMondayDateString() {
         SimpleDateFormat sdf = new SimpleDateFormat("EEE, MMM d, ''yy");
         return sdf.format(mondayDate);
@@ -283,32 +288,30 @@ public class TimesheetDto {
          }
         
     
-    
-    public String toString0() {
+     public String toString1() {
+               return this.status + " " + this.sundayDate;
+    }
+    public String toString2() {
         return this.status + " " + this.mondayDate;
     }
-    public String toString1() {
+    public String toString3() {
                return this.status + " " + this.tuesdayDate;
     }
     
-    public String toString2() {
+    public String toString4() {
                return this.status + " " + this.wednesdayDate;
     }
     
-    public String toString3() {
+    public String toString5() {
                return this.status + " " + this.thursdayDate;
     }
     
-    public String toString4() {
+    public String toString6() {
                return this.status + " " + this.fridayDate;
     }
     
-    public String toString5() {
+    public String toString7() {
                return this.status + " " + this.saturdayDate;
     }
     
-    public String toString6() {
-               return this.status + " " + this.sundayDate;
-    }
-    
-}
+}   
