@@ -29,7 +29,7 @@ public class TimesheetServiceImpl implements TimesheetService {
         timesheetDao.create(timesheet);
     }
 
-    public Timesheet createTimesheet(String username) {
+    public void createTimesheet(String username) {
         Users u = usersDao.findByUsername(username);
         Date lastStartDate = timesheetDao.findMaxStartDate(u.getId());
         Date userStartDate = null;
@@ -49,7 +49,10 @@ public class TimesheetServiceImpl implements TimesheetService {
         int day = c.get(Calendar.DAY_OF_WEEK);
         c.add(Calendar.DAY_OF_MONTH, -(day - 1));
         Date newStartDate = c.getTime();
-        Timesheet t = new Timesheet(timesheetDao.findMaxOfId()+1);
+        Integer maxId = timesheetDao.findMaxOfId();
+        if ( maxId == null )
+            maxId = 0;
+        Timesheet t = new Timesheet(maxId+1);
         t.setStartDate(newStartDate);
         t.setStatus("saved");
         t.setStatusDate(new Date());
@@ -65,39 +68,39 @@ public class TimesheetServiceImpl implements TimesheetService {
         System.out.println ( " timesheet ID : " + t.getId() );
         
         // create seven days timesheet detail objects 
-        TimesheetDetail td1 = new TimesheetDetail(null, newStartDate, 0, 0, "mon", username, "create");
+        TimesheetDetail td1 = new TimesheetDetail(null, newStartDate, 0, 0, "sun", username, "create");
         td1.setTimesheet(t);
         //t.getTimesheetDetailCollection().add(td1);
         
         Calendar c1 = new GregorianCalendar();
         c1.setTime(newStartDate);
         c1.add(Calendar.DAY_OF_MONTH, 1);
-        TimesheetDetail td2 = new TimesheetDetail(null, c1.getTime(), 0, 0, "tue", username, "create");
+        TimesheetDetail td2 = new TimesheetDetail(null, c1.getTime(), 0, 0, "mon", username, "create");
         td2.setTimesheet(t);
         //t.getTimesheetDetailCollection().add(td2);
         
         c1.add(Calendar.DAY_OF_MONTH, 1);
-        TimesheetDetail td3 = new TimesheetDetail(null, c1.getTime(), 0, 0, "wed", username, "create");
+        TimesheetDetail td3 = new TimesheetDetail(null, c1.getTime(), 0, 0, "tue", username, "create");
         td3.setTimesheet(t);
         //t.getTimesheetDetailCollection().add(td3);
         
         c1.add(Calendar.DAY_OF_MONTH, 1);
-        TimesheetDetail td4 = new TimesheetDetail(null, c1.getTime(), 0, 0, "thu", username, "create");
+        TimesheetDetail td4 = new TimesheetDetail(null, c1.getTime(), 0, 0, "wed", username, "create");
         td4.setTimesheet(t);
         //t.getTimesheetDetailCollection().add(td4);
         
         c1.add(Calendar.DAY_OF_MONTH, 1);
-        TimesheetDetail td5 = new TimesheetDetail(null, c1.getTime(), 0, 0, "fri", username, "create");
+        TimesheetDetail td5 = new TimesheetDetail(null, c1.getTime(), 0, 0, "thu", username, "create");
         td5.setTimesheet(t);
         //t.getTimesheetDetailCollection().add(td5);
         
         c1.add(Calendar.DAY_OF_MONTH, 1);
-        TimesheetDetail td6 = new TimesheetDetail(null, c1.getTime(), 0, 0, "sat", username, "create");
+        TimesheetDetail td6 = new TimesheetDetail(null, c1.getTime(), 0, 0, "fri", username, "create");
         td6.setTimesheet(t);
         //t.getTimesheetDetailCollection().add(td6);
         
         c1.add(Calendar.DAY_OF_MONTH, 1);
-        TimesheetDetail td7 = new TimesheetDetail(null, c1.getTime(), 0, 0, "sun", username, "create");
+        TimesheetDetail td7 = new TimesheetDetail(null, c1.getTime(), 0, 0, "sat", username, "create");
         td7.setTimesheet(t);
         //t.getTimesheetDetailCollection().add(td7);
         
@@ -110,9 +113,9 @@ public class TimesheetServiceImpl implements TimesheetService {
         timesheetDetailDao.create(td6);
         timesheetDetailDao.create(td7);
         
-        t.getTimesheetDetailCollection();
-        
-        return t;
+//        t.getTimesheetDetailCollection();
+//        
+//        return t;
 
         
     }
