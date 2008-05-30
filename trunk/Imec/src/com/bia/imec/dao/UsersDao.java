@@ -13,5 +13,5 @@ import com.bia.imec.entity.User;
  * @author intesar
  */
 public interface UsersDao extends GenericDao<User, String> {
-
+    User findByUsersname(String username);
 }
