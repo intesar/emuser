@@ -58,4 +58,8 @@ public class EmailsServiceImpl implements EmailsService {
     public void updateEmailServer(MailServers mailServers) {
         mailServersDao.update(mailServers);
     }
+    
+    public PagedResult<MailServers> getAllMailServers() {
+        return mailServersDao.readAll(null);
+    }
 }
