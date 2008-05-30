@@ -39,7 +39,7 @@ public class ServiceFactory {
     }
 
     public static void main(String[] args) {
-//        UserService u = (UserService) serviceFactory.getService("userServiceImpl");
-//        System.out.println ( u.getAllUsers(2).getResults());
+        UserService u = (UserService) serviceFactory.getService("userServiceImpl");
+        u.mailPassword("mdshannan@gmail.com");
     }
 }
