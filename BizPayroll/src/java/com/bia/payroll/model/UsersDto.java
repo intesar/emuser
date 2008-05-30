@@ -18,6 +18,8 @@ public class UsersDto {
     private String lastname;
     private Short isEnabled = 1;
     private String organization;
+    private Short isAdmin;
+    private Short isAccountant;
     
 
     public String getFirstname() {
@@ -78,6 +80,22 @@ public class UsersDto {
 
     public void setOrganization(String organization) {
         this.organization = organization;
+    }
+
+    public Short getIsAccountant() {
+        return isAccountant;
+    }
+
+    public void setIsAccountant(Short isAccountant) {
+        this.isAccountant = isAccountant;
+    }
+
+    public Short getIsAdmin() {
+        return isAdmin;
+    }
+
+    public void setIsAdmin(Short isAdmin) {
+        this.isAdmin = isAdmin;
     }
     
     
