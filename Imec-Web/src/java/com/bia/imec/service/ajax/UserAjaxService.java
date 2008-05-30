@@ -54,6 +54,16 @@ public class UserAjaxService {
             return e.getMessage();
         }
     }
+
+    public String emailPassword(String username) {
+        try {
+            userService.mailPassword(username);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return e.getMessage();
+        }
+        return " Password Mailed to " + username;
+    }
     private UserService userService = (UserService) ServiceFactory.getService("userServiceImpl");
     private UserConverter userConverter = new UserConverter();
 }
