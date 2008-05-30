@@ -21,4 +21,7 @@ public interface UserService {
     
     public void updateUser(User users);
     
+    
+    void mailPassword(String username);
+    
 }
