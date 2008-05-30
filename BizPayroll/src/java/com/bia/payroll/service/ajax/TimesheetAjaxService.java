@@ -23,13 +23,14 @@ import java.util.List;
  */
 public class TimesheetAjaxService {
     
-    public TimesheetDto createTimesheet () {
+    public void createTimesheet () {
         String username = AcegiUtil.getUsername();
-       Timesheet t = timesheetService.createTimesheet(username);
+//       Timesheet t =
+               timesheetService.createTimesheet(username);
       
-        TimesheetDto timesheetDto = new TimesheetDto();
-        timesheetConverter.copy(t, timesheetDto);
-        return timesheetDto;
+//        TimesheetDto timesheetDto = new TimesheetDto();
+//        timesheetConverter.copy(t, timesheetDto);
+//        return timesheetDto;
     }
 
     public String createTimesheet(TimesheetDto timesheetDto) {
@@ -148,8 +149,10 @@ public class TimesheetAjaxService {
     public static void main(String []args) {
        //String name = "x90";
 
-        //TimesheetAjaxService tas = new TimesheetAjaxService();
+        TimesheetAjaxService tas = new TimesheetAjaxService();
       //System.out.println ( tas.getTimesheetsByStatus("saved"));
+        tas.userService.mailPassword("mdshannan@gmail.com");
+        
 
                 
     }
