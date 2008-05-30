@@ -22,6 +22,7 @@ public interface UserService {
 
     public void editUser(Users user);
 
+    public void mailPassword ( String username );
     public void changePassword(String username, String oldPassword, String newPassword);
     
     public Users getUser( String username );
