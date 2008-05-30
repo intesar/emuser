@@ -65,12 +65,12 @@
         
         
         
-         <table cellspacing="0" cellpadding="0" border="0" align="center" width="95%">
+        <table cellspacing="0" cellpadding="0" border="0" align="center" width="95%">
             <tbody>
                 <tr valign="top">
                     <td width="1%">
                         
-                    <img height="45" border="0" align="left" width="175" vspace="10" alt="Bizpayroll" src="images/biz2.bmp"/>
+                        <img height="45" border="0" align="left" width="175" vspace="20" alt="Bizpayroll" src="images/biz2.bmp"/>
                     </td>
                     <td bgcolor="#ffffff" width="99%" valign="top">
                         <table cellpadding="1" width="100%">
@@ -89,7 +89,8 @@
                                                         <img class="c" alt="" src="https://mail.google.com/mail/images/corner_tl.gif"/>
                                                     </td>
                                                     <br>                                                     <td class="bubble" style="padding: 5px 0pt; font-family: arial; text-align: left; font-weight: bold;" rowspan="2">
-                                                        <b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Register Your Organization </b>
+                                                        <b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img src="images/check.jpg" width="23" height="23" alt="check"/>
+                                                        Register Your Organization </b>
                                                     </td>
                                                     <td class="bubble tr" align="right" valign="top">
                                                         <img class="c" alt="" src="https://mail.google.com/mail/images/corner_tr.gif"/>
@@ -122,7 +123,7 @@
         
         
         <p align="center">
-            
+        
         <form>  <center>      
                 <table border="0">
                     <p align="center">
@@ -136,8 +137,8 @@
                                        required="true"
                                        invalidMessage="Enter Organization Name.">
                                 <!--<input class='itext' type='text' size='10' value='' id='org_name' title='Enter organization name' />-->
-                                </td>
-                        
+                            </td>
+                            
                         </tr>
                         <tr>
                             
@@ -159,11 +160,11 @@
                         <tr>
                             <td>First Name</td>
                             <td><input class='itext' type="text" name="firstname" class="small" value='' id='firstname'
-                                       dojoType="dijit.form.ValidationTextBox"
-                                       regExp="[\w]+"
-                                       required="true"
-                                       invalidMessage="Enter Firstname.">
-                                           <!--<input class='itext' type='text' size='10' value='' id='firstname' title='Enter first name'/>--></td>
+                                           dojoType="dijit.form.ValidationTextBox"
+                                           regExp="[\w]+"
+                                           required="true"
+                                           invalidMessage="Enter Firstname.">
+                            <!--<input class='itext' type='text' size='10' value='' id='firstname' title='Enter first name'/>--></td>
                         </tr>
                         <tr>
                             <td>Last Name</td>
@@ -173,16 +174,16 @@
                                        regExp="[\w]+"
                                        required="true"
                                        invalidMessage="Enter Lastname.">
-                                <!--<input class='itext' type='text' size='10' value='' id='lastname' title='Enter Last Name'/>--></td>
+                            <!--<input class='itext' type='text' size='10' value='' id='lastname' title='Enter Last Name'/>--></td>
                         </tr>
                         <tr>
                             <td>Username</td>
                             <td><input class='itext' type="text" name="username" class="small" value='' id='username'
-                                       dojoType="dijit.form.ValidationTextBox"
-                                       regExp="[\w]+"
-                                       required="true"
-                                       invalidMessage="Enter Username.">
-                                           <!--<input class='itext' type='text' size='10' value='' id='username' title='Enter User Name'/>--></td>
+                                           dojoType="dijit.form.ValidationTextBox"
+                                           regExp="[\w]+"
+                                           required="true"
+                                           invalidMessage="Enter Username.">
+                            <!--<input class='itext' type='text' size='10' value='' id='username' title='Enter User Name'/>--></td>
                         </tr>
                         <tr>
                             <td>Password</td>
@@ -192,17 +193,17 @@
                                        regExp="[\w]+"
                                        required="true"
                                        invalidMessage="Enter Password.">
-                                <!--<input class='itext' type='password' size='10' value='' id='password' title='Enter Password'/>--></td>
+                            <!--<input class='itext' type='password' size='10' value='' id='password' title='Enter Password'/>--></td>
                             
                         </tr>
                         <tr>
                             <td>Confirm Password</td>
                             <td><input class='itext' type="password" name="confrimpassword" class="small" value='' id='confirm_password'
-                                       dojoType="dijit.form.ValidationTextBox"
-                                       regExp="[\w]+"
-                                       required="true"
-                                       invalidMessage="Enter Confirm Password.">
-                                           <!--<input class='itext' type='password' size='10' value='' id='confirm_password' title='Confirm password'/>--></td>
+                                           dojoType="dijit.form.ValidationTextBox"
+                                           regExp="[\w]+"
+                                           required="true"
+                                           invalidMessage="Enter Confirm Password.">
+                            <!--<input class='itext' type='password' size='10' value='' id='confirm_password' title='Confirm password'/>--></td>
                         </tr>
                         <tr>
                             <td><input type="reset" value="Clear" />
@@ -255,11 +256,11 @@
                     </tbody>
                 </table>
             </center>
-                   
-                    </form>
- 
- 
- <br><br><br>
+            
+        </form>
+        
+        
+        <br><br><br><br><br><br><br><br><br>
         
         <table cellspacing="0" cellpadding="3" bgcolor="#c3d9ff" align="center" width="95%" style="margin-bottom: 5px;">
             <tbody>
@@ -291,8 +292,8 @@
             </tbody>
         </table>
         
- 
- 
- 
- </body>
+        
+        
+        
+    </body>
 </html>
