@@ -11,6 +11,7 @@ import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -71,7 +72,7 @@ public class Timesheet implements Serializable {
     private String lastUser;
     @Column(name = "last_action", nullable = false)
     private String lastAction;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "timesheet")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "timesheet", fetch=FetchType.EAGER)
     private Collection<TimesheetDetail> timesheetDetailCollection = new ArrayList<TimesheetDetail>();
     @JoinColumn(name = "user", referencedColumnName = "id")
     @ManyToOne
