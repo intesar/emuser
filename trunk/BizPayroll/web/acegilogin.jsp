@@ -128,6 +128,11 @@
                                                         <td><input type="checkbox" name="_acegi_security_remember_me"/></td>
                                                     </tr>
                                                     
+                                                    <tr>
+                                                        <td>Remember me:</td>
+                                                        <td><input type="checkbox" name="_acegi_security_remember_me"/></td>
+                                                    </tr>
+                                                    
                                                     <tr><tr></tr><tr></tr><td colspan='2'><p align="right"><input name="submit" value="Sign in" type="submit" ></p>
                                                         </td>
                                                     </tr>
