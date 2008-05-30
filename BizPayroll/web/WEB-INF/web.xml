@@ -5,9 +5,7 @@
             30
         </session-timeout>
     </session-config>
-    <welcome-file-list>
-        <welcome-file>acegilogin.jsp</welcome-file>
-    </welcome-file-list>
+    
     <servlet>
         <servlet-name>dwr-invoker</servlet-name>
         <display-name>DWR Servlet</display-name>
@@ -28,7 +26,7 @@
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>
-            /WEB-INF/ApplicationContext-Acegi.xml
+            /WEB-INF/ApplicationContext-Acegi1.xml
         </param-value>
     </context-param>
     <context-param>
@@ -62,8 +60,9 @@
         <listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
     </listener>
     
-    <!--    c) Setup ACEGI to subscribe to http session events in the web context -->
+    <!--    c) Setup ACEGI to subscribe to http session events in the web context 
     <listener>
         <listener-class>org.acegisecurity.ui.session.HttpSessionEventPublisher</listener-class>
     </listener>
+    -->
 </web-app>
