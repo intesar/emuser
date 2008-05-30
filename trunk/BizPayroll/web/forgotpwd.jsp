@@ -6,12 +6,12 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-   "http://www.w3.org/TR/html4/loose.dtd">
+"http://www.w3.org/TR/html4/loose.dtd">
 
 <html>
     <head>
         <title>Forgot Password</title>
-         <style type="text/css">
+        <style type="text/css">
             @import "http://o.aolcdn.com/dojo/1.0/dijit/themes/tundra/tundra.css";
             @import "http://o.aolcdn.com/dojo/1.0/dojo/resources/dojo.css";
         </style>
@@ -27,11 +27,12 @@
         
         
         
-         <table cellspacing="0" cellpadding="0" border="0" align="center" width="95%">
+        <table cellspacing="0" cellpadding="0" border="0" align="center" width="95%">
             <tbody>
                 <tr valign="top">
                     <td width="1%">
-                    <img height="53" border="0" align="left" width="175" vspace="10" alt="Gmail" src="images/logo.bmp"/>
+                        
+                        <img height="45" border="0" align="left" width="175" vspace="20" alt="Bizpayroll" src="images/biz2.bmp"/>
                     </td>
                     <td bgcolor="#ffffff" width="99%" valign="top">
                         <table cellpadding="1" width="100%">
@@ -49,16 +50,16 @@
                                                     <td class="bubble tl" align="left" valign="top">
                                                         <img class="c" alt="" src="https://mail.google.com/mail/images/corner_tl.gif"/>
                                                     </td>
-                                                    <br> 
-                                                    <td class="bubble" style="padding: 5px 0pt; font-family: arial; text-align: left; font-weight: bold;" rowspan="2">
-                                                        <b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Forget your ID or password? </b>
-                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                    <br>                                                     <td class="bubble" style="padding: 5px 0pt; font-family: arial; text-align: left; font-weight: bold;" rowspan="2">
+                                                        <b>&nbsp;&nbsp;<img src="images/mark.gif" width="23" height="23" alt="icon2-normal"/>
+                                                        Forgot Password </b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                        <a href="../BizPayroll/j_acegi_logout">Logout</a> 
+                                                        
+                                                        <a href="acegilogin.jsp">logout</a>
+                                                        
                                                     </td>
                                                     <td class="bubble tr" align="right" valign="top">
                                                         <img class="c" alt="" src="https://mail.google.com/mail/images/corner_tr.gif"/>
@@ -88,10 +89,10 @@
         
         
         <center>
-                   <p><h3>I Cannot access My Account </h3></p>
+            <p><h3>I Cannot access My Account </h3></p>
             <table border="1">
                 <thead>
-                                   </thead>
+                </thead>
                 <tbody class="tundra">
                     <tr>
                         <td>User Email</td>
@@ -99,7 +100,7 @@
                                        dojoType="dijit.form.ValidationTextBox"
                                        regExp="[\w]+"
                                        required="true"
-                                       invalidMessage="Enter Proper Email address Example:abc@domain.com"><!--<input type="text" name="" value="" />--> </td>
+                                   invalidMessage="Enter Proper Email address Example:abc@domain.com"><!--<input type="text" name="" value="" />--> </td>
                     </tr>
                     
                     <tr>
@@ -110,12 +111,12 @@
                     
                 </tbody>
             </table>
-       </center>
-       
-       
-       
-       
-       
+        </center>
+        
+        
+        
+        
+        
         <br><br><br>
         
         <table cellspacing="0" cellpadding="3" bgcolor="#c3d9ff" align="center" width="95%" style="margin-bottom: 5px;">
