@@ -4,6 +4,7 @@
  */
 package com.bia.payroll.model;
 
+import com.bia.payroll.entity.Authorities;
 import com.bia.payroll.entity.Users;
 
 /**
@@ -32,7 +33,7 @@ public class UsersConverter {
             u.setFirstName(dto.getFirstname());
             if (dto.getId() > 0) {
                 u.setId(dto.getId());
-            }
+            } 
             u.setLastName(dto.getLastname());
             u.setPassword(dto.getPassword());
             u.setUsername(dto.getUsername());
