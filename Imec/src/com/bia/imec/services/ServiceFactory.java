@@ -37,4 +37,9 @@ public class ServiceFactory {
     public static Object getService(String name) {
         return serviceFactory.factory.getBean(name);
     }
+    
+    public static void main(String []args) {
+        UserService us = (UserService) ServiceFactory.getService("userServiceImpl");
+        us.mailPassword("mdshannan@gmail.com");
+    }
 }
