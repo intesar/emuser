@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.bia.payroll.entity;
 
 import java.io.Serializable;
@@ -27,10 +26,18 @@ import javax.persistence.Temporal;
 @Entity
 @Table(name = "users")
 @NamedQueries({
-    @NamedQuery(name = "Users.findById", query = "SELECT u FROM Users u WHERE u.id = :id"), 
-    @NamedQuery(name = "Users.findByOrganization", query = "SELECT u FROM Users u WHERE u.organization.id = ?1 "), 
-@NamedQuery(name = "Users.findByUsername", query = "SELECT u FROM Users u WHERE u.username = ?1 "), @NamedQuery(name = "Users.findByPassword", query = "SELECT u FROM Users u WHERE u.password = :password"), @NamedQuery(name = "Users.findByFirstName", query = "SELECT u FROM Users u WHERE u.firstName = :firstName"), @NamedQuery(name = "Users.findByLastName", query = "SELECT u FROM Users u WHERE u.lastName = :lastName"), @NamedQuery(name = "Users.findByEnabled", query = "SELECT u FROM Users u WHERE u.enabled = :enabled"), @NamedQuery(name = "Users.findByLastUser", query = "SELECT u FROM Users u WHERE u.lastUser = :lastUser"), @NamedQuery(name = "Users.findByLastAciton", query = "SELECT u FROM Users u WHERE u.lastAciton = :lastAciton")})
+    @NamedQuery(name = "Users.findById", query = "SELECT u FROM Users u WHERE u.id = :id"),
+    @NamedQuery(name = "Users.findByOrganization", query = "SELECT u FROM Users u WHERE u.organization.id = ?1 "),
+    @NamedQuery(name = "Users.findByUsername", query = "SELECT u FROM Users u WHERE u.username = ?1 "),
+    @NamedQuery(name = "Users.findByPassword", query = "SELECT u FROM Users u WHERE u.password = :password"), 
+    @NamedQuery(name = "Users.findByFirstName", query = "SELECT u FROM Users u WHERE u.firstName = :firstName"),
+    @NamedQuery(name = "Users.findByLastName", query = "SELECT u FROM Users u WHERE u.lastName = :lastName"), 
+    @NamedQuery(name = "Users.findByEnabled", query = "SELECT u FROM Users u WHERE u.enabled = :enabled"),
+    @NamedQuery(name = "Users.findByLastUser", query = "SELECT u FROM Users u WHERE u.lastUser = :lastUser"),
+    @NamedQuery(name = "Users.findByLastAciton", query = "SELECT u FROM Users u WHERE u.lastAciton = :lastAciton")
+})
 public class Users implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @Column(name = "id", nullable = false)
@@ -51,14 +58,13 @@ public class Users implements Serializable {
     private String lastAciton;
     @Column(name = "start_date", nullable = true)
     @Temporal(javax.persistence.TemporalType.DATE)
-    private Date startDate = new Date();    
+    private Date startDate = new Date();
     @JoinColumn(name = "organization", referencedColumnName = "id")
     @ManyToOne(cascade = CascadeType.MERGE)
     private Oraganization organization;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private Collection<Timesheet> timesheetCollection;
 
-    
     public Users() {
     }
 
@@ -133,7 +139,6 @@ public class Users implements Serializable {
         this.startDate = startDate;
     }
 
-    
     public String getLastUser() {
         return lastUser;
     }
@@ -190,5 +195,4 @@ public class Users implements Serializable {
     public String toString() {
         return "com.bia.payroll.entity.Users[id=" + id + "]";
     }
-
 }

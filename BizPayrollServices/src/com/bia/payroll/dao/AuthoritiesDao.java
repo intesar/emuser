@@ -16,4 +16,9 @@ import java.util.List;
 public interface AuthoritiesDao extends GenericDao<Authorities, Integer> {
 
     public List<Authorities> findByUsername(String name);
+    
+    public Authorities findByUsernameAndAuthority ( String username, String authority );
+    
+    public void deleteByUsernameAndAuthority (String username, String authority );
+    
 }
