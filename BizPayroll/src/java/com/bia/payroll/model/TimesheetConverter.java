@@ -22,43 +22,43 @@ public class TimesheetConverter {
             timesheet.setPaidAmount(timesheetDto.getPaidAmount());
             timesheet.setStatus(timesheetDto.getStatus());
             TimesheetDetail td1 = new TimesheetDetail();
-            td1.setDay("monday");
+            td1.setDay("mon");
             td1.setRegularHour(timesheetDto.getMondayRegularHours());
             td1.setOverTimeHour(timesheetDto.getMondayOverTimeHours());
             timesheet.getTimesheetDetailCollection().add(td1);
 
             td1 = new TimesheetDetail();
-            td1.setDay("tuesday");
+            td1.setDay("tue");
             td1.setRegularHour(timesheetDto.getTuesdayRegularHours());
             td1.setOverTimeHour(timesheetDto.getTuesdayOverTimeHours());
             timesheet.getTimesheetDetailCollection().add(td1);
 
             td1 = new TimesheetDetail();
-            td1.setDay("wednesday");
+            td1.setDay("wed");
             td1.setRegularHour(timesheetDto.getWednesdayRegularHours());
             td1.setOverTimeHour(timesheetDto.getWednesdayOverTimeHours());
             timesheet.getTimesheetDetailCollection().add(td1);
 
             td1 = new TimesheetDetail();
-            td1.setDay("thursday");
+            td1.setDay("thu");
             td1.setRegularHour(timesheetDto.getThursdayRegularHours());
             td1.setOverTimeHour(timesheetDto.getThursdayOverTimeHours());
             timesheet.getTimesheetDetailCollection().add(td1);
 
             td1 = new TimesheetDetail();
-            td1.setDay("friday");
+            td1.setDay("fri");
             td1.setRegularHour(timesheetDto.getFridayRegularHours());
             td1.setOverTimeHour(timesheetDto.getFridayOverTimeHours());
             timesheet.getTimesheetDetailCollection().add(td1);
 
             td1 = new TimesheetDetail();
-            td1.setDay("saturday");
+            td1.setDay("sat");
             td1.setRegularHour(timesheetDto.getSaturdayRegularHours());
             td1.setOverTimeHour(timesheetDto.getSaturdayOverTimeHours());
             timesheet.getTimesheetDetailCollection().add(td1);
 
             td1 = new TimesheetDetail();
-            td1.setDay("sunday");
+            td1.setDay("sun");
             td1.setRegularHour(timesheetDto.getSundayRegularHours());
             td1.setOverTimeHour(timesheetDto.getSundayOverTimeHours());
             timesheet.getTimesheetDetailCollection().add(td1);
@@ -76,7 +76,11 @@ public class TimesheetConverter {
             Collection<TimesheetDetail> details = timesheet.getTimesheetDetailCollection();
 
             for (TimesheetDetail d : details) {
-                if (d.getDay().equalsIgnoreCase("mon")) {
+                if (d.getDay().equalsIgnoreCase("sun")) {
+                    timesheetDto.setSundayDate(d.getCurDate());
+                    timesheetDto.setSundayRegularHours(d.getRegularHour());
+                    timesheetDto.setSundayOverTimeHours(d.getOverTimeHour());
+                } else if (d.getDay().equalsIgnoreCase("mon")) {
                     timesheetDto.setMondayDate(d.getCurDate());
                     timesheetDto.setMondayRegularHours(d.getRegularHour());
                     timesheetDto.setMondayOverTimeHours(d.getOverTimeHour());
@@ -100,11 +104,7 @@ public class TimesheetConverter {
                     timesheetDto.setSaturdayDate(d.getCurDate());
                     timesheetDto.setSaturdayRegularHours(d.getRegularHour());
                     timesheetDto.setSaturdayOverTimeHours(d.getOverTimeHour());
-                } else if (d.getDay().equalsIgnoreCase("sun")) {
-                    timesheetDto.setSundayDate(d.getCurDate());
-                    timesheetDto.setSundayRegularHours(d.getRegularHour());
-                    timesheetDto.setSundayOverTimeHours(d.getOverTimeHour());
-                }
+                } 
 
             }
         }
@@ -144,6 +144,11 @@ public class TimesheetConverter {
                     td7 = d;
                 }
             }
+             td7.setDay("sunday");
+            td7.setRegularHour(timesheetDto.getSundayRegularHours());
+            td7.setOverTimeHour(timesheetDto.getSundayOverTimeHours());
+            
+            
             td1.setDay("monday");
             td1.setRegularHour(timesheetDto.getMondayRegularHours());
             td1.setOverTimeHour(timesheetDto.getMondayOverTimeHours());
@@ -180,10 +185,7 @@ public class TimesheetConverter {
             
 
             
-            td7.setDay("sunday");
-            td7.setRegularHour(timesheetDto.getSundayRegularHours());
-            td7.setOverTimeHour(timesheetDto.getSundayOverTimeHours());
-            
+           
 
         }
 
