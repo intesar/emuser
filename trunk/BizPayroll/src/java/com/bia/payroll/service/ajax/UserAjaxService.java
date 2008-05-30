@@ -5,6 +5,7 @@
 package com.bia.payroll.service.ajax;
 
 import com.abbhsoft.jpadaoframework.dao.PagedResult;
+import com.bia.payroll.entity.Authorities;
 import com.bia.payroll.entity.Oraganization;
 import com.bia.payroll.entity.Users;
 import com.bia.payroll.model.UsersConverter;
@@ -26,7 +27,7 @@ public class UserAjaxService {
         Users u = new Users();
         usersConverter.copy(dto, u);
         try {
-            userService.addUser(username, u);
+            userService.addUser(username, u, dto.getIsAdmin(), dto.getIsAdmin());
         } catch (Exception e) {
             e.printStackTrace();
             return e.getMessage();
@@ -61,6 +62,14 @@ public class UserAjaxService {
         PagedResult<Users> result = userService.getAllUsers(username);
         for (Users u : result.getResults()) {
             UsersDto dto = new UsersDto();
+            Authorities adm = userService.getAuthority(u.getUsername(), "ROLE_ADMIN");
+            if (adm != null) {
+                dto.setIsAdmin(true);
+            }
+            Authorities acc = userService.getAuthority(u.getUsername(), "ROLE_ACCOUNTANT");
+            if (acc != null) {
+                dto.setIsAccountant(true);
+            }
             usersConverter.copy(u, dto);
             dtos.add(dto);
         }
@@ -98,6 +107,24 @@ public class UserAjaxService {
         return " Password send to " + username;
     }
 
+    public List<String> getMyFilterList() {
+        String username = AcegiUtil.getUsername();
+        Authorities admin = userService.getAuthority(username, "ROLE_ADMIN");
+        Authorities acc = userService.getAuthority(username, "ROLE_ACCOUNTANT");
+        Authorities user = userService.getAuthority(username, "ROLE_USER");
+
+        List<String> list = new ArrayList<String>();
+        if (admin != null) {
+        } else if (acc != null) {
+        } else if (user != null) {
+        } else {
+            list.add("No Filter");
+        }
+        
+        return list;
+
+    }
+
     public void setUserService(UserService userService) {
         this.userService = userService;
     }
@@ -112,7 +139,7 @@ public class UserAjaxService {
 //        dto.setPassword("ps");
 //        dto.setUsername("us");
 //        u.addUser(dto);
-    //System.out.println(u.getAllUsers());
+        //System.out.println(u.getAllUsers());
         u.emailPassword("mdshannan@gmail.com");
     }
 }

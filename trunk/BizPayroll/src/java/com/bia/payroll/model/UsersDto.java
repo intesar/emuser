@@ -18,8 +18,8 @@ public class UsersDto {
     private String lastname;
     private Short isEnabled = 1;
     private String organization;
-    private Short isAdmin;
-    private Short isAccountant;
+    private boolean isAdmin = false;
+    private boolean isAccountant = false;
     
 
     public String getFirstname() {
@@ -82,19 +82,19 @@ public class UsersDto {
         this.organization = organization;
     }
 
-    public Short getIsAccountant() {
+    public boolean getIsAccountant() {
         return isAccountant;
     }
 
-    public void setIsAccountant(Short isAccountant) {
+    public void setIsAccountant(boolean isAccountant) {
         this.isAccountant = isAccountant;
     }
 
-    public Short getIsAdmin() {
+    public boolean getIsAdmin() {
         return isAdmin;
     }
 
-    public void setIsAdmin(Short isAdmin) {
+    public void setIsAdmin(boolean isAdmin) {
         this.isAdmin = isAdmin;
     }
     
