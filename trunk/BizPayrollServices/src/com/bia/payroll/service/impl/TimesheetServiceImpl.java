@@ -28,8 +28,8 @@ public class TimesheetServiceImpl implements TimesheetService {
     public void createTimesheet(Timesheet timesheet) {
         timesheetDao.create(timesheet);
     }
-    
-       public Timesheet createTimesheet(String username) {
+
+    public Timesheet createTimesheet(String username) {
         Users u = usersDao.findByUsername(username);
         Date lastStartDate = timesheetDao.findMaxStartDate(u.getId());
         Date userStartDate = null;
@@ -114,7 +114,7 @@ public class TimesheetServiceImpl implements TimesheetService {
         
         return t;
 
-
+        
     }
 
     /**
