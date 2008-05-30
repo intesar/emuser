@@ -8,7 +8,9 @@ import com.abbhsoft.jpadaoframework.dao.PagedResult;
 import com.abbhsoft.jpadaoframework.dao.PagingParams;
 import com.bia.imec.dao.UsersDao;
 import com.bia.imec.entity.User;
+import com.bia.imec.services.EMailService;
 import com.bia.imec.services.UserService;
+import org.springframework.mail.MailException;
 
 /**
  *
@@ -28,9 +30,34 @@ public class UserServiceImpl implements UserService {
         usersDao.update(users);
     }
 
+    public void mailPassword(String username) {
+        User user = usersDao.findByUsersname(username);
+
+
+        if (user != null) {
+
+            String msg = " Dear " + user.getFirstname() + ", " +
+                    user.getLastname() +
+                    " your password is : " + user.getPassword();
+            try {
+                this.eMailService.sendEmail(username, msg);
+            } catch (MailException ex) {
+                // simply log it and go on...
+                ex.printStackTrace();
+                throw new NullPointerException(ex.getMessage());
+            }
+        } else {
+            throw new NullPointerException(" No user with the given email Address ");
+        }
+    }
+
     public void setUsersDao(UsersDao usersDao) {
         this.usersDao = usersDao;
     }
-    
+
+    public void setEMailService(EMailService eMailService) {
+        this.eMailService = eMailService;
+    }
+    private EMailService eMailService;
     private UsersDao usersDao;
 }
