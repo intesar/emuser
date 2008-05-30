@@ -12,9 +12,11 @@ import com.bia.payroll.dao.UsersDao;
 import com.bia.payroll.entity.Authorities;
 import com.bia.payroll.entity.Oraganization;
 import com.bia.payroll.entity.Users;
+import com.bia.payroll.service.EMailService;
 import com.bia.payroll.service.UserService;
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.mail.MailException;
 
 /**
  *
@@ -47,16 +49,16 @@ public class UserServiceImpl implements UserService {
                         isAdmin = true;
                         usersDao.create(user);
                         Authorities a2 = new Authorities(user.getUsername(), "ROLE_USER");
-                        authoritiesDao.create(a2);                        
+                        authoritiesDao.create(a2);
                     }
                 }
             }
         } else {
             usersDao.update(user);
         }
-        
-        if ( !isAdmin ) {
-            throw new RuntimeException (" You do not have Admin role to create users !");
+
+        if (!isAdmin) {
+            throw new RuntimeException(" You do not have Admin role to create users !");
         }
     }
 
@@ -91,6 +93,27 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    public void mailPassword(String username) {
+        Users user = usersDao.findByUsername(username);
+        
+                
+        if (user != null) {
+           
+            String msg = " Dear " + user.getFirstName() + ", " +
+                    user.getLastName() +
+                    " your password is : " + user.getPassword();
+            try {
+                this.eMailService.sendEmail(username, msg);
+            } catch (MailException ex) {
+                // simply log it and go on...
+                ex.printStackTrace();
+                throw new NullPointerException(ex.getMessage());
+            }
+        } else {
+            throw new NullPointerException(" No user with the given email Address ");
+        }
+    }
+
     public Users getUser(String username) {
         return usersDao.findByUsername(username);
     }
@@ -106,6 +129,15 @@ public class UserServiceImpl implements UserService {
     public void setOrganizationDao(OrganizationDao organizationDao) {
         this.organizationDao = organizationDao;
     }
+
+    public void setEMailService(EMailService eMailService) {
+        this.eMailService = eMailService;
+    }
+
+    
+    
+    
+    private EMailService eMailService;
     private OrganizationDao organizationDao;
     private AuthoritiesDao authoritiesDao;
     private UsersDao usersDao;
