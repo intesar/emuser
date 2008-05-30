@@ -8,8 +8,8 @@
     <class>com.bia.imec.entity.Contacts</class>
     <class>com.bia.imec.entity.User</class>
     <properties>
-      <property name="toplink.jdbc.user" value="imec"/>
-      <property name="toplink.jdbc.password" value="imec"/>
+      <property name="toplink.jdbc.user" value="root"/>
+      <property name="toplink.jdbc.password" value="imran123"/>
       <property name="toplink.jdbc.url" value="jdbc:mysql:///imea"/>
       <property name="toplink.jdbc.driver" value="com.mysql.jdbc.Driver"/>
     </properties>
