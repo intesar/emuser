@@ -22,10 +22,7 @@
       
 
 <!-- this is a template message that we can pre-load with default state -->
-    <bean id="templateMessage" class="org.springframework.mail.SimpleMailMessage">
-        <property name="from" value="password-reset@bizintelapps.com"/>
-        <property name="subject" value="Password Reset"/>
-    </bean>
+   
     <bean id="userServiceImpl" class="com.bia.payroll.service.impl.UserServiceImpl" >
         <property name="organizationDao" ref="organizationDao" />
         <property name="usersDao" ref="usersDao" />
