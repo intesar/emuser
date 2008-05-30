@@ -35,12 +35,28 @@ public class UserServiceImpl implements UserService {
     }
 
     public void addUser(String username, Users user) {
+
         Users user1 = usersDao.findByUsername(username);
         user.setOrganization(user1.getOrganization());
+        boolean isAdmin = false;
         if (user.getId() == null) {
-            usersDao.create(user);
+            List<Authorities> a = authoritiesDao.findByUsername(username);
+            if (a != null && a.size() > 0) {
+                for (Authorities auth : a) {
+                    if (auth.getAuthority().equals("ROLE_ADMIN")) {
+                        isAdmin = true;
+                        usersDao.create(user);
+                        Authorities a2 = new Authorities(user.getUsername(), "ROLE_USER");
+                        authoritiesDao.create(a2);                        
+                    }
+                }
+            }
         } else {
             usersDao.update(user);
+        }
+        
+        if ( !isAdmin ) {
+            throw new RuntimeException (" You do not have Admin role to create users !");
         }
     }
 
