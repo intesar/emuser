@@ -32,11 +32,13 @@ public class UserServiceImpl implements UserService {
         usersDao.create(user);
         Authorities a1 = new Authorities(user.getUsername(), "ROLE_ADMIN");
         authoritiesDao.create(a1);
-        Authorities a2 = new Authorities(user.getUsername(), "ROLE_USER");
+        Authorities a2 = new Authorities(user.getUsername(), "ROLE_ACCOUNTANT");
         authoritiesDao.create(a2);
+        Authorities a3 = new Authorities(user.getUsername(), "ROLE_USER");
+        authoritiesDao.create(a3);
     }
 
-    public void addUser(String username, Users user) {
+    public void addUser(String username, Users user, boolean userIsAdmin, boolean userIsAccountant) {
 
         Users user1 = usersDao.findByUsername(username);
         user.setOrganization(user1.getOrganization());
@@ -50,6 +52,7 @@ public class UserServiceImpl implements UserService {
                         usersDao.create(user);
                         Authorities a2 = new Authorities(user.getUsername(), "ROLE_USER");
                         authoritiesDao.create(a2);
+
                     }
                 }
             }
@@ -60,6 +63,26 @@ public class UserServiceImpl implements UserService {
         if (!isAdmin) {
             throw new RuntimeException(" You do not have Admin role to create users !");
         }
+
+        Authorities adm = authoritiesDao.findByUsernameAndAuthority(username, "ROLE_ADMIN");
+        Authorities acc = authoritiesDao.findByUsernameAndAuthority(username, "ROLE_ACCOUNTANT");
+        if (userIsAdmin) {
+            if (adm == null) {
+                Authorities a2 = new Authorities(user.getUsername(), "ROLE_ADMIN");
+                authoritiesDao.create(a2);
+            }
+        } else {
+            authoritiesDao.deleteByUsernameAndAuthority( username, "ROLE_ADMIN");
+        }
+        if (userIsAccountant) {
+            if (acc == null) {
+                Authorities a2 = new Authorities(user.getUsername(), "ROLE_ACCOUNTANT");
+                authoritiesDao.create(a2);
+            }
+        } else {
+            authoritiesDao.deleteByUsernameAndAuthority( username, "ROLE_ACCOUNTANT");
+        }
+
     }
 
     public PagedResult<Users> getAllUsers(String username) {
@@ -95,10 +118,10 @@ public class UserServiceImpl implements UserService {
 
     public void mailPassword(String username) {
         Users user = usersDao.findByUsername(username);
-        
-                
+
+
         if (user != null) {
-           
+
             String msg = " Dear " + user.getFirstName() + ", " +
                     user.getLastName() +
                     " your password is : " + user.getPassword();
@@ -118,6 +141,10 @@ public class UserServiceImpl implements UserService {
         return usersDao.findByUsername(username);
     }
 
+    public Authorities getAuthority(String username, String authority) {
+        return authoritiesDao.findByUsernameAndAuthority(username, authority);
+    }
+
     public void setUsersDao(UsersDao usersDao) {
         this.usersDao = usersDao;
     }
@@ -133,10 +160,6 @@ public class UserServiceImpl implements UserService {
     public void setEMailService(EMailService eMailService) {
         this.eMailService = eMailService;
     }
-
-    
-    
-    
     private EMailService eMailService;
     private OrganizationDao organizationDao;
     private AuthoritiesDao authoritiesDao;
