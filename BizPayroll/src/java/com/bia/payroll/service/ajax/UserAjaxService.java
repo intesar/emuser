@@ -20,19 +20,20 @@ import java.util.List;
  */
 public class UserAjaxService {
 
-    public String addUser ( UsersDto dto ) {
+    public String addUser(UsersDto dto) {
         String username = AcegiUtil.getUsername();
         //Users user = userService.getUser("abc");//AcegiUtil.getUsername());
         Users u = new Users();
         usersConverter.copy(dto, u);
         try {
-           userService.addUser(username, u);
+            userService.addUser(username, u);
         } catch (Exception e) {
             e.printStackTrace();
             return e.getMessage();
         }
         return "Account Created Successfully";
     }
+
     public String createUser(String companyName, String type, String companyDescription,
             String firstName, String lastName, String username, String password) {
         Oraganization o = new Oraganization();
@@ -58,8 +59,8 @@ public class UserAjaxService {
         List<UsersDto> dtos = new ArrayList<UsersDto>();
         String username = AcegiUtil.getUsername();
         PagedResult<Users> result = userService.getAllUsers(username);
-        for ( Users u : result.getResults() ) {
-            UsersDto dto = new UsersDto();            
+        for (Users u : result.getResults()) {
+            UsersDto dto = new UsersDto();
             usersConverter.copy(u, dto);
             dtos.add(dto);
         }
@@ -87,6 +88,16 @@ public class UserAjaxService {
         userService.changePassword(username, oldPassword, newPassword);
     }
 
+    public String emailPassword(String username) {
+        try {
+            this.userService.mailPassword(username);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return e.getMessage();
+        }
+        return " Password send to " + username;
+    }
+
     public void setUserService(UserService userService) {
         this.userService = userService;
     }
@@ -95,12 +106,13 @@ public class UserAjaxService {
 
     public static void main(String[] args) {
         UserAjaxService u = new UserAjaxService();
-        UsersDto dto = new UsersDto();
-        dto.setFirstname("fn");
-        dto.setLastname("ln");
-        dto.setPassword("ps");
-        dto.setUsername("us");
-        u.addUser(dto);
-        //System.out.println(u.getAllUsers());
+//        UsersDto dto = new UsersDto();
+//        dto.setFirstname("fn");
+//        dto.setLastname("ln");
+//        dto.setPassword("ps");
+//        dto.setUsername("us");
+//        u.addUser(dto);
+    //System.out.println(u.getAllUsers());
+        u.emailPassword("mdshannan@gmail.com");
     }
 }
