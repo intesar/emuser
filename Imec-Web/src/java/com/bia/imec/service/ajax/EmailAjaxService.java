@@ -4,6 +4,7 @@
  */
 package com.bia.imec.service.ajax;
 
+import com.abbhsoft.jpadaoframework.dao.PagedResult;
 import com.bia.imec.converter.EmailsConverter;
 import com.bia.imec.converter.MailServersConverter;
 import com.bia.imec.dto.EmailsDto;
@@ -88,6 +89,18 @@ public class EmailAjaxService {
             e.printStackTrace();
             return e.getMessage();
         }
+    }
+    
+    public List<MailServersDto> getAllMailServers () {
+        PagedResult<MailServers> pg = emailsService.getAllMailServers();
+        List<MailServers> list = pg.getResults();
+        List<MailServersDto> dtos = new ArrayList<MailServersDto>();
+        for ( MailServers m : list ) {
+            MailServersDto dto = new MailServersDto();
+            mailServersConverter.copy(m, dto);
+            dtos.add(dto);            
+        }
+        return dtos;
     }
     
     private MailServersConverter mailServersConverter = new MailServersConverter();
