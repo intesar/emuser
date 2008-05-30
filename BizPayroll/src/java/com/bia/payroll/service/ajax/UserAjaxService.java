@@ -114,15 +114,28 @@ public class UserAjaxService {
         Authorities user = userService.getAuthority(username, "ROLE_USER");
 
         List<String> list = new ArrayList<String>();
+        if (user != null) {
+            list.add("My Saved Timesheets");
+            list.add("My Submitted Timesheets");
+            list.add("My Approved Timesheets");
+            list.add("My Rejected Timesheets");
+            list.add("My Paid Timesheets");
+        }
+        if (acc != null) {
+            list.add("All Approved Timesheets");
+            list.add("All Paid Timesheets");
+        }
+
         if (admin != null) {
-        } else if (acc != null) {
-        } else if (user != null) {
-        } else {
+            list.add("All Saved Timesheets");
+            list.add("All Submitted Timesheets");
+            list.add("All Rejected Timesheets");
+        }
+
+        if (list.size() <= 0) {
             list.add("No Filter");
         }
-        
         return list;
-
     }
 
     public void setUserService(UserService userService) {
