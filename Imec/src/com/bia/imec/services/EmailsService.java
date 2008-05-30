@@ -16,6 +16,8 @@ import java.util.Date;
  */
 public interface EmailsService {
 
+    public PagedResult<MailServers> getAllMailServers();
+
     public PagedResult<Emails> getAll(PagingParams pagingParams);
 
     public void createEmail(Emails emails);
