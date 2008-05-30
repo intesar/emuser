@@ -34,7 +34,7 @@
             <tbody>
                 <tr valign="top">
                     
-                    <td width="1%"><vspace="10"> <h1><b><i><font color="3399ff">BizPayroll&nbsp;</font></i></b></h1>
+                    <td width="1%"> <vspace ="10"> <h1><b><i><font color="3399ff">BizPayroll&nbsp;</font></i></b></h1>
                     <!-- <img height="53" border="0" align="left" width="175" vspace="15" alt="BizIntelapps" src="images/logo1.bmp"/> </td> -->
                     <td bgcolor="#ffffff" width="99%" valign="top">
                         <table cellpadding="1" width="100%">
@@ -53,7 +53,7 @@
                                                         <img class="c" alt="" src="https://mail.google.com/mail/images/corner_tl.gif"/>
                                                     </td>
                                                     <br>                                                    <td class="bubble" style="padding: 5px 0pt; font-family: arial; text-align: left; font-weight: bold;" rowspan="2">
-                                                        <b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="images/icon1-normal.gif" width="28" height="27" alt="icon1-normal"/>
+                                                        <b>&nbsp;&nbsp;&nbsp;
                                                         Welcome to BizPayroll </b>
                                                     </td>
                                                     <td class="bubble tr" align="right" valign="top">
@@ -106,7 +106,7 @@
                                                 <table>
                                                     <br>
                                                     
-                                                    <tr><td><img src="images/icon2-normal.gif" width="28" height="28" alt="icon2-normal"/>
+                                                    <tr><td><img src="images/icon2-normal.gif" width="20" height="20" alt="icon2-normal"/>
                                                         User:</td><td><!--<input type='text' name='j_username'>(sapient)</td></tr>-->
                 
                                                             <input type="text" name="j_username" class="small"
@@ -115,7 +115,7 @@
                                                                    required="true"
                                                            invalidMessage="Invalid Non-Space Text."></td></tr>
                                                     
-                                                    <tr><td><img src="images/icon4-normal.gif" width="28" height="27" alt="icon4-normal"/>
+                                                    <tr><td><img src="images/icon4-normal.gif" width="20" height="20" alt="icon4-normal"/>
                                                         Password:</td><td><!--<input type='password' name='j_password'> (password)</td></tr>-->
                 
                                                             <input type="password" name="j_password" class="small"
@@ -123,6 +123,10 @@
                                                                    regExp="[\w]+"
                                                                    required="true"
                                                            invalidMessage="Enter Password."></td></tr>
+                                                    <tr>
+                                                        <td>Remember me:</td>
+                                                        <td><input type="checkbox" name="_acegi_security_remember_me"/></td>
+                                                    </tr>
                                                     
                                                     <tr><tr></tr><tr></tr><td colspan='2'><p align="right"><input name="submit" value="Sign in" type="submit" ></p>
                                                         </td>
