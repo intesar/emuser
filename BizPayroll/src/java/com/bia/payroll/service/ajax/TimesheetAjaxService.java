@@ -25,7 +25,8 @@ public class TimesheetAjaxService {
     
     public TimesheetDto createTimesheet () {
         String username = AcegiUtil.getUsername();
-        Timesheet t = timesheetService.createTimesheet(username);
+       Timesheet t = timesheetService.createTimesheet(username);
+      
         TimesheetDto timesheetDto = new TimesheetDto();
         timesheetConverter.copy(t, timesheetDto);
         return timesheetDto;
@@ -57,7 +58,11 @@ public class TimesheetAjaxService {
 
     public List<TimesheetDto> getTimesheetsByStatus(String status) {
         List<TimesheetDto> timesheetDtos = new ArrayList<TimesheetDto>();
-        String username = "abc";// AcegiUtil.getUsername();
+
+        String username = AcegiUtil.getUsername();
+
+        //String username = "x90";// AcegiUtil.getUsername();
+
         PagedResult<Timesheet> pagedResult = timesheetService.getAllTimesheetsByStatus(username, status);
         List<Timesheet> timesheets = pagedResult.getResults();
         for (Timesheet timesheet : timesheets) {
@@ -141,9 +146,11 @@ public class TimesheetAjaxService {
     
    
     public static void main(String []args) {
-        String name = "abc";
-       TimesheetAjaxService tas = new TimesheetAjaxService();
-       System.out.println ( tas.getTimesheetsByStatus("saved"));
+       //String name = "x90";
+
+        //TimesheetAjaxService tas = new TimesheetAjaxService();
+      //System.out.println ( tas.getTimesheetsByStatus("saved"));
+
                 
     }
 }
