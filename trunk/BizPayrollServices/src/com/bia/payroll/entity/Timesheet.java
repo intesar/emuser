@@ -12,6 +12,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -58,13 +60,15 @@ public class Timesheet implements Serializable {
     private Date submisionDate;
     @Column(name = "status", nullable = false)
     private String status;
-    @Column(name = "paid_status", nullable = false)
-    private String paidStatus;
+    
     @Column(name = "paid_amount", nullable = false)
-    private int paidAmount;
+    private Double paidAmount;
     @Column(name = "status_date", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date statusDate;
+    @JoinColumn(name = "user", referencedColumnName = "id")
+    @ManyToOne(cascade = CascadeType.MERGE)
+    private Users user;
     @Column(name = "comment", nullable = false)
     private String comment;
     @Column(name = "last_user", nullable = false)
@@ -81,13 +85,13 @@ public class Timesheet implements Serializable {
         this.id = id;
     }
 
-    public Timesheet(Integer id, Date startDate, Date endDate, Date submisionDate, String status, String paidStatus, int paidAmount, Date statusDate, String comment, String lastUser, String lastAction) {
+    public Timesheet(Integer id, Date startDate, Date endDate, Date submisionDate, String status, String paidStatus, Double paidAmount, Date statusDate, String comment, String lastUser, String lastAction) {
         this.id = id;
         this.startDate = startDate;
         this.endDate = endDate;
         this.submisionDate = submisionDate;
         this.status = status;
-        this.paidStatus = paidStatus;
+        
         this.paidAmount = paidAmount;
         this.statusDate = statusDate;
         this.comment = comment;
@@ -135,19 +139,13 @@ public class Timesheet implements Serializable {
         this.status = status;
     }
 
-    public String getPaidStatus() {
-        return paidStatus;
-    }
+   
 
-    public void setPaidStatus(String paidStatus) {
-        this.paidStatus = paidStatus;
-    }
-
-    public int getPaidAmount() {
+    public Double getPaidAmount() {
         return paidAmount;
     }
 
-    public void setPaidAmount(int paidAmount) {
+    public void setPaidAmount(Double paidAmount) {
         this.paidAmount = paidAmount;
     }
 
@@ -159,6 +157,15 @@ public class Timesheet implements Serializable {
         this.statusDate = statusDate;
     }
 
+    public Users getUser() {
+        return user;
+    }
+
+    public void setUser(Users user) {
+        this.user = user;
+    }
+
+    
     public String getComment() {
         return comment;
     }

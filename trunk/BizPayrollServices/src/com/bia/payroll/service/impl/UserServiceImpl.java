@@ -44,10 +44,12 @@ public class UserServiceImpl implements UserService {
         Users user1 = usersDao.findByUsername(username);
         user.setOrganization(user1.getOrganization());
         boolean isAdmin = false;
-        if (user.getId() == null) {
+        if (user == null || user.getId() == null || user.getId() < 1) {
+
             List<Authorities> a = authoritiesDao.findByUsername(username);
             if (a != null && a.size() > 0) {
                 for (Authorities auth : a) {
+                    System.out.println ( " ************* " + auth.toString());
                     if (auth.getAuthority().equals("ROLE_ADMIN")) {
                         isAdmin = true;
                         usersDao.create(user);
@@ -56,33 +58,32 @@ public class UserServiceImpl implements UserService {
 
                     }
                 }
+                if (!isAdmin) {
+                    throw new RuntimeException(" You do not have Admin role to create users !");
+                }
             }
         } else {
             usersDao.update(user);
         }
 
-        if (!isAdmin) {
-            throw new RuntimeException(" You do not have Admin role to create users !");
-        }
-
-        Authorities adm = authoritiesDao.findByUsernameAndAuthority(username, "ROLE_ADMIN");
-        Authorities acc = authoritiesDao.findByUsernameAndAuthority(username, "ROLE_ACCOUNTANT");
-        if (userIsAdmin) {
-            if (adm == null) {
-                Authorities a2 = new Authorities(user.getUsername(), "ROLE_ADMIN");
-                authoritiesDao.create(a2);
-            }
-        } else {
-            authoritiesDao.deleteByUsernameAndAuthority( username, "ROLE_ADMIN");
-        }
-        if (userIsAccountant) {
-            if (acc == null) {
-                Authorities a2 = new Authorities(user.getUsername(), "ROLE_ACCOUNTANT");
-                authoritiesDao.create(a2);
-            }
-        } else {
-            authoritiesDao.deleteByUsernameAndAuthority( username, "ROLE_ACCOUNTANT");
-        }
+//        Authorities adm = authoritiesDao.findByUsernameAndAuthority(username, "ROLE_ADMIN");
+//        Authorities acc = authoritiesDao.findByUsernameAndAuthority(username, "ROLE_ACCOUNTANT");
+//        if (userIsAdmin) {
+//            if (adm == null) {
+//                Authorities a2 = new Authorities(user.getUsername(), "ROLE_ADMIN");
+//                authoritiesDao.create(a2);
+//            }
+//        } else {
+//            authoritiesDao.findAndDeleteByUsernameAndAuthority(username, "ROLE_ADMIN");
+//        }
+//        if (userIsAccountant) {
+//            if (acc == null) {
+//                Authorities a2 = new Authorities(user.getUsername(), "ROLE_ACCOUNTANT");
+//                authoritiesDao.create(a2);
+//            }
+//        } else {
+//            authoritiesDao.findAndDeleteByUsernameAndAuthority(username, "ROLE_ACCOUNTANT");
+//        }
 
     }
 
