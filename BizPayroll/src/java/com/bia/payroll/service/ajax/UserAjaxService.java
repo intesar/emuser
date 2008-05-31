@@ -141,6 +141,16 @@ public class UserAjaxService {
     public void setUserService(UserService userService) {
         this.userService = userService;
     }
+
+    public boolean isAdmin() {
+        String username = AcegiUtil.getUsername();
+        Authorities a = userService.getAuthority(username, "ROLE_ADMIN");
+        if (a == null) {
+            return false;
+        } else {
+            return true;
+        }
+    }
     private UserService userService = (UserService) ServiceFactory.getService("userServiceImpl");
     private UsersConverter usersConverter = new UsersConverter();
 
