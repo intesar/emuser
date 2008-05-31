@@ -173,13 +173,14 @@
                             <tbody >
                                 <tr>
                                     <th>Working Hours</th>
+                                    <th>Sunday</th>
                                     <th>Monday</th>
                                     <th>Tuesday</th>
                                     <th>Wednesday</th>
                                     <th>Thusday</th>
                                     <th>Friday</th>
                                     <th>Saturday</th>
-                                    <th>Sunday</th>
+                                    
                                     
                                 </tr>
                             </tbody>
@@ -187,13 +188,14 @@
                             <tbody >
                                 <tr>
                                     <td></td>
-                                    <td><input type="text" size="10" id="mondayDate"/></td>
-                                    <td><input type="text" size="10" name="tuesdayDate" value="" /> </td>
-                                    <td><input type="text" size="10" name="wednesdayDate" value="" /></td>
-                                    <td><input type="text" size="10" name="thursdayDate" value="" /></td>
-                                    <td><input type="text" size="10" name="fridayDate" value="" /></td>
-                                    <td><input type="text" size="10" name="saturdayDate" value="" /></td>
-                                    <td><input type="text" size="10" name="sundayDate" value="" /></td>
+                                    <td><input type="text" size="10" name="sundayDateString" value="" /></td>
+                                    <td><input type="text" size="10" name="mondayDateString"/></td>
+                                    <td><input type="text" size="10" name="tuesdayDateString" value="" /> </td>
+                                    <td><input type="text" size="10" name="wednesdayDateString" value="" /></td>
+                                    <td><input type="text" size="10" name="thursdayDateString" value="" /></td>
+                                    <td><input type="text" size="10" name="fridayDateString" value="" /></td>
+                                    <td><input type="text" size="10" name="saturdayDateString" value="" /></td>
+                                    
                                     
                                 </tr>
                                 <tr>
@@ -275,7 +277,7 @@
                                         id = timesheet.id;
                                         alert(timesheets.length);
                                         dwr.util.cloneNode("pattern", { idSuffix:id });
-                                        dwr.util.setValue("tableStartdate" + id, timesheet.mondayDateString);                        
+                                        dwr.util.setValue("tableStartdate" + id, timesheet.sundayDateString);                        
                                         dwr.util.setValue("tableStatus" + id, timesheet.status);
                                         $("pattern" + id).style.display = "table-row";
                                         timesheetCache[id] = timesheet;
