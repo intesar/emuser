@@ -220,6 +220,6 @@ public class Timesheet implements Serializable {
 
     @Override
     public String toString() {
-        return "com.bia.payroll.entity.TimeSheet[id=" + id + "]";
+        return "com.bia.payroll.entity.Timesheet[id=" + id + "]";
     }
 }
