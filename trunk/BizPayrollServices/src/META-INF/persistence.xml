@@ -3,8 +3,7 @@
   <persistence-unit name="BizPayrollServicesPU" transaction-type="RESOURCE_LOCAL">
     <provider>oracle.toplink.essentials.PersistenceProvider</provider>
     <class>com.bia.payroll.entity.Oraganization</class>
-    <class>com.bia.payroll.entity.Users</class>
-    <class>com.bia.payroll.entity.Timesheet</class>
+    <class>com.bia.payroll.entity.Users</class>    
     <class>com.bia.payroll.entity.TimesheetDetail</class>
     <class>com.bia.payroll.entity.Timesheet</class>
     <class>com.bia.payroll.entity.Authorities</class>
