@@ -38,7 +38,7 @@ public class TimesheetAjaxService {
         timesheetConverter.copy(timesheetDto, t);
         String username = AcegiUtil.getUsername();
         Users user = userService.getUser(username);
-        t.setUser(user);
+        //t.setUser(user);
         t.setId(null);
         t.setLastAction("create");
         t.setLastUser(username);
