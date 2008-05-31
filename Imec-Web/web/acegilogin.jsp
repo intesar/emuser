@@ -35,8 +35,7 @@
                 <tr valign="top">
                     
                     <td width="1%"> <vspace ="10"> <h1><b><i><font color="Green">IMEC&nbsp;</font></i></b></h1>
-                    <!-- <img height="53" border="0" align="left" width="175" vspace="15" alt="BizIntelapps" src="images/logo1.bmp"/> </td> -->
-                    <td bgcolor="#ffffff" width="99%" valign="top">
+                       <td bgcolor="#ffffff" width="99%" valign="top">
                         <table cellpadding="1" width="100%">
                             <tbody>
                                 <tr valign="bottom">
@@ -106,7 +105,7 @@
                                                 <table>
                                                     <br>
                                                     
-                                                    <tr><td><img src="images/icon2-normal.gif" width="20" height="20" alt="icon2-normal"/>
+                                                    <tr><td><img src="images/users.gif" width="20" height="20" alt="user"/>
                                                         User:</td><td><!--<input type='text' name='j_username'>(sapient)</td></tr>-->
                 
                                                             <input type="text" name="j_username" class="small"
@@ -115,7 +114,7 @@
                                                                    required="true"
                                                            invalidMessage="Invalid Non-Space Text."></td></tr>
                                                     
-                                                    <tr><td><img src="images/icon4-normal.gif" width="20" height="20" alt="icon4-normal"/>
+                                                    <tr><td><img src="images/pwd.gif" width="20" height="20" alt="pwd"/>
                                                         Password:</td><td><!--<input type='password' name='j_password'> (password)</td></tr>-->
                 
                                                             <input type="password" name="j_password" class="small"
@@ -157,7 +156,7 @@
         
         
         
-        <table cellspacing="0" cellpadding="3" bgcolor="#c3d9cc" vspace="15" align="center" width="95%" style="margin-bottom: 5px;">
+        <table cellspacing="0" cellpadding="3" bgcolor="#c3d9cc" vspace="35" align="center" width="95%" style="margin-bottom: 5px;">
             <tbody>
                 <tr>
                     <td class="bubble tl" align="left" valign="top">
