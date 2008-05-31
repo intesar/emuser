@@ -56,7 +56,7 @@ public class TimesheetServiceImpl implements TimesheetService {
         t.setStartDate(newStartDate);
         t.setStatus("saved");
         t.setStatusDate(new Date());
-        t.setUser(u);
+        
         c.add(Calendar.DAY_OF_MONTH, 6);
         t.setEndDate(c.getTime());
         t.setLastUser(username);

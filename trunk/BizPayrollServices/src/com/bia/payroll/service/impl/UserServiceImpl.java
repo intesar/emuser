@@ -40,6 +40,7 @@ public class UserServiceImpl implements UserService {
 
     public void addUser(String username, Users user, boolean userIsAdmin, boolean userIsAccountant) {
 
+
         Users user1 = usersDao.findByUsername(username);
         user.setOrganization(user1.getOrganization());
         boolean isAdmin = false;
