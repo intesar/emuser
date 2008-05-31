@@ -27,6 +27,9 @@ public class EmailAjaxService {
     public List<EmailsDto> getAll(String status) {
         List<Emails> emails = emailsService.getAll(null).getResults();
         List<EmailsDto> dtos = new ArrayList<EmailsDto>();
+        // String username =  AcegiUtil.getUsername();
+       // PagedResult<Emails> pagedResult = emailsService.getAll(null);
+       // List<Emails> Emails = pagedResult.getResults();
         for (Emails e : emails) {
             EmailsDto dto = new EmailsDto();
             emailsConverter.copy(e, dto);
