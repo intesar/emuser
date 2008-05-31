@@ -34,7 +34,7 @@
             <tbody>
                 <tr valign="top">
                     
-                    <td width="1%"> <vspace ="10"> <h1><b><i><font color="3399ff">BizPayroll&nbsp;</font></i></b></h1>
+                    <td width="1%"> <vspace ="10"> <h1><b><i><font color="Green">IMEC&nbsp;</font></i></b></h1>
                     <!-- <img height="53" border="0" align="left" width="175" vspace="15" alt="BizIntelapps" src="images/logo1.bmp"/> </td> -->
                     <td bgcolor="#ffffff" width="99%" valign="top">
                         <table cellpadding="1" width="100%">
@@ -46,7 +46,7 @@
                                 </tr>
                                 <tr>
                                     <td nowrap="nowrap">
-                                        <table cellspacing="0" cellpadding="0" bgcolor="#c3d9ff" align="center" width="100%" style="margin-bottom: 5px;">
+                                        <table cellspacing="0" cellpadding="0" bgcolor="#c3d9cc" align="center" width="100%" style="margin-bottom: 5px;">
                                             <tbody>
                                                 <tr>
                                                     <td class="bubble tl" align="left" valign="top">
@@ -54,7 +54,7 @@
                                                     </td>
                                                     <br>                                                    <td class="bubble" style="padding: 5px 0pt; font-family: arial; text-align: left; font-weight: bold;" rowspan="2">
                                                         <b>&nbsp;&nbsp;&nbsp;
-                                                        Welcome to BizPayroll </b>
+                                                        Welcome to Intelligent Marketing Email Client </b>
                                                     </td>
                                                     <td class="bubble tr" align="right" valign="top">
                                                         <img class="c" alt="" src="https://mail.google.com/mail/images/corner_tr.gif"/>
@@ -85,15 +85,15 @@
         
         
         
-        <table border="1" align="right" hspace="30" vspace="10">
+        <table border="1" align="right" hspace="30" vspace="10" rules="none">
             <thead>
                 <tr>
                     <th>  
-                        <table border="0" bgcolor="#e8eefa" >
+                        <table border="0" bgcolor="#e8eecc" >
                             <thead>
                                 <tr>
                                     <th><center><% if (request.getParameter("login_error") != null) {%> <h6><font color=RED > Sorry, but either the username or <br>password is incorrect.
-                                            </font></h6> <% }%><h5>Sign in to BizPayroll with your</h5><h3><b><i><font color="3399ff">BizPayroll</font></i></b>&nbsp;Account</h3><!--<img src="images/bizpayrol.bmp" width="145" height="28" align="center" alt="login_icon"<h4>Account</h4>--> 
+                                            </font></h6> <% }%><h5>Sign in to IMEC with your</h5><h3><b><i><font color="Green">IMEC</font></i></b>&nbsp;Account</h3><!--<img src="images/bizpayrol.bmp" width="145" height="28" align="center" alt="login_icon"<h4>Account</h4>--> 
                                         </center>
                                     </th>
                                 </tr>
@@ -128,21 +128,16 @@
                                                         <td><input type="checkbox" name="_acegi_security_remember_me"/></td>
                                                     </tr>
                                                     
-                                                    <tr>
-                                                        <td>Remember me:</td>
-                                                        <td><input type="checkbox" name="_acegi_security_remember_me"/></td>
-                                                    </tr>
+                                                    
                                                     
                                                     <tr><tr></tr><tr></tr><td colspan='2'><p align="right"><input name="submit" value="Sign in" type="submit" ></p>
                                                         </td>
                                                     </tr>
                                                 </table>
-                                                <a href="forgotpwd.jsp"><h5>Forget your ID or password?</h5> </a>
+                                                <a href="forgotpwd.jsp"><h5><font color="red"> Forget your ID or password?</font></h5> </a>
                                                 
                                                 
-                                                <hr>
-                                                <h5><p align="left">Not Registered Yet ?</p></h5>
-                                                <p align="right"><a href="http://localhost:8084/BizPayroll/registration.jsp">Sign Up !</a></p> 
+                                                
                                             </center>
                                             
                                     </form></td>
@@ -162,7 +157,7 @@
         
         
         
-        <table cellspacing="0" cellpadding="3" bgcolor="#c3d9ff" vspace="15" align="center" width="95%" style="margin-bottom: 5px;">
+        <table cellspacing="0" cellpadding="3" bgcolor="#c3d9cc" vspace="15" align="center" width="95%" style="margin-bottom: 5px;">
             <tbody>
                 <tr>
                     <td class="bubble tl" align="left" valign="top">
@@ -171,7 +166,7 @@
                     <td class="bubble" style="text-align: left;" rowspan="2">
                         <div align="center">
                             <font color="#666666" size="-1">
-                                © Copyrights Bizintelapps 2008 All Rights Reserved. 
+                                ï¿½ Copyrights Bizintelapps 2008 All Rights Reserved. 
                                 <a href="http://www.bizintelapps.com">BizIntelApps</a>
                                 
                             </font>
