@@ -61,7 +61,7 @@ public class TimesheetServiceImpl implements TimesheetService {
         t.setEndDate(c.getTime());
         t.setLastUser(username);
         t.setLastAction("create");
-
+        t.setUser(u);
         timesheetDao.create(t);
         //t = timesheetDao.findByStartDateAndUserId(newStartDate, u.getId());
         
