@@ -179,7 +179,7 @@
             
 
             function writeUser() {
-                var user = { id:viewed, username:null, hostname:null };
+                var user = { id:viewed, username:null, hostname:null, password:null };
                 dwr.util.getValues(user);
 
                 // dwr.engine.beginBatch();
@@ -191,7 +191,7 @@
             
             function clearUser() {
                 viewed = -1;
-                dwr.util.setValues({ id:-1, username:null, hostname:null });
+                dwr.util.setValues({ id:-1, username:null, hostname:null, password:null });
             }
             
             var reply1 = function(data)
@@ -264,10 +264,20 @@
                                             <input class='itext'type="text" name="username" value='' id='p10' />
                                     </td></tr>
                                     <tr>
-                                        <td>hostname</td>
+                                        <td>Hostname</td>
                                         <td>
                                             <input class='itext'type="text" name="hostname" value='' id='p12' />
                                         </td>
+                                    </tr>
+                                     <tr>
+                                        <td>Password</td>
+                                        <td>
+                                        <input class='itext' type="password" name="password" id='p11' /></td>
+                                    </tr>
+                                    <tr>
+                                        <td> Confirm Password</td>
+                                        <td>
+                                        <input class='itext' type="password" name="confirmpassword"   id='p14' /></td>
                                     </tr>
                                     <tr>
                                         <td></td>
@@ -279,6 +289,18 @@
                                        
                                                 var hostname  = '"' + $("p12").value + '"';
                                                 hostname = objectEval(hostname);
+                             
+                                                var password  = '"' + $("p11").value + '"';
+                                                password = objectEval(password);
+                            
+                                                var confirmPassword  = '"' + $("p14").value  + '"';
+                                                confirmPassword = objectEval(confirmPassword);
+                                                alert("here");              
+                                                if ( password == confirmPassword )  {
+                                                    JUserAjaxService.addUser(username, firstname, lastname, password, reply1);
+                                                } else {
+                                                    alert ( " Password & Confirm Password Do Not match !");
+                                                }
                             
                                                 
                             
