@@ -45,7 +45,7 @@ public class TimeSheet implements Serializable {
     @Column(name = "paid_status", nullable = false)
     private String paidStatus;
     @Column(name = "paid_amount", nullable = false)
-    private int paidAmount;
+    private Double paidAmount;
     @Column(name = "status_date", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date statusDate;
@@ -65,7 +65,7 @@ public class TimeSheet implements Serializable {
         this.id = id;
     }
 
-    public TimeSheet(Integer id, Date startDate, Date endDate, Date submisionDate, String status, String paidStatus, int paidAmount, Date statusDate, String comment, String lastUser, String lastAction) {
+    public TimeSheet(Integer id, Date startDate, Date endDate, Date submisionDate, String status, String paidStatus, Double paidAmount, Date statusDate, String comment, String lastUser, String lastAction) {
         this.id = id;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -127,11 +127,11 @@ public class TimeSheet implements Serializable {
         this.paidStatus = paidStatus;
     }
 
-    public int getPaidAmount() {
+    public Double getPaidAmount() {
         return paidAmount;
     }
 
-    public void setPaidAmount(int paidAmount) {
+    public void setPaidAmount(Double paidAmount) {
         this.paidAmount = paidAmount;
     }
 
