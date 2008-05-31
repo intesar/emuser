@@ -34,7 +34,10 @@
             <tbody>
                 <tr valign="top">
                     
-                    <td width="1%"> <vspace ="10"> <h1><b><i><font color="Green">IMEC&nbsp;</font></i></b></h1>
+                    <td width="1%">
+                        
+                        <img height="45" border="0" align="left" width="175" vspace="15" alt="Imec" src="images/imec.gif"/>
+                        <!-- <h1><b><i><font color="Green">IMEC&nbsp;</font></i></b></h1>-->
                        <td bgcolor="#ffffff" width="99%" valign="top">
                         <table cellpadding="1" width="100%">
                             <tbody>
@@ -156,7 +159,7 @@
         
         
         
-        <table cellspacing="0" cellpadding="3" bgcolor="#c3d9cc" vspace="35" align="center" width="95%" style="margin-bottom: 5px;">
+        <table cellspacing="0" cellpadding="3" bgcolor="#c3d9cc" vspace="50" align="center" width="95%" height="30" style="margin-bottom: 5px;">
             <tbody>
                 <tr>
                     <td class="bubble tl" align="left" valign="top">
@@ -165,7 +168,7 @@
                     <td class="bubble" style="text-align: left;" rowspan="2">
                         <div align="center">
                             <font color="#666666" size="-1">
-                                ï¿½ Copyrights Bizintelapps 2008 All Rights Reserved. 
+                                © Copyrights Bizintelapps 2008 All Rights Reserved. 
                                 <a href="http://www.bizintelapps.com">BizIntelApps</a>
                                 
                             </font>

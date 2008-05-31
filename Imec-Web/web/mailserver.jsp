@@ -75,7 +75,7 @@
                 <tr valign="top">
                     <td width="1%">
                         
-                        <img height="45" border="0" align="left" width="175" vspace="15" alt="Imec" src="images/imec.bmp"/>
+                        <img height="45" border="0" align="left" width="175" vspace="15" alt="Imec" src="images/imec.gif"/>
                     </td>
                     <td bgcolor="#ffffff" width="99%" valign="top">
                         <table cellpadding="1" width="100%">
@@ -325,7 +325,7 @@
     
     <br><br><br><br><br>
     
-    <table cellspacing="0" cellpadding="3" bgcolor="#c3d9cc" align="center" width="95%" style="margin-bottom: 5px;">
+    <table cellspacing="0" cellpadding="3" bgcolor="#c3d9cc" align="center" width="95%" height="30"  style="margin-bottom: 5px;">
         <tbody>
             <tr>
                 <td class="bubble tl" align="left" valign="top">
