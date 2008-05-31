@@ -85,7 +85,7 @@
         
         
         
-        <table border="1" align="right" hspace="30" vspace="10">
+        <table border="1" align="right" hspace="30" vspace="10" rules="none">
             <thead>
                 <tr>
                     <th>  
@@ -123,11 +123,7 @@
                                                                    regExp="[\w]+"
                                                                    required="true"
                                                            invalidMessage="Enter Password."></td></tr>
-                                                    <tr>
-                                                        <td>Remember me:</td>
-                                                        <td><input type="checkbox" name="_acegi_security_remember_me"/></td>
-                                                    </tr>
-                                                    
+                                                    <tr><td></td></tr>   <tr><td></td></tr>
                                                     <tr>
                                                         <td>Remember me:</td>
                                                         <td><input type="checkbox" name="_acegi_security_remember_me"/></td>
@@ -160,7 +156,7 @@
             </tbody>
         </table>
         
-        
+        <br><br><br>
         
         <table cellspacing="0" cellpadding="3" bgcolor="#c3d9ff" vspace="15" align="center" width="95%" style="margin-bottom: 5px;">
             <tbody>
