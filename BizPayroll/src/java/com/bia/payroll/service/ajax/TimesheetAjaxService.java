@@ -25,12 +25,12 @@ public class TimesheetAjaxService {
     
     public void createTimesheet () {
         String username = AcegiUtil.getUsername();
-//       Timesheet t =
-               timesheetService.createTimesheet(username);
+     //Timesheet t =
+             timesheetService.createTimesheet(username);
       
-//        TimesheetDto timesheetDto = new TimesheetDto();
-//        timesheetConverter.copy(t, timesheetDto);
-//        return timesheetDto;
+     // TimesheetDto timesheetDto = new TimesheetDto();
+      //   timesheetConverter.copy(t, timesheetDto);
+    //  return timesheetDto;
     }
 
     public String createTimesheet(TimesheetDto timesheetDto) {
@@ -38,13 +38,13 @@ public class TimesheetAjaxService {
         timesheetConverter.copy(timesheetDto, t);
         String username = AcegiUtil.getUsername();
         Users user = userService.getUser(username);
-        //t.setUser(user);
+        t.setUser(user);
         t.setId(null);
         t.setLastAction("create");
         t.setLastUser(username);
         Date statusDate = new Date();
         t.setStatusDate(statusDate);
-        if (t.getStatus().equalsIgnoreCase("submitted")) {
+        if (t.getStatus().equalsIgnoreCase("saved")) {
             Date submisionDate = new Date();
             t.setSubmisionDate(submisionDate);
         }
