@@ -5,7 +5,6 @@
 package com.bia.payroll.entity;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.CascadeType;
@@ -13,8 +12,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -61,8 +58,10 @@ public class Timesheet implements Serializable {
     private Date submisionDate;
     @Column(name = "status", nullable = false)
     private String status;
+    @Column(name = "paid_status", nullable = false)
+    private String paidStatus;
     @Column(name = "paid_amount", nullable = false)
-    private Double paidAmount;
+    private int paidAmount;
     @Column(name = "status_date", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date statusDate;
@@ -73,10 +72,7 @@ public class Timesheet implements Serializable {
     @Column(name = "last_action", nullable = false)
     private String lastAction;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "timesheet", fetch=FetchType.EAGER)
-    private Collection<TimesheetDetail> timesheetDetailCollection = new ArrayList<TimesheetDetail>();
-    @JoinColumn(name = "user", referencedColumnName = "id")
-    @ManyToOne
-    private Users user;
+    private Collection<TimesheetDetail> timesheetDetailCollection;
 
     public Timesheet() {
     }
@@ -85,12 +81,13 @@ public class Timesheet implements Serializable {
         this.id = id;
     }
 
-    public Timesheet(Integer id, Date startDate, Date endDate, Date submisionDate, String status, Double paidAmount, Date statusDate, String comment, String lastUser, String lastAction) {
+    public Timesheet(Integer id, Date startDate, Date endDate, Date submisionDate, String status, String paidStatus, int paidAmount, Date statusDate, String comment, String lastUser, String lastAction) {
         this.id = id;
         this.startDate = startDate;
         this.endDate = endDate;
         this.submisionDate = submisionDate;
         this.status = status;
+        this.paidStatus = paidStatus;
         this.paidAmount = paidAmount;
         this.statusDate = statusDate;
         this.comment = comment;
@@ -138,11 +135,19 @@ public class Timesheet implements Serializable {
         this.status = status;
     }
 
-    public Double getPaidAmount() {
+    public String getPaidStatus() {
+        return paidStatus;
+    }
+
+    public void setPaidStatus(String paidStatus) {
+        this.paidStatus = paidStatus;
+    }
+
+    public int getPaidAmount() {
         return paidAmount;
     }
 
-    public void setPaidAmount(Double paidAmount) {
+    public void setPaidAmount(int paidAmount) {
         this.paidAmount = paidAmount;
     }
 
@@ -186,14 +191,6 @@ public class Timesheet implements Serializable {
         this.timesheetDetailCollection = timesheetDetailCollection;
     }
 
-    public Users getUser() {
-        return user;
-    }
-
-    public void setUser(Users user) {
-        this.user = user;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -216,6 +213,6 @@ public class Timesheet implements Serializable {
 
     @Override
     public String toString() {
-        return "com.bia.payroll.entity.Timesheet[id=" + id + "]";
+        return "com.bia.payroll.entity.TimeSheet[id=" + id + "]";
     }
 }
