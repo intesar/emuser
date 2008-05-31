@@ -19,6 +19,6 @@ public interface AuthoritiesDao extends GenericDao<Authorities, Integer> {
     
     public Authorities findByUsernameAndAuthority ( String username, String authority );
     
-    public void deleteByUsernameAndAuthority (String username, String authority );
+    public void findAndDeleteByUsernameAndAuthority (String username, String authority );
     
 }

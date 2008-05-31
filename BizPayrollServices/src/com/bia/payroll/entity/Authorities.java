@@ -23,8 +23,8 @@ import javax.persistence.Table;
     @NamedQuery(name = "Authorities.findByUsername", query = "SELECT a FROM Authorities a WHERE a.username = ?1 "), 
     @NamedQuery(name = "Authorities.findByAuthority", query = "SELECT a FROM Authorities a WHERE a.authority = :authority"), 
     @NamedQuery(name = "Authorities.findById", query = "SELECT a FROM Authorities a WHERE a.id = :id"),
-    @NamedQuery(name = "Users.findByUsernameAndAuthority", query = "SELECT a FROM Authorities a WHERE a.username = ?1 and a.authority = ?2 "),
-    @NamedQuery(name = "Users.deleteByUsernameAndAuthority", query = " delete from Authorities a where a.username = ?1 and a.authority = ?2 ")
+    @NamedQuery(name = "Authorities.findByUsernameAndAuthority", query = "SELECT a FROM Authorities a WHERE a.username = ?1 and a.authority = ?2 "),
+    @NamedQuery(name = "Authorities.findAndDeleteByUsernameAndAuthority", query = " delete from Authorities a where a.username = ?1 and a.authority = ?2 ")
 })
 public class Authorities implements Serializable {
     private static final long serialVersionUID = 1L;
