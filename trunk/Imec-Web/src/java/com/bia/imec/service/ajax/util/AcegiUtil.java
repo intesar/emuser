@@ -9,6 +9,17 @@ package com.bia.imec.service.ajax.util;
  * and open the template in the editor.
  */
 
+
+
+
+
+
+
+
+
+
+import org.acegisecurity.context.SecurityContextHolder;
+
 /**
  *
  * @author intesar.mohammed
@@ -19,7 +30,7 @@ public class AcegiUtil {
      *  returns logged in user
      */
     public static final String getUsername() {
-        return null;
+       return SecurityContextHolder.getContext().getAuthentication().getName();
     }
 }
 
