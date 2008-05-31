@@ -76,7 +76,7 @@
                 <tr valign="top">
                     <td width="1%">
                         
-                        <img height="45" border="0" align="left" width="175" vspace="20" alt="Imec" src="images/imec.bmp"/>
+                        <img height="45" border="0" align="left" width="175" vspace="15" alt="Imec" src="images/imec.gif"/>
                     </td>
                     <td bgcolor="#ffffff" width="99%" valign="top">
                         <table cellpadding="1" width="100%">
@@ -88,21 +88,23 @@
                                 </tr>
                                 <tr>
                                     <td nowrap="nowrap">
-                                        <table cellspacing="0" cellpadding="0" bgcolor="#c3d9cc" align="center" width="100%" style="margin-bottom: 5px;">
+                                        <table cellspacing="0" cellpadding="0" bgcolor="#c3d9cc" align="center" height="40" width="100%" style="margin-bottom: 5px;">
                                             <tbody>
                                                 <tr>
                                                     <td class="bubble tl" align="left" valign="top">
                                                         <img class="c" alt="" src="https://mail.google.com/mail/images/corner_tl.gif"/>
                                                     </td>
                                                     <br>                                                     <td class="bubble" style="padding: 5px 0pt; font-family: arial; text-align: left; font-weight: bold;" rowspan="2">
-                                                        <b>&nbsp;&nbsp;<img src="images/mark.gif" width="23" height="23" alt="icon2-normal"/>
+                                                        <b>&nbsp;&nbsp;
                                                         Forgot Password </b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                         
-                                                        <a href="acegilogin.jsp">logout</a>
+                                                        <a href="acegilogin.jsp"><font color="red" size="3">Sign in</font></a>
                                                         
                                                     </td>
                                                     <td class="bubble tr" align="right" valign="top">
@@ -129,19 +131,19 @@
         </table>
         
         
-        
+        <br><br><br><br><br><br>
         
         
         <center>
-            <p><h3>I Cannot access My Account </h3></p>
-            <table border="1">
+            <p><h2>I Cannot access My Account </h2></p>
+            <table border="1" rules="none">
                 <thead>
                 </thead>
                 <tbody class="tundra">
                     <tr>
-                        <td>User Email</td>
+                        <td>&nbsp;&nbsp;User Email&nbsp;&nbsp;</td>
                         <td>
-                            <input class='itext' type='text' size='10' value='' id='useremail' /> 
+                            <input class='itext' type='text' size='30' value='' id='useremail' /> 
                             
                             
                             
@@ -151,12 +153,12 @@
                     <tr>
                         
                         <tr></tr><td></td>
-                        <td>&nbsp;&nbsp;&nbsp;
-                            <input class='ibutton' type='button' onclick='JUserAjaxService.emailPassword(objectEval($("useremail").value), reply2);' value='Submit'/>
+                        <td>
                             
-                            
+                          
+                            <input class='ibutton' type='button' onclick='JUserAjaxService.emailPassword(objectEval($("useremail").value), reply2);' value='Submit' size="25"/>  
                         </td>                        
-                    </tr><tr></tr><tr></tr><tr></tr><tr></tr>
+                  
                     
                 </tbody>
             </table>
@@ -168,7 +170,7 @@
         
         <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
         
-        <table cellspacing="0" cellpadding="3" bgcolor="#c3d9cc" align="center" width="95%" style="margin-bottom: 5px;">
+        <table cellspacing="0" cellpadding="3" bgcolor="#c3d9cc" align="center" width="95%" height="30" style="margin-bottom: 5px;">
             <tbody>
                 <tr>
                     <td class="bubble tl" align="left" valign="top">

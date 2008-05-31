@@ -99,6 +99,69 @@
     </head>
     
     <body class="tundra">
+         <table cellspacing="0" cellpadding="0" border="0" align="center" width="95%">
+            
+            <tbody>
+                <tr valign="top">
+                    
+                    <td width="1%">
+                        
+                        <img height="45" border="0" align="left" width="175" vspace="15" alt="Imec" src="images/imec.gif"/>
+                        <!-- <h1><b><i><font color="Green">IMEC&nbsp;</font></i></b></h1>-->
+                       <td bgcolor="#ffffff" width="99%" valign="top">
+                        <table cellpadding="1" width="100%">
+                            <tbody>
+                                <tr valign="bottom">
+                                    <td>
+                                        <div align="right"> </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td nowrap="nowrap">
+                                        <table cellspacing="0" cellpadding="0" bgcolor="#c3d9cc" align="center" width="100%"  height="40" style="margin-bottom: 5px;">
+                                            <tbody>
+                                                <tr>
+                                                    <td class="bubble tl" align="left" valign="top">
+                                                        <img class="c" alt="" src="https://mail.google.com/mail/images/corner_tl.gif"/>
+                                                    </td>
+                                                    <br>                                                    <td class="bubble" style="padding: 5px 0pt; font-family: arial; text-align: left; font-weight: bold;" rowspan="2">
+                                                        <b>&nbsp;&nbsp;&nbsp;
+                                                        Welcome to Intelligent Marketing Email Client </b>
+                                                        
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        
+                                                        <a href="acegilogin.jsp"><font color="red" size="3">Sign in</font></a>
+                                                    </td>
+                                                    <td class="bubble tr" align="right" valign="top">
+                                                        <img class="c" alt="" src="https://mail.google.com/mail/images/corner_tr.gif"/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="bubble bl" align="left" valign="bottom">
+                                                        <img class="c" alt="" src="https://mail.google.com/mail/images/corner_bl.gif"/>
+                                                    </td>
+                                                    <td class="bubble br" align="right" valign="bottom">
+                                                        <img class="c" alt="" src="https://mail.google.com/mail/images/corner_br.gif"/>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        
+        
          <form method="post">
         <center><table border="0" >
                 
@@ -162,6 +225,36 @@
         
        
         </form>
+       
+          <table cellspacing="0" cellpadding="3" bgcolor="#c3d9cc" align="center" width="95%" height="30"  style="margin-bottom: 5px;">
+        <tbody>
+            <tr>
+                <td class="bubble tl" align="left" valign="top">
+                    <img class="c" alt="" src="https://mail.google.com/mail/images/corner_tl.gif"/>
+                </td>
+                <td class="bubble" style="text-align: left;" rowspan="2">
+                    <div align="center">
+                        <font color="#666666" size="-1">
+                            © Copyrights Bizintelapps 2008 All Rights Reserved. 
+                            <a href="http://www.bizintelapps.com">BizIntelApps</a>
+                            
+                        </font>
+                    </div>
+                </td>
+                <td class="bubble tr" align="right" valign="top">
+                    <img class="c" alt="" src="https://mail.google.com/mail/images/corner_tr.gif"/>
+                </td>
+            </tr>
+            <tr>
+                <td class="bubble bl" align="left" valign="bottom">
+                    <img class="c" alt="" src="https://mail.google.com/mail/images/corner_bl.gif"/>
+                </td>
+                <td class="bubble br" align="right" valign="bottom">
+                    <img class="c" alt="" src="https://mail.google.com/mail/images/corner_br.gif"/>
+                </td>
+            </tr>
+        </tbody>
+    </table>
        
     </body>
 </html>

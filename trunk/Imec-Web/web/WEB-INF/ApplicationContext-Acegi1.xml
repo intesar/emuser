@@ -85,6 +85,7 @@ http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
                 /registration.jsp*=ROLE_ANONYMOUS,ROLE_USER,ROLE_ADMIN
                 /users.jsp*=ROLE_USER,ROLE_ADMIN
                 /dwr*=ROLE_USER,ROLE_ADMIN
+                /index.jsp*=ROLE_USER,ROLE_ADMIN
             </value>
         </property>
     </bean>
@@ -135,7 +136,7 @@ http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
             <value>root</value>
         </property>
         <property name="password">
-            <value>apple123</value>
+            <value>imran123</value>
         </property>
     </bean>
     
