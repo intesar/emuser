@@ -70,49 +70,50 @@ public class TimesheetServiceImpl implements TimesheetService {
         // create seven days timesheet detail objects 
         TimesheetDetail td1 = new TimesheetDetail(null, newStartDate, 0, 0, "sun", username, "create");
         td1.setTimesheet(t);
-        //t.getTimesheetDetailCollection().add(td1);
+        t.getTimesheetDetailCollection().add(td1);
         
         Calendar c1 = new GregorianCalendar();
         c1.setTime(newStartDate);
         c1.add(Calendar.DAY_OF_MONTH, 1);
         TimesheetDetail td2 = new TimesheetDetail(null, c1.getTime(), 0, 0, "mon", username, "create");
         td2.setTimesheet(t);
-        //t.getTimesheetDetailCollection().add(td2);
+        t.getTimesheetDetailCollection().add(td2);
         
         c1.add(Calendar.DAY_OF_MONTH, 1);
         TimesheetDetail td3 = new TimesheetDetail(null, c1.getTime(), 0, 0, "tue", username, "create");
         td3.setTimesheet(t);
-        //t.getTimesheetDetailCollection().add(td3);
+        t.getTimesheetDetailCollection().add(td3);
         
         c1.add(Calendar.DAY_OF_MONTH, 1);
         TimesheetDetail td4 = new TimesheetDetail(null, c1.getTime(), 0, 0, "wed", username, "create");
         td4.setTimesheet(t);
-        //t.getTimesheetDetailCollection().add(td4);
+        t.getTimesheetDetailCollection().add(td4);
         
         c1.add(Calendar.DAY_OF_MONTH, 1);
         TimesheetDetail td5 = new TimesheetDetail(null, c1.getTime(), 0, 0, "thu", username, "create");
         td5.setTimesheet(t);
-        //t.getTimesheetDetailCollection().add(td5);
+        t.getTimesheetDetailCollection().add(td5);
         
         c1.add(Calendar.DAY_OF_MONTH, 1);
         TimesheetDetail td6 = new TimesheetDetail(null, c1.getTime(), 0, 0, "fri", username, "create");
         td6.setTimesheet(t);
-        //t.getTimesheetDetailCollection().add(td6);
+        t.getTimesheetDetailCollection().add(td6);
         
         c1.add(Calendar.DAY_OF_MONTH, 1);
         TimesheetDetail td7 = new TimesheetDetail(null, c1.getTime(), 0, 0, "sat", username, "create");
         td7.setTimesheet(t);
-        //t.getTimesheetDetailCollection().add(td7);
+        t.getTimesheetDetailCollection().add(td7);
         
-        
-        timesheetDetailDao.create(td1);
-        timesheetDetailDao.create(td2);
-        timesheetDetailDao.create(td3);
-        timesheetDetailDao.create(td4);
-        timesheetDetailDao.create(td5);
-        timesheetDetailDao.create(td6);
-        timesheetDetailDao.create(td7);
-        
+        timesheetDao.update(t);
+//        
+//        timesheetDetailDao.create(td1);
+//        timesheetDetailDao.create(td2);
+//        timesheetDetailDao.create(td3);
+//        timesheetDetailDao.create(td4);
+//        timesheetDetailDao.create(td5);
+//        timesheetDetailDao.create(td6);
+//        timesheetDetailDao.create(td7);
+//        
 //        t.getTimesheetDetailCollection();
 //        
 //        return t;
@@ -147,11 +148,18 @@ public class TimesheetServiceImpl implements TimesheetService {
             }
         }
 
+        PagedResult<Timesheet> pr = null;
+        
         if (isAdmin || isAccountant) {
-            return timesheetDao.findByStatus(status);
+            pr = timesheetDao.findByStatus(status);            
         } else {
-            return timesheetDao.findByUserIdAndStatus(user.getId(), status);
+            pr = timesheetDao.findByUserIdAndStatus(user.getId(), status);
         }
+        
+        for ( Timesheet t : pr.getResults() ) {
+            t.getTimesheetDetailCollection();
+        }
+        return pr;
     }
 
     public PagedResult<Timesheet> getAllMyTimesheetsByStatus(String username, String status) {
