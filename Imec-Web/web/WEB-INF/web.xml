@@ -5,10 +5,8 @@
             30
         </session-timeout>
     </session-config>
-    
     <servlet>
         <servlet-name>dwr-invoker</servlet-name>
-       
         <servlet-class>org.directwebremoting.servlet.DwrServlet</servlet-class>
         <init-param>
             <param-name>debug</param-name>
@@ -19,6 +17,7 @@
         <servlet-name>dwr-invoker</servlet-name>
         <url-pattern>/dwr/*</url-pattern>
     </servlet-mapping>
+   
     
      <!-- 1. Setup two parameters:          -->
     <!--    a) Acegi's configuration file  -->
@@ -65,5 +64,4 @@
         <listener-class>org.acegisecurity.ui.session.HttpSessionEventPublisher</listener-class>
     </listener>
      -->
-    
 </web-app>
