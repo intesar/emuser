@@ -5,6 +5,7 @@
 package com.bia.payroll.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.CascadeType;
@@ -76,7 +77,7 @@ public class Timesheet implements Serializable {
     @Column(name = "last_action", nullable = false)
     private String lastAction;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "timesheet", fetch=FetchType.EAGER)
-    private Collection<TimesheetDetail> timesheetDetailCollection;
+    private Collection<TimesheetDetail> timesheetDetailCollection = new ArrayList<TimesheetDetail>();
 
     public Timesheet() {
     }
