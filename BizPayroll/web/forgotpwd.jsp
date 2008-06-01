@@ -23,6 +23,11 @@
         </script>
         
         
+        <script type='text/javascript' src='/BizPayroll/dwr/interface/JUserAjaxService.js'></script>
+        <script type='text/javascript' src='/BizPayroll/dwr/engine.js'></script>
+        <script type='text/javascript' src='/BizPayroll/dwr/util.js'></script>
+
+        
         
 
 
@@ -65,9 +70,11 @@
                                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                         
-                                                        <a href="acegilogin.jsp">logout</a>
+                                                        <a href="acegilogin.jsp"><font color="red" size="3">Sign in</font></a>
                                                         
                                                     </td>
                                                     <td class="bubble tr" align="right" valign="top">
@@ -95,27 +102,28 @@
         
         
         
-        
+        <br><br><br><br><br><br>
         
         <center>
             <p><h3>I Cannot access My Account </h3></p>
-            <table border="1">
+            <table border="1" rules="none">
                 <thead>
                 </thead>
                 <tbody class="tundra">
                     <tr>
-                        <td>User Email</td>
-                        <td><input class='itext' type="text" name="username" class="small" value='' 
-                                       dojoType="dijit.form.ValidationTextBox"
-                                       regExp="[\w]+"
-                                       required="true"
-                                   invalidMessage="Enter Proper Email address Example:abc@domain.com"><!--<input type="text" name="" value="" />--> </td>
+                        <td>&nbsp;&nbsp;User Email&nbsp;&nbsp;</td>
+                        <td>
+                            
+                            <input class='itext' type='text' size='35' value='' id='useremail' /> 
+                            
+                            </td>
                     </tr>
                     
                     <tr>
                         
                         <tr></tr><td></td>
-                        <td>&nbsp;&nbsp;&nbsp;<input type="submit" value="Submit" name="Submit" /></td>                        
+                        <td>&nbsp;&nbsp;&nbsp;<input class='ibutton' type='button' onclick='JUserAjaxService.emailPassword(objectEval($("useremail").value), reply2);' value='Submit' size="25"/>  
+                        </td>                        
                     </tr><tr></tr><tr></tr><tr></tr><tr></tr>
                     
                 </tbody>
@@ -126,7 +134,7 @@
         
         
         
-        <br><br><br>
+       <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
         
         <table cellspacing="0" cellpadding="3" bgcolor="#c3d9ff" align="center" width="95%" style="margin-bottom: 5px;">
             <tbody>
