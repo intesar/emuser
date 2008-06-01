@@ -10,6 +10,8 @@ import com.bia.imec.dao.UsersDao;
 import com.bia.imec.entity.User;
 import com.bia.imec.services.EMailService;
 import com.bia.imec.services.UserService;
+import java.util.ArrayList;
+import java.util.List;
 import org.springframework.mail.MailException;
 
 /**
@@ -18,16 +20,32 @@ import org.springframework.mail.MailException;
  */
 public class UserServiceImpl implements UserService {
 
-    public PagedResult<User> getAll(PagingParams pagingParams) {
-        return usersDao.readAll(pagingParams);
+    public PagedResult<User> getAll(String username, PagingParams pagingParams) {
+        User u = usersDao.findByUsersname(username);
+        if (u.getIsadmin() == 1) {
+            return usersDao.readAll(pagingParams);
+        } else {
+            PagedResult<User> pr = new PagedResult<User>();
+            List<User> list = new ArrayList<User>();
+            list.add(u);
+            pr.setResults(list);
+            return pr;
+        }
+
     }
 
-    public void createUser(User users) {
-        usersDao.create(users);
-    }
+    public void createUser(String username, User users) {
+        User u = usersDao.findByUsersname(username);
 
-    public void updateUser(User users) {
-        usersDao.update(users);
+        if (users != null && users.getId() == null) {
+            if (u.getIsadmin() == 0) {
+                throw new RuntimeException(" Not an Admin to create User");
+            }
+            usersDao.create(users);
+        } else {
+            System.out.println ( " $$$$$$$$$ ");
+            usersDao.update(users);
+        }
     }
 
     public void mailPassword(String username) {
