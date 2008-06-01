@@ -192,13 +192,13 @@
                             <tbody >
                                 <tr>
                                     <td></td>
-                                    <td><input type="text" size="14" name="sundayDateString" value="" /></td>
-                                    <td><input type="text" size="14" name="mondayDateString"/></td>
-                                    <td><input type="text" size="14" name="tuesdayDateString" value="" /> </td>
-                                    <td><input type="text" size="14" name="wednesdayDateString" value="" /></td>
-                                    <td><input type="text" size="14" name="thursdayDateString" value="" /></td>
-                                    <td><input type="text" size="14" name="fridayDateString" value="" /></td>
-                                    <td><input type="text" size="14" name="saturdayDateString" value="" /></td>
+                                    <td> <span name="sundayDateString"></span></td>
+                                    <td><span name="mondayDateString"></span></td>
+                                    <td><span name="tuesdayDateString"></span> </td>
+                                    <td><span name="wednesdayDateString"></span></td>
+                                    <td><span name="thursdayDateString"></span></td>
+                                    <td><span name="fridayDateString"></span></td>
+                                    <td><span name="saturdayDateString"></span></td>
                                     
                                     
                                 </tr>
