@@ -123,10 +123,22 @@
             <thead>
                 <tr>
                     <th> 
-                        <br>
-                        <br>
+                        <table hspace="35"><tr>
+                             <th>
+                                 <select name="Status Filter">
+                                        <option>Select</option>
+                                        <option>Saved</option>
+                                        <option>Submit</option>
+                                        <option>Approved</option>
+                                        <option>Rejected</option>
+                                        <option>Paid</option>
+                                </select>
+                                </th>
+                                <br>
+                                    
+                        </tr></table>
                         
-                        <table align="left" hspace="40" border="1" id="timesheetTable">
+                        <table align="left" hspace="40" border="1" id="timesheetTable" rules="null">
                             <thead>
                                 <th>&nbsp;DATE&nbsp;</th>
                                 <th>&nbsp;STATUS&nbsp;</th>
@@ -134,15 +146,7 @@
                                 <th></th>
                                 <th></th>
                                 <th></th>
-                                <th>
-                                    <select name="Status Filter">
-                                        <option>Select</option>
-                                        <option>Saved</option>
-                                        <option>Submit</option>
-                                        <option>Approved</option>
-                                        <option>Rejected</option>
-                                        <option>Paid</option>
-                                </select></th>
+                               
                             </thead> 
                             
                             
@@ -166,7 +170,7 @@
                     
                     <th>
                         
-                        <table hspace="80" border="1" cellpadding="5" align="right">
+                        <table hspace="20" border="1" cellpadding="5" align="right">
                             
                             <br>
                             <br> 
@@ -188,35 +192,37 @@
                             <tbody >
                                 <tr>
                                     <td></td>
-                                    <td><input type="text" size="10" name="sundayDateString" value="" /></td>
-                                    <td><input type="text" size="10" name="mondayDateString"/></td>
-                                    <td><input type="text" size="10" name="tuesdayDateString" value="" /> </td>
-                                    <td><input type="text" size="10" name="wednesdayDateString" value="" /></td>
-                                    <td><input type="text" size="10" name="thursdayDateString" value="" /></td>
-                                    <td><input type="text" size="10" name="fridayDateString" value="" /></td>
-                                    <td><input type="text" size="10" name="saturdayDateString" value="" /></td>
+                                    <td><input type="text" size="14" name="sundayDateString" value="" /></td>
+                                    <td><input type="text" size="14" name="mondayDateString"/></td>
+                                    <td><input type="text" size="14" name="tuesdayDateString" value="" /> </td>
+                                    <td><input type="text" size="14" name="wednesdayDateString" value="" /></td>
+                                    <td><input type="text" size="14" name="thursdayDateString" value="" /></td>
+                                    <td><input type="text" size="14" name="fridayDateString" value="" /></td>
+                                    <td><input type="text" size="14" name="saturdayDateString" value="" /></td>
                                     
                                     
                                 </tr>
                                 <tr>
                                     <td>Regular Hours</td>
-                                    <td><input type="text" size="10" name="mondayRegularHours" value="" /></td>
-                                    <td><input type="text" size="10" name="tuesdayRegularHours" value="" /></td>
-                                    <td><input type="text" size="10" name="wednesdayRegularHours" value="" /></td>
-                                    <td><input type="text" size="10" name="thursdayRegularHours" value="" /></td>
-                                    <td><input type="text" size="10" name="fridayRegularHours" value="" /></td>
-                                    <td><input type="text" size="10" name="saturdayRegularHours" value="" /></td>
-                                    <td><input type="text" size="10" name="sundayRegularHours" value="" /></td>
+                                     <td><input type="text" size="14" name="sundayRegularHours" value="" /></td>
+                                    <td><input type="text" size="14" name="mondayRegularHours" value="" /></td>
+                                    <td><input type="text" size="14" name="tuesdayRegularHours" value="" /></td>
+                                    <td><input type="text" size="14" name="wednesdayRegularHours" value="" /></td>
+                                    <td><input type="text" size="14" name="thursdayRegularHours" value="" /></td>
+                                    <td><input type="text" size="14" name="fridayRegularHours" value="" /></td>
+                                    <td><input type="text" size="14" name="saturdayRegularHours" value="" /></td>
+                                   
                                 </tr>
                                 <tr>
                                     <td>OverTime Hours</td>
-                                    <td><input type="text" size="10" name="mondayOverTimeHours" value="" /></td>
-                                    <td><input type="text" size="10" name="tuesdayOverTimeHours" value="" /></td>
-                                    <td><input type="text" size="10" name="wednesdayOverTimeHours" value="" /></td>
-                                    <td><input type="text" size="10" name="thursdayOverTimeHours" value="" /></td>
-                                    <td><input type="text" size="10" name="fridayOverTimeHours" value="" /></td>
-                                    <td><input type="text" size="10" name="saturdayOverTimeHours" value="" /></td>
-                                    <td><input type="text" size="10" name="sundayOverTimeHours" value="" /></td>
+                                    <td><input type="text" size="14" name="sundayOverTimeHours" value="" /></td>
+                                    <td><input type="text" size="14" name="mondayOverTimeHours" value="" /></td>
+                                    <td><input type="text" size="14" name="tuesdayOverTimeHours" value="" /></td>
+                                    <td><input type="text" size="14" name="wednesdayOverTimeHours" value="" /></td>
+                                    <td><input type="text" size="14" name="thursdayOverTimeHours" value="" /></td>
+                                    <td><input type="text" size="14" name="fridayOverTimeHours" value="" /></td>
+                                    <td><input type="text" size="14" name="saturdayOverTimeHours" value="" /></td>
+                                    
                                 </tr>
                             </tbody>
                         </table>
@@ -228,6 +234,15 @@
                             </button>
                             <button dojoType="dijit.form.Button" onclick="updateTimesheet();">
                                 Submit
+                            </button>
+                            <button dojoType="dijit.form.Button" onclick="updateTimesheet();">
+                                Approved
+                            </button>
+                            <button dojoType="dijit.form.Button" onclick="updateTimesheet();">
+                                Reject
+                            </button>
+                            <button dojoType="dijit.form.Button" onclick="updateTimesheet();">
+                                Paid
                             </button>
                             <button dojoType="dijit.form.Button" onclick="JTimesheetAjaxService.createTimesheet(reply0);">
                                 Create TimeSheet
@@ -275,7 +290,7 @@
                                     for (var i = 0; i < timesheets.length; i++) {
                                         timesheet = timesheets[i];
                                         id = timesheet.id;
-                                        alert(timesheets.length);
+                                       // alert(timesheets.length);
                                         dwr.util.cloneNode("pattern", { idSuffix:id });
                                         dwr.util.setValue("tableStartdate" + id, timesheet.sundayDateString);                        
                                         dwr.util.setValue("tableStatus" + id, timesheet.status);
