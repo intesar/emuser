@@ -50,14 +50,14 @@ public class UserDto {
         this.password = password;
     }
 
-    public String getUsersname() {
-        return usersname;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUsersname(String usersname) {
-        this.usersname = usersname;
+    public void setUsername(String username) {
+        this.username = username;
     }
-    private String usersname;
+    private String username;
     private String password;
     private String firstname;
     private String lastname;
