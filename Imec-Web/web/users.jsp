@@ -65,7 +65,7 @@
             
         </script>
         
-         
+        
         
         <script type="text/javascript">
             function init() {                
@@ -79,27 +79,28 @@
             function fillTable() {
                 JUserAjaxService.getAll(function(users) {
                     // Delete all the rows except for the "pattern" row
-                    alert ( " 1 ");
+                    //alert ( " 1 ");
                     dwr.util.removeAllRows("usersbody", { filter:function(tr) {
                             return (tr.id != "pattern");
                         }});
                     // Create a new set cloned from the pattern row
                     var user, id;
-                    alert ( " 2 ");
+                   // alert ( " 2 ");
                     users.sort(function(p1, p2) { return p1.firstname.localeCompare(p2.firstname); });
-                    alert ( " 3 ");
+                    //alert ( " 3 ");
                     for (var i = 0; i < users.length; i++) {
-                        alert ( " 4 ");
+                        //alert ( " 4 ");
                         user = users[i];
-                        alert("5");
+                        //alert("5");
                         id = user.id;
                         dwr.util.cloneNode("pattern", { idSuffix:id });
-                        alert("6");
+                        //alert("6");
                         dwr.util.setValue("tableName" + id, user.firstname + " " + user.lastname);                        
-                        alert("7");
+                        //alert("7");
                         dwr.util.setValue("tableUsername" + id, user.username);
-                       $("pattern" + id).style.display = "table-row";
+                        $("pattern" + id).style.display = "table-row";
                         usersCache[id] = user;
+                       // alert("8")
                     }
                 });
             }
@@ -119,7 +120,7 @@
                 dwr.util.getValues(user);
 
                 // dwr.engine.beginBatch();
-                JUserAjaxService.addUser(user, reply1);
+                JUserAjaxService.createUser(user, reply1);
                 fillTable();
                 //dwr.engine.endBatch();
             }
@@ -140,9 +141,9 @@
 
         </script>
     </head>
-    <form action="lform">
+    
         <body  class="tundra">
-        
+        <form action="lform">
         <table cellspacing="0" cellpadding="0" border="0" align="center" width="95%">
             <tbody>
                 <tr valign="top">
@@ -167,8 +168,8 @@
                                                         <img class="c" alt="" src="https://mail.google.com/mail/images/corner_tl.gif"/>
                                                     </td>
                                                     <br>                                                     <td class="bubble" style="padding: 5px 0pt; font-family: arial; text-align: left; font-weight: bold;" rowspan="2">
-                                                    <b>&nbsp;&nbsp;<img src="images/users.gif" width="23" height="23" alt="users"/>
-
+                                                        <b>&nbsp;&nbsp;<img src="images/users.gif" width="23" height="23" alt="users"/>
+                                                            
                                                         User Details </b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp
                                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -180,7 +181,7 @@
                                                         <a href="mailserver.jsp">View Mail Server</a>
                                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                         
-                                                         <a href="Email.jsp">View Email Details</a>
+                                                        <a href="Email.jsp">View Email Details</a>
                                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                         
                                                         <a href="j_acegi_logout">logout</a>
@@ -212,8 +213,6 @@
         
         
         
-        
-       
         
         <center>
             <p align ="center">
@@ -284,7 +283,7 @@
                                             <input class='itext'type="text" name="firstname" value='' id='p12' />
                                         </td>
                                     </tr>
-                                     <tr>
+                                    <tr>
                                         <td>lastname</td>
                                         <td>
                                         <input class='itext' type="text" name="lastname" id='p13' /></td>

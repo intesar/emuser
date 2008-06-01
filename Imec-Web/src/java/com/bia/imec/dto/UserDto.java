@@ -57,11 +57,22 @@ public class UserDto {
     public void setUsername(String username) {
         this.username = username;
     }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+    
+    
     private String username;
     private String password;
     private String firstname;
     private String lastname;
     private Short enable;
     private Short isadmin;
+    private Integer id;
 }
 

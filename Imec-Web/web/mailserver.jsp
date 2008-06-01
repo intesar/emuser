@@ -191,7 +191,7 @@
             
             function clearUser() {
                 viewed = -1;
-                dwr.util.setValues({ id:-1, username:null, hostname:null, password:null });
+                dwr.util.setValues({ id:-1, username:null, hostname:null, password:null, confirmPassword:null });
             }
             
             var reply1 = function(data)
@@ -283,7 +283,7 @@
                                         <td></td>
                                         <script type='text/javascript'>
                                             function addUserFunction() {
-                        
+                         alert("here");
                                                 var username = '"' + $("p10").value + '"';
                                                 username = objectEval(username);
                                        
@@ -295,9 +295,9 @@
                             
                                                 var confirmPassword  = '"' + $("p14").value  + '"';
                                                 confirmPassword = objectEval(confirmPassword);
-                                                alert("here");              
+                                                             
                                                 if ( password == confirmPassword )  {
-                                                    JUserAjaxService.addUser(username, firstname, lastname, password, reply1);
+                                                    JUserAjaxService.addUser(username, hostname, password, reply1);
                                                 } else {
                                                     alert ( " Password & Confirm Password Do Not match !");
                                                 }
