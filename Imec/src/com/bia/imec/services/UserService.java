@@ -15,11 +15,11 @@ import com.bia.imec.entity.User;
  */
 public interface UserService {
 
-    public PagedResult<User> getAll(PagingParams pagingParams);
+    public PagedResult<User> getAll(String username, PagingParams pagingParams);
     
-    public void createUser(User users);
+    public void createUser(String username, User users);
     
-    public void updateUser(User users);
+    
     
     
     void mailPassword(String username);
