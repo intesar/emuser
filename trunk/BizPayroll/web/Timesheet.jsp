@@ -55,6 +55,7 @@
                 return eval(text);
             }
         </script>
+        
     </head>
     <form>
         
@@ -125,13 +126,13 @@
                     <th> 
                         <table hspace="35"><tr>
                              <th>
-                                 <select name="Status Filter">
+                                 <select name="StatusFilter" onchange="init(this.value)">
                                         <option>Select</option>
-                                        <option>Saved</option>
-                                        <option>Submit</option>
-                                        <option>Approved</option>
-                                        <option>Rejected</option>
-                                        <option>Paid</option>
+                                        <option value="val1">saved</option>
+                                        <option value="val2">submit</option>
+                                        <option value="val3">Approved</option>
+                                        <option value="val4">Rejected</option>
+                                        <option value="val5">Paid</option>
                                 </select>
                                 </th>
                                 <br>
@@ -154,6 +155,7 @@
                             <tbody id="timesheetsbody">    
                                 <tr id="pattern"  style="display:none;">
                                     <td>
+						
                                         <span id="tableStartdate">DATE</span><br/> 
                                     </td>                        
                                     <td><span id="tableStatus">STATUS</span></td>
@@ -232,7 +234,7 @@
                             <button dojoType="dijit.form.Button" onclick="updateTimesheet();">
                                 Save
                             </button>
-                            <button dojoType="dijit.form.Button" onclick="updateTimesheet();">
+                            <button dojoType="dijit.form.Button"  onclick="updateTimesheet();">
                                 Submit
                             </button>
                             <button dojoType="dijit.form.Button" onclick="updateTimesheet();">
@@ -259,26 +261,42 @@
                                 else dwr.util.setValue('d0', dwr.util.toDescriptiveString(data, 1));
                             }
                         </script>
+                    <!--    <script type='text/javascript'>
+                           function Select(val)
+                             {
+                                 if(val=="val1")
+                                 {                                                              
+                                 filltable();
+                                 }
+                                 if(val=="val2"){
+                                     filltable();
+                                 }
+                          //  val = this.value;
+                           // var value = "saved";
+                            //var value = "submit";
+                           // var val3 = "approved";
+                           // var val4 = "paid";
+                           // var val5 = "rejected";
+                             }  
+                             
+                        </script> -->
+                        
                         <script type='text/javascript'>
-                            function init() {                
-                                fillTable();
+                              var val = "saved";
+                            function init()
+                            {   
+                            fillTable();
                             }
                             window.onload=init;
 
                             var timesheetCache = { };
                             var viewed = -1;
-                            var selectedStatus = "saved";
-                            // var selectedStatus = "submit";
-                            // var selectedStatus = "approved";
-                            // var selectedStatus = "paid";
-                            // var selectedStatus = "rejected";
-                            // function Select()
-                            // {
-                    
-                            // }
-    
+                            
+                             
+                            
                             function fillTable() {
-                                JTimesheetAjaxService.getTimesheetsByStatus(selectedStatus, function(timesheets) {
+                             
+                                JTimesheetAjaxService.getTimesheetsByStatus(val, function(timesheets) {
                                     // Delete all the rows except for the "pattern" row
                                     dwr.util.removeAllRows("timesheetsbody", { filter:function(tr) {
                                             return (tr.id != "pattern");
@@ -299,8 +317,10 @@
                                     }
                                 });
                             }
+                             
                             function editClicked(eleid) 
                             {
+                                  
                                 viewed = eleid.substring(4);
                                 // we were an id of the form "edit{id}", eg "edit42". We lookup the "42"
                                 var timesheet = timesheetCache[eleid.substring(4)];
