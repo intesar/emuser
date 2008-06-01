@@ -19,7 +19,7 @@ import java.util.List;
  */
 public class UserAjaxService {
 
-    public List<UserDto> getAll(String userDto) {
+    public List<UserDto> getAll() {
         List<User> users = userService.getAll(null).getResults();
         List<UserDto> dtos = new ArrayList<UserDto>();
         for (User u : users) {
