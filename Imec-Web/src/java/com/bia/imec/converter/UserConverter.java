@@ -16,7 +16,7 @@ public class UserConverter {
     public void copy(UserDto userDto, User user) {
 
         if (userDto != null) {
-            user.setUsersname(userDto.getUsersname());
+            user.setUsername(userDto.getUsername());
             user.setPassword(userDto.getPassword());
             user.setFirstname(userDto.getFirstname());
             user.setLastname(userDto.getLastname());
@@ -28,7 +28,7 @@ public class UserConverter {
     public void copy(User user, UserDto userDto) {
 
         if (user != null) {
-            userDto.setUsersname(user.getUsersname());
+            userDto.setUsername(user.getUsername());
             userDto.setPassword(user.getPassword());
             userDto.setFirstname(user.getFirstname());
             userDto.setLastname(user.getLastname());
