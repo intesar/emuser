@@ -22,6 +22,7 @@ public class UserConverter {
             user.setLastname(userDto.getLastname());
             user.setEnable(userDto.getEnable());
             user.setIsadmin(userDto.getIsadmin());
+            user.setId(userDto.getId());
         }
     }
 
@@ -34,6 +35,7 @@ public class UserConverter {
             userDto.setLastname(user.getLastname());
             userDto.setEnable(user.getEnable());
             userDto.setIsadmin(user.getIsadmin());
+            userDto.setId(user.getId());
         }
     }
 }
