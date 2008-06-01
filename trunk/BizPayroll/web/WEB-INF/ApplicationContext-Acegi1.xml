@@ -80,11 +80,10 @@ http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
         <property name="objectDefinitionSource">
             <value>
         CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
-        PATTERN_TYPE_APACHE_ANT                
-                /forgot.jsp*=ROLE_ANONYMOUS,ROLE_USER,ROLE_ADMIN
-                /registration.jsp*=ROLE_ANONYMOUS,ROLE_USER,ROLE_ADMIN
+        PATTERN_TYPE_APACHE_ANT
                 /users.jsp*=ROLE_USER,ROLE_ADMIN
                 /dwr*=ROLE_USER,ROLE_ADMIN
+                /timesheet.jsp*=ROLE_USER,ROLE_ADMIN
             </value>
         </property>
     </bean>
