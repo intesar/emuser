@@ -12,9 +12,9 @@
 <html>
     <head>
         <title>User Information</title>
-        <script type='text/javascript' src='/BizPayroll/dwr/interface/JUserAjaxService.js'></script>
-        <script type='text/javascript' src='/BizPayroll/dwr/engine.js'></script>
-        <script type='text/javascript' src='/BizPayroll/dwr/util.js'></script>
+        <script type='text/javascript' src='/Imec-Web/dwr/interface/JUserAjaxService.js'></script>
+        <script type='text/javascript' src='/Imec-Web/dwr/engine.js'></script>
+        <script type='text/javascript' src='/Imec-Web/dwr/util.js'></script>
         
         
         <style type="text/css">
@@ -65,7 +65,80 @@
             
         </script>
         
+         
         
+        <script type="text/javascript">
+            function init() {                
+                fillTable();
+            }
+            window.onload=init;
+
+            var usersCache = { };
+            var viewed = -1;
+
+            function fillTable() {
+                JUserAjaxService.getAll(function(users) {
+                    // Delete all the rows except for the "pattern" row
+                    alert ( " 1 ");
+                    dwr.util.removeAllRows("usersbody", { filter:function(tr) {
+                            return (tr.id != "pattern");
+                        }});
+                    // Create a new set cloned from the pattern row
+                    var user, id;
+                    alert ( " 2 ");
+                    users.sort(function(p1, p2) { return p1.firstname.localeCompare(p2.firstname); });
+                    alert ( " 3 ");
+                    for (var i = 0; i < users.length; i++) {
+                        alert ( " 4 ");
+                        user = users[i];
+                        alert("5");
+                        id = user.id;
+                        dwr.util.cloneNode("pattern", { idSuffix:id });
+                        alert("6");
+                        dwr.util.setValue("tableName" + id, user.firstname + " " + user.lastname);                        
+                        alert("7");
+                        dwr.util.setValue("tableUsername" + id, user.username);
+                       $("pattern" + id).style.display = "table-row";
+                        usersCache[id] = user;
+                    }
+                });
+            }
+
+            function editClicked(eleid) 
+            {
+                viewed = eleid.substring(4);
+                // we were an id of the form "edit{id}", eg "edit42". We lookup the "42"
+                var user = usersCache[eleid.substring(4)];
+                dwr.util.setValues(user);
+            }
+            
+            
+
+            function writeUser() {
+                var user = { id:viewed, username:null, firstname:null, lastname:null, password:null };
+                dwr.util.getValues(user);
+
+                // dwr.engine.beginBatch();
+                JUserAjaxService.addUser(user, reply1);
+                fillTable();
+                //dwr.engine.endBatch();
+            }
+
+            
+            function clearUser() {
+                viewed = -1;
+                dwr.util.setValues({ id:-1, username:null, firstname:null, lastname:null, password:null });
+            }
+            
+            var reply1 = function(data)
+            {
+                if (data != null && typeof data == 'object') alert(dwr.util.toDescriptiveString(data, 2));
+                else dwr.util.setValue('d1', dwr.util.toDescriptiveString(data, 1));
+            }
+
+
+
+        </script>
     </head>
     <form action="lform">
         <body  class="tundra">
@@ -140,73 +213,7 @@
         
         
         
-        
-        
-        <script type="text/javascript">
-            function init() {                
-                fillTable();
-            }
-            window.onload=init;
-
-            var usersCache = { };
-            var viewed = -1;
-
-            function fillTable() {
-                JUserAjaxService.getAllUsers(function(users) {
-                    // Delete all the rows except for the "pattern" row
-                    dwr.util.removeAllRows("usersbody", { filter:function(tr) {
-                            return (tr.id != "pattern");
-                        }});
-                    // Create a new set cloned from the pattern row
-                    var user, id;
-                    users.sort(function(p1, p2) { return p1.firstname.localeCompare(p2.firstname); });
-                    for (var i = 0; i < users.length; i++) {
-                        user = users[i];
-                        id = user.id;
-                        dwr.util.cloneNode("pattern", { idSuffix:id });
-                        dwr.util.setValue("tableName" + id, user.firstname + " " + user.lastname);                        
-                        dwr.util.setValue("tableUsername" + id, user.username);
-                        $("pattern" + id).style.display = "table-row";
-                        usersCache[id] = user;
-                    }
-                });
-            }
-
-            function editClicked(eleid) 
-            {
-                viewed = eleid.substring(4);
-                // we were an id of the form "edit{id}", eg "edit42". We lookup the "42"
-                var user = usersCache[eleid.substring(4)];
-                dwr.util.setValues(user);
-            }
-            
-            
-
-            function writeUser() {
-                var user = { id:viewed, username:null, firstname:null, lastname:null, password:null };
-                dwr.util.getValues(user);
-
-                // dwr.engine.beginBatch();
-                JUserAjaxService.addUser(user, reply1);
-                fillTable();
-                //dwr.engine.endBatch();
-            }
-
-            
-            function clearUser() {
-                viewed = -1;
-                dwr.util.setValues({ id:-1, username:null, firstname:null, lastname:null, password:null });
-            }
-            
-            var reply1 = function(data)
-            {
-                if (data != null && typeof data == 'object') alert(dwr.util.toDescriptiveString(data, 2));
-                else dwr.util.setValue('d1', dwr.util.toDescriptiveString(data, 1));
-            }
-
-
-
-        </script>
+       
         
         <center>
             <p align ="center">
@@ -311,7 +318,8 @@
                             
                                                 var confirmPassword  = '"' + $("p14").value  + '"';
                                                 confirmPassword = objectEval(confirmPassword);
-                                                alert("here");              
+                                                alert("here");  
+                                                
                                                 if ( password == confirmPassword )  {
                                                     JUserAjaxService.addUser(username, firstname, lastname, password, reply1);
                                                 } else {
