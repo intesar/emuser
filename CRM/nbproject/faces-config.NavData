@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Scene Scope="Project" version="2">
+    <Scope Scope="Faces Configuration Only"/>
+    <Scope Scope="Project">
+        <Node id="organization/List.jsp" x="650" y="450" zoom="true"/>
+        <Node id="users/Detail.jsp" x="1150" y="750" zoom="true"/>
+        <Node id="organizationRelation/New.jsp" x="150" y="1350" zoom="true"/>
+        <Node id="contactType/Edit.jsp" x="1900" y="300" zoom="true"/>
+        <Node id="organizationRelation/Detail.jsp" x="1900" y="600" zoom="true"/>
+        <Node id="organizationRelation/List.jsp" x="2900" y="150" zoom="true"/>
+        <Node id="users/Edit.jsp" x="900" y="600" zoom="true"/>
+        <Node id="organizationType/New.jsp" x="1400" y="600" zoom="true"/>
+        <Node id="contactAttitude/Detail.jsp" x="650" y="900" zoom="true"/>
+        <Node id="organizationBudgetRange/New.jsp" x="400" y="300" zoom="true"/>
+        <Node id="organization/Edit.jsp" x="2400" y="150" zoom="true"/>
+        <Node id="campaignExpense/Detail.jsp" x="1150" y="150" zoom="true"/>
+        <Node id="contactTitle/Detail.jsp" x="150" y="1200" zoom="true"/>
+        <Node id="leadSource/List.jsp" x="400" y="900" zoom="true"/>
+        <Node id="campaign/Detail.jsp" x="1400" y="300" zoom="true"/>
+        <Node id="campaign/Edit.jsp" x="150" y="300" zoom="true"/>
+        <Node id="leadSource/Edit.jsp" x="400" y="450" zoom="true"/>
+        <Node id="contactType/New.jsp" x="150" y="750" zoom="true"/>
+        <Node id="includefile.jsp" x="150" y="1050" zoom="true"/>
+        <Node id="contact/Edit.jsp" x="1400" y="750" zoom="true"/>
+        <Node id="organizationType/Detail.jsp" x="150" y="450" zoom="true"/>
+        <Node id="contactTitle/New.jsp" x="1150" y="900" zoom="true"/>
+        <Node id="sale/List.jsp" x="1650" y="750" zoom="true"/>
+        <Node id="sale/New.jsp" x="900" y="150" zoom="true"/>
+        <Node id="contact/List.jsp" x="650" y="1200" zoom="true"/>
+        <Node id="product/List.jsp" x="1150" y="300" zoom="true"/>
+        <Node id="users/New.jsp" x="1150" y="600" zoom="true"/>
+        <Node id="authorities/Edit.jsp" x="1650" y="300" zoom="true"/>
+        <Node id="campaignExpense/List.jsp" x="1400" y="150" zoom="true"/>
+        <Node id="sale/Detail.jsp" x="150" y="900" zoom="true"/>
+        <Node id="product/New.jsp" x="650" y="750" zoom="true"/>
+        <Node id="organizationRelation/Edit.jsp" x="650" y="1350" zoom="true"/>
+        <Node id="organizationType/List.jsp" x="650" y="150" zoom="true"/>
+        <Node id="contactAttitude/Edit.jsp" x="2400" y="300" zoom="true"/>
+        <Node id="index.jsp" x="150" y="150" zoom="true"/>
+        <Node id="organization/New.jsp" x="400" y="1350" zoom="true"/>
+        <Node id="organizationBudgetRange/List.jsp" x="900" y="900" zoom="true"/>
+        <Node id="authorities/New.jsp" x="1900" y="150" zoom="true"/>
+        <Node id="users/List.jsp" x="2150" y="150" zoom="true"/>
+        <Node id="authorities/Detail.jsp" x="1900" y="450" zoom="true"/>
+        <Node id="leadSource/New.jsp" x="2150" y="450" zoom="true"/>
+        <Node id="organizationStatus/List.jsp" x="400" y="750" zoom="true"/>
+        <Node id="campaign/New.jsp" x="400" y="1050" zoom="true"/>
+        <Node id="leadSource/Detail.jsp" x="150" y="600" zoom="true"/>
+        <Node id="campaignExpense/New.jsp" x="400" y="1500" zoom="true"/>
+        <Node id="contact/New.jsp" x="1650" y="150" zoom="true"/>
+        <Node id="contactAttitude/New.jsp" x="900" y="450" zoom="true"/>
+        <Node id="contactAttitude/List.jsp" x="650" y="1050" zoom="true"/>
+        <Node id="campaignExpense/Edit.jsp" x="900" y="1050" zoom="true"/>
+        <Node id="organizationBudgetRange/Edit.jsp" x="900" y="750" zoom="true"/>
+        <Node id="authorities/List.jsp" x="150" y="1500" zoom="true"/>
+        <Node id="welcomeJSF.jsp" x="650" y="600" zoom="true"/>
+        <Node id="organization/Detail.jsp" x="150" y="1650" zoom="true"/>
+        <Node id="organizationType/Edit.jsp" x="1150" y="1050" zoom="true"/>
+        <Node id="organizationStatus/New.jsp" x="1650" y="450" zoom="true"/>
+        <Node id="contactTitle/Edit.jsp" x="1400" y="450" zoom="true"/>
+        <Node id="contactTitle/List.jsp" x="400" y="150" zoom="true"/>
+        <Node id="product/Edit.jsp" x="900" y="1200" zoom="true"/>
+        <Node id="contact/Detail.jsp" x="1400" y="900" zoom="true"/>
+        <Node id="contactType/List.jsp" x="400" y="1200" zoom="true"/>
+        <Node id="organizationStatus/Edit.jsp" x="1150" y="450" zoom="true"/>
+        <Node id="organizationBudgetRange/Detail.jsp" x="900" y="300" zoom="true"/>
+        <Node id="sale/Edit.jsp" x="650" y="300" zoom="true"/>
+        <Node id="product/Detail.jsp" x="2150" y="300" zoom="true"/>
+        <Node id="contactType/Detail.jsp" x="2650" y="150" zoom="true"/>
+        <Node id="campaign/List.jsp" x="1650" y="600" zoom="true"/>
+        <Node id="organizationStatus/Detail.jsp" x="400" y="600" zoom="true"/>
+    </Scope>
+    <Scope Scope="All Faces Configurations"/>
+</Scene>
