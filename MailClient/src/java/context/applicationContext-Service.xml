@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+<beans>
+    <!--
+     ##########################################################################
+                            Services Declerations Begin
+     ##########################################################################
+    -->
+    <bean id="usersServiceImpl" class="com.bia.imec.service.impl.UsersServiceImpl" >
+        <property name="usersDao" ref="usersDao" />
+        <property name="authoritiesDao" ref="authoritiesDao" />
+    </bean>
+    <bean id="emailsServiceImpl" class="com.bia.imec.service.impl.EmailsServiceImpl" >
+        <property name="emailsDao" ref="emailsDao" />
+        <property name="mailServersDao" ref="mailServersDao" />
+        <property name="contactsDao" ref="contactsDao" />
+    </bean>
+    
+</beans>

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context path="/MailClient">
+  <Resource auth="Container" driverClassName="com.mysql.jdbc.Driver" maxActive="20" maxIdle="10" maxWait="-1" name="jdbc/imea" password="imec" type="javax.sql.DataSource" url="jdbc:mysql:///imea" username="imec"/>
+</Context>
