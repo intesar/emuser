@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+<beans>
+    
+     
+    <!-- EntityManagerFactory -->
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">
+        <property name="persistenceUnitName" value="WebApplication1PU"/>
+    </bean>
+    
+   
+    
+     
+    <!-- advisor -->
+    <bean id="finderIntroductionAdvisor" class="com.abbhsoft.jpadaoframework.dao.advisor.FinderIntroductionAdvisor" />
+    
+    <!-- helper bean resolves the finder method name -->
+    <bean id="extendedFinderNamingStrategy" class="com.abbhsoft.jpadaoframework.dao.finderhelper.ExtendedFinderNamingStrategy" />
+    
+    <!-- target -->
+    <bean id="abstractDaoTarget" class="com.abbhsoft.jpadaoframework.dao.GenericDaoJPAImpl" abstract="true">
+        <property name="entityManagerFactory">
+            <ref bean="entityManagerFactory"/>
+        </property>
+        <property name="namingStrategy">
+            <ref bean="extendedFinderNamingStrategy" />
+        </property>
+    </bean>
+    
+    <!-- base Proxy -->
+    <bean id="abstractDao" class="org.springframework.aop.framework.ProxyFactoryBean" abstract="true">
+        <property name="exposeProxy" value="true" />
+        <property name="interceptorNames">
+            <list>
+                <value>finderIntroductionAdvisor</value>
+            </list>
+        </property>
+    </bean>
+    
+    
+    
+    
+    <!--
+     ##########################################################################
+                            Base Declerations End
+     ##########################################################################
+    <import resource="classpath:ApplicationContext-JpaDaoFramework.xml" />
+    -->
+    
+    
+    <!--
+    #####################################################################
+            Dao Declaration Begin
+    #####################################################################    
+    -->
+
+    
+   <!--  Dao instances 
+   <bean id="personDao" parent="abstractDao">
+      <property name="proxyInterfaces">
+         <value>com.company.dao.PersonDao</value>
+      </property>
+      <property name="target">
+         <bean parent="abstractDaoTarget">
+            <constructor-arg>
+               <value>com.company.model.Person</value>
+            </constructor-arg>
+         </bean>
+      </property>
+   </bean>
+   
+   -->
+   <!-- 
+            To add new dao copy the entire bean defination from above and change
+            3 things
+            1. bean id
+            2. proxyInterfaces value to new dao 
+            3. constructor-arg to dao model class
+   -->
+   
+   <!-- common package dao's -->
+    <bean id="usersDao" parent="abstractDao">
+        <property name="proxyInterfaces">
+            <value>com.bia.imec.dao.UsersDao</value>
+        </property>
+        <property name="target">
+            <bean parent="abstractDaoTarget">
+                <constructor-arg>
+                    <value>com.bia.imec.entity.Users</value>
+                </constructor-arg>
+            </bean>
+        </property>
+    </bean>
+    
+   
+    <bean id="authoritiesDao" parent="abstractDao">
+        <property name="proxyInterfaces">
+            <value>com.bia.imec.dao.AuthoritiesDao</value>
+        </property>
+        <property name="target">
+            <bean parent="abstractDaoTarget">
+                <constructor-arg>
+                    <value>com.bia.imec.entity.Authorities</value>
+                </constructor-arg>
+            </bean>
+        </property>
+    </bean>
+   
+    <bean id="contactsDao" parent="abstractDao">
+        <property name="proxyInterfaces">
+            <value>com.bia.imec.dao.ContactsDao</value>
+        </property>
+        <property name="target">
+            <bean parent="abstractDaoTarget">
+                <constructor-arg>
+                    <value>com.bia.imec.entity.Contacts</value>
+                </constructor-arg>
+            </bean>
+        </property>
+    </bean>
+    <bean id="emailsDao" parent="abstractDao">
+        <property name="proxyInterfaces">
+            <value>com.bia.imec.dao.EmailsDao</value>
+        </property>
+        <property name="target">
+            <bean parent="abstractDaoTarget">
+                <constructor-arg>
+                    <value>com.bia.imec.entity.Emails</value>
+                </constructor-arg>
+            </bean>
+        </property>
+    </bean>
+    <bean id="mailServersDao" parent="abstractDao">
+        <property name="proxyInterfaces">
+            <value>com.bia.imec.dao.MailServersDao</value>
+        </property>
+        <property name="target">
+            <bean parent="abstractDaoTarget">
+                <constructor-arg>
+                    <value>com.bia.imec.entity.MailServers</value>
+                </constructor-arg>
+            </bean>
+        </property>
+    </bean>
+    
+   
+   
+  
+</beans>
