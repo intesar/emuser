@@ -126,7 +126,7 @@
                     <th> 
                         <table hspace="35"><tr>
                              <th>
-                                 <select name="StatusFilter" onchange="init(this.value)">
+                                 <select name="StatusFilter">
                                         <option>Select</option>
                                         <option value="val1">saved</option>
                                         <option value="val2">submit</option>
@@ -138,15 +138,16 @@
                                 <br>
                                     
                         </tr></table>
-                        
-                        <table align="left" hspace="40" border="1" id="timesheetTable" rules="null">
+                        <div align="center"style="border:1px black solid; width:315px; height:225px; overflow:auto;">
+                        <table align="left" height="200" width="300" hspace="" border="1" id="timesheetTable" rules="null">
                             <thead>
-                                <th>&nbsp;DATE&nbsp;</th>
-                                <th>&nbsp;STATUS&nbsp;</th>
-                                <th>&nbsp;ACTION&nbsp;</th>  
+                                <th>&nbsp;<b>DATE</b>&nbsp;</th>
+                                <th>&nbsp;<b>STATUS</b>&nbsp;</th>
+                                <th>&nbsp;<b>ACTION</b>&nbsp;</th>  
                                 <th></th>
                                 <th></th>
                                 <th></th>
+                                
                                
                             </thead> 
                             
@@ -165,6 +166,7 @@
                                 </tr>            
                             </tbody>
                         </table>
+                         </div>
                     </th>
                     
                     <td></td><td></td>
@@ -231,7 +233,7 @@
                         
                         <br>
                         <center>
-                            <button dojoType="dijit.form.Button" onclick="updateTimesheet();">
+                            <button dojoType="dijit.form.Button" value="save" name="save" onclick="updateTimesheet();">
                                 Save
                             </button>
                             <button dojoType="dijit.form.Button"  onclick="updateTimesheet();">
@@ -320,8 +322,7 @@
                              
                             function editClicked(eleid) 
                             {
-                                  
-                                viewed = eleid.substring(4);
+                                 viewed = eleid.substring(4);
                                 // we were an id of the form "edit{id}", eg "edit42". We lookup the "42"
                                 var timesheet = timesheetCache[eleid.substring(4)];
                                 dwr.util.setValues(timesheet);
@@ -339,13 +340,7 @@
         
         
     </form>
-    
-    
-    
-    
-    
-    
-    
+  
     <br><br><br><br><br><br><br><br><br><br><br><br><br>
     
     <table cellspacing="0" cellpadding="3" bgcolor="#c3d9ff" align="center" width="95%" style="margin-bottom: 5px;">
