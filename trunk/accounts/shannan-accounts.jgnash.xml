@@ -2,8 +2,8 @@
 <?fileVersion 1?>
 <dataRoot class="Data">
 	<rootAccount>-1468634289</rootAccount>
-	<date>2008.06.10 17:43:32:014</date>
-	<objects class="Array" type="jgnash.engine.jgnashObject" length="6">
+	<date>2008.06.11 03:16:02:051</date>
+	<objects class="Array" type="jgnash.engine.jgnashObject" length="7">
 		<index0 class="RootAccount" ID="-1468634289">
 			<name>Root</name>
 			<commodity>INR.en.IN</commodity>
@@ -29,7 +29,7 @@
 			<locked>false</locked>
 			<placeHolder>false</placeHolder>
 			<parentAccount>-1468634289</parentAccount>
-			<size>1</size>
+			<size>2</size>
 		</index1>
 		<index2 class="BankAccount" ID="1339101814">
 			<name>icici</name>
@@ -42,7 +42,7 @@
 			<locked>false</locked>
 			<placeHolder>false</placeHolder>
 			<parentAccount>649826826</parentAccount>
-			<size>1</size>
+			<size>2</size>
 		</index2>
 		<index3 class="ExpenseAccount" ID="-1076126562">
 			<name>Expense Accounts</name>
@@ -83,6 +83,19 @@
 			<creditReconciled>false</creditReconciled>
 			<debitReconciled>false</debitReconciled>
 		</index5>
+		<index6 class="DoubleEntryTransaction" ID="-973559396">
+			<amount>4994.00</amount>
+			<payee>test</payee>
+			<number/>
+			<commodity>INR.en.IN</commodity>
+			<actTransDate>2008.06.11 03:15:58:731</actTransDate>
+			<voucherDate>2008.06.11 00:00:00:000</voucherDate>
+			<memo/>
+			<creditAccount>1339101814</creditAccount>
+			<debitAccount>649826826</debitAccount>
+			<creditReconciled>false</creditReconciled>
+			<debitReconciled>false</debitReconciled>
+		</index6>
 	</objects>
 	<currencyList class="Array" type="jgnash.engine.commodity.CommodityNode" length="1">
 		<index0 class="CurrencyNode">
@@ -97,8 +110,4 @@
 	</currencyList>
 	<exchangeRates class="Array" type="jgnash.engine.commodity.ExchangeRate-ExchangeRateNode" length="0"/>
 	<reminders class="Array" type="jgnash.engine.recurring.Reminder" length="0"/>
-	<transactionNumberItems class="jgnash.xml.XMLStringArray" length="2">
-		<index0>EFT</index0>
-		<index1>Trans</index1>
-	</transactionNumberItems>
 </dataRoot>
