@@ -2,8 +2,8 @@
 <?fileVersion 1?>
 <dataRoot class="Data">
 	<rootAccount>-1468634289</rootAccount>
-	<date>2008.06.10 17:52:05:888</date>
-	<objects class="Array" type="jgnash.engine.jgnashObject" length="8">
+	<date>2008.06.14 18:45:03:860</date>
+	<objects class="Array" type="jgnash.engine.jgnashObject" length="56">
 		<index0 class="RootAccount" ID="-1468634289">
 			<name>Root</name>
 			<commodity>INR.en.IN</commodity>
@@ -29,9 +29,35 @@
 			<locked>false</locked>
 			<placeHolder>false</placeHolder>
 			<parentAccount>-1468634289</parentAccount>
-			<size>3</size>
+			<size>6</size>
 		</index1>
-		<index2 class="BankAccount" ID="1339101814">
+		<index2 class="BankAccount" ID="1572445866">
+			<name>cash</name>
+			<code/>
+			<commodity>INR.en.IN</commodity>
+			<status>2</status>
+			<description>Description</description>
+			<notes/>
+			<visible>true</visible>
+			<locked>false</locked>
+			<placeHolder>false</placeHolder>
+			<parentAccount>649826826</parentAccount>
+			<size>14</size>
+		</index2>
+		<index3 class="BankAccount" ID="1440153597">
+			<name>chase bank</name>
+			<code/>
+			<commodity>INR.en.IN</commodity>
+			<status>2</status>
+			<description>Description</description>
+			<notes/>
+			<visible>true</visible>
+			<locked>false</locked>
+			<placeHolder>false</placeHolder>
+			<parentAccount>649826826</parentAccount>
+			<size>1</size>
+		</index3>
+		<index4 class="BankAccount" ID="1339101814">
 			<name>icici</name>
 			<code/>
 			<commodity>INR.en.IN</commodity>
@@ -42,9 +68,22 @@
 			<locked>false</locked>
 			<placeHolder>false</placeHolder>
 			<parentAccount>649826826</parentAccount>
-			<size>3</size>
-		</index2>
-		<index3 class="ExpenseAccount" ID="-1076126562">
+			<size>16</size>
+		</index4>
+		<index5 class="BankAccount" ID="-1290351210">
+			<name>investment</name>
+			<code/>
+			<commodity>INR.en.IN</commodity>
+			<status>2</status>
+			<description>Description</description>
+			<notes/>
+			<visible>true</visible>
+			<locked>false</locked>
+			<placeHolder>false</placeHolder>
+			<parentAccount>649826826</parentAccount>
+			<size>29</size>
+		</index5>
+		<index6 class="ExpenseAccount" ID="-1076126562">
 			<name>Expense Accounts</name>
 			<commodity>INR.en.IN</commodity>
 			<status>1</status>
@@ -56,8 +95,36 @@
 			<parentAccount>-1468634289</parentAccount>
 			<size>0</size>
 			<taxRelated>false</taxRelated>
-		</index3>
-		<index4 class="IncomeAccount" ID="430889334">
+		</index6>
+		<index7 class="ExpenseAccount" ID="1125923266">
+			<name>bizintelapps</name>
+			<code/>
+			<commodity>INR.en.IN</commodity>
+			<status>2</status>
+			<description>Description</description>
+			<notes/>
+			<visible>true</visible>
+			<locked>false</locked>
+			<placeHolder>false</placeHolder>
+			<parentAccount>-1076126562</parentAccount>
+			<size>14</size>
+			<taxRelated>false</taxRelated>
+		</index7>
+		<index8 class="ExpenseAccount" ID="-1720890028">
+			<name>others</name>
+			<code/>
+			<commodity>INR.en.IN</commodity>
+			<status>2</status>
+			<description>Description</description>
+			<notes/>
+			<visible>true</visible>
+			<locked>false</locked>
+			<placeHolder>false</placeHolder>
+			<parentAccount>-1076126562</parentAccount>
+			<size>10</size>
+			<taxRelated>false</taxRelated>
+		</index8>
+		<index9 class="IncomeAccount" ID="430889334">
 			<name>Income Accounts</name>
 			<commodity>INR.en.IN</commodity>
 			<status>1</status>
@@ -69,46 +136,606 @@
 			<parentAccount>-1468634289</parentAccount>
 			<size>0</size>
 			<taxRelated>false</taxRelated>
-		</index4>
-		<index5 class="DoubleEntryTransaction" ID="149546004">
-			<amount>999.00</amount>
+		</index9>
+		<index10 class="IncomeAccount" ID="-137244975">
+			<name>bizintelapps</name>
+			<code/>
+			<commodity>INR.en.IN</commodity>
+			<status>2</status>
+			<description>Description</description>
+			<notes/>
+			<visible>true</visible>
+			<locked>false</locked>
+			<placeHolder>false</placeHolder>
+			<parentAccount>430889334</parentAccount>
+			<size>0</size>
+			<taxRelated>false</taxRelated>
+		</index10>
+		<index11 class="DoubleEntryTransaction" ID="-1816854041">
+			<amount>425.00</amount>
+			<payee/>
+			<number/>
+			<commodity>INR.en.IN</commodity>
+			<actTransDate>2008.06.11 03:44:41:106</actTransDate>
+			<voucherDate>2008.04.13 00:00:00:000</voucherDate>
+			<memo/>
+			<creditAccount>1339101814</creditAccount>
+			<debitAccount>649826826</debitAccount>
+			<creditReconciled>false</creditReconciled>
+			<debitReconciled>false</debitReconciled>
+		</index11>
+		<index12 class="DoubleEntryTransaction" ID="-45940430">
+			<amount>205900.00</amount>
 			<payee>shannan</payee>
 			<number/>
 			<commodity>INR.en.IN</commodity>
-			<actTransDate>2008.06.10 17:43:24:468</actTransDate>
-			<voucherDate>2008.06.10 00:00:00:000</voucherDate>
+			<actTransDate>2008.06.11 03:46:56:827</actTransDate>
+			<voucherDate>2008.05.08 00:00:00:000</voucherDate>
 			<memo/>
 			<creditAccount>1339101814</creditAccount>
 			<debitAccount>649826826</debitAccount>
 			<creditReconciled>false</creditReconciled>
 			<debitReconciled>false</debitReconciled>
-		</index5>
-		<index6 class="DoubleEntryTransaction" ID="511015476">
-			<amount>100000.00</amount>
-			<payee>imran</payee>
+		</index12>
+		<index13 class="DoubleEntryTransaction" ID="290691432">
+			<amount>50000.00</amount>
+			<payee>Transfer</payee>
+			<number>TRAN</number>
+			<commodity>INR.en.IN</commodity>
+			<actTransDate>2008.06.11 04:11:54:496</actTransDate>
+			<voucherDate>2008.05.10 00:00:00:000</voucherDate>
+			<memo>computers</memo>
+			<creditAccount>-1290351210</creditAccount>
+			<debitAccount>1339101814</debitAccount>
+			<creditReconciled>false</creditReconciled>
+			<debitReconciled>false</debitReconciled>
+		</index13>
+		<index14 class="DoubleEntryTransaction" ID="-411499887">
+			<amount>50000.00</amount>
+			<payee>Transfer</payee>
+			<number>TRAN</number>
+			<commodity>INR.en.IN</commodity>
+			<actTransDate>2008.06.11 04:25:31:606</actTransDate>
+			<voucherDate>2008.05.10 00:00:00:000</voucherDate>
+			<memo>computers</memo>
+			<creditAccount>1125923266</creditAccount>
+			<debitAccount>-1290351210</debitAccount>
+			<creditReconciled>false</creditReconciled>
+			<debitReconciled>false</debitReconciled>
+		</index14>
+		<index15 class="DoubleEntryTransaction" ID="-1145080035">
+			<amount>5000</amount>
+			<payee>Transfer</payee>
+			<number>TRAN</number>
+			<commodity>INR.en.IN</commodity>
+			<actTransDate>2008.06.11 04:21:07:092</actTransDate>
+			<voucherDate>2008.05.15 00:00:00:000</voucherDate>
+			<memo/>
+			<creditAccount>-1290351210</creditAccount>
+			<debitAccount>1339101814</debitAccount>
+			<creditReconciled>false</creditReconciled>
+			<debitReconciled>false</debitReconciled>
+		</index15>
+		<index16 class="DoubleEntryTransaction" ID="1984618073">
+			<amount>5000.00</amount>
+			<payee>Transfer</payee>
+			<number>TRAN</number>
+			<commodity>INR.en.IN</commodity>
+			<actTransDate>2008.06.11 04:25:51:527</actTransDate>
+			<voucherDate>2008.05.15 00:00:00:000</voucherDate>
+			<memo/>
+			<creditAccount>1125923266</creditAccount>
+			<debitAccount>-1290351210</debitAccount>
+			<creditReconciled>false</creditReconciled>
+			<debitReconciled>false</debitReconciled>
+		</index16>
+		<index17 class="DoubleEntryTransaction" ID="928230057">
+			<amount>20000.00</amount>
+			<payee>Transfer</payee>
+			<number>TRAN</number>
+			<commodity>INR.en.IN</commodity>
+			<actTransDate>2008.06.11 04:21:34:383</actTransDate>
+			<voucherDate>2008.05.16 00:00:00:000</voucherDate>
+			<memo>office rent</memo>
+			<creditAccount>-1290351210</creditAccount>
+			<debitAccount>1339101814</debitAccount>
+			<creditReconciled>false</creditReconciled>
+			<debitReconciled>false</debitReconciled>
+		</index17>
+		<index18 class="DoubleEntryTransaction" ID="1755077481">
+			<amount>20000.00</amount>
+			<payee>Transfer</payee>
+			<number>TRAN</number>
+			<commodity>INR.en.IN</commodity>
+			<actTransDate>2008.06.11 04:26:09:535</actTransDate>
+			<voucherDate>2008.05.16 00:00:00:000</voucherDate>
+			<memo>office rent</memo>
+			<creditAccount>1125923266</creditAccount>
+			<debitAccount>-1290351210</debitAccount>
+			<creditReconciled>false</creditReconciled>
+			<debitReconciled>false</debitReconciled>
+		</index18>
+		<index19 class="DoubleEntryTransaction" ID="-1735459429">
+			<amount>8316.00</amount>
+			<payee>Transfer</payee>
+			<number>TRAN</number>
+			<commodity>INR.en.IN</commodity>
+			<actTransDate>2008.06.11 04:21:58:272</actTransDate>
+			<voucherDate>2008.05.17 00:00:00:000</voucherDate>
+			<memo>tata internet</memo>
+			<creditAccount>-1290351210</creditAccount>
+			<debitAccount>1339101814</debitAccount>
+			<creditReconciled>false</creditReconciled>
+			<debitReconciled>false</debitReconciled>
+		</index19>
+		<index20 class="DoubleEntryTransaction" ID="784166944">
+			<amount>8316.00</amount>
+			<payee>Transfer</payee>
+			<number>TRAN</number>
+			<commodity>INR.en.IN</commodity>
+			<actTransDate>2008.06.11 04:26:29:064</actTransDate>
+			<voucherDate>2008.05.17 00:00:00:000</voucherDate>
+			<memo>tata internet</memo>
+			<creditAccount>1125923266</creditAccount>
+			<debitAccount>-1290351210</debitAccount>
+			<creditReconciled>false</creditReconciled>
+			<debitReconciled>false</debitReconciled>
+		</index20>
+		<index21 class="DoubleEntryTransaction" ID="-895953333">
+			<amount>3000.00</amount>
+			<payee>Transfer</payee>
+			<number>TRAN</number>
+			<commodity>INR.en.IN</commodity>
+			<actTransDate>2008.06.11 03:57:30:356</actTransDate>
+			<voucherDate>2008.05.23 00:00:00:000</voucherDate>
+			<memo>home</memo>
+			<creditAccount>-1720890028</creditAccount>
+			<debitAccount>1339101814</debitAccount>
+			<creditReconciled>false</creditReconciled>
+			<debitReconciled>false</debitReconciled>
+		</index21>
+		<index22 class="DoubleEntryTransaction" ID="-989008603">
+			<amount>40000.00</amount>
+			<payee>Transfer</payee>
+			<number>TRAN</number>
+			<commodity>INR.en.IN</commodity>
+			<actTransDate>2008.06.11 04:22:20:816</actTransDate>
+			<voucherDate>2008.05.23 00:00:00:000</voucherDate>
+			<memo/>
+			<creditAccount>-1290351210</creditAccount>
+			<debitAccount>1339101814</debitAccount>
+			<creditReconciled>false</creditReconciled>
+			<debitReconciled>false</debitReconciled>
+		</index22>
+		<index23 class="DoubleEntryTransaction" ID="-202887942">
+			<amount>40000.00</amount>
+			<payee>Transfer</payee>
+			<number>TRAN</number>
+			<commodity>INR.en.IN</commodity>
+			<actTransDate>2008.06.11 04:27:07:296</actTransDate>
+			<voucherDate>2008.05.23 00:00:00:000</voucherDate>
+			<memo>computers</memo>
+			<creditAccount>1125923266</creditAccount>
+			<debitAccount>-1290351210</debitAccount>
+			<creditReconciled>false</creditReconciled>
+			<debitReconciled>false</debitReconciled>
+		</index23>
+		<index24 class="DoubleEntryTransaction" ID="-664543418">
+			<amount>9000.00</amount>
+			<payee>Transfer</payee>
+			<number>TRAN</number>
+			<commodity>INR.en.IN</commodity>
+			<actTransDate>2008.06.11 03:57:57:124</actTransDate>
+			<voucherDate>2008.05.24 00:00:00:000</voucherDate>
+			<memo>jewellery</memo>
+			<creditAccount>-1720890028</creditAccount>
+			<debitAccount>1339101814</debitAccount>
+			<creditReconciled>false</creditReconciled>
+			<debitReconciled>false</debitReconciled>
+		</index24>
+		<index25 class="DoubleEntryTransaction" ID="-1935219608">
+			<amount>35000.00</amount>
+			<payee>Transfer</payee>
+			<number>TRAN</number>
+			<commodity>INR.en.IN</commodity>
+			<actTransDate>2008.06.11 03:58:48:438</actTransDate>
+			<voucherDate>2008.05.28 00:00:00:000</voucherDate>
+			<memo>shopping</memo>
+			<creditAccount>-1720890028</creditAccount>
+			<debitAccount>1339101814</debitAccount>
+			<creditReconciled>false</creditReconciled>
+			<debitReconciled>false</debitReconciled>
+		</index25>
+		<index26 class="DoubleEntryTransaction" ID="-124041711">
+			<amount>10000.00</amount>
+			<payee>Transfer</payee>
+			<number>TRAN</number>
+			<commodity>INR.en.IN</commodity>
+			<actTransDate>2008.06.11 04:22:45:867</actTransDate>
+			<voucherDate>2008.05.28 00:00:00:000</voucherDate>
+			<memo/>
+			<creditAccount>-1290351210</creditAccount>
+			<debitAccount>1339101814</debitAccount>
+			<creditReconciled>false</creditReconciled>
+			<debitReconciled>false</debitReconciled>
+		</index26>
+		<index27 class="DoubleEntryTransaction" ID="1467399464">
+			<amount>10000.00</amount>
+			<payee>Transfer</payee>
+			<number>TRAN</number>
+			<commodity>INR.en.IN</commodity>
+			<actTransDate>2008.06.11 04:27:26:737</actTransDate>
+			<voucherDate>2008.05.28 00:00:00:000</voucherDate>
+			<memo/>
+			<creditAccount>1125923266</creditAccount>
+			<debitAccount>-1290351210</debitAccount>
+			<creditReconciled>false</creditReconciled>
+			<debitReconciled>false</debitReconciled>
+		</index27>
+		<index28 class="DoubleEntryTransaction" ID="-1793821496">
+			<amount>5000.00</amount>
+			<payee>Transfer</payee>
+			<number>TRAN</number>
+			<commodity>INR.en.IN</commodity>
+			<actTransDate>2008.06.11 05:01:54:848</actTransDate>
+			<voucherDate>2008.05.28 00:00:00:000</voucherDate>
+			<memo>icici</memo>
+			<creditAccount>1572445866</creditAccount>
+			<debitAccount>1339101814</debitAccount>
+			<creditReconciled>false</creditReconciled>
+			<debitReconciled>false</debitReconciled>
+		</index28>
+		<index29 class="DoubleEntryTransaction" ID="209127120">
+			<amount>177000.00</amount>
+			<payee/>
 			<number/>
 			<commodity>INR.en.IN</commodity>
-			<actTransDate>2008.06.10 17:51:58:936</actTransDate>
-			<voucherDate>2008.06.10 00:00:00:000</voucherDate>
+			<actTransDate>2008.06.11 04:05:30:260</actTransDate>
+			<voucherDate>2008.06.01 00:00:00:000</voucherDate>
+			<memo>friend</memo>
+			<creditAccount>1572445866</creditAccount>
+			<debitAccount>649826826</debitAccount>
+			<creditReconciled>false</creditReconciled>
+			<debitReconciled>false</debitReconciled>
+		</index29>
+		<index30 class="DoubleEntryTransaction" ID="-359356458">
+			<amount>208825.00</amount>
+			<payee>shannan</payee>
+			<number/>
+			<commodity>INR.en.IN</commodity>
+			<actTransDate>2008.06.11 04:00:03:647</actTransDate>
+			<voucherDate>2008.06.02 00:00:00:000</voucherDate>
 			<memo/>
 			<creditAccount>1339101814</creditAccount>
 			<debitAccount>649826826</debitAccount>
 			<creditReconciled>false</creditReconciled>
 			<debitReconciled>false</debitReconciled>
-		</index6>
-		<index7 class="DoubleEntryTransaction" ID="-973559396">
-			<amount>4994.00</amount>
-			<payee>test</payee>
+		</index30>
+		<index31 class="DoubleEntryTransaction" ID="-959075655">
+			<amount>208825.00</amount>
+			<payee>shannan</payee>
 			<number/>
 			<commodity>INR.en.IN</commodity>
-			<actTransDate>2008.06.11 03:15:58:731</actTransDate>
+			<actTransDate>2008.06.11 04:00:16:751</actTransDate>
+			<voucherDate>2008.06.02 00:00:00:000</voucherDate>
+			<memo/>
+			<creditAccount>1339101814</creditAccount>
+			<debitAccount>649826826</debitAccount>
+			<creditReconciled>false</creditReconciled>
+			<debitReconciled>false</debitReconciled>
+		</index31>
+		<index32 class="DoubleEntryTransaction" ID="558011855">
+			<amount>2000.00</amount>
+			<payee>Transfer</payee>
+			<number>TRAN</number>
+			<commodity>INR.en.IN</commodity>
+			<actTransDate>2008.06.11 05:02:52:099</actTransDate>
+			<voucherDate>2008.06.05 00:00:00:000</voucherDate>
+			<memo>home needs</memo>
+			<creditAccount>-1720890028</creditAccount>
+			<debitAccount>1572445866</debitAccount>
+			<creditReconciled>false</creditReconciled>
+			<debitReconciled>false</debitReconciled>
+		</index32>
+		<index33 class="DoubleEntryTransaction" ID="-1404260264">
+			<amount>10000.00</amount>
+			<payee>ahmed faraz</payee>
+			<number/>
+			<commodity>INR.en.IN</commodity>
+			<actTransDate>2008.06.11 04:43:15:847</actTransDate>
+			<voucherDate>2008.06.06 00:00:00:000</voucherDate>
+			<memo/>
+			<creditAccount>-1290351210</creditAccount>
+			<debitAccount>649826826</debitAccount>
+			<creditReconciled>false</creditReconciled>
+			<debitReconciled>false</debitReconciled>
+		</index33>
+		<index34 class="DoubleEntryTransaction" ID="-1477271287">
+			<amount>5000.00</amount>
+			<payee>Transfer</payee>
+			<number>TRAN</number>
+			<commodity>INR.en.IN</commodity>
+			<actTransDate>2008.06.11 04:35:59:922</actTransDate>
+			<voucherDate>2008.06.06 00:00:00:000</voucherDate>
+			<memo/>
+			<creditAccount>-1290351210</creditAccount>
+			<debitAccount>1339101814</debitAccount>
+			<creditReconciled>false</creditReconciled>
+			<debitReconciled>false</debitReconciled>
+		</index34>
+		<index35 class="DoubleEntryTransaction" ID="1870464888">
+			<amount>5000.00</amount>
+			<payee>Transfer</payee>
+			<number>TRAN</number>
+			<commodity>INR.en.IN</commodity>
+			<actTransDate>2008.06.11 04:52:37:183</actTransDate>
+			<voucherDate>2008.06.06 00:00:00:000</voucherDate>
+			<memo/>
+			<creditAccount>1125923266</creditAccount>
+			<debitAccount>-1290351210</debitAccount>
+			<creditReconciled>false</creditReconciled>
+			<debitReconciled>false</debitReconciled>
+		</index35>
+		<index36 class="DoubleEntryTransaction" ID="308829993">
+			<amount>55.00</amount>
+			<payee>Transfer</payee>
+			<number>TRAN</number>
+			<commodity>INR.en.IN</commodity>
+			<actTransDate>2008.06.11 04:40:20:336</actTransDate>
+			<voucherDate>2008.06.07 00:00:00:000</voucherDate>
+			<memo>mobile recharge</memo>
+			<creditAccount>-1720890028</creditAccount>
+			<debitAccount>1339101814</debitAccount>
+			<creditReconciled>false</creditReconciled>
+			<debitReconciled>false</debitReconciled>
+		</index36>
+		<index37 class="DoubleEntryTransaction" ID="614029231">
+			<amount>3000.00</amount>
+			<payee>Transfer</payee>
+			<number>TRAN</number>
+			<commodity>INR.en.IN</commodity>
+			<actTransDate>2008.06.11 04:34:38:404</actTransDate>
+			<voucherDate>2008.06.09 00:00:00:000</voucherDate>
+			<memo>office rent</memo>
+			<creditAccount>-1290351210</creditAccount>
+			<debitAccount>1572445866</debitAccount>
+			<creditReconciled>false</creditReconciled>
+			<debitReconciled>false</debitReconciled>
+		</index37>
+		<index38 class="DoubleEntryTransaction" ID="1801331640">
+			<amount>3000.00</amount>
+			<payee>Transfer</payee>
+			<number>TRAN</number>
+			<commodity>INR.en.IN</commodity>
+			<actTransDate>2008.06.11 04:50:38:357</actTransDate>
+			<voucherDate>2008.06.09 00:00:00:000</voucherDate>
+			<memo>office rent</memo>
+			<creditAccount>1125923266</creditAccount>
+			<debitAccount>-1290351210</debitAccount>
+			<creditReconciled>false</creditReconciled>
+			<debitReconciled>false</debitReconciled>
+		</index38>
+		<index39 class="DoubleEntryTransaction" ID="642393678">
+			<amount>5000.00</amount>
+			<payee>Transfer</payee>
+			<number>TRAN</number>
+			<commodity>INR.en.IN</commodity>
+			<actTransDate>2008.06.11 04:35:00:244</actTransDate>
+			<voucherDate>2008.06.10 00:00:00:000</voucherDate>
+			<memo/>
+			<creditAccount>-1290351210</creditAccount>
+			<debitAccount>1572445866</debitAccount>
+			<creditReconciled>false</creditReconciled>
+			<debitReconciled>false</debitReconciled>
+		</index39>
+		<index40 class="DoubleEntryTransaction" ID="-405938792">
+			<amount>5000.00</amount>
+			<payee>Transfer</payee>
+			<number>TRAN</number>
+			<commodity>INR.en.IN</commodity>
+			<actTransDate>2008.06.11 04:54:38:154</actTransDate>
+			<voucherDate>2008.06.10 00:00:00:000</voucherDate>
+			<memo>local internet -800</memo>
+			<creditAccount>1125923266</creditAccount>
+			<debitAccount>-1290351210</debitAccount>
+			<creditReconciled>false</creditReconciled>
+			<debitReconciled>false</debitReconciled>
+		</index40>
+		<index41 class="DoubleEntryTransaction" ID="-2063938867">
+			<amount>2000.00</amount>
+			<payee>Transfer</payee>
+			<number>TRAN</number>
+			<commodity>INR.en.IN</commodity>
+			<actTransDate>2008.06.11 05:05:07:400</actTransDate>
+			<voucherDate>2008.06.10 00:00:00:000</voucherDate>
+			<memo/>
+			<creditAccount>-1290351210</creditAccount>
+			<debitAccount>1572445866</debitAccount>
+			<creditReconciled>false</creditReconciled>
+			<debitReconciled>false</debitReconciled>
+		</index41>
+		<index42 class="DoubleEntryTransaction" ID="-1157841891">
+			<amount>2000.00</amount>
+			<payee>Transfer</payee>
+			<number>TRAN</number>
+			<commodity>INR.en.IN</commodity>
+			<actTransDate>2008.06.11 05:06:00:601</actTransDate>
+			<voucherDate>2008.06.10 00:00:00:000</voucherDate>
+			<memo/>
+			<creditAccount>1125923266</creditAccount>
+			<debitAccount>-1290351210</debitAccount>
+			<creditReconciled>false</creditReconciled>
+			<debitReconciled>false</debitReconciled>
+		</index42>
+		<index43 class="DoubleEntryTransaction" ID="2141055166">
+			<amount>23000.00</amount>
+			<payee>Transfer</payee>
+			<number>TRAN</number>
+			<commodity>INR.en.IN</commodity>
+			<actTransDate>2008.06.11 04:33:46:283</actTransDate>
+			<voucherDate>2008.06.11 00:00:00:000</voucherDate>
+			<memo>salaries</memo>
+			<creditAccount>-1290351210</creditAccount>
+			<debitAccount>1572445866</debitAccount>
+			<creditReconciled>false</creditReconciled>
+			<debitReconciled>false</debitReconciled>
+		</index43>
+		<index44 class="DoubleEntryTransaction" ID="-571027428">
+			<amount>6000.00</amount>
+			<payee>Transfer</payee>
+			<number>TRAN</number>
+			<commodity>INR.en.IN</commodity>
+			<actTransDate>2008.06.11 04:34:12:747</actTransDate>
 			<voucherDate>2008.06.11 00:00:00:000</voucherDate>
 			<memo/>
-			<creditAccount>1339101814</creditAccount>
-			<debitAccount>649826826</debitAccount>
+			<creditAccount>-1290351210</creditAccount>
+			<debitAccount>1572445866</debitAccount>
 			<creditReconciled>false</creditReconciled>
 			<debitReconciled>false</debitReconciled>
-		</index7>
+		</index44>
+		<index45 class="DoubleEntryTransaction" ID="-1478181637">
+			<amount>23000.00</amount>
+			<payee>Transfer</payee>
+			<number>TRAN</number>
+			<commodity>INR.en.IN</commodity>
+			<actTransDate>2008.06.11 04:37:30:244</actTransDate>
+			<voucherDate>2008.06.11 00:00:00:000</voucherDate>
+			<memo>salaries</memo>
+			<creditAccount>1125923266</creditAccount>
+			<debitAccount>-1290351210</debitAccount>
+			<creditReconciled>false</creditReconciled>
+			<debitReconciled>false</debitReconciled>
+		</index45>
+		<index46 class="DoubleEntryTransaction" ID="-1866098988">
+			<amount>7000.00</amount>
+			<payee>Transfer</payee>
+			<number>TRAN</number>
+			<commodity>INR.en.IN</commodity>
+			<actTransDate>2008.06.11 04:46:27:716</actTransDate>
+			<voucherDate>2008.06.11 00:00:00:000</voucherDate>
+			<memo>home bills</memo>
+			<creditAccount>-1720890028</creditAccount>
+			<debitAccount>1572445866</debitAccount>
+			<creditReconciled>false</creditReconciled>
+			<debitReconciled>false</debitReconciled>
+		</index46>
+		<index47 class="DoubleEntryTransaction" ID="1354318309">
+			<amount>6000</amount>
+			<payee>Transfer</payee>
+			<number>TRAN</number>
+			<commodity>INR.en.IN</commodity>
+			<actTransDate>2008.06.11 04:50:53:317</actTransDate>
+			<voucherDate>2008.06.11 00:00:00:000</voucherDate>
+			<memo/>
+			<creditAccount>1125923266</creditAccount>
+			<debitAccount>-1290351210</debitAccount>
+			<creditReconciled>false</creditReconciled>
+			<debitReconciled>false</debitReconciled>
+		</index47>
+		<index48 class="DoubleEntryTransaction" ID="1316377584">
+			<amount>2500.00</amount>
+			<payee>Transfer</payee>
+			<number>TRAN</number>
+			<commodity>INR.en.IN</commodity>
+			<actTransDate>2008.06.11 05:16:44:611</actTransDate>
+			<voucherDate>2008.06.11 00:00:00:000</voucherDate>
+			<memo>home needs</memo>
+			<creditAccount>-1720890028</creditAccount>
+			<debitAccount>1572445866</debitAccount>
+			<creditReconciled>false</creditReconciled>
+			<debitReconciled>false</debitReconciled>
+		</index48>
+		<index49 class="DoubleEntryTransaction" ID="741650586">
+			<amount>3500.00</amount>
+			<payee>Transfer</payee>
+			<number>TRAN</number>
+			<commodity>INR.en.IN</commodity>
+			<actTransDate>2008.06.11 05:17:05:148</actTransDate>
+			<voucherDate>2008.06.11 00:00:00:000</voucherDate>
+			<memo/>
+			<creditAccount>-1290351210</creditAccount>
+			<debitAccount>1572445866</debitAccount>
+			<creditReconciled>false</creditReconciled>
+			<debitReconciled>false</debitReconciled>
+		</index49>
+		<index50 class="DoubleEntryTransaction" ID="1774187540">
+			<amount>3500.00</amount>
+			<payee>Transfer</payee>
+			<number>TRAN</number>
+			<commodity>INR.en.IN</commodity>
+			<actTransDate>2008.06.11 05:17:36:132</actTransDate>
+			<voucherDate>2008.06.11 00:00:00:000</voucherDate>
+			<memo/>
+			<creditAccount>1125923266</creditAccount>
+			<debitAccount>-1290351210</debitAccount>
+			<creditReconciled>false</creditReconciled>
+			<debitReconciled>false</debitReconciled>
+		</index50>
+		<index51 class="DoubleEntryTransaction" ID="-2137882352">
+			<amount>600.00</amount>
+			<payee>Transfer</payee>
+			<number>TRAN</number>
+			<commodity>INR.en.IN</commodity>
+			<actTransDate>2008.06.11 05:21:12:936</actTransDate>
+			<voucherDate>2008.06.11 00:00:00:000</voucherDate>
+			<memo/>
+			<creditAccount>-1720890028</creditAccount>
+			<debitAccount>1572445866</debitAccount>
+			<creditReconciled>false</creditReconciled>
+			<debitReconciled>false</debitReconciled>
+		</index51>
+		<index52 class="DoubleEntryTransaction" ID="-666434055">
+			<amount>50.00</amount>
+			<payee>Transfer</payee>
+			<number>TRAN</number>
+			<commodity>INR.en.IN</commodity>
+			<actTransDate>2008.06.11 17:04:45:316</actTransDate>
+			<voucherDate>2008.06.11 00:00:00:000</voucherDate>
+			<memo>home</memo>
+			<creditAccount>-1720890028</creditAccount>
+			<debitAccount>1572445866</debitAccount>
+			<creditReconciled>false</creditReconciled>
+			<debitReconciled>false</debitReconciled>
+		</index52>
+		<index53 class="DoubleEntryTransaction" ID="-231970001">
+			<amount>4000.00</amount>
+			<payee>Transfer</payee>
+			<number>TRAN</number>
+			<commodity>INR.en.IN</commodity>
+			<actTransDate>2008.06.14 18:10:02:512</actTransDate>
+			<voucherDate>2008.06.13 00:00:00:000</voucherDate>
+			<memo>server</memo>
+			<creditAccount>-1290351210</creditAccount>
+			<debitAccount>1440153597</debitAccount>
+			<creditReconciled>false</creditReconciled>
+			<debitReconciled>false</debitReconciled>
+		</index53>
+		<index54 class="DoubleEntryTransaction" ID="1569455097">
+			<amount>4000.00</amount>
+			<payee>Transfer</payee>
+			<number>TRAN</number>
+			<commodity>INR.en.IN</commodity>
+			<actTransDate>2008.06.14 18:10:51:368</actTransDate>
+			<voucherDate>2008.06.13 00:00:00:000</voucherDate>
+			<memo>server</memo>
+			<creditAccount>1125923266</creditAccount>
+			<debitAccount>-1290351210</debitAccount>
+			<creditReconciled>false</creditReconciled>
+			<debitReconciled>false</debitReconciled>
+		</index54>
+		<index55 class="DoubleEntryTransaction" ID="709330872">
+			<amount>3600.00</amount>
+			<payee>Transfer</payee>
+			<number>TRAN</number>
+			<commodity>INR.en.IN</commodity>
+			<actTransDate>2008.06.14 18:07:28:217</actTransDate>
+			<voucherDate>2008.06.14 00:00:00:000</voucherDate>
+			<memo>driver salary</memo>
+			<creditAccount>-1720890028</creditAccount>
+			<debitAccount>1572445866</debitAccount>
+			<creditReconciled>false</creditReconciled>
+			<debitReconciled>false</debitReconciled>
+		</index55>
 	</objects>
 	<currencyList class="Array" type="jgnash.engine.commodity.CommodityNode" length="1">
 		<index0 class="CurrencyNode">
@@ -123,8 +750,4 @@
 	</currencyList>
 	<exchangeRates class="Array" type="jgnash.engine.commodity.ExchangeRate-ExchangeRateNode" length="0"/>
 	<reminders class="Array" type="jgnash.engine.recurring.Reminder" length="0"/>
-	<transactionNumberItems class="jgnash.xml.XMLStringArray" length="2">
-		<index0>EFT</index0>
-		<index1>Trans</index1>
-	</transactionNumberItems>
 </dataRoot>
