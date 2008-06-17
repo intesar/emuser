@@ -2,8 +2,8 @@
 <?fileVersion 1?>
 <dataRoot class="Data">
 	<rootAccount>-1468634289</rootAccount>
-	<date>2008.06.15 20:50:43:079</date>
-	<objects class="Array" type="jgnash.engine.jgnashObject" length="58">
+	<date>2008.06.18 03:40:08:743</date>
+	<objects class="Array" type="jgnash.engine.jgnashObject" length="63">
 		<index0 class="RootAccount" ID="-1468634289">
 			<name>Root</name>
 			<commodity>INR.en.IN</commodity>
@@ -42,7 +42,7 @@
 			<locked>false</locked>
 			<placeHolder>false</placeHolder>
 			<parentAccount>649826826</parentAccount>
-			<size>16</size>
+			<size>19</size>
 		</index2>
 		<index3 class="BankAccount" ID="1440153597">
 			<name>chase bank</name>
@@ -81,7 +81,7 @@
 			<locked>false</locked>
 			<placeHolder>false</placeHolder>
 			<parentAccount>649826826</parentAccount>
-			<size>29</size>
+			<size>33</size>
 		</index5>
 		<index6 class="ExpenseAccount" ID="-1076126562">
 			<name>Expense Accounts</name>
@@ -107,7 +107,7 @@
 			<locked>false</locked>
 			<placeHolder>false</placeHolder>
 			<parentAccount>-1076126562</parentAccount>
-			<size>14</size>
+			<size>16</size>
 			<taxRelated>false</taxRelated>
 		</index7>
 		<index8 class="ExpenseAccount" ID="-1720890028">
@@ -121,7 +121,7 @@
 			<locked>false</locked>
 			<placeHolder>false</placeHolder>
 			<parentAccount>-1076126562</parentAccount>
-			<size>12</size>
+			<size>13</size>
 			<taxRelated>false</taxRelated>
 		</index8>
 		<index9 class="IncomeAccount" ID="430889334">
@@ -762,6 +762,71 @@
 			<creditReconciled>false</creditReconciled>
 			<debitReconciled>false</debitReconciled>
 		</index57>
+		<index58 class="DoubleEntryTransaction" ID="-2085242535">
+			<amount>4000.00</amount>
+			<payee>Transfer</payee>
+			<number>TRAN</number>
+			<commodity>INR.en.IN</commodity>
+			<actTransDate>2008.06.18 03:37:25:192</actTransDate>
+			<voucherDate>2008.06.18 00:00:00:000</voucherDate>
+			<memo/>
+			<creditAccount>-1290351210</creditAccount>
+			<debitAccount>1572445866</debitAccount>
+			<creditReconciled>false</creditReconciled>
+			<debitReconciled>false</debitReconciled>
+		</index58>
+		<index59 class="DoubleEntryTransaction" ID="-1544565340">
+			<amount>3000.00</amount>
+			<payee>Transfer</payee>
+			<number>TRAN</number>
+			<commodity>INR.en.IN</commodity>
+			<actTransDate>2008.06.18 03:37:35:143</actTransDate>
+			<voucherDate>2008.06.18 00:00:00:000</voucherDate>
+			<memo>amer</memo>
+			<creditAccount>-1290351210</creditAccount>
+			<debitAccount>1572445866</debitAccount>
+			<creditReconciled>false</creditReconciled>
+			<debitReconciled>false</debitReconciled>
+		</index59>
+		<index60 class="DoubleEntryTransaction" ID="601181628">
+			<amount>4000.00</amount>
+			<payee>Transfer</payee>
+			<number>TRAN</number>
+			<commodity>INR.en.IN</commodity>
+			<actTransDate>2008.06.18 03:38:01:143</actTransDate>
+			<voucherDate>2008.06.18 00:00:00:000</voucherDate>
+			<memo/>
+			<creditAccount>1125923266</creditAccount>
+			<debitAccount>-1290351210</debitAccount>
+			<creditReconciled>false</creditReconciled>
+			<debitReconciled>false</debitReconciled>
+		</index60>
+		<index61 class="DoubleEntryTransaction" ID="1654873493">
+			<amount>3000.00</amount>
+			<payee>Transfer</payee>
+			<number>TRAN</number>
+			<commodity>INR.en.IN</commodity>
+			<actTransDate>2008.06.18 03:38:10:023</actTransDate>
+			<voucherDate>2008.06.18 00:00:00:000</voucherDate>
+			<memo>amer</memo>
+			<creditAccount>1125923266</creditAccount>
+			<debitAccount>-1290351210</debitAccount>
+			<creditReconciled>false</creditReconciled>
+			<debitReconciled>false</debitReconciled>
+		</index61>
+		<index62 class="DoubleEntryTransaction" ID="-487481864">
+			<amount>60.00</amount>
+			<payee>Transfer</payee>
+			<number>TRAN</number>
+			<commodity>INR.en.IN</commodity>
+			<actTransDate>2008.06.18 03:38:52:732</actTransDate>
+			<voucherDate>2008.06.18 00:00:00:000</voucherDate>
+			<memo>home</memo>
+			<creditAccount>-1720890028</creditAccount>
+			<debitAccount>1572445866</debitAccount>
+			<creditReconciled>false</creditReconciled>
+			<debitReconciled>false</debitReconciled>
+		</index62>
 	</objects>
 	<currencyList class="Array" type="jgnash.engine.commodity.CommodityNode" length="1">
 		<index0 class="CurrencyNode">
