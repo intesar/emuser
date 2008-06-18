@@ -2,7 +2,7 @@
 <?fileVersion 1?>
 <dataRoot class="Data">
 	<rootAccount>-1468634289</rootAccount>
-	<date>2008.06.18 03:40:08:743</date>
+	<date>2008.06.18 23:27:36:459</date>
 	<objects class="Array" type="jgnash.engine.jgnashObject" length="63">
 		<index0 class="RootAccount" ID="-1468634289">
 			<name>Root</name>
@@ -814,8 +814,8 @@
 			<creditReconciled>false</creditReconciled>
 			<debitReconciled>false</debitReconciled>
 		</index61>
-		<index62 class="DoubleEntryTransaction" ID="-487481864">
-			<amount>60.00</amount>
+		<index62 class="DoubleEntryTransaction" ID="-21147870">
+			<amount>150.00</amount>
 			<payee>Transfer</payee>
 			<number>TRAN</number>
 			<commodity>INR.en.IN</commodity>
