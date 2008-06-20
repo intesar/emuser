@@ -2,8 +2,8 @@
 <?fileVersion 1?>
 <dataRoot class="Data">
 	<rootAccount>-1468634289</rootAccount>
-	<date>2008.06.18 23:27:36:459</date>
-	<objects class="Array" type="jgnash.engine.jgnashObject" length="63">
+	<date>2008.06.20 18:22:40:803</date>
+	<objects class="Array" type="jgnash.engine.jgnashObject" length="66">
 		<index0 class="RootAccount" ID="-1468634289">
 			<name>Root</name>
 			<commodity>INR.en.IN</commodity>
@@ -42,7 +42,7 @@
 			<locked>false</locked>
 			<placeHolder>false</placeHolder>
 			<parentAccount>649826826</parentAccount>
-			<size>19</size>
+			<size>20</size>
 		</index2>
 		<index3 class="BankAccount" ID="1440153597">
 			<name>chase bank</name>
@@ -68,7 +68,7 @@
 			<locked>false</locked>
 			<placeHolder>false</placeHolder>
 			<parentAccount>649826826</parentAccount>
-			<size>16</size>
+			<size>17</size>
 		</index4>
 		<index5 class="BankAccount" ID="-1290351210">
 			<name>investment</name>
@@ -81,7 +81,7 @@
 			<locked>false</locked>
 			<placeHolder>false</placeHolder>
 			<parentAccount>649826826</parentAccount>
-			<size>33</size>
+			<size>35</size>
 		</index5>
 		<index6 class="ExpenseAccount" ID="-1076126562">
 			<name>Expense Accounts</name>
@@ -107,7 +107,7 @@
 			<locked>false</locked>
 			<placeHolder>false</placeHolder>
 			<parentAccount>-1076126562</parentAccount>
-			<size>16</size>
+			<size>17</size>
 			<taxRelated>false</taxRelated>
 		</index7>
 		<index8 class="ExpenseAccount" ID="-1720890028">
@@ -121,7 +121,7 @@
 			<locked>false</locked>
 			<placeHolder>false</placeHolder>
 			<parentAccount>-1076126562</parentAccount>
-			<size>13</size>
+			<size>14</size>
 			<taxRelated>false</taxRelated>
 		</index8>
 		<index9 class="IncomeAccount" ID="430889334">
@@ -827,6 +827,45 @@
 			<creditReconciled>false</creditReconciled>
 			<debitReconciled>false</debitReconciled>
 		</index62>
+		<index63 class="DoubleEntryTransaction" ID="-268197213">
+			<amount>610.00</amount>
+			<payee>Transfer</payee>
+			<number>TRAN</number>
+			<commodity>INR.en.IN</commodity>
+			<actTransDate>2008.06.20 18:21:18:330</actTransDate>
+			<voucherDate>2008.06.19 00:00:00:000</voucherDate>
+			<memo>tata phone bill</memo>
+			<creditAccount>-1290351210</creditAccount>
+			<debitAccount>1339101814</debitAccount>
+			<creditReconciled>false</creditReconciled>
+			<debitReconciled>false</debitReconciled>
+		</index63>
+		<index64 class="DoubleEntryTransaction" ID="-732592111">
+			<amount>610.00</amount>
+			<payee>Transfer</payee>
+			<number>TRAN</number>
+			<commodity>INR.en.IN</commodity>
+			<actTransDate>2008.06.20 18:22:12:922</actTransDate>
+			<voucherDate>2008.06.19 00:00:00:000</voucherDate>
+			<memo>tata phone bill</memo>
+			<creditAccount>1125923266</creditAccount>
+			<debitAccount>-1290351210</debitAccount>
+			<creditReconciled>false</creditReconciled>
+			<debitReconciled>false</debitReconciled>
+		</index64>
+		<index65 class="DoubleEntryTransaction" ID="-1738054539">
+			<amount>100.00</amount>
+			<payee>Transfer</payee>
+			<number>TRAN</number>
+			<commodity>INR.en.IN</commodity>
+			<actTransDate>2008.06.20 18:20:12:938</actTransDate>
+			<voucherDate>2008.06.20 00:00:00:000</voucherDate>
+			<memo>window</memo>
+			<creditAccount>-1720890028</creditAccount>
+			<debitAccount>1572445866</debitAccount>
+			<creditReconciled>false</creditReconciled>
+			<debitReconciled>false</debitReconciled>
+		</index65>
 	</objects>
 	<currencyList class="Array" type="jgnash.engine.commodity.CommodityNode" length="1">
 		<index0 class="CurrencyNode">
