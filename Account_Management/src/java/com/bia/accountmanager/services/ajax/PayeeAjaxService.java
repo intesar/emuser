@@ -5,10 +5,18 @@
 
 package com.bia.accountmanager.services.ajax;
 
+import com.bia.accountmanager.services.PayeeService;
+
 /**
  *
  * @author intesar
  */
 public class PayeeAjaxService {
+
+    public void setPayeeservice(PayeeService payeeservice) {
+        this.payeeservice = payeeservice;
+    }
+    
+    private PayeeService payeeservice;
 
 }

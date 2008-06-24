@@ -5,10 +5,19 @@
 
 package com.bia.accountmanager.services.ajax;
 
+import com.bia.accountmanager.services.ReportService;
+
 /**
  *
  * @author intesar
  */
 public class ReportAjaxService {
+
+    public void setReportservice(ReportService reportservice) {
+        this.reportservice = reportservice;
+    }
+    
+    private ReportService reportservice;
+    
 
 }

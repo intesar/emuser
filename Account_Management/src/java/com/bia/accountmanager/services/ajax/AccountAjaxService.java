@@ -5,10 +5,19 @@
 
 package com.bia.accountmanager.services.ajax;
 
+import com.bia.accountmanager.services.AccountService;
+
 /**
  *
  * @author intesar
  */
 public class AccountAjaxService {
+
+    public void setAccountService(AccountService accountService) {
+        this.accountService = accountService;
+    }
+    
+    
+    private AccountService accountService;
 
 }
