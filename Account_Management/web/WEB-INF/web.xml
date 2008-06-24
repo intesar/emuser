@@ -7,5 +7,57 @@
     </session-config>
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
-        </welcome-file-list>
-    </web-app>
+    </welcome-file-list>
+    <servlet>
+        <servlet-name>dwr-invoker</servlet-name>
+        <!--<display-name>DWR Servlet</display-name>-->
+        <servlet-class>org.directwebremoting.spring.DwrSpringServlet</servlet-class>
+        <init-param>
+            <param-name>debug</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>dwr-invoker</servlet-name>
+        <url-pattern>/dwr/*</url-pattern>
+    </servlet-mapping>
+    
+     <!-- 1. Setup two parameters:          -->
+    <!--    a) Acegi's configuration file  -->
+    <!--    b) Loggin configuration file   -->
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>
+            classpath:context/ApplicationContext-Acegi.xml                      
+            classpath:context/ApplicationContext-Dao.xml
+            classpath:context/ApplicationContext-Service.xml
+            classpath:context/ApplicationContext-Transactions.xml
+            classpath:context/ApplicationContext-AjaxService.xml
+        </param-value>
+    </context-param>
+    <context-param>
+        <param-name>log4jConfigLocation</param-name>
+        <param-value>classpath:context/log4j.properties</param-value>
+    </context-param>
+    
+    
+    <!-- 2. Setup the Acegi Filter Chain Proxy -->
+    <filter>
+        <filter-name>Acegi Filter Chain Proxy</filter-name>
+        <filter-class>org.acegisecurity.util.FilterToBeanProxy</filter-class>
+        <init-param>
+            <param-name>targetClass</param-name>
+            <param-value>org.acegisecurity.util.FilterChainProxy</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>Acegi Filter Chain Proxy</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    
+    <!-- 3. Setup three listeners -->
+    <!--    a) Setup a listener to connect spring with the web context -->
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+</web-app>
