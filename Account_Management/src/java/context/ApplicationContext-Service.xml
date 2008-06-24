@@ -18,12 +18,13 @@
 
     
     -->
-    <bean id="accountServiceImpl" class="com.company.projectname.service.impl.PersonServiceImpl" >
+    <bean id="accountServiceImpl" class="com.bia.accountmanager.services.impl.AccountServiceImpl" >
     </bean>
-    <bean id="personServiceImpl" class="com.company.projectname.service.impl.PersonServiceImpl" >
+    <bean id="payeeServiceImpl" class="com.bia.accountmanager.services.impl.PayeeServiceImpl" >
     </bean>
-    <bean id="personServiceImpl" class="com.company.projectname.service.impl.PersonServiceImpl" >
+    <bean id="reportServiceImpl" class="com.bia.accountmanager.services.impl.ReportServiceImpl" >
     </bean>
-    <bean id="personServiceImpl" class="com.company.projectname.service.impl.PersonServiceImpl" >
+    <bean id="userServiceImpl" class="com.bia.accountmanager.services.impl.UserServiceImpl" >
     </bean>
+    
 </beans>

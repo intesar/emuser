@@ -1,7 +1,7 @@
   <!-- EntityManagerFactory -->
-    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">
-        <property name="persistenceUnitName" value="AccountManagerPU"/>
-    </bean>
+<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">
+    <property name="persistenceUnitName" value="AccountManagerPU"/>
+</bean>
     
     <!-- 
     datasource bean is used by spring unit testing 
@@ -16,30 +16,30 @@
      -->
      
     <!-- advisor -->
-    <bean id="finderIntroductionAdvisor" class="com.abbhsoft.jpadaoframework.dao.advisor.FinderIntroductionAdvisor" />
+<bean id="finderIntroductionAdvisor" class="com.abbhsoft.jpadaoframework.dao.advisor.FinderIntroductionAdvisor" />
     
     <!-- helper bean resolves the finder method name -->
-    <bean id="extendedFinderNamingStrategy" class="com.abbhsoft.jpadaoframework.dao.finderhelper.ExtendedFinderNamingStrategy" />
+<bean id="extendedFinderNamingStrategy" class="com.abbhsoft.jpadaoframework.dao.finderhelper.ExtendedFinderNamingStrategy" />
     
     <!-- target -->
-    <bean id="abstractDaoTarget" class="com.abbhsoft.jpadaoframework.dao.GenericDaoJPAImpl" abstract="true">
-        <property name="entityManagerFactory">
-            <ref bean="entityManagerFactory"/>
-        </property>
-        <property name="namingStrategy">
-            <ref bean="extendedFinderNamingStrategy" />
-        </property>
-    </bean>
+<bean id="abstractDaoTarget" class="com.abbhsoft.jpadaoframework.dao.GenericDaoJPAImpl" abstract="true">
+    <property name="entityManagerFactory">
+        <ref bean="entityManagerFactory"/>
+    </property>
+    <property name="namingStrategy">
+        <ref bean="extendedFinderNamingStrategy" />
+    </property>
+</bean>
     
     <!-- base Proxy -->
-    <bean id="abstractDao" class="org.springframework.aop.framework.ProxyFactoryBean" abstract="true">
-        <property name="exposeProxy" value="true" />
-        <property name="interceptorNames">
-            <list>
-                <value>finderIntroductionAdvisor</value>
-            </list>
-        </property>
-    </bean>
+<bean id="abstractDao" class="org.springframework.aop.framework.ProxyFactoryBean" abstract="true">
+    <property name="exposeProxy" value="true" />
+    <property name="interceptorNames">
+        <list>
+            <value>finderIntroductionAdvisor</value>
+        </list>
+    </property>
+</bean>
     
     
     
@@ -83,101 +83,100 @@
    -->
    
    <!-- common package dao's -->
-   
-    <bean id="accountDao" parent="abstractDao">
-      <property name="proxyInterfaces">
-         <value>com.bia.accountmanager.dao.AccountDao</value>
-      </property>
-      <property name="target">
-         <bean parent="abstractDaoTarget">
+<bean id="accountDao" parent="abstractDao">
+    <property name="proxyInterfaces">
+        <value>com.bia.accountmanager.dao.AccountDao</value>
+    </property>
+    <property name="target">
+        <bean parent="abstractDaoTarget">
             <constructor-arg>
-               <value>com.bia.accountmanager.entity.Account</value>
+                <value>com.bia.accountmanager.entity.Account</value>
             </constructor-arg>
-         </bean>
-      </property>
-   </bean>
-     <bean id="accounttypeDao" parent="abstractDao">
-      <property name="proxyInterfaces">
-         <value>com.bia.accountmanager.entity.AccountTypeDao</value>
-      </property>
-      <property name="target">
-         <bean parent="abstractDaoTarget">
+        </bean>
+    </property>
+</bean>
+<bean id="accounttypeDao" parent="abstractDao">
+    <property name="proxyInterfaces">
+        <value>com.bia.accountmanager.entity.AccountTypeDao</value>
+    </property>
+    <property name="target">
+        <bean parent="abstractDaoTarget">
             <constructor-arg>
-               <value>com.bia.accountmanager.entity.AccountType</value>
+                <value>com.bia.accountmanager.entity.AccountType</value>
             </constructor-arg>
-         </bean>
-      </property>
-   </bean>
-    <bean id="categoryDao" parent="abstractDao">
-      <property name="proxyInterfaces">
-         <value>com.bia.accountmanager.entity.CategoryDao</value>
-      </property>
-      <property name="target">
-         <bean parent="abstractDaoTarget">
+        </bean>
+    </property>
+</bean>
+<bean id="categoryDao" parent="abstractDao">
+    <property name="proxyInterfaces">
+        <value>com.bia.accountmanager.entity.CategoryDao</value>
+    </property>
+    <property name="target">
+        <bean parent="abstractDaoTarget">
             <constructor-arg>
-               <value>com.bia.accountmanager.entity.Category</value>
+                <value>com.bia.accountmanager.entity.Category</value>
             </constructor-arg>
-         </bean>
-      </property>
-   </bean>  
-     <bean id="organisationtypeDao" parent="abstractDao">
-      <property name="proxyInterfaces">
-         <value>com.bia.accountmanager.entity.OrganistationTypeDao</value>
-      </property>
-      <property name="target">
-         <bean parent="abstractDaoTarget">
+        </bean>
+    </property>
+</bean>
+<bean id="organisationtypeDao" parent="abstractDao">
+    <property name="proxyInterfaces">
+        <value>com.bia.accountmanager.entity.OrganisationTypeDao</value>
+    </property>
+    <property name="target">
+        <bean parent="abstractDaoTarget">
             <constructor-arg>
-               <value>com.bia.accountmanager.entity.OrganistationType</value>
+                <value>com.bia.accountmanager.entity.OrganistationType</value>
             </constructor-arg>
-         </bean>
-      </property>
-   </bean>
-     <bean id="oraganizationDao" parent="abstractDao">
-      <property name="proxyInterfaces">
-         <value>com.bia.accountmanager.entity.OrganizationDao</value>
-      </property>
-      <property name="target">
-         <bean parent="abstractDaoTarget">
+        </bean>
+    </property>
+</bean>
+<bean id="oraganizationDao" parent="abstractDao">
+    <property name="proxyInterfaces">
+        <value>com.bia.accountmanager.entity.OrganizationDao</value>
+    </property>
+    <property name="target">
+        <bean parent="abstractDaoTarget">
             <constructor-arg>
-               <value>com.bia.accountmanager.entity.Organization</value>
+                <value>com.bia.accountmanager.entity.Organization</value>
             </constructor-arg>
-         </bean>
-      </property>
-   </bean>
-     <bean id="payeesDao" parent="abstractDao">
-      <property name="proxyInterfaces">
-         <value>com.bia.accountmanager.entity.PayeesDao</value>
-      </property>
-      <property name="target">
-         <bean parent="abstractDaoTarget">
+        </bean>
+    </property>
+</bean>
+<bean id="payeesDao" parent="abstractDao">
+    <property name="proxyInterfaces">
+        <value>com.bia.accountmanager.entity.PayeesDao</value>
+    </property>
+    <property name="target">
+        <bean parent="abstractDaoTarget">
             <constructor-arg>
-               <value>com.bia.accountmanager.entity.Payees</value>
+                <value>com.bia.accountmanager.entity.Payees</value>
             </constructor-arg>
-         </bean>
-      </property>
-   </bean>
-     <bean id="transactionsDao" parent="abstractDao">
-      <property name="proxyInterfaces">
-         <value>com.bai.accountmanager.entity.TransactionsDao</value>
-      </property>
-      <property name="target">
-         <bean parent="abstractDaoTarget">
+        </bean>
+    </property>
+</bean>
+<bean id="transactionDao" parent="abstractDao">
+    <property name="proxyInterfaces">
+        <value>com.bai.accountmanager.entity.TransactionDao</value>
+    </property>
+    <property name="target">
+        <bean parent="abstractDaoTarget">
             <constructor-arg>
-               <value>com.bia.accountmanager.entity.Transactions</value>
+                <value>com.bia.accountmanager.entity.Transactions</value>
             </constructor-arg>
-         </bean>
-      </property>
-   </bean>
-     <bean id="usersDao" parent="abstractDao">
-      <property name="proxyInterfaces">
-         <value>com.bia.accountmanager.entity.UsersDao</value>
-      </property>
-      <property name="target">
-         <bean parent="abstractDaoTarget">
+        </bean>
+    </property>
+</bean>
+<bean id="usersDao" parent="abstractDao">
+    <property name="proxyInterfaces">
+        <value>com.bia.accountmanager.entity.UsersDao</value>
+    </property>
+    <property name="target">
+        <bean parent="abstractDaoTarget">
             <constructor-arg>
-               <value>com.bia.accountmanager.entity.Users</value>
+                <value>com.bia.accountmanager.entity.Users</value>
             </constructor-arg>
-         </bean>
-      </property>
-   </bean>
+        </bean>
+    </property>
+</bean>
 </beans>
