@@ -20,12 +20,16 @@
     -->
     
     <bean id="accountAjaxService" class="com.bia.accountmanager.services.ajax.AccountAjaxService" >
+        <property name="AccountService" ref="AccountServiceImpl" />
     </bean>
     <bean id="payeeAjaxService" class="com.bia.accountmanager.services.ajax.PayeeAjaxService" >
+        <property name="PayeeService" ref="PayeeServiceImpl" />
     </bean>
     <bean id="reportAjaxService" class="com.bia.accountmanager.services.ajax.ReportAjaxService" >
+         <property name="ReportService" ref="ReportServiceImpl"/>
     </bean>
     <bean id="userAjaxService" class="com.bia.accountmanager.services.ajax.UserAjaxService" >
+         <property name="UserService" ref="UserServiceImpl"/>
     </bean>
     
 </beans>
