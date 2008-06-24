@@ -14,7 +14,10 @@ import java.util.List;
  * @author intesar
  */
 public interface AccountService {
-    
+    /**
+     * 
+     * @param acct
+     */
     void createAccount(Account acct);
     void activateDeactivate(String accountName);
     List<String> getAccountName();
