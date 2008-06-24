@@ -11,4 +11,11 @@ package com.bia.accountmanager.services.ajax;
  */
 public class UserAjaxService {
 
+    public void setUserservice(UserService userservice) {
+        this.userservice = userservice;
+    }
+    
+    private UserService userservice;
+    
+
 }
