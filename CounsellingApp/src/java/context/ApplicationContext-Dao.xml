@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+<beans>
+
+<!-- EntityManagerFactory -->
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">
+        <property name="persistenceUnitName" value="CounsellingAppPU"/>
+    </bean>
+    
+    <!-- 
+    datasource bean is used by spring unit testing 
+    Uncomment this bean when testing application against some local database
+   
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql:///imea"/>
+        <property name="username" value="root"/>
+        <property name="password" value="imran123"/>
+    </bean>
+     -->
+     
+    <!-- advisor -->
+    <bean id="finderIntroductionAdvisor" class="com.abbhsoft.jpadaoframework.dao.advisor.FinderIntroductionAdvisor" />
+    
+    <!-- helper bean resolves the finder method name -->
+    <bean id="extendedFinderNamingStrategy" class="com.abbhsoft.jpadaoframework.dao.finderhelper.ExtendedFinderNamingStrategy" />
+    
+    <!-- target -->
+    <bean id="abstractDaoTarget" class="com.abbhsoft.jpadaoframework.dao.GenericDaoJPAImpl" abstract="true">
+        <property name="entityManagerFactory">
+            <ref bean="entityManagerFactory"/>
+        </property>
+        <property name="namingStrategy">
+            <ref bean="extendedFinderNamingStrategy" />
+        </property>
+    </bean>
+    
+    <!-- base Proxy -->
+    <bean id="abstractDao" class="org.springframework.aop.framework.ProxyFactoryBean" abstract="true">
+        <property name="exposeProxy" value="true" />
+        <property name="interceptorNames">
+            <list>
+                <value>finderIntroductionAdvisor</value>
+            </list>
+        </property>
+    </bean>
+    
+    
+    
+    
+    <!--
+     ##########################################################################
+                            Base Declerations End
+     ##########################################################################
+    <import resource="classpath:ApplicationContext-JpaDaoFramework.xml" />
+    -->
+    
+    
+    <!--
+    #####################################################################
+            Dao Declaration Begin
+    #####################################################################    
+    -->
+
+    
+   <!--  Dao instances 
+   <bean id="personDao" parent="abstractDao">
+      <property name="proxyInterfaces">
+         <value>com.company.dao.PersonDao</value>
+      </property>
+      <property name="target">
+         <bean parent="abstractDaoTarget">
+            <constructor-arg>
+               <value>com.company.model.Person</value>
+            </constructor-arg>
+         </bean>
+      </property>
+   </bean>
+   
+   -->
+   <!-- 
+            To add new dao, copy the entire bean defination from above and change
+            3 things
+            1. bean id
+            2. proxyInterfaces value to new dao 
+            3. constructor-arg to dao model class
+   -->
+   
+   <!-- common package dao's -->
+   
+   
+    <bean id="usersDao" parent="abstractDao">
+        <property name="proxyInterfaces">
+            <value>com.bia.counsellingapp.dao.UsersDao</value>
+        </property>
+        <property name="target">
+            <bean parent="abstractDaoTarget">
+                <constructor-arg>
+                    <value>com.bia.counsellingapp.entity.Users</value>
+                </constructor-arg>
+            </bean>
+        </property>
+    </bean>
+    
+     <bean id="collegeDao" parent="abstractDao">
+        <property name="proxyInterfaces">
+            <value>com.bia.counsellingapp.dao.CollegeDao</value>
+        </property>
+        <property name="target">
+            <bean parent="abstractDaoTarget">
+                <constructor-arg>
+                    <value>com.bia.counsellingapp.entity.College</value>
+                </constructor-arg>
+            </bean>
+        </property>
+    </bean>
+    
+     <bean id="collegeDepartmentDao" parent="abstractDao">
+        <property name="proxyInterfaces">
+            <value>com.bia.counsellingapp.dao.CollegeDepartmentDao</value>
+        </property>
+        <property name="target">
+            <bean parent="abstractDaoTarget">
+                <constructor-arg>
+                    <value>com.bia.counsellingapp.entity.CollegeDepartment</value>
+                </constructor-arg>
+            </bean>
+        </property>
+    </bean>
+    
+     <bean id="departmentDao" parent="abstractDao">
+        <property name="proxyInterfaces">
+            <value>com.bia.counsellingapp.dao.DepartmentDao</value>
+        </property>
+        <property name="target">
+            <bean parent="abstractDaoTarget">
+                <constructor-arg>
+                    <value>com.bia.counsellingapp.entity.Department</value>
+                </constructor-arg>
+            </bean>
+        </property>
+    </bean>
+    
+     <bean id="universityDao" parent="abstractDao">
+        <property name="proxyInterfaces">
+            <value>com.bia.counsellingapp.dao.UniversityDao</value>
+        </property>
+        <property name="target">
+            <bean parent="abstractDaoTarget">
+                <constructor-arg>
+                    <value>com.bia.counsellingapp.entity.University</value>
+                </constructor-arg>
+            </bean>
+        </property>
+    </bean>
+    
+     <bean id="reservationDao" parent="abstractDao">
+        <property name="proxyInterfaces">
+            <value>com.bia.counsellingapp.dao.ReservationDao</value>
+        </property>
+        <property name="target">
+            <bean parent="abstractDaoTarget">
+                <constructor-arg>
+                    <value>com.bia.counsellingapp.entity.Reversation</value>
+                </constructor-arg>
+            </bean>
+        </property>
+    </bean>
+    
+     <bean id="reservationRuleDao" parent="abstractDao">
+        <property name="proxyInterfaces">
+            <value>com.bia.counsellingapp.dao.ReservationRuleDao</value>
+        </property>
+        <property name="target">
+            <bean parent="abstractDaoTarget">
+                <constructor-arg>
+                    <value>com.bia.counsellingapp.entity.ReservationRule</value>
+                </constructor-arg>
+            </bean>
+        </property>
+    </bean>
+    
+     <bean id="userAppliedDepartmentDao" parent="abstractDao">
+        <property name="proxyInterfaces">
+            <value>com.bia.counsellingapp.dao.UserAppliedDepartmentDao</value>
+        </property>
+        <property name="target">
+            <bean parent="abstractDaoTarget">
+                <constructor-arg>
+                    <value>com.bia.counsellingapp.entity.UserAppliedDepartment</value>
+                </constructor-arg>
+            </bean>
+        </property>
+    </bean>
+    
+    <bean id="collegeDepartmentSeatsStatusDao" parent="abstractDao">
+        <property name="proxyInterfaces">
+            <value>com.bia.counsellingapp.dao.CollegeDepartmentSeatsStatusDao</value>
+        </property>
+        <property name="target">
+            <bean parent="abstractDaoTarget">
+                <constructor-arg>
+                    <value>com.bia.counsellingapp.entity.CollegeDepartmentSeatsStatus</value>
+                </constructor-arg>
+            </bean>
+        </property>
+    </bean>
+    
+     
+</beans>

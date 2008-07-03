@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="1.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd">
+  <persistence-unit name="CounsellingAppPU" transaction-type="RESOURCE_LOCAL">
+    <provider>oracle.toplink.essentials.PersistenceProvider</provider>
+    <jta-data-source>jdbc/counselling</jta-data-source>
+    <class>com.bia.counsellingapp.entity.Authorities</class>
+    <class>com.bia.counsellingapp.entity.College</class>
+    <class>com.bia.counsellingapp.entity.CollegeDepartment</class>
+    <class>com.bia.counsellingapp.entity.Department</class>
+    <class>com.bia.counsellingapp.entity.University</class>
+    <class>com.bia.counsellingapp.entity.UserType</class>
+    <class>com.bia.counsellingapp.entity.Users</class>
+    <class>com.bia.counsellingapp.entity.UserAppliedDepartment</class>
+    <class>com.bia.counsellingapp.entity.ReservationRule</class>
+    <class>com.bia.counsellingapp.entity.Reversation</class>
+    <class>com.bia.counsellingapp.entity.CollegeDepartmentSeatsStatus</class>
+    <exclude-unlisted-classes>true</exclude-unlisted-classes>
+    <properties>
+      <property name="toplink.jdbc.user" value="root"/>
+      <property name="toplink.jdbc.password" value="apple123"/>
+      <property name="toplink.jdbc.url" value="jdbc:mysql:///counsellingdb"/>
+      <property name="toplink.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+    </properties>
+  </persistence-unit>
+</persistence>
