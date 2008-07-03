@@ -14,7 +14,7 @@ import java.util.List;
  * @author intesar
  */
 public interface UsersDao extends GenericDao<Users, Integer>{
-    
+    List<Users> findByHallTicketNos(Integer hallTicketNo1, Integer hallTicketNo2 );
     Users findByUsername(String username);
     List<Users> findAllOrderbyRank();
     Users findByHallTicketNo(Integer hallTicketNo);

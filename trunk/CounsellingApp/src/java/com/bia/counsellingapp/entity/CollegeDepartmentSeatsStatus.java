@@ -20,19 +20,22 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "college_department_seats_status")
 @NamedQueries({
-    @NamedQuery(name = "CollegeDepartmentSeatsStatus.findByCollege", query = "SELECT c FROM CollegeDepartmentSeatsStatus c WHERE c.collegeDepartmentSeatsStatusPK.college = :college"), 
-    
-    //@NamedQuery(name = "CollegeDepartmentSeatsStatus.findAndDeleteAll", query = " delete c from CollegeDepartmentSeatsStatus c "),
+    @NamedQuery(name = "CollegeDepartmentSeatsStatus.findByCollegeName", query = "SELECT c FROM CollegeDepartmentSeatsStatus c WHERE c.collegeDepartmentSeatsStatusPK.college = ?1 "),   
     @NamedQuery(name = "CollegeDepartmentSeatsStatus.findByCollegeAndDepartmentAndName", query = "SELECT c FROM CollegeDepartmentSeatsStatus c WHERE c.collegeDepartmentSeatsStatusPK.college = ?1 and c.collegeDepartmentSeatsStatusPK.department = ?2 and c.collegeDepartmentSeatsStatusPK.reversationName = ?3 "),
-    @NamedQuery(name = "CollegeDepartmentSeatsStatus.findByDepartment", query = "SELECT c FROM CollegeDepartmentSeatsStatus c WHERE c.collegeDepartmentSeatsStatusPK.department = :department"), @NamedQuery(name = "CollegeDepartmentSeatsStatus.findByReversationName", query = "SELECT c FROM CollegeDepartmentSeatsStatus c WHERE c.collegeDepartmentSeatsStatusPK.reversationName = :reversationName"), @NamedQuery(name = "CollegeDepartmentSeatsStatus.findByTotalSeats", query = "SELECT c FROM CollegeDepartmentSeatsStatus c WHERE c.totalSeats = :totalSeats"), @NamedQuery(name = "CollegeDepartmentSeatsStatus.findByAvailableSeats", query = "SELECT c FROM CollegeDepartmentSeatsStatus c WHERE c.availableSeats = :availableSeats")})
+    @NamedQuery(name = "CollegeDepartmentSeatsStatus.findByDepartment", query = "SELECT c FROM CollegeDepartmentSeatsStatus c WHERE c.collegeDepartmentSeatsStatusPK.department = :department"), 
+    @NamedQuery(name = "CollegeDepartmentSeatsStatus.findByReversationName", query = "SELECT c FROM CollegeDepartmentSeatsStatus c WHERE c.collegeDepartmentSeatsStatusPK.reversationName = :reversationName")})
 public class CollegeDepartmentSeatsStatus implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected CollegeDepartmentSeatsStatusPK collegeDepartmentSeatsStatusPK;
-    @Column(name = "total_seats", nullable = false)
-    private Integer totalSeats;
-    @Column(name = "available_seats", nullable = false)
-    private Integer availableSeats;
+    @Column(name = "male_total_seats", nullable = false)
+    private Integer maleTotalSeats;
+    @Column(name = "male_available_seats", nullable = false)
+    private Integer maleAvailableSeats;
+    @Column(name = "female_total_seats", nullable = false)
+    private Integer femaleTotalSeats;
+    @Column(name = "female_available_seats", nullable = false)
+    private Integer femaleAvailableSeats;
 
     public CollegeDepartmentSeatsStatus() {
     }
@@ -58,21 +61,39 @@ public class CollegeDepartmentSeatsStatus implements Serializable {
         this.collegeDepartmentSeatsStatusPK = collegeDepartmentSeatsStatusPK;
     }
 
-    public Integer getTotalSeats() {
-        return totalSeats;
+    public Integer getFemaleAvailableSeats() {
+        return femaleAvailableSeats;
     }
 
-    public void setTotalSeats(Integer totalSeats) {
-        this.totalSeats = totalSeats;
+    public void setFemaleAvailableSeats(Integer femaleAvailableSeats) {
+        this.femaleAvailableSeats = femaleAvailableSeats;
     }
 
-    public Integer getAvailableSeats() {
-        return availableSeats;
+    public Integer getFemaleTotalSeats() {
+        return femaleTotalSeats;
     }
 
-    public void setAvailableSeats(Integer availableSeats) {
-        this.availableSeats = availableSeats;
+    public void setFemaleTotalSeats(Integer femaleTotalSeats) {
+        this.femaleTotalSeats = femaleTotalSeats;
     }
+
+    public Integer getMaleAvailableSeats() {
+        return maleAvailableSeats;
+    }
+
+    public void setMaleAvailableSeats(Integer maleAvailableSeats) {
+        this.maleAvailableSeats = maleAvailableSeats;
+    }
+
+    public Integer getMaleTotalSeats() {
+        return maleTotalSeats;
+    }
+
+    public void setMaleTotalSeats(Integer maleTotalSeats) {
+        this.maleTotalSeats = maleTotalSeats;
+    }
+
+   
 
     @Override
     public int hashCode() {

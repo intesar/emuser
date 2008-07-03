@@ -25,6 +25,7 @@ import javax.persistence.TemporalType;
 @NamedQueries({
     @NamedQuery(name = "Users.findById", query = "SELECT u FROM Users u WHERE u.id = :id"), 
     @NamedQuery(name = "Users.findByHallTicketNo", query = "SELECT u FROM Users u WHERE u.hallTicketNo = ?1 "), 
+    @NamedQuery(name = "Users.findByHallTicketNos", query = "select u from Users u where u.hallTicketNo between ?1 and ?2 "),
     @NamedQuery(name = "Users.findAllOrderbyRank", query = "SELECT u FROM Users u order by u.rank "),
     @NamedQuery(name = "Users.findByUsername", query = "SELECT u FROM Users u WHERE u.username = ?1 "),
     @NamedQuery(name = "Users.findByPassword", query = "SELECT u FROM Users u WHERE u.password = :password"),
@@ -33,8 +34,7 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "Users.findByDob", query = "SELECT u FROM Users u WHERE u.dob = :dob"),
     @NamedQuery(name = "Users.findByFathersName", query = "SELECT u FROM Users u WHERE u.fathersName = :fathersName"),
     @NamedQuery(name = "Users.findByGender", query = "SELECT u FROM Users u WHERE u.gender = :gender"), 
-    @NamedQuery(name = "Users.findByCaste", query = "SELECT u FROM Users u WHERE u.caste = :caste"),
-     
+    @NamedQuery(name = "Users.findByCaste", query = "SELECT u FROM Users u WHERE u.caste = :caste"),     
     @NamedQuery(name = "Users.findByEntranceYear", query = "SELECT u FROM Users u WHERE u.entranceYear = :entranceYear"), 
     @NamedQuery(name = "Users.findByRank", query = "SELECT u FROM Users u WHERE u.rank = :rank"),
     @NamedQuery(name = "Users.findByUserType", query = "SELECT u FROM Users u WHERE u.userType = :userType")})

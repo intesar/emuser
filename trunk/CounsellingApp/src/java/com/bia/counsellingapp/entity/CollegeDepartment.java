@@ -21,6 +21,7 @@ import javax.persistence.Table;
 @Table(name = "college_department")
 @NamedQueries({
     @NamedQuery(name = "CollegeDepartment.findByCollege", query = "SELECT c.collegeDepartmentPK.department FROM CollegeDepartment c WHERE c.collegeDepartmentPK.college = ?1 "),
+    @NamedQuery(name = "CollegeDepartment.findByCollegeName", query = "SELECT c FROM CollegeDepartment c WHERE c.collegeDepartmentPK.college = ?1 "),
     @NamedQuery(name = "CollegeDepartment.findByCollegeAndDepartment", query = "SELECT c from CollegeDepartment c where c.collegeDepartmentPK.college = ?1 and c.collegeDepartmentPK.department = ?2 "),
     @NamedQuery(name = "CollegeDepartment.findByDepartment", query = "SELECT c FROM CollegeDepartment c WHERE c.collegeDepartmentPK.department = :department"), 
     @NamedQuery(name = "CollegeDepartment.findByMaxSeats", query = "SELECT c FROM CollegeDepartment c WHERE c.maxSeats = :maxSeats")

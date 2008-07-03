@@ -21,16 +21,18 @@ import javax.persistence.Table;
 @Table(name = "reservation_rule")
 @NamedQueries({
     @NamedQuery(name = "ReservationRule.findByName", query = "SELECT r FROM ReservationRule r WHERE r.reservationRulePK.name = :name"), 
-    @NamedQuery(name = "ReservationRule.findByMaxSeats", query = "SELECT r FROM ReservationRule r WHERE r.reservationRulePK.maxSeats = ?1 "),
-    @NamedQuery(name = "ReservationRule.findByReserverSeats", query = "SELECT r FROM ReservationRule r WHERE r.reserverSeats = :reserverSeats"),
+    @NamedQuery(name = "ReservationRule.findByMaxSeats", query = "SELECT r FROM ReservationRule r WHERE r.reservationRulePK.maxSeats = ?1 "),    
     @NamedQuery(name = "ReservationRule.findByNameAndMaxSeats", query = "SELECT r FROM ReservationRule r WHERE r.reservationRulePK.name = ?1 and r.reservationRulePK.maxSeats = ?2 ")
 })
 public class ReservationRule implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected ReservationRulePK reservationRulePK;
-    @Column(name = "reserver_seats", nullable = false)
-    private int reserverSeats;
+    @Column(name = "male_reserve_seats", nullable = false)
+    private int maleReserveSeats;
+    @Column(name = "female_reserve_seats", nullable = false)
+    private int femaleReserveSeats;
+    
 
     public ReservationRule() {
     }
@@ -39,10 +41,7 @@ public class ReservationRule implements Serializable {
         this.reservationRulePK = reservationRulePK;
     }
 
-    public ReservationRule(ReservationRulePK reservationRulePK, int reserverSeats) {
-        this.reservationRulePK = reservationRulePK;
-        this.reserverSeats = reserverSeats;
-    }
+   
 
     public ReservationRule(String name, int maxSeats) {
         this.reservationRulePK = new ReservationRulePK(name, maxSeats);
@@ -56,13 +55,23 @@ public class ReservationRule implements Serializable {
         this.reservationRulePK = reservationRulePK;
     }
 
-    public int getReserverSeats() {
-        return reserverSeats;
+    public int getFemaleReserveSeats() {
+        return femaleReserveSeats;
     }
 
-    public void setReserverSeats(int reserverSeats) {
-        this.reserverSeats = reserverSeats;
+    public void setFemaleReserveSeats(int femaleReserveSeats) {
+        this.femaleReserveSeats = femaleReserveSeats;
     }
+
+    public int getMaleReserveSeats() {
+        return maleReserveSeats;
+    }
+
+    public void setMaleReserveSeats(int maleReserveSeats) {
+        this.maleReserveSeats = maleReserveSeats;
+    }
+
+  
 
     @Override
     public int hashCode() {
