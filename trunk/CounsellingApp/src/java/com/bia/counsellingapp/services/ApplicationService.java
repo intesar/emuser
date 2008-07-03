@@ -17,7 +17,7 @@ import java.util.List;
  * @author intesar
  */
 public interface ApplicationService {
-    
+    void addUser(String name, String username, String password, String fathersName, Integer hallTicketNo, String rank);
     List<String> getCollegeNames(String username);
     List<String> getDepartmentNames (String collegeName);
     public void apply ( String userId, String college, String department, Integer priority, Date dt) ;

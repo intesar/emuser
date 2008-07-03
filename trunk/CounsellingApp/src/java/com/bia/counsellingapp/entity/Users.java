@@ -24,8 +24,20 @@ import javax.persistence.TemporalType;
 @Table(name = "users")
 @NamedQueries({
     @NamedQuery(name = "Users.findById", query = "SELECT u FROM Users u WHERE u.id = :id"), 
+    @NamedQuery(name = "Users.findByHallTicketNo", query = "SELECT u FROM Users u WHERE u.hallTicketNo = ?1 "), 
     @NamedQuery(name = "Users.findAllOrderbyRank", query = "SELECT u FROM Users u order by u.rank "),
-    @NamedQuery(name = "Users.findByUsername", query = "SELECT u FROM Users u WHERE u.username = ?1 "), @NamedQuery(name = "Users.findByPassword", query = "SELECT u FROM Users u WHERE u.password = :password"), @NamedQuery(name = "Users.findByEnabled", query = "SELECT u FROM Users u WHERE u.enabled = :enabled"), @NamedQuery(name = "Users.findByName", query = "SELECT u FROM Users u WHERE u.name = :name"), @NamedQuery(name = "Users.findByDob", query = "SELECT u FROM Users u WHERE u.dob = :dob"), @NamedQuery(name = "Users.findByFathersName", query = "SELECT u FROM Users u WHERE u.fathersName = :fathersName"), @NamedQuery(name = "Users.findByGender", query = "SELECT u FROM Users u WHERE u.gender = :gender"), @NamedQuery(name = "Users.findByCaste", query = "SELECT u FROM Users u WHERE u.caste = :caste"), @NamedQuery(name = "Users.findByHallTicketNo", query = "SELECT u FROM Users u WHERE u.hallTicketNo = :hallTicketNo"), @NamedQuery(name = "Users.findByEntranceYear", query = "SELECT u FROM Users u WHERE u.entranceYear = :entranceYear"), @NamedQuery(name = "Users.findByRank", query = "SELECT u FROM Users u WHERE u.rank = :rank"), @NamedQuery(name = "Users.findByUserType", query = "SELECT u FROM Users u WHERE u.userType = :userType")})
+    @NamedQuery(name = "Users.findByUsername", query = "SELECT u FROM Users u WHERE u.username = ?1 "),
+    @NamedQuery(name = "Users.findByPassword", query = "SELECT u FROM Users u WHERE u.password = :password"),
+    @NamedQuery(name = "Users.findByEnabled", query = "SELECT u FROM Users u WHERE u.enabled = :enabled"),
+    @NamedQuery(name = "Users.findByName", query = "SELECT u FROM Users u WHERE u.name = :name"),
+    @NamedQuery(name = "Users.findByDob", query = "SELECT u FROM Users u WHERE u.dob = :dob"),
+    @NamedQuery(name = "Users.findByFathersName", query = "SELECT u FROM Users u WHERE u.fathersName = :fathersName"),
+    @NamedQuery(name = "Users.findByGender", query = "SELECT u FROM Users u WHERE u.gender = :gender"), 
+    @NamedQuery(name = "Users.findByCaste", query = "SELECT u FROM Users u WHERE u.caste = :caste"),
+     
+    @NamedQuery(name = "Users.findByEntranceYear", query = "SELECT u FROM Users u WHERE u.entranceYear = :entranceYear"), 
+    @NamedQuery(name = "Users.findByRank", query = "SELECT u FROM Users u WHERE u.rank = :rank"),
+    @NamedQuery(name = "Users.findByUserType", query = "SELECT u FROM Users u WHERE u.userType = :userType")})
 public class Users implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

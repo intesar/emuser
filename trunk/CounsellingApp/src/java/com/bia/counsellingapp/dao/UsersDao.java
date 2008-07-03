@@ -17,5 +17,6 @@ public interface UsersDao extends GenericDao<Users, Integer>{
     
     Users findByUsername(String username);
     List<Users> findAllOrderbyRank();
+    Users findByHallTicketNo(Integer hallTicketNo);
 
 }

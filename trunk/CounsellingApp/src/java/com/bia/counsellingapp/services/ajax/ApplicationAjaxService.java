@@ -71,6 +71,16 @@ public class ApplicationAjaxService {
         return this.applicationService.getCollegeReservations();
     }
     
+    public String registerUser(String name, String username, String password, String fathersName, String hallTicketNo, String rank) {
+        try {
+            System.out.println ( " inside register ****** ");
+            this.applicationService.addUser(name, username, password, fathersName, Integer.parseInt(hallTicketNo), rank);
+            return " Success, pleae login  with your username and password!";
+        } catch ( Exception e ) {
+            e.printStackTrace();
+            return e.getMessage();
+        }
+    }
     private ApplicationService applicationService = (ApplicationService) ServiceFactory.getService("applicationServiceImpl");
 
     public static void main(String[] args) {
