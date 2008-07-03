@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+<beans>
+    
+    
+    <!--
+     ##########################################################################
+                            Services Declerations Begin
+     ##########################################################################
+    -->
+
+    <!-- Example Services Decleration
+
+
+    <bean id="personServiceImpl" class="com.company.projectname.service.impl.PersonServiceImpl" >
+        <property name="personDao" ref="personDao"/>
+    </bean>
+
+    
+    -->
+    
+    <bean id="adminServiceImpl" class="com.bia.ccm.services.impl.AdminServiceImpl" >
+        
+    </bean>
+     <bean id="userServiceImpl" class="com.bia.ccm.services.impl.UserServiceImpl" >
+        
+    </bean>
+     <bean id="workServiceImpl" class="com.bia.ccm.services.impl.WorkServiceImpl" >
+        
+    </bean>
+</beans>

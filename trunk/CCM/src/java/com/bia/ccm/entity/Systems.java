@@ -1,0 +1,236 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+package com.bia.ccm.entity;
+
+import java.io.Serializable;
+import java.util.Collection;
+import java.util.Date;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+/**
+ *
+ * @author intesar
+ */
+@Entity
+@Table(name = "systems")
+@NamedQueries({})
+public class Systems implements Serializable {
+    private static final long serialVersionUID = 1L;
+    @Id
+    @Column(name = "id", nullable = false)
+    private Integer id;
+    @Column(name = "name", nullable = false)
+    private int name;
+    @Column(name = "organization", nullable = false)
+    private String organization;
+    @Column(name = "is_available", nullable = false)
+    private boolean isAvailable;
+    @Column(name = "expected_free_time", nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date expectedFreeTime;
+    @Column(name = "description")
+    private String description;
+    @Column(name = "minute_rate", nullable = false)
+    private double minuteRate;
+    @Column(name = "enabled", nullable = false)
+    private boolean enabled;
+    @Column(name = "is_shutdown")
+    private Boolean isShutdown;
+    @Column(name = "create_user")
+    private String createUser;
+    @Column(name = "create_date")
+    @Temporal(TemporalType.DATE)
+    private Date createDate;
+    @Column(name = "mac_address")
+    private String macAddress;
+    @Column(name = "ip_address")
+    private String ipAddress;
+    @Column(name = "status_")
+    private String status;
+    @Column(name = "comment")
+    private String comment;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "systems")
+    private Collection<SystemsPing> systemsPingCollection;
+
+    public Systems() {
+    }
+
+    public Systems(Integer id) {
+        this.id = id;
+    }
+
+    public Systems(Integer id, int name, String organization, boolean isAvailable, Date expectedFreeTime, double minuteRate, boolean enabled) {
+        this.id = id;
+        this.name = name;
+        this.organization = organization;
+        this.isAvailable = isAvailable;
+        this.expectedFreeTime = expectedFreeTime;
+        this.minuteRate = minuteRate;
+        this.enabled = enabled;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public int getName() {
+        return name;
+    }
+
+    public void setName(int name) {
+        this.name = name;
+    }
+
+    public String getOrganization() {
+        return organization;
+    }
+
+    public void setOrganization(String organization) {
+        this.organization = organization;
+    }
+
+    public boolean getIsAvailable() {
+        return isAvailable;
+    }
+
+    public void setIsAvailable(boolean isAvailable) {
+        this.isAvailable = isAvailable;
+    }
+
+    public Date getExpectedFreeTime() {
+        return expectedFreeTime;
+    }
+
+    public void setExpectedFreeTime(Date expectedFreeTime) {
+        this.expectedFreeTime = expectedFreeTime;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public double getMinuteRate() {
+        return minuteRate;
+    }
+
+    public void setMinuteRate(double minuteRate) {
+        this.minuteRate = minuteRate;
+    }
+
+    public boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public Boolean getIsShutdown() {
+        return isShutdown;
+    }
+
+    public void setIsShutdown(Boolean isShutdown) {
+        this.isShutdown = isShutdown;
+    }
+
+    public String getCreateUser() {
+        return createUser;
+    }
+
+    public void setCreateUser(String createUser) {
+        this.createUser = createUser;
+    }
+
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
+
+    public String getMacAddress() {
+        return macAddress;
+    }
+
+    public void setMacAddress(String macAddress) {
+        this.macAddress = macAddress;
+    }
+
+    public String getIpAddress() {
+        return ipAddress;
+    }
+
+    public void setIpAddress(String ipAddress) {
+        this.ipAddress = ipAddress;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public Collection<SystemsPing> getSystemsPingCollection() {
+        return systemsPingCollection;
+    }
+
+    public void setSystemsPingCollection(Collection<SystemsPing> systemsPingCollection) {
+        this.systemsPingCollection = systemsPingCollection;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Systems)) {
+            return false;
+        }
+        Systems other = (Systems) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "com.bia.ccm.entity.Systems[id=" + id + "]";
+    }
+
+}
