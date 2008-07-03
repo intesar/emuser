@@ -20,7 +20,7 @@
                 var viewed = -1;
 
                 function fillTable() {
-                    AjaxApplicationService.getCollegeDepartments(function(people) {
+                    AjaxApplicationService.getCollegeDepartments(dwr.util.getValue("hallTicketNos"),function(people) {
                         // Delete all the rows except for the "pattern" row
                         dwr.util.removeAllRows("peoplebody", { filter:function(tr) {
                                 return (tr.id != "pattern");
@@ -49,9 +49,13 @@
             <tbody>
                 <tr>
                 <td><a href="main.jsp">Dashboard</a></td>
+                    <td>&nbsp;&nbsp;&nbsp;</td>
                     <td><a href="users.jsp">Users</a></td>
+                    <td>&nbsp;&nbsp;&nbsp;</td>
                     <td><a href="collegedepartments.jsp">College Department</a></td>
+                    <td>&nbsp;&nbsp;&nbsp;</td>
                     <td><a href="collegeseats.jsp">Reservation Details</a></td>
+                    <td>&nbsp;&nbsp;&nbsp;</td>
                     <td><a href="admin.jsp">Admin</a></td>
                 </tr>
             </tbody>
@@ -59,6 +63,7 @@
         
         <br/>
         <br/>
+        <input type="text" id="hallTicketNos" value="" /><input type="submit" value="Search" onclick="fillTable();"/>
         <input type="submit" value="<" onclick="previous();"/><input type="submit" value=">" onclick="next();"/>
             <table border="1" class="rowed grey">
                 <thead>

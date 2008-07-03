@@ -146,9 +146,13 @@
             <tbody>
                 <tr>
                 <td><a href="main.jsp">Dashboard</a></td>
+                    <td>&nbsp;&nbsp;&nbsp;</td>
                     <td><a href="users.jsp">Users</a></td>
+                    <td>&nbsp;&nbsp;&nbsp;</td>
                     <td><a href="collegedepartments.jsp">College Department</a></td>
+                    <td>&nbsp;&nbsp;&nbsp;</td>
                     <td><a href="collegeseats.jsp">Reservation Details</a></td>
+                    <td>&nbsp;&nbsp;&nbsp;</td>
                     <td><a href="admin.jsp">Admin</a></td>
                 </tr>
             </tbody>
