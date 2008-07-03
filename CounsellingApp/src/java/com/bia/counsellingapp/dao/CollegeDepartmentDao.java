@@ -17,6 +17,7 @@ import java.util.List;
 public interface CollegeDepartmentDao extends GenericDao<CollegeDepartment, CollegeDepartmentPK>{
     
     public List<String> findByCollege(String college) ;
+    public List<CollegeDepartment> findByCollegeName(String college) ;
     CollegeDepartment findByCollegeAndDepartment(String college, String department);
 
 }

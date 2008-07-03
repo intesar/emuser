@@ -41,7 +41,7 @@ public class ApplicationAjaxService {
         }
         return successMsg;
     }
-    
+
     public String deleteApplication(Integer id) {
         this.applicationService.deleteApplication(id);
         return "Deleted Successfully!";
@@ -51,32 +51,37 @@ public class ApplicationAjaxService {
         String username = "shannan";//AcegiUtil.getUsername();
         return this.applicationService.getAppliedDetails(username);
     }
-    
+
     public void processAdmissions() {
         this.applicationService.processAdmissions();
     }
-    public void deleteAllReservationRules(){
+
+    public void deleteAllReservationRules() {
         this.applicationService.deleteAllReservationRules();
     }
-    public  void createReservationData() {
+
+    public void createReservationData() {
         this.applicationService.createReservationData();
     }
-     public List<Users> getUserApplicationStatus() {
-        return this.applicationService.getUserApplicationStatus();
+
+    public List<Users> getUserApplicationStatus(String hallTicketNos) {
+        return this.applicationService.getUserApplicationStatus(hallTicketNos);
     }
-    public List<CollegeDepartment> getCollegeDepartments() {
-        return this.applicationService.getCollegeDepartments();
+
+    public List<CollegeDepartment> getCollegeDepartments(String college) {
+        return this.applicationService.getCollegeDepartments(college);
     }
-    public List<CollegeDepartmentSeatsStatus> getCollegeReservations() {
-        return this.applicationService.getCollegeReservations();
+
+    public List<CollegeDepartmentSeatsStatus> getCollegeReservations(String collegeName) {
+        return this.applicationService.getCollegeReservations(collegeName);
     }
-    
+
     public String registerUser(String name, String username, String password, String fathersName, String hallTicketNo, String rank) {
         try {
-            System.out.println ( " inside register ****** ");
+            System.out.println(" inside register ****** ");
             this.applicationService.addUser(name, username, password, fathersName, Integer.parseInt(hallTicketNo), rank);
             return " Success, pleae login  with your username and password!";
-        } catch ( Exception e ) {
+        } catch (Exception e) {
             e.printStackTrace();
             return e.getMessage();
         }
