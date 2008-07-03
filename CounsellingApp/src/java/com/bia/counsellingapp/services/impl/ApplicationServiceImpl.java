@@ -222,6 +222,26 @@ public class ApplicationServiceImpl implements ApplicationService {
         pp.setLimit(1000);
         return this.collegeDepartmentSeatsStatusDao.readAll(pp).getResults();
     }
+    
+    public void addUser(String name, String username, String password, String fathersName, Integer hallTicketNo, String rank) {
+        Users u = this.usersDao.findByHallTicketNo(hallTicketNo);
+        System.out.println ( name + " " + fathersName + " " + hallTicketNo + " " + rank ) ;
+        System.out.println ( u.getName() + " " + u.getFathersName() + " " + u.getHallTicketNo() + " " + u.getRank() ) ;
+        if ( u != null && u.getName().equals(name) && u.getFathersName().equals(fathersName) && u.getRank().equals(Integer.parseInt(rank))) {
+            if ( u.getUsername() != null && u.getUsername().length() > 0 ) {
+                throw new RuntimeException( "This user is already registerd with us, if you forgot your password please use " +
+                        "forgot password page !");
+                
+            }
+            u.setUsername(username);
+            u.setPassword(password);
+            u.setEnabled(true);
+            this.usersDao.update(u);
+        } else {
+            throw new RuntimeException("Please provide correct information ");
+        }
+        
+    }
     private String[] reservationNames = {"merit", "scheduled castes", "scheduled tribes",
         "backward classes group a ", "backward classes group b", "backward classes group c",
         "backward classes group d", "ncc acc", "sports & games", "extra curricular activities",
@@ -242,6 +262,8 @@ public class ApplicationServiceImpl implements ApplicationService {
         cd.setFilledSeats(cd.getFilledSeats() + 1);
         return;
     }
+    
+    
     // setters and getters
     public void setCollegeDao(CollegeDao collegeDao) {
         this.collegeDao = collegeDao;
