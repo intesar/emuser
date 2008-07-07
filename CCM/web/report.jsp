@@ -1,6 +1,6 @@
 <%-- 
-    Document   : suggestions
-    Created on : Jul 7, 2008, 5:44:49 AM
+    Document   : report
+    Created on : Jul 7, 2008, 1:30:33 PM
     Author     : intesar
 --%>
 
@@ -12,9 +12,6 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
-        <script type='text/javascript' src='/CCM/dwr/interface/AjaxAdminService.js'></script>
-        <script type='text/javascript' src='/CCM/dwr/engine.js'></script>        
-        <script type='text/javascript' src='/CCM/dwr/util.js'></script>
     </head>
     <body>
          <table>            
