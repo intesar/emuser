@@ -5,13 +5,13 @@
 
 package com.bia.ccm.dao;
 
+import com.abbhsoft.jpadaoframework.dao.GenericDao;
 import com.bia.ccm.entity.Suggestion;
-import java.util.List;
 
 /**
  *
- * @author imran
+ * @author intesar
  */
-public interface SuggestionDao extends GenericDao<Suggestion,String>{
+public interface SuggestionDao  extends GenericDao<Suggestion, Integer>{
 
 }
