@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.bia.ccm.util;
 
 import org.acegisecurity.context.SecurityContextHolder;
@@ -17,7 +16,15 @@ public class AcegiUtil {
      *  returns logged in user
      */
     public static final String getUsername() {
-        return SecurityContextHolder.getContext().getAuthentication().getName();
-        
+        String username = null;
+        try {
+            username = SecurityContextHolder.getContext().getAuthentication().getName();
+        } catch (NullPointerException npe) {
+        }
+        if (username == null) {
+            return "admin";
+        }
+        return username;
+
     }
 }

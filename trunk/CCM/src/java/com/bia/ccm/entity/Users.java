@@ -23,7 +23,8 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "users")
 @NamedQueries({
-    @NamedQuery(name="Users.findByUsername", query="select u from Users u where u.username = ?1 ")
+    @NamedQuery(name="Users.findByUsername", query="select u from Users u where u.username = ?1 "),
+    @NamedQuery(name="Users.findByOrganization", query="select u from Users u where u.organization = ?1 ")
 })
 public class Users implements Serializable {
     private static final long serialVersionUID = 1L;
