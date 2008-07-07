@@ -5,13 +5,14 @@
 
 package com.bia.ccm.dao;
 
-import java.util.List;
+import com.abbhsoft.jpadaoframework.dao.GenericDao;
+import com.bia.ccm.entity.EmailTimePreference;
 
 /**
  *
  * @author imran
  */
-public interface EmailTimePreferenceDao extends GenericDao<EmailTime, String>{
-    public List<String>(String emailtime);
+public interface EmailTimePreferenceDao extends GenericDao<EmailTimePreference, Integer>{
+    
 
 }

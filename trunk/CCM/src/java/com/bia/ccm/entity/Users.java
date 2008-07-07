@@ -11,6 +11,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -21,7 +22,9 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "users")
-@NamedQueries({})
+@NamedQueries({
+    @NamedQuery(name="Users.findByUsername", query="select u from Users u where u.username = ?1 ")
+})
 public class Users implements Serializable {
     private static final long serialVersionUID = 1L;
     @Column(name = "username", nullable = false)
