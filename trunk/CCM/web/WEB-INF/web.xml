@@ -29,6 +29,7 @@
         <param-value>
             classpath:context/ApplicationContext-Acegi.xml
             classpath:context/ApplicationContext-AjaxService.xml
+            classpath:context/ApplicationContext-Schedule.xml
         </param-value>
     </context-param>
     <context-param>
