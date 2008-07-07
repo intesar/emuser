@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.bia.ccm.entity;
 
 import java.io.Serializable;
@@ -11,6 +10,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -21,8 +21,11 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "email_preference")
-@NamedQueries({})
+@NamedQueries({
+    @NamedQuery(name = "EmailPreference.findByOrganization", query = "select s from EmailPreference s where s.organization = ?1 ")
+})
 public class EmailPreference implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @Column(name = "id", nullable = false)
@@ -135,5 +138,4 @@ public class EmailPreference implements Serializable {
     public String toString() {
         return "com.bia.ccm.entity.EmailPreference[id=" + id + "]";
     }
-
 }
