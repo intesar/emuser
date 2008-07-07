@@ -5,12 +5,12 @@
 
 package com.bia.ccm.dao;
 
-import java.util.List;
+import com.abbhsoft.jpadaoframework.dao.GenericDao;
 
 /**
  *
  * @author imran
  */
 public interface Organizations extends GenericDao<Organizations, String> {
-public List<String>(Organizations,org)
+
 }

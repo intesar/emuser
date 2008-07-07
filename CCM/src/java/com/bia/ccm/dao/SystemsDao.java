@@ -5,6 +5,7 @@
 
 package com.bia.ccm.dao;
 
+import com.abbhsoft.jpadaoframework.dao.GenericDao;
 import com.bia.ccm.entity.Systems;
 import java.util.List;
 
@@ -12,7 +13,7 @@ import java.util.List;
  *
  * @author imran
  */
-public interface SystemsDao extends GenericDao<Systems,String>{
-    public List<String>(Systems system);
+public interface SystemsDao extends GenericDao<Systems,Integer>{
+    public List<Systems> findByOrganization(String organization);
 
 }

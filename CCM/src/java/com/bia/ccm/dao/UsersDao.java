@@ -5,13 +5,14 @@
 
 package com.bia.ccm.dao;
 
+import com.abbhsoft.jpadaoframework.dao.GenericDao;
 import com.bia.ccm.entity.Users;
-import java.util.List;
 
 /**
  *
  * @author imran
  */
-public interface UsersDao extends GenericDao<Users,String>{
-public List<String>( Users user);
+public interface UsersDao extends GenericDao<Users,Integer>{
+    public Users findByUsername(String username);
+
 }
