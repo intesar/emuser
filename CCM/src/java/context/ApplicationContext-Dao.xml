@@ -100,7 +100,7 @@
                 </constructor-arg>
             </bean>
         </property>
-    </bean
+    </bean>
     
     <bean id="emailPreferenceDao" parent="abstractDao">
         <property name="proxyInterfaces">
