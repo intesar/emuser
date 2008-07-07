@@ -34,7 +34,7 @@ http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
         class="org.acegisecurity.ui.webapp.AuthenticationProcessingFilter">
         <property name="authenticationManager" ref="authenticationManager"/>
         <property name="authenticationFailureUrl" value="/login.jsp?login_error=1"/>
-        <property name="defaultTargetUrl" value="/main.jsp"/>
+        <property name="defaultTargetUrl" value="/dashboard.jsp"/>
         <property name="filterProcessesUrl" value="/j_acegi_security_check"/>
         <property name="rememberMeServices" ref="rememberMeServices"/>
     </bean>
@@ -82,11 +82,7 @@ http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
         CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
         PATTERN_TYPE_APACHE_ANT                
                 /dwr*=ROLE_ADMIN
-                /users.jsp*=ROLE_USER,ROLE_ADMIN
-                /main.jsp*=ROLE_USER,ROLE_ADMIN
-                /collegedepartments.jsp*=ROLE_USER,ROLE_ADMIN      
-                /collegeseats.jsp*=ROLE_USER,ROLE_ADMIN                
-                /admin.jsp*=ROLE_ADMIN                
+                /users.jsp*=ROLE_USER,ROLE_ADMIN                
             </value>
         </property>
     </bean>

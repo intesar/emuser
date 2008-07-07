@@ -18,7 +18,6 @@
 
     
     -->
-    
     <bean id="adminServiceImpl" class="com.bia.ccm.services.impl.AdminServiceImpl" >
         <property name="usersDao" ref="usersDao" />
         <property name="systemsDao" ref="systemsDao" />
@@ -26,12 +25,12 @@
         <property name="emailTimePreferenceDao" ref="emailTimePreferenceDao" />
         <property name="systemLeaseDao" ref="systemLeaseDao" />
         <property name="organizationDao" ref="organizationDao" />
-        
     </bean>
-     <bean id="userServiceImpl" class="com.bia.ccm.services.impl.UserServiceImpl" >
-        
+    <bean id="userServiceImpl" class="com.bia.ccm.services.impl.UserServiceImpl" >
     </bean>
-     <bean id="workServiceImpl" class="com.bia.ccm.services.impl.WorkServiceImpl" >
-        
+    <bean id="workServiceImpl" class="com.bia.ccm.services.impl.WorkServiceImpl" >
+        <property name="usersDao" ref="usersDao" />
+        <property name="systemsDao" ref="systemsDao" />
+        <property name="systemLeaseDao" ref="systemLeaseDao" />
     </bean>
 </beans>

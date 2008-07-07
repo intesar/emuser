@@ -22,7 +22,8 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "system_lease")
 @NamedQueries({
-    @NamedQuery(name = "SystemLease.findByOrganization", query = "select s from SystemLease s where s.system in (select s1.id from Systems s1 where s1.organization = ?1 ) ")
+    @NamedQuery(name = "SystemLease.findByOrganization", query = "select s from SystemLease s where s.system in (select s1.id from Systems s1 where s1.organization = ?1 ) "),
+    @NamedQuery(name = "SystemLease.findBySystemAndFinished", query = "select s from SystemLease s where s.system = ?1 and s.isFinished = false ")
 })
 public class SystemLease implements Serializable {
 
@@ -47,7 +48,7 @@ public class SystemLease implements Serializable {
     @Column(name = "return_agent")
     private String returnAgent;
     @Column(name = "total_minutes_used")
-    private Double totalMinutesUsed;
+    private Long totalMinutesUsed;
     @Column(name = "system", nullable = false)
     private int system;
     @Column(name = "is_finished", nullable = false)
@@ -132,11 +133,11 @@ public class SystemLease implements Serializable {
         this.returnAgent = returnAgent;
     }
 
-    public Double getTotalMinutesUsed() {
+    public Long getTotalMinutesUsed() {
         return totalMinutesUsed;
     }
 
-    public void setTotalMinutesUsed(Double totalMinutesUsed) {
+    public void setTotalMinutesUsed(Long totalMinutesUsed) {
         this.totalMinutesUsed = totalMinutesUsed;
     }
 

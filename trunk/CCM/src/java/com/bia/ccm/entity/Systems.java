@@ -25,7 +25,10 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "systems")
-@NamedQueries({@NamedQuery(name="Systems.findByOrganization", query="select s from Systems s where s.organization = ?1 ")})
+@NamedQueries({
+    @NamedQuery(name="Systems.findByOrganization", query="select s from Systems s where s.organization = ?1 "),
+    @NamedQuery(name="Systems.findBySystemNameAndOrganization", query="select s from Systems s where s.name = ?1 and s.organization = ?2")
+})
 public class Systems implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
