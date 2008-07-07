@@ -5,13 +5,15 @@
 
 package com.bia.ccm.dao;
 
+import com.abbhsoft.jpadaoframework.dao.GenericDao;
 import com.bia.ccm.entity.SystemLease;
 import java.util.List;
 
 /**
  *
- * @author imran
+ * @author intesar
  */
-public interface SystemLeaseDao extends GenericDao<SystemLease, String>{
+public interface SystemLeaseDao extends GenericDao<SystemLease, Integer> {
 
+    public List<SystemLease> findByOrganization(String organization);
 }
