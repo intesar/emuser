@@ -11,6 +11,19 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script type='text/javascript' src='/CCM/dwr/interface/AjaxAdminService.js'></script>
+        <script type='text/javascript' src='/CCM/dwr/engine.js'></script>        
+        <script type='text/javascript' src='/CCM/dwr/util.js'></script>
+        <style type="text/css">
+            @import "dojo/dijit/themes/tundra/tundra.css";
+            @import "dojo/dojo/resources/dojo.css"
+        </style>
+        <script type="text/javascript" src="dojo/dojo/dojo.js" 
+                djConfig="parseOnLoad: true"></script>
+        <script type="text/javascript">
+            dojo.require("dojo.parser");
+            dojo.require("dijit.form.Button");
+        </script>
         <script type="text/javascript">
             function init() {
                 fillTable();
@@ -69,22 +82,24 @@
         </script>
     </head>
     <body>
-        <table>            
+         <table>            
             <tbody>
                 <tr>
-                <td><a href="dashboard.jsp">Dashboard</a></td>
+                    <td><a href="dashboard.jsp">Dashboard</a></td>
                     <td>&nbsp;&nbsp;&nbsp;</td>
                     <td><a href="users.jsp">Users</a></td>
                     <td>&nbsp;&nbsp;&nbsp;</td>
                     <td><a href="systems.jsp">Systems</a></td>
                     <td>&nbsp;&nbsp;&nbsp;</td>
-                    <td><a href="emails.jsp">Add Emails</a></td>
+                    <td><a href="emails.jsp">Emails</a></td>
                     <td>&nbsp;&nbsp;&nbsp;</td>
-                    <td><a href="emailtimings.jsp">Add Email & SMS Timing</a></td>
+                    <td><a href="emailtimings.jsp">Email & SMS Timing</a></td>
                     <td>&nbsp;&nbsp;&nbsp;</td>    
                     <td><a href="organization.jsp">Organization</a></td>
                     <td>&nbsp;&nbsp;&nbsp;</td>
                     <td><a href="systemlease.jsp">History</a></td>
+                    <td>&nbsp;&nbsp;&nbsp;</td>
+                    <td><a href="report.jsp">Report</a></td>
                     <td>&nbsp;&nbsp;&nbsp;</td>
                     <td><a href="suggestions.jsp">Suggestions</a></td>
                     <td>&nbsp;&nbsp;&nbsp;</td>
