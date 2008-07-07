@@ -12,6 +12,6 @@ import java.util.List;
  *
  * @author imran
  */
-public interface SuggestionDao extends GenericDao<Suggestion, String>{
-public List<String>(Suggestion,Suggestion);
+public interface SuggestionDao extends GenericDao<Suggestion,String>{
+
 }
