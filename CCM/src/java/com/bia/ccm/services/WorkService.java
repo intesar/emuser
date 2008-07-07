@@ -5,10 +5,19 @@
 
 package com.bia.ccm.services;
 
+import com.bia.ccm.entity.Systems;
+import java.util.List;
+
 /**
  *
  * @author intesar
  */
 public interface WorkService {
+    
+    public List<Systems> getActiveSystems(String username);
+    public Systems getSystemByNameAndOrganization ( int systemNo, String username);
+    public String leaseSystem(int id);
+    public String unleaseSystem ( int id, double amountPaid);
+    double getPayableAmount(int id);
 
 }

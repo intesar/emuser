@@ -35,7 +35,11 @@
     
     <bean id="workAjaxService" class="com.bia.ccm.services.ajax.WorkAjaxService" >        
         <dwr:remote javascript="AjaxWorkService">
-            <!--<dwr:include method="getCollegeNames" /> -->
+            <dwr:include method="getActiveSystems" />
+            <dwr:include method="getSystemByNameAndOrganization" />
+            <dwr:include method="leaseSystem" />
+            <dwr:include method="unleaseSystem" />
+            <dwr:include method="getPayableAmount" />
         </dwr:remote>
     </bean>
     
