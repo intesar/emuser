@@ -41,7 +41,17 @@
     
     <bean id="adminAjaxService" class="com.bia.ccm.services.ajax.AdminAjaxService" >        
         <dwr:remote javascript="AjaxAdminService">
-            <!--<dwr:include method="getCollegeNames" /> -->
+            <dwr:include method="getAllSystems" /> 
+            <dwr:include method="saveSystems" /> 
+            <dwr:include method="getAllUsers" /> 
+            <dwr:include method="saveUsers" /> 
+            <dwr:include method="getAllEmailPreference" /> 
+            <dwr:include method="saveEmailPreference" /> 
+            <dwr:include method="getAllEmailTimePreference" /> 
+            <dwr:include method="saveEmailTimePreference" /> 
+            <dwr:include method="getAllSystemLease" /> 
+            <dwr:include method="getOrganization" /> 
+            <dwr:include method="saveOrganization" /> 
         </dwr:remote>
     </bean>
     
