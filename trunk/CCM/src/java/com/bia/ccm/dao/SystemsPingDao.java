@@ -13,5 +13,5 @@ import java.util.List;
  * @author imran
  */
 public interface SystemsPingDao extends GenericDao<SystemsPing,String>{
-public List<String>(SystemsPing,sysping);
+
 }
