@@ -167,18 +167,7 @@
         </property>
     </bean>
     
-    <bean id="systemsPingDao" parent="abstractDao">
-        <property name="proxyInterfaces">
-            <value>com.bia.ccm.dao.SystemsPingDao</value>
-        </property>
-        <property name="target">
-            <bean parent="abstractDaoTarget">
-                <constructor-arg>
-                    <value>com.bia.ccm.entity.SystemsPing</value>
-                </constructor-arg>
-            </bean>
-        </property>
-    </bean>
+    
     
     
      

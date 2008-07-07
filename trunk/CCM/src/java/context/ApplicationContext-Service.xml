@@ -20,6 +20,12 @@
     -->
     
     <bean id="adminServiceImpl" class="com.bia.ccm.services.impl.AdminServiceImpl" >
+        <property name="usersDao" ref="usersDao" />
+        <property name="systemsDao" ref="systemsDao" />
+        <property name="emailPreferenceDao" ref="emailPreferenceDao" />
+        <property name="emailTimePreferenceDao" ref="emailTimePreferenceDao" />
+        <property name="systemLeaseDao" ref="systemLeaseDao" />
+        <property name="organizationDao" ref="organizationDao" />
         
     </bean>
      <bean id="userServiceImpl" class="com.bia.ccm.services.impl.UserServiceImpl" >
