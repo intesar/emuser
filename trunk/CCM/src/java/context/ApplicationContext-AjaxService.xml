@@ -29,7 +29,9 @@
     
     <bean id="userAjaxService" class="com.bia.ccm.services.ajax.UserAjaxService" >        
         <dwr:remote javascript="AjaxUserService">
-            <!--<dwr:include method="getCollegeNames" /> -->
+            <dwr:include method="forgotPassword" /> 
+            <dwr:include method="registerNewOrganization" /> 
+            
         </dwr:remote>
     </bean>
     
