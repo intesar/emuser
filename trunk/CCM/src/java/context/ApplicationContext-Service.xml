@@ -27,6 +27,9 @@
         <property name="organizationDao" ref="organizationDao" />
     </bean>
     <bean id="userServiceImpl" class="com.bia.ccm.services.impl.UserServiceImpl" >
+        <property name="usersDao" ref="usersDao" />
+        <property name="organizationDao" ref="organizationDao" />
+        <property name="authoritiesDao" ref="authoritiesDao" />
     </bean>
     <bean id="workServiceImpl" class="com.bia.ccm.services.impl.WorkServiceImpl" >
         <property name="usersDao" ref="usersDao" />

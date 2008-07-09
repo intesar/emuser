@@ -4,8 +4,10 @@
  */
 package com.bia.ccm.services.impl;
 
+import com.bia.ccm.dao.AuthoritiesDao;
 import com.bia.ccm.dao.OrganizationDao;
 import com.bia.ccm.dao.UsersDao;
+import com.bia.ccm.entity.Authorities;
 import com.bia.ccm.entity.Organization;
 import com.bia.ccm.entity.Users;
 import com.bia.ccm.services.EMailService;
@@ -40,7 +42,11 @@ public class UserServiceImpl implements UserService {
         Organization o = new Organization(organizationName, (short) 1, null, city,
                 email, city, null, "india", email, "trial", "ccm", 0, new Date(), "self");
         Users u = new Users(null, email, password, true, "admin", organizationName, email);
+        Authorities a1 =new Authorities(email, "ROLE_ADMIN");
+        Authorities a2 =new Authorities(email, "ROLE_USER");
         this.usersDao.create(u);
+        this.authoritiesDao.create(a1);
+        this.authoritiesDao.create(a2);
         this.organizationDao.create(o);
         return "Please login with your email and password";
     }
@@ -56,7 +62,14 @@ public class UserServiceImpl implements UserService {
     public void setOrganizationDao(OrganizationDao organizationDao) {
         this.organizationDao = organizationDao;
     }
+
+    public void setAuthoritiesDao(AuthoritiesDao authoritiesDao) {
+        this.authoritiesDao = authoritiesDao;
+    }
+    
+    
     private UsersDao usersDao;
     private EMailService eMailService;
     private OrganizationDao organizationDao;
+    private AuthoritiesDao authoritiesDao;
 }

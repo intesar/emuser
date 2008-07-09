@@ -27,4 +27,10 @@ public class UserAjaxService {
     
     protected final Log logger = LogFactory.getLog(getClass());
     private UserService userService = (UserService) ServiceFactory.getService("userServiceImpl");
+    
+    public static void main(String[] args) {
+        UserAjaxService uas = new UserAjaxService();
+        System.out.println ( uas.registerNewOrganization("apolo1", "hyd", "apollo1", "apollo1") );
+        
+    }
 }
