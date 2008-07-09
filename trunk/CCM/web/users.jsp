@@ -11,7 +11,78 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+         <script type='text/javascript' src='/CCM/dwr/interface/AjaxAdminService.js'></script>
+        <script type='text/javascript' src='/CCM/dwr/engine.js'></script>        
+        <script type='text/javascript' src='/CCM/dwr/util.js'></script>
+        <style type="text/css">
+            @import "dojo/dijit/themes/tundra/tundra.css";
+            @import "dojo/dojo/resources/dojo.css"
+        </style>
+        <script type="text/javascript" src="dojo/dojo/dojo.js" 
+                djConfig="parseOnLoad: true"></script>
+        <script type="text/javascript">
+            dojo.require("dojo.parser");
+            dojo.require("dijit.form.Button");
+        </script>
+        <script type="text/javascript">
+            function init() {
+                fillTable();
+            }
+        
+            var peopleCache = { };
+            var viewed = -1;
+        
+            function fillTable() {
+                AjaxAdminService.getAllUsers(function(people) {
+                    // Delete all the rows except for the "pattern" row
+                    dwr.util.removeAllRows("peoplebody", { filter:function(tr) {
+                            return (tr.id != "pattern");
+                        }});
+                    // Create a new set cloned from the pattern row
+                    var person, id;
+                    people.sort(function(p1, p2) { return p1.macAddress.localeCompare(p2.macAddress); });
+                    for (var i = 0; i < people.length; i++) {
+                        person = people[i];
+                        id = person.id;
+                        dwr.util.cloneNode("pattern", { idSuffix:id });
+                        dwr.util.setValue("name" + id, person.name);
+                        dwr.util.setValue("password" + id, person.password);
+                        dwr.util.setValue("enabled" + id, person.enabled);
+                        dwr.util.setValue("role" + id, person.role);
+                        dwr.util.setValue("street" + id, person.street);
+                        dwr.util.setValue("city" + id, person.city);
+                        dwr.util.setValue("country" + id, person.country);
+                        $("pattern" + id).style.display = "table-row";
+                        peopleCache[id] = person;
+                    }
+                });
+            }
+        
+            function editClicked(eleid) {
+                // we were an id of the form "edit{id}", eg "edit42". We lookup the "42"
+                var person = peopleCache[eleid.substring(4)];
+                dwr.util.setValues(person);
+            }
+        
+            
+        
+            function writePerson() {
+                var person = { id:viewed, name:null, address:null, salary:null };
+                dwr.util.getValues(person);
+        
+                //dwr.engine.beginBatch();
+                //People.setPerson(person);
+                AjaxAdminService.saveSystem(person);
+                fillTable();
+                //dwr.engine.endBatch();
+            }
+        
+            function clearPerson() {
+                viewed = -1;
+                dwr.util.setValues({ id:-1, name:null, password:null, enabled:true, role:null, street:null, city:null, country:null });
+            }
+        </script>
+    
     </head>
     <body>
          <table>            
@@ -39,5 +110,77 @@
                 </tr>
             </tbody>
         </table>
+        
+        <table border="1" class="rowed grey">
+            <thead>
+                <tr>
+                    <th>Username/Email</th>
+                    <th>Password</th>
+                    <th>Enable</th>
+                    <th>Role</th>
+                    <th>Street</th>
+                    <th>City</th>
+                    <th>Country</th>
+                </tr>
+            </thead>
+            <tbody id="peoplebody">
+                <tr id="pattern" style="display:none;">
+                    <td><span id="name">Username/Email</span></td>
+                    <td><span id="password">Password</span></td>
+                    <td><span id="enabled">IsWorking</span></td>
+                    <td><span id="role">Role</span></td>
+                    <td><span id="street">Street</span></td>
+                    <td><span id="city">City</span></td>
+                    <td><span id="country">Country</span></td>
+                    <td>
+                        <input id="edit" type="button" value="Edit" onclick="editClicked(this.id)"/>                        
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        
+        
+        <table class="plain">
+            <tr>
+                <td>Username/Email:</td>
+                <td><input id="name" type="text" size="30"/></td>
+            </tr>
+            <tr>
+                <td>Password:</td>
+                <td><input id="password" type="password" size="20"/ ></td>
+            </tr>
+            <tr>
+                <td>Isworking:</td>
+                <td><input type="text" id="enabled" size="40"/></td>
+            </tr>
+            <tr>
+                <td>Role:</td>
+                <td><input type="text" id="role" size="40"/></td>
+            </tr>
+            <tr>
+                <td>Street:</td>
+                <td><input type="text" id="street" size="40"/></td>
+            </tr>
+            <tr>
+                <td>City:</td>
+                <td><input type="text" id="city" size="40"/></td>
+            </tr>
+            <tr>
+                <td>Country:</td>
+                <td><input type="text" id="country" size="40"/></td>
+            </tr>
+
+
+            <tr>
+                <td colspan="2" align="right">                    
+                    <input type="button" value="Save" onclick="writePerson()"/>
+                    <input type="button" value="Clear" onclick="clearPerson()"/>
+                </td>
+            </tr>
+        </table>
+        <script type="text/javascript">
+            onload = fillTable();
+        </script>
+    
     </body>
 </html>
