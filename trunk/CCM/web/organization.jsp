@@ -11,11 +11,82 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-        <script type='text/javascript' src='/CCM/dwr/interface/AjaxAdminService.js'></script>
+         <script type='text/javascript' src='/CCM/dwr/interface/AjaxAdminService.js'></script>
         <script type='text/javascript' src='/CCM/dwr/engine.js'></script>        
         <script type='text/javascript' src='/CCM/dwr/util.js'></script>
+        <style type="text/css">
+            @import "dojo/dijit/themes/tundra/tundra.css";
+            @import "dojo/dojo/resources/dojo.css"
+        </style>
+        <script type="text/javascript" src="dojo/dojo/dojo.js" 
+                djConfig="parseOnLoad: true"></script>
+        <script type="text/javascript">
+            dojo.require("dojo.parser");
+            dojo.require("dijit.form.Button");
+        </script>
+        <script type="text/javascript">
+            function init() {
+                fillTable();
+            }
+        
+            var peopleCache = { };
+            var viewed = -1;
+        
+            function fillTable() {
+                AjaxAdminService.getOrganization(function(people) {
+                    // Delete all the rows except for the "pattern" row
+                    dwr.util.removeAllRows("peoplebody", { filter:function(tr) {
+                            return (tr.id != "pattern");
+                        }});
+                    // Create a new set cloned from the pattern row
+                    var person, id;
+                    people.sort(function(p1, p2) { return p1.macAddress.localeCompare(p2.macAddress); });
+                    for (var i = 0; i < people.length; i++) {
+                        person = people[i];
+                        id = person.id;
+                        dwr.util.cloneNode("pattern", { idSuffix:id });
+                        dwr.util.setValue("name" + id, person.name);
+                        dwr.util.setValue("enabled" + id, person.enabled);
+                        dwr.util.setValue("city" + id, person.city);
+                        dwr.util.setValue("street" + id, person.street);
+                        dwr.util.setValue("contact_name" + id, person.conatact_name);
+                        dwr.util.setValue("contact_type" + id, person.contact_type);
+                        dwr.util.setValue("register_date" + id, person.register_date);
+                        dwr.util.setValue("contact_email" + id, person.contact_email);
+                        dwr.util.setValue("amount_rate" + id, person.amount_paid);
+                        $("pattern" + id).style.display = "table-row";
+                        peopleCache[id] = person;
+                    }
+                });
+            }
+        
+            function editClicked(eleid) {
+                // we were an id of the form "edit{id}", eg "edit42". We lookup the "42"
+                var person = peopleCache[eleid.substring(4)];
+                dwr.util.setValues(person);
+            }
+        
+            
+        
+            function writePerson() {
+                var person = { id:viewed, name:null, address:null, salary:null };
+                dwr.util.getValues(person);
+        
+                //dwr.engine.beginBatch();
+                //People.setPerson(person);
+                AjaxAdminService.saveSystem(person);
+                fillTable();
+                //dwr.engine.endBatch();
+            }
+        
+            function clearPerson() {
+                viewed = -1;
+                dwr.util.setValues({ id:-1, name:null, enabled:true, city:null, street:null, contact_name:null, contact_type:null, register_date:null, contact_email:null, amount_paid:null,  });
+            }
+        </script>
+    
     </head>
+
     <body>
          <table>            
             <tbody>
@@ -41,6 +112,90 @@
                     <td><a href="j_acegi_logout">Logout</a></td>
                 </tr>
             </tbody>
+        </table
+        <table border="1" class="rowed grey">
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Enable</th>
+                    <th>city</th>
+                    <th>Street</th>
+                    <th>Contact_ name</th>
+                    <th>Contact_ type</th>
+                    <th>Register_Date</th>
+                    <th>Contact_Email</th>
+                    <th>Amount_Paid</th>
+                </tr>
+            </thead>
+            <tbody id="peoplebody">
+                <tr id="pattern" style="display:none;">
+                    <td><span id="name">Username</span></td>
+                    <td><span id="enabled">IsWorking</span></td>
+                    <td><span id="city">City</span></td>
+                    <td><span id="street">Street</span></td>
+                    <td><span id="contact_name">Contact_Name</span></td>
+                    <td><span id="contact_type">Contact_Type</span></td>
+                    <td><span id="register_date">Register_Date</span></td>
+                    <td><span id="contact_email">Contact_Email</span></td>
+                    <td><span id="amount_rate">Amount_Paid</span></td>
+                    <td>
+                        <input id="edit" type="button" value="Edit" onclick="editClicked(this.id)"/>                        
+                    </td>
+                </tr>
+            </tbody>
         </table>
+        
+        
+        <table class="plain">
+            <tr>
+                <td>Username:</td>
+                <td><input id="name" type="text" size="30"/></td>
+            </tr>
+            
+            <tr>
+                <td>Isworking:</td>
+                <td><input type="text" id="enabled" size="40"/></td>
+            </tr>
+            <tr>
+                <td>City:</td>
+                <td><input type="text" id="city" size="40"/></td>
+            </tr>
+            <tr>
+                <td>Street:</td>
+                <td><input type="text" id="street" size="40"/></td>
+            </tr>
+            <tr>
+                <td>Contact_Name:</td>
+                <td><input type="text" id="contact_name" size="40"/></td>
+            </tr>
+            <tr>
+                <td>Contact_Type:</td>
+                <td><input type="text" id="contact_type" size="40"/></td>
+            </tr>
+            <tr>
+                <td>Register_Date:</td>
+                <td><input type="text" id="register_date" size="40"/></td>
+            </tr>
+            <tr>
+                <td>Contact_Email:</td>
+                <td><input type="text" id="contact_email" size="40"/></td>
+            </tr>
+            <tr>
+                <td>Amount_Paid:</td>
+                <td><input type="text" id="amount_paid" size="40"/></td>
+            </tr>
+
+
+            <tr>
+                <td colspan="2" align="right">                    
+                    <input type="button" value="Save" onclick="writePerson()"/>
+                    <input type="button" value="Clear" onclick="clearPerson()"/>
+                </td>
+            </tr>
+        </table>
+        <script type="text/javascript">
+            onload = fillTable();
+        </script>
+    
     </body>
 </html>
