@@ -45,8 +45,8 @@
                         person = people[i];
                         id = person.id;
                         dwr.util.cloneNode("pattern", { idSuffix:id });
-                        dwr.util.setValue("report_time" + id, person.name);
-                        dwr.util.setValue("organization" + id, person.description);
+                        dwr.util.setValue("report_time1" + id, person.report_time);
+                        dwr.util.setValue("organization1" + id, person.organization);
                         $("pattern" + id).style.display = "table-row";
                         peopleCache[id] = person;
                     }
@@ -114,8 +114,8 @@
             </thead>
             <tbody id="peoplebody">
                 <tr id="pattern" style="display:none;">
-                    <td><span id="report_time">report_time</span></td>
-                    <td><span id="organisation">organisation</span></td>
+                    <td><span id="report_time1">report_time</span></td>
+                    <td><span id="organisation1">organisation</span></td>
                     <td>
                         <input id="edit" type="button" value="Edit" onclick="editClicked(this.id)"/>                        
                     </td>
