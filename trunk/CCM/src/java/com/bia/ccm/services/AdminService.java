@@ -38,6 +38,9 @@ public interface AdminService {
     //SystemLease
     public List<SystemLease> getAllSystemLease(String username);
     
+    // lease history
+    public List<SystemLease> getSystemLease(String startDate, String endDate) ;
+    
     
     public Organization getOrganization(String username);
     public String saveOrganization(Organization organization, String username);
