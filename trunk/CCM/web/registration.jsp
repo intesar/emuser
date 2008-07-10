@@ -57,10 +57,12 @@
                     <td><input type="text" name="confirmPassword" value="" /></td>
                 </tr>
                 <tr>
-                    <td></td>
-                    <td><input type="submit" value="Create" onclick="createAccount();"/></td>
+                <td></td>
+                    <td><input type="reset" value="Clear" />
+                        <input type="submit" value="Create" onclick="createAccount();"/></td>
                 </tr>
             </tbody>
         </table>
+        Click here to<a href="login.jsp"> Sign in</a>
     </body>
 </html>
