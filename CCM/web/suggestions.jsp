@@ -119,11 +119,11 @@
             </thead>
             <tbody id="peoplebody">
                 <tr id="pattern" style="display:none;">
-                    <td><span id="user_name">user_name</span></td>
-                    <td><span id="suggestion_date">suggestion_date</span></td>
-                    <td><span id="type">type</span></td>
-                    <td><span id="comment">comment</span></td>
-                    <td><span id="organization">organization</span></td>
+                    <td><span id="user_name1">user_name</span></td>
+                    <td><span id="suggestion_date1">suggestion_date</span></td>
+                    <td><span id="type1">type</span></td>
+                    <td><span id="comment1">comment</span></td>
+                    <td><span id="organization1">organization</span></td>
                     <td>
                         <input id="edit" type="button" value="Edit" onclick="editClicked(this.id)"/>                        
                     </td>
@@ -135,23 +135,23 @@
         <table class="plain">
             <tr>
                 <td>Username:</td>
-                <td><input id="name" type="text" size="30"/></td>
+                <td><input id="user_name" type="text" size="30"/></td>
             </tr>
             <tr>
                 <td>Suggestiondate:</td>
-                <td><input id="macAddress" type="text" size="20"/></td>
+                <td><input id="suggestion_date" type="text" size="20"/></td>
             </tr>
             <tr>
                 <td>Type:</td>
-                <td><input type="text" id="description" size="40"/></td>
+                <td><input type="text" id="type" size="40"/></td>
             </tr>
             <tr>
                 <td>Comment:</td>
-                <td><input type="text" id="enabled" size="40"/></td>
+                <td><input type="text" id="comment" size="40"/></td>
             </tr>
             <tr>
                 <td>Organization:</td>
-                <td><input type="text" id="minuteRate" size="40"/></td>
+                <td><input type="text" id="organization" size="40"/></td>
             </tr>
             <tr>
                 <td colspan="2" align="right">                    
