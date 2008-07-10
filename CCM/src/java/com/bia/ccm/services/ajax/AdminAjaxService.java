@@ -4,6 +4,7 @@
  */
 package com.bia.ccm.services.ajax;
 
+import com.bia.ccm.dao.SystemLeaseDao;
 import com.bia.ccm.entity.EmailPreference;
 import com.bia.ccm.entity.EmailTimePreference;
 import com.bia.ccm.entity.Organization;
@@ -77,6 +78,10 @@ public class AdminAjaxService {
         String username = AcegiUtil.getUsername();
         return this.adminService.saveOrganization(organization, username);
     }
+    
+    public List<SystemLease> getSystemLease(String startDate, String endDate) {
+        return this.adminService.getSystemLease(startDate+" %", endDate+" %");
+    }
     protected final Log logger = LogFactory.getLog(getClass());
     private AdminService adminService = (AdminService) ServiceFactory.getService("adminServiceImpl");
 
@@ -84,19 +89,21 @@ public class AdminAjaxService {
         AdminAjaxService aas = new AdminAjaxService();
 //        EmailPreference ep = new EmailPreference(null, "test", "mohdshannan@yahoo.com", "bia");
 //        aas.saveEmailPreference(ep);
-        short s = (short) 500;
-        EmailTimePreference etp = new EmailTimePreference(null, s, "bia");
-        aas.saveEmailTimePreference(etp);
-        Systems s1 = new Systems(null, 2, "bia", true, null, 20.8, true);
-        aas.saveSystems(s1);
-        Users u = new Users(null, "shannan", "shannan", true, "admin", "bia", "shannan");
-        aas.saveUsers(u);
+//        short s = (short) 500;
+//        EmailTimePreference etp = new EmailTimePreference(null, s, "bia");
+//        aas.saveEmailTimePreference(etp);
+//        Systems s1 = new Systems(null, 2, "bia", true, null, 20.8, true);
+//        aas.saveSystems(s1);
+//        Users u = new Users(null, "shannan", "shannan", true, "admin", "bia", "shannan");
+//        aas.saveUsers(u);
+//        
+//        System.out.println(aas.getAllEmailPreference());
+//        System.out.println(aas.getAllEmailTimePreference());
+//        System.out.println(aas.getAllSystemLease());
+//        System.out.println(aas.getAllSystems());
+//        System.out.println(aas.getAllUsers());
+//        System.out.println(aas.getOrganization());
         
-        System.out.println(aas.getAllEmailPreference());
-        System.out.println(aas.getAllEmailTimePreference());
-        System.out.println(aas.getAllSystemLease());
-        System.out.println(aas.getAllSystems());
-        System.out.println(aas.getAllUsers());
-        System.out.println(aas.getOrganization());
+        System.out.println ( aas.getSystemLease("2008-07-07", "2008-10-10") );
     }
 }

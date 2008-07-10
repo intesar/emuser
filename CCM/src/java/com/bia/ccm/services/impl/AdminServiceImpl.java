@@ -43,11 +43,11 @@ public class AdminServiceImpl implements AdminService {
                 systems.setCreateDate(new Date());
                 systems.setCreateUser(username);
                 systems.setIsAvailable(true);
-                systems.setIsShutdown(false);                
+                systems.setIsShutdown(false);
                 this.systemsDao.create(systems);
-            } else if (systems != null && systems.getId() != null) {                
+            } else if (systems != null && systems.getId() != null) {
                 this.systemsDao.update(systems);
-                
+
             } else {
                 return "Please check inputs";
             }
@@ -68,11 +68,11 @@ public class AdminServiceImpl implements AdminService {
             if (users != null && users.getId() == null) {
                 users.setOrganization(u.getOrganization());
                 users.setCreateDate(new Date());
-                users.setCreateUser(username);                   
+                users.setCreateUser(username);
                 this.usersDao.create(users);
-            } else if (users != null && users.getId() != null) {                
+            } else if (users != null && users.getId() != null) {
                 this.usersDao.update(users);
-                
+
             } else {
                 return "Please check inputs";
             }
@@ -92,11 +92,11 @@ public class AdminServiceImpl implements AdminService {
         try {
             if (emailPreference != null && emailPreference.getId() == null) {
                 emailPreference.setOrganization(u.getOrganization());
-                                 
+
                 this.emailPreferenceDao.create(emailPreference);
-            } else if (emailPreference != null && emailPreference.getId() != null) {                
+            } else if (emailPreference != null && emailPreference.getId() != null) {
                 this.emailPreferenceDao.update(emailPreference);
-                
+
             } else {
                 return "Please check inputs";
             }
@@ -116,11 +116,11 @@ public class AdminServiceImpl implements AdminService {
         try {
             if (emailTimePreference != null && emailTimePreference.getId() == null) {
                 emailTimePreference.setOrganization(u.getOrganization());
-                                 
+
                 this.emailTimePreferenceDao.create(emailTimePreference);
-            } else if (emailTimePreference != null && emailTimePreference.getId() != null) {                
+            } else if (emailTimePreference != null && emailTimePreference.getId() != null) {
                 this.emailTimePreferenceDao.update(emailTimePreference);
-                
+
             } else {
                 return "Please check inputs";
             }
@@ -147,8 +147,8 @@ public class AdminServiceImpl implements AdminService {
     public String saveOrganization(Organization organization, String username) {
         Users u = this.getUserByUsername(username);
         try {
-            if (organization != null ) {                
-                this.organizationDao.update(organization);                
+            if (organization != null) {
+                this.organizationDao.update(organization);
             } else {
                 return "Please check inputs";
             }
@@ -156,6 +156,10 @@ public class AdminServiceImpl implements AdminService {
             return e.getMessage();
         }
         return "Operation succesful!";
+    }
+
+    public List<SystemLease> getSystemLease(String startDate, String endDate) {
+        return this.systemLeaseDao.findByStartAndEndDates(endDate, endDate);
     }
 
     public Users getUserByUsername(String username) {
@@ -185,7 +189,6 @@ public class AdminServiceImpl implements AdminService {
     public void setSystemLeaseDao(SystemLeaseDao systemLeaseDao) {
         this.systemLeaseDao = systemLeaseDao;
     }
-    
     private UsersDao usersDao;
     private SystemsDao systemsDao;
     private EmailPreferenceDao emailPreferenceDao;

@@ -9,6 +9,8 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.NamedNativeQueries;
+import javax.persistence.NamedNativeQuery;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -23,8 +25,11 @@ import javax.persistence.TemporalType;
 @Table(name = "system_lease")
 @NamedQueries({
     @NamedQuery(name = "SystemLease.findByOrganization", query = "select s from SystemLease s where s.system in (select s1.id from Systems s1 where s1.organization = ?1 ) "),
-    @NamedQuery(name = "SystemLease.findBySystemAndFinished", query = "select s from SystemLease s where s.system = ?1 and s.isFinished = false ")
+    @NamedQuery(name = "SystemLease.findBySystemAndFinished", query = "select s from SystemLease s where s.system = ?1 and s.isFinished = false ")    
 })
+@NamedNativeQueries({
+    @NamedNativeQuery(name="SystemLease.findByStartAndEndDates", query="SELECT * FROM system_lease s where start_time >= ?1 and end_time <= ?2")
+})        
 public class SystemLease implements Serializable {
 
     private static final long serialVersionUID = 1L;
