@@ -19,6 +19,8 @@
         <script type='text/javascript' src='/CCM/dwr/util.js'></script>
         <script type='text/javascript' >
             function intialDisplay() {
+                dwr.util.useLoadingMessage();
+
                 AjaxWorkService.getActiveSystems(function(systems) {
                     for ( var i = 0; i < systems.length; i++ ) {
                         enableAndColorButton(systems[i].name, systems[i].isAvailable);                        
@@ -275,9 +277,14 @@
             }
             
         </script>
-        
+        <style>
+            input.itext { font-size: smaller; background: #E4E4E4; border: 0; }
+            input.ibutton { font-size: xx-small; border: 1px outset; margin: 0px; padding: 0px; }
+            span.reply { background: #ffffdd; white-space: pre; }
+            span.warning { font-size: smaller; color: red; }
+        </style>
     </head>
-    <body>
+    <body onload='dwr.util.useLoadingMessage()'>
         <!--<form id="form1" id="form1"> -->
         <table>            
             <tbody>
@@ -348,6 +355,8 @@
                 </tr>
             </tbody>
         </table>
+        
+        
         <!-- </form> -->
         <script type="text/javascript">
             onload = intialDisplay();

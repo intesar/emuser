@@ -50,11 +50,11 @@
                 </tr>
                 <tr>
                     <td>Password</td>
-                    <td><input type="text" name="password" value="" /></td>
+                    <td><input type="password" name="password" value="" /></td>
                 </tr>
                 <tr>
                     <td>Confirm Password</td>
-                    <td><input type="text" name="confirmPassword" value="" /></td>
+                    <td><input type="password" name="confirmPassword" value="" /></td>
                 </tr>
                 <tr>
                 <td></td>
