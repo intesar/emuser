@@ -45,11 +45,11 @@
                         person = people[i];
                         id = person.id;
                         dwr.util.cloneNode("pattern", { idSuffix:id });
-                        dwr.util.setValue("name" + id, person.name);
-                        dwr.util.setValue("description" + id, person.description);
-                        dwr.util.setValue("minuteRate" + id, person.minuteRate);
-                        dwr.util.setValue("enabled" + id, person.enabled);
-                        dwr.util.setValue("macAddress" + id, person.macAddress);
+                        dwr.util.setValue("name1" + id, person.name);
+                        dwr.util.setValue("description1" + id, person.description);
+                        dwr.util.setValue("minuteRate1" + id, person.minuteRate);
+                        dwr.util.setValue("enabled1" + id, person.enabled);
+                        dwr.util.setValue("macAddress1" + id, person.macAddress);
                         $("pattern" + id).style.display = "table-row";
                         peopleCache[id] = person;
                     }
@@ -119,11 +119,11 @@
             </thead>
             <tbody id="peoplebody">
                 <tr id="pattern" style="display:none;">
-                    <td><span id="name">No</span></td>
-                    <td><span id="macAddress">MacAddress</span></td>
-                    <td><span id="description">Description</span></td>
-                    <td><span id="enabled">IsWorking</span></td>
-                    <td><span id="minuteRate">Usage Rate</span></td>
+                    <td><span id="name1">No</span></td>
+                    <td><span id="macAddress1">MacAddress</span></td>
+                    <td><span id="description1">Description</span></td>
+                    <td><span id="enabled1">IsWorking</span></td>
+                    <td><span id="minuteRate1">Usage Rate</span></td>
                     <td>
                         <input id="edit" type="button" value="Edit" onclick="editClicked(this.id)"/>                        
                     </td>
