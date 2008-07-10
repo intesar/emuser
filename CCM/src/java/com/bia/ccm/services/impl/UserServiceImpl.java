@@ -28,10 +28,12 @@ public class UserServiceImpl implements UserService {
         //String username = AcegiUtil.getUsername();
         try {
             Users u = this.usersDao.findByUsername(email);
-            this.eMailService.sendEmail(u.getEmail(), u.getPassword());
+            this.eMailService.sendEmail(u.getEmail(), "your password : " + u.getPassword());
         } catch (NullPointerException npe) {
+            npe.printStackTrace();
             return " No match found!";
         } catch (Exception e) {
+            e.printStackTrace();
             return e.getMessage();
         }
         return "Please check your email";
@@ -69,7 +71,7 @@ public class UserServiceImpl implements UserService {
     
     
     private UsersDao usersDao;
-    private EMailService eMailService;
+    private EMailService eMailService = new EMailServiceImpl();
     private OrganizationDao organizationDao;
     private AuthoritiesDao authoritiesDao;
 }
