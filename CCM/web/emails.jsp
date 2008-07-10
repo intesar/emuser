@@ -45,10 +45,10 @@
                         person = people[i];
                         id = person.id;
                         dwr.util.cloneNode("pattern", { idSuffix:id });
-                        dwr.util.setValue("username" + id, person.username);
-                        dwr.util.setValue("email_or_phone" + id, person.email_or_phone);
-                        dwr.util.setValue("service_provider" + id, person.service_provider);
-                        dwr.util.setValue("organisation" + id, person.organisation);
+                        dwr.util.setValue("username1" + id, person.username);
+                        dwr.util.setValue("email_or_phone1" + id, person.email_or_phone);
+                        dwr.util.setValue("service_provider1" + id, person.service_provider);
+                        dwr.util.setValue("organisation1" + id, person.organisation);
                         $("pattern" + id).style.display = "table-row";
                         peopleCache[id] = person;
                     }
@@ -118,10 +118,10 @@
             </thead>
             <tbody id="peoplebody">
                 <tr id="pattern" style="display:none;">
-                    <td><span id="username">username</span></td>
-                    <td><span id="email_or_phone">email_or_phone</span></td>
-                    <td><span id="service_provider">service_provider</span></td>
-                    <td><span id="organization">organization</span></td>
+                    <td><span id="username1">Username</span></td>
+                    <td><span id="email_or_phone1">Email_or_Phone</span></td>
+                    <td><span id="service_provider1">Service_Provider</span></td>
+                    <td><span id="organization1">Organization</span></td>
                    
                     
                     
@@ -136,20 +136,20 @@
         <table class="plain">
             <tr>
                 <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Username: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                <td><input id="name" type="text" size="30"/></td>
+                <td><input id="username" type="text" size="30"/></td>
             </tr>
             <br>
             <tr>
                 <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Email_or_Phone: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                <td><input id="macAddress" type="text" size="30"/></td>
+                <td><input id="email_or_phone" type="text" size="30"/></td>
             </tr> 
              <tr>
                 <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Service_Provider &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                <td><input id="macAddress" type="text" size="30"/></td>
+                <td><input id="service_provider" type="text" size="30"/></td>
             </tr>
              <tr>
                 <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Organization &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                <td><input id="macAddress" type="text" size="30"/></td>
+                <td><input id="organization" type="text" size="30"/></td>
             </tr>
             <tr>
                 <td colspan="2" align="right">                    
