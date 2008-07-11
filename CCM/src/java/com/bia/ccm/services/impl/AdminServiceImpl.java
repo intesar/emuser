@@ -158,8 +158,12 @@ public class AdminServiceImpl implements AdminService {
         return "Operation succesful!";
     }
 
-    public List<SystemLease> getSystemLease(String startDate, String endDate) {
-        return this.systemLeaseDao.findByStartAndEndDates(endDate, endDate);
+    public List<SystemLease> getSystemLease(Date startDate, Date endDate, String org) {
+        return this.systemLeaseDao.findByStartAndEndDates(startDate, endDate, org);
+    }
+    
+    public List getReport(Date startDate, Date endDate, String org) {
+        return this.systemLeaseDao.findReportBetweenDates(startDate, endDate, org);
     }
 
     public Users getUserByUsername(String username) {

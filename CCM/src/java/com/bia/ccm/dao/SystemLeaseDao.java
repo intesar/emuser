@@ -6,6 +6,7 @@ package com.bia.ccm.dao;
 
 import com.abbhsoft.jpadaoframework.dao.GenericDao;
 import com.bia.ccm.entity.SystemLease;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -18,5 +19,7 @@ public interface SystemLeaseDao extends GenericDao<SystemLease, Integer> {
 
     SystemLease findBySystemAndFinished(int id);
 
-    public List<SystemLease> findByStartAndEndDates(String sd, String ed);
+    public List<SystemLease> findByStartAndEndDates(Date sd, Date ed, String org);
+    
+    public List findReportBetweenDates(Date sd, Date ed, String org);
 }
