@@ -6,15 +6,33 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-   "http://www.w3.org/TR/html4/loose.dtd">
+"http://www.w3.org/TR/html4/loose.dtd">
 
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <script type='text/javascript' src='/CCM/dwr/interface/AjaxAdminService.js'></script>
+        <script type='text/javascript' src='/CCM/dwr/engine.js'></script>        
+        <script type='text/javascript' src='/CCM/dwr/util.js'></script>
+        <script type="text/javascript" src="/CCM/datepickercontrol.js"></script>
+        <link type="text/css" rel="stylesheet" href="/CCM/datepickercontrol.css"> 
+        
+        <script type="text/javascript">
+            function execute() {
+                //alert ( document.getElementById("startDate").value);
+                AjaxAdminService.getReport(document.getElementById("DPC_startDate_YYYY-MM-DD").value,
+                document.getElementById("DPC_endDate_YYYY-MM-DD").value, reply1 );
+            }
+            
+            var reply1 = function(data) {
+                alert (data);
+            
+            }
+        </script>
+        
     </head>
     <body>
-         <table>            
+        <table>            
             <tbody>
                 <tr>
                     <td><a href="dashboard.jsp">Dashboard</a></td>
@@ -39,5 +57,19 @@
                 </tr>
             </tbody>
         </table>
+        
+        <input type="hidden" id="DPC_TODAY_TEXT" value="today">
+        <input type="hidden" id="DPC_BUTTON_TITLE" value="Open calendar...">
+        <input type="hidden" id="DPC_MONTH_NAMES" value="['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']">
+        <input type="hidden" id="DPC_DAY_NAMES" value="['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']">
+        
+        
+        
+        <input type="text" name="startDate" id="DPC_startDate_YYYY-MM-DD"> 
+        
+        <input type="text" name="endDate" id="DPC_endDate_YYYY-MM-DD" > 
+        
+        <input type="submit" value="Go" onclick="execute();"/>
+        
     </body>
 </html>
