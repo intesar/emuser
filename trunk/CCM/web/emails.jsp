@@ -48,8 +48,7 @@
                         dwr.util.cloneNode("pattern", { idSuffix:id });
                         dwr.util.setValue("username1" + id, person.username);
                         dwr.util.setValue("email_or_phone" + id, person.emailOrPhone);
-                        dwr.util.setValue("service_provider" + id, person.serviceProvider);
-                        dwr.util.setValue("organization1" + id, person.organization);
+                        dwr.util.setValue("service_provider" + id, person.serviceProvider);                        
                         $("pattern" + id).style.display = "table-row";
                         peopleCache[id] = person;
                     }
@@ -59,13 +58,20 @@
             function editClicked(eleid) {
                 // we were an id of the form "edit{id}", eg "edit42". We lookup the "42"
                 var person = peopleCache[eleid.substring(4)];
+                viewed = person.id;
                 dwr.util.setValues(person);
             }
         
             
         
             function writePerson() {
-                var person = { id:viewed, username:null, emailOrPhone:null, serviceProvider:null, organization:null };
+                 var person;
+                if ( viewed == null ) {
+                    person = { id:viewed, username:null, emailOrPhone:null, serviceProvider:null };
+                } else {
+                    person = peopleCache[viewed];
+                }
+                
                 dwr.util.getValues(person);
         
                 //dwr.engine.beginBatch();
@@ -77,7 +83,7 @@
         
             function clearPerson() {
                 viewed = null;
-                dwr.util.setValues({ id:null, username:null, emailOrPhone:null, serviceProvider:null, organization:null });
+                dwr.util.setValues({ id:null, username:null, emailOrPhone:null, serviceProvider:null });
             }
         </script>
     </head>
@@ -114,7 +120,7 @@
                     <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Username &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                     <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Email_or_Phone &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                     <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Service_Provider &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                    <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Organization &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                    
                     <th>Action</th>
                 </tr>
             </thead>
@@ -124,7 +130,7 @@
                     <td><span id="username1">Username</span></td>
                     <td><span id="email_or_phone">emailOrPhone</span></td>
                     <td><span id="service_provider">serviceProvider</span></td>
-                    <td><span id="organization1">Organization</span></td>
+                    
                   
                     <td>
                         <input id="edit" type="button" value="Edit" onclick="editClicked(this.id)"/>                        
@@ -149,10 +155,7 @@
                 <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Service_Provider &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
                 <td><input id="serviceProvider" type="text" size="30"/></td>
             </tr>
-             <tr>
-                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Organization &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                <td><input id="organization" type="text" size="30"/></td>
-            </tr>
+             
             <tr>
                 <td colspan="2" align="right">                    
                     <input type="button" value="Save" onclick="writePerson()"/>
