@@ -144,7 +144,7 @@
         
         <table class="plain" align="center">
             <tr>
-                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Username: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Username &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
                 <td><input id="username" type="text" size="30"/></td>
             </tr>
             <br>
