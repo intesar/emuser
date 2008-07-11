@@ -30,9 +30,10 @@
             }
         
             var peopleCache = { };
-            var viewed = -1;
+            var viewed = null;
         
             function fillTable() {
+                 dwr.util.useLoadingMessage();
                 AjaxAdminService.getAllEmailPreference(function(people) {
                     // Delete all the rows except for the "pattern" row
                     dwr.util.removeAllRows("peoplebody", { filter:function(tr) {
@@ -46,9 +47,9 @@
                         id = person.id;
                         dwr.util.cloneNode("pattern", { idSuffix:id });
                         dwr.util.setValue("username1" + id, person.username);
-                        dwr.util.setValue("email_or_phone1" + id, person.email_or_phone);
-                        dwr.util.setValue("service_provider1" + id, person.service_provider);
-                        dwr.util.setValue("organisation1" + id, person.organisation);
+                        dwr.util.setValue("email_or_phone" + id, person.emailOrPhone);
+                        dwr.util.setValue("service_provider" + id, person.serviceProvider);
+                        dwr.util.setValue("organization1" + id, person.organization);
                         $("pattern" + id).style.display = "table-row";
                         peopleCache[id] = person;
                     }
@@ -64,19 +65,19 @@
             
         
             function writePerson() {
-                var person = { id:viewed, name:null, address:null, salary:null };
+                var person = { id:viewed, username:null, emailOrPhone:null, serviceProvider:null, organization:null };
                 dwr.util.getValues(person);
         
                 //dwr.engine.beginBatch();
                 //People.setPerson(person);
-                AjaxAdminService.saveSystems(person);
+                AjaxAdminService.saveEmailPreference(person);
                 fillTable();
                 //dwr.engine.endBatch();
             }
         
             function clearPerson() {
                 viewed = null;
-                dwr.util.setValues({ id:null, name:null, description:null, minuteRate:null, enabled:true, macAddress:null });
+                dwr.util.setValues({ id:null, username:null, emailOrPhone:null, serviceProvider:null, organization:null });
             }
         </script>
     </head>
@@ -106,7 +107,8 @@
                 </tr>
             </tbody>
         </table>
-        <table border="1" class="rowed grey">
+        <br><br>
+        <table border="1" class="rowed grey" align="center">
             <thead>
                 <tr>
                     <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Username &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
@@ -116,24 +118,24 @@
                     <th>Action</th>
                 </tr>
             </thead>
+            <form>
             <tbody id="peoplebody">
                 <tr id="pattern" style="display:none;">
                     <td><span id="username1">Username</span></td>
-                    <td><span id="email_or_phone1">Email_or_Phone</span></td>
-                    <td><span id="service_provider1">Service_Provider</span></td>
+                    <td><span id="email_or_phone">emailOrPhone</span></td>
+                    <td><span id="service_provider">serviceProvider</span></td>
                     <td><span id="organization1">Organization</span></td>
-                   
-                    
-                    
+                  
                     <td>
                         <input id="edit" type="button" value="Edit" onclick="editClicked(this.id)"/>                        
                     </td>
                 </tr>
             </tbody>
+            </form>
         </table>
         
         
-        <table class="plain">
+        <table class="plain" align="center">
             <tr>
                 <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Username: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
                 <td><input id="username" type="text" size="30"/></td>
@@ -141,11 +143,11 @@
             <br>
             <tr>
                 <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Email_or_Phone: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                <td><input id="email_or_phone" type="text" size="30"/></td>
+                <td><input id="emailOrPhone" type="text" size="30"/></td>
             </tr> 
              <tr>
                 <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Service_Provider &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                <td><input id="service_provider" type="text" size="30"/></td>
+                <td><input id="serviceProvider" type="text" size="30"/></td>
             </tr>
              <tr>
                 <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Organization &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
