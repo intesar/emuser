@@ -1,17 +1,17 @@
 <%-- 
-    Document   : users
-    Created on : Jul 7, 2008, 5:43:13 AM
+    Document   : systems
+    Created on : Jul 7, 2008, 5:43:08 AM
     Author     : intesar
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-   "http://www.w3.org/TR/html4/loose.dtd">
+"http://www.w3.org/TR/html4/loose.dtd">
 
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-         <script type='text/javascript' src='/CCM/dwr/interface/AjaxAdminService.js'></script>
+        <script type='text/javascript' src='/CCM/dwr/interface/AjaxAdminService.js'></script>
         <script type='text/javascript' src='/CCM/dwr/engine.js'></script>        
         <script type='text/javascript' src='/CCM/dwr/util.js'></script>
         <style type="text/css">
@@ -30,9 +30,10 @@
             }
         
             var peopleCache = { };
-            var viewed = -1;
+            var viewed = null;
         
             function fillTable() {
+                 dwr.util.useLoadingMessage();
                 AjaxAdminService.getAllUsers(function(people) {
                     // Delete all the rows except for the "pattern" row
                     dwr.util.removeAllRows("peoplebody", { filter:function(tr) {
@@ -40,25 +41,24 @@
                         }});
                     // Create a new set cloned from the pattern row
                     var person, id;
-                    people.sort(function(p1, p2) { return p1.macAddress.localeCompare(p2.macAddress); });
+                    //people.sort(function(p1, p2) { return p1.macAddress.localeCompare(p2.macAddress); });
                     for (var i = 0; i < people.length; i++) {
                         person = people[i];
                         id = person.id;
                         dwr.util.cloneNode("pattern", { idSuffix:id });
-                        dwr.util.setValue("name" + id, person.name);
-                        dwr.util.setValue("password" + id, person.password);
-                        dwr.util.setValue("enabled" + id, person.enabled);
-                        dwr.util.setValue("role" + id, person.role);
-                        dwr.util.setValue("street" + id, person.street);
-                        dwr.util.setValue("city" + id, person.city);
-                        dwr.util.setValue("country" + id, person.country);
+                        dwr.util.setValue("username1" + id, person.username);
+                        dwr.util.setValue("password1" + id, person.password);
+                        dwr.util.setValue("enabled1" + id, person.enabled);
+                        dwr.util.setValue("role1" + id, person.role);
+                        dwr.util.setValue("phone1" + id, person.phone);
+                        
                         $("pattern" + id).style.display = "table-row";
                         peopleCache[id] = person;
                     }
                 });
             }
         
-            function editClicked(eleid) {
+             function editClicked(eleid) {
                 // we were an id of the form "edit{id}", eg "edit42". We lookup the "42"
                 var person = peopleCache[eleid.substring(4)];
                 dwr.util.setValues(person);
@@ -67,25 +67,25 @@
             
         
             function writePerson() {
-                var person = { id:viewed, name:null, address:null, salary:null };
+                var person = { id:viewed, username:null, password:null, enabled:null, role:null, phone:null };
                 dwr.util.getValues(person);
+                
         
                 //dwr.engine.beginBatch();
                 //People.setPerson(person);
-                AjaxAdminService.saveSystem(person);
+                AjaxAdminService.saveUsers(person);
                 fillTable();
                 //dwr.engine.endBatch();
             }
         
             function clearPerson() {
-                viewed = -1;
-                dwr.util.setValues({ id:-1, name:null, password:null, enabled:true, role:null, street:null, city:null, country:null });
+                viewed = null;
+                dwr.util.setValues({ id:null, username:null, password:null, enabled:null, role:null, phone:null });
             }
         </script>
-    
     </head>
     <body>
-         <table>            
+        <table>            
             <tbody>
                 <tr>
                     <td><a href="dashboard.jsp">Dashboard</a></td>
@@ -110,77 +110,71 @@
                 </tr>
             </tbody>
         </table>
-        
-        <table border="1" class="rowed grey">
+        <br><br>
+        <table border="1" class="rowed grey" align="center">
             <thead>
                 <tr>
-                    <th>Username/Email</th>
-                    <th>Password</th>
-                    <th>Enable</th>
-                    <th>Role</th>
-                    <th>Street</th>
-                    <th>City</th>
-                    <th>Country</th>
+                    <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Username &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                    <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Password &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                    <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Enabled  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                    <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Role &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                    <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Phone no &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                    
+                   
                 </tr>
             </thead>
+            <form>
             <tbody id="peoplebody">
                 <tr id="pattern" style="display:none;">
-                    <td><span id="name">Username/Email</span></td>
-                    <td><span id="password">Password</span></td>
-                    <td><span id="enabled">IsWorking</span></td>
-                    <td><span id="role">Role</span></td>
-                    <td><span id="street">Street</span></td>
-                    <td><span id="city">City</span></td>
-                    <td><span id="country">Country</span></td>
+                    <td><span id="username1">username</span></td>
+                    <td><span id="password1">password</span></td>
+                    <td><span id="enabled1">enabled</span></td>
+                    <td><span id="role1">role</span></td>
+                    <td><span id="phone1">phone</span></td>
+                    
+                  
                     <td>
                         <input id="edit" type="button" value="Edit" onclick="editClicked(this.id)"/>                        
                     </td>
                 </tr>
             </tbody>
+            </form>
         </table>
         
         
-        <table class="plain">
+        <table class="plain" align="center">
             <tr>
-                <td>Username/Email:</td>
-                <td><input id="name" type="text" size="30"/></td>
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Username: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td><input id="username" type="text" size="30"/></td>
+            </tr>
+            <br>
+            <tr>
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Password &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td><input id="password" type="text" size="30"/></td>
+            </tr> 
+             <tr>
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Enabled &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td><input id="enabled" type="text" size="30"/></td>
+            </tr>
+             <tr>
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Role &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td><input id="role" type="text" size="30"/></td>
             </tr>
             <tr>
-                <td>Password:</td>
-                <td><input id="password" type="password" size="20"/ ></td>
-            </tr>
-            <tr>
-                <td>Isworking:</td>
-                <td><input type="text" id="enabled" size="40"/></td>
-            </tr>
-            <tr>
-                <td>Role:</td>
-                <td><input type="text" id="role" size="40"/></td>
-            </tr>
-            <tr>
-                <td>Street:</td>
-                <td><input type="text" id="street" size="40"/></td>
-            </tr>
-            <tr>
-                <td>City:</td>
-                <td><input type="text" id="city" size="40"/></td>
-            </tr>
-            <tr>
-                <td>Country:</td>
-                <td><input type="text" id="country" size="40"/></td>
-            </tr>
-
-
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Phone &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td><input id="phone" type="text" size="30"/></td>
+            </tr>          
             <tr>
                 <td colspan="2" align="right">                    
                     <input type="button" value="Save" onclick="writePerson()"/>
                     <input type="button" value="Clear" onclick="clearPerson()"/>
                 </td>
-            </tr>
+            </tr>             
+            
         </table>
         <script type="text/javascript">
             onload = fillTable();
         </script>
-    
     </body>
+    
 </html>
