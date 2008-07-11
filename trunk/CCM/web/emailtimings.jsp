@@ -30,7 +30,7 @@
             }
         
             var peopleCache = { };
-            var viewed = -1;
+            var viewed = null;
         
             function fillTable() {
                 AjaxAdminService.getAllEmailTimePreference(function(people) {
@@ -40,13 +40,14 @@
                         }});
                     // Create a new set cloned from the pattern row
                     var person, id;
-                    people.sort(function(p1, p2) { return p1.macAddress.localeCompare(p2.macAddress); });
+                    //people.sort(function(p1, p2) { return p1.macAddress.localeCompare(p2.macAddress); });
                     for (var i = 0; i < people.length; i++) {
                         person = people[i];
                         id = person.id;
                         dwr.util.cloneNode("pattern", { idSuffix:id });
-                        dwr.util.setValue("report_time1" + id, person.report_time);
-                        dwr.util.setValue("organization1" + id, person.organization);
+                        dwr.util.setValue("reporttime" + id, person.reportTime);
+                        dwr.util.setValue("organization" + id, person.organization);
+                        
                         $("pattern" + id).style.display = "table-row";
                         peopleCache[id] = person;
                     }
@@ -62,7 +63,7 @@
             
         
             function writePerson() {
-                var person = { id:viewed, name:null, address:null, salary:null };
+                var person = { id:viewed, reportTime:null, organization:null};
                 dwr.util.getValues(person);
         
                 //dwr.engine.beginBatch();
@@ -72,9 +73,9 @@
                 //dwr.engine.endBatch();
             }
         
-            function clearPerson() {
+           function clearPerson() {
                 viewed = null;
-                dwr.util.setValues({ id:null, name:null, description:null, minuteRate:null, enabled:true, macAddress:null });
+                dwr.util.setValues({ id:null, reportTime:null, organization:null});
             }
         </script>
     </head>
@@ -104,18 +105,20 @@
                 </tr>
             </tbody>
         </table>
-        <table border="1" class="rowed grey">
+        <br><br>
+        <table border="1" class="rowed grey" align="center">
             <thead>
                 <tr>
-                    <th>&nbsp;&nbsp;Report Time &nbsp;&nbsp;</th>
-                    <th>&nbsp;&nbsp;Organisation&nbsp;&nbsp;</th>
+                    <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Report Time &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                    <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Organization &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                     <th>Action</th>
                 </tr>
             </thead>
             <tbody id="peoplebody">
                 <tr id="pattern" style="display:none;">
-                    <td><span id="report_time1">report_time</span></td>
-                    <td><span id="organisation1">organisation</span></td>
+                    <td><span id="reporttime">reportTime</span></td>
+                    <td><span id="organization">organization</span></td>
+                    
                     <td>
                         <input id="edit" type="button" value="Edit" onclick="editClicked(this.id)"/>                        
                     </td>
@@ -124,28 +127,28 @@
         </table>
         
         
-        <table class="plain">
+             <table class="plain" align="center">
             <tr>
-                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Report Time: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                <td><input id="report_time" type="text" size="30"/></td>
+                <td>Report Time:</td>
+                <td><input id="reporttime" type="text" size="30"/></td>
             </tr>
-            <br>
             <tr>
-                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Organisation: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                <td><input id="organisation" type="text" size="30"/></td>
+                <td>Organization:</td>
+                <td><input id="organization" type="text" size="20"/></td>
             </tr>
+           
+           
             <tr>
                 <td colspan="2" align="right">                    
                     <input type="button" value="Save" onclick="writePerson()"/>
                     <input type="button" value="Clear" onclick="clearPerson()"/>
                 </td>
-            </tr>             
-            
+            </tr>
         </table>
-        
         <script type="text/javascript">
             onload = fillTable();
         </script>
+        
     </body>
     
 </html>
