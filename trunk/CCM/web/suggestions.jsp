@@ -139,19 +139,19 @@
             </tr>
             <tr>
                 <td>Suggestiondate:</td>
-                <td><input id="suggestion_date" type="text" size="20"/></td>
+                <td><input id="suggestion_date" type="text" size="30"/></td>
             </tr>
             <tr>
                 <td>Type:</td>
-                <td><input type="text" id="type" size="40"/></td>
+                <td><input type="text" id="type" size="30"/></td>
             </tr>
             <tr>
                 <td>Comment:</td>
-                <td><input type="text" id="comment" size="40"/></td>
+                <td><input type="text" id="comment" size="30"/></td>
             </tr>
             <tr>
                 <td>Organization:</td>
-                <td><input type="text" id="organization" size="40"/></td>
+                <td><input type="text" id="organization" size="30"/></td>
             </tr>
             <tr>
                 <td colspan="2" align="right">                    
