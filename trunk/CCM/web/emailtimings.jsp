@@ -46,7 +46,7 @@
                         id = person.id;
                         dwr.util.cloneNode("pattern", { idSuffix:id });
                         dwr.util.setValue("reporttime" + id, person.reportTime);
-                        dwr.util.setValue("organization" + id, person.organization);
+                        
                         
                         $("pattern" + id).style.display = "table-row";
                         peopleCache[id] = person;
@@ -73,7 +73,7 @@
                 //dwr.engine.endBatch();
             }
         
-           function clearPerson() {
+            function clearPerson() {
                 viewed = null;
                 dwr.util.setValues({ id:null, reportTime:null, organization:null});
             }
@@ -111,40 +111,20 @@
                 <tr>
                     <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Report Time &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                     <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Organization &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                    <th>Action</th>
+                    
                 </tr>
             </thead>
             <tbody id="peoplebody">
                 <tr id="pattern" style="display:none;">
                     <td><span id="reporttime">reportTime</span></td>
                     <td><span id="organization">organization</span></td>
-                    
-                    <td>
-                        <input id="edit" type="button" value="Edit" onclick="editClicked(this.id)"/>                        
-                    </td>
+                   
                 </tr>
             </tbody>
         </table>
         
         
-             <table class="plain" align="center">
-            <tr>
-                <td>Report Time:</td>
-                <td><input id="reporttime" type="text" size="30"/></td>
-            </tr>
-            <tr>
-                <td>Organization:</td>
-                <td><input id="organization" type="text" size="20"/></td>
-            </tr>
-           
-           
-            <tr>
-                <td colspan="2" align="right">                    
-                    <input type="button" value="Save" onclick="writePerson()"/>
-                    <input type="button" value="Clear" onclick="clearPerson()"/>
-                </td>
-            </tr>
-        </table>
+        
         <script type="text/javascript">
             onload = fillTable();
         </script>
