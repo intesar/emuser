@@ -11,6 +11,7 @@ import com.bia.ccm.entity.Organization;
 import com.bia.ccm.entity.SystemLease;
 import com.bia.ccm.entity.Systems;
 import com.bia.ccm.entity.Users;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -39,7 +40,9 @@ public interface AdminService {
     public List<SystemLease> getAllSystemLease(String username);
     
     // lease history
-    public List<SystemLease> getSystemLease(String startDate, String endDate) ;
+    public List<SystemLease> getSystemLease(Date startDate, Date endDate, String org) ;
+    
+    public List getReport(Date startDate, Date endDate, String org) ;
     
     
     public Organization getOrganization(String username);
