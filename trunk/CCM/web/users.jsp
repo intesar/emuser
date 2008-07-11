@@ -33,7 +33,7 @@
             var viewed = null;
         
             function fillTable() {
-                 dwr.util.useLoadingMessage();
+                dwr.util.useLoadingMessage();
                 AjaxAdminService.getAllUsers(function(people) {
                     // Delete all the rows except for the "pattern" row
                     dwr.util.removeAllRows("peoplebody", { filter:function(tr) {
@@ -58,24 +58,34 @@
                 });
             }
         
-             function editClicked(eleid) {
+            function editClicked(eleid) {
                 // we were an id of the form "edit{id}", eg "edit42". We lookup the "42"
                 var person = peopleCache[eleid.substring(4)];
+                viewed = person.id;
                 dwr.util.setValues(person);
             }
         
             
         
             function writePerson() {
-                var person = { id:viewed, username:null, password:null, enabled:null, role:null, phone:null };
+                var person;
+                if ( viewed == null ) {
+                    person = { id:viewed, username:null, password:null, enabled:null, role:null, phone:null };
+                } else {
+                    person = peopleCache[viewed];
+                }
                 dwr.util.getValues(person);
                 
         
                 //dwr.engine.beginBatch();
                 //People.setPerson(person);
-                AjaxAdminService.saveUsers(person);
+                AjaxAdminService.saveUsers(person, reply1);
                 fillTable();
                 //dwr.engine.endBatch();
+            }
+            
+            var reply1 = function (data) {
+                alert ( data );
             }
         
             function clearPerson() {
@@ -115,48 +125,47 @@
             <thead>
                 <tr>
                     <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Username &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                    <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Password &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                    <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Enabled  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                    
+                    <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Active  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                     <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Role &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                     <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Phone no &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                     
-                   
+                    
                 </tr>
             </thead>
             <form>
-            <tbody id="peoplebody">
-                <tr id="pattern" style="display:none;">
-                    <td><span id="username1">username</span></td>
-                    <td><span id="password1">password</span></td>
-                    <td><span id="enabled1">enabled</span></td>
-                    <td><span id="role1">role</span></td>
-                    <td><span id="phone1">phone</span></td>
-                    
-                  
-                    <td>
-                        <input id="edit" type="button" value="Edit" onclick="editClicked(this.id)"/>                        
-                    </td>
-                </tr>
-            </tbody>
+                <tbody id="peoplebody">
+                    <tr id="pattern" style="display:none;">
+                        <td><span id="username1">username</span></td>                        
+                        <td><span id="enabled1">enabled</span></td>
+                        <td><span id="role1">role</span></td>
+                        <td><span id="phone1">phone</span></td>
+                        
+                        
+                        <td>
+                            <input id="edit" type="button" value="Edit" onclick="editClicked(this.id)"/>                        
+                        </td>
+                    </tr>
+                </tbody>
             </form>
         </table>
         
         
         <table class="plain" align="center">
             <tr>
-                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Username &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Username: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
                 <td><input id="username" type="text" size="30"/></td>
             </tr>
             <br>
             <tr>
                 <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Password &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                <td><input id="password" type="text" size="30"/></td>
+                <td><input id="password" type="password" size="30"/></td>
             </tr> 
-             <tr>
+            <tr>
                 <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Enabled &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
                 <td><input id="enabled" type="text" size="30"/></td>
             </tr>
-             <tr>
+            <tr>
                 <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Role &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
                 <td><input id="role" type="text" size="30"/></td>
             </tr>
