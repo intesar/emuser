@@ -6,7 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-   "http://www.w3.org/TR/html4/loose.dtd">
+"http://www.w3.org/TR/html4/loose.dtd">
 
 <html>
     <head>
@@ -30,9 +30,10 @@
             }
         
             var peopleCache = { };
-            var viewed = -1;
+            var viewed = null;
         
             function fillTable() {
+                 dwr.util.useLoadingMessage();
                 AjaxAdminService.getOrganization(function(people) {
                     // Delete all the rows except for the "pattern" row
                     dwr.util.removeAllRows("peoplebody", { filter:function(tr) {
@@ -40,7 +41,7 @@
                         }});
                     // Create a new set cloned from the pattern row
                     var person, id;
-                    people.sort(function(p1, p2) { return p1.macAddress.localeCompare(p2.macAddress); });
+                   // people.sort(function(p1, p2) { return p1.macAddress.localeCompare(p2.macAddress); });
                     for (var i = 0; i < people.length; i++) {
                         person = people[i];
                         id = person.id;
@@ -49,7 +50,7 @@
                         dwr.util.setValue("enabled" + id, person.enabled);
                         dwr.util.setValue("city" + id, person.city);
                         dwr.util.setValue("street" + id, person.street);
-                        dwr.util.setValue("contact_name" + id, person.conatact_name);
+                        dwr.util.setValue("contact_name" + id, person.contact_name);
                         dwr.util.setValue("contact_type" + id, person.contact_type);
                         dwr.util.setValue("register_date" + id, person.register_date);
                         dwr.util.setValue("contact_email" + id, person.contact_email);
@@ -69,26 +70,26 @@
             
         
             function writePerson() {
-                var person = { id:viewed, name:null, address:null, salary:null };
+                var person = { id:null, name:null, address:null, salary:null };
                 dwr.util.getValues(person);
         
                 //dwr.engine.beginBatch();
                 //People.setPerson(person);
-                AjaxAdminService.saveSystem(person);
+                AjaxAdminService.saveOrganization(person);
                 fillTable();
                 //dwr.engine.endBatch();
             }
         
             function clearPerson() {
-                viewed = -1;
-                dwr.util.setValues({ id:-1, name:null, enabled:true, city:null, street:null, contact_name:null, contact_type:null, register_date:null, contact_email:null, amount_paid:null,  });
+                viewed = null;
+                dwr.util.setValues({ id:null, name:null, enabled:true, city:null, street:null, contact_name:null, contact_type:null, register_date:null, contact_email:null, amount_paid:null,  });
             }
         </script>
     
     </head>
 
     <body>
-         <table>            
+        <table>            
             <tbody>
                 <tr>
                     <td><a href="dashboard.jsp">Dashboard</a></td>
@@ -112,41 +113,11 @@
                     <td><a href="j_acegi_logout">Logout</a></td>
                 </tr>
             </tbody>
-        </table
-        <table border="1" class="rowed grey">
-            <thead>
-                <tr>
-                    <th>Username</th>
-                    <th>Enable</th>
-                    <th>city</th>
-                    <th>Street</th>
-                    <th>Contact_ name</th>
-                    <th>Contact_ type</th>
-                    <th>Register_Date</th>
-                    <th>Contact_Email</th>
-                    <th>Amount_Paid</th>
-                </tr>
-            </thead>
-            <tbody id="peoplebody">
-                <tr id="pattern" style="display:none;">
-                    <td><span id="name">Username</span></td>
-                    <td><span id="enabled">IsWorking</span></td>
-                    <td><span id="city">City</span></td>
-                    <td><span id="street">Street</span></td>
-                    <td><span id="contact_name">Contact_Name</span></td>
-                    <td><span id="contact_type">Contact_Type</span></td>
-                    <td><span id="register_date">Register_Date</span></td>
-                    <td><span id="contact_email">Contact_Email</span></td>
-                    <td><span id="amount_rate">Amount_Paid</span></td>
-                    <td>
-                        <input id="edit" type="button" value="Edit" onclick="editClicked(this.id)"/>                        
-                    </td>
-                </tr>
-            </tbody>
         </table>
+       
         
-        
-        <table class="plain">
+        <br><br>
+        <table class="plain" align="center">
             <tr>
                 <td>Username:</td>
                 <td><input id="name" type="text" size="30"/></td>
@@ -154,35 +125,35 @@
             
             <tr>
                 <td>Isworking:</td>
-                <td><input type="text" id="enabled" size="40"/></td>
+                <td><input type="text" id="enabled" size="30"/></td>
             </tr>
             <tr>
                 <td>City:</td>
-                <td><input type="text" id="city" size="40"/></td>
+                <td><input type="text" id="city1" size="30"/></td>
             </tr>
             <tr>
                 <td>Street:</td>
-                <td><input type="text" id="street" size="40"/></td>
+                <td><input type="text" id="street1" size="30"/></td>
             </tr>
             <tr>
                 <td>Contact_Name:</td>
-                <td><input type="text" id="contact_name" size="40"/></td>
+                <td><input type="text" id="contact_name1" size="30"/></td>
             </tr>
             <tr>
                 <td>Contact_Type:</td>
-                <td><input type="text" id="contact_type" size="40"/></td>
+                <td><input type="text" id="contact_type" size="30"/></td>
             </tr>
             <tr>
                 <td>Register_Date:</td>
-                <td><input type="text" id="register_date" size="40"/></td>
+                <td><input type="text" id="register_date" size="30"/></td>
             </tr>
             <tr>
                 <td>Contact_Email:</td>
-                <td><input type="text" id="contact_email" size="40"/></td>
+                <td><input type="text" id="contact_email" size="30"/></td>
             </tr>
             <tr>
                 <td>Amount_Paid:</td>
-                <td><input type="text" id="amount_paid" size="40"/></td>
+                <td><input type="text" id="amount_paid" size="30"/></td>
             </tr>
 
 
