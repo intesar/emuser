@@ -11,7 +11,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Dashboard</title>
         <script type='text/javascript' src='/CCM/dwr/interface/AjaxAdminService.js'></script>
         <script type='text/javascript' src='/CCM/dwr/interface/AjaxWorkService.js'></script>
         
@@ -72,173 +72,173 @@
                     } else {
                         document.getElementById("btn6").style.color ="RED";
                     }
-                }else  if ( systemNo == 7 ) {
-                    document.form1.btn7.disabled =false;
+               }else  if ( systemNo == 7 ) {
+                    document.getElementById("btn7").disabled =false;
                     if ( isAvailable == true ) {
-                        document.form1.btn7.style.color ="GREEN";
+                        document.getElementById("btn7").style.color ="GREEN";
                     } else {
-                        document.form1.btn7.style.color ="RED";
+                        document.getElementById("btn7").style.color ="RED";
                     }
                 }else  if ( systemNo == 8 ) {
-                    document.form1.btn8.disabled =false;
+                    document.getElementById("btn8").disabled =false;
                     if ( isAvailable == true ) {
-                        document.form1.btn8.style.color ="GREEN";
+                        document.getElementById("btn8").style.color ="GREEN";
                     } else {
-                        document.form1.btn8.style.color ="RED";
+                        document.getElementById("btn8").style.color ="RED";
                     }
                 }else  if ( systemNo == 9 ) {
-                    document.form1.btn9.disabled =false;
+                    document.getElementById("btn9").disabled =false;
                     if ( isAvailable == true ) {
-                        document.form1.btn9.style.color ="GREEN";
+                        document.getElementById("btn9").style.color ="GREEN";
                     } else {
-                        document.form1.btn9.style.color ="RED";
+                        document.getElementById("btn9").style.color ="RED";
                     }
                 }else  if ( systemNo == 10 ) {
-                    document.form1.btn10.disabled =false;
+                    document.getElementById("btn10").disabled =false;
                     if ( isAvailable == true ) {
-                        document.form1.btn10.style.color ="GREEN";
+                        document.getElementById("btn10").style.color ="GREEN";
                     } else {
-                        document.form1.btn10.style.color ="RED";
+                        document.getElementById("btn10").style.color ="RED";
                     }
                 }else  if ( systemNo == 11 ) {
-                    document.form1.btn11.disabled =false;
+                    document.getElementById("btn11").disabled =false;
                     if ( isAvailable == true ) {
-                        document.form1.btn11.style.color ="GREEN";
+                        document.getElementById("btn11").style.color ="GREEN";
                     } else {
-                        document.form1.btn11.style.color ="RED";
+                        document.getElementById("btn11").style.color ="RED";
                     }
-                }else  if ( systemNo == 12 ) {
-                    document.form1.btn12.disabled =false;
+               }else  if ( systemNo == 12 ) {
+                    document.getElementById("btn12").disabled =false;
                     if ( isAvailable == true ) {
-                        document.form1.btn12.style.color ="GREEN";
+                        document.getElementById("btn12").style.color ="GREEN";
                     } else {
-                        document.form1.btn12.style.color ="RED";
+                        document.getElementById("btn12").style.color ="RED";
                     }
                 }else  if ( systemNo == 13 ) {
-                    document.form1.btn13.disabled =false;
+                    document.getElementById("btn13").disabled =false;
                     if ( isAvailable == true ) {
-                        document.form1.btn13.style.color ="GREEN";
+                        document.getElementById("btn13").style.color ="GREEN";
                     } else {
-                        document.form1.btn13.style.color ="RED";
+                        document.getElementById("btn13").style.color ="RED";
                     }
                 }else  if ( systemNo == 14 ) {
-                    document.form1.btn14.disabled =false;
+                    document.getElementById("btn14").disabled =false;
                     if ( isAvailable == true ) {
-                        document.form1.btn14.style.color ="GREEN";
+                        document.getElementById("btn14").style.color ="GREEN";
                     } else {
-                        document.form1.btn14.style.color ="RED";
+                        document.getElementById("btn14").style.color ="RED";
                     }
                 }else  if ( systemNo == 15 ) {
-                    document.form1.btn15.disabled =false;
+                    document.getElementById("btn15").disabled =false;
                     if ( isAvailable == true ) {
-                        document.form1.btn15.style.color ="GREEN";
+                        document.getElementById("btn15").style.color ="GREEN";
                     } else {
-                        document.form1.btn15.style.color ="RED";
+                        document.getElementById("btn15").style.color ="RED";
                     }
                 }else  if ( systemNo == 16 ) {
-                    document.form1.btn16.disabled =false;
+                    document.getElementById("btn16").disabled =false;
                     if ( isAvailable == true ) {
-                        document.form1.btn16.style.color ="GREEN";
+                        document.getElementById("btn16").style.color ="GREEN";
                     } else {
-                        document.form1.btn16.style.color ="RED";
+                        document.getElementById("btn16").style.color ="RED";
                     }
                 }else  if ( systemNo == 17 ) {
-                    document.form1.btn17.disabled =false;
+                    document.getElementById("btn17").disabled =false;
                     if ( isAvailable == true ) {
-                        document.form1.btn17.style.color ="GREEN";
+                        document.getElementById("btn17").style.color ="GREEN";
                     } else {
-                        document.form1.btn17.style.color ="RED";
+                        document.getElementById("btn17").style.color ="RED";
                     }
                 }else  if ( systemNo == 18 ) {
-                    document.form1.btn18.disabled =false;
+                    document.getElementById("btn18").disabled =false;
                     if ( isAvailable == true ) {
-                        document.form1.btn18.style.color ="GREEN";
+                        document.getElementById("btn18").style.color ="GREEN";
                     } else {
-                        document.form1.btn18.style.color ="RED";
+                        document.getElementById("btn18").style.color ="RED";
                     }
                 }else  if ( systemNo == 19 ) {
-                    document.form1.btn19.disabled =false;
+                    document.getElementById("btn19").disabled =false;
                     if ( isAvailable == true ) {
-                        document.form1.btn19.style.color ="GREEN";
+                        document.getElementById("btn19").style.color ="GREEN";
                     } else {
-                        document.form1.btn19.style.color ="RED";
+                        document.getElementById("btn19").style.color ="RED";
                     }
-                }else  if ( systemNo == 20 ) {
-                    document.form1.btn20.disabled =false;
+               }else  if ( systemNo == 20 ) {
+                    document.getElementById("btn20").disabled =false;
                     if ( isAvailable == true ) {
-                        document.form1.btn20.style.color ="GREEN";
+                        document.getElementById("btn20").style.color ="GREEN";
                     } else {
-                        document.form1.btn20.style.color ="RED";
+                        document.getElementById("btn20").style.color ="RED";
                     }
                 }else  if ( systemNo == 21 ) {
-                    document.form1.btn21.disabled =false;
+                    document.getElementById("btn21").disabled =false;
                     if ( isAvailable == true ) {
-                        document.form1.btn21.style.color ="GREEN";
+                        document.getElementById("btn21").style.color ="GREEN";
                     } else {
-                        document.form1.btn21.style.color ="RED";
+                        document.getElementById("btn21").style.color ="RED";
                     }
                 }else  if ( systemNo == 22 ) {
-                    document.form1.btn22.disabled =false;
+                    document.getElementById("btn22").disabled =false;
                     if ( isAvailable == true ) {
-                        document.form1.btn22.style.color ="GREEN";
+                        document.getElementById("btn22").style.color ="GREEN";
                     } else {
-                        document.form1.btn22.style.color ="RED";
+                        document.getElementById("btn22").style.color ="RED";
                     }
-                }else  if ( systemNo == 23 ) {
-                    document.form1.btn23.disabled =false;
+               }else  if ( systemNo == 23 ) {
+                    document.getElementById("btn23").disabled =false;
                     if ( isAvailable == true ) {
-                        document.form1.btn23.style.color ="GREEN";
+                        document.getElementById("btn23").style.color ="GREEN";
                     } else {
-                        document.form1.btn23.style.color ="RED";
+                        document.getElementById("btn23").style.color ="RED";
                     }
                 }else  if ( systemNo == 24 ) {
-                    document.form1.btn24.disabled =false;
+                    document.getElementById("btn24").disabled =false;
                     if ( isAvailable == true ) {
-                        document.form1.btn24.style.color ="GREEN";
+                        document.getElementById("btn24").style.color ="GREEN";
                     } else {
-                        document.form1.btn24.style.color ="RED";
+                        document.getElementById("btn24").style.color ="RED";
                     }
                 }else  if ( systemNo == 25 ) {
-                    document.form1.btn25.disabled =false;
+                    document.getElementById("btn25").disabled =false;
                     if ( isAvailable == true ) {
-                        document.form1.btn25.style.color ="GREEN";
+                        document.getElementById("btn25").style.color ="GREEN";
                     } else {
-                        document.form1.btn25.style.color ="RED";
+                        document.getElementById("btn25").style.color ="RED";
                     }
                 }else  if ( systemNo == 26 ) {
-                    document.form1.btn26.disabled =false;
+                    document.getElementById("btn26").disabled =false;
                     if ( isAvailable == true ) {
-                        document.form1.btn26.style.color ="GREEN";
+                        document.getElementById("btn26").style.color ="GREEN";
                     } else {
-                        document.form1.btn26.style.color ="RED";
+                        document.getElementById("btn26").style.color ="RED";
                     }
                 }else  if ( systemNo == 27 ) {
-                    document.form1.btn27.disabled =false;
+                    document.getElementById("btn27").disabled =false;
                     if ( isAvailable == true ) {
-                        document.form1.btn27.style.color ="GREEN";
+                        document.getElementById("btn27").style.color ="GREEN";
                     } else {
-                        document.form1.btn27.style.color ="RED";
+                        document.getElementById("btn27").style.color ="RED";
                     }
                 }else  if ( systemNo == 28 ) {
-                    document.form1.btn28.disabled =false;
+                    document.getElementById("btn28").disabled =false;
                     if ( isAvailable == true ) {
-                        document.form1.btn28.style.color ="GREEN";
+                        document.getElementById("btn28").style.color ="GREEN";
                     } else {
-                        document.form1.btn28.style.color ="RED";
+                        document.getElementById("btn28").style.color ="RED";
                     }
                 }else  if ( systemNo == 29 ) {
-                    document.form1.btn29.disabled =false;
+                    document.getElementById("btn29").disabled =false;
                     if ( isAvailable == true ) {
-                        document.form1.btn29.style.color ="GREEN";
+                        document.getElementById("btn29").style.color ="GREEN";
                     } else {
-                        document.form1.btn29.style.color ="RED";
+                        document.getElementById("btn29").style.color ="RED";
                     }
                 }else  if ( systemNo == 30 ) {
-                    document.form1.btn30.disabled =false;
+                    document.getElementById("btn30").disabled =false;
                     if ( isAvailable == true ) {
-                        document.form1.btn30.style.color ="GREEN";
+                        document.getElementById("btn30").style.color ="GREEN";
                     } else {
-                        document.form1.btn30.style.color ="RED";
+                        document.getElementById("btn30").style.color ="RED";
                     }
                 }
             }
@@ -314,7 +314,7 @@
         <br/>
         <br/>
         <br/>
-        <table border="0" width="5" cellspacing="5" cellpadding="5">
+        <table border="0" width="5" cellspacing="5" cellpadding="5" align="center">
             
             <tbody>
                 <tr>
@@ -329,29 +329,29 @@
                     <td><input type="submit" id="btn9" value="9" size="40"  onclick="buttonClick(9);" disabled/></td>
                     <td><input type="submit" id="btn10" value="10" size="40"  onclick="buttonClick(10);" disabled/></td>
                 </tr>
-                <tr>
-                    <td><input type="submit" id="btn11" value="1" size="40" disabled/></td>
-                    <td><input type="submit" id="1" value="1" size="40" disabled/></td>
-                    <td><input type="submit" id="1" value="1" size="40" disabled/></td>
-                    <td><input type="submit" id="1" value="1" size="40" disabled/></td>
-                    <td><input type="submit" id="1" value="1" size="40" disabled/></td>
-                    <td><input type="submit" id="1" value="1" size="40" disabled/></td>
-                    <td><input type="submit" id="1" value="1" size="40" disabled/></td>
-                    <td><input type="submit" id="1" value="1" size="40" disabled/></td>
-                    <td><input type="submit" id="btn19" value="1" size="40" disabled/></td>
-                    <td><input type="submit" id="1" value="1" size="40" disabled/></td>
+               <tr>
+                    <td><input type="submit" id="btn11" value="11" size="40" onclick="buttonClick(11);" disabled /></td>
+                    <td><input type="submit" id="btn12" value="12" size="40" onclick="buttonClick(12);" disabled/></td>
+                    <td><input type="submit" id="btn13" value="13" size="40"  onclick="buttonClick(13);" disabled/></td>
+                    <td><input type="submit" id="btn14" value="14" size="40"  onclick="buttonClick(14);" disabled/></td>
+                    <td><input type="submit" id="btn15" value="15" size="40"  onclick="buttonClick(15);" disabled/></td>
+                    <td><input type="submit" id="btn16" value="16" size="40"  onclick="buttonClick(16);" disabled/></td>
+                    <td><input type="submit" id="btn17" value="17" size="40"  onclick="buttonClick(17);" disabled /></td>
+                    <td><input type="submit" id="btn18" value="18" size="40"  onclick="buttonClick(18);" disabled/></td>
+                    <td><input type="submit" id="btn19" value="19" size="40"  onclick="buttonClick(19);" disabled/></td>
+                    <td><input type="submit" id="btn20" value="20" size="40"  onclick="buttonClick(20);" disabled/></td>
                 </tr>
-                <tr>
-                    <td><input type="submit" id="1" value="1" size="40" disabled/></td>
-                    <td><input type="submit" id="1" value="1" size="40" disabled/></td>
-                    <td><input type="submit" id="1" value="1" size="40" disabled/></td>
-                    <td><input type="submit" id="1" value="1" size="40" disabled/></td>
-                    <td><input type="submit" id="1" value="1" size="40" disabled/></td>
-                    <td><input type="submit" id="1" value="1" size="40" disabled/></td>
-                    <td><input type="submit" id="1" value="1" size="40" disabled/></td>
-                    <td><input type="submit" id="1" value="1" size="40" disabled/></td>
-                    <td><input type="submit" id="1" value="1" size="40" disabled/></td>
-                    <td><input type="submit" id="1" value="1" size="40" disabled/></td>
+                 <tr>
+                    <td><input type="submit" id="btn21" value="21" size="40" onclick="buttonClick(21);" disabled /></td>
+                    <td><input type="submit" id="btn22" value="22" size="40" onclick="buttonClick(22);" disabled/></td>
+                    <td><input type="submit" id="btn23" value="23" size="40"  onclick="buttonClick(23);" disabled/></td>
+                    <td><input type="submit" id="btn24" value="24" size="40"  onclick="buttonClick(24);" disabled/></td>
+                    <td><input type="submit" id="btn25" value="25" size="40"  onclick="buttonClick(25);" disabled/></td>
+                    <td><input type="submit" id="btn26" value="26" size="40"  onclick="buttonClick(26);" disabled/></td>
+                    <td><input type="submit" id="btn27" value="27" size="40"  onclick="buttonClick(27);" disabled /></td>
+                    <td><input type="submit" id="btn28" value="28" size="40"  onclick="buttonClick(28);" disabled/></td>
+                    <td><input type="submit" id="btn29" value="29" size="40"  onclick="buttonClick(29);" disabled/></td>
+                    <td><input type="submit" id="btn30" value="30" size="40"  onclick="buttonClick(30);" disabled/></td>
                 </tr>
             </tbody>
         </table>
