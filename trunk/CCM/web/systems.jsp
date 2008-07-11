@@ -30,9 +30,10 @@
             }
         
             var peopleCache = { };
-            var viewed = -1;
+            var viewed = null;
         
             function fillTable() {
+                dwr.util.useLoadingMessage();
                 AjaxAdminService.getAllSystems(function(people) {
                     // Delete all the rows except for the "pattern" row
                     dwr.util.removeAllRows("peoplebody", { filter:function(tr) {
@@ -59,30 +60,36 @@
             function editClicked(eleid) {
                 // we were an id of the form "edit{id}", eg "edit42". We lookup the "42"
                 var person = peopleCache[eleid.substring(4)];
+                viewed = person.id;
                 dwr.util.setValues(person);
             }
         
             
         
             function writePerson() {
-                var person = { id:viewed, name:null, address:null, salary:null };
+                var person;
+                if ( viewed == null ) {
+                    person = { id:null, name:null, description:null, minuteRate:null, enabled:true, macAddress:null };
+                } else {
+                    person = peopleCache[viewed];
+                }
                 dwr.util.getValues(person);
         
                 //dwr.engine.beginBatch();
                 //People.setPerson(person);
-                AjaxAdminService.saveSystem(person);
+                AjaxAdminService.saveSystems(person);
                 fillTable();
                 //dwr.engine.endBatch();
             }
         
             function clearPerson() {
-                viewed = -1;
-                dwr.util.setValues({ id:-1, name:null, description:null, minuteRate:null, enabled:true, macAddress:null });
+                viewed = null;
+                dwr.util.setValues({ id:null, name:null, description:null, minuteRate:null, enabled:true, macAddress:null });
             }
         </script>
     </head>
     <body>
-         <table>            
+        <table>            
             <tbody>
                 <tr>
                     <td><a href="dashboard.jsp">Dashboard</a></td>
