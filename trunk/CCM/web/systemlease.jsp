@@ -35,13 +35,40 @@
         
         <script type="text/javascript">
             function execute() {
+                dwr.util.useLoadingMessage();
                 //alert ( document.getElementById("startDate").value);
                 AjaxAdminService.getSystemLease(document.getElementById("DPC_startDate_YYYY-MM-DD").value,
                 document.getElementById("DPC_endDate_YYYY-MM-DD").value, reply1 );
             }
             
-            var reply1 = function(data) {
-                alert (data);
+            
+            var peopleCache = { };
+            var viewed = null;
+        
+            var reply1 = function(people) {
+                // Delete all the rows except for the "pattern" row
+                dwr.util.removeAllRows("peoplebody", { filter:function(tr) {
+                        return (tr.id != "pattern");
+                    }});
+                // Create a new set cloned from the pattern row
+                var person, id;
+                //people.sort(function(p1, p2) { return p1.macAddress.localeCompare(p2.macAddress); });
+                for (var i = 0; i < people.length; i++) {
+                    person = people[i];
+                    id = person.id;
+                    dwr.util.cloneNode("pattern", { idSuffix:id });
+                    dwr.util.setValue("leaseHolderName" + id, person.leaseHolderName);
+                    dwr.util.setValue("startTimeString" + id, person.startTimeString);
+                    dwr.util.setValue("endTimeString" + id, person.endTimeString);
+                    dwr.util.setValue("totalMinutesUsed" + id, person.totalMinutesUsed);
+                    dwr.util.setValue("payableAmount" + id, person.payableAmount);
+                    dwr.util.setValue("amountPaid" + id, person.amountPaid);
+                    dwr.util.setValue("issueAgent" + id, person.issueAgent);
+                    dwr.util.setValue("returnAgent" + id, person.returnAgent);
+                    $("pattern" + id).style.display = "table-row";
+                    peopleCache[id] = person;
+                }
+             
             }
         </script>
         
@@ -97,6 +124,38 @@
                 </td>
             </tr>
         </table>
+        
+        
+        <table border="1" class="rowed grey" align="center">
+            <thead>
+                <tr>
+                    <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; User &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                    <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Start Time &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                    <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; End Time &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                    <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Minutes Used &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                    <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Payable Amount &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                    <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Paid Amount &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                    <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Issue By &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                    <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Returned To &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>                    
+                </tr>
+            </thead>
+            <form>
+                <tbody id="peoplebody">
+                    <tr id="pattern" style="display:none;">
+                        <td><span id="leaseHolderName">Username</span></td>
+                        <td><span id="startTimeString">Start Time</span></td>
+                        <td><span id="endTimeString">End Time</span></td>
+                        <td><span id="totalMinutesUsed">Total Minutes</span></td>
+                        <td><span id="payableAmount">Payable Amount</span></td>
+                        <td><span id="amountPaid">Paid Amount</span></td>
+                        <td><span id="issueAgent">Issue By</span></td>
+                        <td><span id="returnAgent">Returned To</span></td>
+                                        
+                    </tr>
+                </tbody>
+            </form>
+        </table>
+        
         
         
         
