@@ -125,7 +125,7 @@
         <br/>
         <br/>
         <br/>
-        <table border="1" class="rowed grey" align="center">
+        <table border="2" class="rowed grey" align="center"  bordercolor="#EDDA74">
             <thead>
                 <tr>
                     <th>user_name</th>
