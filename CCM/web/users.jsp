@@ -138,7 +138,7 @@
         <br/>
         <br/>
         <br/>
-        <table border="1" class="rowed grey" align="center">
+        <table border="1" class="rowed grey" align="center" bordercolor="#EDDA74">
             <thead>
                 <tr>
                     <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Username &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
