@@ -11,6 +11,20 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <style>
+            a:link    {color:black; text-decoration:none; font-size:11pt}
+            a:hover   {color:black; text-decoration:none; 
+                font-size:11pt}
+            a:active  {color:black; text-decoration:none; font-size:11pt}
+            a:visited {color:black; text-decoration:none; font-size:11pt}
+        </style>
+        <style>
+            a:link    {color:black; text-decoration:none; font-size:11pt}
+            a:hover   {color:black; text-decoration:none; 
+                font-size:11pt}
+            a:active  {color:black; text-decoration:none; font-size:11pt}
+            a:visited {color:black; text-decoration:none; font-size:11pt}
+        </style>
         <script type='text/javascript' src='/CCM/dwr/interface/AjaxAdminService.js'></script>
         <script type='text/javascript' src='/CCM/dwr/engine.js'></script>        
         <script type='text/javascript' src='/CCM/dwr/util.js'></script>
@@ -33,7 +47,7 @@
             var viewed = -1;
         
             function fillTable() {
-                AjaxAdminService.getAllSuggestion(function(people) {
+                AjaxAdminService.(function(people) {
                     // Delete all the rows except for the "pattern" row
                     dwr.util.removeAllRows("peoplebody", { filter:function(tr) {
                             return (tr.id != "pattern");
@@ -82,32 +96,36 @@
         </script>
     </head>
     <body>
-         <table>            
-            <tbody>
-                <tr>
-                    <td><a href="dashboard.jsp">Dashboard</a></td>
-                    <td>&nbsp;&nbsp;&nbsp;</td>
-                    <td><a href="users.jsp">Users</a></td>
-                    <td>&nbsp;&nbsp;&nbsp;</td>
-                    <td><a href="systems.jsp">Systems</a></td>
-                    <td>&nbsp;&nbsp;&nbsp;</td>
-                    <td><a href="emails.jsp">Emails</a></td>
-                    <td>&nbsp;&nbsp;&nbsp;</td>
-                    <td><a href="emailtimings.jsp">Email & SMS Timing</a></td>
-                    <td>&nbsp;&nbsp;&nbsp;</td>    
-                    <td><a href="organization.jsp">Organization</a></td>
-                    <td>&nbsp;&nbsp;&nbsp;</td>
-                    <td><a href="systemlease.jsp">History</a></td>
-                    <td>&nbsp;&nbsp;&nbsp;</td>
-                    <td><a href="report.jsp">Report</a></td>
-                    <td>&nbsp;&nbsp;&nbsp;</td>
-                    <td><a href="suggestions.jsp">Suggestions</a></td>
-                    <td>&nbsp;&nbsp;&nbsp;</td>
-                    <td><a href="j_acegi_logout">Logout</a></td>
-                </tr>
-            </tbody>
-        </table>
-        <table border="1" class="rowed grey">
+        <br><br>
+        <table width="85%"  height="30" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#EDDA74">
+            <tr> 
+                <td><a href="dashboard.jsp">&nbsp;&nbsp;Dashboard</a></td>
+                <td>&nbsp;&nbsp;&nbsp;</td>
+                <td><a href="users.jsp">Users</a></td>
+                <td>&nbsp;&nbsp;&nbsp;</td>
+                <td><a href="systems.jsp">Systems</a></td>
+                <td>&nbsp;&nbsp;&nbsp;</td>
+                <td><a href="emails.jsp">Emails</a></td>
+                <td>&nbsp;&nbsp;&nbsp;</td>
+                <td><a href="emailtimings.jsp">Email & SMS Timing</a></td>
+                <td>&nbsp;&nbsp;&nbsp;</td>    
+                <td><a href="organization.jsp">Organization</a></td>
+                <td>&nbsp;&nbsp;&nbsp;</td>
+                <td><a href="systemlease.jsp">History</a></td>
+                <td>&nbsp;&nbsp;&nbsp;</td>
+                <td><a href="report.jsp">Report</a></td>
+                <td>&nbsp;&nbsp;&nbsp;</td>
+                <td><a href="suggestions.jsp">Suggestions</a></td>
+                <td>&nbsp;&nbsp;&nbsp;</td>
+                <td><a href="j_acegi_logout">Logout &nbsp;&nbsp;</a></td> 
+            </tr>
+        </table>    
+        
+        
+        <br/>
+        <br/>
+        <br/>
+        <table border="1" class="rowed grey" align="center">
             <thead>
                 <tr>
                     <th>user_name</th>
@@ -132,7 +150,7 @@
         </table>
         
         
-        <table class="plain">
+        <table class="plain" align="center">
             <tr>
                 <td>Username:</td>
                 <td><input id="user_name" type="text" size="30"/></td>

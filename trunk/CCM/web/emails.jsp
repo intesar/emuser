@@ -11,6 +11,21 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+        <style>
+            a:link    {color:black; text-decoration:none; font-size:11pt}
+            a:hover   {color:black; text-decoration:none; 
+                font-size:11pt}
+            a:active  {color:black; text-decoration:none; font-size:11pt}
+            a:visited {color:black; text-decoration:none; font-size:11pt}
+        </style>
+        <style>
+            a:link    {color:black; text-decoration:none; font-size:11pt}
+            a:hover   {color:black; text-decoration:none; 
+                font-size:11pt}
+            a:active  {color:black; text-decoration:none; font-size:11pt}
+            a:visited {color:black; text-decoration:none; font-size:11pt}
+        </style>
         <script type='text/javascript' src='/CCM/dwr/interface/AjaxAdminService.js'></script>
         <script type='text/javascript' src='/CCM/dwr/engine.js'></script>        
         <script type='text/javascript' src='/CCM/dwr/util.js'></script>
@@ -33,7 +48,7 @@
             var viewed = null;
         
             function fillTable() {
-                 dwr.util.useLoadingMessage();
+                dwr.util.useLoadingMessage();
                 AjaxAdminService.getAllEmailPreference(function(people) {
                     // Delete all the rows except for the "pattern" row
                     dwr.util.removeAllRows("peoplebody", { filter:function(tr) {
@@ -65,7 +80,7 @@
             
         
             function writePerson() {
-                 var person;
+                var person;
                 if ( viewed == null ) {
                     person = { id:viewed, username:null, emailOrPhone:null, serviceProvider:null };
                 } else {
@@ -88,32 +103,35 @@
         </script>
     </head>
     <body>
-        <table>            
-            <tbody>
-                <tr>
-                    <td><a href="dashboard.jsp">Dashboard</a></td>
-                    <td>&nbsp;&nbsp;&nbsp;</td>
-                    <td><a href="users.jsp">Users</a></td>
-                    <td>&nbsp;&nbsp;&nbsp;</td>
-                    <td><a href="systems.jsp">Systems</a></td>
-                    <td>&nbsp;&nbsp;&nbsp;</td>
-                    <td><a href="emails.jsp">Emails</a></td>
-                    <td>&nbsp;&nbsp;&nbsp;</td>
-                    <td><a href="emailtimings.jsp">Email & SMS Timing</a></td>
-                    <td>&nbsp;&nbsp;&nbsp;</td>    
-                    <td><a href="organization.jsp">Organization</a></td>
-                    <td>&nbsp;&nbsp;&nbsp;</td>
-                    <td><a href="systemlease.jsp">History</a></td>
-                    <td>&nbsp;&nbsp;&nbsp;</td>
-                    <td><a href="report.jsp">Report</a></td>
-                    <td>&nbsp;&nbsp;&nbsp;</td>
-                    <td><a href="suggestions.jsp">Suggestions</a></td>
-                    <td>&nbsp;&nbsp;&nbsp;</td>
-                    <td><a href="j_acegi_logout">Logout</a></td>
-                </tr>
-            </tbody>
-        </table>
         <br><br>
+        <table width="85%"  height="30" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#EDDA74">
+            <tr> 
+                <td><a href="dashboard.jsp">&nbsp;&nbsp;Dashboard</a></td>
+                <td>&nbsp;&nbsp;&nbsp;</td>
+                <td><a href="users.jsp">Users</a></td>
+                <td>&nbsp;&nbsp;&nbsp;</td>
+                <td><a href="systems.jsp">Systems</a></td>
+                <td>&nbsp;&nbsp;&nbsp;</td>
+                <td><a href="emails.jsp">Emails</a></td>
+                <td>&nbsp;&nbsp;&nbsp;</td>
+                <td><a href="emailtimings.jsp">Email & SMS Timing</a></td>
+                <td>&nbsp;&nbsp;&nbsp;</td>    
+                <td><a href="organization.jsp">Organization</a></td>
+                <td>&nbsp;&nbsp;&nbsp;</td>
+                <td><a href="systemlease.jsp">History</a></td>
+                <td>&nbsp;&nbsp;&nbsp;</td>
+                <td><a href="report.jsp">Report</a></td>
+                <td>&nbsp;&nbsp;&nbsp;</td>
+                <td><a href="suggestions.jsp">Suggestions</a></td>
+                <td>&nbsp;&nbsp;&nbsp;</td>
+                <td><a href="j_acegi_logout">Logout &nbsp;&nbsp;</a></td> 
+            </tr>
+        </table>    
+        
+        
+        <br/>
+        <br/>
+        <br/>
         <table border="1" class="rowed grey" align="center">
             <thead>
                 <tr>
@@ -125,18 +143,18 @@
                 </tr>
             </thead>
             <form>
-            <tbody id="peoplebody">
-                <tr id="pattern" style="display:none;">
-                    <td><span id="username1">Username</span></td>
-                    <td><span id="email_or_phone">emailOrPhone</span></td>
-                    <td><span id="service_provider">serviceProvider</span></td>
-                    
-                  
-                    <td>
-                        <input id="edit" type="button" value="Edit" onclick="editClicked(this.id)"/>                        
-                    </td>
-                </tr>
-            </tbody>
+                <tbody id="peoplebody">
+                    <tr id="pattern" style="display:none;">
+                        <td><span id="username1">Username</span></td>
+                        <td><span id="email_or_phone">emailOrPhone</span></td>
+                        <td><span id="service_provider">serviceProvider</span></td>
+                        
+                        
+                        <td>
+                            <input id="edit" type="button" value="Edit" onclick="editClicked(this.id)"/>                        
+                        </td>
+                    </tr>
+                </tbody>
             </form>
         </table>
         
@@ -151,11 +169,11 @@
                 <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Email_or_Phone: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
                 <td><input id="emailOrPhone" type="text" size="30"/></td>
             </tr> 
-             <tr>
+            <tr>
                 <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Service_Provider &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
                 <td><input id="serviceProvider" type="text" size="30"/></td>
             </tr>
-             
+            
             <tr>
                 <td colspan="2" align="right">                    
                     <input type="button" value="Save" onclick="writePerson()"/>
