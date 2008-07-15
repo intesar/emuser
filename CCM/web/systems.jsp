@@ -133,7 +133,7 @@
         <br/>
         <br/>
         
-        <table border="1" class="rowed grey" align="center">
+        <table border="2" class="rowed grey" align="center" bordercolor="#EDDA74">
             <thead>
                 <tr>
                     <th>No</th>
@@ -157,7 +157,8 @@
             </tbody>
         </table>
         
-        
+        <br>
+        <br>    
         <table class="plain" align="center">
             <tr>
                 <td>No:</td>
@@ -165,19 +166,19 @@
             </tr>
             <tr>
                 <td>MacAddress:</td>
-                <td><input id="macAddress" type="text" size="20"/></td>
+                <td><input id="macAddress" type="text" size="30"/></td>
             </tr>
             <tr>
                 <td>Descrption:</td>
-                <td><input type="text" id="description" size="40"/></td>
+                <td><input type="text" id="description" size="30"/></td>
             </tr>
             <tr>
                 <td>Is Working:</td>
-                <td><input type="text" id="enabled" size="40"/></td>
+                <td><input type="text" id="enabled" size="30"/></td>
             </tr>
             <tr>
                 <td>Rate:</td>
-                <td><input type="text" id="minuteRate" size="40"/></td>
+                <td><input type="text" id="minuteRate" size="30"/></td>
             </tr>
             <tr>
                 <td colspan="2" align="right">                    
