@@ -4,12 +4,15 @@
  */
 package com.bia.ccm.services.impl;
 
+import com.bia.ccm.dao.AuthoritiesDao;
 import com.bia.ccm.dao.EmailPreferenceDao;
 import com.bia.ccm.dao.EmailTimePreferenceDao;
 import com.bia.ccm.dao.OrganizationDao;
 import com.bia.ccm.dao.SystemLeaseDao;
 import com.bia.ccm.dao.SystemsDao;
 import com.bia.ccm.dao.UsersDao;
+import com.bia.ccm.entity.Authorities;
+import com.bia.ccm.entity.AuthoritiesPK;
 import com.bia.ccm.entity.EmailPreference;
 import com.bia.ccm.entity.EmailTimePreference;
 import com.bia.ccm.entity.Organization;
@@ -70,8 +73,20 @@ public class AdminServiceImpl implements AdminService {
                 users.setCreateDate(new Date());
                 users.setCreateUser(username);
                 this.usersDao.create(users);
+                if (users.getRole().equalsIgnoreCase("admin")) {
+                    Authorities a1 = new Authorities(users.getUsername(), "ROLE_ADMIN");
+                    this.authoritiesDao.create(a1);
+                }
+                Authorities a2 = new Authorities(users.getUsername(), "ROLE_USER");
+                this.authoritiesDao.create(a2);
             } else if (users != null && users.getId() != null) {
                 this.usersDao.update(users);
+                if (users.getRole().equalsIgnoreCase("employee")) {
+                    Authorities a1 = this.authoritiesDao.read(new AuthoritiesPK(users.getUsername(), "ROLE_ADMIN"));
+                    this.authoritiesDao.delete(a1);
+                }
+
+
 
             } else {
                 return "Please check inputs";
@@ -161,7 +176,7 @@ public class AdminServiceImpl implements AdminService {
     public List<SystemLease> getSystemLease(Date startDate, Date endDate, String org) {
         return this.systemLeaseDao.findByStartAndEndDates(startDate, endDate, org);
     }
-    
+
     public List getReport(Date startDate, Date endDate, String org) {
         return this.systemLeaseDao.findReportBetweenDates(startDate, endDate, org);
     }
@@ -193,10 +208,15 @@ public class AdminServiceImpl implements AdminService {
     public void setSystemLeaseDao(SystemLeaseDao systemLeaseDao) {
         this.systemLeaseDao = systemLeaseDao;
     }
+
+    public void setAuthoritiesDao(AuthoritiesDao authoritiesDao) {
+        this.authoritiesDao = authoritiesDao;
+    }
     private UsersDao usersDao;
     private SystemsDao systemsDao;
     private EmailPreferenceDao emailPreferenceDao;
     private EmailTimePreferenceDao emailTimePreferenceDao;
     private SystemLeaseDao systemLeaseDao;
     private OrganizationDao organizationDao;
+    private AuthoritiesDao authoritiesDao;
 }

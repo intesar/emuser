@@ -25,6 +25,7 @@
         <property name="emailTimePreferenceDao" ref="emailTimePreferenceDao" />
         <property name="systemLeaseDao" ref="systemLeaseDao" />
         <property name="organizationDao" ref="organizationDao" />
+        <property name="authoritiesDao" ref="authoritiesDao" />
     </bean>
     <bean id="userServiceImpl" class="com.bia.ccm.services.impl.UserServiceImpl" >
         <property name="usersDao" ref="usersDao" />
