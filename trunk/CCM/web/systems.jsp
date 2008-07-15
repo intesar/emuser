@@ -128,8 +128,7 @@
             </tr>
         </table>    
         
-        
-        <br/>
+    
         <br/>
         <br/>
         
@@ -187,6 +186,18 @@
                 </td>
             </tr>
         </table>
+        
+         <table witdth="80%" align="center">
+            <tr>
+                
+                <td width="15%" align="center"> Owner can add new systems or remove old systems which are not working properly</td>
+                <td width="70%" align="center"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td width="15%" align="center"> Owner can provide some details regarding a particular system.</td>
+                
+                
+            </tr>
+        </table>
+        
         <script type="text/javascript">
             onload = fillTable();
         </script>
