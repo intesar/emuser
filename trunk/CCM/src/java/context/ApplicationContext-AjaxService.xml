@@ -58,6 +58,8 @@
             <dwr:include method="getAllSystemLease" /> 
             <dwr:include method="getOrganization" /> 
             <dwr:include method="saveOrganization" /> 
+            <dwr:include method="getSystemLease" />
+            <dwr:include method="getReport" />
         </dwr:remote>
     </bean>
     

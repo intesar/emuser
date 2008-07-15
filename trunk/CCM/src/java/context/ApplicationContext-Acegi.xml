@@ -82,7 +82,14 @@ http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
         CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
         PATTERN_TYPE_APACHE_ANT                
                 /dwr*=ROLE_ADMIN
-                /users.jsp*=ROLE_USER,ROLE_ADMIN                
+                /users.jsp*=ROLE_ADMIN    
+                /emails.jsp*=ROLE_ADMIN
+                /emailtimings*.jps=ROLE_ADMIN
+                /organization.jsp*=ROLE_ADMIN
+                /report.jsp*=ROLE_ADMIN
+                /systemlease.jsp*=ROLE_ADMIN
+                /systems.jsp*=ROLE_ADMIN
+                /dashboard.jsp*=ROLE_ADMIN,ROLE_USER
             </value>
         </property>
     </bean>
@@ -127,13 +134,13 @@ http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
             <value>com.mysql.jdbc.Driver</value>
         </property>
         <property name="url">
-            <value>jdbc:mysql:///ccm1</value>
+            <value>jdbc:mysql://biadevbox.homelinux.com:3306/ccm1</value>
         </property>
         <property name="username">
-            <value>root</value>
+            <value>shannan</value>
         </property>
         <property name="password">
-            <value>imran123</value>
+            <value>shannan</value>
         </property>
     </bean>
     <bean id="httpRequestAccessDecisionManager"
