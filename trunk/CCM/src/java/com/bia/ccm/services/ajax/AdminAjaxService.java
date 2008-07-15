@@ -140,6 +140,6 @@ public class AdminAjaxService {
         Date dt1 = new Date(107, 7, 7);
         Date dt2 = new Date(110, 11, 11);
         System.out.println ( aas.getSystemLease("2007-07-07", "2008-10-10").size() );
-        //System.out.println(aas.getReport("2007-07-07", "2008-10-10"));
+       // System.out.println(aas.getReport("2007-07-07", "2008-10-10"));
     }
 }
