@@ -39,7 +39,12 @@
             }
             
             var reply1 = function(data) {
-                alert (data);
+                
+                alert ( "total Minutes : " + data[0][0] + "\n " +
+                    "Total Payable Amount : " + data[0][1] + "\n " +
+                    "Total Paid Amount : " + data[0][2] );
+            
+                //alert (data);
             
             }
         </script>
