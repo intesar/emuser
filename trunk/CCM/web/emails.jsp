@@ -129,7 +129,7 @@
         </table>    
         
         
-        <br/>
+       
         <br/>
         <br/>
         <table border="2" class="rowed grey" align="center"  bordercolor="#EDDA74">
@@ -182,6 +182,16 @@
             </tr>             
             
         </table>
+        
+        <table witdth="80%" align="center">
+            <tr>
+                
+                <td width="15%" align="center"> Owner can save the email adresses of the customers who has already visited the Cybercafe.</td>
+                <td width="85%" align="center"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+               
+            </tr>
+        </table>
+        
         <script type="text/javascript">
             onload = fillTable();
         </script>
