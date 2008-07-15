@@ -179,6 +179,16 @@
                 </td>
             </tr>
         </table>
+        
+         <table witdth="80%" align="center">
+            <tr>
+                
+                <td width="20%" align="center"><marquee > Your CyberCafe details </marquee></td>
+                <td width="80%" align="center"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+               
+            </tr>
+        </table>
+        
         <script type="text/javascript">
             onload = fillTable();
         </script>
