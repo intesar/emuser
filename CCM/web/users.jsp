@@ -137,7 +137,6 @@
         
         <br/>
         <br/>
-        <br/>
         <table border="2" class="rowed grey" align="center" bordercolor="#EDDA74">
             <thead>
                 <tr>
@@ -169,41 +168,47 @@
         
         
         <table class="plain" align="center">
-            <tr>
-                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Username: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                <td><input id="username" type="text" size="30"/></td>
-            </tr>
-            <br>
-            <tr>
-                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Password &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                <td><input id="password" type="password" size="30"/></td>
-            </tr> 
-            <tr>
-                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Enabled &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                <td><input id="enabled" type="text" size="30"/></td>
-            </tr>
-            <tr>
-                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Role &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                <td><input id="role" type="text" size="30"/></td>
-            </tr>
-            <tr>
-                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Phone &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                <td><input id="phone" type="text" size="30"/></td>
-            </tr>          
-            <tr>
-                <td colspan="2" align="right">                    
-                    <input type="button" value="Save" onclick="writePerson()"/>
-                    <input type="button" value="Clear" onclick="clearPerson()"/>
-                </td>
-            </tr>             
             
-        </table>
+                <tr>
+                    <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Username: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                    <td><input id="username" type="text" size="30"/></td>
+                </tr>
+                <br>
+                <tr>
+                    <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Password &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                    <td><input id="password" type="password" size="30"/></td>
+                </tr> 
+                <tr>
+                    <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Enabled &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                    <td><input id="enabled" type="text" size="30"/></td>
+                </tr>
+                <tr>
+                    <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Role &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                    <td><input id="role" type="text" size="30"/></td>
+                </tr>
+                <tr>
+                    <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Phone &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                    <td><input id="phone" type="text" size="30"/></td>
+                </tr>          
+                <tr>
+                    <td colspan="2" align="right">                    
+                        <input type="button" value="Save" onclick="writePerson()"/>
+                        <input type="button" value="Clear" onclick="clearPerson()"/>
+                    </td>
+                </tr> 
+                
+               
+                
+            </table>
+            
+            
         
-        <table align="center">
+        <table witdth="80%">
             <tr>
-                <td></td>   
-                <td width="70%" align="center"> Owner can see the users (employees) who belong to his Cybercafe.</td>
-                Owner can create the user and edit the details of the user which is already created.
+                
+                <td width="20%">  Owner can see the users (employees)&nbsp;&nbsp;&nbsp; who belong to his Cybercafe</td>
+                <td width="65%"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td width="15%"> Owner can create a new user and can also edit the details of the user which is already created.</td>
                 
                 
             </tr>
