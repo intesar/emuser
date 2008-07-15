@@ -11,7 +11,21 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-         <script type='text/javascript' src='/CCM/dwr/interface/AjaxAdminService.js'></script>
+        <style>
+            a:link    {color:black; text-decoration:none; font-size:11pt}
+            a:hover   {color:black; text-decoration:none; 
+                font-size:11pt}
+            a:active  {color:black; text-decoration:none; font-size:11pt}
+            a:visited {color:black; text-decoration:none; font-size:11pt}
+        </style>
+        <style>
+            a:link    {color:black; text-decoration:none; font-size:11pt}
+            a:hover   {color:black; text-decoration:none; 
+                font-size:11pt}
+            a:active  {color:black; text-decoration:none; font-size:11pt}
+            a:visited {color:black; text-decoration:none; font-size:11pt}
+        </style>
+        <script type='text/javascript' src='/CCM/dwr/interface/AjaxAdminService.js'></script>
         <script type='text/javascript' src='/CCM/dwr/engine.js'></script>        
         <script type='text/javascript' src='/CCM/dwr/util.js'></script>
         <style type="text/css">
@@ -33,7 +47,7 @@
             var viewed = null;
         
             function fillTable() {
-                 dwr.util.useLoadingMessage();
+                dwr.util.useLoadingMessage();
                 AjaxAdminService.getOrganization(function(people) {
                     // Delete all the rows except for the "pattern" row
                     dwr.util.removeAllRows("peoplebody", { filter:function(tr) {
@@ -41,7 +55,7 @@
                         }});
                     // Create a new set cloned from the pattern row
                     var person, id;
-                   // people.sort(function(p1, p2) { return p1.macAddress.localeCompare(p2.macAddress); });
+                    // people.sort(function(p1, p2) { return p1.macAddress.localeCompare(p2.macAddress); });
                     for (var i = 0; i < people.length; i++) {
                         person = people[i];
                         id = person.id;
@@ -82,41 +96,42 @@
         
             function clearPerson() {
                 viewed = null;
-                dwr.util.setValues({ id:null, name:null, enabled:true, city:null, street:null, contact_name:null, contact_type:null, register_date:null, contact_email:null, amount_paid:null,  });
+                dwr.util.setValues({ id:null, name:null, enabled:true, city:null, street:null, contact_name:null, contact_type:null, register_date:null, contact_email:null, amount_paid:null,});
             }
         </script>
-    
-    </head>
-
-    <body>
-        <table>            
-            <tbody>
-                <tr>
-                    <td><a href="dashboard.jsp">Dashboard</a></td>
-                    <td>&nbsp;&nbsp;&nbsp;</td>
-                    <td><a href="users.jsp">Users</a></td>
-                    <td>&nbsp;&nbsp;&nbsp;</td>
-                    <td><a href="systems.jsp">Systems</a></td>
-                    <td>&nbsp;&nbsp;&nbsp;</td>
-                    <td><a href="emails.jsp">Emails</a></td>
-                    <td>&nbsp;&nbsp;&nbsp;</td>
-                    <td><a href="emailtimings.jsp">Email & SMS Timing</a></td>
-                    <td>&nbsp;&nbsp;&nbsp;</td>    
-                    <td><a href="organization.jsp">Organization</a></td>
-                    <td>&nbsp;&nbsp;&nbsp;</td>
-                    <td><a href="systemlease.jsp">History</a></td>
-                    <td>&nbsp;&nbsp;&nbsp;</td>
-                    <td><a href="report.jsp">Report</a></td>
-                    <td>&nbsp;&nbsp;&nbsp;</td>
-                    <td><a href="suggestions.jsp">Suggestions</a></td>
-                    <td>&nbsp;&nbsp;&nbsp;</td>
-                    <td><a href="j_acegi_logout">Logout</a></td>
-                </tr>
-            </tbody>
-        </table>
-       
         
+    </head>
+    
+    <body>
         <br><br>
+        <table width="85%"  height="30" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#EDDA74">
+            <tr> 
+                <td><a href="dashboard.jsp">&nbsp;&nbsp;Dashboard</a></td>
+                <td>&nbsp;&nbsp;&nbsp;</td>
+                <td><a href="users.jsp">Users</a></td>
+                <td>&nbsp;&nbsp;&nbsp;</td>
+                <td><a href="systems.jsp">Systems</a></td>
+                <td>&nbsp;&nbsp;&nbsp;</td>
+                <td><a href="emails.jsp">Emails</a></td>
+                <td>&nbsp;&nbsp;&nbsp;</td>
+                <td><a href="emailtimings.jsp">Email & SMS Timing</a></td>
+                <td>&nbsp;&nbsp;&nbsp;</td>    
+                <td><a href="organization.jsp">Organization</a></td>
+                <td>&nbsp;&nbsp;&nbsp;</td>
+                <td><a href="systemlease.jsp">History</a></td>
+                <td>&nbsp;&nbsp;&nbsp;</td>
+                <td><a href="report.jsp">Report</a></td>
+                <td>&nbsp;&nbsp;&nbsp;</td>
+                <td><a href="suggestions.jsp">Suggestions</a></td>
+                <td>&nbsp;&nbsp;&nbsp;</td>
+                <td><a href="j_acegi_logout">Logout &nbsp;&nbsp;</a></td> 
+            </tr>
+        </table>    
+        
+        
+        <br/>
+        <br/>
+        <br/>
         <table class="plain" align="center">
             <tr>
                 <td>Username:</td>
@@ -129,15 +144,15 @@
             </tr>
             <tr>
                 <td>City:</td>
-                <td><input type="text" id="city1" size="30"/></td>
+                <td><input type="text" id="city" size="30"/></td>
             </tr>
             <tr>
                 <td>Street:</td>
-                <td><input type="text" id="street1" size="30"/></td>
+                <td><input type="text" id="street" size="30"/></td>
             </tr>
             <tr>
                 <td>Contact_Name:</td>
-                <td><input type="text" id="contact_name1" size="30"/></td>
+                <td><input type="text" id="contact_name" size="30"/></td>
             </tr>
             <tr>
                 <td>Contact_Type:</td>
@@ -155,8 +170,8 @@
                 <td>Amount_Paid:</td>
                 <td><input type="text" id="amount_paid" size="30"/></td>
             </tr>
-
-
+            
+            
             <tr>
                 <td colspan="2" align="right">                    
                     <input type="button" value="Save" onclick="writePerson()"/>
@@ -167,6 +182,6 @@
         <script type="text/javascript">
             onload = fillTable();
         </script>
-    
+        
     </body>
 </html>

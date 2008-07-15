@@ -11,7 +11,28 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
+        
+        <style>
+            a:link    {color:black; text-decoration:none; font-size:11pt}
+            a:hover   {color:black; text-decoration:none; 
+                font-size:11pt}
+            a:active  {color:black; text-decoration:none; font-size:11pt}
+            a:visited {color:black; text-decoration:none; font-size:11pt}
+        </style>
+        <style>
+            a:link    {color:black; text-decoration:none; font-size:11pt}
+            a:hover   {color:black; text-decoration:none; 
+                font-size:11pt}
+            a:active  {color:black; text-decoration:none; font-size:11pt}
+            a:visited {color:black; text-decoration:none; font-size:11pt}
+        </style>
+        
+        
+        
         <title>Dashboard</title>
+        
+        
         <script type='text/javascript' src='/CCM/dwr/interface/AjaxAdminService.js'></script>
         <script type='text/javascript' src='/CCM/dwr/interface/AjaxWorkService.js'></script>
         
@@ -72,7 +93,7 @@
                     } else {
                         document.getElementById("btn6").style.color ="RED";
                     }
-               }else  if ( systemNo == 7 ) {
+                }else  if ( systemNo == 7 ) {
                     document.getElementById("btn7").disabled =false;
                     if ( isAvailable == true ) {
                         document.getElementById("btn7").style.color ="GREEN";
@@ -107,7 +128,7 @@
                     } else {
                         document.getElementById("btn11").style.color ="RED";
                     }
-               }else  if ( systemNo == 12 ) {
+                }else  if ( systemNo == 12 ) {
                     document.getElementById("btn12").disabled =false;
                     if ( isAvailable == true ) {
                         document.getElementById("btn12").style.color ="GREEN";
@@ -163,7 +184,7 @@
                     } else {
                         document.getElementById("btn19").style.color ="RED";
                     }
-               }else  if ( systemNo == 20 ) {
+                }else  if ( systemNo == 20 ) {
                     document.getElementById("btn20").disabled =false;
                     if ( isAvailable == true ) {
                         document.getElementById("btn20").style.color ="GREEN";
@@ -184,7 +205,7 @@
                     } else {
                         document.getElementById("btn22").style.color ="RED";
                     }
-               }else  if ( systemNo == 23 ) {
+                }else  if ( systemNo == 23 ) {
                     document.getElementById("btn23").disabled =false;
                     if ( isAvailable == true ) {
                         document.getElementById("btn23").style.color ="GREEN";
@@ -284,33 +305,40 @@
             span.warning { font-size: smaller; color: red; }
         </style>
     </head>
+    
+    
+    
+    
+    
     <body onload='dwr.util.useLoadingMessage()'>
         <!--<form id="form1" id="form1"> -->
-        <table>            
-            <tbody>
-                <tr>
-                    <td><a href="dashboard.jsp">Dashboard</a></td>
-                    <td>&nbsp;&nbsp;&nbsp;</td>
-                    <td><a href="users.jsp">Users</a></td>
-                    <td>&nbsp;&nbsp;&nbsp;</td>
-                    <td><a href="systems.jsp">Systems</a></td>
-                    <td>&nbsp;&nbsp;&nbsp;</td>
-                    <td><a href="emails.jsp">Emails</a></td>
-                    <td>&nbsp;&nbsp;&nbsp;</td>
-                    <td><a href="emailtimings.jsp">Email & SMS Timing</a></td>
-                    <td>&nbsp;&nbsp;&nbsp;</td>    
-                    <td><a href="organization.jsp">Organization</a></td>
-                    <td>&nbsp;&nbsp;&nbsp;</td>
-                    <td><a href="systemlease.jsp">History</a></td>
-                    <td>&nbsp;&nbsp;&nbsp;</td>
-                    <td><a href="report.jsp">Report</a></td>
-                    <td>&nbsp;&nbsp;&nbsp;</td>
-                    <td><a href="suggestions.jsp">Suggestions</a></td>
-                    <td>&nbsp;&nbsp;&nbsp;</td>
-                    <td><a href="j_acegi_logout">Logout</a></td>
-                </tr>
-            </tbody>
-        </table>
+        <br><br>
+        <table width="85%"  height="30" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#EDDA74">
+            <tr> 
+                <td><a href="dashboard.jsp">&nbsp;&nbsp;Dashboard</a></td>
+                <td>&nbsp;&nbsp;&nbsp;</td>
+                <td><a href="users.jsp">Users</a></td>
+                <td>&nbsp;&nbsp;&nbsp;</td>
+                <td><a href="systems.jsp">Systems</a></td>
+                <td>&nbsp;&nbsp;&nbsp;</td>
+                <td><a href="emails.jsp">Emails</a></td>
+                <td>&nbsp;&nbsp;&nbsp;</td>
+                <td><a href="emailtimings.jsp">Email & SMS Timing</a></td>
+                <td>&nbsp;&nbsp;&nbsp;</td>    
+                <td><a href="organization.jsp">Organization</a></td>
+                <td>&nbsp;&nbsp;&nbsp;</td>
+                <td><a href="systemlease.jsp">History</a></td>
+                <td>&nbsp;&nbsp;&nbsp;</td>
+                <td><a href="report.jsp">Report</a></td>
+                <td>&nbsp;&nbsp;&nbsp;</td>
+                <td><a href="suggestions.jsp">Suggestions</a></td>
+                <td>&nbsp;&nbsp;&nbsp;</td>
+                <td><a href="j_acegi_logout">Logout &nbsp;&nbsp;</a></td> 
+            </tr>
+        </table> 
+        
+   
+        
         <br/>
         <br/>
         <br/>
@@ -328,8 +356,9 @@
                     <td><input type="submit" id="btn8" value="8" size="40"  onclick="buttonClick(8);" disabled/></td>
                     <td><input type="submit" id="btn9" value="9" size="40"  onclick="buttonClick(9);" disabled/></td>
                     <td><input type="submit" id="btn10" value="10" size="40"  onclick="buttonClick(10);" disabled/></td>
+                  
                 </tr>
-               <tr>
+                <tr>
                     <td><input type="submit" id="btn11" value="11" size="40" onclick="buttonClick(11);" disabled /></td>
                     <td><input type="submit" id="btn12" value="12" size="40" onclick="buttonClick(12);" disabled/></td>
                     <td><input type="submit" id="btn13" value="13" size="40"  onclick="buttonClick(13);" disabled/></td>
@@ -341,7 +370,7 @@
                     <td><input type="submit" id="btn19" value="19" size="40"  onclick="buttonClick(19);" disabled/></td>
                     <td><input type="submit" id="btn20" value="20" size="40"  onclick="buttonClick(20);" disabled/></td>
                 </tr>
-                 <tr>
+                <tr>
                     <td><input type="submit" id="btn21" value="21" size="40" onclick="buttonClick(21);" disabled /></td>
                     <td><input type="submit" id="btn22" value="22" size="40" onclick="buttonClick(22);" disabled/></td>
                     <td><input type="submit" id="btn23" value="23" size="40"  onclick="buttonClick(23);" disabled/></td>
@@ -356,6 +385,25 @@
             </tbody>
         </table>
         
+        <br>
+        <br>
+        <br> 
+        
+        
+        <table width="85%" align="center">
+            
+            <td>This is a Dashboard which consist of numbers, each number displays a computer in your CyberCafe.</td>
+            
+            <td>If the Owner signsin, the Owner will see all the menu items on top and if the employee signsin only one item will be seen which allows the employee to allocate and deallocate the systems to the customers.</td>
+            
+            <td>   Here you can alot systems to your customers and you can charge them on their usage.</td>
+            
+            <td>The systems which appear in green colour can be leased out to the customers and the systems which are in red colour are already leased out to the customers.</td>
+            
+            <td> when the customer returns back, clickon the respective system of the customer which was on lease to that customer and the usage time and the bill will be generated automatically.</td>
+            
+            
+        </table> 
         
         <!-- </form> -->
         <script type="text/javascript">
