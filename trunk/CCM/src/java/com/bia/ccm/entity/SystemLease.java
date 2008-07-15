@@ -5,6 +5,7 @@
 package com.bia.ccm.entity;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,6 +17,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 /**
  *
@@ -59,6 +61,10 @@ public class SystemLease implements Serializable {
     private int system;
     @Column(name = "is_finished", nullable = false)
     private boolean isFinished;
+    @Transient
+    private String startTimeString;
+    @Transient
+    private String endTimeString;
 
     public SystemLease() {
     }
@@ -161,6 +167,28 @@ public class SystemLease implements Serializable {
 
     public void setIsFinished(boolean isFinished) {
         this.isFinished = isFinished;
+    }
+
+    public String getEndTimeString() {
+        String pattern = "yyyy.MM.dd hh:mm aaa";
+        SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+
+        return sdf.format(this.startTime);
+    }
+
+    public void setEndTimeString(String endTimeString) {
+        this.endTimeString = endTimeString;
+    }
+
+    public String getStartTimeString() {
+        String pattern = "yyyy.MM.dd hh:mm aaa";
+        SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+
+        return sdf.format(this.endTime);
+    }
+
+    public void setStartTimeString(String startTimeString) {
+        this.startTimeString = startTimeString;
     }
 
     @Override
