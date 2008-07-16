@@ -337,7 +337,7 @@
             </tr>
         </table> 
         
-   
+        
         
         <br/>
         <br/>
@@ -356,7 +356,7 @@
                     <td><input type="submit" id="btn8" value="8" size="40"  onclick="buttonClick(8);" disabled/></td>
                     <td><input type="submit" id="btn9" value="9" size="40"  onclick="buttonClick(9);" disabled/></td>
                     <td><input type="submit" id="btn10" value="10" size="40"  onclick="buttonClick(10);" disabled/></td>
-                  
+                    
                 </tr>
                 <tr>
                     <td><input type="submit" id="btn11" value="11" size="40" onclick="buttonClick(11);" disabled /></td>
@@ -409,6 +409,12 @@
         <script type="text/javascript">
             onload = intialDisplay();
         </script>
+        
+        <br>
+        <br>
+        <br> <br>
+        <br>
+        <br>
         
         <p align="center">
             <font size="2"> &copy; Copyrights BizIntelApps 2008 All Rights Reserved. <a href="http://bizintelapps.net/"><font color="blue">BizIntelApps</font></a> </font>
