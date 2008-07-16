@@ -69,12 +69,9 @@
     <!-- display time ends here -->
     
     <body>
-        <% if (request.getParameter("login_error") != null) {%> <b> <font color=RED> Sorry, but either the username or password is incorrect.
-        </font></b> <% }%>
         
-
-
-        <table align="center">
+        
+        <table align="center" bordercolor="#EDDA74" border="1" rules="none" width="80%">
             <tr>
                 <td>
                     <h2>
@@ -84,7 +81,7 @@
             </tr>
         </table> 
         
-        <table border="0" width="100%" rules="none">
+        <table align="center" border="0" rules="none" width="80%">
             <tr>
                 <td align="right">
                     <script language="javascript" type="text/javascript">
@@ -110,11 +107,28 @@
         <br>
         <br>
         
+        
+        
+        
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <% if (request.getParameter("login_error") != null) {%> <b> <font color=RED size="2"> Sorry, but either the username or password is incorrect.
+        </font></b> <% }%> 
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         <form action="j_acegi_security_check" method="POST">
             
-            <table width="100%">
+            <table align="center" bordercolor="#EDDA74" border="1" rules="none" width="80%">
                 
-                <td width="30%" height="20">
+                <td>
                     <table width="100%">
                         <tr><td>User:</td><td><input type='text' name='j_username'> </td></tr>
                         <tr><td>Password:</td><td><input type='password' name='j_password'> </td></tr>
@@ -123,8 +137,8 @@
                                 
                         <input name="submit"  value="Sign In" type="submit" ></td></tr>
                         <tr>
-                            <td>
-                                <a href="registration.jsp">Sign Up</a> <br><br>
+                            <td><font size="3">
+                                <a href="registration.jsp">Sign Up !</a> </font> <br><br>
                                 <a href="forgotpassword.jsp">Fogot Username or Password?</a>
                             </td>
                         </tr>
@@ -133,19 +147,20 @@
                     </table>
                 </td>
                 
-                <td width="60%">
-                    <table>
+                <td>
+                    <table align="center" border="0" width="80%" rules="none" >
                         <tr>
                             <td>
-                                <p >
-                                    Online CyberCafeManager increases your revenew, manages your CyberCafe, reduces your stress, keeps you in touch with your CyberCafe from anywhere. 
-                                    <br><br>
+                                <p><font size="2"><br><br><br>
+                                        Online CyberCafeManager increases your revenew, manages your CyberCafe, reduces your stress, keeps you in touch with your CyberCafe from anywhere. 
+                                        <br><br>
                                         Online CyberCafeManager Eliminates unauthorized usage of your CyberCafe's computers.
-                                    <br><br>
-                                       Online CyberCafeManager is in compliance with the Indian Cyber Law, which keeps your business running without future hurdles. 
-                                    <br><br>
+                                        <br><br>
+                                        Online CyberCafeManager is in compliance with the Indian Cyber Law, which keeps your business running without future hurdles. 
+                                        <br><br>
                                         Online CyberCafeManager keeps you connected to your CyberCafe.
-                                    <br><br>
+                                        <br><br>
+                                    </font>
                                     <br><br>
                                     <br><br>
                                     <br><br>    
@@ -156,15 +171,15 @@
                     </table>
                 </td>
                 
-                <td width="10%">
-                    454545454545454242124
-                </td>
+                
                 
             </table>
             
-            
-            
         </form>
+        
+        <p align="center">
+            <font size="2"> &copy; Copyrights BizIntelApps 2008 All Rights Reserved. <a href="http://bizintelapps.net/"><font color="blue">BizIntelApps</font></a> </font>
+        </p>
         
     </body>
 </html>
