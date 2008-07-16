@@ -8,34 +8,61 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 
-<center>
-    <p><h3>I Cannot access My Account </h3></p>
-    <table border="1" rules="none">
-        <thead>
-        </thead>
-        <tbody class="tundra">
-            <tr>
-                <td>&nbsp;&nbsp;User Email&nbsp;&nbsp;</td>
-                <td>
-                    
-                    <input class='itext' type='text' size='35' value='' id='useremail' /> 
-                    
-                </td>
-            </tr>
-            
-            <tr>
-                
-                <tr></tr><td></td>
-                <td>&nbsp;&nbsp;&nbsp;<input class='ibutton' type='button' name='Submit'onClick="parent.location='login.jsp'" value='Submit' size="25"/>  
-                </td>                        
-            </tr><tr></tr><tr></tr><tr></tr><tr></tr>
-            
-        </tbody>
+<html>
+    
+    <table align="center" bordercolor="#EDDA74" border="2" rules="none" width="80%">
+        <tr>
+            <td>
+                <h2>
+                    <p align="center">CyberCafeManager</p>
+                </h2>
+            </td>    
+        </tr>
+    </table> 
+    
+    <br>
+    <br><br><br>
+    
+    
+    <p align="center" width="40%" > I Cannot Access My Account </p>
+    
+    <table border="2" align="center" width="40%"  rules="none" bordercolor="#EDDA74">
         
+        <tbody>
+            <tr> <td> </td></tr>
+            <tr> <td> </td></tr>
+            <tr> <td> </td></tr>
+            <tr> <td> </td></tr>
+            <tr> <td> </td></tr>
+            <tr> <td> </td></tr>
+            <tr>
+                <td>&nbsp;&nbsp;Username / Email&nbsp;&nbsp;</td>
+                <td> <input class='itext' type='text' size='35' value='' id='useremail' /> </td>
+            </tr>
+            <tr>
+                <td></td>
+            </tr>
+            <tr> <td> </td></tr>
+            <tr>
+                <td></td>
+                <td>&nbsp;&nbsp;&nbsp;<input class='ibutton' type='button' name='Submit'onClick="parent.location='login.jsp'" value='Submit' size="25"/>  </td>
+            </tr>
+            <tr> <td> </td></tr>
+            <tr> <td> </td></tr>
+            <tr> <td> </td></tr>
+            <tr> <td> </td></tr>
+            <tr> <td> </td></tr>
+            <tr> <td> </td></tr>
+        </tbody>
     </table>
     
-</center>
-
-<p align="center">
-            <font size="2"> &copy; Copyrights BizIntelApps 2008 All Rights Reserved. <a href="http://bizintelapps.net/"><font color="blue">BizIntelApps</font></a> </font>
-        </p>
+    
+    
+    
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    
+    <p align="center">
+        <font size="2"> &copy; Copyrights BizIntelApps 2008 All Rights Reserved. <a href="http://bizintelapps.net/"><font color="blue">BizIntelApps</font></a> </font>
+    </p>
+    
+</html>

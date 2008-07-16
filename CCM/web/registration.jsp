@@ -132,6 +132,7 @@
         <p align="left"><font size="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         Register Your CyberCafe</font></p> 
+        
         <table border="2" width="80%" align="center" rules="none" bordercolor="#EDDA74">
             
             

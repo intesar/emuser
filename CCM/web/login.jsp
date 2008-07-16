@@ -139,7 +139,7 @@
                         <tr>
                             <td><font size="3">
                                 <a href="registration.jsp">Sign Up !</a> </font> <br><br>
-                                <a href="forgotpassword.jsp">Fogot Username or Password?</a>
+                                <a href="forgotpassword.jsp">Forgot Username or Password?</a>
                             </td>
                         </tr>
                         
