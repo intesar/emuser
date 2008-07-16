@@ -145,13 +145,22 @@
                 
                 <td width="15%" align="center"> Owner can set the timings to receive emails and SMS, that are forwarded to him automatically by Online CyberCafeManager</td>
                 <td width="85%" align="center"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-               
+                
             </tr>
         </table>
         
         <script type="text/javascript">
             onload = fillTable();
         </script>
+        <br>
+        <br>
+        <br> <br>
+        <br>
+        <br> <br>
+        <br>
+        <br> <br>
+        <br>
+        
         
         
         <p align="center">
