@@ -96,7 +96,7 @@
     <body>
         
 
-        <table align="center" bordercolor="#EDDA74" border="1" rules="none" width="80%">
+        <table align="center" bordercolor="#EDDA74" border="2" rules="none" width="80%">
             <tr>
                 <td>
                     <h2>
@@ -132,7 +132,7 @@
         <p align="left"><font size="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         Register Your CyberCafe</font></p> 
-        <table border="1" width="80%" align="center" rules="none" bordercolor="#EDDA74">
+        <table border="2" width="80%" align="center" rules="none" bordercolor="#EDDA74">
             
             
             <tr>
