@@ -71,7 +71,7 @@
     <body>
         
         
-        <table align="center" bordercolor="#EDDA74" border="1" rules="none" width="80%">
+        <table align="center" bordercolor="#EDDA74" border="2" rules="none" width="80%">
             <tr>
                 <td>
                     <h2>
@@ -126,7 +126,7 @@
         
         <form action="j_acegi_security_check" method="POST">
             
-            <table align="center" bordercolor="#EDDA74" border="1" rules="none" width="80%">
+            <table align="center" bordercolor="#EDDA74" border="2" rules="none" width="80%">
                 
                 <td>
                     <table width="100%">
