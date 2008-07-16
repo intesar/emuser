@@ -388,15 +388,16 @@
         <br>
         <br>
         <br> 
+        <br>
+        <br>
         
-        
-        <table width="85%" align="center">
+        <table width="93%" align="center"  bordercolor="#EDDA74" border="2" rules="none">
             
-            <td> This is a Dashboard which consist of numbers, each number displays a computer in your CyberCafe.</td>
+            <td>This is a Dashboard which consist of numbers, each number displays a computer in your CyberCafe.</td>
             <td>&nbsp;&nbsp;</td>
-            <td>If the Owner signsin, the Owner will see all the menu items on top and if the employee signsin only one item will be seen which allows the employee to allocate and deallocate the systems to the customers.</td>
+            <td><br>If the Owner signsin, the Owner will see all the menu items on top and if the employee signsin only some items are available for him</td>
             <td>&nbsp;&nbsp;</td>
-            <td>   Here you can alot systems to your customers and you can charge them on their usage.</td>
+            <td>Here you can alot systems to your customers and you can charge them on their usage.</td>
             <td>&nbsp;&nbsp;</td>
             <td>The systems which appear in green colour can be leased out to the customers and the systems which are in red colour are already leased out to the customers.</td>
             <td>&nbsp;&nbsp;</td>
