@@ -97,6 +97,36 @@ public class WorkServiceImpl implements WorkService {
         this.systemLeaseDao.create(systemLease);
         return "Assigned Successfully!";
     }
+    
+    /**
+     *  0 -error
+     *  1 - do nothing
+     *  2 - logoff
+     *  3 - shutdown
+     * @param macAddress
+     * @return
+     */
+    public Integer getSystemStatus(String macAddress) {
+        Integer status = new Integer(0);
+        try {
+            Systems system = this.systemsDao.findByMacAddress(macAddress);
+            if (system.getIsShutdown()) {
+                status = 3;
+            } else if (system.getIsAvailable()) {
+                status = 2;
+            } else if (!system.getIsAvailable()) {
+                status = 1;
+            }
+
+        } catch (NullPointerException npe) {
+            logger.equals(npe);
+        } catch (RuntimeException re) {
+            logger.equals(re);
+        } catch (Exception e) {
+            logger.equals(e);
+        }
+        return status;
+    }
 
     public void setUsersDao(UsersDao usersDao) {
         this.usersDao = usersDao;
@@ -113,4 +143,6 @@ public class WorkServiceImpl implements WorkService {
     private SystemsDao systemsDao;
     private UsersDao usersDao;
     private SystemLeaseDao systemLeaseDao;
+
+    
 }
