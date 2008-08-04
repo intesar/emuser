@@ -19,5 +19,6 @@ public interface WorkService {
     public String leaseSystem(int id);
     public String unleaseSystem ( int id, double amountPaid);
     double getPayableAmount(int id);
+    public Integer getSystemStatus(String macAddress);
 
 }

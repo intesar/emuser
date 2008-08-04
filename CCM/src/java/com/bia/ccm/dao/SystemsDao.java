@@ -19,5 +19,7 @@ public interface SystemsDao extends GenericDao<Systems,Integer>{
     public List<Systems> findByOrganization(String organization);
 
     public Systems findBySystemNameAndOrganization(int systemNo, String organization);
+    
+    Systems findByMacAddress(String macAddress);
 
 }
