@@ -76,7 +76,7 @@
     </head>
     <body>
         <br><br>
-        <table width="85%"  height="30" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#EDDA74">
+       <table width="85%"  height="30" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#EDDA74">
             <tr> 
                 <td><a href="dashboard.jsp">&nbsp;&nbsp;Dashboard</a></td>
                 <td>&nbsp;&nbsp;&nbsp;</td>
@@ -94,11 +94,13 @@
                 <td>&nbsp;&nbsp;&nbsp;</td>
                 <td><a href="report.jsp">Report</a></td>
                 <td>&nbsp;&nbsp;&nbsp;</td>
+                <td><a href="customer.jsp">Customer</a></td>
+                <td>&nbsp;&nbsp;&nbsp;</td>
                 <td><a href="suggestions.jsp">Suggestions</a></td>
                 <td>&nbsp;&nbsp;&nbsp;</td>
                 <td><a href="j_acegi_logout">Logout &nbsp;&nbsp;</a></td> 
             </tr>
-        </table>    
+        </table> 
         
         
         <br/>
