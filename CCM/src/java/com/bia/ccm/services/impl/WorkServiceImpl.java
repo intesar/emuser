@@ -4,9 +4,11 @@
  */
 package com.bia.ccm.services.impl;
 
+import com.bia.ccm.dao.CustomerDao;
 import com.bia.ccm.dao.SystemLeaseDao;
 import com.bia.ccm.dao.SystemsDao;
 import com.bia.ccm.dao.UsersDao;
+import com.bia.ccm.entity.Customer;
 import com.bia.ccm.entity.SystemLease;
 import com.bia.ccm.entity.Systems;
 import com.bia.ccm.entity.Users;
@@ -36,12 +38,12 @@ public class WorkServiceImpl implements WorkService {
         return this.systemsDao.findBySystemNameAndOrganization(systemNo, u.getOrganization());
     }
 
-    public String leaseSystem(int id) {
+    public String leaseSystem(int id, String leaseHolder) {
         Systems system = this.systemsDao.read(id);
         system.setIsAvailable(false);
         this.systemsDao.update(system);
         SystemLease systemLease = new SystemLease(null, new Date(), AcegiUtil.getUsername(), id, false);
-        systemLease.setLeaseHolderName("unknown");
+        systemLease.setLeaseHolderName(leaseHolder);
         this.systemLeaseDao.create(systemLease);
         return "Assigned Successfully!";
     }
@@ -97,7 +99,7 @@ public class WorkServiceImpl implements WorkService {
         this.systemLeaseDao.create(systemLease);
         return "Assigned Successfully!";
     }
-    
+
     /**
      *  0 -error
      *  1 - do nothing
@@ -128,6 +130,18 @@ public class WorkServiceImpl implements WorkService {
         return status;
     }
 
+    public void createCutomer(Customer customer) {
+        if (customer.getId() == null) {
+            this.customerDao.create(customer);
+        } else {
+            this.customerDao.update(customer);
+        }
+    }
+
+    public Customer getCustomer(String key) {
+        return this.customerDao.findByKey(key);
+    }
+    
     public void setUsersDao(UsersDao usersDao) {
         this.usersDao = usersDao;
     }
@@ -139,10 +153,13 @@ public class WorkServiceImpl implements WorkService {
     public void setSystemLeaseDao(SystemLeaseDao systemLeaseDao) {
         this.systemLeaseDao = systemLeaseDao;
     }
+
+    public void setCustomerDao(CustomerDao customerDao) {
+        this.customerDao = customerDao;
+    }
     protected final Log logger = LogFactory.getLog(getClass());
+    private CustomerDao customerDao;
     private SystemsDao systemsDao;
     private UsersDao usersDao;
     private SystemLeaseDao systemLeaseDao;
-
-    
 }

@@ -180,6 +180,19 @@
         </property>
     </bean>
     
+      <bean id="customerDao" parent="abstractDao">
+        <property name="proxyInterfaces">
+            <value>com.bia.ccm.dao.CustomerDao</value>
+        </property>
+        <property name="target">
+            <bean parent="abstractDaoTarget">
+                <constructor-arg>
+                    <value>com.bia.ccm.entity.Customer</value>
+                </constructor-arg>
+            </bean>
+        </property>
+    </bean>
+    
     
     
      
