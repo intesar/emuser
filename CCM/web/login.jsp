@@ -75,8 +75,10 @@
             <tr>
                 <td>
                     <h2>
-                        <p align="center">CyberCafeManager</p>
+                    <p align="center">CyberCafeManager</p>
                     </h2>
+                     
+                     
                 </td>    
             </tr>
         </table> 
@@ -130,14 +132,14 @@
                 
                 <td>
                     <table width="100%">
-                        <tr><td>User:</td><td><input type='text' name='j_username'> </td></tr>
+                        <tr><td>Email:</td><td><input type='text' name='j_username'> </td></tr>
                         <tr><td>Password:</td><td><input type='password' name='j_password'> </td></tr>
                         
                         <tr><td></td><td colspan='2'>
                                 
                         <input name="submit"  value="Sign In" type="submit" ></td></tr>
                         <tr>
-                            <td><font size="3">
+                            <td><font size="10">
                                 <a href="registration.jsp">Sign Up !</a> </font> <br><br>
                                 <a href="forgotpassword.jsp">Forgot Username or Password?</a>
                             </td>

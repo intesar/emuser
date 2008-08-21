@@ -273,19 +273,24 @@
                 
                 if ( system.isAvailable == true)  {
                     if ( confirm("Are you sure your want to lease this Computer? ") ) {
-                        AjaxWorkService.leaseSystem(system.id, function(data) {
+                        var leaseHolder = prompt("Lease Holder Email","");
+                        //alert ( leaseHolder + leaseHolder.toString().length );
+                        if ( leaseHolder.toString().length > 5 ) {
+                            AjaxWorkService.leaseSystem(system.id, leaseHolder, function(data) {
                            
-                            document.getElementById("btn" + system.name).style.color = "RED"; 
+                                document.getElementById("btn" + system.name).style.color = "RED"; 
                            
-                        } );
-                        
+                            } );
+                        } else {
+                            confirm (" Lease Holder Email is null or Invalid! ");
+                        }
                     }
                                        
                 } else {
                     if ( confirm("Are you sure your want to unlease this Computer? ") ) {
                         var x;
                         AjaxWorkService.getPayableAmount(system.id, function(data) {
-                            if ( (x = prompt("Payable Amount : ",data) ) != null ) {
+                            if ( (x = prompt("Payable Amount : " + data,data) ) != null ) {
                                 AjaxWorkService.unleaseSystem(system.id, x, function(data) {
                                     alert ( data );
                                 } );
@@ -331,6 +336,8 @@
                 <td>&nbsp;&nbsp;&nbsp;</td>
                 <td><a href="report.jsp">Report</a></td>
                 <td>&nbsp;&nbsp;&nbsp;</td>
+                <td><a href="customer.jsp">Customer</a></td>
+                <td>&nbsp;&nbsp;&nbsp;</td>
                 <td><a href="suggestions.jsp">Suggestions</a></td>
                 <td>&nbsp;&nbsp;&nbsp;</td>
                 <td><a href="j_acegi_logout">Logout &nbsp;&nbsp;</a></td> 
@@ -346,41 +353,41 @@
             
             <tbody>
                 <tr>
-                    <td><input type="submit" id="btn1" value="1" size="40" onclick="buttonClick(1);" disabled /></td>
-                    <td><input type="submit" id="btn2" value="2" size="40" onclick="buttonClick(2);" disabled/></td>
-                    <td><input type="submit" id="btn3" value="3" size="40"  onclick="buttonClick(3);" disabled/></td>
-                    <td><input type="submit" id="btn4" value="4" size="40"  onclick="buttonClick(4);" disabled/></td>
-                    <td><input type="submit" id="btn5" value="5" size="40"  onclick="buttonClick(5);" disabled/></td>
-                    <td><input type="submit" id="btn6" value="6" size="40"  onclick="buttonClick(6);" disabled/></td>
-                    <td><input type="submit" id="btn7" value="7" size="40"  onclick="buttonClick(7);" disabled /></td>
-                    <td><input type="submit" id="btn8" value="8" size="40"  onclick="buttonClick(8);" disabled/></td>
-                    <td><input type="submit" id="btn9" value="9" size="40"  onclick="buttonClick(9);" disabled/></td>
-                    <td><input type="submit" id="btn10" value="10" size="40"  onclick="buttonClick(10);" disabled/></td>
+                    <td><input type="submit" id="btn1" value="1" size="40" style="width:80px;height:50px;font-size:150%" onclick="buttonClick(1);" disabled /></td>
+                    <td><input type="submit" id="btn2" value="2" size="40" style="width:80px;height:50px;font-size:150%" onclick="buttonClick(2);" disabled/></td>
+                    <td><input type="submit" id="btn3" value="3" size="40" style="width:80px;height:50px;font-size:150%"  onclick="buttonClick(3);" disabled/></td>
+                    <td><input type="submit" id="btn4" value="4" size="40" style="width:80px;height:50px;font-size:150%"  onclick="buttonClick(4);" disabled/></td>
+                    <td><input type="submit" id="btn5" value="5" size="40" style="width:80px;height:50px;font-size:150%"  onclick="buttonClick(5);" disabled/></td>
+                    <td><input type="submit" id="btn6" value="6" size="40" style="width:80px;height:50px;font-size:150%"  onclick="buttonClick(6);" disabled/></td>
+                    <td><input type="submit" id="btn7" value="7" size="40" style="width:80px;height:50px;font-size:150%"  onclick="buttonClick(7);" disabled /></td>
+                    <td><input type="submit" id="btn8" value="8" size="40" style="width:80px;height:50px;font-size:150%"  onclick="buttonClick(8);" disabled/></td>
+                    <td><input type="submit" id="btn9" value="9" size="40" style="width:80px;height:50px;font-size:150%"  onclick="buttonClick(9);" disabled/></td>
+                    <td><input type="submit" id="btn10" value="10" size="40"  style="width:80px;height:50px;font-size:150%" onclick="buttonClick(10);" disabled/></td>
                     
                 </tr>
                 <tr>
-                    <td><input type="submit" id="btn11" value="11" size="40" onclick="buttonClick(11);" disabled /></td>
-                    <td><input type="submit" id="btn12" value="12" size="40" onclick="buttonClick(12);" disabled/></td>
-                    <td><input type="submit" id="btn13" value="13" size="40"  onclick="buttonClick(13);" disabled/></td>
-                    <td><input type="submit" id="btn14" value="14" size="40"  onclick="buttonClick(14);" disabled/></td>
-                    <td><input type="submit" id="btn15" value="15" size="40"  onclick="buttonClick(15);" disabled/></td>
-                    <td><input type="submit" id="btn16" value="16" size="40"  onclick="buttonClick(16);" disabled/></td>
-                    <td><input type="submit" id="btn17" value="17" size="40"  onclick="buttonClick(17);" disabled /></td>
-                    <td><input type="submit" id="btn18" value="18" size="40"  onclick="buttonClick(18);" disabled/></td>
-                    <td><input type="submit" id="btn19" value="19" size="40"  onclick="buttonClick(19);" disabled/></td>
-                    <td><input type="submit" id="btn20" value="20" size="40"  onclick="buttonClick(20);" disabled/></td>
+                    <td><input type="submit" id="btn11" value="11" size="40" style="width:80px;height:50px;font-size:150%" onclick="buttonClick(11);" disabled /></td>
+                    <td><input type="submit" id="btn12" value="12" size="40" style="width:80px;height:50px;font-size:150%" onclick="buttonClick(12);" disabled/></td>
+                    <td><input type="submit" id="btn13" value="13" size="40" style="width:80px;height:50px;font-size:150%"  onclick="buttonClick(13);" disabled/></td>
+                    <td><input type="submit" id="btn14" value="14" size="40" style="width:80px;height:50px;font-size:150%"  onclick="buttonClick(14);" disabled/></td>
+                    <td><input type="submit" id="btn15" value="15" size="40" style="width:80px;height:50px;font-size:150%"  onclick="buttonClick(15);" disabled/></td>
+                    <td><input type="submit" id="btn16" value="16" size="40" style="width:80px;height:50px;font-size:150%"  onclick="buttonClick(16);" disabled/></td>
+                    <td><input type="submit" id="btn17" value="17" size="40" style="width:80px;height:50px;font-size:150%"  onclick="buttonClick(17);" disabled /></td>
+                    <td><input type="submit" id="btn18" value="18" size="40" style="width:80px;height:50px;font-size:150%"  onclick="buttonClick(18);" disabled/></td>
+                    <td><input type="submit" id="btn19" value="19" size="40" style="width:80px;height:50px;font-size:150%"  onclick="buttonClick(19);" disabled/></td>
+                    <td><input type="submit" id="btn20" value="20" size="40" style="width:80px;height:50px;font-size:150%"  onclick="buttonClick(20);" disabled/></td>
                 </tr>
                 <tr>
-                    <td><input type="submit" id="btn21" value="21" size="40" onclick="buttonClick(21);" disabled /></td>
-                    <td><input type="submit" id="btn22" value="22" size="40" onclick="buttonClick(22);" disabled/></td>
-                    <td><input type="submit" id="btn23" value="23" size="40"  onclick="buttonClick(23);" disabled/></td>
-                    <td><input type="submit" id="btn24" value="24" size="40"  onclick="buttonClick(24);" disabled/></td>
-                    <td><input type="submit" id="btn25" value="25" size="40"  onclick="buttonClick(25);" disabled/></td>
-                    <td><input type="submit" id="btn26" value="26" size="40"  onclick="buttonClick(26);" disabled/></td>
-                    <td><input type="submit" id="btn27" value="27" size="40"  onclick="buttonClick(27);" disabled /></td>
-                    <td><input type="submit" id="btn28" value="28" size="40"  onclick="buttonClick(28);" disabled/></td>
-                    <td><input type="submit" id="btn29" value="29" size="40"  onclick="buttonClick(29);" disabled/></td>
-                    <td><input type="submit" id="btn30" value="30" size="40"  onclick="buttonClick(30);" disabled/></td>
+                    <td><input type="submit" id="btn21" value="21" size="40" style="width:80px;height:50px;font-size:150%" onclick="buttonClick(21);" disabled /></td>
+                    <td><input type="submit" id="btn22" value="22" size="40" style="width:80px;height:50px;font-size:150%" onclick="buttonClick(22);" disabled/></td>
+                    <td><input type="submit" id="btn23" value="23" size="40" style="width:80px;height:50px;font-size:150%"  onclick="buttonClick(23);" disabled/></td>
+                    <td><input type="submit" id="btn24" value="24" size="40" style="width:80px;height:50px;font-size:150%"  onclick="buttonClick(24);" disabled/></td>
+                    <td><input type="submit" id="btn25" value="25" size="40" style="width:80px;height:50px;font-size:150%"  onclick="buttonClick(25);" disabled/></td>
+                    <td><input type="submit" id="btn26" value="26" size="40" style="width:80px;height:50px;font-size:150%"  onclick="buttonClick(26);" disabled/></td>
+                    <td><input type="submit" id="btn27" value="27" size="40" style="width:80px;height:50px;font-size:150%"  onclick="buttonClick(27);" disabled /></td>
+                    <td><input type="submit" id="btn28" value="28" size="40" style="width:80px;height:50px;font-size:150%"  onclick="buttonClick(28);" disabled/></td>
+                    <td><input type="submit" id="btn29" value="29" size="40" style="width:80px;height:50px;font-size:150%"  onclick="buttonClick(29);" disabled/></td>
+                    <td><input type="submit" id="btn30" value="30" size="40" style="width:80px;height:50px;font-size:150%"  onclick="buttonClick(30);" disabled/></td>
                 </tr>
             </tbody>
         </table>
@@ -415,7 +422,7 @@
         <br>
         <br> <br>
         <br>
-    
+        
         
         <p align="center">
             <font size="2"> &copy; Copyrights BizIntelApps 2008 All Rights Reserved. <a href="http://bizintelapps.net/"><font color="blue">BizIntelApps</font></a> </font>

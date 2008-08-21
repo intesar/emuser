@@ -113,11 +113,13 @@
                 <td>&nbsp;&nbsp;&nbsp;</td>
                 <td><a href="report.jsp">Report</a></td>
                 <td>&nbsp;&nbsp;&nbsp;</td>
+                <td><a href="customer.jsp">Customer</a></td>
+                <td>&nbsp;&nbsp;&nbsp;</td>
                 <td><a href="suggestions.jsp">Suggestions</a></td>
                 <td>&nbsp;&nbsp;&nbsp;</td>
                 <td><a href="j_acegi_logout">Logout &nbsp;&nbsp;</a></td> 
             </tr>
-        </table>    
+        </table> 
         
         
         <br/>
