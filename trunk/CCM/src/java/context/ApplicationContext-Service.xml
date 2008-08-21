@@ -36,5 +36,6 @@
         <property name="usersDao" ref="usersDao" />
         <property name="systemsDao" ref="systemsDao" />
         <property name="systemLeaseDao" ref="systemLeaseDao" />
+        <property name="customerDao" ref="customerDao" />
     </bean>
 </beans>

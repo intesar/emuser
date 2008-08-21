@@ -90,6 +90,7 @@ http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
                 /systemlease.jsp*=ROLE_ADMIN
                 /systems.jsp*=ROLE_ADMIN
                 /dashboard.jsp*=ROLE_ADMIN,ROLE_USER
+                /customer.jsp*=ROLE_ADMIN,ROLE_USER
             </value>
         </property>
     </bean>
