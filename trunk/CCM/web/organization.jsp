@@ -39,65 +39,30 @@
             dojo.require("dijit.form.Button");
         </script>
         <script type="text/javascript">
-            function init() {
-                fillTable();
-            }
-        
-            var peopleCache = { };
-            var viewed = null;
-        
+           
+           
+            var org;
             function fillTable() {
                 dwr.util.useLoadingMessage();
                 AjaxAdminService.getOrganization(function(people) {
-                    // Delete all the rows except for the "pattern" row
-                    dwr.util.removeAllRows("peoplebody", { filter:function(tr) {
-                            return (tr.id != "pattern");
-                        }});
-                    // Create a new set cloned from the pattern row
-                    var person, id;
-                    // people.sort(function(p1, p2) { return p1.macAddress.localeCompare(p2.macAddress); });
-                    for (var i = 0; i < people.length; i++) {
-                        person = people[i];
-                        id = person.id;
-                        dwr.util.cloneNode("pattern", { idSuffix:id });
-                        dwr.util.setValue("name" + id, person.name);
-                        dwr.util.setValue("enabled" + id, person.enabled);
-                        dwr.util.setValue("city" + id, person.city);
-                        dwr.util.setValue("street" + id, person.street);
-                        dwr.util.setValue("contact_name" + id, person.contact_name);
-                        dwr.util.setValue("contact_type" + id, person.contact_type);
-                        dwr.util.setValue("register_date" + id, person.register_date);
-                        dwr.util.setValue("contact_email" + id, person.contact_email);
-                        dwr.util.setValue("amount_rate" + id, person.amount_paid);
-                        $("pattern" + id).style.display = "table-row";
-                        peopleCache[id] = person;
-                    }
+                    org = people;
+                    dwr.util.setValues(people);
                 });
             }
         
-            function editClicked(eleid) {
-                // we were an id of the form "edit{id}", eg "edit42". We lookup the "42"
-                var person = peopleCache[eleid.substring(4)];
-                dwr.util.setValues(person);
-            }
-        
-            
         
             function writePerson() {
-                var person = { id:null, name:null, address:null, salary:null };
-                dwr.util.getValues(person);
+                
+                dwr.util.getValues(org);
         
                 //dwr.engine.beginBatch();
                 //People.setPerson(person);
-                AjaxAdminService.saveOrganization(person);
+                AjaxAdminService.saveOrganization(org);
                 fillTable();
                 //dwr.engine.endBatch();
             }
         
-            function clearPerson() {
-                viewed = null;
-                dwr.util.setValues({ id:null, name:null, enabled:true, city:null, street:null, contact_name:null, contact_type:null, register_date:null, contact_email:null, amount_paid:null,});
-            }
+            
         </script>
         
     </head>
@@ -136,58 +101,69 @@
         <br/>
         <table class="plain" align="center">
             <tr>
-                <td>Username:</td>
-                <td><input id="name" type="text" size="30"/></td>
-            </tr>
-            
-            <tr>
-                <td>Isworking:</td>
-                <td><input type="text" id="enabled" size="30"/></td>
+                <td>Organization:</td>
+                <td><input id="name" type="text" size="30" disabled="disabled" /></td>
             </tr>
             <tr>
-                <td>City:</td>
-                <td><input type="text" id="city" size="30"/></td>
+                <td>Active:</td>
+                <td><input id="enabled" type="text" size="30" disabled="disabled" /></td>
             </tr>
             <tr>
                 <td>Street:</td>
                 <td><input type="text" id="street" size="30"/></td>
             </tr>
             <tr>
-                <td>Contact_Name:</td>
-                <td><input type="text" id="contact_name" size="30"/></td>
+                <td>City:</td>
+                <td><input type="text" id="city" size="30"/></td>
             </tr>
             <tr>
-                <td>Contact_Type:</td>
-                <td><input type="text" id="contact_type" size="30"/></td>
+                <td>State:</td>
+                <td><input type="text" id="state" size="30"/></td>
             </tr>
             <tr>
-                <td>Register_Date:</td>
-                <td><input type="text" id="register_date" size="30"/></td>
+                <td>Zipcode:</td>
+                <td><input type="text" id="zipcode" size="30"/></td>
             </tr>
             <tr>
-                <td>Contact_Email:</td>
-                <td><input type="text" id="contact_email" size="30"/></td>
+                <td>Country:</td>
+                <td><input type="text" id="country" size="30"/></td>
             </tr>
             <tr>
-                <td>Amount_Paid:</td>
-                <td><input type="text" id="amount_paid" size="30"/></td>
+                <td>Contact Person</td>
+                <td><input type="text" id="contactName" size="30"/></td>
             </tr>
+            <tr>
+                <td>Contact Phone</td>
+                <td><input type="text" id="phone" size="30"/></td>
+            </tr>
+            <tr>
+                <td>Contact Email</td>
+                <td><input type="text" id="contactEmail" size="30"/></td>
+            </tr>
+            <tr>
+                <td>License</td>
+                <td><input type="text" id="licenceKey" size="30" disabled="disabled" /></td>
+            </tr>
+            <tr>
+                <td>Expiration Date</td>
+                <td><input type="text" id="expirationDate" size="30" disabled="disabled" /></td>
+            </tr>
+            
             
             
             <tr>
                 <td colspan="2" align="right">                    
-                    <input type="button" value="Save" onclick="writePerson()"/>
-                    <input type="button" value="Clear" onclick="clearPerson()"/>
+                    <input type="button" value="Save" onclick="writePerson()"/>                    
                 </td>
             </tr>
         </table>
         
-         <table witdth="80%" align="center">
+        <table witdth="80%" align="center">
             <tr>
                 
                 <td width="20%" align="center"><marquee > Your CyberCafe details </marquee></td>
                 <td width="80%" align="center"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-               
+                
             </tr>
         </table>
         
@@ -195,13 +171,13 @@
             onload = fillTable();
         </script>
         
-         <br>
+        <br>
         <br>
         <br> <br>
         <br>
         <br> <br>
         <br>
-
+        
         <p align="center">
             <font size="2"> &copy; Copyrights BizIntelApps 2008 All Rights Reserved. <a href="http://bizintelapps.net/"><font color="blue">BizIntelApps</font></a> </font>
         </p>
