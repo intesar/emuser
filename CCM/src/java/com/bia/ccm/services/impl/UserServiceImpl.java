@@ -6,9 +6,11 @@ package com.bia.ccm.services.impl;
 
 import com.bia.ccm.dao.AuthoritiesDao;
 import com.bia.ccm.dao.OrganizationDao;
+import com.bia.ccm.dao.SystemsDao;
 import com.bia.ccm.dao.UsersDao;
 import com.bia.ccm.entity.Authorities;
 import com.bia.ccm.entity.Organization;
+import com.bia.ccm.entity.Systems;
 import com.bia.ccm.entity.Users;
 import com.bia.ccm.services.EMailService;
 import com.bia.ccm.services.UserService;
@@ -40,16 +42,21 @@ public class UserServiceImpl implements UserService {
 
     }
 
-    public String registerNewOrganization(String organizationName, String city, String email, String password) {
+    public String registerNewOrganization(String organizationName, String city, String email, String password, Integer minutes, Integer rate) {
         Organization o = new Organization(organizationName, (short) 1, null, city,
                 email, city, null, "india", email, "trial", "ccm", 0, new Date(), "self");
         Users u = new Users(null, email, password, true, "admin", organizationName, email);
-        Authorities a1 =new Authorities(email, "ROLE_ADMIN");
-        Authorities a2 =new Authorities(email, "ROLE_USER");
+        Authorities a1 = new Authorities(email, "ROLE_ADMIN");
+        Authorities a2 = new Authorities(email, "ROLE_USER");
         this.usersDao.create(u);
         this.authoritiesDao.create(a1);
         this.authoritiesDao.create(a2);
         this.organizationDao.create(o);
+        //Double minuteRate = Double.parseDouble("" + minutes + "." + rate);
+        for (int i = 1; i <= 40; i++) {
+            Systems systems = new Systems(null, i, organizationName, true, null, minutes, rate, true);
+            this.systemsDao.create(systems);
+        }
         return "Please login with your email and password";
     }
 
@@ -68,10 +75,13 @@ public class UserServiceImpl implements UserService {
     public void setAuthoritiesDao(AuthoritiesDao authoritiesDao) {
         this.authoritiesDao = authoritiesDao;
     }
-    
-    
+
+    public void setSystemsDao(SystemsDao systemsDao) {
+        this.systemsDao = systemsDao;
+    }
     private UsersDao usersDao;
     private EMailService eMailService = new EMailServiceImpl();
     private OrganizationDao organizationDao;
     private AuthoritiesDao authoritiesDao;
+    private SystemsDao systemsDao;
 }

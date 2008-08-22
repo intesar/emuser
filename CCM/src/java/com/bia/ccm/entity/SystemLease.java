@@ -173,7 +173,7 @@ public class SystemLease implements Serializable {
         String pattern = "yyyy.MM.dd hh:mm aaa";
         SimpleDateFormat sdf = new SimpleDateFormat(pattern);
 
-        return sdf.format(this.startTime);
+        return sdf.format(this.endTime);
     }
 
     public void setEndTimeString(String endTimeString) {
@@ -184,7 +184,7 @@ public class SystemLease implements Serializable {
         String pattern = "yyyy.MM.dd hh:mm aaa";
         SimpleDateFormat sdf = new SimpleDateFormat(pattern);
 
-        return sdf.format(this.endTime);
+        return sdf.format(this.startTime);
     }
 
     public void setStartTimeString(String startTimeString) {

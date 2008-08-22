@@ -45,8 +45,10 @@ public class Systems implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date expectedFreeTime;
     @Column(name = "description")
-    private String description;
-    @Column(name = "minute_rate", nullable = false)
+    private String description;    
+    @Column(name = "minimum_minutes", nullable = false)
+    private Integer minimumMinutes;
+    @Column(name = "rate", nullable = false)
     private double minuteRate;
     @Column(name = "enabled", nullable = false)
     private boolean enabled;
@@ -75,14 +77,16 @@ public class Systems implements Serializable {
         this.id = id;
     }
 
-    public Systems(Integer id, int name, String organization, boolean isAvailable, Date expectedFreeTime, double minuteRate, boolean enabled) {
+    public Systems(Integer id, int name, String organization, boolean isAvailable, Date expectedFreeTime, Integer minimumMinutes, double minuteRate, boolean enabled) {
         this.id = id;
         this.name = name;
         this.organization = organization;
         this.isAvailable = isAvailable;
         this.expectedFreeTime = expectedFreeTime;
+        this.minimumMinutes = minimumMinutes;
         this.minuteRate = minuteRate;
         this.enabled = enabled;
+        this.macAddress=organization+name;
     }
 
     public Integer getId() {
@@ -213,6 +217,15 @@ public class Systems implements Serializable {
         this.systemsPingCollection = systemsPingCollection;
     }
 
+    public Integer getMinimumMinutes() {
+        return minimumMinutes;
+    }
+
+    public void setMinimumMinutes(Integer minimumMinutes) {
+        this.minimumMinutes = minimumMinutes;
+    }
+
+    
     @Override
     public int hashCode() {
         int hash = 0;
