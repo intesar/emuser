@@ -62,6 +62,7 @@
                         dwr.util.cloneNode("pattern", { idSuffix:id });
                         dwr.util.setValue("name1" + id, person.name);
                         dwr.util.setValue("description1" + id, person.description);
+                        dwr.util.setValue("minimumMinutes1" + id, person.minimumMinutes);
                         dwr.util.setValue("minuteRate1" + id, person.minuteRate);
                         dwr.util.setValue("enabled1" + id, person.enabled);
                         dwr.util.setValue("macAddress1" + id, person.macAddress);
@@ -130,66 +131,117 @@
             </tr>
         </table> 
         
-    
+        
         <br/>
         <br/>
         
-        <table border="2" class="rowed grey" align="center" bordercolor="#EDDA74">
-            <thead>
-                <tr>
-                    <th>No</th>
-                    <th>MacAddress</th>
-                    <th>Description</th>
-                    <th>IsWorking</th>
-                    <th>Usage Rate</th>
-                </tr>
-            </thead>
-            <tbody id="peoplebody">
-                <tr id="pattern" style="display:none;">
-                    <td><span id="name1">No</span></td>
-                    <td><span id="macAddress1">MacAddress</span></td>
-                    <td><span id="description1">Description</span></td>
-                    <td><span id="enabled1">IsWorking</span></td>
-                    <td><span id="minuteRate1">Usage Rate</span></td>
-                    <td>
-                        <input id="edit" type="button" value="Edit" onclick="editClicked(this.id)"/>                        
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        
-        <br>
-        <br>    
-        <table class="plain" align="center">
-            <tr>
-                <td>No:</td>
-                <td><input id="name" type="text" size="30"/></td>
-            </tr>
-            <tr>
-                <td>MacAddress:</td>
-                <td><input id="macAddress" type="text" size="30"/></td>
-            </tr>
-            <tr>
-                <td>Descrption:</td>
-                <td><input type="text" id="description" size="30"/></td>
-            </tr>
-            <tr>
-                <td>Is Working:</td>
-                <td><input type="text" id="enabled" size="30"/></td>
-            </tr>
-            <tr>
-                <td>Rate:</td>
-                <td><input type="text" id="minuteRate" size="30"/></td>
-            </tr>
-            <tr>
-                <td colspan="2" align="right">                    
-                    <input type="button" value="Save" onclick="writePerson()"/>
-                    <input type="button" value="Clear" onclick="clearPerson()"/>
+        <table align="center">
+            <tr align="top">
+                <td align="top">
+                    <table border="2" class="rowed grey" align="center" bordercolor="#EDDA74">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>MacAddress</th>
+                                <th>Description</th>
+                                <th>IsWorking</th>
+                                <th>Minimum Minutes</th>
+                                <th>Rate</th>
+                            </tr>
+                        </thead>
+                        <tbody id="peoplebody">
+                            <tr id="pattern" style="display:none;">
+                                <td><span id="name1">No</span></td>
+                                <td><span id="macAddress1">MacAddress</span></td>
+                                <td><span id="description1">Description</span></td>
+                                <td><span id="enabled1">IsWorking</span></td>
+                                <td><span id="minimumMinutes1">Min Minutes</span></td>
+                                <td><span id="minuteRate1">Usage Rate</span></td>
+                                <td>
+                                    <input id="edit" type="button" value="Edit" onclick="editClicked(this.id)"/>                        
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+                <td align="top">
+                    
+                    <table class="plain" align="center">
+                        <tr>
+                            <td>No:</td>
+                            <td><select name="name" disabled="disabled">
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    <option>5</option>
+                                    <option>6</option>
+                                    <option>7</option>
+                                    <option>8</option>
+                                    <option>9</option>
+                                    <option>10</option>
+                                    <option>11</option>
+                                    <option>12</option>
+                                    <option>13</option>
+                                    <option>14</option>
+                                    <option>15</option>
+                                    <option>16</option>
+                                    <option>17</option>
+                                    <option>18</option>
+                                    <option>19</option>
+                                    <option>20</option>
+                                    <option>21</option>
+                                    <option>22</option>
+                                    <option>23</option>
+                                    <option>24</option>
+                                    <option>25</option>
+                                    <option>26</option>
+                                    <option>27</option>
+                                    <option>28</option>
+                                    <option>29</option>
+                                    <option>30</option>
+                            </select></td>
+                        </tr>
+                        <tr>
+                            <td>MacAddress:</td>
+                            <td><input id="macAddress" type="text" size="30"/></td>
+                        </tr>
+                        <tr>
+                            <td>Descrption:</td>
+                            <td><input type="text" id="description" size="30"/></td>
+                        </tr>
+                        <tr>
+                            <td>Is Working:</td>
+                            <td><select name="enabled">
+                                    <option>true</option>
+                                    <option>false</option>
+                            </select></td>
+                        </tr>
+                        <tr>
+                            <td>Minimum Minutes</td>
+                            <td><input type="text" id="minimumMinutes" size="30"/></td>
+                        </tr>
+                        <tr>
+                            <td>Rate:</td>
+                            <td><input type="text" id="minuteRate" size="30"/></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" align="right">                    
+                                <input type="button" value="Save" onclick="writePerson()"/>
+                                <input type="button" value="Clear" onclick="clearPerson()"/>
+                            </td>
+                        </tr>
+                    </table>
                 </td>
             </tr>
         </table>
         
-         <table witdth="80%" align="center">
+        
+        
+        <br>
+        <br>    
+        
+        <table witdth="80%" align="center">
             <tr>
                 
                 <td width="15%" align="center"> Owner can add new systems or remove old systems which are not working properly</td>
@@ -205,7 +257,7 @@
         </script>
     </body>
     <p align="center">
-            <font size="2"> &copy; Copyrights BizIntelApps 2008 All Rights Reserved. <a href="http://bizintelapps.net/"><font color="blue">BizIntelApps</font></a> </font>
-        </p>
+        <font size="2"> &copy; Copyrights BizIntelApps 2008 All Rights Reserved. <a href="http://bizintelapps.net/"><font color="blue">BizIntelApps</font></a> </font>
+    </p>
     
 </html>

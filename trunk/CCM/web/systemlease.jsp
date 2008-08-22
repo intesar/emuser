@@ -58,6 +58,7 @@
                     id = person.id;
                     dwr.util.cloneNode("pattern", { idSuffix:id });
                     dwr.util.setValue("leaseHolderName" + id, person.leaseHolderName);
+                    dwr.util.setValue("system" + id, person.system);
                     dwr.util.setValue("startTimeString" + id, person.startTimeString);
                     dwr.util.setValue("endTimeString" + id, person.endTimeString);
                     dwr.util.setValue("totalMinutesUsed" + id, person.totalMinutesUsed);
@@ -133,6 +134,7 @@
             <thead>
                 <tr>
                     <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; User &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                    <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                     <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Start Time &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                     <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; End Time &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                     <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Minutes Used &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
@@ -146,6 +148,7 @@
                 <tbody id="peoplebody">
                     <tr id="pattern" style="display:none;">
                         <td><span id="leaseHolderName">Username</span></td>
+                        <td><span id="system">System</span></td>
                         <td><span id="startTimeString">Start Time</span></td>
                         <td><span id="endTimeString">End Time</span></td>
                         <td><span id="totalMinutesUsed">Total Minutes</span></td>
