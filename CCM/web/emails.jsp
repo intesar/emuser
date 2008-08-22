@@ -135,7 +135,7 @@
         <table border="2" class="rowed grey" align="center"  bordercolor="#EDDA74">
             <thead>
                 <tr>
-                    <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Username &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                    <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Name &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                     <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Email_or_Phone &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                     <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Service_Provider &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
                     
@@ -161,7 +161,7 @@
         
         <table class="plain" align="center">
             <tr>
-                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Username: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Name: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
                 <td><input id="username" type="text" size="30"/></td>
             </tr>
             <br>
@@ -171,7 +171,12 @@
             </tr> 
             <tr>
                 <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Service_Provider &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                <td><input id="serviceProvider" type="text" size="30"/></td>
+                <td><select name="serviceProvider">
+                        <option>airtel</option>
+                        <option>bsnl</option>
+                        <option>idea</option>
+                        <option>NA</option>
+                </select></td>
             </tr>
             
             <tr>

@@ -22,9 +22,11 @@
                 var u = dwr.util.getValue("email");
                 var p = dwr.util.getValue("password");
                 var cp = dwr.util.getValue("confirmPassword");
+                var minutes = dwr.util.getValue("minutes");
+                var rate = dwr.util.getValue("rate");
                 //alert ( c + u + p + cp);
                 if ( p == cp) {
-                    AjaxUserService.registerNewOrganization ( c, "hyd", u, p, reply1);
+                    AjaxUserService.registerNewOrganization ( c, "hyd", u, p, minutes, rate, reply1);
                 } else {
                     alert ( " Password & ConfirmPassword donot match");
                 }
@@ -95,7 +97,7 @@
     
     <body>
         
-
+        
         <table align="center" bordercolor="#EDDA74" border="2" rules="none" width="80%">
             <tr>
                 <td>
@@ -128,9 +130,9 @@
             </tr>
         </table>
         <br>
-       
+        
         <p align="left"><font size="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         Register Your CyberCafe</font></p> 
         
         <table border="2" width="80%" align="center" rules="none" bordercolor="#EDDA74">
@@ -154,6 +156,46 @@
                         <tr>
                             <td>Confirm Password</td>
                             <td><input type="password" name="confirmPassword" value="" size="30" /></td>
+                        </tr>
+                        <tr>
+                            <td>Minimum Minute Rate</td>
+                            <td><select name="minutes">
+                                    <option value="15">Minimum 15 Minutes</option>
+                                    <option value="30">Minimum 30 Minutes</option>
+                                    <option value="60">Minimum 60 Minutes</option>
+                                </select>
+                                <select name="rate">
+                                    <option value="1">Rs 1</option>
+                                    <option value="2">Rs 2</option>
+                                    <option value="3">Rs 3</option>
+                                    <option value="4">Rs 4</option>
+                                    <option value="5">Rs 5</option>
+                                    <option value="6">Rs 6</option>
+                                    <option value="7">Rs 7</option>
+                                    <option value="8">Rs 8</option>
+                                    <option value="9">Rs 9</option>
+                                    <option value="10">Rs 10</option>
+                                    <option value="11">Rs 11</option>
+                                    <option value="12">Rs 12</option>
+                                    <option value="13">Rs 13</option>
+                                    <option value="14">Rs 14</option>
+                                    <option value="15">Rs 15</option>
+                                    <option value="16">Rs 16</option>
+                                    <option value="17">Rs 17</option>
+                                    <option value="18">Rs 18</option>
+                                    <option value="19">Rs 19</option>
+                                    <option value="20">Rs 20</option>
+                                    <option value="21">Rs 21</option>
+                                    <option value="22">Rs 22</option>
+                                    <option value="23">Rs 23</option>
+                                    <option value="24">Rs 24</option>
+                                    <option value="25">Rs 25</option>
+                                    <option value="26">Rs 26</option>
+                                    <option value="27">Rs 27</option>
+                                    <option value="28">Rs 28</option>
+                                    <option value="29">Rs 29</option>
+                                    <option value="30">Rs 30</option>
+                            </select></td>
                         </tr>
                         <tr>
                             <td></td>
@@ -181,16 +223,16 @@
             </tr>
             
         </table>
-         <br>
+        <br>
         <br>
         <br> <br>
         <br>
         <br> <br>
         <br>
-     
+        
         <p align="center">
             <font size="2"> &copy; Copyrights BizIntelApps 2008 All Rights Reserved. <a href="http://bizintelapps.net/"><font color="blue">BizIntelApps</font></a> </font>
         </p>
-       
+        
     </body>
 </html>

@@ -61,6 +61,7 @@
                         id = person.id;
                         dwr.util.cloneNode("pattern", { idSuffix:id });
                         dwr.util.setValue("username1" + id, person.username);
+                        dwr.util.setValue("name1" + id, person.name);
                         dwr.util.setValue("password1" + id, person.password);
                         dwr.util.setValue("enabled1" + id, person.enabled);
                         dwr.util.setValue("role1" + id, person.role);
@@ -70,6 +71,7 @@
                         peopleCache[id] = person;
                     }
                 });
+                document.getElementById("username").disabled=true;
             }
         
             function editClicked(eleid) {
@@ -77,6 +79,7 @@
                 var person = peopleCache[eleid.substring(4)];
                 viewed = person.id;
                 dwr.util.setValues(person);
+                document.getElementById("username").disabled=true;
             }
         
             
@@ -84,7 +87,7 @@
             function writePerson() {
                 var person;
                 if ( viewed == null ) {
-                    person = { id:viewed, username:null, password:null, enabled:null, role:null, phone:null };
+                    person = { id:viewed, username:null, name:null, password:null, enabled:null, role:null, phone:null };
                 } else {
                     person = peopleCache[viewed];
                 }
@@ -104,7 +107,9 @@
         
             function clearPerson() {
                 viewed = null;
-                dwr.util.setValues({ id:null, username:null, password:null, enabled:null, role:null, phone:null });
+                dwr.util.setValues({ id:null, username:null, name:null, password:null, enabled:null, role:null, phone:null });
+                document.getElementById("username").disabled=false;
+
             }
         </script>
     </head>
@@ -138,71 +143,94 @@
         
         <br/>
         <br/>
-        <table border="2" class="rowed grey" align="center" bordercolor="#EDDA74">
-            <thead>
-                <tr>
-                    <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Username &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+        
+        <table align="center">
+            <tr>
+                <td>
+                    <table border="2" class="rowed grey" align="center" bordercolor="#EDDA74">
+                        <thead>
+                            <tr>
+                                <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Email &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                                <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Name &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                                <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Active  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                                <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Role &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                                <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Phone &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                                
+                                
+                            </tr>
+                        </thead>
+                        <form>
+                            <tbody id="peoplebody">
+                                <tr id="pattern" style="display:none;">
+                                    <td><span id="username1">username</span></td>                        
+                                    <td><span id="name1">name</span></td>     
+                                    <td><span id="enabled1">enabled</span></td>
+                                    <td><span id="role1">role</span></td>
+                                    <td><span id="phone1">phone</span></td>
+                                    
+                                    
+                                    <td>
+                                        <input id="edit" type="button" value="Edit" onclick="editClicked(this.id)"/>                        
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </form>
+                    </table>
                     
-                    <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Active  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                    <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Role &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                    <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Phone no &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                    
-                    
-                </tr>
-            </thead>
-            <form>
-                <tbody id="peoplebody">
-                    <tr id="pattern" style="display:none;">
-                        <td><span id="username1">username</span></td>                        
-                        <td><span id="enabled1">enabled</span></td>
-                        <td><span id="role1">role</span></td>
-                        <td><span id="phone1">phone</span></td>
+                </td>
+                <td>
+                    <table class="plain" align="center">
+                        
+                        <tr>
+                            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Email: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                            <td><input id="username" type="text" size="30" disabled="disabled"/></td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Name: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                            <td><input id="name" type="text" size="30"/></td>
+                        </tr>
+                        
+                        <tr>
+                            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Password &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                            <td><input id="password" type="password" size="30"/></td>
+                        </tr> 
+                        <tr>
+                            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Enabled &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                            <td><select name="enabled">
+                                    <option>true</option>
+                                    <option>false</option>
+                            </select></td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Role &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                            <td><select name="role">
+                                    <option>admin</option>
+                                    <option>employee</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Phone &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                            <td><input id="phone" type="text" size="30"/></td>
+                        </tr>          
+                        <tr>
+                            <td colspan="2" align="right">                    
+                                <input type="button" value="Save" onclick="writePerson()"/>
+                                <input type="button" value="Clear" onclick="clearPerson()"/>
+                            </td>
+                        </tr> 
                         
                         
-                        <td>
-                            <input id="edit" type="button" value="Edit" onclick="editClicked(this.id)"/>                        
-                        </td>
-                    </tr>
-                </tbody>
-            </form>
+                        
+                    </table>
+                    
+                </td>
+            </tr>
         </table>
         
         
-        <table class="plain" align="center">
-            
-                <tr>
-                    <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Username: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                    <td><input id="username" type="text" size="30"/></td>
-                </tr>
-                <br>
-                <tr>
-                    <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Password &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                    <td><input id="password" type="password" size="30"/></td>
-                </tr> 
-                <tr>
-                    <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Enabled &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                    <td><input id="enabled" type="text" size="30"/></td>
-                </tr>
-                <tr>
-                    <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Role &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                    <td><input id="role" type="text" size="30"/></td>
-                </tr>
-                <tr>
-                    <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Phone &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                    <td><input id="phone" type="text" size="30"/></td>
-                </tr>          
-                <tr>
-                    <td colspan="2" align="right">                    
-                        <input type="button" value="Save" onclick="writePerson()"/>
-                        <input type="button" value="Clear" onclick="clearPerson()"/>
-                    </td>
-                </tr> 
-                
-               
-                
-            </table>
-            
-            
+        
+        
         
         <table witdth="80%">
             <tr>
@@ -220,6 +248,6 @@
     </body>
     
     <p align="center">
-            <font size="2"> &copy; Copyrights BizIntelApps 2008 All Rights Reserved. <a href="http://bizintelapps.net/"><font color="blue">BizIntelApps</font></a> </font>
-        </p>
+        <font size="2"> &copy; Copyrights BizIntelApps 2008 All Rights Reserved. <a href="http://bizintelapps.net/"><font color="blue">BizIntelApps</font></a> </font>
+    </p>
 </html>
