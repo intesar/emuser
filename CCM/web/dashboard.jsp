@@ -360,8 +360,10 @@
                 } else {
                     //if ( confirm("Are you sure your want to unlease this Computer? ") ) {
                         var x;
+                        //alert ( system.id );
                         AjaxWorkService.getPayableAmount(system.id, function(data) {
-                            if ( (x = prompt("Payable Amount : " + data,data) ) != null ) {
+                            //alert ( data.detail );
+                            if ( (x = prompt(data.detail,data.payableAmount) ) != null ) {
                                 AjaxWorkService.unleaseSystem(system.id, x, function(data) {
                                     alert ( data );
                                 } );

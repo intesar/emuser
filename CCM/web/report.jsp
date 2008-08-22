@@ -39,10 +39,14 @@
             }
             
             var reply1 = function(data) {
+                var str1= "total Minutes : " + data[0][0] ;
+                    var str2 = "Total Payable Amount : " + data[0][1];
+                    var str3 = "Total Paid Amount : " + data[0][2];
+                dwr.util.setValue("id1", str1);
+                dwr.util.setValue("id2", str2);
+                dwr.util.setValue("id3", str3);
+
                 
-                alert ( "total Minutes : " + data[0][0] + "\n " +
-                    "Total Payable Amount : " + data[0][1] + "\n " +
-                    "Total Paid Amount : " + data[0][2] );
             
                 //alert (data);
             
@@ -101,8 +105,12 @@
                 </td>
             </tr>
         </table>
-         <br>
         <br>
+        <br>
+        
+        <span id="id1"></span><br>
+        <span id="id2"></span><br>
+        <span id="id3"></span><br>
         <br> <br>
         <br>
         <br> <br>
@@ -117,7 +125,7 @@
         <br>
         <br> <br>
         <br>
-     
+        
         <p align="center">
             <font size="2"> &copy; Copyrights BizIntelApps 2008 All Rights Reserved. <a href="http://bizintelapps.net/"><font color="blue">BizIntelApps</font></a> </font>
         </p>        
