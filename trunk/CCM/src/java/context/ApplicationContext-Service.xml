@@ -31,6 +31,7 @@
         <property name="usersDao" ref="usersDao" />
         <property name="organizationDao" ref="organizationDao" />
         <property name="authoritiesDao" ref="authoritiesDao" />
+        <property name="systemsDao" ref="systemsDao" />
     </bean>
     <bean id="workServiceImpl" class="com.bia.ccm.services.impl.WorkServiceImpl" >
         <property name="usersDao" ref="usersDao" />

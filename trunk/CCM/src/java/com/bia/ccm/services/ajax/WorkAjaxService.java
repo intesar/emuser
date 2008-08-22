@@ -6,6 +6,7 @@ package com.bia.ccm.services.ajax;
 
 import com.bia.ccm.entity.Customer;
 import com.bia.ccm.entity.Systems;
+import com.bia.ccm.entity.UsageDetail;
 import com.bia.ccm.services.WorkService;
 import com.bia.ccm.util.AcegiUtil;
 import com.bia.ccm.util.ServiceFactory;
@@ -53,7 +54,7 @@ public class WorkAjaxService {
 
     }
 
-    public double getPayableAmount(int id) {
+    public UsageDetail getPayableAmount(int id) {
         return this.workService.getPayableAmount(id);
     }
 
@@ -170,6 +171,7 @@ public class WorkAjaxService {
         Customer c = new Customer(null, "Intesar shannan Mohammed", "intesar.mohammed@bizintelapps.com",
                 "9-4-62/23 nizam colony, towli chowki", "hyderabad", "500008", "ap", "india", new Date(), "male");
         // System.out.println ( was.createCustomer());
-        System.out.println(was.getCustomer("intesar.mohammed@bizintelapps.com").getName());
+//        System.out.println(was.getCustomer("intesar.mohammed@bizintelapps.com").getName());
+        System.out.println ( was.getPayableAmount(277));
     }
 }
