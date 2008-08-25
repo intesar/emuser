@@ -11,6 +11,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <jsp:include page="dhtml_goodies_include.jsp" />
         <style>
             a:link    {color:black; text-decoration:none; font-size:11pt}
             a:hover   {color:black; text-decoration:none; 
@@ -28,16 +29,7 @@
         <script type='text/javascript' src='/CCM/dwr/interface/AjaxAdminService.js'></script>
         <script type='text/javascript' src='/CCM/dwr/engine.js'></script>        
         <script type='text/javascript' src='/CCM/dwr/util.js'></script>
-        <style type="text/css">
-            @import "dojo/dijit/themes/tundra/tundra.css";
-            @import "dojo/dojo/resources/dojo.css"
-        </style>
-        <script type="text/javascript" src="dojo/dojo/dojo.js" 
-                djConfig="parseOnLoad: true"></script>
-        <script type="text/javascript">
-            dojo.require("dojo.parser");
-            dojo.require("dijit.form.Button");
-        </script>
+       
         <script type="text/javascript">
             function init() {
                 fillTable();
@@ -60,12 +52,9 @@
                         person = people[i];
                         id = person.id;
                         dwr.util.cloneNode("pattern", { idSuffix:id });
-                        dwr.util.setValue("username1" + id, person.username);
-                        dwr.util.setValue("name1" + id, person.name);
-                        dwr.util.setValue("password1" + id, person.password);
+                        dwr.util.setValue("username1" + id, person.username); 
                         dwr.util.setValue("enabled1" + id, person.enabled);
-                        dwr.util.setValue("role1" + id, person.role);
-                        dwr.util.setValue("phone1" + id, person.phone);
+                        dwr.util.setValue("role1" + id, person.role); 
                         
                         $("pattern" + id).style.display = "table-row";
                         peopleCache[id] = person;
@@ -112,49 +101,25 @@
 
             }
         </script>
+        
+      <jsp:include page="table_style.jsp" ></jsp:include>
     </head>
     <body>
-        <br><br>
-        <table width="85%"  height="30" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#EDDA74">
-            <tr> 
-                <td><a href="dashboard.jsp">&nbsp;&nbsp;Dashboard</a></td>
-                <td>&nbsp;&nbsp;&nbsp;</td>
-                <td><a href="users.jsp">Users</a></td>
-                <td>&nbsp;&nbsp;&nbsp;</td>
-                <td><a href="systems.jsp">Systems</a></td>
-                <td>&nbsp;&nbsp;&nbsp;</td>
-                <td><a href="emails.jsp">Emails</a></td>
-                <td>&nbsp;&nbsp;&nbsp;</td>
-                <td><a href="emailtimings.jsp">Email & SMS Timing</a></td>
-                <td>&nbsp;&nbsp;&nbsp;</td>    
-                <td><a href="organization.jsp">Organization</a></td>
-                <td>&nbsp;&nbsp;&nbsp;</td>
-                <td><a href="systemlease.jsp">History</a></td>
-                <td>&nbsp;&nbsp;&nbsp;</td>
-                <td><a href="report.jsp">Report</a></td>
-                <td>&nbsp;&nbsp;&nbsp;</td>
-                <td><a href="customer.jsp">Customer</a></td>
-                <td>&nbsp;&nbsp;&nbsp;</td>
-                <td><a href="suggestions.jsp">Suggestions</a></td>
-                <td>&nbsp;&nbsp;&nbsp;</td>
-                <td><a href="j_acegi_logout">Logout &nbsp;&nbsp;</a></td> 
-            </tr>
-        </table> 
         
-        <br/>
-        <br/>
+        <jsp:include page="include.jsp" />
         
         <table align="center">
+            
+            
             <tr>
                 <td>
-                    <table border="2" class="rowed grey" align="center" bordercolor="#EDDA74">
+                    <table>
+                        
                         <thead>
                             <tr>
-                                <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Email &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                                <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Name &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                                <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Active  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                                <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Role &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                                <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Phone &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                                <th>Email</th>
+                                <th>Active</th>
+                                <th>Role</th>
                                 
                                 
                             </tr>
@@ -162,11 +127,9 @@
                         <form>
                             <tbody id="peoplebody">
                                 <tr id="pattern" style="display:none;">
-                                    <td><span id="username1">username</span></td>                        
-                                    <td><span id="name1">name</span></td>     
+                                    <td><span id="username1">username</span></td>  
                                     <td><span id="enabled1">enabled</span></td>
-                                    <td><span id="role1">role</span></td>
-                                    <td><span id="phone1">phone</span></td>
+                                    <td><span id="role1">role</span></td> 
                                     
                                     
                                     <td>
@@ -179,30 +142,37 @@
                     
                 </td>
                 <td>
-                    <table class="plain" align="center">
-                        
+                    <table>
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>
+                                    User
+                                </th>
+                            </tr>
+                        </thead>
                         <tr>
-                            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Email: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                            <td> Email: </td>
                             <td><input id="username" type="text" size="30" disabled="disabled"/></td>
                         </tr>
                         <tr>
-                            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Name: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                            <td>  Name:  </td>
                             <td><input id="name" type="text" size="30"/></td>
                         </tr>
                         
                         <tr>
-                            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Password &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                            <td> Password </td>
                             <td><input id="password" type="password" size="30"/></td>
                         </tr> 
                         <tr>
-                            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Enabled &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                            <td> Enabled </td>
                             <td><select name="enabled">
                                     <option>true</option>
                                     <option>false</option>
                             </select></td>
                         </tr>
                         <tr>
-                            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Role &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                            <td>  Role </td>
                             <td><select name="role">
                                     <option>admin</option>
                                     <option>employee</option>
@@ -210,13 +180,14 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Phone &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                            <td> Phone </td>
                             <td><input id="phone" type="text" size="30"/></td>
                         </tr>          
                         <tr>
-                            <td colspan="2" align="right">                    
+                        <td></td>
+                        <td>
                                 <input type="button" value="Save" onclick="writePerson()"/>
-                                <input type="button" value="Clear" onclick="clearPerson()"/>
+                                <input type="button" value="New" onclick="clearPerson()"/>
                             </td>
                         </tr> 
                         
@@ -232,22 +203,12 @@
         
         
         
-        <table witdth="80%">
-            <tr>
-                
-                <td width="20%">  Owner can see the users (employees)&nbsp;&nbsp;&nbsp; who belong to his Cybercafe</td>
-                <td width="65%"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                <td width="15%"> Owner can create a new user and can also edit the details of the user which is already created.</td>
-                
-                
-            </tr>
-        </table>
+        
         <script type="text/javascript">
             onload = fillTable();
         </script>
     </body>
     
-    <p align="center">
-        <font size="2"> &copy; Copyrights BizIntelApps 2008 All Rights Reserved. <a href="http://bizintelapps.net/"><font color="blue">BizIntelApps</font></a> </font>
-    </p>
+    <jsp:include page="users_help.jsp" />
+    <jsp:include page="copyright.jsp" />
 </html>

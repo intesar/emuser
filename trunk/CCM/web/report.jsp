@@ -11,6 +11,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <jsp:include page="dhtml_goodies_include.jsp" />
         <style>
             a:link    {color:black; text-decoration:none; font-size:11pt}
             a:hover   {color:black; text-decoration:none; 
@@ -40,8 +41,8 @@
             
             var reply1 = function(data) {
                 var str1= "total Minutes : " + data[0][0] ;
-                    var str2 = "Total Payable Amount : " + data[0][1];
-                    var str3 = "Total Paid Amount : " + data[0][2];
+                var str2 = "Total Payable Amount : " + data[0][1];
+                var str3 = "Total Paid Amount : " + data[0][2];
                 dwr.util.setValue("id1", str1);
                 dwr.util.setValue("id2", str2);
                 dwr.util.setValue("id3", str3);
@@ -53,42 +54,23 @@
             }
         </script>
         
+       <jsp:include page="table_style.jsp" ></jsp:include>
     </head>
     <body>
-        <br><br>
-        <table width="85%"  height="30" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#EDDA74">
-            <tr> 
-                <td><a href="dashboard.jsp">&nbsp;&nbsp;Dashboard</a></td>
-                <td>&nbsp;&nbsp;&nbsp;</td>
-                <td><a href="users.jsp">Users</a></td>
-                <td>&nbsp;&nbsp;&nbsp;</td>
-                <td><a href="systems.jsp">Systems</a></td>
-                <td>&nbsp;&nbsp;&nbsp;</td>
-                <td><a href="emails.jsp">Emails</a></td>
-                <td>&nbsp;&nbsp;&nbsp;</td>
-                <td><a href="emailtimings.jsp">Email & SMS Timing</a></td>
-                <td>&nbsp;&nbsp;&nbsp;</td>    
-                <td><a href="organization.jsp">Organization</a></td>
-                <td>&nbsp;&nbsp;&nbsp;</td>
-                <td><a href="systemlease.jsp">History</a></td>
-                <td>&nbsp;&nbsp;&nbsp;</td>
-                <td><a href="report.jsp">Report</a></td>
-                <td>&nbsp;&nbsp;&nbsp;</td>
-                <td><a href="customer.jsp">Customer</a></td>
-                <td>&nbsp;&nbsp;&nbsp;</td>
-                <td><a href="suggestions.jsp">Suggestions</a></td>
-                <td>&nbsp;&nbsp;&nbsp;</td>
-                <td><a href="j_acegi_logout">Logout &nbsp;&nbsp;</a></td> 
-            </tr>
-        </table> 
+        
+        <jsp:include page="include.jsp" />
         
         
-        <br/>
-        <br/>
-        <br/>
         
         
         <table align="center">
+            <thead>
+                <tr>
+                    <th>
+                        Report
+                    </th>
+                </tr>
+            </thead>
             <tr> <td>   
                     <input type="hidden" id="DPC_TODAY_TEXT" value="today">
                     <input type="hidden" id="DPC_BUTTON_TITLE" value="Open calendar...">
@@ -108,26 +90,20 @@
         <br>
         <br>
         
-        <span id="id1"></span><br>
-        <span id="id2"></span><br>
-        <span id="id3"></span><br>
-        <br> <br>
-        <br>
-        <br> <br>
-        <br>
-        <br> <br>
-        <br>
-        <br> <br>
-        <br>
-        <br> <br>
-        <br>
-        <br> <br>
-        <br>
-        <br> <br>
-        <br>
+        <div align="center">
+            <table>
+                <tr>
+                    <td><span id="id1"></span><br></td>
+                    <td><span id="id2"></span><br></td>
+                    <td><span id="id3"></span><br></td>
+                </tr>
+            </table>
+        </div>
         
-        <p align="center">
-            <font size="2"> &copy; Copyrights BizIntelApps 2008 All Rights Reserved. <a href="http://bizintelapps.net/"><font color="blue">BizIntelApps</font></a> </font>
-        </p>        
+        
+        
+        
+        <jsp:include page="report_help.jsp" />      
+        <jsp:include page="copyright.jsp" />
     </body>
 </html>

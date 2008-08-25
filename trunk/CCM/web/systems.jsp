@@ -11,6 +11,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <jsp:include page="dhtml_goodies_include.jsp" />
         <style>
             a:link    {color:black; text-decoration:none; font-size:11pt}
             a:hover   {color:black; text-decoration:none; 
@@ -28,16 +29,7 @@
         <script type='text/javascript' src='/CCM/dwr/interface/AjaxAdminService.js'></script>
         <script type='text/javascript' src='/CCM/dwr/engine.js'></script>        
         <script type='text/javascript' src='/CCM/dwr/util.js'></script>
-        <style type="text/css">
-            @import "dojo/dijit/themes/tundra/tundra.css";
-            @import "dojo/dojo/resources/dojo.css"
-        </style>
-        <script type="text/javascript" src="dojo/dojo/dojo.js" 
-                djConfig="parseOnLoad: true"></script>
-        <script type="text/javascript">
-            dojo.require("dojo.parser");
-            dojo.require("dijit.form.Button");
-        </script>
+        
         <script type="text/javascript">
             function init() {
                 fillTable();
@@ -62,10 +54,6 @@
                         dwr.util.cloneNode("pattern", { idSuffix:id });
                         dwr.util.setValue("name1" + id, person.name);
                         dwr.util.setValue("description1" + id, person.description);
-                        dwr.util.setValue("minimumMinutes1" + id, person.minimumMinutes);
-                        dwr.util.setValue("minuteRate1" + id, person.minuteRate);
-                        dwr.util.setValue("enabled1" + id, person.enabled);
-                        dwr.util.setValue("macAddress1" + id, person.macAddress);
                         $("pattern" + id).style.display = "table-row";
                         peopleCache[id] = person;
                     }
@@ -102,105 +90,51 @@
                 dwr.util.setValues({ id:null, name:null, description:null, minuteRate:null, enabled:null, macAddress:null });
             }
         </script>
+        
+       <jsp:include page="table_style.jsp" ></jsp:include>
     </head>
     <body>
-        <br><br>
-        <table width="85%"  height="30" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#EDDA74">
-            <tr> 
-                <td><a href="dashboard.jsp">&nbsp;&nbsp;Dashboard</a></td>
-                <td>&nbsp;&nbsp;&nbsp;</td>
-                <td><a href="users.jsp">Users</a></td>
-                <td>&nbsp;&nbsp;&nbsp;</td>
-                <td><a href="systems.jsp">Systems</a></td>
-                <td>&nbsp;&nbsp;&nbsp;</td>
-                <td><a href="emails.jsp">Emails</a></td>
-                <td>&nbsp;&nbsp;&nbsp;</td>
-                <td><a href="emailtimings.jsp">Email & SMS Timing</a></td>
-                <td>&nbsp;&nbsp;&nbsp;</td>    
-                <td><a href="organization.jsp">Organization</a></td>
-                <td>&nbsp;&nbsp;&nbsp;</td>
-                <td><a href="systemlease.jsp">History</a></td>
-                <td>&nbsp;&nbsp;&nbsp;</td>
-                <td><a href="report.jsp">Report</a></td>
-                <td>&nbsp;&nbsp;&nbsp;</td>
-                <td><a href="customer.jsp">Customer</a></td>
-                <td>&nbsp;&nbsp;&nbsp;</td>
-                <td><a href="suggestions.jsp">Suggestions</a></td>
-                <td>&nbsp;&nbsp;&nbsp;</td>
-                <td><a href="j_acegi_logout">Logout &nbsp;&nbsp;</a></td> 
-            </tr>
-        </table> 
+        <jsp:include page="include.jsp" />
         
         
-        <br/>
-        <br/>
-        
+            
         <table align="center">
-            <tr align="top">
-                <td align="top">
-                    <table border="2" class="rowed grey" align="center" bordercolor="#EDDA74">
+            <tr align="center">
+                <td align="center">
+                    
+                    <table>
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>MacAddress</th>
                                 <th>Description</th>
-                                <th>IsWorking</th>
-                                <th>Minimum Minutes</th>
-                                <th>Rate</th>
                             </tr>
                         </thead>
                         <tbody id="peoplebody">
                             <tr id="pattern" style="display:none;">
                                 <td><span id="name1">No</span></td>
-                                <td><span id="macAddress1">MacAddress</span></td>
                                 <td><span id="description1">Description</span></td>
-                                <td><span id="enabled1">IsWorking</span></td>
-                                <td><span id="minimumMinutes1">Min Minutes</span></td>
-                                <td><span id="minuteRate1">Usage Rate</span></td>
                                 <td>
                                     <input id="edit" type="button" value="Edit" onclick="editClicked(this.id)"/>                        
                                 </td>
                             </tr>
                         </tbody>
                     </table>
-                </td>
-                <td align="top">
                     
-                    <table class="plain" align="center">
+                </td>
+                <td align="center">
+                    
+                    <table align="center">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>
+                                    System
+                                </th>
+                            </tr>
+                        </thead>
                         <tr>
                             <td>No:</td>
-                            <td><select name="name" disabled="disabled">
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
-                                    <option>6</option>
-                                    <option>7</option>
-                                    <option>8</option>
-                                    <option>9</option>
-                                    <option>10</option>
-                                    <option>11</option>
-                                    <option>12</option>
-                                    <option>13</option>
-                                    <option>14</option>
-                                    <option>15</option>
-                                    <option>16</option>
-                                    <option>17</option>
-                                    <option>18</option>
-                                    <option>19</option>
-                                    <option>20</option>
-                                    <option>21</option>
-                                    <option>22</option>
-                                    <option>23</option>
-                                    <option>24</option>
-                                    <option>25</option>
-                                    <option>26</option>
-                                    <option>27</option>
-                                    <option>28</option>
-                                    <option>29</option>
-                                    <option>30</option>
-                            </select></td>
+                            <td><input type="text" name="name" value="" size="30" disabled="disabled" /></td>
                         </tr>
                         <tr>
                             <td>MacAddress:</td>
@@ -208,7 +142,8 @@
                         </tr>
                         <tr>
                             <td>Descrption:</td>
-                            <td><input type="text" id="description" size="30"/></td>
+                            <td><textarea name="description" rows="4" cols="23">
+                            </textarea></td>
                         </tr>
                         <tr>
                             <td>Is Working:</td>
@@ -226,38 +161,26 @@
                             <td><input type="text" id="minuteRate" size="30"/></td>
                         </tr>
                         <tr>
-                            <td colspan="2" align="right">                    
+                            <td></td>
+                            <td>                    
                                 <input type="button" value="Save" onclick="writePerson()"/>
                                 <input type="button" value="Clear" onclick="clearPerson()"/>
                             </td>
                         </tr>
                     </table>
+                    
                 </td>
             </tr>
         </table>
         
         
         
-        <br>
-        <br>    
-        
-        <table witdth="80%" align="center">
-            <tr>
-                
-                <td width="15%" align="center"> Owner can add new systems or remove old systems which are not working properly</td>
-                <td width="70%" align="center"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                <td width="15%" align="center"> Owner can provide some details regarding a particular system.</td>
-                
-                
-            </tr>
-        </table>
         
         <script type="text/javascript">
             onload = fillTable();
         </script>
     </body>
-    <p align="center">
-        <font size="2"> &copy; Copyrights BizIntelApps 2008 All Rights Reserved. <a href="http://bizintelapps.net/"><font color="blue">BizIntelApps</font></a> </font>
-    </p>
+    <jsp:include page="systems_help.jsp" />
+    <jsp:include page="copyright.jsp" />
     
 </html>

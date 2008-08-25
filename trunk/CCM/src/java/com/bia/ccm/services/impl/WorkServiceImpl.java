@@ -77,7 +77,7 @@ public class WorkServiceImpl implements WorkService {
             Integer minimumMins = system.getMinimumMinutes();//Double.parseDouble(rateString.substring(0, a));
             logger.debug("minimumMins ******** : " + minimumMins);
             payableAmount = Math.ceil((double)totalMinutes / minimumMins) * rate;
-            logger.debug("Math.ceil(totalMinutes / minimumMins) ******** : " + Math.ceil(totalMinutes / minimumMins));
+            logger.debug("Math.ceil((double)totalMinutes / minimumMins) ******** : " + Math.ceil(totalMinutes / minimumMins));
             logger.debug("payableAmount ******** : " + payableAmount);
         } else {
             payableAmount = totalMinutes * rate;
@@ -110,13 +110,13 @@ public class WorkServiceImpl implements WorkService {
 //        SimpleDateFormat sdf = new SimpleDateFormat("EEE, d MMM HH:mm:ss");
 //        NumberFormat nf = new DecimalFormat("0.0");
         Double payableAmount = null;
-        if (rate > 1.0) {
+        if (rate >= 1.0) {
 //            NumberFormat nf1 = new DecimalFormat("0.00");
 //            String rateString = nf1.format(rate);
 //            int a = rateString.indexOf(".");
             Double rt = system.getMinuteRate();//Double.parseDouble(rateString.substring(a + 1, a + 2));
             Integer minimumMins = system.getMinimumMinutes();//Double.parseDouble(rateString.substring(0, a));
-            payableAmount = Math.ceil(totalMinutes / minimumMins) * rt;
+            payableAmount = Math.ceil((double)totalMinutes / minimumMins) * rt;
         } else {
             payableAmount = totalMinutes * rate;
         }

@@ -1,187 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
     <head>
         <title>Counselling Engine Secure Login System</title>
-        
     </head>
     
     <style>
         a:link    {color:black; text-decoration:none; font-size:8.5pt}
-        a:hover   {color:black; text-decoration:none; 
+        a:hover   {color:black; text-decoration:none;
             font-size:8.5pt}
         a:active  {color:black; text-decoration:none; font-size:8.5pt}
         a:visited {color:black; text-decoration:none; font-size:8.5pt}
     </style>
     <style>
         a:link    {color:black; text-decoration:none; font-size:8.5pt}
-        a:hover   {color:black; text-decoration:none; 
+        a:hover   {color:black; text-decoration:none;
             font-size:8.5pt}
         a:active  {color:black; text-decoration:none; font-size:8.5pt}
         a:visited {color:black; text-decoration:none; font-size:8.5pt}
+        .style16 {color: #FFFFFF}
     </style>
     
     
-    <!-- This is to display the time -->
-    <script  language="javascript"  type="text/javascript">
-    
-        <!-- Begin
-        function MakeArrayday(size) {
-            this.length = size;
-            for(var i = 1; i <= size; i++) {
-                this[i] = "";
-            }
-            return this;
-        }
-        function MakeArraymonth(size) {
-            this.length = size;
-            for(var i = 1; i <= size; i++) {
-                this[i] = "";
-            }
-            return this;
-        }
-        function funClock() {
-
-            var runTime = new Date();
-            var hours = runTime.getHours();
-            var minutes = runTime.getMinutes();
-            var seconds = runTime.getSeconds();
-            var dn = "AM";
-            if (hours >= 12) {
-                dn = "PM";
-                hours = hours - 12;
-            }
-            if (hours == 0) {
-                hours = 12;
-            }
-            if (minutes <= 9) {
-                minutes = "0" + minutes;
-            }
-            if (seconds <= 9) {
-                seconds = "0" + seconds;
-            }
-            movingtime = "<b>"+ hours + ":" + minutes + ":" + seconds + " " + dn + "</b>";
-            document.getElementById('clock').innerHTML = movingtime;
-            setTimeout("funClock()", 1000)
-        }
-        window.onload = funClock;
-        //  End -->
-    </script>
-    
-    <!-- display time ends here -->
     
     <body>
         
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
         
-        <table align="center" bordercolor="#EDDA74" border="2" rules="none" width="80%">
-            <tr>
-                <td>
-                    <h2>
-                    <p align="center">CyberCafeManager</p>
-                    </h2>
-                     
-                     
-                </td>    
-            </tr>
-        </table> 
-        
-        <table align="center" border="0" rules="none" width="80%">
-            <tr>
-                <td align="right">
-                    <script language="javascript" type="text/javascript">
-                        
-                        var mydate=new Date()
-                        var year=mydate.getYear()
-                        if (year < 1000)
-                            year+=1900
-                        var day=mydate.getDay()
-                        var month=mydate.getMonth()
-                        var daym=mydate.getDate()
-                        if (daym<10)
-                            daym="0"+daym
-                        var dayarray=new Array("Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday")
-                        var montharray=new Array("January","February","March","April","May","June","July","August","September","October","November","December")
-                        document.write("<small><font color='000000' face='Arial'><b>"+dayarray[day]+", "+montharray[month]+" "+daym+", "+year+"</b></font></small>")
-                    </script> 
-                &nbsp;&nbsp;&nbsp; <span  id=clock  style="position:relative;"></span></td>
-                
-                
-            </tr>
-        </table>
-        <br>
-        <br>
-        
-        
-        
-        
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <% if (request.getParameter("login_error") != null) {%> <b> <font color=RED size="2"> Sorry, but either the username or password is incorrect.
-        </font></b> <% }%> 
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        <form action="j_acegi_security_check" method="POST">
-            
-            <table align="center" bordercolor="#EDDA74" border="2" rules="none" width="80%">
-                
-                <td>
-                    <table width="100%">
-                        <tr><td>Email:</td><td><input type='text' name='j_username'> </td></tr>
-                        <tr><td>Password:</td><td><input type='password' name='j_password'> </td></tr>
-                        
-                        <tr><td></td><td colspan='2'>
-                                
-                        <input name="submit"  value="Sign In" type="submit" ></td></tr>
-                        <tr>
-                            <td><font size="10">
-                                <a href="registration.jsp">Sign Up !</a> </font> <br><br>
-                                <a href="forgotpassword.jsp">Forgot Username or Password?</a>
-                            </td>
-                        </tr>
-                        
-                        
-                    </table>
-                </td>
-                
-                <td>
-                    <table align="center" border="0" width="80%" rules="none" >
-                        <tr>
-                            <td>
-                                <p><font size="2"><br><br><br>
-                                        Online CyberCafeManager increases your revenew, manages your CyberCafe, reduces your stress, keeps you in touch with your CyberCafe from anywhere. 
-                                        <br><br>
-                                        Online CyberCafeManager Eliminates unauthorized usage of your CyberCafe's computers.
-                                        <br><br>
-                                        Online CyberCafeManager is in compliance with the Indian Cyber Law, which keeps your business running without future hurdles. 
-                                        <br><br>
-                                        Online CyberCafeManager keeps you connected to your CyberCafe.
-                                        <br><br>
-                                    </font>
-                                    <br><br>
-                                    <br><br>
-                                    <br><br>    
-                                </p>
-                                
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-                
-                
-                
+        <form action="j_acegi_security_check" method="POST" id="login_form">
+            <table align="center" width="85%">
+                <tr>
+                    <td width="33%" align="left"><a href="http://www.bizintelapps.net/" target="_blank"><img src="dash/logo.jpg" alt="logo" width="290" height="74" border="0"/></a></td>
+                    <td width="4%"><img src="dash/line2.JPG" alt="line2" width="11" height="214" />&nbsp;&nbsp;</td>
+                    <td width="28%" align="center"><p><img src="dash/network.jpg" alt="net" height="217" /></p>
+                    </td>
+                    <td width="4%">&nbsp;&nbsp;&nbsp; <img src="dash/line.JPG" alt="line" width="14" height="316" /></td>
+                    <td width="31%" align="right">
+                        <table align="right">
+                            <tr><td width="71">&nbsp;</td></tr>
+                            <tr><td></td></tr>
+                            <tr><td></td></tr>
+                            <tr>
+                                <td>   <font face="Arial, Helvetica, sans-serif" > &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Email:</font></td>
+                            <td width="198"><input type='text' name='j_username' size="33"> </td></tr>
+                            <tr><td></td><td><font size="-1" color="#999999">(example555@abc.com)</font></td></tr>
+                            <tr><td></td><td></td></tr>
+                            <tr><td></td><td></td></tr>
+                            <tr>
+                            <td>&nbsp; &nbsp; <font face="Arial, Helvetica, sans-serif">Password: </font></td><td><input type='password' name='j_password' size="33"> </td></tr>
+                            <tr><td></td><td><a href="forgotpassword.jsp"><font size="-1" color="blue"> Forgot Username or Password?</font></a></td></tr>
+                            <tr><td></td><td colspan='2'>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!--<img src="dash/sign in.JPG" alt="sign in" border="0" onclick="window.document['login_form'].submit();"/>-->
+                                 <input type="submit" value="submit" />
+                                <% if (request.getParameter("login_error") != null) {%> <b> <font color=RED size="2"> Sorry, but either the username or password is incorrect.
+                                </font></b> <% }%> 
+                            </td>      
+                            
+                            <tr>
+                                <td><font size="10">
+                                    <a href="registration.jsp"><img src="dash/Sign up.JPG" alt="sign up" border="0"/></a> </font> <br>
+                                </td>
+                            </tr>
+                        </table>                
+                    </td>
+                </tr>
             </table>
             
         </form>
         
-        <p align="center">
-            <font size="2"> &copy; Copyrights BizIntelApps 2008 All Rights Reserved. <a href="http://bizintelapps.net/"><font color="blue">BizIntelApps</font></a> </font>
+        <p align="center">&nbsp;        </p>
+        <p align="center">&nbsp;</p>
+        <p align="center">&nbsp;</p>
+        <p align="center"><font size="2">&copy; Copyrights BizIntelApps 2008 All Rights Reserved. <a href="http://bizintelapps.net/" target="_blank"><font color="blue">BizIntelApps</font></a> </font>
         </p>
-        
     </body>
 </html>

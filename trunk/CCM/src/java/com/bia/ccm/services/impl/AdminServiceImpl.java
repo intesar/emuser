@@ -84,6 +84,12 @@ public class AdminServiceImpl implements AdminService {
                 if (users.getRole().equalsIgnoreCase("employee")) {
                     Authorities a1 = this.authoritiesDao.read(new AuthoritiesPK(users.getUsername(), "ROLE_ADMIN"));
                     this.authoritiesDao.delete(a1);
+                } else if (users.getRole().equalsIgnoreCase("admin")) {
+                    AuthoritiesPK authPK = new AuthoritiesPK(users.getUsername(), "ROLE_ADMIN");
+                    Authorities a2 = this.authoritiesDao.read(authPK);
+                    if (a2 == null) {
+                        this.authoritiesDao.create(a2);
+                    }
                 }
 
 
@@ -94,6 +100,7 @@ public class AdminServiceImpl implements AdminService {
         } catch (Exception e) {
             return e.getMessage();
         }
+
         return "Operation succesful!";
     }
 
@@ -102,7 +109,8 @@ public class AdminServiceImpl implements AdminService {
         return this.emailPreferenceDao.findByOrganization(u.getOrganization());
     }
 
-    public String saveEmailPreference(EmailPreference emailPreference, String username) {
+    public String saveEmailPreference(
+            EmailPreference emailPreference, String username) {
         Users u = this.getUserByUsername(username);
         try {
             if (emailPreference != null && emailPreference.getId() == null) {
@@ -115,9 +123,11 @@ public class AdminServiceImpl implements AdminService {
             } else {
                 return "Please check inputs";
             }
+
         } catch (Exception e) {
             return e.getMessage();
         }
+
         return "Operation succesful!";
     }
 
@@ -126,7 +136,8 @@ public class AdminServiceImpl implements AdminService {
         return this.emailTimePreferenceDao.findByOrganization(u.getOrganization());
     }
 
-    public String saveEmailTimePreference(EmailTimePreference emailTimePreference, String username) {
+    public String saveEmailTimePreference(
+            EmailTimePreference emailTimePreference, String username) {
         Users u = this.getUserByUsername(username);
         try {
             if (emailTimePreference != null && emailTimePreference.getId() == null) {
@@ -139,9 +150,11 @@ public class AdminServiceImpl implements AdminService {
             } else {
                 return "Please check inputs";
             }
+
         } catch (Exception e) {
             return e.getMessage();
         }
+
         return "Operation succesful!";
     }
 
@@ -150,16 +163,19 @@ public class AdminServiceImpl implements AdminService {
         return this.systemLeaseDao.findByOrganization(u.getOrganization());
     }
 
-    public String saveSystemLease(SystemLease systemLease, String username) {
+    public String saveSystemLease(
+            SystemLease systemLease, String username) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public Organization getOrganization(String username) {
+    public Organization getOrganization(
+            String username) {
         Users u = this.getUserByUsername(username);
         return this.organizationDao.findByOrganization(u.getOrganization());
     }
 
-    public String saveOrganization(Organization organization, String username) {
+    public String saveOrganization(
+            Organization organization, String username) {
         Users u = this.getUserByUsername(username);
         try {
             if (organization != null) {
@@ -167,9 +183,11 @@ public class AdminServiceImpl implements AdminService {
             } else {
                 return "Please check inputs";
             }
+
         } catch (Exception e) {
             return e.getMessage();
         }
+
         return "Operation succesful!";
     }
 
@@ -177,11 +195,13 @@ public class AdminServiceImpl implements AdminService {
         return this.systemLeaseDao.findByStartAndEndDates(startDate, endDate, org);
     }
 
-    public List getReport(Date startDate, Date endDate, String org) {
+    public List getReport(
+            Date startDate, Date endDate, String org) {
         return this.systemLeaseDao.findReportBetweenDates(startDate, endDate, org);
     }
 
-    public Users getUserByUsername(String username) {
+    public Users getUserByUsername(
+            String username) {
         return this.usersDao.findByUsername(username);
     }
 

@@ -10,9 +10,10 @@
 
 <html>
     <head>
+        <jsp:include page="dhtml_goodies_include.jsp" />
         <script type='text/javascript' src='/CCM/dwr/interface/AjaxUserService.js'></script>
         <script type='text/javascript' src='/CCM/dwr/engine.js'></script>
-        
+        <script type="text/javascript" src="email_validation.js"></script>
         <script type='text/javascript' src='/CCM/dwr/util.js'></script>
         
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -26,7 +27,9 @@
                 var rate = dwr.util.getValue("rate");
                 //alert ( c + u + p + cp);
                 if ( p == cp) {
-                    AjaxUserService.registerNewOrganization ( c, "hyd", u, p, minutes, rate, reply1);
+                    if ( validateEmail(u, true, true) ) {
+                        AjaxUserService.registerNewOrganization ( c, "hyd", u, p, minutes, rate, reply1);
+                    }
                 } else {
                     alert ( " Password & ConfirmPassword donot match");
                 }
@@ -37,6 +40,93 @@
             }
             
         </script>
+         
+        <!-- table style -->
+        <style type="text/css">
+            body
+            {
+                font: .8em "Lucida Grande", Tahoma, Arial, Helvetica, sans-serif;
+            }
+            
+            ol
+            {
+                margin:0;
+                padding: 0 1.5em;
+            }
+            
+            table
+            {
+                color:#FFF;
+                background:#C00;
+                border-collapse:collapse;
+                width:647px;
+                border:5px solid #900;
+            }
+            
+            thead
+            {
+                
+            }
+            
+            thead th
+            {
+                padding:1em 1em .5em;
+                border-bottom:1px dotted #FFF;
+                font-size:120%;
+                text-align:left;
+            }
+            
+            
+            
+            thead tr
+            {
+                
+            }
+            
+            td
+            {
+                padding:.5em 1em;
+            }
+            
+            
+            
+            tbody tr.odd td
+            {
+                background:transparent url(tr_bg.png) repeat top left;
+            }
+            
+            tfoot
+            {
+                
+            }
+            
+            tfoot td
+            {
+                
+                padding-bottom:1.5em;
+            }
+            
+            tfoot tr
+            {
+                
+            }
+            
+            
+            * html tr.odd td
+            {
+                background:#C00;
+                filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='tr_bg.png', sizingMethod='scale');
+            }
+            
+            
+            #middle
+            {
+                background-color:#900;
+            }
+            
+            
+            
+        </style>
     </head>
     
     
@@ -47,53 +137,7 @@
     
     
     
-    <!-- This is to display the time -->
-    <script  language="javascript"  type="text/javascript">
     
-        <!-- Begin
-        function MakeArrayday(size) {
-            this.length = size;
-            for(var i = 1; i <= size; i++) {
-                this[i] = "";
-            }
-            return this;
-        }
-        function MakeArraymonth(size) {
-            this.length = size;
-            for(var i = 1; i <= size; i++) {
-                this[i] = "";
-            }
-            return this;
-        }
-        function funClock() {
-
-            var runTime = new Date();
-            var hours = runTime.getHours();
-            var minutes = runTime.getMinutes();
-            var seconds = runTime.getSeconds();
-            var dn = "AM";
-            if (hours >= 12) {
-                dn = "PM";
-                hours = hours - 12;
-            }
-            if (hours == 0) {
-                hours = 12;
-            }
-            if (minutes <= 9) {
-                minutes = "0" + minutes;
-            }
-            if (seconds <= 9) {
-                seconds = "0" + seconds;
-            }
-            movingtime = "<b>"+ hours + ":" + minutes + ":" + seconds + " " + dn + "</b>";
-            document.getElementById('clock').innerHTML = movingtime;
-            setTimeout("funClock()", 1000)
-        }
-        window.onload = funClock;
-        //  End -->
-    </script>
-    
-    <!-- display time ends here -->
     
     <body>
         

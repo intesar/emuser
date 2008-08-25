@@ -11,6 +11,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <jsp:include page="dhtml_goodies_include.jsp" />
         <style>
             a:link    {color:black; text-decoration:none; font-size:11pt}
             a:hover   {color:black; text-decoration:none; 
@@ -28,16 +29,7 @@
         <script type='text/javascript' src='/CCM/dwr/interface/AjaxAdminService.js'></script>
         <script type='text/javascript' src='/CCM/dwr/engine.js'></script>        
         <script type='text/javascript' src='/CCM/dwr/util.js'></script>
-        <style type="text/css">
-            @import "dojo/dijit/themes/tundra/tundra.css";
-            @import "dojo/dojo/resources/dojo.css"
-        </style>
-        <script type="text/javascript" src="dojo/dojo/dojo.js" 
-                djConfig="parseOnLoad: true"></script>
-        <script type="text/javascript">
-            dojo.require("dojo.parser");
-            dojo.require("dijit.form.Button");
-        </script>
+        
         <script type="text/javascript">
             function init() {
                 fillTable();
@@ -92,64 +84,30 @@
                 dwr.util.setValues({ id:null, reportTime:null, organization:null});
             }
         </script>
+        
+       <jsp:include page="table_style.jsp" ></jsp:include>
     </head>
     <body>
-        <br><br>
-        <table width="85%"  height="30" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#EDDA74">
-            <tr> 
-                <td><a href="dashboard.jsp">&nbsp;&nbsp;Dashboard</a></td>
-                <td>&nbsp;&nbsp;&nbsp;</td>
-                <td><a href="users.jsp">Users</a></td>
-                <td>&nbsp;&nbsp;&nbsp;</td>
-                <td><a href="systems.jsp">Systems</a></td>
-                <td>&nbsp;&nbsp;&nbsp;</td>
-                <td><a href="emails.jsp">Emails</a></td>
-                <td>&nbsp;&nbsp;&nbsp;</td>
-                <td><a href="emailtimings.jsp">Email & SMS Timing</a></td>
-                <td>&nbsp;&nbsp;&nbsp;</td>    
-                <td><a href="organization.jsp">Organization</a></td>
-                <td>&nbsp;&nbsp;&nbsp;</td>
-                <td><a href="systemlease.jsp">History</a></td>
-                <td>&nbsp;&nbsp;&nbsp;</td>
-                <td><a href="report.jsp">Report</a></td>
-                <td>&nbsp;&nbsp;&nbsp;</td>
-                <td><a href="customer.jsp">Customer</a></td>
-                <td>&nbsp;&nbsp;&nbsp;</td>
-                <td><a href="suggestions.jsp">Suggestions</a></td>
-                <td>&nbsp;&nbsp;&nbsp;</td>
-                <td><a href="j_acegi_logout">Logout &nbsp;&nbsp;</a></td> 
-            </tr>
-        </table> 
+        
+        <jsp:include page="include.jsp" />
         
         
-        <br/>
-        <br/>
-        <br/>
-        <table border="1" class="rowed grey" align="center">
+      
+        <table align="center">
             <thead>
                 <tr>
-                    <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Report Time &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                    <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Organization &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                    
+                    <th>  Report Time </th>
                 </tr>
             </thead>
             <tbody id="peoplebody">
                 <tr id="pattern" style="display:none;">
                     <td><span id="reporttime">reportTime</span></td>
-                    <td><span id="organization">organization</span></td>
                     
                 </tr>
             </tbody>
         </table>
         
-        <table witdth="80%" align="center">
-            <tr>
-                
-                <td width="15%" align="center"> Owner can set the timings to receive emails and SMS, that are forwarded to him automatically by Online CyberCafeManager</td>
-                <td width="85%" align="center"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                
-            </tr>
-        </table>
+        
         
         <script type="text/javascript">
             onload = fillTable();
@@ -164,10 +122,8 @@
         <br>
         
         
-        
-        <p align="center">
-            <font size="2"> &copy; Copyrights BizIntelApps 2008 All Rights Reserved. <a href="http://bizintelapps.net/"><font color="blue">BizIntelApps</font></a> </font>
-        </p>
+        <jsp:include page="emailtimings_help.jsp" />
+        <jsp:include page="copyright.jsp" />
         
     </body>
     

@@ -67,6 +67,8 @@ public class WorkAjaxService {
             return e.getMessage();
         }
     }
+    
+   
 
     public String createCustomer(Customer c) {
 
