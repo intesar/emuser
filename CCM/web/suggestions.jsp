@@ -28,16 +28,7 @@
         <script type='text/javascript' src='/CCM/dwr/interface/AjaxAdminService.js'></script>
         <script type='text/javascript' src='/CCM/dwr/engine.js'></script>        
         <script type='text/javascript' src='/CCM/dwr/util.js'></script>
-        <style type="text/css">
-            @import "dojo/dijit/themes/tundra/tundra.css";
-            @import "dojo/dojo/resources/dojo.css"
-        </style>
-        <script type="text/javascript" src="dojo/dojo/dojo.js" 
-                djConfig="parseOnLoad: true"></script>
-        <script type="text/javascript">
-            dojo.require("dojo.parser");
-            dojo.require("dijit.form.Button");
-        </script>
+        
         <script type="text/javascript">
             function init() {
                 fillTable();
@@ -65,44 +56,26 @@
                 //dwr.util.setValues({ id:null, name:null, description:null, minuteRate:null, enabled:true, macAddress:null });
             }
         </script>
+       <jsp:include page="table_style.jsp" ></jsp:include>
     </head>
     <body>
-        <br><br>
-        <table width="85%"  height="30" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#EDDA74">
-            <tr> 
-                <td><a href="dashboard.jsp">&nbsp;&nbsp;Dashboard</a></td>
-                <td>&nbsp;&nbsp;&nbsp;</td>
-                <td><a href="users.jsp">Users</a></td>
-                <td>&nbsp;&nbsp;&nbsp;</td>
-                <td><a href="systems.jsp">Systems</a></td>
-                <td>&nbsp;&nbsp;&nbsp;</td>
-                <td><a href="emails.jsp">Emails</a></td>
-                <td>&nbsp;&nbsp;&nbsp;</td>
-                <td><a href="emailtimings.jsp">Email & SMS Timing</a></td>
-                <td>&nbsp;&nbsp;&nbsp;</td>    
-                <td><a href="organization.jsp">Organization</a></td>
-                <td>&nbsp;&nbsp;&nbsp;</td>
-                <td><a href="systemlease.jsp">History</a></td>
-                <td>&nbsp;&nbsp;&nbsp;</td>
-                <td><a href="report.jsp">Report</a></td>
-                <td>&nbsp;&nbsp;&nbsp;</td>
-                <td><a href="customer.jsp">Customer</a></td>
-                <td>&nbsp;&nbsp;&nbsp;</td>
-                <td><a href="suggestions.jsp">Suggestions</a></td>
-                <td>&nbsp;&nbsp;&nbsp;</td>
-                <td><a href="j_acegi_logout">Logout &nbsp;&nbsp;</a></td> 
-            </tr>
-        </table> 
+        
+        <jsp:include page="include.jsp" />
         
         
-        <br/>
-        <br/>
-        <br/>
+      
         
-        
-        <table class="plain" align="center">
+        <table align="center">
             
+            <thead>
+                <tr>
+                    <th>
+                        Feedback
+                    </th>
+                    
+                </tr>
             
+            </thead>
             <tr>
                 <td>Type:</td>
                 <td><select name="type">
@@ -121,7 +94,8 @@
             </tr>
             
             <tr>
-                <td colspan="2" align="right">                    
+                <td></td>
+                <td align="right">                    
                     <input type="button" value="Save" onclick="writePerson()"/>
                     <input type="button" value="Clear" onclick="clearPerson()"/>
                 </td>
@@ -129,16 +103,7 @@
         </table>
         
     </body>
-    <br>
-    <br>
-    <br> <br>
-    <br>
-    <br> <br>
-    <br>
-    <br> <br>
-    <br>
-    <br> <br>
-    <br>
+    
     
     <p align="center">
         <font size="2"> &copy; Copyrights BizIntelApps 2008 All Rights Reserved. <a href="http://bizintelapps.net/"><font color="blue">BizIntelApps</font></a> </font>

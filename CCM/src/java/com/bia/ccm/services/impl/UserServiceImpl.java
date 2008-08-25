@@ -9,6 +9,7 @@ import com.bia.ccm.dao.OrganizationDao;
 import com.bia.ccm.dao.SystemsDao;
 import com.bia.ccm.dao.UsersDao;
 import com.bia.ccm.entity.Authorities;
+import com.bia.ccm.entity.AuthoritiesPK;
 import com.bia.ccm.entity.Organization;
 import com.bia.ccm.entity.Systems;
 import com.bia.ccm.entity.Users;
@@ -25,6 +26,22 @@ import org.apache.commons.logging.LogFactory;
 public class UserServiceImpl implements UserService {
 
     protected final Log logger = LogFactory.getLog(getClass());
+
+    public String getUserRole(String username) {
+        AuthoritiesPK authPK1 = new AuthoritiesPK(username, "ROLE_ADMIN");
+        Authorities authorities1 = this.authoritiesDao.read(authPK1);
+        if (authorities1 != null) {
+            return "admin";
+        } else {
+            AuthoritiesPK authPK2 = new AuthoritiesPK(username, "ROLE_USER");
+            Authorities authorities2 = this.authoritiesDao.read(authPK2);
+            if (authorities2 != null) {
+                return "user";
+            }
+        }
+
+        return "";
+    }
 
     public String forgotPassword(String email) {
         //String username = AcegiUtil.getUsername();

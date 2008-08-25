@@ -11,6 +11,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <jsp:include page="dhtml_goodies_include.jsp" />
         
         <style>
             a:link    {color:black; text-decoration:none; font-size:11pt}
@@ -29,16 +30,7 @@
         <script type='text/javascript' src='/CCM/dwr/interface/AjaxAdminService.js'></script>
         <script type='text/javascript' src='/CCM/dwr/engine.js'></script>        
         <script type='text/javascript' src='/CCM/dwr/util.js'></script>
-        <style type="text/css">
-            @import "dojo/dijit/themes/tundra/tundra.css";
-            @import "dojo/dojo/resources/dojo.css"
-        </style>
-        <script type="text/javascript" src="dojo/dojo/dojo.js" 
-                djConfig="parseOnLoad: true"></script>
-        <script type="text/javascript">
-            dojo.require("dojo.parser");
-            dojo.require("dijit.form.Button");
-        </script>
+        
         <script type="text/javascript">
             function init() {
                 fillTable();
@@ -62,8 +54,7 @@
                         id = person.id;
                         dwr.util.cloneNode("pattern", { idSuffix:id });
                         dwr.util.setValue("username1" + id, person.username);
-                        dwr.util.setValue("email_or_phone" + id, person.emailOrPhone);
-                        dwr.util.setValue("service_provider" + id, person.serviceProvider);                        
+                        dwr.util.setValue("email_or_phone" + id, person.emailOrPhone);                        
                         $("pattern" + id).style.display = "table-row";
                         peopleCache[id] = person;
                     }
@@ -101,99 +92,85 @@
                 dwr.util.setValues({ id:null, username:null, emailOrPhone:null, serviceProvider:null });
             }
         </script>
+        
+        <jsp:include page="table_style.jsp" ></jsp:include>
     </head>
     <body>
-        <br><br>
-        <table width="85%"  height="30" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#EDDA74">
-            <tr> 
-                <td><a href="dashboard.jsp">&nbsp;&nbsp;Dashboard</a></td>
-                <td>&nbsp;&nbsp;&nbsp;</td>
-                <td><a href="users.jsp">Users</a></td>
-                <td>&nbsp;&nbsp;&nbsp;</td>
-                <td><a href="systems.jsp">Systems</a></td>
-                <td>&nbsp;&nbsp;&nbsp;</td>
-                <td><a href="emails.jsp">Emails</a></td>
-                <td>&nbsp;&nbsp;&nbsp;</td>
-                <td><a href="emailtimings.jsp">Email & SMS Timing</a></td>
-                <td>&nbsp;&nbsp;&nbsp;</td>    
-                <td><a href="organization.jsp">Organization</a></td>
-                <td>&nbsp;&nbsp;&nbsp;</td>
-                <td><a href="systemlease.jsp">History</a></td>
-                <td>&nbsp;&nbsp;&nbsp;</td>
-                <td><a href="report.jsp">Report</a></td>
-                <td>&nbsp;&nbsp;&nbsp;</td>
-                <td><a href="customer.jsp">Customer</a></td>
-                <td>&nbsp;&nbsp;&nbsp;</td>
-                <td><a href="suggestions.jsp">Suggestions</a></td>
-                <td>&nbsp;&nbsp;&nbsp;</td>
-                <td><a href="j_acegi_logout">Logout &nbsp;&nbsp;</a></td> 
-            </tr>
-        </table> 
         
-        <br/>
-        <br/>
-        <table border="2" class="rowed grey" align="center"  bordercolor="#EDDA74">
-            <thead>
-                <tr>
-                    <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Name &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                    <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Email_or_Phone &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                    <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Service_Provider &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+        <jsp:include page="include.jsp" />
+        
+        <table align="center">
+            <tr>
+                <td>
                     
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <form>
-                <tbody id="peoplebody">
-                    <tr id="pattern" style="display:none;">
-                        <td><span id="username1">Username</span></td>
-                        <td><span id="email_or_phone">emailOrPhone</span></td>
-                        <td><span id="service_provider">serviceProvider</span></td>
-                        
-                        
-                        <td>
-                            <input id="edit" type="button" value="Edit" onclick="editClicked(this.id)"/>                        
-                        </td>
-                    </tr>
-                </tbody>
-            </form>
-        </table>
-        
-        
-        <table class="plain" align="center">
-            <tr>
-                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Name: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                <td><input id="username" type="text" size="30"/></td>
-            </tr>
-            <br>
-            <tr>
-                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Email_or_Phone: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                <td><input id="emailOrPhone" type="text" size="30"/></td>
-            </tr> 
-            <tr>
-                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Service_Provider &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                <td><select name="serviceProvider">
-                        <option>airtel</option>
-                        <option>bsnl</option>
-                        <option>idea</option>
-                        <option>NA</option>
-                </select></td>
-            </tr>
-            
-            <tr>
-                <td colspan="2" align="right">                    
-                    <input type="button" value="Save" onclick="writePerson()"/>
-                    <input type="button" value="Clear" onclick="clearPerson()"/>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th> Name  </th>
+                                <th> Email/Phone </th>
+                            </tr>
+                        </thead>
+                        <form>
+                            <tbody id="peoplebody">
+                                <tr id="pattern" style="display:none;">
+                                    <td><span id="username1">Username</span></td>
+                                    <td><span id="email_or_phone">emailOrPhone</span></td>
+                                    
+                                    
+                                    <td>
+                                        <input id="edit" type="button" value="Edit" onclick="editClicked(this.id)"/>                        
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </form>
+                    </table>
+                    
+                    
                 </td>
-            </tr>             
-            
-        </table>
-        
-        <table witdth="80%" align="center">
-            <tr>
-                
-                <td width="15%" align="center"> Owner can save the email adresses of the customers who has already visited the Cybercafe.</td>
-                <td width="85%" align="center"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                
+                <td>
+                    
+                    <table>
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>
+                                    Email/Phone For Sending Reports
+                                </th>
+                            </tr>
+                        </thead>
+                        <tr>
+                            <td> Name: </td>
+                            <td><input id="username" type="text" size="30"/></td>
+                        </tr>
+                        
+                        <tr>
+                            <td> Service </td>
+                            <td><select name="serviceProvider">
+                                    <option>email</option>
+                                    <option>airtel</option>
+                                    <option>bsnl</option>
+                                    <option>idea</option>                        
+                            </select></td>
+                        </tr>
+                        
+                        <tr>
+                            <td> Email/Phone: </td>
+                            <td><input id="emailOrPhone" type="text" size="30"/></td>
+                        </tr> 
+                        
+                        <tr>
+                            <td> 
+                            </td>
+                            <td>
+                                <input type="button" value="Clear" onclick="clearPerson()"/>
+                                <input type="button" value="Save" onclick="writePerson()"/>  
+                                
+                            </td>
+                        </tr>             
+                        
+                    </table>
+                    
+                </td>
             </tr>
         </table>
         
@@ -203,9 +180,8 @@
         <br>
         <br>
         <br>
-        <p align="center">
-            <font size="2"> &copy; Copyrights BizIntelApps 2008 All Rights Reserved. <a href="http://bizintelapps.net/"><font color="blue">BizIntelApps</font></a> </font>
-        </p>
+        <jsp:include page="emails_help.jsp" />
+        <jsp:include page="copyright.jsp" />
     </body>
     
 </html>

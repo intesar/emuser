@@ -11,6 +11,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <jsp:include page="dhtml_goodies_include.jsp" />
         <style>
             a:link    {color:black; text-decoration:none; font-size:11pt}
             a:hover   {color:black; text-decoration:none; 
@@ -74,41 +75,22 @@
         </script>
         
         
+       <jsp:include page="table_style.jsp" ></jsp:include>
     </head>
     <body>
-        <br><br>
-       <table width="85%"  height="30" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#EDDA74">
-            <tr> 
-                <td><a href="dashboard.jsp">&nbsp;&nbsp;Dashboard</a></td>
-                <td>&nbsp;&nbsp;&nbsp;</td>
-                <td><a href="users.jsp">Users</a></td>
-                <td>&nbsp;&nbsp;&nbsp;</td>
-                <td><a href="systems.jsp">Systems</a></td>
-                <td>&nbsp;&nbsp;&nbsp;</td>
-                <td><a href="emails.jsp">Emails</a></td>
-                <td>&nbsp;&nbsp;&nbsp;</td>
-                <td><a href="emailtimings.jsp">Email & SMS Timing</a></td>
-                <td>&nbsp;&nbsp;&nbsp;</td>    
-                <td><a href="organization.jsp">Organization</a></td>
-                <td>&nbsp;&nbsp;&nbsp;</td>
-                <td><a href="systemlease.jsp">History</a></td>
-                <td>&nbsp;&nbsp;&nbsp;</td>
-                <td><a href="report.jsp">Report</a></td>
-                <td>&nbsp;&nbsp;&nbsp;</td>
-                <td><a href="customer.jsp">Customer</a></td>
-                <td>&nbsp;&nbsp;&nbsp;</td>
-                <td><a href="suggestions.jsp">Suggestions</a></td>
-                <td>&nbsp;&nbsp;&nbsp;</td>
-                <td><a href="j_acegi_logout">Logout &nbsp;&nbsp;</a></td> 
-            </tr>
-        </table> 
+        <jsp:include page="include.jsp" />
         
-        
-        <br/>
-        <br/>
-        <br/>
+      
         
         <table align="center">
+            <thead>
+                <tr>
+                    <th>
+                        History
+                    </th>
+                    
+                </tr>
+            </thead>
             <tr>
                 <td>
                     
@@ -123,63 +105,49 @@
                     
                     <input type="text" name="endDate" id="DPC_endDate_YYYY-MM-DD" > 
                     
-                    <input type="submit" value="Go" onclick="execute();"/>
+                    <input type="submit" value="Search" onclick="execute();"/>
                 </td>
             </tr>
         </table>
         
         <br>
         
-        <table border="1" class="rowed grey" align="center">
-            <thead>
-                <tr>
-                    <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; User &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                    <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                    <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Start Time &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                    <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; End Time &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                    <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Minutes Used &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                    <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Payable Amount &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                    <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Paid Amount &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                    <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Issue By &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-                    <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Returned To &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>                    
-                </tr>
-            </thead>
-            <form>
-                <tbody id="peoplebody">
-                    <tr id="pattern" style="display:none;">
-                        <td><span id="leaseHolderName">Username</span></td>
-                        <td><span id="system">System</span></td>
-                        <td><span id="startTimeString">Start Time</span></td>
-                        <td><span id="endTimeString">End Time</span></td>
-                        <td><span id="totalMinutesUsed">Total Minutes</span></td>
-                        <td><span id="payableAmount">Payable Amount</span></td>
-                        <td><span id="amountPaid">Paid Amount</span></td>
-                        <td><span id="issueAgent">Issue By</span></td>
-                        <td><span id="returnAgent">Returned To</span></td>
-                                        
+        <div align="center" >
+            <table align="center">
+                <thead>
+                    <tr>
+                        <th> User </th>
+                        <th> System  </th>
+                        <th>  Start Time </th>
+                        <th> End Time </th>
+                        <th>  Minutes Used</th>
+                        <th> Payable Amount </th>
+                        <th> Paid Amount </th>
+                        <th>  Issue By  </th>
+                        <th> Returned To </th>                    
                     </tr>
-                </tbody>
-            </form>
-        </table>
-         <br>
-        <br>
-        <br> <br>
-        <br>
-        <br> <br>
-        <br>
-        <br> <br>
-        <br>
-        <br> <br>
-        <br>
-        <br> <br>
-        <br>
-        <br> <br>
-        <br>
-
-        <p align="center">
-            <font size="2"> &copy; Copyrights BizIntelApps 2008 All Rights Reserved. <a href="http://bizintelapps.net/"><font color="blue">BizIntelApps</font></a> </font>
-        </p>
+                </thead>
+                <form>
+                    <tbody id="peoplebody">
+                        <tr id="pattern" style="display:none;">
+                            <td><span id="leaseHolderName">Username</span></td>
+                            <td><span id="system">System</span></td>
+                            <td><span id="startTimeString">Start Time</span></td>
+                            <td><span id="endTimeString">End Time</span></td>
+                            <td><span id="totalMinutesUsed">Total Minutes</span></td>
+                            <td><span id="payableAmount">Payable Amount</span></td>
+                            <td><span id="amountPaid">Paid Amount</span></td>
+                            <td><span id="issueAgent">Issue By</span></td>
+                            <td><span id="returnAgent">Returned To</span></td>
+                            
+                        </tr>
+                    </tbody>
+                </form>
+            </table>
+        </div>
         
+        <jsp:include page="systemlease_help.jsp" />
+        <jsp:include page="copyright.jsp" />
         
     </body>
 </html>
