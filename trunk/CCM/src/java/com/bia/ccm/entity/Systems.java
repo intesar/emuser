@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.bia.ccm.entity;
 
 import java.io.Serializable;
@@ -18,6 +17,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 /**
  *
@@ -26,11 +26,12 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "systems")
 @NamedQueries({
-    @NamedQuery(name="Systems.findByOrganization", query="select s from Systems s where s.organization = ?1 "),
-    @NamedQuery(name="Systems.findBySystemNameAndOrganization", query="select s from Systems s where s.name = ?1 and s.organization = ?2"),
-    @NamedQuery(name="Systems.findByMacAddress", query="select s from Systems s where s.macAddress = ?1 ")
+    @NamedQuery(name = "Systems.findByOrganization", query = "select s from Systems s where s.organization = ?1 "),
+    @NamedQuery(name = "Systems.findBySystemNameAndOrganization", query = "select s from Systems s where s.name = ?1 and s.organization = ?2"),
+    @NamedQuery(name = "Systems.findByMacAddress", query = "select s from Systems s where s.macAddress = ?1 ")
 })
 public class Systems implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @Column(name = "id", nullable = false)
@@ -45,7 +46,7 @@ public class Systems implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date expectedFreeTime;
     @Column(name = "description")
-    private String description;    
+    private String description;
     @Column(name = "minimum_minutes", nullable = false)
     private Integer minimumMinutes;
     @Column(name = "rate", nullable = false)
@@ -69,6 +70,8 @@ public class Systems implements Serializable {
     private String comment;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "systems")
     private Collection<SystemsPing> systemsPingCollection;
+    @Transient
+    private String enabledString;
 
     public Systems() {
     }
@@ -86,7 +89,7 @@ public class Systems implements Serializable {
         this.minimumMinutes = minimumMinutes;
         this.minuteRate = minuteRate;
         this.enabled = enabled;
-        this.macAddress=organization+name;
+        this.macAddress = organization + name;
     }
 
     public Integer getId() {
@@ -225,7 +228,24 @@ public class Systems implements Serializable {
         this.minimumMinutes = minimumMinutes;
     }
 
-    
+    public String getEnabledString() {
+        if (enabled) {
+            return "yes";
+        } else {
+            return "no";
+        }
+    }
+
+    public void setEnabledString(String enabledString) {
+        if (enabledString.equals("yes")) {
+            this.enabledString = "yes";
+            enabled = true;
+        } else {
+            this.enabledString = "no";
+            enabled = false;
+        }
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -250,5 +270,4 @@ public class Systems implements Serializable {
     public String toString() {
         return "com.bia.ccm.entity.Systems[id=" + id + "]";
     }
-
 }

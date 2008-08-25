@@ -64,6 +64,8 @@
                 // we were an id of the form "edit{id}", eg "edit42". We lookup the "42"
                 var person = peopleCache[eleid.substring(4)];
                 viewed = person.id;
+                //alert ( person.enabled);
+                //person = {enabled_:false};
                 dwr.util.setValues(person);
             }
         
@@ -72,7 +74,7 @@
             function writePerson() {
                 var person;
                 if ( viewed == null ) {
-                    person = { id:null, name:null, description:null, minuteRate:null, enabled:true, macAddress:null };
+                    person = { id:null, name:null, description:null, minuteRate:null, enabled:true, enabledString:null, macAddress:null };
                 } else {
                     person = peopleCache[viewed];
                 }
@@ -87,11 +89,11 @@
         
             function clearPerson() {
                 viewed = null;
-                dwr.util.setValues({ id:null, name:null, description:null, minuteRate:null, enabled:null, macAddress:null });
+                dwr.util.setValues({ id:null, name:null, description:null, minuteRate:null, enabled:null, enabledString:null, macAddress:null });
             }
         </script>
         
-       <jsp:include page="table_style.jsp" ></jsp:include>
+        <jsp:include page="table_style.jsp" ></jsp:include>
     </head>
     <body>
         <jsp:include page="include.jsp" />
@@ -147,9 +149,9 @@
                         </tr>
                         <tr>
                             <td>Is Working:</td>
-                            <td><select name="enabled">
-                                    <option>true</option>
-                                    <option>false</option>
+                            <td><select name="enabledString" >
+                                    <option>yes</option>
+                                    <option>no</option>
                             </select></td>
                         </tr>
                         <tr>
