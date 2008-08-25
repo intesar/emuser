@@ -166,9 +166,9 @@
                         </tr> 
                         <tr>
                             <td> Enabled </td>
-                            <td><select name="enabled">
-                                    <option>true</option>
-                                    <option>false</option>
+                            <td><select name="enabledString">
+                                    <option>yes</option>
+                                    <option>no</option>
                             </select></td>
                         </tr>
                         <tr>

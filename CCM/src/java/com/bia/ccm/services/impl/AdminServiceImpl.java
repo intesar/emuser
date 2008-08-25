@@ -83,17 +83,17 @@ public class AdminServiceImpl implements AdminService {
                 this.usersDao.update(users);
                 if (users.getRole().equalsIgnoreCase("employee")) {
                     Authorities a1 = this.authoritiesDao.read(new AuthoritiesPK(users.getUsername(), "ROLE_ADMIN"));
-                    this.authoritiesDao.delete(a1);
+                    if (a1 != null) {
+                        this.authoritiesDao.delete(a1);
+                    }
                 } else if (users.getRole().equalsIgnoreCase("admin")) {
                     AuthoritiesPK authPK = new AuthoritiesPK(users.getUsername(), "ROLE_ADMIN");
                     Authorities a2 = this.authoritiesDao.read(authPK);
                     if (a2 == null) {
+                        a2 = new Authorities(authPK);
                         this.authoritiesDao.create(a2);
                     }
                 }
-
-
-
             } else {
                 return "Please check inputs";
             }

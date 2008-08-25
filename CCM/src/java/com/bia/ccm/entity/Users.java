@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.bia.ccm.entity;
 
 import java.io.Serializable;
@@ -15,6 +14,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 /**
  *
@@ -23,10 +23,11 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "users")
 @NamedQueries({
-    @NamedQuery(name="Users.findByUsername", query="select u from Users u where u.username = ?1 "),
-    @NamedQuery(name="Users.findByOrganization", query="select u from Users u where u.organization = ?1 ")
+    @NamedQuery(name = "Users.findByUsername", query = "select u from Users u where u.username = ?1 "),
+    @NamedQuery(name = "Users.findByOrganization", query = "select u from Users u where u.organization = ?1 ")
 })
 public class Users implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Column(name = "username", nullable = false)
     private String username;
@@ -62,6 +63,8 @@ public class Users implements Serializable {
     @Id
     @Column(name = "id", nullable = false)
     private Integer id;
+    @Transient
+    private String enabledString;
 
     public Users() {
     }
@@ -208,6 +211,24 @@ public class Users implements Serializable {
         this.id = id;
     }
 
+    public String getEnabledString() {
+        if (enabled) {
+            return "yes";
+        } else {
+            return "no";
+        }
+    }
+
+    public void setEnabledString(String enabledString) {
+        if (enabledString.equals("yes")) {
+            enabled = true;
+            this.enabledString = "yes";
+        } else {
+            enabled = false;
+            this.enabledString = "no";
+        }
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -232,5 +253,4 @@ public class Users implements Serializable {
     public String toString() {
         return "com.bia.ccm.entity.Users[id=" + id + "]";
     }
-
 }
