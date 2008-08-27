@@ -59,6 +59,7 @@
                         peopleCache[id] = person;
                     }
                 });
+                //dwr.util.setValues(person);
             }
         
             function editClicked(eleid) {
@@ -81,7 +82,8 @@
                 
                 dwr.util.getValues(person);
         
-                if ( validateEmail(person.emailOrPhone) || person.emailOrPhone.length >= 10 ) {                   
+                if ( validateEmail(person.emailOrPhone, false, false) || person.emailOrPhone.length >= 10 ) {
+                          
                     AjaxAdminService.saveEmailPreference(person, function(data) {
                         alert ( data );
                         fillTable();    
@@ -91,7 +93,7 @@
                     alert ( " not a valid phone no.")
                 }
                    
-           
+                
                 
             
             }
@@ -99,6 +101,15 @@
             function clearPerson() {
                 viewed = null;
                 dwr.util.setValues({ id:null, username:null, emailOrPhone:null, serviceProvider:null });
+            }
+            function deletePerson() {
+                //alert ( 'hi');
+                var x = viewed;
+                AjaxAdminService.deleteEmail(viewed, function(data) {
+                        //alert ( data );
+                        fillTable();    
+                        clearPerson();
+                    });
             }
         </script>
         
@@ -125,8 +136,6 @@
                                 <tr id="pattern" style="display:none;">
                                     <td><span id="username1">Username</span></td>
                                     <td><span id="email_or_phone">emailOrPhone</span></td>
-                                    
-                                    
                                     <td>
                                         <input id="edit" type="button" value="Edit" onclick="editClicked(this.id)"/>                        
                                     </td>
@@ -148,7 +157,7 @@
                                 </th>
                             </tr>
                         </thead>
-                                              
+                        
                         <tr>
                             <td> Service: </td>
                             <td><select name="serviceProvider">
@@ -172,9 +181,9 @@
                             <td> 
                             </td>
                             <td>
-                                <input type="button" value="Clear" onclick="clearPerson()"/>
                                 <input type="button" value="Save" onclick="writePerson()"/>  
-                                
+                                <input type="button" value="Delete" onclick="deletePerson()"/>                                  
+                                <input type="button" value="Clear" onclick="clearPerson()"/>
                             </td>
                         </tr>             
                         
