@@ -94,11 +94,12 @@
                         alert ( " Password is required field! ");
                     }
                 }
-                fillTable();
+                
                 //dwr.engine.endBatch();
             }
             
             var reply1 = function (data) {
+                fillTable();
                 alert ( data );
             }
         
