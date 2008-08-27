@@ -25,10 +25,11 @@
                 var cp = dwr.util.getValue("confirmPassword");
                 var minutes = dwr.util.getValue("minutes");
                 var rate = dwr.util.getValue("rate");
+                var maxSystems = dwr.util.getValue("maxSystems");
                 //alert ( c + u + p + cp);
                 if ( p == cp) {
                     if ( validateEmail(u, true, true) ) {
-                        AjaxUserService.registerNewOrganization ( c, "hyd", u, p, minutes, rate, reply1);
+                        AjaxUserService.registerNewOrganization ( c, "hyd", u, p, minutes, rate, maxSystems, reply1);
                     }
                 } else {
                     alert ( " Password & ConfirmPassword donot match");
@@ -152,27 +153,7 @@
             </tr>
         </table> 
         
-        <table border="0" width="80%" rules="none" align="center">
-            <tr>
-                <td align="right">
-                    <script language="javascript" type="text/javascript">
-                        
-                        var mydate=new Date()
-                        var year=mydate.getYear()
-                        if (year < 1000)
-                            year+=1900
-                        var day=mydate.getDay()
-                        var month=mydate.getMonth()
-                        var daym=mydate.getDate()
-                        if (daym<10)
-                            daym="0"+daym
-                        var dayarray=new Array("Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday")
-                        var montharray=new Array("January","February","March","April","May","June","July","August","September","October","November","December")
-                        document.write("<small><font color='000000' face='Arial'><b>"+dayarray[day]+", "+montharray[month]+" "+daym+", "+year+"</b></font></small>")
-                    </script> 
-                &nbsp;&nbsp;&nbsp; <span  id=clock  style="position:relative;"></span></td>
-            </tr>
-        </table>
+        
         <br>
         
         <p align="left"><font size="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -241,6 +222,9 @@
                                     <option value="30">Rs 30</option>
                             </select></td>
                         </tr>
+                        <tr>
+                        <td>Max Computers:</td>
+                        <td><input type="text" id="maxSystems" /></td>
                         <tr>
                             <td></td>
                             <td><input type="reset" value="Clear" />

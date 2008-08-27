@@ -109,6 +109,7 @@
                             <tr>
                                 <th>No</th>
                                 <th>Description</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody id="peoplebody">
