@@ -97,7 +97,7 @@
     </head>
     <body>
         <jsp:include page="include.jsp" />
-        
+        <h2 align="center">configure System Information  </h2> 
         
             
         <table align="center">
@@ -145,8 +145,8 @@
                         </tr>
                         <tr>
                             <td>Descrption:</td>
-                            <td><textarea name="description" rows="4" cols="23">
-                            </textarea></td>
+                           <td><textarea name="description" rows="5" cols="23">
+                            </textarea>
                         </tr>
                         <tr>
                             <td>Is Working:</td>
@@ -156,18 +156,18 @@
                             </select></td>
                         </tr>
                         <tr>
-                            <td>Minimum Minutes</td>
+                            <td>Minimum Minutes:*</td>
                             <td><input type="text" id="minimumMinutes" size="30"/></td>
                         </tr>
                         <tr>
-                            <td>Rate:</td>
+                            <td>Rate:*</td>
                             <td><input type="text" id="minuteRate" size="30"/></td>
                         </tr>
                         <tr>
                             <td></td>
                             <td>                    
                                 <input type="button" value="Save" onclick="writePerson()"/>
-                                <input type="button" value="Clear" onclick="clearPerson()"/>
+                               
                             </td>
                         </tr>
                     </table>
