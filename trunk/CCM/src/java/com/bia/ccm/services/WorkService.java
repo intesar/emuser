@@ -17,8 +17,8 @@ import java.util.List;
  */
 public interface WorkService {
 
-    public void updateRentalPrice(int mims, double rate, String username);
-    public void chargePayment(int systemId, String agent) ;
+    public void chargePayment(int systemId, String agent);
+
     public void addService(String service, long units, String user, double payableAmount,
             String comments, double paidAmount, String agent);
 
