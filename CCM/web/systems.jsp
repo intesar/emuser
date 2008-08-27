@@ -57,7 +57,12 @@
                     $("pattern" + id).style.display = "table-row";
                     peopleCache[id] = person;
                 }
+                //person = peopleCache[0];
+                //viewed = person.id;            
+                //dwr.util.setValues(person);
             });
+            
+            
         }
         
         function editClicked(eleid) {
