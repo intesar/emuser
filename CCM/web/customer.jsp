@@ -36,6 +36,7 @@
                 //dwr.engine.beginBatch();
                 //People.setPerson(person);
                 if ( validateEmail(customer.email, true, true) ) {
+                    //alert ( 'hi');
                     AjaxWorkService.createCustomer(customer, reply1);
                 }
                 //fillTable();
@@ -61,8 +62,6 @@
             }
             
             var reply2 = function(customer) {
-                //
-                //dwr.util.setValue("image", customer.image);
                 dwr.util.setValues(customer);
             }
         </script>
@@ -78,6 +77,7 @@
                     <th>
                         Customer Look Up
                     </th>
+                    <th></th>
                 </tr>
             </thead>
             <tr>
@@ -95,9 +95,9 @@
         <table   align="center">
             
             <thead>
-                <tr>
-                    <th></th>
+                <tr>                    
                     <th>Create Customer Profile </th>
+                    <th></th>
                 </tr>
             </thead>
             

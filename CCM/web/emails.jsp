@@ -55,7 +55,7 @@
                         dwr.util.cloneNode("pattern", { idSuffix:id });
                         dwr.util.setValue("username1" + id, person.username);
                         dwr.util.setValue("email_or_phone" + id, person.emailOrPhone);                        
-                        $("pattern" + id).style.display = "table-row";
+                        $("pattern" + id).style.display = "";
                         peopleCache[id] = person;
                     }
                 });
@@ -108,6 +108,7 @@
                             <tr>
                                 <th> Name  </th>
                                 <th> Email/Phone </th>
+                                <th></th>
                             </tr>
                         </thead>
                         <form>

@@ -12,6 +12,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <jsp:include page="dhtml_goodies_include.jsp" />
+        <script type="text/javascript" src="email_validation.js"></script>
         <style>
             a:link    {color:black; text-decoration:none; font-size:11pt}
             a:hover   {color:black; text-decoration:none; 
@@ -29,7 +30,7 @@
         <script type='text/javascript' src='/CCM/dwr/interface/AjaxAdminService.js'></script>
         <script type='text/javascript' src='/CCM/dwr/engine.js'></script>        
         <script type='text/javascript' src='/CCM/dwr/util.js'></script>
-       
+        
         <script type="text/javascript">
             function init() {
                 fillTable();
@@ -85,7 +86,14 @@
         
                 //dwr.engine.beginBatch();
                 //People.setPerson(person);
-                AjaxAdminService.saveUsers(person, reply1);
+                if ( validateEmail(person.username, true, true) ) {
+                    if ( person.password != "") {
+                        AjaxAdminService.saveUsers(person, reply1);
+                    } 
+                    else {
+                        alert ( " Password are required fields! ");
+                    }
+                }
                 fillTable();
                 //dwr.engine.endBatch();
             }
@@ -102,7 +110,7 @@
             }
         </script>
         
-      <jsp:include page="table_style.jsp" ></jsp:include>
+        <jsp:include page="table_style.jsp" ></jsp:include>
     </head>
     <body>
         
@@ -120,8 +128,7 @@
                                 <th>Email</th>
                                 <th>Active</th>
                                 <th>Role</th>
-                                
-                                
+                                <th></th>                                
                             </tr>
                         </thead>
                         <form>
@@ -130,8 +137,6 @@
                                     <td><span id="username1">username</span></td>  
                                     <td><span id="enabled1">enabled</span></td>
                                     <td><span id="role1">role</span></td> 
-                                    
-                                    
                                     <td>
                                         <input id="edit" type="button" value="Edit" onclick="editClicked(this.id)"/>                        
                                     </td>
@@ -184,8 +189,8 @@
                             <td><input id="phone" type="text" size="30"/></td>
                         </tr>          
                         <tr>
-                        <td></td>
-                        <td>
+                            <td></td>
+                            <td>
                                 <input type="button" value="Save" onclick="writePerson()"/>
                                 <input type="button" value="New" onclick="clearPerson()"/>
                             </td>
