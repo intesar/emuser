@@ -193,6 +193,19 @@
         </property>
     </bean>
     
+    <bean id="suggestionDao" parent="abstractDao">
+        <property name="proxyInterfaces">
+            <value>com.bia.ccm.dao.SuggestionDao</value>
+        </property>
+        <property name="target">
+            <bean parent="abstractDaoTarget">
+                <constructor-arg>
+                    <value>com.bia.ccm.entity.Suggestion</value>
+                </constructor-arg>
+            </bean>
+        </property>
+    </bean>
+    
     
     
      

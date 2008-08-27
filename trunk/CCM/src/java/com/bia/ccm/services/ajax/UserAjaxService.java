@@ -27,11 +27,13 @@ public class UserAjaxService {
 
     }
 
-    public String registerNewOrganization(String organizationName, String city, String email, String password, Integer minutes, Integer rate) {
+    public String registerNewOrganization(String organizationName, String city, 
+            String email, String password, Integer minutes, Integer rate, Integer maxSystems) {
         logger.debug("error");
         System.out.println("inside register organization");
         try {
-            String str = this.userService.registerNewOrganization(organizationName, city, email, password, minutes, rate);
+            String str = this.userService.registerNewOrganization(organizationName, 
+                    city, email, password, minutes, rate, maxSystems);
             System.out.println("inside register organization1");
             return str;
         } catch (Exception e) {

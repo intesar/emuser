@@ -5,6 +5,7 @@
 package com.bia.ccm.services.ajax;
 
 import com.bia.ccm.entity.Customer;
+import com.bia.ccm.entity.SystemLease;
 import com.bia.ccm.entity.Systems;
 import com.bia.ccm.entity.UsageDetail;
 import com.bia.ccm.services.WorkService;
@@ -33,6 +34,17 @@ import org.apache.commons.logging.LogFactory;
  */
 public class WorkAjaxService {
 
+    public String updateRentalPrice(int mims, double rate) {
+        String msg = "Successful!";
+        String username = AcegiUtil.getUsername();
+        try {
+            this.workService.updateRentalPrice(mims, rate, username);
+            return msg;
+        } catch ( Exception e) {
+            logger.error(e.getMessage());
+            return e.getMessage();
+        }
+    }
     public List<Systems> getActiveSystems() {
         String username = AcegiUtil.getUsername();
         return workService.getActiveSystems(username);
@@ -52,6 +64,21 @@ public class WorkAjaxService {
             return e.getMessage();
         }
 
+    }
+    
+    public String addService(String service, Long units, String user, Double payableAmount,
+            String comments, Double paidAmount) {
+        String msg = "Successful!";
+        String agent = AcegiUtil.getUsername();
+        try {
+            this.workService.addService(service, units, user, payableAmount, comments, paidAmount, agent);
+            return msg;
+        } catch ( Exception e) {
+            e.printStackTrace();
+            logger.error(e);
+            return e.getMessage();
+        }
+        
     }
 
     public UsageDetail getPayableAmount(int id) {
@@ -97,7 +124,12 @@ public class WorkAjaxService {
         
         return c;
     }
+    
+    public List<SystemLease> getSystemLease(int id) {
+        return this.workService.getSystemLease(id);
+    }
 
+    //public String addSuggestion()
     /**
      * Voodoo to scale the image to 200x200
      * @param uploadImage The image to work on
@@ -155,6 +187,17 @@ public class WorkAjaxService {
         return null;
     }
 
+    public String chargePayment(int systemId) {
+        String msg = "Successful!";
+        try {
+            workService.chargePayment(systemId, AcegiUtil.getUsername());
+        } catch ( Exception e) {
+            logger.error(e.getMessage());
+            return e.getMessage();            
+        }
+        return msg;
+    }
+    
     private BufferedImage byteArrayToBufferedImage(byte[] bytes) {
         try {
             BufferedImage image = ImageIO.read(new ByteArrayInputStream(bytes));
@@ -174,6 +217,7 @@ public class WorkAjaxService {
                 "9-4-62/23 nizam colony, towli chowki", "hyderabad", "500008", "ap", "india", new Date(), "male");
         // System.out.println ( was.createCustomer());
 //        System.out.println(was.getCustomer("intesar.mohammed@bizintelapps.com").getName());
-        System.out.println ( was.getPayableAmount(277));
+        //System.out.println ( was.getPayableAmount(277));
+        //System.out.println ( was.addService("B/W Print", 3, "2", 9.0, "", 9.0) );
     }
 }

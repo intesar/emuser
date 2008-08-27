@@ -17,7 +17,8 @@ public interface SystemLeaseDao extends GenericDao<SystemLease, Integer> {
 
     public List<SystemLease> findByOrganization(String organization);
 
-    SystemLease findBySystemAndFinished(int id);
+    public List<SystemLease> findBySystemAndFinished(int id);
+    public List<SystemLease> findBySystemIdAndFinished(int id);
 
     public List<SystemLease> findByStartAndEndDates(Date sd, Date ed, String org);
     
