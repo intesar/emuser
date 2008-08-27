@@ -5,10 +5,12 @@
 package com.bia.ccm.services.impl;
 
 import com.bia.ccm.dao.CustomerDao;
+import com.bia.ccm.dao.SuggestionDao;
 import com.bia.ccm.dao.SystemLeaseDao;
 import com.bia.ccm.dao.SystemsDao;
 import com.bia.ccm.dao.UsersDao;
 import com.bia.ccm.entity.Customer;
+import com.bia.ccm.entity.Suggestion;
 import com.bia.ccm.entity.SystemLease;
 import com.bia.ccm.entity.Systems;
 import com.bia.ccm.entity.UsageDetail;
@@ -27,6 +29,18 @@ import org.apache.commons.logging.LogFactory;
  */
 public class WorkServiceImpl implements WorkService {
 
+    
+    public void updateRentalPrice(int mims, double rate, String username) {        
+        Users u = this.usersDao.findByUsername(username);
+        String org = u.getOrganization();
+        List<Systems> list = this.systemsDao.findByOrganization(org);
+        for ( Systems s : list ) {
+            s.setMinimumMinutes(mims);
+            s.setMinuteRate(rate);
+            this.systemsDao.update(s);
+        }
+    }
+    
     public List<Systems> getActiveSystems(String username) {
         Users u = this.usersDao.findByUsername(username);
         return this.systemsDao.findByOrganization(u.getOrganization());
@@ -40,8 +54,11 @@ public class WorkServiceImpl implements WorkService {
     public String leaseSystem(int id, String leaseHolder) {
         Systems system = this.systemsDao.read(id);
         system.setIsAvailable(false);
+        system.setCurrentUserEmail(leaseHolder);
+        system.setStartTime(new Date());
         this.systemsDao.update(system);
         SystemLease systemLease = new SystemLease(null, new Date(), AcegiUtil.getUsername(), system.getId(), false);
+        systemLease.setService("Computer +" + system.getName());
         systemLease.setLeaseHolderName(leaseHolder);
         this.systemLeaseDao.create(systemLease);
         return "Assigned Successfully!";
@@ -58,9 +75,90 @@ public class WorkServiceImpl implements WorkService {
      *   Payable Amount
      *   System Name
      */
+    public List<SystemLease> getSystemLease(int id) {
+        List<SystemLease> list = this.systemLeaseDao.findBySystemIdAndFinished(id);
+        for (SystemLease s : list) {
+            if (s.getPayableAmount() == null) {
+                update(s);
+            }
+        }
+        return list;
+    }
+
+    public void chargePayment(int systemId, String agent) {
+        List<SystemLease> list = getSystemLease(systemId);
+        for (SystemLease sl : list) {
+            if (sl.getPayableAmount() != null || sl.getPayableAmount() <= 0) {
+                sl.setAmountPaid(sl.getPayableAmount());
+            }
+            sl.setReturnAgent(agent);
+            sl.setIsFinished(true);
+            this.systemLeaseDao.update(sl);
+        }
+        Systems system = this.systemsDao.read(systemId);
+        system.setIsAvailable(true);
+        system.setCurrentUserEmail("");
+        system.setStartTime(null);
+        this.systemsDao.update(system);
+    }
+
+    private void update(SystemLease systemLease) {
+        Systems system = this.systemsDao.read(systemLease.getSystem());
+        Double rate = system.getMinuteRate();
+        Date endTime = new Date();
+        Long totalMinutes = (endTime.getTime() - systemLease.getStartTime().getTime()) / (1000 * 60);
+        Double payableAmount = null;
+        logger.debug("rate ******** : " + rate);
+        if (rate >= 1.0) {
+            Integer minimumMins = system.getMinimumMinutes();//Double.parseDouble(rateString.substring(0, a));
+            logger.debug("minimumMins ******** : " + minimumMins);
+            payableAmount = Math.ceil((double) totalMinutes / minimumMins) * rate;
+            logger.debug("Math.ceil((double)totalMinutes / minimumMins) ******** : " + Math.ceil(totalMinutes / minimumMins));
+            logger.debug("payableAmount ******** : " + payableAmount);
+        } else {
+            payableAmount = totalMinutes * rate;
+        }
+        systemLease.setPayableAmount(payableAmount);
+
+    }
+
+    public void addService(String service, long units, String user, double payableAmount,
+            String comments, double paidAmount, String agent) {
+        int u = 0;
+        try {
+            u = Integer.parseInt(user.trim());
+        } catch (Exception e) {
+            logger.debug(e.getMessage());
+        }
+        if (u == 0) {
+            SystemLease sl = new SystemLease(null, new Date(), agent, 0, true);
+            sl.setAmountPaid(paidAmount);
+            sl.setEndTime(new Date());
+            sl.setLeaseHolderName(user);
+            sl.setPayableAmount(payableAmount);
+            sl.setReturnAgent(agent);
+            sl.setService(service);
+            sl.setTotalMinutesUsed(units);
+            this.systemLeaseDao.create(sl);
+        } else {
+            Users user1 = usersDao.findByUsername(agent);
+            Systems s = systemsDao.findBySystemNameAndOrganization(u, user1.getOrganization());
+            SystemLease sl = new SystemLease(null, new Date(), agent, s.getId(), false);
+            sl.setAmountPaid(paidAmount);
+            sl.setEndTime(new Date());
+            sl.setLeaseHolderName(s.getCurrentUserEmail());
+            sl.setPayableAmount(payableAmount);
+            //sl.setReturnAgent(agent);
+            sl.setService(service);
+            sl.setTotalMinutesUsed(units);
+            this.systemLeaseDao.create(sl);
+        }
+
+    }
+
     public UsageDetail getPayableAmount(int id) {
-        SystemLease systemLease = this.systemLeaseDao.findBySystemAndFinished(id);
-        System.out.println ( systemLease );
+        SystemLease systemLease = null;//this.systemLeaseDao.findBySystemAndFinished(id);
+        System.out.println(systemLease);
         Systems system = this.systemsDao.read(id);
         Double rate = system.getMinuteRate();
         Date endTime = new Date();
@@ -69,14 +167,14 @@ public class WorkServiceImpl implements WorkService {
         Double payableAmount = null;
         logger.debug("rate ******** : " + rate);
         if (rate >= 1.0) {
-            
+
 //            NumberFormat nf1 = new DecimalFormat("0.00");
 //            String rateString = nf1.format(rate);
 //            int a = rateString.indexOf(".");
             //Double rt = system.getMinuteRate();//Double.parseDouble(rateString.substring(a + 1, a + 2));
             Integer minimumMins = system.getMinimumMinutes();//Double.parseDouble(rateString.substring(0, a));
             logger.debug("minimumMins ******** : " + minimumMins);
-            payableAmount = Math.ceil((double)totalMinutes / minimumMins) * rate;
+            payableAmount = Math.ceil((double) totalMinutes / minimumMins) * rate;
             logger.debug("Math.ceil((double)totalMinutes / minimumMins) ******** : " + Math.ceil(totalMinutes / minimumMins));
             logger.debug("payableAmount ******** : " + payableAmount);
         } else {
@@ -85,13 +183,13 @@ public class WorkServiceImpl implements WorkService {
         String pattern = "hh:mm";
         SimpleDateFormat sdf = new SimpleDateFormat(pattern);
 
-        
+
         String str = " User : " + systemLease.getLeaseHolderName() + " \n" +
                 " System : " + system.getName() + " \n" +
                 " Start Time : " + sdf.format(systemLease.getStartTime()) + " \n" +
                 " End Time : " + sdf.format(endTime) + " \n" +
                 " Total Minutes : " + totalMinutes + " \n" +
-                " Payable Amount : " + payableAmount ;
+                " Payable Amount : " + payableAmount;
         UsageDetail ud = new UsageDetail(str, payableAmount);
         return ud;
     }
@@ -100,7 +198,7 @@ public class WorkServiceImpl implements WorkService {
         Systems system = this.systemsDao.read(id);
         system.setIsAvailable(true);
         this.systemsDao.update(system);
-        SystemLease systemLease = this.systemLeaseDao.findBySystemAndFinished(id);
+        SystemLease systemLease = null;//this.systemLeaseDao.findBySystemAndFinished(id);
         systemLease.setEndTime(new Date());
         systemLease.setIsFinished(true);
         systemLease.setAmountPaid(amountPaid);
@@ -116,7 +214,7 @@ public class WorkServiceImpl implements WorkService {
 //            int a = rateString.indexOf(".");
             Double rt = system.getMinuteRate();//Double.parseDouble(rateString.substring(a + 1, a + 2));
             Integer minimumMins = system.getMinimumMinutes();//Double.parseDouble(rateString.substring(0, a));
-            payableAmount = Math.ceil((double)totalMinutes / minimumMins) * rt;
+            payableAmount = Math.ceil((double) totalMinutes / minimumMins) * rt;
         } else {
             payableAmount = totalMinutes * rate;
         }
@@ -168,7 +266,11 @@ public class WorkServiceImpl implements WorkService {
     public Customer getCustomer(String key) {
         return this.customerDao.findByKey(key);
     }
-    
+
+    public void createSuggestion(Suggestion suggestion) {
+        this.suggestionDao.create(suggestion);
+    }
+
     public void setUsersDao(UsersDao usersDao) {
         this.usersDao = usersDao;
     }
@@ -184,9 +286,14 @@ public class WorkServiceImpl implements WorkService {
     public void setCustomerDao(CustomerDao customerDao) {
         this.customerDao = customerDao;
     }
+
+    public void setSuggestionDao(SuggestionDao suggestionDao) {
+        this.suggestionDao = suggestionDao;
+    }
     protected final Log logger = LogFactory.getLog(getClass());
     private CustomerDao customerDao;
     private SystemsDao systemsDao;
     private UsersDao usersDao;
     private SystemLeaseDao systemLeaseDao;
+    private SuggestionDao suggestionDao;
 }

@@ -5,6 +5,7 @@
 package com.bia.ccm.entity;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.CascadeType;
@@ -26,7 +27,7 @@ import javax.persistence.Transient;
 @Entity
 @Table(name = "systems")
 @NamedQueries({
-    @NamedQuery(name = "Systems.findByOrganization", query = "select s from Systems s where s.organization = ?1 "),
+    @NamedQuery(name = "Systems.findByOrganization", query = "select s from Systems s where s.organization = ?1 and s.enabled = true "),
     @NamedQuery(name = "Systems.findBySystemNameAndOrganization", query = "select s from Systems s where s.name = ?1 and s.organization = ?2"),
     @NamedQuery(name = "Systems.findByMacAddress", query = "select s from Systems s where s.macAddress = ?1 ")
 })
@@ -68,10 +69,15 @@ public class Systems implements Serializable {
     private String status;
     @Column(name = "comment")
     private String comment;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "systems")
-    private Collection<SystemsPing> systemsPingCollection;
     @Transient
     private String enabledString;
+    @Column(name = "current_user_email")
+    private String currentUserEmail;
+    @Temporal(TemporalType.DATE)
+    @Column(name = "start_time")
+    private Date startTime;
+    @Transient
+    private String startTimeString;
 
     public Systems() {
     }
@@ -212,14 +218,6 @@ public class Systems implements Serializable {
         this.comment = comment;
     }
 
-    public Collection<SystemsPing> getSystemsPingCollection() {
-        return systemsPingCollection;
-    }
-
-    public void setSystemsPingCollection(Collection<SystemsPing> systemsPingCollection) {
-        this.systemsPingCollection = systemsPingCollection;
-    }
-
     public Integer getMinimumMinutes() {
         return minimumMinutes;
     }
@@ -244,6 +242,36 @@ public class Systems implements Serializable {
             this.enabledString = "no";
             enabled = false;
         }
+    }
+
+    public String getCurrentUserEmail() {
+        return currentUserEmail;
+    }
+
+    public void setCurrentUserEmail(String currentUserEmail) {
+        this.currentUserEmail = currentUserEmail;
+    }
+
+    public Date getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(Date startTime) {
+        this.startTime = startTime;
+    }
+
+    public String getStartTimeString() {
+        String pattern = "hh:mm";
+        SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+        if (this.startTime != null) {
+            return sdf.format(this.startTime);
+        } else {
+            return "";
+        }
+    }
+
+    public void setStartTimeString(String startTimeString) {
+        this.startTimeString = startTimeString;
     }
 
     @Override

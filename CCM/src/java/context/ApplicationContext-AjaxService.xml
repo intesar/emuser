@@ -41,6 +41,11 @@
             <dwr:include method="getPayableAmount" />
             <dwr:include method="createCustomer" />
             <dwr:include method="getCustomer" />
+            <dwr:include method="addSuggestion" />
+            <dwr:include method="getSystemLease" />
+            <dwr:include method="addService" />
+            <dwr:include method="chargePayment" />
+            <dwr:include method="updateRentalPrice" />
         </dwr:remote>
     </bean>
     <bean id="adminAjaxService" class="com.bia.ccm.services.ajax.AdminAjaxService" >
@@ -63,6 +68,5 @@
     <dwr:configuration>
         <dwr:convert type="bean" class="com.bia.ccm.entity.*" />
         <dwr:convert type="bean"  class="java.util.*"  />
-        
     </dwr:configuration>
 </beans>

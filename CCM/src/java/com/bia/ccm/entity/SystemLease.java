@@ -28,6 +28,7 @@ import javax.persistence.Transient;
 @NamedQueries({
     @NamedQuery(name = "SystemLease.findByOrganization", query = "select s from SystemLease s where s.system in (select s1.id from Systems s1 where s1.organization = ?1 ) "),
     @NamedQuery(name = "SystemLease.findBySystemAndFinished", query = "select s from SystemLease s where s.system = ?1 and s.isFinished = false "),
+    @NamedQuery(name = "SystemLease.findBySystemIdAndFinished", query = "select s from SystemLease s where s.system = ?1 and s.isFinished = false "),
     @NamedQuery(name = "SystemLease.findByStartAndEndDates", query = "SELECT s FROM SystemLease s where (s.startTime >= ?1 and s.endTime <= ?2) and s.system in (select t.id from Systems t where t.organization = ?3 )")
 })
 @NamedNativeQueries({
@@ -65,6 +66,8 @@ public class SystemLease implements Serializable {
     private String startTimeString;
     @Transient
     private String endTimeString;
+    @Column(name = "service")
+    private String service;
 
     public SystemLease() {
     }
@@ -146,7 +149,10 @@ public class SystemLease implements Serializable {
     }
 
     public Long getTotalMinutesUsed() {
-        return totalMinutesUsed;
+        Long st = this.startTime.getTime();
+        Long et = new Date().getTime();
+        return (et - st) / (1000 * 60);
+    //return totalMinutesUsed;
     }
 
     public void setTotalMinutesUsed(Long totalMinutesUsed) {
@@ -170,9 +176,11 @@ public class SystemLease implements Serializable {
     }
 
     public String getEndTimeString() {
-        String pattern = "yyyy.MM.dd hh:mm aaa";
+        String pattern = "yyyy.MM.dd hh:mm";
         SimpleDateFormat sdf = new SimpleDateFormat(pattern);
-
+        if (this.endTime == null) {
+            return "";
+        }
         return sdf.format(this.endTime);
     }
 
@@ -181,7 +189,7 @@ public class SystemLease implements Serializable {
     }
 
     public String getStartTimeString() {
-        String pattern = "yyyy.MM.dd hh:mm aaa";
+        String pattern = "yyyy.MM.dd hh:mm";
         SimpleDateFormat sdf = new SimpleDateFormat(pattern);
 
         return sdf.format(this.startTime);
@@ -189,6 +197,14 @@ public class SystemLease implements Serializable {
 
     public void setStartTimeString(String startTimeString) {
         this.startTimeString = startTimeString;
+    }
+
+    public String getService() {
+        return service;
+    }
+
+    public void setService(String service) {
+        this.service = service;
     }
 
     @Override

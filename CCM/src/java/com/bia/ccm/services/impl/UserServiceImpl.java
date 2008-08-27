@@ -59,7 +59,8 @@ public class UserServiceImpl implements UserService {
 
     }
 
-    public String registerNewOrganization(String organizationName, String city, String email, String password, Integer minutes, Integer rate) {
+    public String registerNewOrganization(String organizationName, String city, 
+            String email, String password, Integer minutes, Integer rate, Integer maxSystems) {
         Organization o = new Organization(organizationName, (short) 1, null, city,
                 email, city, null, "india", email, "trial", "ccm", 0, new Date(), "self");
         Users u = new Users(null, email, password, true, "admin", organizationName, email);
@@ -71,7 +72,11 @@ public class UserServiceImpl implements UserService {
         this.organizationDao.create(o);
         //Double minuteRate = Double.parseDouble("" + minutes + "." + rate);
         for (int i = 1; i <= 40; i++) {
-            Systems systems = new Systems(null, i, organizationName, true, null, minutes, rate, true);
+            boolean enabled = false;
+            if ( i <= maxSystems ) {
+                enabled = true;
+            }
+            Systems systems = new Systems(null, i, organizationName, true, null, minutes, rate, enabled);
             this.systemsDao.create(systems);
         }
         return "Please login with your email and password";

@@ -34,7 +34,7 @@ http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
         class="org.acegisecurity.ui.webapp.AuthenticationProcessingFilter">
         <property name="authenticationManager" ref="authenticationManager"/>
         <property name="authenticationFailureUrl" value="/login.jsp?login_error=1"/>
-        <property name="defaultTargetUrl" value="/dashboard.jsp"/>
+        <property name="defaultTargetUrl" value="/dashboard1.jsp"/>
         <property name="filterProcessesUrl" value="/j_acegi_security_check"/>
         <property name="rememberMeServices" ref="rememberMeServices"/>
     </bean>
