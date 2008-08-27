@@ -30,16 +30,7 @@ import org.apache.commons.logging.LogFactory;
 public class WorkServiceImpl implements WorkService {
 
     
-    public void updateRentalPrice(int mims, double rate, String username) {        
-        Users u = this.usersDao.findByUsername(username);
-        String org = u.getOrganization();
-        List<Systems> list = this.systemsDao.findByOrganization(org);
-        for ( Systems s : list ) {
-            s.setMinimumMinutes(mims);
-            s.setMinuteRate(rate);
-            this.systemsDao.update(s);
-        }
-    }
+   
     
     public List<Systems> getActiveSystems(String username) {
         Users u = this.usersDao.findByUsername(username);

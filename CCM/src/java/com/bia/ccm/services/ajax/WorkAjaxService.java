@@ -34,17 +34,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class WorkAjaxService {
 
-    public String updateRentalPrice(int mims, double rate) {
-        String msg = "Successful!";
-        String username = AcegiUtil.getUsername();
-        try {
-            this.workService.updateRentalPrice(mims, rate, username);
-            return msg;
-        } catch ( Exception e) {
-            logger.error(e.getMessage());
-            return e.getMessage();
-        }
-    }
+    
     public List<Systems> getActiveSystems() {
         String username = AcegiUtil.getUsername();
         return workService.getActiveSystems(username);

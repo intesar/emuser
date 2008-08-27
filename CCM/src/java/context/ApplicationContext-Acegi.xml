@@ -81,7 +81,8 @@ http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
             <value>
         CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
         PATTERN_TYPE_APACHE_ANT                
-                /dwr*=ROLE_ADMIN
+                /dwr/interface/ajaxadminservice.js*=ROLE_ADMIN
+                /dwr/interface/ajaxworkservice.js*=ROLE_USER
                 /users.jsp*=ROLE_ADMIN    
                 /emails.jsp*=ROLE_ADMIN
                 /emailtimings*.jps=ROLE_ADMIN
@@ -90,7 +91,9 @@ http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
                 /systemlease.jsp*=ROLE_ADMIN
                 /systems.jsp*=ROLE_ADMIN
                 /dashboard.jsp*=ROLE_ADMIN,ROLE_USER
+                /dashboard1.jsp*=ROLE_ADMIN,ROLE_USER
                 /customer.jsp*=ROLE_ADMIN,ROLE_USER
+                /services.jsp*=ROLE_ADMIN,ROLE_USER
             </value>
         </property>
     </bean>

@@ -8,6 +8,7 @@ import com.bia.ccm.dao.AuthoritiesDao;
 import com.bia.ccm.dao.EmailPreferenceDao;
 import com.bia.ccm.dao.EmailTimePreferenceDao;
 import com.bia.ccm.dao.OrganizationDao;
+import com.bia.ccm.dao.ServicesDao;
 import com.bia.ccm.dao.SystemLeaseDao;
 import com.bia.ccm.dao.SystemsDao;
 import com.bia.ccm.dao.UsersDao;
@@ -16,6 +17,7 @@ import com.bia.ccm.entity.AuthoritiesPK;
 import com.bia.ccm.entity.EmailPreference;
 import com.bia.ccm.entity.EmailTimePreference;
 import com.bia.ccm.entity.Organization;
+import com.bia.ccm.entity.Services;
 import com.bia.ccm.entity.SystemLease;
 import com.bia.ccm.entity.Systems;
 import com.bia.ccm.entity.Users;
@@ -32,6 +34,22 @@ import org.apache.commons.logging.LogFactory;
 public class AdminServiceImpl implements AdminService {
 
     protected final Log logger = LogFactory.getLog(getClass());
+
+    public void deleteEmail(int id) {
+        EmailPreference email = this.emailPreferenceDao.read(id);
+        this.emailPreferenceDao.delete(email);
+    }
+
+    public void updateRentalPrice(int mims, double rate, String username) {
+        Users u = this.usersDao.findByUsername(username);
+        String org = u.getOrganization();
+        List<Systems> list = this.systemsDao.findByOrganization(org);
+        for (Systems s : list) {
+            s.setMinimumMinutes(mims);
+            s.setMinuteRate(rate);
+            this.systemsDao.update(s);
+        }
+    }
 
     public List<Systems> getAllSystems(String username) {
         Users u = this.getUserByUsername(username);
@@ -205,6 +223,24 @@ public class AdminServiceImpl implements AdminService {
         return this.usersDao.findByUsername(username);
     }
 
+    public void saveService(Services service) {
+        if (service.getId() == null) {
+            this.servicesDao.create(service);
+        } else {
+            this.servicesDao.update(service);
+        }
+    }
+
+    public void deleteService(Integer id) {
+        Services services = this.servicesDao.read(id);
+        this.servicesDao.delete(services);
+    }
+
+    public List<Services> getAllServices(String org) {
+        return this.servicesDao.findByOrganization(org);
+    }
+    
+    // getters & setters
     public void setUsersDao(UsersDao usersDao) {
         this.usersDao = usersDao;
     }
@@ -232,6 +268,10 @@ public class AdminServiceImpl implements AdminService {
     public void setAuthoritiesDao(AuthoritiesDao authoritiesDao) {
         this.authoritiesDao = authoritiesDao;
     }
+
+    public void setServicesDao(ServicesDao servicesDao) {
+        this.servicesDao = servicesDao;
+    }
     private UsersDao usersDao;
     private SystemsDao systemsDao;
     private EmailPreferenceDao emailPreferenceDao;
@@ -239,4 +279,5 @@ public class AdminServiceImpl implements AdminService {
     private SystemLeaseDao systemLeaseDao;
     private OrganizationDao organizationDao;
     private AuthoritiesDao authoritiesDao;
+    private ServicesDao servicesDao;
 }

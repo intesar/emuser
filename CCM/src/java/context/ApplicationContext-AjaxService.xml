@@ -45,7 +45,7 @@
             <dwr:include method="getSystemLease" />
             <dwr:include method="addService" />
             <dwr:include method="chargePayment" />
-            <dwr:include method="updateRentalPrice" />
+            
         </dwr:remote>
     </bean>
     <bean id="adminAjaxService" class="com.bia.ccm.services.ajax.AdminAjaxService" >
@@ -63,6 +63,11 @@
             <dwr:include method="saveOrganization" />
             <dwr:include method="getSystemLease" />
             <dwr:include method="getReport" />
+            <dwr:include method="updateRentalPrice" />
+            <dwr:include method="deleteEmail" />
+            <dwr:include method="saveService" />
+            <dwr:include method="deleteService" />
+            <dwr:include method="getAllServices" />
         </dwr:remote>
     </bean>
     <dwr:configuration>
