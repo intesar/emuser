@@ -35,7 +35,7 @@
 <br>
 <div id="mainDiv">
     <div id="adminDiv" align="center">
-        <a onclick="forwardFunction('dashboard.jsp');">
+        <a onclick="forwardFunction('dashboard1.jsp');">
             <img src="dash/1. home.gif" width="40" height="40" alt="Dashboard"/>
         </a>
         &nbsp;&nbsp;&nbsp;
