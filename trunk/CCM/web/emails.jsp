@@ -12,7 +12,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <jsp:include page="dhtml_goodies_include.jsp" />
-        
+        <script type="text/javascript" src="email_validation.js"></script>
         <style>
             a:link    {color:black; text-decoration:none; font-size:11pt}
             a:hover   {color:black; text-decoration:none; 
@@ -72,19 +72,28 @@
         
             function writePerson() {
                 var person;
+                
                 if ( viewed == null ) {
                     person = { id:viewed, username:null, emailOrPhone:null, serviceProvider:null };
-                } else {
+                }   else {
                     person = peopleCache[viewed];
                 }
                 
                 dwr.util.getValues(person);
         
-                //dwr.engine.beginBatch();
-                //People.setPerson(person);
-                AjaxAdminService.saveEmailPreference(person);
-                fillTable();
-                //dwr.engine.endBatch();
+                if ( validateEmail(person.emailOrPhone) || person.emailOrPhone.length >= 10 ) {                   
+                    AjaxAdminService.saveEmailPreference(person, function(data) {
+                        alert ( data );
+                        fillTable();    
+                    });
+                    
+                } else {
+                    alert ( " not a valid phone no.")
+                }
+                   
+           
+                
+            
             }
         
             function clearPerson() {
@@ -98,7 +107,7 @@
     <body>
         
         <jsp:include page="include.jsp" />
-        
+        <h2 align="center"> Email/Phone For Daily Reports </h2> 
         <table align="center">
             <tr>
                 <td>
@@ -139,13 +148,9 @@
                                 </th>
                             </tr>
                         </thead>
+                                              
                         <tr>
-                            <td> Name: </td>
-                            <td><input id="username" type="text" size="30"/></td>
-                        </tr>
-                        
-                        <tr>
-                            <td> Service </td>
+                            <td> Service: </td>
                             <td><select name="serviceProvider">
                                     <option>email</option>
                                     <option>airtel</option>
@@ -155,10 +160,14 @@
                         </tr>
                         
                         <tr>
-                            <td> Email/Phone: </td>
+                            <td> Email/Phone:* </td>
+                            
                             <td><input id="emailOrPhone" type="text" size="30"/></td>
                         </tr> 
-                        
+                        <tr>
+                            <td> Name: </td>
+                            <td><input id="username" type="text" size="30"/></td>
+                        </tr> 
                         <tr>
                             <td> 
                             </td>

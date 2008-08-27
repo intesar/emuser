@@ -91,7 +91,7 @@
                         AjaxAdminService.saveUsers(person, reply1);
                     } 
                     else {
-                        alert ( " Password are required fields! ");
+                        alert ( " Password is required field! ");
                     }
                 }
                 fillTable();
@@ -115,13 +115,13 @@
     <body>
         
         <jsp:include page="include.jsp" />
-        
-        <table align="center">
+ <h2 align="center">Update User Information  </h2>                         
+<table align="center">
             
             
             <tr>
                 <td>
-                    <table>
+                <table>
                         
                         <thead>
                             <tr>
@@ -157,18 +157,19 @@
                             </tr>
                         </thead>
                         <tr>
-                            <td> Email: </td>
+                            <td> Email:* </td>
                             <td><input id="username" type="text" size="30" disabled="disabled"/></td>
                         </tr>
+                        <tr>
+                            <td> Password:* </td>
+                            <td><input id="password" type="password" size="30"/></td>
+                        </tr> 
                         <tr>
                             <td>  Name:  </td>
                             <td><input id="name" type="text" size="30"/></td>
                         </tr>
                         
-                        <tr>
-                            <td> Password </td>
-                            <td><input id="password" type="password" size="30"/></td>
-                        </tr> 
+                        
                         <tr>
                             <td> Enabled </td>
                             <td><select name="enabledString">
@@ -185,7 +186,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td> Phone </td>
+                            <td> Phone: </td>
                             <td><input id="phone" type="text" size="30"/></td>
                         </tr>          
                         <tr>
