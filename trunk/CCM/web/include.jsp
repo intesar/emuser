@@ -43,6 +43,9 @@
         </a>
         &nbsp;&nbsp;&nbsp;
         <a onclick="forwardFunction('systems.jsp');"><img src="dash/3.jpg" width="40" height="40" alt="3"/>
+        </a>        
+        &nbsp;&nbsp;&nbsp;
+        <a onclick="forwardFunction('services.jsp');"><img src="dash/10 feedback.jpg" width="40" height="38" alt="10 feedback"/>
         </a>
         &nbsp;&nbsp;&nbsp;
         <a onclick="forwardFunction('emails.jsp');"><img src="dash/4 emails.jpg" width="40" height="39" alt="4 emails"/>
@@ -62,10 +65,7 @@
         &nbsp;&nbsp;&nbsp;
         <a onclick="forwardFunction('customer.jsp');"><img src="dash/6.jpg" width="40" height="40" alt="6"/>
         </a>
-        &nbsp;&nbsp;&nbsp;
-        <a onclick="forwardFunction('suggestions.jsp');"><img src="dash/10 feedback.jpg" width="40" height="38" alt="10 feedback"/>
-        </a>
-        &nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;        
         <a onclick="forwardFunction('j_acegi_logout');"><img src="dash/11 logout.jpg" width="40" height="40" alt="11 logout"/>
         </a> 
         &nbsp;&nbsp;&nbsp;
