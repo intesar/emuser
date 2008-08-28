@@ -42,9 +42,10 @@
             var viewed = null;
             var systems1 = { };
             var systemLength = null;
+            var services = { };
             function fillTable() {
-                document.getElementById('geta').disabled=true;
-                document.getElementById('deta').disabled=true;
+                //document.getElementById('geta').disabled=true;
+                //document.getElementById('deta').disabled=true;
                 dwr.util.useLoadingMessage();
                 AjaxWorkService.getActiveSystems(function(people) {
                    
@@ -64,7 +65,7 @@
                         dwr.util.cloneNode("pattern", { idSuffix:id });
                         dwr.util.setValue("name" + id, person.name);
                         dwr.util.setValue("currentUserEmail" + id, person.currentUserEmail);     
-                        dwr.util.setValue("startTimeString" + id, person.startTimeString);
+                        dwr.util.setValue("startTimeString1" + id, person.startTimeString);
                         $("pattern" + id).style.display = "";
                         peopleCache[id] = person;
                         systems1[i] = person;
@@ -80,6 +81,12 @@
                     }
                 });
                 //document.getElementById('deta5').style.visibility='hidden';
+                AjaxWorkService.getAllServices(function(data) {                    
+                    DWRUtil.removeAllOptions("services");
+                    DWRUtil.addOptions("services", data, "name", "name" );
+                    services = data;
+                });
+                
             }
             
             function assignSystem(eleid) {  
@@ -144,7 +151,7 @@
                     flag = true;
                 }
                 if (!isNaN(e)) {
-                    alert ( 'e');
+                    
                     for ( var i = 0; i < systemLength; i++ ) {
                         var p1 = systems1[i];
                         var name = p1.name;
@@ -194,6 +201,16 @@
                 return true;
             }
             
+            function updatePrice() {
+                var s = dwr.util.getValue("services");
+                var u = dwr.util.getValue("units");
+                for ( var i = 0; i < services.length; i++ ) {
+                    if ( services[i].name == s ) {
+                        dwr.util.setValue("payableAmount1", services[i].unitPrice * u );
+                    }
+                }
+                //alert ( s + " " + u);
+            }
         </script>
         <jsp:include page="table_style.jsp" ></jsp:include>
         
@@ -247,7 +264,7 @@
                                 <tr id="pattern" style="display:none;">
                                     <td><span id="name"></span></td>
                                     <td><span id="currentUserEmail"></span></td>
-                                    <td><span id="startTimeString"></span></td>
+                                    <td><span id="startTimeString1"></span></td>
                                     <td>
                                         <!-- <input type="button" id="edit" value="Assign" onclick="assignSystem(this.id);" /> 
                                         <input type="button" id="deta" value="Detail" onclick="fetchDetail(this.id);" />
@@ -302,7 +319,7 @@
                             
                             <tr>
                                 <td>Service</td>
-                                <td><select name="services">
+                                <td><select name="services" id="services">
                                         <option>B/W Print</option>
                                         <option>Color Print</option>
                                         <option>Scan</option>
@@ -315,7 +332,7 @@
                                 <td>Units*</td>
                                 <td>
                                     <!--   <input type="text" name="units" value="1" size="4" class="cleardefault"> -->
-                                    <input type=text name="units" value="1" size="4" class="cleardefault" onKeyup="isInteger(this.value)">
+                                    <input type=text name="units" value="1" size="4" class="cleardefault" onchange="updatePrice();" onKeyup="isInteger(this.value);updatePrice();">
                                     
                                     
                                 </td>
