@@ -5,6 +5,7 @@
 package com.bia.ccm.services;
 
 import com.bia.ccm.entity.Customer;
+import com.bia.ccm.entity.Services;
 import com.bia.ccm.entity.Suggestion;
 import com.bia.ccm.entity.SystemLease;
 import com.bia.ccm.entity.Systems;
@@ -16,6 +17,8 @@ import java.util.List;
  * @author intesar
  */
 public interface WorkService {
+
+    public List<Services> getAllServices(String org);
 
     public void chargePayment(int systemId, String agent);
 

@@ -6,11 +6,13 @@ package com.bia.ccm.services.impl;
 
 import com.bia.ccm.dao.AuthoritiesDao;
 import com.bia.ccm.dao.OrganizationDao;
+import com.bia.ccm.dao.ServicesDao;
 import com.bia.ccm.dao.SystemsDao;
 import com.bia.ccm.dao.UsersDao;
 import com.bia.ccm.entity.Authorities;
 import com.bia.ccm.entity.AuthoritiesPK;
 import com.bia.ccm.entity.Organization;
+import com.bia.ccm.entity.Services;
 import com.bia.ccm.entity.Systems;
 import com.bia.ccm.entity.Users;
 import com.bia.ccm.services.EMailService;
@@ -59,27 +61,33 @@ public class UserServiceImpl implements UserService {
 
     }
 
-    public String registerNewOrganization(String organizationName, String city, 
+    public String registerNewOrganization(String organizationName, String city,
             String email, String password, Integer minutes, Integer rate, Integer maxSystems) {
         Organization o = new Organization(organizationName, (short) 1, null, city,
                 email, city, null, "india", email, "trial", "ccm", 0, new Date(), "self");
         Users u = new Users(null, email, password, true, "admin", organizationName, email);
         Authorities a1 = new Authorities(email, "ROLE_ADMIN");
         Authorities a2 = new Authorities(email, "ROLE_USER");
-        this.usersDao.create(u);
-        this.authoritiesDao.create(a1);
-        this.authoritiesDao.create(a2);
-        this.organizationDao.create(o);
-        //Double minuteRate = Double.parseDouble("" + minutes + "." + rate);
-        for (int i = 1; i <= 40; i++) {
-            boolean enabled = false;
-            if ( i <= maxSystems ) {
-                enabled = true;
+        Services s = new Services(null, "other", 1.0, organizationName);
+        try {
+            this.usersDao.create(u);
+            this.authoritiesDao.create(a1);
+            this.authoritiesDao.create(a2);
+            this.organizationDao.create(o);
+            this.servicesDao.create(s);
+            //Double minuteRate = Double.parseDouble("" + minutes + "." + rate);
+            for (int i = 1; i <= 40; i++) {
+                boolean enabled = false;
+                if (i <= maxSystems) {
+                    enabled = true;
+                }
+                Systems systems = new Systems(null, i, organizationName, true, null, minutes, rate, enabled);
+                this.systemsDao.create(systems);
             }
-            Systems systems = new Systems(null, i, organizationName, true, null, minutes, rate, enabled);
-            this.systemsDao.create(systems);
+            return "Please login with your email and password";
+        } catch (Exception e) {
+            return e.getMessage();
         }
-        return "Please login with your email and password";
     }
 
     public void setUsersDao(UsersDao usersDao) {
@@ -101,9 +109,14 @@ public class UserServiceImpl implements UserService {
     public void setSystemsDao(SystemsDao systemsDao) {
         this.systemsDao = systemsDao;
     }
+
+    public void setServicesDao(ServicesDao servicesDao) {
+        this.servicesDao = servicesDao;
+    }
     private UsersDao usersDao;
     private EMailService eMailService = new EMailServiceImpl();
     private OrganizationDao organizationDao;
     private AuthoritiesDao authoritiesDao;
     private SystemsDao systemsDao;
+    private ServicesDao servicesDao;
 }

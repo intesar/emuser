@@ -189,7 +189,7 @@ public class SystemLease implements Serializable {
     }
 
     public String getStartTimeString() {
-        String pattern = "yyyy.MM.dd hh:mm";
+        String pattern = "hh:mm aaa";
         SimpleDateFormat sdf = new SimpleDateFormat(pattern);
 
         return sdf.format(this.startTime);

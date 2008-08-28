@@ -24,7 +24,7 @@ import javax.persistence.Transient;
 @Entity
 @Table(name = "systems")
 @NamedQueries({
-    @NamedQuery(name = "Systems.findByOrganization", query = "select s from Systems s where s.organization = ?1 and s.enabled = true "),
+    @NamedQuery(name = "Systems.findByOrganization", query = "select s from Systems s where s.organization = ?1  "),
     @NamedQuery(name = "Systems.findBySystemNameAndOrganization", query = "select s from Systems s where s.name = ?1 and s.organization = ?2"),
     @NamedQuery(name = "Systems.findByMacAddress", query = "select s from Systems s where s.macAddress = ?1 ")
 })
@@ -70,7 +70,7 @@ public class Systems implements Serializable {
     private String enabledString;
     @Column(name = "current_user_email")
     private String currentUserEmail;
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "start_time")
     private Date startTime;
     @Transient
@@ -258,7 +258,7 @@ public class Systems implements Serializable {
     }
 
     public String getStartTimeString() {
-        String pattern = "hh:mm";
+        String pattern = "hh:mm aaa";
         SimpleDateFormat sdf = new SimpleDateFormat(pattern);
         if (this.startTime != null) {
             return sdf.format(this.startTime);
