@@ -45,7 +45,7 @@
             <dwr:include method="getSystemLease" />
             <dwr:include method="addService" />
             <dwr:include method="chargePayment" />
-            
+            <dwr:include method="getAllServices" />
         </dwr:remote>
     </bean>
     <bean id="adminAjaxService" class="com.bia.ccm.services.ajax.AdminAjaxService" >
