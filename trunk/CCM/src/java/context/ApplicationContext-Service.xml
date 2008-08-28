@@ -33,6 +33,7 @@
         <property name="organizationDao" ref="organizationDao" />
         <property name="authoritiesDao" ref="authoritiesDao" />
         <property name="systemsDao" ref="systemsDao" />
+        <property name="servicesDao" ref="servicesDao" />
     </bean>
     <bean id="workServiceImpl" class="com.bia.ccm.services.impl.WorkServiceImpl" >
         <property name="usersDao" ref="usersDao" />
@@ -40,5 +41,6 @@
         <property name="systemLeaseDao" ref="systemLeaseDao" />
         <property name="customerDao" ref="customerDao" />
         <property name="suggestionDao" ref="suggestionDao" />
+        <property name="servicesDao" ref="servicesDao" />
     </bean>
 </beans>
