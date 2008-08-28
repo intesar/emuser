@@ -84,9 +84,9 @@
         
                 if ( validateEmail(person.emailOrPhone, false, false) || person.emailOrPhone.length >= 10 ) {
                           
-                    AjaxAdminService.saveEmailPreference(person, function(data) {
+                    AjaxAdminService.saveEmailPreference(person, function(data) {                        
+                        fillTable();   
                         alert ( data );
-                        fillTable();    
                     });
                     
                 } else {

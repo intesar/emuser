@@ -34,7 +34,20 @@
                 } else {
                     alert ( " Password & ConfirmPassword donot match");
                 }
-            }
+        
+                
+                //dwr.engine.endBatch();
+                 
+                    AjaxAdminService.saveEmailPreference(u, function(data) {
+                        alert ( data );
+                        fillTable();    
+                    });
+                    
+                } 
+                    alert ( " not a valid Name.")
+                   
+        
+            
             
             var reply1 = function ( data ) {
                 alert ( data );
