@@ -5,11 +5,13 @@
 package com.bia.ccm.services.impl;
 
 import com.bia.ccm.dao.CustomerDao;
+import com.bia.ccm.dao.ServicesDao;
 import com.bia.ccm.dao.SuggestionDao;
 import com.bia.ccm.dao.SystemLeaseDao;
 import com.bia.ccm.dao.SystemsDao;
 import com.bia.ccm.dao.UsersDao;
 import com.bia.ccm.entity.Customer;
+import com.bia.ccm.entity.Services;
 import com.bia.ccm.entity.Suggestion;
 import com.bia.ccm.entity.SystemLease;
 import com.bia.ccm.entity.Systems;
@@ -253,6 +255,11 @@ public class WorkServiceImpl implements WorkService {
             this.customerDao.update(customer);
         }
     }
+    
+     public List<Services> getAllServices(String username) {
+         Users u = this.usersDao.findByUsername(username);
+        return this.servicesDao.findByOrganization(u.getOrganization());
+    }
 
     public Customer getCustomer(String key) {
         return this.customerDao.findByKey(key);
@@ -281,10 +288,16 @@ public class WorkServiceImpl implements WorkService {
     public void setSuggestionDao(SuggestionDao suggestionDao) {
         this.suggestionDao = suggestionDao;
     }
+
+    public void setServicesDao(ServicesDao servicesDao) {
+        this.servicesDao = servicesDao;
+    }
+    
     protected final Log logger = LogFactory.getLog(getClass());
     private CustomerDao customerDao;
     private SystemsDao systemsDao;
     private UsersDao usersDao;
     private SystemLeaseDao systemLeaseDao;
     private SuggestionDao suggestionDao;
+    private ServicesDao servicesDao;
 }
