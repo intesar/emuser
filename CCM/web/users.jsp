@@ -77,25 +77,28 @@
             function writePerson() {
                 var person;
                 if ( viewed == null ) {
-                    person = { id:viewed, username:null, name:null, password:null, enabled:null, role:null, phone:null };
+                    person = { id:viewed, username:null, name:null, password:null, enabledString:null, role:null, phone:null };
                 } else {
                     person = peopleCache[viewed];
                 }
                 dwr.util.getValues(person);
-                
+                if ( person.enabledString == "yes") {
+                    person.enabled = true;
+                } else {
+                    person.enabled = false;
+                }
         
                 //dwr.engine.beginBatch();
                 //People.setPerson(person);
                 if ( validateEmail(person.username, true, true) ) {
-                    if ( person.password != "") {
+                    if ( person.password != "" ) {
                         AjaxAdminService.saveUsers(person, reply1);
                     } 
                     else {
                         alert ( " Password is required field! ");
                     }
-                }
+                }          
                 
-                //dwr.engine.endBatch();
             }
             
             var reply1 = function (data) {

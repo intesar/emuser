@@ -16,7 +16,7 @@
         <script type='text/javascript' src='/CCM/dwr/engine.js'></script>        
         <script type='text/javascript' src='/CCM/dwr/util.js'></script>
         <script type="text/javascript" src="email_validation.js"></script>
-        
+        <script type="text/javascript" src="name_valadation.js"></script>
         <script type="text/javascript">
            
         
@@ -35,17 +35,33 @@
         
                 //dwr.engine.beginBatch();
                 //People.setPerson(person);
+                
                 if ( validateEmail(customer.email, true, true) ) {
-                    //alert ( 'hi');
-                    AjaxWorkService.createCustomer(customer, reply1);
+                   
+                    if ( customer.name != "" && customer.mobilePhone !="" && customer.city !="" )
+                    {
+                        AjaxWorkService.createCustomer(customer, reply1);
+                    } 
+                    else {
+                        alert ( " country mobilephone are required field! ");
+                    }
+                    
                 }
-                //fillTable();
+                
                 //dwr.engine.endBatch();
             }
             
-            var reply1 = function (data) {
+            var reply1 = function (data) {                
                 alert ( data );
             }
+        
+                
+            
+            //fillTable();
+            //dwr.engine.endBatch();
+           
+            
+            
         
             function clearPerson() {
                 
@@ -65,7 +81,7 @@
                 dwr.util.setValues(customer);
             }
         </script>
-       <jsp:include page="table_style.jsp" ></jsp:include>
+        <jsp:include page="table_style.jsp" ></jsp:include>
     </head>
     <body>
         
@@ -92,7 +108,7 @@
             </tr>
         </table>
         
-        <table   align="center">
+        <table align="center">
             
             <thead>
                 <tr>                    
@@ -102,54 +118,54 @@
             </thead>
             
             <tr>
-                <td>Id</td>
+                <td>Id:</td>
                 <td><input id="id" type="text" size="30" disabled /></td>
             </tr>
             <tr>
-                <td>Image</td>
+                <td>Image:</td>
                 <td><input type="file" id="img" /></td>
                 <td id="image.container">&nbsp;</td>
             </tr>
             
             <tr>
-                <td>Name</td>
+                <td>Name:&nbsp;&nbsp;*</td>
                 <td><input id="name" type="text" size="30"/></td>
             </tr>
             <br>
             <tr>
-                <td>Email</td>
+                <td>Email:&nbsp;&nbsp;*</td>
                 <td><input id="email" type="text" size="30"/></td>
             </tr> 
             <tr>
-                <td>Home Phone</td>
+                <td>Home Phone:</td>
                 <td><input id="homePhone" type="text" size="30"/></td>
             </tr>
             <tr>
-                <td>Mobile Phone</td>
+                <td>Mobile Phone:&nbsp;&nbsp;* </td>
                 <td><input id="mobilePhone" type="text" size="30"/></td>
             </tr>
             <tr>
-                <td>Other Phone</td>
+                <td>Other Phone:</td>
                 <td><input id="otherPhone" type="text" size="30"/></td>
             </tr>
             <tr>
-                <td>Street</td>
+                <td>Street:</td>
                 <td><input id="street" type="text" size="30"/></td>
             </tr>
             <tr>
-                <td>City</td>
+                <td>City:&nbsp;&nbsp;*</td>
                 <td><input id="city" type="text" size="30"/></td>
             </tr>
             <tr>
-                <td>Zipcode</td>
+                <td>Zipcode:</td>
                 <td><input id="zipcode" type="text" size="30"/></td>
             </tr>
             <tr>
-                <td>State</td>
+                <td>State:</td>
                 <td><input id="state" type="text" size="30"/></td>
             </tr>
             <tr>
-                <td>Country</td>
+                <td>Country:</td>
                 <td><input id="country" type="text" size="30"/></td>
             </tr>
             <tr>
@@ -191,11 +207,8 @@
                     <input type="button" value="Save" onclick="writePerson()"/>
                     
                 </td>
-            </tr> 
-            
+            </tr>
         </table>
-        
-        
     </body>
     
     <jsp:include page="customer_help.jsp" />

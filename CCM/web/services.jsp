@@ -13,6 +13,8 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <jsp:include page="dhtml_goodies_include.jsp" />
         <script type="text/javascript" src="email_validation.js"></script>
+        <script type="text/javascript" src="name_valadation.js"></script>
+        
         <style>
             a:link    {color:black; text-decoration:none; font-size:11pt}
             a:hover   {color:black; text-decoration:none; 
@@ -27,6 +29,7 @@
             a:active  {color:black; text-decoration:none; font-size:11pt}
             a:visited {color:black; text-decoration:none; font-size:11pt}
         </style>
+        
         <script type='text/javascript' src='/CCM/dwr/interface/AjaxAdminService.js'></script>
         <script type='text/javascript' src='/CCM/dwr/engine.js'></script>        
         <script type='text/javascript' src='/CCM/dwr/util.js'></script>
@@ -81,27 +84,42 @@
                 }
                 
                 dwr.util.getValues(person);
-                AjaxAdminService.saveService(person, function(data) {
-                    //alert ( data );
-                    fillTable();    
-                });
+                if ( person.name != null && person.name != '' ) {
+                    if ( person.unitPrice != null && person.unitPrice != "") {
+                        AjaxAdminService.saveService(person, reply1);
+                    } 
+                    else {
+                        alert ( " Unit Price Cannot be Empty! ");
+                    }
+                } else {
+                    alert ( " Name Cannot be Empty! ");
+                }
             }
+                //dwr.engine.endBatch();
+            
+            
+                var reply1 = function (data) {
+                    fillTable();
+                    //alert (data);
+                }
+               
+            
         
-            function clearPerson() {
-                viewed = null;
-                dwr.util.setValues({ id:null, name:null, unitPrice:null });
-                document.getElementById("name").disabled=false;        
+                function clearPerson() {
+                    viewed = null;
+                    dwr.util.setValues({ id:null, name:null, unitPrice:null });
+                    document.getElementById("name").disabled=false;        
                        
-            }
-            function deletePerson() {
-                //alert ( 'hi');
-                var x = viewed;
-                AjaxAdminService.deleteService(viewed, function(data) {
-                    //alert ( data );
-                    fillTable();    
-                    clearPerson();
-                });
-            }
+                }
+                function deletePerson() {
+                    //alert ( 'hi');
+                    var x = viewed;
+                    AjaxAdminService.deleteService(viewed, function(data) {
+                        //alert ( data );
+                        clearPerson();
+                        fillTable();   
+                    });
+                }
         </script>
         
         <jsp:include page="table_style.jsp" ></jsp:include>
@@ -173,7 +191,7 @@
         </table>
         
         <script type="text/javascript">
-            onload = fillTable();
+                onload = fillTable();
         </script>
         <br>
         <br>
