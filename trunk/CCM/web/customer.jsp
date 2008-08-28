@@ -38,12 +38,12 @@
                 
                 if ( validateEmail(customer.email, true, true) ) {
                    
-                    if ( customer.name != "" && customer.mobilePhone !="" && customer.city !="" )
+                    if ( customer.img !="" && customer.city !="" && customer.street !=""  && customer.zipcode !="" && customer.name != "")
                     {
                         AjaxWorkService.createCustomer(customer, reply1);
                     } 
                     else {
-                        alert ( " country mobilephone are required field! ");
+                        alert ( " * Marked Fields are required ! ");
                     }
                     
                 }
@@ -86,7 +86,9 @@
     <body>
         
         <jsp:include page="include.jsp" />
-        
+       
+            <tr> 
+            <td> 
         <table align="center">
             <thead>
                 <tr>
@@ -107,12 +109,22 @@
                 </td>
             </tr>
         </table>
-        
+        <h2 align="center"> Create Customer Profile</h2>
         <table align="center">
-            
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+   <table>
+            <tr></tr>     
             <thead>
                 <tr>                    
-                    <th>Create Customer Profile </th>
+                   
                     <th></th>
                 </tr>
             </thead>
@@ -122,7 +134,7 @@
                 <td><input id="id" type="text" size="30" disabled /></td>
             </tr>
             <tr>
-                <td>Image:</td>
+                <td>Image:&nbsp;&nbsp;*</td>
                 <td><input type="file" id="img" /></td>
                 <td id="image.container">&nbsp;</td>
             </tr>
@@ -141,7 +153,7 @@
                 <td><input id="homePhone" type="text" size="30"/></td>
             </tr>
             <tr>
-                <td>Mobile Phone:&nbsp;&nbsp;* </td>
+                <td>Mobile Phone: </td>
                 <td><input id="mobilePhone" type="text" size="30"/></td>
             </tr>
             <tr>
@@ -149,65 +161,84 @@
                 <td><input id="otherPhone" type="text" size="30"/></td>
             </tr>
             <tr>
-                <td>Street:</td>
+                <td>Street:&nbsp;&nbsp;*</td>
                 <td><input id="street" type="text" size="30"/></td>
             </tr>
             <tr>
                 <td>City:&nbsp;&nbsp;*</td>
-                <td><input id="city" type="text" size="30"/></td>
+                <td><input type="text" name="City" value="Hyderabad" size="30" /></td>
             </tr>
             <tr>
-                <td>Zipcode:</td>
+                <td>Zipcode:&nbsp;&nbsp;*</td>
                 <td><input id="zipcode" type="text" size="30"/></td>
             </tr>
             <tr>
                 <td>State:</td>
-                <td><input id="state" type="text" size="30"/></td>
+                <td><input type="text" name="State" value="Andhra Pradesh" size="30" /></td>
             </tr>
             <tr>
                 <td>Country:</td>
-                <td><input id="country" type="text" size="30"/></td>
-            </tr>
-            <tr>
-                <td>Passport No</td>
-                <td><input id="passportNo" type="text" size="30"/></td>
-            </tr>
-            <tr>
-                <td>Voter Id</td>
-                <td><input id="voterIdCardNo" type="text" size="30"/></td>
-            </tr>
-            <tr>
-                <td>College Name</td>
-                <td><input id="collegeName" type="text" size="30"/></td>
-            </tr>
-            <tr>
-                <td>Ration Card No</td>
-                <td><input id="rationCardNo" type="text" size="30"/></td>
-            </tr>
-            <tr>
-                <td>Pan Card No</td>
-                <td><input id="panCardNo" type="text" size="30"/></td>
-            </tr>
-            <tr>
-                <td>Date Of Birth</td>
-                <td><input id="dob" type="text" size="30"/></td>
-            </tr>
-            <tr>
-                <td>Gender</td>
-                <td><input id="gender" type="text" size="30"/></td>
-            </tr>
-            <tr>
-                <td>Comments</td>
-                <td><textarea name="comments" rows="4" cols="20">
-                </textarea></td>
-            </tr>
-            <tr>
-                <td colspan="2" align="right">                    
-                    <input type="button" value="Clear" onclick="clearPerson()"/>
-                    <input type="button" value="Save" onclick="writePerson()"/>
+                <td><input type="text" name="Country" value="India" size="30"/></td> 
+                </table> 
+</td>
+<td>
+     <table>
+                    <tr>
+                        <td>Passport No</td>
+                        <td><input id="passportNo" type="text" size="30"/></td>
+                    </tr>
+                    <tr>
+                        <td>Voter Id</td>
+                        <td><input id="voterIdCardNo" type="text" size="30"/></td>
+                    </tr>
+                    <tr>
+                        <td>College Name</td>
+                        <td><input id="collegeName" type="text" size="30"/></td>
+                    </tr>
+                    <tr>
+                        <td>Ration Card No</td>
+                        <td><input id="rationCardNo" type="text" size="30"/></td>
+                    </tr>
+                    <tr>
+                        <td>Pan Card No</td>
+                        <td><input id="panCardNo" type="text" size="30"/></td>
+                    </tr>
+                    <tr>
+                        <td>Date Of Birth</td>
+                        <td><input id="dob" type="text" size="30"/></td>
+                    </tr>
+                    <td>Gender</td><td>
+                        <select name="Gender">
+                            <option>Male</option>
+                            <option>Female</option>
+                        </select>
+                    </td>
                     
-                </td>
-            </tr>
+                    <tr>
+                        <td>Comments</td>
+                        <td><textarea name="comments" rows="4" cols="20">
+                        </textarea></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" align="right">                    
+                            <input type="button" value="Clear" onclick="clearPerson()"/>
+                            <input type="button" value="Save" onclick="writePerson()"/>
+                            
+                        </td>
+                    </tr>
+                    
+              
+</td>
+</tr>
+</tbody>
+</table>
+
+        
+        
+        
+            </tr><th><td>
+               
+            </td></th>
         </table>
     </body>
     
