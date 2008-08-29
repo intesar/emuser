@@ -56,27 +56,29 @@
                     // Create a new set cloned from the pattern row
                     var person, id;
                     
-                    //people.sort(function(p1, p2) { return p1.macAddress.localeCompare(p2.macAddress); });
+                    //people.sort(function(p1, p2) { return p1.currentUserEmail.localeCompare(p2.currentUserEmail); });
                     systemLength = people.length;
                     for (var i = 0; i < people.length; i++) {
                         person = people[i];
                         
-                        id = person.id;
-                        dwr.util.cloneNode("pattern", { idSuffix:id });
-                        dwr.util.setValue("name" + id, person.name);
-                        dwr.util.setValue("currentUserEmail" + id, person.currentUserEmail);     
-                        dwr.util.setValue("startTimeString1" + id, person.startTimeString);
-                        $("pattern" + id).style.display = "";
-                        peopleCache[id] = person;
-                        systems1[i] = person;
-                        if(person.isAvailable == true){
-                            document.getElementById('edit'+id).disabled=false;
-                            document.getElementById('geta'+id).disabled=true;
-                            document.getElementById('deta'+id).disabled=true;
-                        } else {
-                            document.getElementById('edit'+id).disabled=true;
-                            document.getElementById('geta'+id).disabled=false;
-                            document.getElementById('deta'+id).disabled=false;
+                        if ( person.enabled == true ) {
+                            id = person.id;
+                            dwr.util.cloneNode("pattern", { idSuffix:id });
+                            dwr.util.setValue("name" + id, person.name);
+                            dwr.util.setValue("currentUserEmail" + id, person.currentUserEmail);     
+                            dwr.util.setValue("startTimeString1" + id, person.startTimeString);
+                            $("pattern" + id).style.display = "";
+                            peopleCache[id] = person;
+                            systems1[i] = person;
+                            if(person.isAvailable == true){
+                                document.getElementById('edit'+id).disabled=false;
+                                document.getElementById('geta'+id).disabled=true;
+                                document.getElementById('deta'+id).disabled=true;
+                            } else {
+                                document.getElementById('edit'+id).disabled=true;
+                                document.getElementById('geta'+id).disabled=false;
+                                document.getElementById('deta'+id).disabled=false;
+                            }
                         }
                     }
                 });
@@ -105,8 +107,10 @@
                 
                 }
             }
+            var paidId = null;
             function fetchDetail(eleid) {
                 var system = peopleCache[eleid.substring(4)];
+                paidId = system.id;
                 //alert ( system.id );
                 AjaxWorkService.getSystemLease(system.id, function(lease){
                     document.getElementById("paidAmount").disabled = false;
@@ -171,8 +175,8 @@
             var replyService = function (data) {
                 alert ( data );
             }
-            function paid (eleid) {
-                var system = peopleCache[eleid.substring(4)];
+            function paid () {
+                var system = peopleCache[paidId];
                 AjaxWorkService.chargePayment(system.id, function(data) {
                     alert ( data );
                     fillTable();
