@@ -44,9 +44,7 @@
                     });
                     
                 } 
-                    alert ( " not a valid Name.")
-                   
-        
+                          
             
             
             var reply1 = function ( data ) {

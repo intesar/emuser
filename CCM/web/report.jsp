@@ -35,8 +35,15 @@
         <script type="text/javascript">
             function execute() {
                 //alert ( document.getElementById("startDate").value);
-                AjaxAdminService.getReport(document.getElementById("DPC_startDate_YYYY-MM-DD").value,
-                document.getElementById("DPC_endDate_YYYY-MM-DD").value, reply1 );
+                 var startDate = document.getElementById("DPC_startDate_YYYY-MM-DD").value;
+                 var endDate = document.getElementById("DPC_endDate_YYYY-MM-DD").value;
+                if ( startDate != null && startDate.length == 10 && endDate != null && endDate.length == 10 ) {
+                    AjaxAdminService.getReport(startDate,endDate, reply1 );
+                } else {
+                    alert ( " invalid dates ");
+                }
+                //AjaxAdminService.getReport(document.getElementById("DPC_startDate_YYYY-MM-DD").value,
+                //document.getElementById("DPC_endDate_YYYY-MM-DD").value, reply1 );
             }
             
             var reply1 = function(data) {

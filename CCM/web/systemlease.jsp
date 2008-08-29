@@ -38,8 +38,13 @@
             function execute() {
                 dwr.util.useLoadingMessage();
                 //alert ( document.getElementById("startDate").value);
-                AjaxAdminService.getSystemLease(document.getElementById("DPC_startDate_YYYY-MM-DD").value,
-                document.getElementById("DPC_endDate_YYYY-MM-DD").value, reply1 );
+                var startDate = document.getElementById("DPC_startDate_YYYY-MM-DD").value;
+                var endDate = document.getElementById("DPC_endDate_YYYY-MM-DD").value;
+                if ( startDate != null && startDate.length == 10 && endDate != null && endDate.length == 10 ) {
+                    AjaxAdminService.getSystemLease(startDate,endDate, reply1 );
+                } else {
+                    alert ( " invalid dates ");
+                }
             }
             
             
@@ -75,7 +80,7 @@
         </script>
         
         
-       <jsp:include page="table_style.jsp" ></jsp:include>
+        <jsp:include page="table_style.jsp" ></jsp:include>
     </head>
     <body>
         <jsp:include page="include.jsp" />
