@@ -64,17 +64,27 @@ public class UserServiceImpl implements UserService {
     public String registerNewOrganization(String organizationName, String city,
             String email, String password, Integer minutes, Integer rate, Integer maxSystems) {
         Organization o = new Organization(organizationName, (short) 1, null, city,
-                email, city, null, "india", email, "trial", "ccm", 0, new Date(), "self");
+                email, city, null, "india", email, "Silver Member", "ccm", 0, new Date(), "self");
         Users u = new Users(null, email, password, true, "admin", organizationName, email);
         Authorities a1 = new Authorities(email, "ROLE_ADMIN");
         Authorities a2 = new Authorities(email, "ROLE_USER");
         Services s = new Services(null, "other", 1.0, organizationName);
+        Services s1 = new Services(null, "Print B&W", 3.0, organizationName);
+        Services s2 = new Services(null, "Copy B&W", 1.0, organizationName);
+        Services s3 = new Services(null, "Print Color", 5.0, organizationName);
+        Services s4 = new Services(null, "Scan", 5.0, organizationName);
+        Services s5 = new Services(null, "Cool Drink", 10.0, organizationName);
         try {
             this.usersDao.create(u);
             this.authoritiesDao.create(a1);
             this.authoritiesDao.create(a2);
             this.organizationDao.create(o);
             this.servicesDao.create(s);
+            this.servicesDao.create(s1);
+            this.servicesDao.create(s2);
+            this.servicesDao.create(s3);
+            this.servicesDao.create(s4);
+            this.servicesDao.create(s5);
             //Double minuteRate = Double.parseDouble("" + minutes + "." + rate);
             for (int i = 1; i <= 40; i++) {
                 boolean enabled = false;
@@ -120,3 +130,5 @@ public class UserServiceImpl implements UserService {
     private SystemsDao systemsDao;
     private ServicesDao servicesDao;
 }
+
+
