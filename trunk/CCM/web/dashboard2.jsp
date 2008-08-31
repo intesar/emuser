@@ -25,7 +25,10 @@
                 {
                     AjaxWorkService.getCustomer(dwr.util.getValue("key"), reply2);
                 }
-            }
+                else {
+                    alert('Enter Valid Email');
+                }
+            } 
             var reply2 = function(customer) {
                 dwr.util.setValues(customer);
             }
@@ -43,12 +46,13 @@
             var systems1 = { };
             var systemLength = null;
             var services = { };
+            var usedSystemList = { };
             function fillTable() {
                 //document.getElementById('geta').disabled=true;
                 //document.getElementById('deta').disabled=true;
                 dwr.util.useLoadingMessage();
                 AjaxWorkService.getActiveSystems(function(people) {
-                   
+                    usedSystemList = { };
                     // Delete all the rows except for the "pattern" row
                     dwr.util.removeAllRows("peoplebody", { filter:function(tr) {
                             return (tr.id != "pattern");
@@ -72,12 +76,13 @@
                             systems1[i] = person;
                             if(person.isAvailable == true){
                                 document.getElementById('edit'+id).disabled=false;
-                                document.getElementById('geta'+id).disabled=true;
+                                //document.getElementById('geta'+id).disabled=true;
                                 document.getElementById('deta'+id).disabled=true;
                             } else {
                                 document.getElementById('edit'+id).disabled=true;
-                                document.getElementById('geta'+id).disabled=false;
+                                //document.getElementById('geta'+id).disabled=false;
                                 document.getElementById('deta'+id).disabled=false;
+                                usedSystemList[i] = person;
                             }
                         }
                     }
@@ -100,9 +105,12 @@
                 {
                     AjaxWorkService.leaseSystem(system.id, leaseHolder, function(data) {
                           
-                        fillTable();
+                        if ( data == 'Assigned Successfully!') {
+                            fillTable();
+                        } else {
                       
-                        alert ( data );
+                            alert ( data );
+                        }
                     } ); 
                 
                 }
@@ -113,7 +121,7 @@
                 paidId = system.id;
                 //alert ( system.id );
                 AjaxWorkService.getSystemLease(system.id, function(lease){
-                    document.getElementById("paidAmount").disabled = false;
+                    //document.getElementById("paidAmount").disabled = false;
                     // Delete all the rows except for the "pattern" row
                     dwr.util.removeAllRows("detailbody", { filter:function(tr) {
                             return (tr.id != "detail");
@@ -134,55 +142,69 @@
                         dwr.util.setValue("startTimeString" + id, systemLease.startTimeString);                             
                         dwr.util.setValue("totalMinutesUsed" + id, systemLease.totalMinutesUsed);
                         dwr.util.setValue("payableAmount" + id, systemLease.payableAmount);
-                        dwr.util.setValue("paidAmount"+id, systemLease.payableAmount);
+                        //dwr.util.setValue("paidAmount"+id, systemLease.payableAmount);
                         $("detail" + id).style.display = "";
                         total += systemLease.payableAmount;
                         //peopleCache[id] = person;
                     }
                     dwr.util.setValue("paidAmount", total);
-                    document.getElementById("paidAmount").disabled = true;
+                    //document.getElementById("paidAmount").disabled = true;
+                    document.getElementById("paidButton").disabled = false;
+                    
                 });
             }
             function addService() {
                 var s = dwr.util.getValue ("services");
                 var u = dwr.util.getValue ("units");
-                var e = dwr.util.getValue ("email");
+                var e = dwr.util.getValue ("systemNos");
                 var p = dwr.util.getValue ("payableAmount1");
                 var a = p;//dwr.util.getValue ("paid");
                 var flag = false;
-                if ( validateEmail(e, true, false) ) 
-                {
-                    flag = true;
-                }
-                if (!isNaN(e)) {
+                //if ( validateEmail(e, true, false) ) 
+                //{
+                //    flag = true;
+                //}
+                //if (!isNaN(e)) {
                     
-                    for ( var i = 0; i < systemLength; i++ ) {
-                        var p1 = systems1[i];
-                        var name = p1.name;
-                        if ( e == name && p1.isAvailable == false ) {
-                            flag = true;
-                        }
+                
+                for ( var i = 0; i < systemLength; i++ ) {
+                    var p1 = systems1[i];
+                    var name = p1.name;
+                    if ( e == name && p1.isAvailable == false ) {
+                        flag = true;
                     }
+                }
                     
-                }
-                if ( flag ) {
+                //}
+                //if ( flag ) {
                     AjaxWorkService.addService(s,u,e,p,'',a, replyService);
-                } else {
-                    alert ( ' please provide an Email or a System No.');
-                }
+                //} else {
+                //    alert ( ' please provide an Email or a System No.');
+                //}
                   
             }
             var replyService = function (data) {
-                alert ( data );
+                if ( ! (data == 'Successful!')) {
+                    alert ( data );
+                }
             }
             function paid () {
                 var system = peopleCache[paidId];
+                document.getElementById("paidButton").disabled = false;
                 AjaxWorkService.chargePayment(system.id, function(data) {
-                    alert ( data );
-                    fillTable();
-                   
-                   
+                    if ( data == 'Successful!' ) {
+                        fillTable();
+                        dwr.util.removeAllRows("detailbody", { filter:function(tr) {
+                                return (tr.id != "detail");
+                            }});
+                        document.getElementById("paidButton").disabled = true;
+                    } else {
+                        alert ( data );
+                    }
                 } );
+                
+                
+                
             }
             function clearPerson() {
                 viewed = null;
@@ -215,6 +237,16 @@
                 }
                 //alert ( s + " " + u);
             }
+            
+            function populateSystemNos () {
+                DWRUtil.removeAllOptions("systemNos");
+                var dummySystem = {name:'Walk-in Customer'};
+                usedSystemList[usedSystemList.lenght+1] = dummySystem;
+                
+                DWRUtil.addOptions("systemNos", usedSystemList, "name", "name" );
+                // DWRUtil.addOption("systemNos", "walkin_customer@bizintelapps.com", "Walk-in, Customer" );
+                usedSystemList[usedSystemList.length] = null;
+            }
         </script>
         <jsp:include page="table_style.jsp" ></jsp:include>
         
@@ -222,7 +254,7 @@
     <body>
         <jsp:include page="include.jsp" />
         
-        <table align="center">
+        <table align="center" width="1000">
             <thead>
                 <tr>
                     <th></th>
@@ -233,61 +265,63 @@
                 <tr>
                     <td>
                         <h2>Customer Look Up</h2>
-                        <table title="Hello">
+                        <table>
                             
                             <tr>
                                 <td>
                                     <input type="text"  id="key" value="Enter Valid Email..." class="cleardefault" />
                                     <input type="submit" value="Search" onclick="search();"/>          
-                                    <input type="submit" value="Add To Member List" onclick="addToMemberList();"/>
+                                    <!-- <input type="submit" value="Add To Member List" disabled="disabled" onclick="addToMemberList();"/> -->
                                     <img id="image" src="javascript:void(0);"/>
                                     <br>
                                 </td>
                             </tr>
                         </table>
                         <h2>System Details</h2>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>
-                                        System
-                                    </th>
-                                    <th>
-                                        Customer
-                                    </th>
-                                    <th>
-                                        Start Time
-                                    </th>
-                                    <th>
-                                        
-                                    </th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody  id="peoplebody" >
-                                <tr id="pattern" style="display:none;">
-                                    <td><span id="name"></span></td>
-                                    <td><span id="currentUserEmail"></span></td>
-                                    <td><span id="startTimeString1"></span></td>
-                                    <td>
-                                        <!-- <input type="button" id="edit" value="Assign" onclick="assignSystem(this.id);" /> 
+                        <div style="height:370px; width:470px; overflow:auto;">
+                            <table width="1000">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            System
+                                        </th>
+                                        <th>
+                                            Customer
+                                        </th>
+                                        <th>
+                                            Start Time
+                                        </th>
+                                        <th>
+                                            
+                                        </th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody  id="peoplebody" >
+                                    <tr id="pattern" style="display:none;">
+                                        <td><span id="name"></span></td>
+                                        <td><span id="currentUserEmail"></span></td>
+                                        <td><span id="startTimeString1"></span></td>
+                                        <td>
+                                            <!-- <input type="button" id="edit" value="Assign" onclick="assignSystem(this.id);" /> 
                                         <input type="button" id="deta" value="Detail" onclick="fetchDetail(this.id);" />
                                         <input type="button" id="geta" value="Paid"  onclick="paid(this.id);" />-->
-                                        <button value="New" onclick="assignSystem(this.id);"  id="edit">Assign</button>
-                                        <button value="New" onclick="fetchDetail(this.id);"  id="deta">m</button>
-                                        <button value="New" onclick="paid(this.id);"  id="geta">Paid</button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        
-                        
+                                            <button value="New" onclick="assignSystem(this.id);"  id="edit">Assign</button>
+                                            <button value="New" onclick="fetchDetail(this.id);"  id="deta">Details</button>                                        
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            
+                        </div>
                         
                     </td>
                     
                     
                     <td>
                         <h2>Customer's Accounts Details</h2>
+                        
+                        
                         <table>
                             <thead>
                                 <tr>
@@ -305,7 +339,9 @@
                                         Payable
                                     </th>
                                     
-                                    <th></th>
+                                    <th>
+                                        
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody  id="detailbody" >
@@ -313,25 +349,20 @@
                                     <td><span id="service"></span></td>
                                     <td><span id="startTimeString"></span></td>                    
                                     <td><span id="totalMinutesUsed">Total</span></td>
-                                    <td><span id="payableAmount"><input type="text" id="paidAmount" value="" disabled="disabled" size="4" /></span></td>
-                                    <td>
+                                    <td><span id="payableAmount"><input type="text" id="paidAmount" value="" disabled="disabled" size="4" /><button value="Paid" onclick="paid();"  id="paidButton" disabled="disabled">Paid</button></span></td>
+                                    <td>  </td>
                                 </tr>
                             </tbody>
+                            
                         </table>
+                        
                         <h2>  Extra Sales  </h2>
                         <table title="Extra Sale">
                             
                             <tr>
                                 <td>Service</td>
-                                <td><select name="services" id="services">
-                                        <option>B/W Print</option>
-                                        <option>Color Print</option>
-                                        <option>Scan</option>
-                                        <option>DVD Burn</option>
-                                        <option>CD Burn</option>
-                                        <option>B/W Copy</option>
-                                        <option>Color Copy</option>
-                                        <option>other</option>
+                                <td><select name="services" id="services" onfocus="populateSystemNos();">
+                                        
                                 </select></td>
                                 <td>Units*</td>
                                 <td>
@@ -342,10 +373,16 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td>Add To System/Emails*</td>
-                                <td><input type="text" name="email" value="enter email or system no..." class="cleardefault"/></td>
+                                <!--
+                                <td>Or New User</td>
+                                <td><input type="text" name="email" value="" /></td>
+                                -->
+                                <td>Add To</td>
+                                <td><select name="systemNos" id="systemNos">                                        
+                                </select></td>
                                 <td>Payable Amount*</td>
-                                <td><input type=text name="payableAmount1" value="10" size="4" class="cleardefault" onKeyup="isInteger(this.value)"></td>
+                                <td><input type=text name="payableAmount1" value="10" size="4" class="cleardefault" onKeyup="isInteger(this.value)"></td>                           
+                                
                             </tr>
                             
                             <tr>

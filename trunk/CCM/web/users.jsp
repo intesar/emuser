@@ -54,7 +54,11 @@
                         id = person.id;
                         dwr.util.cloneNode("pattern", { idSuffix:id });
                         dwr.util.setValue("username1" + id, person.username); 
-                        dwr.util.setValue("enabled1" + id, person.enabled);
+                        if ( person.enabled == true  ) {
+                            dwr.util.setValue("enabled1" + id, 'YES');
+                        } else {
+                            dwr.util.setValue("enabled1" + id, 'NO');
+                        }
                         dwr.util.setValue("role1" + id, person.role); 
                         
                         $("pattern" + id).style.display = "table-row";
@@ -102,8 +106,11 @@
             }
             
             var reply1 = function (data) {
-                fillTable();
-                alert ( data );
+                if ( data == 'Operation succesful!') {
+                    fillTable();
+                } else {
+                    alert ( data );
+                }
             }
         
             function clearPerson() {
@@ -119,13 +126,13 @@
     <body>
         
         <jsp:include page="include.jsp" />
- <h2 align="center">Update User Information  </h2>                         
-<table align="center">
+        <h2 align="center">Update User Information  </h2>                         
+        <table align="center">
             
             
             <tr>
                 <td>
-                <table>
+                    <table>
                         
                         <thead>
                             <tr>
@@ -175,7 +182,7 @@
                         
                         
                         <tr>
-                            <td> Enabled </td>
+                            <td> Active </td>
                             <td><select name="enabledString">
                                     <option>yes</option>
                                     <option>no</option>
