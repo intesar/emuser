@@ -51,7 +51,7 @@ public class WorkServiceImpl implements WorkService {
         system.setStartTime(new Date());
         this.systemsDao.update(system);
         SystemLease systemLease = new SystemLease(null, new Date(), AcegiUtil.getUsername(), system.getId(), false);
-        systemLease.setService("Computer +" + system.getName());
+        systemLease.setService("Computer " + system.getName());
         systemLease.setLeaseHolderName(leaseHolder);
         this.systemLeaseDao.create(systemLease);
         return "Assigned Successfully!";
@@ -71,7 +71,7 @@ public class WorkServiceImpl implements WorkService {
     public List<SystemLease> getSystemLease(int id) {
         List<SystemLease> list = this.systemLeaseDao.findBySystemIdAndFinished(id);
         for (SystemLease s : list) {
-            if (s.getPayableAmount() == null) {
+            if (s.getService().startsWith("Computer ")) {
                 update(s);
             }
         }
@@ -81,7 +81,7 @@ public class WorkServiceImpl implements WorkService {
     public void chargePayment(int systemId, String agent) {
         List<SystemLease> list = getSystemLease(systemId);
         for (SystemLease sl : list) {
-            if (sl.getPayableAmount() != null || sl.getPayableAmount() <= 0) {
+            if (sl.getPayableAmount() != null && sl.getPayableAmount() > 0) {
                 sl.setAmountPaid(sl.getPayableAmount());
             }
             sl.setReturnAgent(agent);
