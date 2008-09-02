@@ -38,12 +38,9 @@
                 
                 //dwr.engine.endBatch();
                  
-                    AjaxAdminService.saveEmailPreference(u, function(data) {
-                        alert ( data );
-                        fillTable();    
-                    });
+               
                     
-                } 
+            } 
                           
             
             
@@ -52,7 +49,7 @@
             }
             
         </script>
-         
+        
         <!-- table style -->
         <style type="text/css">
             body
@@ -170,7 +167,7 @@
         <p align="left"><font size="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         Register Your CyberCafe</font></p> 
-        
+        <font size="6"><a href="login.jsp"> Sign in</a></font>
         <table border="2" width="80%" align="center" rules="none" bordercolor="#EDDA74">
             
             
@@ -257,7 +254,7 @@
                 </td>
             </tr>
             <tr>
-                <td> <font size="2">Click here to</font><a href="login.jsp"> Sign in</a></td>
+                <td> </td>
                 
             </tr>
             
