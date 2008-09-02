@@ -107,6 +107,7 @@
                           
                         if ( data == 'Assigned Successfully!') {
                             fillTable();
+                            dwr.util.setValue("key", "");
                         } else {
                       
                             alert ( data );
