@@ -29,7 +29,7 @@ import javax.persistence.Transient;
     @NamedQuery(name = "SystemLease.findByOrganization", query = "select s from SystemLease s where s.system in (select s1.id from Systems s1 where s1.organization = ?1 ) "),
     @NamedQuery(name = "SystemLease.findBySystemAndFinished", query = "select s from SystemLease s where s.system = ?1 and s.isFinished = false "),
     @NamedQuery(name = "SystemLease.findBySystemIdAndFinished", query = "select s from SystemLease s where s.system = ?1 and s.isFinished = false "),
-    @NamedQuery(name = "SystemLease.findByStartAndEndDates", query = "SELECT s FROM SystemLease s where (s.startTime >= ?1 and s.endTime <= ?2) and s.system in (select t.id from Systems t where t.organization = ?3 )")
+    @NamedQuery(name = "SystemLease.findByStartAndEndDates", query = "SELECT s FROM SystemLease s where (s.startTime >= ?1 and s.startTime <= ?2) and s.system in (select t.id from Systems t where t.organization = ?3 )")
 })
 @NamedNativeQueries({
     @NamedNativeQuery(name = "SystemLease.findReportBetweenDates", query = "SELECT  sum(total_minutes_used) as total_minutes_used, sum(payable_amount) as payable_amount, sum(amount_paid) as amount_paid FROM system_lease s where (start_time >= ?1 and end_time <= ?2)  and system in (select id from systems where organization = ?3 )")
