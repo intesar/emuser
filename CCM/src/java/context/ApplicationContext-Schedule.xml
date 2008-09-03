@@ -3,8 +3,8 @@
 <beans>
     <bean id="reportEngine" class="com.bia.ccm.services.ajax.ReportEngine"/>
     <bean id="jobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
-        <property name="targetObject" ref="reportEngine" />
-        <property name="targetMethod" value="processReport" />
+        <property name="targetObject" ref="adminAjaxService"/> <!--reportEngine" /> -->
+        <property name="targetMethod" value="sendReports" />
         <property name="concurrent" value="false" />
     </bean>
     <bean id="simpleTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
@@ -12,8 +12,13 @@
         <property name="jobDetail" ref="jobDetail" />
     <!-- 10 seconds -->
         <property name="startDelay" value="10000" />
-    <!-- repeat every 50 seconds -->
-        <property name="repeatInterval" value="50000" />
+    <!-- repeat 2 hours every 2 * 60 * 60 * 1000 seconds 7200000-->
+        <property name="repeatInterval" value="7200000" />
+        <!-- start time 6 am 
+        <property name="startTime" value="0 0 6 * * ?" />
+         start time 1 am 
+        <property name="endTime" value="0 0 1 * * ?" />
+        -->
     </bean>
     <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
         <property name="triggers">

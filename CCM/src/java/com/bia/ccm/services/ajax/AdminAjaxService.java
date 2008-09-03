@@ -174,6 +174,9 @@ public class AdminAjaxService {
         return this.adminService.getAllServices(org);
     }
     
+    public void sendReports() {        
+        this.adminService.sendReports();
+    }
     protected final Log logger = LogFactory.getLog(getClass());
     private AdminService adminService = (AdminService) ServiceFactory.getService("adminServiceImpl");
 
@@ -197,7 +200,10 @@ public class AdminAjaxService {
 //        System.out.println(aas.getOrganization());
         Date dt1 = new Date(107, 7, 7);
         Date dt2 = new Date(110, 11, 11);
-        System.out.println(aas.getSystemLease("2007-07-07", "2008-10-10").size());
+        
+        //System.out.println(aas.getSystemLease("2007-07-07", "2008-10-10").size());
+        //System.out.println ();//getReport("2008-08-04", "2008-08-04").toString());
     // System.out.println(aas.getReport("2007-07-07", "2008-10-10"));
+         aas.sendReports();
     }
 }

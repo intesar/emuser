@@ -22,6 +22,8 @@ import com.bia.ccm.entity.SystemLease;
 import com.bia.ccm.entity.Systems;
 import com.bia.ccm.entity.Users;
 import com.bia.ccm.services.AdminService;
+import com.bia.ccm.services.EMailService;
+import com.bia.ccm.util.EMailUtil;
 import java.util.Date;
 import java.util.List;
 import org.apache.commons.logging.Log;
@@ -243,6 +245,38 @@ public class AdminServiceImpl implements AdminService {
     public List<Services> getAllServices(String org) {
         return this.servicesDao.findByOrganization(org);
     }
+
+    public void sendReports() {
+        List<Organization> orgs = this.organizationDao.readAll().getResults();
+        for (Organization organization : orgs) {
+            List<EmailPreference> emailPreferences = this.emailPreferenceDao.findByOrganization(organization.getName());
+            if (emailPreferences != null && emailPreferences.size() > 0) {
+                Date endDate = new Date();
+                endDate.setHours(23);
+                endDate.setMinutes(59);
+                Date startDate = new Date();
+                startDate.setHours(0);
+                startDate.setMinutes(0);
+                List result = getReport(startDate, endDate, organization.getName());
+                String[] toAddress = new String[emailPreferences.size()];
+                int count = 0;
+                String subject = "Courtesy BizIntelApps & FaceQuard.com";
+                for (EmailPreference ep : emailPreferences) {
+                    String email = null;
+                    String emailOrPhone = ep.getEmailOrPhone();
+                    String serviceProvider = ep.getServiceProvider();
+                    email = EMailUtil.buildEmailAddress(emailOrPhone, serviceProvider);
+
+                    if (email.contains(EMailService._160BY2)) {
+                        subject = EMailService.EMAIL_SUBJECT_TEXT_160BY2;
+                    }
+                    toAddress[count++] = email;
+                }
+
+                eMailServiceImpl.sendEmail(toAddress, subject, new Date() + " [Total Minutes, Payable, Paid]" + result.toString());
+            }
+        }
+    }
     // getters & setters
     public void setUsersDao(UsersDao usersDao) {
         this.usersDao = usersDao;
@@ -283,4 +317,5 @@ public class AdminServiceImpl implements AdminService {
     private OrganizationDao organizationDao;
     private AuthoritiesDao authoritiesDao;
     private ServicesDao servicesDao;
+    private EMailServiceImpl eMailServiceImpl = new EMailServiceImpl();
 }
