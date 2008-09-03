@@ -69,7 +69,7 @@ public class WorkServiceImpl implements WorkService {
     public List<SystemLease> getSystemLease(int id) {
         List<SystemLease> list = this.systemLeaseDao.findBySystemIdAndFinished(id);
         for (SystemLease s : list) {
-            if (s.getService().startsWith("Computer ")) {
+            if (s.getTotalMinutesUsed() == null || s.getTotalMinutesUsed() <= 0) {
                 update(s);
             }
         }
@@ -115,6 +115,7 @@ public class WorkServiceImpl implements WorkService {
         } else {
             payableAmount = totalMinutes * rate;
         }
+        systemLease.setTotalMinutesUsed(totalMinutes);
         systemLease.setPayableAmount(payableAmount);
 
     }
