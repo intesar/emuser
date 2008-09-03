@@ -68,6 +68,8 @@ public class SystemLease implements Serializable {
     private String endTimeString;
     @Column(name = "service")
     private String service;
+    @Column(name = "system_no")
+    private Integer systemNo;
 
     public SystemLease() {
     }
@@ -149,9 +151,10 @@ public class SystemLease implements Serializable {
     }
 
     public Long getTotalMinutesUsed() {
-        Long st = this.startTime.getTime();
-        Long et = new Date().getTime();
-        return (et - st) / (1000 * 60);
+        return this.totalMinutesUsed;
+//        Long st = this.startTime.getTime();
+//        Long et = new Date().getTime();
+//        return (et - st) / (1000 * 60);
     //return totalMinutesUsed;
     }
 
@@ -206,6 +209,16 @@ public class SystemLease implements Serializable {
     public void setService(String service) {
         this.service = service;
     }
+    
+    public Integer getSystemNo() {
+        return systemNo;
+    }
+
+    public void setSystemNo(Integer systemNo) {
+        this.systemNo = systemNo;
+    }
+
+    
 
     @Override
     public int hashCode() {

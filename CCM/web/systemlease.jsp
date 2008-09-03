@@ -64,7 +64,7 @@
                     id = person.id;
                     dwr.util.cloneNode("pattern", { idSuffix:id });
                     dwr.util.setValue("leaseHolderName" + id, person.leaseHolderName);
-                    dwr.util.setValue("system" + id, person.system);
+                    dwr.util.setValue("system" + id, person.systemNo);
                     dwr.util.setValue("startTimeString" + id, person.startTimeString);
                     dwr.util.setValue("endTimeString" + id, person.endTimeString);
                     dwr.util.setValue("totalMinutesUsed" + id, person.totalMinutesUsed);
@@ -125,7 +125,7 @@
                         <th> System  </th>
                         <th>  Start Time </th>
                         <th> End Time </th>
-                        <th>  Minutes Used</th>
+                        <th>  Mins/Units</th>
                         <th> Payable Amount </th>
                         <th> Paid Amount </th>
                         <th>  Issue By  </th>

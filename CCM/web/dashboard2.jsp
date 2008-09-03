@@ -159,34 +159,15 @@
                 var u = dwr.util.getValue ("units");
                 var e = dwr.util.getValue ("systemNos");
                 var p = dwr.util.getValue ("payableAmount1");
-                var a = p;//dwr.util.getValue ("paid");
-                var flag = false;
-                //if ( validateEmail(e, true, false) ) 
-                //{
-                //    flag = true;
-                //}
-                //if (!isNaN(e)) {
-                    
-                
-                for ( var i = 0; i < systemLength; i++ ) {
-                    var p1 = systems1[i];
-                    var name = p1.name;
-                    if ( e == name && p1.isAvailable == false ) {
-                        flag = true;
-                    }
-                }
-                    
-                //}
-                //if ( flag ) {
-                    AjaxWorkService.addService(s,u,e,p,'',a, replyService);
-                //} else {
-                //    alert ( ' please provide an Email or a System No.');
-                //}
+                var a = p;
+               
+                AjaxWorkService.addService(s,u,e,p,'',a, replyService);
                   
             }
             var replyService = function (data) {
-                if ( ! (data == 'Successful!')) {
-                    alert ( data );
+                alert ( data );
+                if (  (data == 'Successful!')) {
+                    clearPerson()
                 }
             }
             function paid () {
@@ -368,7 +349,7 @@
                                 <td>Units*</td>
                                 <td>
                                     <!--   <input type="text" name="units" value="1" size="4" class="cleardefault"> -->
-                                    <input type=text name="units" value="1" size="4" class="cleardefault" onchange="updatePrice();" onKeyup="isInteger(this.value);updatePrice();">
+                                    <input type=text name="units" value="0" size="4" class="cleardefault" onchange="updatePrice();" onKeyup="isInteger(this.value);updatePrice();">
                                     
                                     
                                 </td>
@@ -382,7 +363,7 @@
                                 <td><select name="systemNos" id="systemNos">                                        
                                 </select></td>
                                 <td>Payable Amount*</td>
-                                <td><input type=text name="payableAmount1" value="10" size="4" class="cleardefault" onKeyup="isInteger(this.value)"></td>                           
+                                <td><input type=text name="payableAmount1" value="0" size="4" class="cleardefault" onKeyup="isInteger(this.value)" disabled></td>                           
                                 
                             </tr>
                             
