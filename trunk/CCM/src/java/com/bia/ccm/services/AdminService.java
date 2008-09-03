@@ -58,4 +58,6 @@ public interface AdminService {
     public void deleteService(Integer id);
 
     public List<Services> getAllServices(String org);
+    
+    void sendReports();
 }

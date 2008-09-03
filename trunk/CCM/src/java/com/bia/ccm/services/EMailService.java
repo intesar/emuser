@@ -23,8 +23,8 @@ public interface EMailService {
     static final String EMAIL_FROM_ADDRESS = "secure.cybercafe@bizintelapps.com";
     static final String SSL_FACTORY = "javax.net.ssl.SSLSocketFactory";
     static final String[] SEND_TO = {"mohdshannan@yahoo.com"};
-    static final String SEND_FROM_USERNAME = "secure.cybercafe@bizintelapps.com";
-    static final String SEND_FROM_PASSWORD = "Abbh1234";
+    static final String SEND_FROM_USERNAME = "facequard@bizintelapps.com";
+    static final String SEND_FROM_PASSWORD = "123facequard";
     static final String EMAIL_CONTENT_TYPE = "text/html";
     static final String EMAIL_SIGNATURE = " <br><br> Users have often told us that the more " +
             "they use IntelligentCyberCafe, the more they discover its benefits. " +
