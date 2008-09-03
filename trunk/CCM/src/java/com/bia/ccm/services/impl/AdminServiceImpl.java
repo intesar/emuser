@@ -210,11 +210,15 @@ public class AdminServiceImpl implements AdminService {
     }
 
     public List<SystemLease> getSystemLease(Date startDate, Date endDate, String org) {
+        endDate.setHours(23);
+        endDate.setMinutes(59);
         return this.systemLeaseDao.findByStartAndEndDates(startDate, endDate, org);
     }
 
     public List getReport(
             Date startDate, Date endDate, String org) {
+        endDate.setHours(23);
+        endDate.setMinutes(59);
         return this.systemLeaseDao.findReportBetweenDates(startDate, endDate, org);
     }
 
@@ -239,7 +243,6 @@ public class AdminServiceImpl implements AdminService {
     public List<Services> getAllServices(String org) {
         return this.servicesDao.findByOrganization(org);
     }
-    
     // getters & setters
     public void setUsersDao(UsersDao usersDao) {
         this.usersDao = usersDao;
