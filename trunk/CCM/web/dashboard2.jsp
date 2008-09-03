@@ -161,7 +161,11 @@
                 var p = dwr.util.getValue ("payableAmount1");
                 var a = p;
                
-                AjaxWorkService.addService(s,u,e,p,'',a, replyService);
+                if ( u != null && u > 0 && p != null && p > 0) {
+                    AjaxWorkService.addService(s,u,e,p,'',a, replyService);
+                } else {
+                    alert(  ' units or payable amount cannot be null!');
+                }
                   
             }
             var replyService = function (data) {
@@ -189,8 +193,8 @@
                 
             }
             function clearPerson() {
-                viewed = null;
-                dwr.util.setValues({ id:null, services:null, units:null, email:null, payableAmount1:null });
+                //viewed = null;
+                dwr.util.setValues({  payableAmount1:null, units:1  });
             }
  
             function isInteger(s)
@@ -349,7 +353,7 @@
                                 <td>Units*</td>
                                 <td>
                                     <!--   <input type="text" name="units" value="1" size="4" class="cleardefault"> -->
-                                    <input type=text name="units" value="0" size="4" class="cleardefault" onchange="updatePrice();" onKeyup="isInteger(this.value);updatePrice();">
+                                    <input type=text name="units" value="" size="4" class="cleardefault" onchange="updatePrice();" onKeyup="isInteger(this.value);updatePrice();">
                                     
                                     
                                 </td>
