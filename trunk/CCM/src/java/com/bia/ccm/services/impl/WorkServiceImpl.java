@@ -31,9 +31,6 @@ import org.apache.commons.logging.LogFactory;
  */
 public class WorkServiceImpl implements WorkService {
 
-    
-   
-    
     public List<Systems> getActiveSystems(String username) {
         Users u = this.usersDao.findByUsername(username);
         return this.systemsDao.findByOrganization(u.getOrganization());
@@ -53,6 +50,7 @@ public class WorkServiceImpl implements WorkService {
         SystemLease systemLease = new SystemLease(null, new Date(), AcegiUtil.getUsername(), system.getId(), false);
         systemLease.setService("Computer " + system.getName());
         systemLease.setLeaseHolderName(leaseHolder);
+        systemLease.setSystemNo(system.getName());
         this.systemLeaseDao.create(systemLease);
         return "Assigned Successfully!";
     }
@@ -81,11 +79,17 @@ public class WorkServiceImpl implements WorkService {
     public void chargePayment(int systemId, String agent) {
         List<SystemLease> list = getSystemLease(systemId);
         for (SystemLease sl : list) {
-            if (sl.getPayableAmount() != null && sl.getPayableAmount() > 0) {
+            if (sl.getPayableAmount() != null) {
                 sl.setAmountPaid(sl.getPayableAmount());
             }
+            sl.setEndTime(new Date());
             sl.setReturnAgent(agent);
             sl.setIsFinished(true);
+            Date endTime = new Date();
+            if (sl.getService().startsWith("Computer")) {
+                Long totalMinutes = (endTime.getTime() - sl.getStartTime().getTime()) / (1000 * 60);
+                sl.setTotalMinutesUsed(totalMinutes);
+            }
             this.systemLeaseDao.update(sl);
         }
         Systems system = this.systemsDao.read(systemId);
@@ -255,9 +259,9 @@ public class WorkServiceImpl implements WorkService {
             this.customerDao.update(customer);
         }
     }
-    
-     public List<Services> getAllServices(String username) {
-         Users u = this.usersDao.findByUsername(username);
+
+    public List<Services> getAllServices(String username) {
+        Users u = this.usersDao.findByUsername(username);
         return this.servicesDao.findByOrganization(u.getOrganization());
     }
 
@@ -292,7 +296,6 @@ public class WorkServiceImpl implements WorkService {
     public void setServicesDao(ServicesDao servicesDao) {
         this.servicesDao = servicesDao;
     }
-    
     protected final Log logger = LogFactory.getLog(getClass());
     private CustomerDao customerDao;
     private SystemsDao systemsDao;
