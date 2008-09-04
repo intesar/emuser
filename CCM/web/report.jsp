@@ -48,9 +48,9 @@
             }
             
             var reply1 = function(data) {
-                var str1= "total Minutes : " + data[0][0] ;
+                var str1= "Total Minutes & Sale Units : " + data[0][0] ;
                 var str2 = "Total Payable Amount : " + data[0][1];
-                var str3 = "Total Paid Amount : " + data[0][2];
+                var str3 = "Total Amount Received : " + data[0][2];
                 dwr.util.setValue("id1", str1);
                 dwr.util.setValue("id2", str2);
                 dwr.util.setValue("id3", str3);
