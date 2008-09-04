@@ -33,7 +33,7 @@
                 <tr>
                     <td width="33%" align="left"><a href="http://www.bizintelapps.net/" target="_blank"><img src="dash/logo.jpg" alt="logo" width="290" height="74" border="0"/></a></td>
                     <td width="4%"><img src="dash/line2.JPG" alt="line2" width="11" height="214" />&nbsp;&nbsp;</td>
-                    <td width="28%" align="center"><p><img src="dash/network.jpg" alt="net" height="217" /></p>
+                    <td width="28%" align="center"><p><img src="dash/onlinelogo.png" alt="net" height="217" /></p>
                     </td>
                     <td width="4%">&nbsp;&nbsp;&nbsp; <img src="dash/line.JPG" alt="line" width="14" height="316" /></td>
                     <td width="31%" align="right">

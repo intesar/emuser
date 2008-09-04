@@ -26,7 +26,7 @@
             a:active  {color:black; text-decoration:none; font-size:11pt}
             a:visited {color:black; text-decoration:none; font-size:11pt}
         </style>
-        <title>JSP Page</title>
+        
         <script type='text/javascript' src='/CCM/dwr/interface/AjaxAdminService.js'></script>
         <script type='text/javascript' src='/CCM/dwr/engine.js'></script>        
         <script type='text/javascript' src='/CCM/dwr/util.js'></script>

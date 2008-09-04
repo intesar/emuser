@@ -1,3 +1,4 @@
+<title>FaceGuard</title>
 <!-- table style -->
 <style type="text/css">
     body

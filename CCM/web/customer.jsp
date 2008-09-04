@@ -21,7 +21,12 @@
     <link type="text/css" rel="stylesheet" href="/CCM/datepickercontrol.css"> 
     
     <script type="text/javascript">
-           
+
+       
+
+ 
+
+
         
         function writePerson() {
                 
@@ -35,22 +40,34 @@
                 
             dwr.util.getValues(customer);
                 
+            
+            
+            var flag1 = customer.img.value.toString().toLowerCase().search ('jpg') ;
+            var flag2 = customer.img.value.toString().toLowerCase().search ('bmp') ;
+            var flag3 = customer.img.value.toString().toLowerCase().search ('png') ;
+            
+            if ( flag1 > 0 || flag2 > 0 || flag3 > 0 ) {
+            
+                //customer.imag = null;
         
-            //dwr.engine.beginBatch();
-            //People.setPerson(person);
+                //dwr.engine.beginBatch();
+                //People.setPerson(person);
                 
-            if ( validateEmail(customer.email, true, true) ) {
+                if ( validateEmail(customer.email, true, true) ) {
                    
-                if ( customer.img !="" && customer.city !="" && customer.street !=""  && customer.zipcode !="" && customer.name != "" && customer.country!="")
-                {
-                    AjaxWorkService.createCustomer(customer, reply1);
-                } 
-                else {
-                    alert ( " * Marked Fields are required ! ");
-                }
+                    if ( customer.img !="" && customer.city !="" && customer.street !=""  && customer.zipcode !="" && customer.name != "" && customer.country!="")
+                    {
+                        AjaxWorkService.createCustomer(customer, reply1);
+                    } 
+                    else {
+                        alert ( " * Marked Fields are required ! ");
+                    }
                     
-            }
+                }
                 
+            } else {
+                alert ( ' Image type can only be jpg, bmp, png');
+            }
             //dwr.engine.endBatch();
         }
             
@@ -128,7 +145,7 @@
             <td>
             <table>
             <tr>
-                <td>Image:&nbsp;&nbsp;*</td>
+                <td>Image:(jpg, bmp, png)*</td>
                 <td><input type="file" id="img" /></td>
                 <!-- <td id="image.container">&nbsp;</td>-->
             </tr>
@@ -151,7 +168,7 @@
             
             <tr>
                 <td>State:</td>
-                <td><input id="state" type="text" size="30" value="hyderabad"/></td>
+                <td><input id="state" type="text" size="30" value="ap"/></td>
             </tr>
             <tr>
                 <td>Zipcode:&nbsp;&nbsp;*</td>
