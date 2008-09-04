@@ -60,7 +60,9 @@
                     // Create a new set cloned from the pattern row
                     var person, id;
                     
-                    //people.sort(function(p1, p2) { return p1.currentUserEmail.localeCompare(p2.currentUserEmail); });
+                    people.sort(function(p1, p2) {
+                        return p1.name - p2.name;
+                    });
                     systemLength = people.length;
                     for (var i = 0; i < people.length; i++) {
                         person = people[i];
