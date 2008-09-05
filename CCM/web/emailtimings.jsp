@@ -96,7 +96,7 @@
         <table align="center">
             <thead>
                 <tr>
-                    <th>  Report Time </th>
+                    <th>  Report Time -- Every Day at 7am & 12pm</th>
                 </tr>
             </thead>
             <tbody id="peoplebody">

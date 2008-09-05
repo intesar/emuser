@@ -18,6 +18,7 @@
         
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <script type="text/javascript">
+            var email = "";
             function createAccount() {
                 var c = dwr.util.getValue("companyName");
                 var u = dwr.util.getValue("email");
@@ -29,6 +30,7 @@
                 //alert ( c + u + p + cp);
                 if ( p == cp) {
                     if ( validateEmail(u, true, true) ) {
+                        email = u;
                         AjaxUserService.registerNewOrganization ( c, "hyd", u, p, minutes, rate, maxSystems, reply1);
                     }
                 } else {
@@ -46,6 +48,12 @@
             
             var reply1 = function ( data ) {
                 alert ( data );
+                if ( data == 'Please login with your email and password') {                        
+                    location.href="http://biadevbox.homelinux.com:8080/CCM/login.jsp?j_username="+ email;
+                } else {                    
+                    
+                }
+                
             }
             
         </script>

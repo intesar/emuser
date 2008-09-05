@@ -97,8 +97,11 @@
         function updatePrice() {
             var mm = dwr.util.getValue("minimumMinutes");
             var r = dwr.util.getValue("minuteRate");
+            var lmm = dwr.util.getValue("lowerMinimumMinutes");
+            var lr = dwr.util.getValue("lowerMinuteRate");
+            
             if ( mm != null && mm != "" && r != null && r != "" ) {
-                AjaxAdminService.updateRentalPrice ( mm, r, function(data) {
+                AjaxAdminService.updateRentalPrice ( mm, r, lmm, lr, function(data) {
                     fillTable();
                     alert ( data );
                 });
@@ -182,11 +185,15 @@
                 </thead>
                 <tr>
                     <td>Minimum Minutes:*</td>
-                    <td><input type="text" id="minimumMinutes" size="30"/></td>
+                    <td><input type="text" id="minimumMinutes" size="4"/></td>
+                    <td>Rate:*</td>
+                    <td><input type="text" id="minuteRate" size="4"/></td>
                 </tr>
                 <tr>
-                    <td>Rate:*</td>
-                    <td><input type="text" id="minuteRate" size="30"/></td>
+                    <td>Lower Minimum Minutes:*</td>
+                    <td><input type="text" id="lowerMinimumMinutes" size="4"/></td>
+                    <td>Lower Rate:*</td>
+                    <td><input type="text" id="lowerMinuteRate" size="4"/></td>
                 </tr>
                 <tr>
                 <td></td>
