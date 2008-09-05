@@ -46,7 +46,7 @@
             var flag2 = customer.img.value.toString().toLowerCase().search ('bmp') ;
             var flag3 = customer.img.value.toString().toLowerCase().search ('png') ;
             
-            if ( flag1 > 0 || flag2 > 0 || flag3 > 0 ) {
+            if ( flag1 > 0 || flag2 > 0 || flag3 > 0 || customer.img.value == null || customer.img.value == "") {
             
                 //customer.imag = null;
         
@@ -55,7 +55,7 @@
                 
                 if ( validateEmail(customer.email, true, true) ) {
                    
-                    if ( customer.img !="" && customer.city !="" && customer.street !=""  && customer.zipcode !="" && customer.name != "" && customer.country!="")
+                    if ( /*customer.img !="" && */ customer.name != "" && customer.street !=""  && customer.city !="" && customer.zipcode !="" &&  customer.state != "" && customer.country!="")
                     {
                         AjaxWorkService.createCustomer(customer, reply1);
                     } 
@@ -145,7 +145,7 @@
             <td>
             <table>
             <tr>
-                <td>Image:(jpg, bmp, png)*</td>
+                <td>Image:(jpg, bmp, png)</td>
                 <td><input type="file" id="img" /></td>
                 <!-- <td id="image.container">&nbsp;</td>-->
             </tr>

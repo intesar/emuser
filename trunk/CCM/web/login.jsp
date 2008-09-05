@@ -43,7 +43,7 @@
                             <tr><td></td></tr>
                             <tr>
                                 <td>   <font face="Arial, Helvetica, sans-serif" > &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Email:</font></td>
-                            <td width="198"><input type='text' name='j_username' size="33"> </td></tr>
+                            <td width="198"><input type='text' name='j_username' size="33" value='<%= request.getParameter("j_username") %>'> </td></tr>
                             <tr><td></td><td><font size="-1" color="#999999">(example555@abc.com)</font></td></tr>
                             <tr><td></td><td></td></tr>
                             <tr><td></td><td></td></tr>
