@@ -111,8 +111,10 @@ public class WorkAjaxService {
 
     public Customer getCustomer(String key) {
         Customer c = this.workService.getCustomer(key);
-        c.setImage(this.byteArrayToBufferedImage(c.getPic()));
-        c.setImg(null);
+        if (c.getPic() != null && c.getPic().length > 0) {
+            c.setImage(this.byteArrayToBufferedImage(c.getPic()));
+            c.setImg(null);
+        }
 
         return c;
     }

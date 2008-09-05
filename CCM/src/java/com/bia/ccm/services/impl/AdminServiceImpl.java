@@ -42,13 +42,17 @@ public class AdminServiceImpl implements AdminService {
         this.emailPreferenceDao.delete(email);
     }
 
-    public void updateRentalPrice(int mims, double rate, String username) {
+    public void updateRentalPrice(int mims, double rate, Integer lmins, Double lrate, String username) {
         Users u = this.usersDao.findByUsername(username);
         String org = u.getOrganization();
         List<Systems> list = this.systemsDao.findByOrganization(org);
         for (Systems s : list) {
             s.setMinimumMinutes(mims);
             s.setMinuteRate(rate);
+            if ( lmins != null && lmins > 0 && lrate != null && lrate > 0 ) {
+                s.setLowerMinimumMinutes(lmins);
+                s.setLowerMinuteRate(lrate);
+            }
             this.systemsDao.update(s);
         }
     }

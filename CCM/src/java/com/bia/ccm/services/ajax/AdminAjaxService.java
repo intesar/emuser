@@ -40,11 +40,11 @@ public class AdminAjaxService {
         }
     }
 
-    public String updateRentalPrice(int mims, double rate) {
+    public String updateRentalPrice(int mims, double rate, Integer lmins, Double lrate) {
         String msg = "Successful!";
         String username = AcegiUtil.getUsername();
         try {
-            this.adminService.updateRentalPrice(mims, rate, username);
+            this.adminService.updateRentalPrice(mims, rate, lmins, lrate, username);
             return msg;
         } catch (Exception e) {
             logger.error(e.getMessage());

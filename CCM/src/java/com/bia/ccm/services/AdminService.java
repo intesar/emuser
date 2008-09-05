@@ -22,7 +22,7 @@ public interface AdminService {
     // Systems
     public void deleteEmail(int id);
 
-    public void updateRentalPrice(int mims, double rate, String username);
+    public void updateRentalPrice(int mims, double rate, Integer lmins, Double lrate, String username);
 
     public List<Systems> getAllSystems(String username);
 
