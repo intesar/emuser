@@ -106,15 +106,31 @@ public class WorkServiceImpl implements WorkService {
         Long totalMinutes = (endTime.getTime() - systemLease.getStartTime().getTime()) / (1000 * 60);
         Double payableAmount = null;
         logger.debug("rate ******** : " + rate);
-        if (rate >= 1.0) {
-            Integer minimumMins = system.getMinimumMinutes();//Double.parseDouble(rateString.substring(0, a));
-            logger.debug("minimumMins ******** : " + minimumMins);
-            payableAmount = Math.ceil((double) totalMinutes / minimumMins) * rate;
-            logger.debug("Math.ceil((double)totalMinutes / minimumMins) ******** : " + Math.ceil(totalMinutes / minimumMins));
-            logger.debug("payableAmount ******** : " + payableAmount);
-        } else {
-            payableAmount = totalMinutes * rate;
-        }
+//        if (rate >= 1.0) {
+            if (system.getLowerMinuteRate() != null && system.getLowerMinuteRate() > 0.0 &&
+                    system.getLowerMinimumMinutes() != null && system.getLowerMinimumMinutes() > 0) {
+                // apply pattern for dual rate
+                Double amt = 0.0;
+                long quotient =  totalMinutes / system.getMinimumMinutes();
+                long reminder = totalMinutes % system.getMinimumMinutes();
+                if ( reminder <= system.getLowerMinimumMinutes() ) {
+                    amt = system.getLowerMinuteRate();
+                } else {
+                    amt = system.getMinuteRate();
+                }
+                
+                payableAmount = amt + quotient * system.getMinuteRate();
+                        
+            } else {
+                Integer minimumMins = system.getMinimumMinutes();//Double.parseDouble(rateString.substring(0, a));
+                logger.debug("minimumMins ******** : " + minimumMins);
+                payableAmount = Math.ceil((double) totalMinutes / minimumMins) * rate;
+                logger.debug("Math.ceil((double)totalMinutes / minimumMins) ******** : " + Math.ceil(totalMinutes / minimumMins));
+                logger.debug("payableAmount ******** : " + payableAmount);
+            }
+//        } else {
+//            payableAmount = totalMinutes * rate;
+//        }
         systemLease.setTotalMinutesUsed(totalMinutes);
         systemLease.setPayableAmount(payableAmount);
 

@@ -48,7 +48,11 @@ public class Systems implements Serializable {
     @Column(name = "minimum_minutes", nullable = false)
     private Integer minimumMinutes;
     @Column(name = "rate", nullable = false)
-    private double minuteRate;
+    private Double minuteRate;
+    @Column(name = "lower_minimum_minutes", nullable = false)
+    private Integer lowerMinimumMinutes;
+    @Column(name = "lower_rate", nullable = false)
+    private Double lowerMinuteRate;
     @Column(name = "enabled", nullable = false)
     private boolean enabled;
     @Column(name = "is_shutdown")
@@ -75,7 +79,7 @@ public class Systems implements Serializable {
     private Date startTime;
     @Transient
     private String startTimeString;
-    
+
     public Systems() {
     }
 
@@ -150,6 +154,24 @@ public class Systems implements Serializable {
     public void setMinuteRate(double minuteRate) {
         this.minuteRate = minuteRate;
     }
+
+    public Integer getLowerMinimumMinutes() {
+        return lowerMinimumMinutes;
+    }
+
+    public void setLowerMinimumMinutes(Integer lowerMinimumMinutes) {
+        this.lowerMinimumMinutes = lowerMinimumMinutes;
+    }
+
+    public Double getLowerMinuteRate() {
+        return lowerMinuteRate;
+    }
+
+    public void setLowerMinuteRate(Double lowerMinuteRate) {
+        this.lowerMinuteRate = lowerMinuteRate;
+    }
+    
+    
 
     public boolean getEnabled() {
         return enabled;
@@ -271,7 +293,7 @@ public class Systems implements Serializable {
         this.startTimeString = startTimeString;
     }
 
-    @Override
+        @Override
     public int hashCode() {
         int hash = 0;
         hash += (id != null ? id.hashCode() : 0);
