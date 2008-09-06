@@ -47,7 +47,9 @@
                     }});
                 // Create a new set cloned from the pattern row
                 var person, id;
-                people.sort(function(p1, p2) { return p1.macAddress.localeCompare(p2.macAddress); });
+                people.sort(function(p1, p2) {
+                    return p1.name - p2.name;
+                });
                 for (var i = 0; i < people.length; i++) {
                     person = people[i];
                     id = person.id;
@@ -84,8 +86,15 @@
             } else {
                 person = peopleCache[viewed];
                 dwr.util.getValues(person);        
-                AjaxAdminService.saveSystems(person, function() {
-                    fillTable();
+                AjaxAdminService.saveSystems(person, function(data) {
+                    clearMessages();
+                    if ( data == "Operation succesful!") {
+                        dwr.util.setValue ("successReply", "Updated System at " + new Date());
+                        fillTable();
+                    } else {
+                        dwr.util.setValue ("failureReply", data );
+                    }
+                    
                 });
                 
             }
@@ -102,8 +111,15 @@
             
             if ( mm != null && mm != "" && r != null && r != "" ) {
                 AjaxAdminService.updateRentalPrice ( mm, r, lmm, lr, function(data) {
-                    fillTable();
-                    alert ( data );
+                    clearMessages();
+                    if ( data == "Price Updated Successful!") {
+                        dwr.util.setValue ("successReply", data + " at " + new Date());
+                        fillTable();
+                    } else {
+                        dwr.util.setValue ("failureReply", data );
+                    }
+                    
+                    //alert ( data );
                 });
             }
         }
@@ -114,32 +130,32 @@
 </head>
 <body>
     <jsp:include page="include.jsp" />
-    <h2 align="center">configure System Information  </h2> 
+    <h2 align="center"> System Information  </h2> 
     
     
     <table align="center">
         <tr align="center">
             <td align="center">
-                
-                <table>
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Description</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody id="peoplebody">
-                        <tr id="pattern" style="display:none;">
-                            <td><span id="name1">No</span></td>
-                            <td><span id="description1">Description</span></td>
-                            <td>
-                                <input id="edit" type="button" value="Edit" onclick="editClicked(this.id)"/>                        
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                
+                <div style="height:370px; width:470px; overflow:auto;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Description</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="peoplebody">
+                            <tr id="pattern" style="display:none;">
+                                <td><span id="name1">No</span></td>
+                                <td><span id="description1">Description</span></td>
+                                <td>
+                                    <input id="edit" type="button" value="Edit" onclick="editClicked(this.id)"/>                        
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </td>
             <td align="center">
                 
@@ -179,22 +195,25 @@
                     <tr>
                         <th></th>
                         <th>
-                            Update Rental Price
+                            Pricing
                         </th>
+                        <th></th>
+                        <th></th>
                     </tr>
                 </thead>
-                <tr>
-                    <td>Minimum Minutes:*</td>
-                    <td><input type="text" id="minimumMinutes" size="4"/></td>
-                    <td>Rate:*</td>
-                    <td><input type="text" id="minuteRate" size="4"/></td>
-                </tr>
                 <tr>
                     <td>Lower Minimum Minutes:*</td>
                     <td><input type="text" id="lowerMinimumMinutes" size="4"/></td>
                     <td>Lower Rate:*</td>
                     <td><input type="text" id="lowerMinuteRate" size="4"/></td>
                 </tr>
+                <tr>
+                    <td>Minimum Minutes:*</td>
+                    <td><input type="text" id="minimumMinutes" size="4"/></td>
+                    <td>Rate:*</td>
+                    <td><input type="text" id="minuteRate" size="4"/></td>
+                </tr>
+                
                 <tr>
                 <td></td>
                 <td>

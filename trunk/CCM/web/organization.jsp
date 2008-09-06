@@ -43,15 +43,19 @@
             }
         
         
-            function writePerson() {
-                
+            function writePerson() {                
                 dwr.util.getValues(org);
-        
-                //dwr.engine.beginBatch();
-                //People.setPerson(person);
-                AjaxAdminService.saveOrganization(org);
-                fillTable();
-                //dwr.engine.endBatch();
+                AjaxAdminService.saveOrganization(org, function (data) {
+                 clearMessages();                
+                if (  data == 'Operation succesful!') {
+                    dwr.util.setValue("successReply", " Profile Updated at " + new Date());
+                    fillTable();
+                } else {
+                    dwr.util.setValue("failureReply", data);
+                }    
+                });
+                
+                
             }
         
             

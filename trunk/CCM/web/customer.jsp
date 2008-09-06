@@ -72,17 +72,15 @@
         }
             
         var reply1 = function (data) {                
-            alert ( data );
+            clearMessages();
+            if ( data == "Customer Created Successfully!" ) {
+                dwr.util.setValue ("successReply", "Created/Updated Profile at " + new Date());                
+            } else {
+                dwr.util.setValue ("failureReply", data);
+            }
         }
         
-                
-            
-        //fillTable();
-        //dwr.engine.endBatch();
-           
-           
-       
-       
+         
         function execute() {
             dwr.util.useLoadingMessage();
             //alert ( document.getElementById("startDate").value);
@@ -104,10 +102,16 @@
             
         function search() {
             AjaxWorkService.getCustomer(dwr.util.getValue("key"), reply2);
+            dwr.util.useLoadingMessage();
         }
             
         var reply2 = function(customer) {
-            dwr.util.setValues(customer);
+            clearMessages();
+            if ( customer.id == null ) {
+                dwr.util.setValue ("failureReply", "No Match for the Given Email, Please create User Profile " );                
+            } else {
+                dwr.util.setValues(customer);
+            }
         }
     </script>
     <jsp:include page="table_style.jsp" ></jsp:include>
@@ -137,7 +141,7 @@
             </td>
         </tr>
     </table>
-    <h2 align="center"> Create Customer Profile</h2>
+    <h2 align="center"> Create / Update Customer Profile</h2>
     
     <table align="center">
         
@@ -237,9 +241,14 @@
                 </textarea></td>
             </tr>
             <tr>
+                <td>
+                    <input type="hidden" name="id" value="" />
+                </td>
+            </tr>
+            <tr>
                 <td colspan="2" align="right">                    
-                    <input type="button" value="Save" onclick="writePerson()"/>
-                    <input type="button" value="Clear" onclick="clearPerson()"/>                
+                    <input type="button" value="New" onclick="clearPerson()"/> 
+                    <input type="button" value="Save" onclick="writePerson()"/>  
                     
                 </td>
             </tr>

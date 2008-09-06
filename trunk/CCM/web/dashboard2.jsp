@@ -21,16 +21,26 @@
         <script type="text/javascript" src="clear-default-text.js"></script>
         <script type="text/javascript">
             function search() {
-                if ( validateEmail(dwr.util.getValue("key"), true, true) ) 
-                {
+                if ( validateEmail(dwr.util.getValue("key"), true, true) )  {                
+                    clearMessages();
                     AjaxWorkService.getCustomer(dwr.util.getValue("key"), reply2);
                 }
-                else {
-                    alert('Enter Valid Email');
-                }
+               
             } 
             var reply2 = function(customer) {
-                dwr.util.setValues(customer);
+                clearMessages();
+                if ( customer.id == null ) {
+                    dwr.util.setValue ("failureReply", "No Match for the Given Email, Please create User Profile at Users tab " );
+                    //alert ( "No match for the given key! " );
+                } else {
+                    if ( customer.image == null ) {
+                        dwr.util.setValue ("successReply", "No Image Available for " + customer.email + " please upload an image!");                
+                        //alert ( 'No image found for the user :' + customer.email );
+                    } else {
+                        dwr.util.setValues(customer);
+                    }
+                    dwr.util.setValue("successReply", " Customer Name : " + customer.name);
+                }
             }
             function addToMemberList() {
                 
@@ -105,14 +115,16 @@
            
                 if ( validateEmail(leaseHolder, true, true) ) 
                 {
+                    clearMessages();
                     AjaxWorkService.leaseSystem(system.id, leaseHolder, function(data) {
-                          
+                        
                         if ( data == 'Assigned Successfully!') {
+                            dwr.util.setValue("successReply", data + " to " + leaseHolder + " at " + new Date());
                             fillTable();
                             dwr.util.setValue("key", "");
-                        } else {
-                      
-                            alert ( data );
+                        } else {                      
+                            dwr.util.setValue("failureReply", data);
+                            //alert ( data );
                         }
                     } ); 
                 
@@ -166,28 +178,35 @@
                 if ( u != null && u > 0 && p != null && p > 0) {
                     AjaxWorkService.addService(s,u,e,p,'',a, replyService);
                 } else {
+                    //dwr.util.setValue("failureReply", " units or payable amount cannot be null!");
                     alert(  ' units or payable amount cannot be null!');
                 }
                   
             }
             var replyService = function (data) {
-                alert ( data );
-                if (  (data == 'Successful!')) {
-                    clearPerson()
+                clearMessages();                
+                if (  data == 'Service Added Successfully') {
+                    dwr.util.setValue("successReply", data + " to : " + dwr.util.getValue("systemNos") + " at " + new Date());
+                    clearPerson();
+                } else {
+                    dwr.util.setValue("failureReply", data);
                 }
             }
             function paid () {
                 var system = peopleCache[paidId];
                 document.getElementById("paidButton").disabled = false;
+                clearMessages();
                 AjaxWorkService.chargePayment(system.id, function(data) {
-                    if ( data == 'Successful!' ) {
+                    if ( data == 'Payment Successful!' ) {
+                        dwr.util.setValue("successReply", data + ", System : " + system.name + " at " + new Date());
                         fillTable();
                         dwr.util.removeAllRows("detailbody", { filter:function(tr) {
                                 return (tr.id != "detail");
                             }});
                         document.getElementById("paidButton").disabled = true;
                     } else {
-                        alert ( data );
+                        dwr.util.setValue("failureReply", data);
+                        //alert ( data );
                     }
                 } );
                 
@@ -265,7 +284,7 @@
                                 </td>
                             </tr>
                         </table>
-                        <h2>System Details</h2>
+                        <h2>System Status</h2>
                         <div style="height:370px; width:470px; overflow:auto;">
                             <table width="1000">
                                 <thead>
@@ -295,7 +314,7 @@
                                         <input type="button" id="deta" value="Detail" onclick="fetchDetail(this.id);" />
                                         <input type="button" id="geta" value="Paid"  onclick="paid(this.id);" />-->
                                             <button value="New" onclick="assignSystem(this.id);"  id="edit">Assign</button>
-                                            <button value="New" onclick="fetchDetail(this.id);"  id="deta">Details</button>                                        
+                                            <button value="New" onclick="fetchDetail(this.id);"  id="deta">>></button>                                        
                                         </td>
                                     </tr>
                                 </tbody>
@@ -344,7 +363,7 @@
                             
                         </table>
                         
-                        <h2>  Extra Sales  </h2>
+                        <h2>  Extra Sales / Services </h2>
                         <table title="Extra Sale">
                             
                             <tr>
@@ -376,8 +395,9 @@
                             <tr>
                                 <td></td>
                                 <td></td>
-                                <td><input type="submit" value="Save" onclick="addService();" /></td>
-                                <td><input type="submit" value="Clear" onclick="clearPerson();" /></td>
+                                <td></td>
+                                <td><input type="submit" value="Add to Computer / Charge Now" onclick="addService();" /></td>
+                                
                             </tr>
                         </table>
                         
