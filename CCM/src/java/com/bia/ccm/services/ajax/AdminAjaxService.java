@@ -30,7 +30,7 @@ import org.apache.commons.logging.LogFactory;
 public class AdminAjaxService {
 
     public String deleteEmail(int id) {
-        String msg = "Successful!";
+        String msg = "Deleted Email Successful!";
         try {
             this.adminService.deleteEmail(id);
             return msg;
@@ -41,7 +41,7 @@ public class AdminAjaxService {
     }
 
     public String updateRentalPrice(int mims, double rate, Integer lmins, Double lrate) {
-        String msg = "Successful!";
+        String msg = "Price Updated Successful!";
         String username = AcegiUtil.getUsername();
         try {
             this.adminService.updateRentalPrice(mims, rate, lmins, lrate, username);
@@ -89,12 +89,30 @@ public class AdminAjaxService {
 
     public String saveEmailTimePreference(EmailTimePreference emailTimePreference) {
         String username = AcegiUtil.getUsername();
-        return this.adminService.saveEmailTimePreference(emailTimePreference, username);
+        try {
+            this.adminService.saveEmailTimePreference(emailTimePreference, username);
+            return "Added Successfully!";
+        } catch (Exception e) {
+            logger.error(e);
+            return e.getMessage();
+        }
+    }
+
+    public String deleteEmailTimePreference(EmailTimePreference emailTimePreference) {
+        try {
+            this.adminService.deleteEmailTimePreference(emailTimePreference);
+            return "Deleted Successfully";
+        } catch (Exception e) {
+            logger.error(e);
+            return e.getMessage();
+        }
     }
 
     public List<SystemLease> getAllSystemLease() {
         String username = AcegiUtil.getUsername();
+
         return this.adminService.getAllSystemLease(username);
+
     }
 
     public Organization getOrganization() {
@@ -143,7 +161,7 @@ public class AdminAjaxService {
 
     public String saveService(Services service) {
         try {
-            String msg = " Successful! ";
+            String msg = " Service Saved Successful! ";
             if (service.getOrganization() == null || service.getOrganization().length() <= 0) {
                 service.setOrganization(this.getOrganization().getName());
             }
@@ -160,7 +178,7 @@ public class AdminAjaxService {
             if (id == null || id <= 0) {
                 return "Id is null";
             }
-            String msg = " Successful! ";
+            String msg = " Service Deleted Successful! ";
             this.adminService.deleteService(id);
             return msg;
         } catch (Exception e) {
@@ -173,8 +191,8 @@ public class AdminAjaxService {
         String org = this.getOrganization().getName();
         return this.adminService.getAllServices(org);
     }
-    
-    public void sendReports() {        
+
+    public void sendReports() {
         this.adminService.sendReports();
     }
     protected final Log logger = LogFactory.getLog(getClass());
@@ -200,10 +218,10 @@ public class AdminAjaxService {
 //        System.out.println(aas.getOrganization());
         Date dt1 = new Date(107, 7, 7);
         Date dt2 = new Date(110, 11, 11);
-        
+
         //System.out.println(aas.getSystemLease("2007-07-07", "2008-10-10").size());
         //System.out.println ();//getReport("2008-08-04", "2008-08-04").toString());
-    // System.out.println(aas.getReport("2007-07-07", "2008-10-10"));
-         aas.sendReports();
+        // System.out.println(aas.getReport("2007-07-07", "2008-10-10"));
+        aas.sendReports();
     }
 }

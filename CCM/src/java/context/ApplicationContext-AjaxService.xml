@@ -58,6 +58,7 @@
             <dwr:include method="saveEmailPreference" />
             <dwr:include method="getAllEmailTimePreference" />
             <dwr:include method="saveEmailTimePreference" />
+            <dwr:include method="deleteEmailTimePreference" />
             <dwr:include method="getAllSystemLease" />
             <dwr:include method="getOrganization" />
             <dwr:include method="saveOrganization" />

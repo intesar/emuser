@@ -62,7 +62,7 @@ public class WorkAjaxService {
 
     public String addService(String service, Long units, String user, Double payableAmount,
             String comments, Double paidAmount) {
-        String msg = "Successful!";
+        String msg = "Service Added Successfully";
         String agent = AcegiUtil.getUsername();
         try {
             this.workService.addService(service, units, user, payableAmount, comments, paidAmount, agent);
@@ -110,7 +110,17 @@ public class WorkAjaxService {
     }
 
     public Customer getCustomer(String key) {
-        Customer c = this.workService.getCustomer(key);
+        Customer c = null;
+        try {
+            c = this.workService.getCustomer(key);
+        } catch (Exception e) {
+            logger.error(e);
+        }
+        if (c == null) {
+            c = new Customer();
+            c.setComments("No record found for given email!");
+        }
+
         if (c.getPic() != null && c.getPic().length > 0) {
             c.setImage(this.byteArrayToBufferedImage(c.getPic()));
             c.setImg(null);
@@ -182,7 +192,7 @@ public class WorkAjaxService {
     }
 
     public String chargePayment(int systemId) {
-        String msg = "Successful!";
+        String msg = "Payment Successful!";
         try {
             workService.chargePayment(systemId, AcegiUtil.getUsername());
         } catch (Exception e) {
