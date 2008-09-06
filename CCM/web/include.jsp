@@ -73,6 +73,7 @@
         </a> 
         
     </div>
+    
     <!--
     <div id="employeeDiv" style="visibility: hidden" align="center">
         <a onclick="forwardFunction('dashboard.jsp');">
@@ -92,9 +93,17 @@
     </div>
     -->
 </div>
-<br><br>
+<br>
+<div align="center">
+    <font style="color:green"><span id="successReply"></span></font><font style="color:red"><span id="failureReply"></span></font>
+</div>
+<br>
 
 <script type="text/javascript">
     //onLoad = showdiv();
+    function clearMessages() {
+        dwr.util.setValue ("failureReply", "" );
+        dwr.util.setValue ("successReply", "" );
+    }
 </script>
 

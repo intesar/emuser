@@ -95,31 +95,43 @@
                     alert ( " Name Cannot be Empty! ");
                 }
             }
-                //dwr.engine.endBatch();
+            //dwr.engine.endBatch();
             
             
-                var reply1 = function (data) {
+            var reply1 = function (data) {
+                clearMessages();
+                if ( data == " Service Saved Successful! ") {
+                    dwr.util.setValue ("successReply", data + " at "  + new Date());
                     fillTable();
-                    //alert (data);
+                } else {
+                    dwr.util.setValue ("failureReply", data );
                 }
+                    
+                    
+                //alert (data);
+            }
                
             
         
-                function clearPerson() {
-                    viewed = null;
-                    dwr.util.setValues({ id:null, name:null, unitPrice:null });
-                    document.getElementById("name").disabled=false;        
+            function clearPerson() {
+                viewed = null;
+                dwr.util.setValues({ id:null, name:null, unitPrice:null });
+                document.getElementById("name").disabled=false;        
                        
-                }
-                function deletePerson() {
-                    //alert ( 'hi');
-                    var x = viewed;
-                    AjaxAdminService.deleteService(viewed, function(data) {
-                        //alert ( data );
-                        clearPerson();
-                        fillTable();   
-                    });
-                }
+            }
+            function deletePerson() {
+                //alert ( 'hi');
+                var x = viewed;
+                AjaxAdminService.deleteService(viewed, function(data) {
+                    clearMessages();
+                    if ( data == " Service Deleted Successful! ") {
+                        dwr.util.setValue ("successReply", data + " at " + new Date());
+                        fillTable();
+                    } else {
+                        dwr.util.setValue ("failureReply", data );
+                    }  
+                });
+            }
         </script>
         
         <jsp:include page="table_style.jsp" ></jsp:include>
@@ -191,7 +203,7 @@
         </table>
         
         <script type="text/javascript">
-                onload = fillTable();
+            onload = fillTable();
         </script>
         <br>
         <br>

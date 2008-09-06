@@ -49,7 +49,7 @@
             var reply1 = function ( data ) {
                 alert ( data );
                 if ( data == 'Please login with your email and password') {                        
-                    location.href="http://biadevbox.homelinux.com:8080/CCM/login.jsp?j_username="+ email;
+                    location.href="/login.jsp?j_username="+ email;
                 } else {                    
                     
                 }

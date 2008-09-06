@@ -48,7 +48,7 @@
                         }});
                     // Create a new set cloned from the pattern row
                     var person, id;
-                    //people.sort(function(p1, p2) { return p1.macAddress.localeCompare(p2.macAddress); });
+                    people.sort(function(p1, p2) { return p1.emailOrPhone.localeCompare(p2.emailOrPhone); });
                     for (var i = 0; i < people.length; i++) {
                         person = people[i];
                         id = person.id;
@@ -84,9 +84,15 @@
         
                 if ( validateEmail(person.emailOrPhone, false, false) || person.emailOrPhone.length >= 10 ) {
                           
-                    AjaxAdminService.saveEmailPreference(person, function(data) {                        
-                        fillTable();   
-                        alert ( data );
+                    AjaxAdminService.saveEmailPreference(person, function(data) { 
+                        clearMessages();
+                        if ( data == "Operation succesful!") {
+                            dwr.util.setValue ("successReply", "Created/Updated Email for report"  + " at " + new Date() );
+                            fillTable();
+                        } else {
+                            dwr.util.setValue ("failureReply", data );
+                        }
+                      
                     });
                     
                 } else {
@@ -106,10 +112,17 @@
                 //alert ( 'hi');
                 var x = viewed;
                 AjaxAdminService.deleteEmail(viewed, function(data) {
-                        //alert ( data );
-                        fillTable();    
+                    clearMessages();
+                    if ( data == "Deleted Email Successful!") {
+                        dwr.util.setValue ("successReply", data  + " at " + new Date());
+                        fillTable();
                         clearPerson();
-                    });
+                    } else {
+                        dwr.util.setValue ("failureReply", data );
+                    }
+                       
+                    
+                });
             }
         </script>
         
@@ -153,7 +166,7 @@
                             <tr>
                                 <th></th>
                                 <th>
-                                    Email/Phone For Sending Reports
+                                    Email/Phone For Daily Reports
                                 </th>
                             </tr>
                         </thead>

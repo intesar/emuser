@@ -106,10 +106,12 @@
             }
             
             var reply1 = function (data) {
+                clearMessages();
                 if ( data == 'Operation succesful!') {
+                    dwr.util.setValue ("successReply", " Saved/Updated User at " + new Date() );
                     fillTable();
                 } else {
-                    alert ( data );
+                    dwr.util.setValue ("failureReply", data );
                 }
             }
         
@@ -126,12 +128,13 @@
     <body>
         
         <jsp:include page="include.jsp" />
-        <h2 align="center">Update User Information  </h2>                         
+        <h2 align="center">Cyber Cafe Users  </h2>                         
         <table align="center">
             
             
             <tr>
                 <td>
+                    <h2>Users Status</h2>
                     <table>
                         
                         <thead>
@@ -163,7 +166,7 @@
                             <tr>
                                 <th></th>
                                 <th>
-                                    User
+                                    User Profile
                                 </th>
                             </tr>
                         </thead>

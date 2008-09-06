@@ -8,8 +8,16 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
 
+<jsp:include page="table_style.jsp" ></jsp:include>
+
 <html>
     
+    <table align="center">
+        <tr>
+            <td>Email us your username at reset.password@bizintelapps.com to reset your password !</td>
+        </tr>
+    </table>
+    <!--
     <table align="center" bordercolor="#EDDA74" border="2" rules="none" width="80%">
         <tr>
             <td>
@@ -64,5 +72,5 @@
     <p align="center">
         <font size="2"> &copy; Copyrights BizIntelApps 2008 All Rights Reserved. <a href="http://bizintelapps.net/"><font color="blue">BizIntelApps</font></a> </font>
     </p>
-    
+    -->
 </html>
