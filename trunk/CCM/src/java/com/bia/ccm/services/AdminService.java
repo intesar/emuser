@@ -22,6 +22,8 @@ public interface AdminService {
     // Systems
     public void deleteEmail(int id);
 
+    public void deleteEmailTimePreference(EmailTimePreference emailTimePreference);
+
     public void updateRentalPrice(int mims, double rate, Integer lmins, Double lrate, String username);
 
     public List<Systems> getAllSystems(String username);
@@ -41,7 +43,7 @@ public interface AdminService {
     //EmailTimePreference
     public List<EmailTimePreference> getAllEmailTimePreference(String username);
 
-    public String saveEmailTimePreference(EmailTimePreference emailTimePreference, String username);
+    public void saveEmailTimePreference(EmailTimePreference emailTimePreference, String username);
     //SystemLease
     public List<SystemLease> getAllSystemLease(String username);
     // lease history

@@ -107,27 +107,27 @@ public class WorkServiceImpl implements WorkService {
         Double payableAmount = null;
         logger.debug("rate ******** : " + rate);
 //        if (rate >= 1.0) {
-            if (system.getLowerMinuteRate() != null && system.getLowerMinuteRate() > 0.0 &&
-                    system.getLowerMinimumMinutes() != null && system.getLowerMinimumMinutes() > 0) {
-                // apply pattern for dual rate
-                Double amt = 0.0;
-                long quotient =  totalMinutes / system.getMinimumMinutes();
-                long reminder = totalMinutes % system.getMinimumMinutes();
-                if ( reminder <= system.getLowerMinimumMinutes() ) {
-                    amt = system.getLowerMinuteRate();
-                } else {
-                    amt = system.getMinuteRate();
-                }
-                
-                payableAmount = amt + quotient * system.getMinuteRate();
-                        
+        if (system.getLowerMinuteRate() != null && system.getLowerMinuteRate() > 0.0 &&
+                system.getLowerMinimumMinutes() != null && system.getLowerMinimumMinutes() > 0) {
+            // apply pattern for dual rate
+            Double amt = 0.0;
+            long quotient = totalMinutes / system.getMinimumMinutes();
+            long reminder = totalMinutes % system.getMinimumMinutes();
+            if (reminder <= system.getLowerMinimumMinutes()) {
+                amt = system.getLowerMinuteRate();
             } else {
-                Integer minimumMins = system.getMinimumMinutes();//Double.parseDouble(rateString.substring(0, a));
-                logger.debug("minimumMins ******** : " + minimumMins);
-                payableAmount = Math.ceil((double) totalMinutes / minimumMins) * rate;
-                logger.debug("Math.ceil((double)totalMinutes / minimumMins) ******** : " + Math.ceil(totalMinutes / minimumMins));
-                logger.debug("payableAmount ******** : " + payableAmount);
+                amt = system.getMinuteRate();
             }
+
+            payableAmount = amt + quotient * system.getMinuteRate();
+
+        } else {
+            Integer minimumMins = system.getMinimumMinutes();//Double.parseDouble(rateString.substring(0, a));
+            logger.debug("minimumMins ******** : " + minimumMins);
+            payableAmount = Math.ceil((double) totalMinutes / minimumMins) * rate;
+            logger.debug("Math.ceil((double)totalMinutes / minimumMins) ******** : " + Math.ceil(totalMinutes / minimumMins));
+            logger.debug("payableAmount ******** : " + payableAmount);
+        }
 //        } else {
 //            payableAmount = totalMinutes * rate;
 //        }
@@ -270,9 +270,21 @@ public class WorkServiceImpl implements WorkService {
     }
 
     public void createCutomer(Customer customer) {
+
         if (customer.getId() == null) {
+            if (customer.getPic() == null) {
+                customer.setComments(customer.getComments().trim() + " No Picture Available");
+            }
             this.customerDao.create(customer);
         } else {
+            // get img then update
+            if (customer.getPic() == null) {
+                Customer c = this.customerDao.read(customer.getId());
+                customer.setPic(c.getPic());
+            }
+            if (customer.getPic() == null) {
+                customer.setComments(customer.getComments() + " No Picture Available");
+            }
             this.customerDao.update(customer);
         }
     }

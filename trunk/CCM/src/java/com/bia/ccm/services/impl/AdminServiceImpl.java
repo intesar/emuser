@@ -49,7 +49,7 @@ public class AdminServiceImpl implements AdminService {
         for (Systems s : list) {
             s.setMinimumMinutes(mims);
             s.setMinuteRate(rate);
-            if ( lmins != null && lmins > 0 && lrate != null && lrate > 0 ) {
+            if (lmins != null && lmins > 0 && lrate != null && lrate > 0) {
                 s.setLowerMinimumMinutes(lmins);
                 s.setLowerMinuteRate(lrate);
             }
@@ -160,26 +160,29 @@ public class AdminServiceImpl implements AdminService {
         return this.emailTimePreferenceDao.findByOrganization(u.getOrganization());
     }
 
-    public String saveEmailTimePreference(
+    public void saveEmailTimePreference(
             EmailTimePreference emailTimePreference, String username) {
         Users u = this.getUserByUsername(username);
+        EmailTimePreference etp = null;
         try {
-            if (emailTimePreference != null && emailTimePreference.getId() == null) {
-                emailTimePreference.setOrganization(u.getOrganization());
-
-                this.emailTimePreferenceDao.create(emailTimePreference);
-            } else if (emailTimePreference != null && emailTimePreference.getId() != null) {
-                this.emailTimePreferenceDao.update(emailTimePreference);
-
-            } else {
-                return "Please check inputs";
-            }
-
+            etp = this.emailTimePreferenceDao.findByOrganizationAndReportTime(u.getOrganization(), emailTimePreference.getReportTime());
         } catch (Exception e) {
-            return e.getMessage();
+            logger.error(e);
         }
+        if (emailTimePreference != null && emailTimePreference.getId() == null && etp == null) {
+            emailTimePreference.setOrganization(u.getOrganization());
+            this.emailTimePreferenceDao.create(emailTimePreference);
+        }
+//        } else if (emailTimePreference != null && emailTimePreference.getId() != null) {
+//            this.emailTimePreferenceDao.update(emailTimePreference);
+//
+//
+//        }
+    }
 
-        return "Operation succesful!";
+    public void deleteEmailTimePreference(EmailTimePreference emailTimePreference) {
+        emailTimePreference = this.emailTimePreferenceDao.read(emailTimePreference.getId());
+        this.emailTimePreferenceDao.delete(emailTimePreference);
     }
 
     public List<SystemLease> getAllSystemLease(String username) {
