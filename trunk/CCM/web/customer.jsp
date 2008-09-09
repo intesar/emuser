@@ -74,7 +74,7 @@
         var reply1 = function (data) {                
             clearMessages();
             if ( data == "Customer Created Successfully!" ) {
-                dwr.util.setValue ("successReply", "Created/Updated Profile at " + new Date());                
+                dwr.util.setValue ("successReply", "Created/Updated Profile at " + new Date().toLocaleString());                
             } else {
                 dwr.util.setValue ("failureReply", data);
             }

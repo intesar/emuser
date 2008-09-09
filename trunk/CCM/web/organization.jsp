@@ -48,7 +48,7 @@
                 AjaxAdminService.saveOrganization(org, function (data) {
                  clearMessages();                
                 if (  data == 'Operation succesful!') {
-                    dwr.util.setValue("successReply", " Profile Updated at " + new Date());
+                    dwr.util.setValue("successReply", " Profile Updated at " + new Date().toLocaleString());
                     fillTable();
                 } else {
                     dwr.util.setValue("failureReply", data);

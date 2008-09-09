@@ -101,7 +101,7 @@
             var reply1 = function (data) {
                 clearMessages();
                 if ( data == " Service Saved Successful! ") {
-                    dwr.util.setValue ("successReply", data + " at "  + new Date());
+                    dwr.util.setValue ("successReply", data + " at "  + new Date().toLocaleString());
                     fillTable();
                 } else {
                     dwr.util.setValue ("failureReply", data );
@@ -125,10 +125,10 @@
                 AjaxAdminService.deleteService(viewed, function(data) {
                     clearMessages();
                     if ( data == " Service Deleted Successful! ") {
-                        dwr.util.setValue ("successReply", data + " at " + new Date());
+                        dwr.util.setValue ("successReply", data + " at " + new Date().toLocaleString());
                         fillTable();
                     } else {
-                        dwr.util.setValue ("failureReply", data );
+                        dwr.util.setValue ("failureReply", data + " Or please refresh page!");
                     }  
                 });
             }
@@ -139,7 +139,7 @@
     <body>
         
         <jsp:include page="include.jsp" />
-        <h2 align="center"> Extra Services </h2> 
+        <!-- <h2 align="center"> Extra Services </h2> -->
         <table align="center">
             <tr>
                 <td>

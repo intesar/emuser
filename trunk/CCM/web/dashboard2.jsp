@@ -119,7 +119,7 @@
                     AjaxWorkService.leaseSystem(system.id, leaseHolder, function(data) {
                         
                         if ( data == 'Assigned Successfully!') {
-                            dwr.util.setValue("successReply", data + " to " + leaseHolder + " at " + new Date());
+                            dwr.util.setValue("successReply", data + " to " + leaseHolder + " at " + new Date().toLocaleString());
                             fillTable();
                             dwr.util.setValue("key", "");
                         } else {                      
@@ -132,7 +132,20 @@
             }
             var paidId = null;
             function fetchDetail(eleid) {
-                var system = peopleCache[eleid.substring(4)];
+                var system = null;
+                if (!isNaN(eleid)   ) {
+                    var systemName = parseInt(eleid);
+                    alert ( usedSystemList.length);
+                    for ( var i = 0; i <= usedSystemList.length; i++ ) {
+                        var s = usedSystemList[i];
+                        if ( s.name == systemName ) {
+                            system = s;
+                        }
+                    }
+                } else {
+                    system = peopleCache[eleid.substring(4)];
+                }
+                
                 paidId = system.id;
                 //alert ( system.id );
                 AjaxWorkService.getSystemLease(system.id, function(lease){
@@ -177,8 +190,7 @@
                
                 if ( u != null && u > 0 && p != null && p > 0) {
                     AjaxWorkService.addService(s,u,e,p,'',a, replyService);
-                } else {
-                    //dwr.util.setValue("failureReply", " units or payable amount cannot be null!");
+                } else {                    
                     alert(  ' units or payable amount cannot be null!');
                 }
                   
@@ -186,7 +198,11 @@
             var replyService = function (data) {
                 clearMessages();                
                 if (  data == 'Service Added Successfully') {
-                    dwr.util.setValue("successReply", data + " to : " + dwr.util.getValue("systemNos") + " at " + new Date());
+                    dwr.util.setValue("successReply", data + " to : " + dwr.util.getValue("systemNos") + " at " + new Date().toLocaleString());
+                    //alert ( dwr.util.getValue("systemNos"));
+                    if ( dwr.util.getValue("systemNos") != 'Walk-in Customer') {
+                        fetchDetail (  dwr.util.getValue("systemNos"));
+                    }
                     clearPerson();
                 } else {
                     dwr.util.setValue("failureReply", data);
@@ -198,7 +214,7 @@
                 clearMessages();
                 AjaxWorkService.chargePayment(system.id, function(data) {
                     if ( data == 'Payment Successful!' ) {
-                        dwr.util.setValue("successReply", data + ", System : " + system.name + " at " + new Date());
+                        dwr.util.setValue("successReply", data + ", System : " + system.name + " at " + new Date().toLocaleString());
                         fillTable();
                         dwr.util.removeAllRows("detailbody", { filter:function(tr) {
                                 return (tr.id != "detail");
@@ -215,7 +231,7 @@
             }
             function clearPerson() {
                 //viewed = null;
-                dwr.util.setValues({  payableAmount1:null, units:1  });
+                dwr.util.setValues({  payableAmount1:"", units:""  });
             }
  
             function isInteger(s)
@@ -247,12 +263,12 @@
             
             function populateSystemNos () {
                 DWRUtil.removeAllOptions("systemNos");
-                var dummySystem = {name:'Walk-in Customer'};
+                var dummySystem = {name:'Walk-in Customer', id:'Walk-in Customer'};
                 usedSystemList[usedSystemList.lenght+1] = dummySystem;
                 
                 DWRUtil.addOptions("systemNos", usedSystemList, "name", "name" );
                 // DWRUtil.addOption("systemNos", "walkin_customer@bizintelapps.com", "Walk-in, Customer" );
-                usedSystemList[usedSystemList.length] = null;
+                //usedSystemList[usedSystemList.length] = null;
             }
         </script>
         <jsp:include page="table_style.jsp" ></jsp:include>
@@ -262,12 +278,7 @@
         <jsp:include page="include.jsp" />
         
         <table align="center" width="1000">
-            <thead>
-                <tr>
-                    <th></th>
-                    <th></th>
-                </tr>
-            </thead>
+            
             <tbody>
                 <tr>
                     <td>
@@ -388,7 +399,7 @@
                                 <td><select name="systemNos" id="systemNos">                                        
                                 </select></td>
                                 <td>Payable Amount*</td>
-                                <td><input type=text name="payableAmount1" value="0" size="4" class="cleardefault" onKeyup="isInteger(this.value)" disabled></td>                           
+                                <td><input type=text name="payableAmount1" value="" size="4" class="cleardefault" onKeyup="isInteger(this.value)" disabled></td>                           
                                 
                             </tr>
                             
