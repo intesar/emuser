@@ -58,7 +58,7 @@
             
         var reply1 = function ( data ) {            
             if ( data == 'Please login with your email and password') {                        
-                alert ( 'Congratulation Your Account is Created Successfully!' );
+                //alert ( 'Congratulation Your Account is Created Successfully!' );
                 location.href="/CCM/j_acegi_security_check?j_garbage=abcdexehrelasdjf232343lkajflskdjfalsdfjasldkfjasldkfjalsdkjf&j_username=" + email + "&j_password=" + password;
             } else {                    
                 alert ( data );
@@ -68,9 +68,6 @@
     
     <body>
         
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <p>&nbsp;</p>
-        <p>&nbsp;</p>
         
         
         <table align="center" width="85%">
@@ -80,7 +77,7 @@
                     <table border="0" width="50%" bgcolor="#C00" style="color:#FFF;
                     background:#C00;
                     border-collapse:collapse;
-                    width:400px;        
+                    width:370px;        
                     border:5px solid #900;" >
                         <thead>
                             <tr>
@@ -89,7 +86,7 @@
                                 
                                 font-size:120%;
                                 text-align:left;">
-                                    Registration
+                                    CyberCafe Registration
                                 </th>
                                 <th></th>
                             </tr>
@@ -159,7 +156,7 @@
                             <td></td>
                         </tr>
                         <tr>
-                            <td align="right">Minimum Minute Rate *</td>
+                            <td align="right">Rate *</td>
                             <td><select name="minutes">
                                     <option value="15">Minimum 15 Minutes</option>
                                     <option value="30">Minimum 30 Minutes</option>
@@ -238,57 +235,65 @@
                         <tr>
                             <td></td>
                             <td>
-                            <input type="submit" value="Sign Up" onclick="createAccount();"/></td>
+                            <input type="submit" value="Create My Account" onclick="createAccount();"/></td>
                         </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td><a href="http://secure.bizintelapps.net/" >Home Page </a> | 
-                                <a href="http://secure.bizintelapps.net/index.php?option=com_content&view=article&id=1&Itemid=2/" >Features </a> |
-                                <a href="#" > Maintanence 4AM - 6AM </a>
-                                
-                                
-                            </td>
-                        </tr>
+                        
                     </table>
                 </td>
                 
                 <td width="4%"><img src="dash/line2.JPG" alt="line2" width="11" height="214" />&nbsp;&nbsp;</td>
-                <td width="28%" align="center"><p><img src="dash/onlinelogo.png" alt="net" height="217"  /></p>
+                <td width="10%" align="center">
+                    
+                    <p align="left"><img src="dash/onlinelogo.png" alt="net" height="217"  /></p>
+                    
                 </td>
                 <td width="4%">&nbsp;&nbsp;&nbsp; <img src="dash/line.JPG" alt="line" width="14" height="316" /></td>
+                
                 <td width="31%" align="right">
+                     <table align="left"  style="color:#FFF;
+                    background:#C00;
+                    width:290px;
+                    height:170px;
+                    border-collapse:collapse;
+                    border:5px solid #900;">
+                        <tr>
+                            <td>
+                                
+                                <font color="green" size="4" >
+                                    <tr><td>* FaceGuard.org is webased Cyber Cafe Manager Suite</td></tr>
+                                    <tr><td>* Compliance with Cyber Laws</td></tr>
+                                    <tr><td>* Save Rs 6,000/month by removing unauthorize usage</td></tr>
+                                    <tr><td>* Save Electricity bills (Intelligent Shutdown)</td></tr>
+                                    <tr><td>* Bill Printing, Scanning, Snacks, and vitually anything.</td></tr>
+                                    <tr><td>* Free Report via SMS/Emails</td></tr>
+                                    <tr><td>* Automatic backups every day data.</td></tr>
+                                    <tr><td>* Tackle Terrorism, Crime, Missuse etc</td></tr>
+                                    
+                                </font>
+                            </td>
+                        </tr>
+                    </table>
                     <form action="j_acegi_security_check" method="POST" id="login_form">
                         <table align="left" style="color:#FFF;
                         background:#C00;
-                        width:330px;
-                        height:190px;
+                        width:290px;
+                        height:170px;
                         border-collapse:collapse;
                         border:5px solid #900;">
                             <thead>
                                 <tr>
-                                    <th></th>
-                                    <th  style="padding:1em 1em .5em;
-                                    
+                                    <th   style="padding:1em 1em .5em;
                                     font-size:120%;
-                                    text-align:left;">FaceGuard Account</th>
+                                    text-align:left;">Login</th>
+                                    <th  style="padding:1em 1em .5em;
+                                    font-size:120%;
+                                    text-align:left;">FaceGuard</th>
                                     
                                 </tr>
                             </thead>
                             <tr>
                                 <td align="right"> Email *</td>
-                                <td><input type='text' name='j_username' size="30" /> </td>
+                                <td><input type='text' name='j_username' size="25" /> </td>
                             </tr>
                             <tr>
                                 <td></td>
@@ -303,7 +308,7 @@
                             </tr>
                             <tr>
                                 <td align="right">Password *</td>
-                                <td><input type='password' name='j_password' size="30"> </td>
+                                <td><input type='password' name='j_password' size="25"> </td>
                             </tr>
                             <tr>
                                 <td></td>    
@@ -326,10 +331,9 @@
                             <td>
                                 <a href="forgotpassword.jsp"><font size="-1" > Forgot Username or Password?</font></a>
                             </td>
-                            
                         </table>       
                     </form>
-                    
+                   
                 </td>
             </tr>
             <tr>
@@ -338,11 +342,14 @@
         </table>
         
         
+        <p align="center" >
         
-        <p align="center">&nbsp;        </p>
-        <p align="center">&nbsp;</p>
-        <p align="center">&nbsp;</p>
-        <p align="center"><font size="2">&copy; Copyrights BizIntelApps 2008 All Rights Reserved. <a href="http://bizintelapps.net/" target="_blank"><font color="blue">BizIntelApps</font></a> </font>
+        <a style="color:blue" href="http://secure.bizintelapps.net/" >Home Page </a> | 
+        <a style="color:blue" href="http://secure.bizintelapps.net/index.php?option=com_content&view=article&id=1&Itemid=2/" >Features </a> |
+        <a style="color:blue" href="#" >  Contact Us : </a> 
+        <a style="color:blue" href="" > info@bizintelapps.com | USA (1.773.699.7898) | India (91.40.65764414) </a>
+        
+        <p style="color:blue" align="center"><font size="2">&copy; Copyrights BizIntelApps 2008 All Rights Reserved. <a href="http://bizintelapps.net/" target="_blank"><font color="blue">BizIntelApps</font></a> </font>
         </p>
     </body>
 </html>

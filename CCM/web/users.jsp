@@ -108,7 +108,7 @@
             var reply1 = function (data) {
                 clearMessages();
                 if ( data == 'Operation succesful!') {
-                    dwr.util.setValue ("successReply", " Saved/Updated User at " + new Date() );
+                    dwr.util.setValue ("successReply", " Saved/Updated User at " + new Date().toLocaleString() );
                     fillTable();
                 } else {
                     dwr.util.setValue ("failureReply", data );
@@ -128,7 +128,7 @@
     <body>
         
         <jsp:include page="include.jsp" />
-        <h2 align="center">Cyber Cafe Users  </h2>                         
+        <!-- <h2 align="center">Cyber Cafe Users  </h2>                         -->
         <table align="center">
             
             

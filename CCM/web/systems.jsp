@@ -89,7 +89,7 @@
                 AjaxAdminService.saveSystems(person, function(data) {
                     clearMessages();
                     if ( data == "Operation succesful!") {
-                        dwr.util.setValue ("successReply", "Updated System at " + new Date());
+                        dwr.util.setValue ("successReply", "Updated System at " + new Date().toLocaleString());
                         fillTable();
                     } else {
                         dwr.util.setValue ("failureReply", data );
@@ -113,7 +113,7 @@
                 AjaxAdminService.updateRentalPrice ( mm, r, lmm, lr, function(data) {
                     clearMessages();
                     if ( data == "Price Updated Successful!") {
-                        dwr.util.setValue ("successReply", data + " at " + new Date());
+                        dwr.util.setValue ("successReply", data + " at " + new Date().toLocaleString());
                         fillTable();
                     } else {
                         dwr.util.setValue ("failureReply", data );
@@ -130,7 +130,7 @@
 </head>
 <body>
     <jsp:include page="include.jsp" />
-    <h2 align="center"> System Information  </h2> 
+    <!-- <h2 align="center"> System Information  </h2> -->
     
     
     <table align="center">
