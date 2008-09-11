@@ -89,7 +89,7 @@ http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
                 /organization.jsp*=ROLE_ADMIN
                 /report.jsp*=ROLE_ADMIN
                 /systemlease.jsp*=ROLE_ADMIN
-                /systems.jsp*=ROLE_ADMIN
+                /systems.jsp*=ROLE_ADMIN                
                 /dashboard.jsp*=ROLE_ADMIN,ROLE_USER
                 /dashboard1.jsp*=ROLE_ADMIN,ROLE_USER
                 /dashboard2.jsp*=ROLE_ADMIN,ROLE_USER

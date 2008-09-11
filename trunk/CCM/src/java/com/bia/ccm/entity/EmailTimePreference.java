@@ -24,7 +24,8 @@ import javax.persistence.TemporalType;
 @Table(name = "email_time_preference")
 @NamedQueries({
 @NamedQuery(name = "EmailTimePreference.findByOrganization", query = "select s from EmailTimePreference s where s.organization = ?1  "),
-@NamedQuery(name = "EmailTimePreference.findByOrganizationAndReportTime", query = "select s from EmailTimePreference s where s.organization = ?1 and s.reportTime = ?2 ")
+@NamedQuery(name = "EmailTimePreference.findByOrganizationAndReportTime", query = "select s from EmailTimePreference s where s.organization = ?1 and s.reportTime = ?2 "),
+@NamedQuery(name = "EmailTimePreference.findByReportTime", query = "SELECT s FROM EmailTimePreference s where s.reportTime = ?1 ")
 })
 public class EmailTimePreference implements Serializable {
     private static final long serialVersionUID = 1L;

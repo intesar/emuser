@@ -45,23 +45,23 @@ public class UserServiceImpl implements UserService {
         return "";
     }
 
-    public String forgotPassword(String email) {
+    public void forgotPassword(String email) {
         //String username = AcegiUtil.getUsername();
         try {
             Users u = this.usersDao.findByUsername(email);
             this.eMailService.sendEmail(u.getEmail(), "your password : " + u.getPassword());
         } catch (NullPointerException npe) {
-            npe.printStackTrace();
-            return " No match found!";
+            logger.error(npe);
+            throw new RuntimeException(" No match found!");
         } catch (Exception e) {
-            e.printStackTrace();
-            return e.getMessage();
+            logger.error(e);
+            throw new RuntimeException(e);
         }
-        return "Please check your email";
+        
 
     }
 
-    public String registerNewOrganization(String organizationName, String city,
+    public void registerNewOrganization(String organizationName, String city,
             String email, String password, Integer minutes, Integer rate, Integer maxSystems) {
         Organization o = new Organization(organizationName, (short) 1, null, city,
                 email, city, null, "india", email, "Silver Member", "ccm", 0, new Date(), "self");
@@ -94,9 +94,10 @@ public class UserServiceImpl implements UserService {
                 Systems systems = new Systems(null, i, organizationName, true, null, minutes, rate, enabled);
                 this.systemsDao.create(systems);
             }
-            return "Please login with your email and password";
+            
         } catch (Exception e) {
-            return e.getMessage();
+            logger.error(e);
+            throw new RuntimeException( e);
         }
     }
 

@@ -29,7 +29,9 @@ import javax.persistence.Transient;
     @NamedQuery(name = "SystemLease.findByOrganization", query = "select s from SystemLease s where s.system in (select s1.id from Systems s1 where s1.organization = ?1 ) "),
     @NamedQuery(name = "SystemLease.findBySystemAndFinished", query = "select s from SystemLease s where s.system = ?1 and s.isFinished = false "),
     @NamedQuery(name = "SystemLease.findBySystemIdAndFinished", query = "select s from SystemLease s where s.system = ?1 and s.isFinished = false "),
-    @NamedQuery(name = "SystemLease.findByStartAndEndDates", query = "SELECT s FROM SystemLease s where (s.startTime >= ?1 and s.startTime <= ?2) and s.system in (select t.id from Systems t where t.organization = ?3 )")
+    @NamedQuery(name = "SystemLease.findByStartAndEndDates", query = "SELECT s FROM SystemLease s where (s.startTime >= ?1 and s.startTime <= ?2) and s.system in (select t.id from Systems t where t.organization = ?3 )"),
+    @NamedQuery(name = "SystemLease.findByIsStartContractNotified", query = "SELECT s FROM SystemLease s where s.isStartContractNotified <> ?1 "),
+    @NamedQuery(name = "SystemLease.findByIsEndContractNotified", query = "SELECT s FROM SystemLease s where s.isEndContractNotified <> ?1 ")
 })
 @NamedNativeQueries({
     @NamedNativeQuery(name = "SystemLease.findReportBetweenDates", query = "SELECT  sum(total_minutes_used) as total_minutes_used, sum(payable_amount) as payable_amount, sum(amount_paid) as amount_paid FROM system_lease s where (start_time >= ?1 and end_time <= ?2)  and system in (select id from systems where organization = ?3 )")
@@ -70,6 +72,10 @@ public class SystemLease implements Serializable {
     private String service;
     @Column(name = "system_no")
     private Integer systemNo;
+    @Column(name = "is_start_contract_notified")
+    private Boolean isStartContractNotified = false;
+    @Column(name = "is_end_contract_notified")
+    private Boolean isEndContractNotified = false;
 
     public SystemLease() {
     }
@@ -194,7 +200,9 @@ public class SystemLease implements Serializable {
     public String getStartTimeString() {
         String pattern = "hh:mm aaa";
         SimpleDateFormat sdf = new SimpleDateFormat(pattern);
-
+        if (this.startTime == null) {
+            return "";
+        }
         return sdf.format(this.startTime);
     }
 
@@ -209,7 +217,7 @@ public class SystemLease implements Serializable {
     public void setService(String service) {
         this.service = service;
     }
-    
+
     public Integer getSystemNo() {
         return systemNo;
     }
@@ -218,7 +226,21 @@ public class SystemLease implements Serializable {
         this.systemNo = systemNo;
     }
 
-    
+    public Boolean getIsEndContractNotified() {
+        return isEndContractNotified;
+    }
+
+    public void setIsEndContractNotified(Boolean isEndContractNotified) {
+        this.isEndContractNotified = isEndContractNotified;
+    }
+
+    public Boolean getIsStartContractNotified() {
+        return isStartContractNotified;
+    }
+
+    public void setIsStartContractNotified(Boolean isStartContractNotified) {
+        this.isStartContractNotified = isStartContractNotified;
+    }
 
     @Override
     public int hashCode() {
@@ -242,6 +264,13 @@ public class SystemLease implements Serializable {
 
     @Override
     public String toString() {
-        return "com.bia.ccm.entity.SystemLease[id=" + id + "]";
+        return " System No : " + this.getSystemNo() + " <br> " +
+                " User Issued At Kiosk : " + this.getIssueAgent() + " <br> " +
+                " Start Time : " + this.getStartTimeString() + " <br> " +
+                " End Time : " + this.getEndTimeString() + " <br> " +
+                " User when returning at Kiosk : " + this.getReturnAgent() + " <br> " +
+                " Total Minutes : " + this.getTotalMinutesUsed() + " <br> " +
+                " Total Payable : " + this.getPayableAmount() + " <br> " +
+                " Paid Amount : " + this.getAmountPaid();
     }
 }

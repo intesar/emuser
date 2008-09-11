@@ -62,7 +62,7 @@ public class AdminServiceImpl implements AdminService {
         return this.systemsDao.findByOrganization(u.getOrganization());
     }
 
-    public String saveSystem(Systems systems, String username) {
+    public void saveSystem(Systems systems, String username) {
         Users u = this.getUserByUsername(username);
         try {
             if (systems != null && systems.getId() == null) {
@@ -76,12 +76,12 @@ public class AdminServiceImpl implements AdminService {
                 this.systemsDao.update(systems);
 
             } else {
-                return "Please check inputs";
+                throw new RuntimeException("Please check inputs");
             }
         } catch (Exception e) {
-            return e.getMessage();
+            throw new RuntimeException(e);
         }
-        return "Operation succesful!";
+
     }
 
     public List<Users> getAllUsers(String username) {
@@ -89,7 +89,7 @@ public class AdminServiceImpl implements AdminService {
         return this.usersDao.findByOrganization(u.getOrganization());
     }
 
-    public String saveUser(Users users, String username) {
+    public void saveUser(Users users, String username) {
         Users u = this.getUserByUsername(username);
         try {
             if (users != null && users.getId() == null) {
@@ -119,13 +119,13 @@ public class AdminServiceImpl implements AdminService {
                     }
                 }
             } else {
-                return "Please check inputs";
+                throw new RuntimeException("Please check inputs");
             }
         } catch (Exception e) {
-            return e.getMessage();
+            throw new RuntimeException(e);
         }
 
-        return "Operation succesful!";
+
     }
 
     public List<EmailPreference> getAllEmailPreference(String username) {
@@ -133,7 +133,11 @@ public class AdminServiceImpl implements AdminService {
         return this.emailPreferenceDao.findByOrganization(u.getOrganization());
     }
 
-    public String saveEmailPreference(
+    public List<EmailPreference> getAllOrganizationEmailPreference(String org) {
+        return this.emailPreferenceDao.findByOrganization(org);
+    }
+
+    public void saveEmailPreference(
             EmailPreference emailPreference, String username) {
         Users u = this.getUserByUsername(username);
         try {
@@ -145,14 +149,14 @@ public class AdminServiceImpl implements AdminService {
                 this.emailPreferenceDao.update(emailPreference);
 
             } else {
-                return "Please check inputs";
+                throw new RuntimeException("Please check inputs");
             }
 
         } catch (Exception e) {
-            return e.getMessage();
+            throw new RuntimeException(e);
         }
 
-        return "Operation succesful!";
+
     }
 
     public List<EmailTimePreference> getAllEmailTimePreference(String username) {
@@ -201,21 +205,21 @@ public class AdminServiceImpl implements AdminService {
         return this.organizationDao.findByOrganization(u.getOrganization());
     }
 
-    public String saveOrganization(
+    public void saveOrganization(
             Organization organization, String username) {
         Users u = this.getUserByUsername(username);
         try {
             if (organization != null) {
                 this.organizationDao.update(organization);
             } else {
-                return "Please check inputs";
+                throw new RuntimeException("Please check inputs");
             }
 
         } catch (Exception e) {
-            return e.getMessage();
+            throw new RuntimeException(e);
         }
 
-        return "Operation succesful!";
+
     }
 
     public List<SystemLease> getSystemLease(Date startDate, Date endDate, String org) {
@@ -226,6 +230,8 @@ public class AdminServiceImpl implements AdminService {
 
     public List getReport(
             Date startDate, Date endDate, String org) {
+        startDate.setHours(0);
+        startDate.setMinutes(0);
         endDate.setHours(23);
         endDate.setMinutes(59);
         return this.systemLeaseDao.findReportBetweenDates(startDate, endDate, org);
@@ -283,6 +289,10 @@ public class AdminServiceImpl implements AdminService {
                 eMailServiceImpl.sendEmail(toAddress, subject, new Date() + " [Total Minutes, Payable, Paid]" + result.toString());
             }
         }
+    }
+
+    public List<EmailTimePreference> getEmailTimePreferences(short time) {
+        return this.emailTimePreferenceDao.findByReportTime(time);
     }
     // getters & setters
     public void setUsersDao(UsersDao usersDao) {

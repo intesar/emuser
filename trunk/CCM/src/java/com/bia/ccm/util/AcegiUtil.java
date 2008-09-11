@@ -4,6 +4,7 @@
  */
 package com.bia.ccm.util;
 
+import org.acegisecurity.GrantedAuthority;
 import org.acegisecurity.context.SecurityContextHolder;
 
 /**
@@ -25,6 +26,22 @@ public class AcegiUtil {
             return "admin";
         }
         return username;
+    }
 
+    public  static final boolean isAdmin() {
+        GrantedAuthority[] authorities = null;
+        try {
+            authorities = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+        } catch (Exception e) {
+            // logger
+        }
+        if (authorities != null) {
+            for (GrantedAuthority a : authorities) {
+                if (a.getAuthority().equalsIgnoreCase("role_admin")) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

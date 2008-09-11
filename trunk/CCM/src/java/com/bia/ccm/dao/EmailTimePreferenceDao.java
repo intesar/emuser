@@ -17,4 +17,6 @@ public interface EmailTimePreferenceDao extends GenericDao<EmailTimePreference, 
     public List<EmailTimePreference> findByOrganization(String organization);
 
     public EmailTimePreference findByOrganizationAndReportTime(String organization, short reportTime);
+
+    public List<EmailTimePreference> findByReportTime(int time);
 }

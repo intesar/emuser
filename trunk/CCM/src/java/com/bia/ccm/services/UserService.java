@@ -11,8 +11,8 @@ package com.bia.ccm.services;
  */
 public interface UserService {
     public String getUserRole(String username);
-    public String forgotPassword(String email);
-    public String registerNewOrganization(String organizationName, String city, 
+    public void forgotPassword(String email);
+    public void registerNewOrganization(String organizationName, String city, 
             String email, String password, Integer minutes, Integer rate, Integer maxSystems);
 
 }
