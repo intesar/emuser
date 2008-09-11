@@ -53,7 +53,7 @@
             
             var peopleCache = { };
             var viewed = null;
-            var systems1 = { };
+            var systems1 = new Array();
             var systemLength = null;
             var services = { };
             var usedSystemList = { };
@@ -135,10 +135,10 @@
                 var system = null;
                 if (!isNaN(eleid)   ) {
                     var systemName = parseInt(eleid);
-                    alert ( usedSystemList.length);
-                    for ( var i = 0; i <= usedSystemList.length; i++ ) {
-                        var s = usedSystemList[i];
-                        if ( s.name == systemName ) {
+                    //alert ( systems1.length);
+                    for ( var i = 0; i <= systems1.length; i++ ) {
+                        var s = systems1[i];
+                        if ( s != null && s.name == systemName ) {
                             system = s;
                         }
                     }
