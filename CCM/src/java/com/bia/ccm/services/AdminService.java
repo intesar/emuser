@@ -28,20 +28,21 @@ public interface AdminService {
 
     public List<Systems> getAllSystems(String username);
 
-    public String saveSystem(Systems systems, String username);
+    public void saveSystem(Systems systems, String username);
 
     //Users
     public List<Users> getAllUsers(String username);
 
-    public String saveUser(Users users, String username);
+    public void saveUser(Users users, String username);
 
     public Users getUserByUsername(String username);
     //Email
     public List<EmailPreference> getAllEmailPreference(String username);
 
-    public String saveEmailPreference(EmailPreference emailPreference, String username);
+    public void saveEmailPreference(EmailPreference emailPreference, String username);
     //EmailTimePreference
     public List<EmailTimePreference> getAllEmailTimePreference(String username);
+    public List<EmailPreference> getAllOrganizationEmailPreference(String org);
 
     public void saveEmailTimePreference(EmailTimePreference emailTimePreference, String username);
     //SystemLease
@@ -53,7 +54,7 @@ public interface AdminService {
 
     public Organization getOrganization(String username);
 
-    public String saveOrganization(Organization organization, String username);
+    public void saveOrganization(Organization organization, String username);
 
     public void saveService(Services service);
 
@@ -62,4 +63,6 @@ public interface AdminService {
     public List<Services> getAllServices(String org);
     
     void sendReports();
+    
+    List<EmailTimePreference> getEmailTimePreferences(short time);
 }

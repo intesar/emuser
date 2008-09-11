@@ -58,8 +58,15 @@ public class AdminAjaxService {
     }
 
     public String saveSystems(Systems systems) {
-        String username = AcegiUtil.getUsername();
-        return this.adminService.saveSystem(systems, username);
+        String msg = "Operation succesful!";
+        try {
+            String username = AcegiUtil.getUsername();
+            this.adminService.saveSystem(systems, username);
+        } catch (Exception e) {
+            logger.error(e);
+            return e.getMessage();
+        }
+        return msg;
     }
 
     public List<Users> getAllUsers() {
@@ -68,8 +75,15 @@ public class AdminAjaxService {
     }
 
     public String saveUsers(Users users) {
-        String username = AcegiUtil.getUsername();
-        return this.adminService.saveUser(users, username);
+        String msg = "Operation succesful!";
+        try {
+            String username = AcegiUtil.getUsername();
+            this.adminService.saveUser(users, username);
+        } catch (Exception e) {
+            logger.error(e);
+            return e.getMessage();
+        }
+        return msg;
     }
 
     public List<EmailPreference> getAllEmailPreference() {
@@ -78,8 +92,15 @@ public class AdminAjaxService {
     }
 
     public String saveEmailPreference(EmailPreference emailPreference) {
-        String username = AcegiUtil.getUsername();
-        return this.adminService.saveEmailPreference(emailPreference, username);
+        String msg = "Operation succesful!";
+        try {
+            String username = AcegiUtil.getUsername();
+            this.adminService.saveEmailPreference(emailPreference, username);
+        } catch (Exception e) {
+            logger.error(e);
+            return e.getMessage();
+        }
+        return msg;
     }
 
     public List<EmailTimePreference> getAllEmailTimePreference() {
@@ -121,8 +142,15 @@ public class AdminAjaxService {
     }
 
     public String saveOrganization(Organization organization) {
-        String username = AcegiUtil.getUsername();
-        return this.adminService.saveOrganization(organization, username);
+        String msg = "Operation succesful!";
+        try {
+            String username = AcegiUtil.getUsername();
+            this.adminService.saveOrganization(organization, username);
+        } catch (Exception e) {
+            logger.error(e);
+            return e.getMessage();
+        }
+        return msg;
     }
 
     public List<SystemLease> getSystemLease(String startDateString, String endDateString) {

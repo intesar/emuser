@@ -4,6 +4,8 @@
  */
 package com.bia.ccm.services.impl;
 
+import com.abbhsoft.jpadaoframework.dao.PagedResult;
+import com.abbhsoft.jpadaoframework.dao.PagingParams;
 import com.bia.ccm.dao.CustomerDao;
 import com.bia.ccm.dao.ServicesDao;
 import com.bia.ccm.dao.SuggestionDao;
@@ -17,6 +19,7 @@ import com.bia.ccm.entity.SystemLease;
 import com.bia.ccm.entity.Systems;
 import com.bia.ccm.entity.UsageDetail;
 import com.bia.ccm.entity.Users;
+import com.bia.ccm.services.EMailService;
 import com.bia.ccm.services.WorkService;
 import com.bia.ccm.util.AcegiUtil;
 import java.text.SimpleDateFormat;
@@ -41,7 +44,7 @@ public class WorkServiceImpl implements WorkService {
         return this.systemsDao.findBySystemNameAndOrganization(systemNo, u.getOrganization());
     }
 
-    public String leaseSystem(int id, String leaseHolder) {
+    public void leaseSystem(int id, String leaseHolder) {
         Systems system = this.systemsDao.read(id);
         system.setIsAvailable(false);
         system.setCurrentUserEmail(leaseHolder);
@@ -52,7 +55,7 @@ public class WorkServiceImpl implements WorkService {
         systemLease.setLeaseHolderName(leaseHolder);
         systemLease.setSystemNo(system.getName());
         this.systemLeaseDao.create(systemLease);
-        return "Assigned Successfully!";
+    //return "Assigned Successfully!";
     }
 
     /**
@@ -145,7 +148,9 @@ public class WorkServiceImpl implements WorkService {
             logger.debug(e.getMessage());
         }
         if (u == 0) {
-            SystemLease sl = new SystemLease(null, new Date(), agent, 0, true);
+            Users user1 = usersDao.findByUsername(agent);
+            Systems s = systemsDao.findBySystemNameAndOrganization(1, user1.getOrganization());
+            SystemLease sl = new SystemLease(null, new Date(), agent, s.getId(), true);
             sl.setAmountPaid(paidAmount);
             sl.setEndTime(new Date());
             sl.setLeaseHolderName(user);
@@ -208,7 +213,7 @@ public class WorkServiceImpl implements WorkService {
         return ud;
     }
 
-    public String unleaseSystem(int id, double amountPaid) {
+    public void unleaseSystem(int id, double amountPaid) {
         Systems system = this.systemsDao.read(id);
         system.setIsAvailable(true);
         this.systemsDao.update(system);
@@ -236,7 +241,7 @@ public class WorkServiceImpl implements WorkService {
         systemLease.setReturnAgent(AcegiUtil.getUsername());
         systemLease.setTotalMinutesUsed(totalMinutes);
         this.systemLeaseDao.create(systemLease);
-        return "Assigned Successfully!";
+    //return "Assigned Successfully!";
     }
 
     /**
@@ -294,6 +299,55 @@ public class WorkServiceImpl implements WorkService {
         return this.servicesDao.findByOrganization(u.getOrganization());
     }
 
+    public void notifyCustomersAtContractStart() {
+        long start = 0;
+        int limit = 100;
+        for (; true; start += limit) {
+            List<SystemLease> list = this.systemLeaseDao.findByIsStartContractNotified(true, new PagingParams(start, limit, null));
+            logger.debug("********* list ");
+            if (list == null || list.size() <= 0) {
+                break;
+            }
+            logger.debug("********* before iteration");
+            for (SystemLease sl : list) {
+                try {
+                    logger.debug("********* before method1 " + sl.getService());
+                    this.eMailService.sendEmail(sl.getLeaseHolderName(), sl.toString());
+                    sl.setIsStartContractNotified(true);
+                    this.systemLeaseDao.update(sl);
+                } catch (RuntimeException re) {
+                    re.printStackTrace();
+                    logger.debug(re);
+                }
+            }
+        }
+
+    }
+
+    public void notifyCustomersAtContractEnd() {
+        long start = 0;
+        int limit = 100;
+        for (; true; start += limit) {
+            List<SystemLease> list = this.systemLeaseDao.findByIsEndContractNotified(true, new PagingParams(start, limit, null));
+            logger.debug("********* list ");
+            if (list == null || list.size() <= 0) {
+                break;
+            }
+            logger.debug("********* before iteration");
+            for (SystemLease sl : list) {
+                try {
+                    logger.debug("********* before method1 " + sl.getService());
+                    this.eMailService.sendEmail(sl.getLeaseHolderName(), sl.toString());
+                    sl.setIsEndContractNotified(true);
+                    this.systemLeaseDao.update(sl);
+                } catch (RuntimeException re) {
+                    re.printStackTrace();
+                    logger.debug(re);
+                }
+            }
+        }
+    }
+
     public Customer getCustomer(String key) {
         return this.customerDao.findByKey(key);
     }
@@ -332,4 +386,5 @@ public class WorkServiceImpl implements WorkService {
     private SystemLeaseDao systemLeaseDao;
     private SuggestionDao suggestionDao;
     private ServicesDao servicesDao;
+    private EMailService eMailService = new EMailServiceImpl();
 }

@@ -5,6 +5,8 @@
 package com.bia.ccm.dao;
 
 import com.abbhsoft.jpadaoframework.dao.GenericDao;
+import com.abbhsoft.jpadaoframework.dao.PagedResult;
+import com.abbhsoft.jpadaoframework.dao.PagingParams;
 import com.bia.ccm.entity.SystemLease;
 import java.util.Date;
 import java.util.List;
@@ -15,12 +17,17 @@ import java.util.List;
  */
 public interface SystemLeaseDao extends GenericDao<SystemLease, Integer> {
 
+    public List<SystemLease> findByIsEndContractNotified(Boolean b, PagingParams... pp);
+
+    public List<SystemLease> findByIsStartContractNotified(Boolean b, PagingParams... pagingParamses);
+
     public List<SystemLease> findByOrganization(String organization);
 
     public List<SystemLease> findBySystemAndFinished(int id);
+
     public List<SystemLease> findBySystemIdAndFinished(int id);
 
     public List<SystemLease> findByStartAndEndDates(Date sd, Date ed, String org);
-    
+
     public List findReportBetweenDates(Date sd, Date ed, String org);
 }

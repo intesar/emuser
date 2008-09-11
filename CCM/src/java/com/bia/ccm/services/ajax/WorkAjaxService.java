@@ -51,12 +51,13 @@ public class WorkAjaxService {
 
     public String leaseSystem(int systemId, String leaseHolder) {
         try {
-            return this.workService.leaseSystem(systemId, leaseHolder);
+            this.workService.leaseSystem(systemId, leaseHolder);
         } catch (Exception e) {
             e.printStackTrace();
             logger.equals(e);
             return e.getMessage();
         }
+        return "Assigned Successfully!";
 
     }
 
@@ -68,7 +69,7 @@ public class WorkAjaxService {
             this.workService.addService(service, units, user, payableAmount, comments, paidAmount, agent);
             return msg;
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             logger.error(e);
             return e.getMessage();
         }
@@ -81,12 +82,13 @@ public class WorkAjaxService {
 
     public String unleaseSystem(int systemId, double paidAmount) {
         try {
-            return this.workService.unleaseSystem(systemId, paidAmount);
+            this.workService.unleaseSystem(systemId, paidAmount);
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             logger.equals(e);
             return e.getMessage();
         }
+        return "Assigned Successfully!";
     }
 
     public String createCustomer(Customer c) {
@@ -100,10 +102,12 @@ public class WorkAjaxService {
             c.setCreateUser(AcegiUtil.getUsername());
             this.workService.createCutomer(c);
         } catch (RuntimeException re) {
-            re.printStackTrace();
+            logger.equals(re);
+            //re.printStackTrace();
             msg = re.getMessage();
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
+            logger.equals(e);
             msg = e.getMessage();
         }
         return msg;
