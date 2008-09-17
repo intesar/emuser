@@ -5,11 +5,13 @@
 package com.bia.ccm.services.impl;
 
 import com.abbhsoft.jpadaoframework.dao.PagingParams;
+import com.bia.ccm.dao.OrganizationDao;
 import com.bia.ccm.dao.ServicesDao;
 
 import com.bia.ccm.dao.SystemLeaseDao;
 import com.bia.ccm.dao.SystemsDao;
 import com.bia.ccm.dao.UsersDao;
+import com.bia.ccm.entity.Organization;
 import com.bia.ccm.entity.Services;
 
 import com.bia.ccm.entity.SystemLease;
@@ -30,6 +32,21 @@ import org.apache.commons.logging.LogFactory;
  * @author intesar
  */
 public class WorkServiceImpl implements WorkService {
+
+    public String getUserEmailByMacAddress(String macAddress) {
+        Systems system = this.systemsDao.findByMacAddress(macAddress);
+        logger.info("--------------" + system );
+        if (system != null) {
+            Organization org = this.organizationDao.findByOrganization(system.getOrganization());
+            logger.info("--------------" + org );
+            logger.info("--------------" + org.getContactEmail() );
+            if (org != null && org.getContactEmail() != null && org.getContactEmail().length() > 5) {
+                logger.info("-------------- inside getContactEmail "   );
+                return org.getContactEmail();
+            }
+        }
+        return "faceguard@bizintelapps.com";
+    }
 
     public List<Systems> getActiveSystems(String username) {
         Users u = this.usersDao.findByUsername(username);
@@ -371,8 +388,6 @@ public class WorkServiceImpl implements WorkService {
         return this.usersDao.findByKey(key);
     }
 
-   
-
     public void setUsersDao(UsersDao usersDao) {
         this.usersDao = usersDao;
     }
@@ -385,20 +400,18 @@ public class WorkServiceImpl implements WorkService {
         this.systemLeaseDao = systemLeaseDao;
     }
 
-//    public void setCustomerDao(CustomerDao customerDao) {
-//        this.customerDao = customerDao;
-//    }
-   
+    public void setOrganizationDao(OrganizationDao organizationDao) {
+        this.organizationDao = organizationDao;
+    }
 
     public void setServicesDao(ServicesDao servicesDao) {
         this.servicesDao = servicesDao;
     }
     protected final Log logger = LogFactory.getLog(getClass());
-    //private CustomerDao customerDao;
     private SystemsDao systemsDao;
     private UsersDao usersDao;
     private SystemLeaseDao systemLeaseDao;
-    
+    private OrganizationDao organizationDao;
     private ServicesDao servicesDao;
     private EMailService eMailService = new EMailServiceImpl();
 }
