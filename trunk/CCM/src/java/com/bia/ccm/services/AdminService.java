@@ -24,6 +24,8 @@ public interface AdminService {
 
     public void deleteEmailTimePreference(EmailTimePreference emailTimePreference);
 
+    public List<SystemLease> getMySystemLease(Date startDate, Date endDate, String organization);
+
     public void updateRentalPrice(int mims, double rate, Integer lmins, Double lrate, String username);
 
     public List<Systems> getAllSystems(String username);

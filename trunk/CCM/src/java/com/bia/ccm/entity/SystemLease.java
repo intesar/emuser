@@ -30,6 +30,7 @@ import javax.persistence.Transient;
     @NamedQuery(name = "SystemLease.findBySystemAndFinished", query = "select s from SystemLease s where s.system = ?1 and s.isFinished = false "),
     @NamedQuery(name = "SystemLease.findBySystemIdAndFinished", query = "select s from SystemLease s where s.system = ?1 and s.isFinished = false "),
     @NamedQuery(name = "SystemLease.findByStartAndEndDates", query = "SELECT s FROM SystemLease s where (s.startTime >= ?1 and s.startTime <= ?2) and s.system in (select t.id from Systems t where t.organization = ?3 )"),
+    @NamedQuery(name = "SystemLease.findByUsernameAndStartEndDates", query = "SELECT s FROM SystemLease s where s.leaseHolderName like ?1 and (s.startTime >= ?2 and s.startTime <= ?3) "),
     @NamedQuery(name = "SystemLease.findByIsStartContractNotified", query = "SELECT s FROM SystemLease s where s.isStartContractNotified <> ?1 "),
     @NamedQuery(name = "SystemLease.findByIsEndContractNotified", query = "SELECT s FROM SystemLease s where s.isEndContractNotified <> ?1 ")
 })

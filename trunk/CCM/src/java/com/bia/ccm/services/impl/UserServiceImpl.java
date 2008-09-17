@@ -49,6 +49,9 @@ public class UserServiceImpl implements UserService {
         //String username = AcegiUtil.getUsername();
         try {
             Users u = this.usersDao.findByUsername(email);
+            if (u == null) {
+                throw new RuntimeException("No Registered user found with this email : " + email);
+            }
             this.eMailService.sendEmail(u.getEmail(), "your password : " + u.getPassword());
         } catch (NullPointerException npe) {
             logger.error(npe);
@@ -57,7 +60,7 @@ public class UserServiceImpl implements UserService {
             logger.error(e);
             throw new RuntimeException(e);
         }
-        
+
 
     }
 
@@ -86,7 +89,7 @@ public class UserServiceImpl implements UserService {
             this.servicesDao.create(s4);
             this.servicesDao.create(s5);
             //Double minuteRate = Double.parseDouble("" + minutes + "." + rate);
-            for (int i = 1; i <= 40; i++) {
+            for (int i = 1; i <= 50; i++) {
                 boolean enabled = false;
                 if (i <= maxSystems) {
                     enabled = true;
@@ -94,10 +97,10 @@ public class UserServiceImpl implements UserService {
                 Systems systems = new Systems(null, i, organizationName, true, null, minutes, rate, enabled);
                 this.systemsDao.create(systems);
             }
-            
+
         } catch (Exception e) {
             logger.error(e);
-            throw new RuntimeException( e);
+            throw new RuntimeException(e);
         }
     }
 
@@ -130,6 +133,11 @@ public class UserServiceImpl implements UserService {
     private AuthoritiesDao authoritiesDao;
     private SystemsDao systemsDao;
     private ServicesDao servicesDao;
+
+    @Override
+    public Users getUser(Integer id) {
+        return this.usersDao.read(id);
+    }
 }
 
 

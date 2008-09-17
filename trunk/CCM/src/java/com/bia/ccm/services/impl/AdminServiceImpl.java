@@ -96,6 +96,7 @@ public class AdminServiceImpl implements AdminService {
                 users.setOrganization(u.getOrganization());
                 users.setCreateDate(new Date());
                 users.setCreateUser(username);
+                users.setEmail(users.getUsername());
                 this.usersDao.create(users);
                 if (users.getRole().equalsIgnoreCase("admin")) {
                     Authorities a1 = new Authorities(users.getUsername(), "ROLE_ADMIN");
@@ -223,9 +224,20 @@ public class AdminServiceImpl implements AdminService {
     }
 
     public List<SystemLease> getSystemLease(Date startDate, Date endDate, String org) {
+        startDate.setHours(0);
+        startDate.setMinutes(0);
         endDate.setHours(23);
         endDate.setMinutes(59);
         return this.systemLeaseDao.findByStartAndEndDates(startDate, endDate, org);
+    }
+
+    @Override
+    public List<SystemLease> getMySystemLease(Date startDate, Date endDate, String username) {
+        startDate.setHours(0);
+        startDate.setMinutes(0);
+        endDate.setHours(23);
+        endDate.setMinutes(59);
+        return this.systemLeaseDao.findByUsernameAndStartEndDates(username, startDate, endDate);
     }
 
     public List getReport(

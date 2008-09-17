@@ -13,7 +13,6 @@ import com.bia.ccm.services.impl.EMailServiceImpl;
 import com.bia.ccm.util.ServiceFactory;
 import java.util.Date;
 import java.util.List;
-import net.sf.cglib.core.EmitUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
