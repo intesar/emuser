@@ -346,8 +346,17 @@
         
         <a style="color:blue" href="http://secure.bizintelapps.net/" >Home Page </a> | 
         <a style="color:blue" href="http://secure.bizintelapps.net/index.php?option=com_content&view=article&id=1&Itemid=2/" >Features </a> |
+        <a style="color:blue" href="http://secure.bizintelapps.net/" >Client Software </a> | 
+        <a style="color:blue" href="customer_registration.jsp" >Customer Self Registration </a> | 
+        <a style="color:blue" href="http://secure.bizintelapps.net/" >Customer Testimonials </a> |
+        <a style="color:blue" href="http://secure.bizintelapps.net/" >Suport Forum </a> |
+        <a style="color:blue" href="http://secure.bizintelapps.net/" >Suggestions </a> |
+        <a style="color:blue" href="http://secure.bizintelapps.net/" >Benefits </a> |
+        <a style="color:blue" href="http://secure.bizintelapps.net/" >Tutorials & Demo </a> |
+        <a style="color:blue" href="http://secure.bizintelapps.net/" > Live Chat With Representative</a> |
+        <br>
         <a style="color:blue" href="#" >  Contact Us : </a> 
-        <a style="color:blue" href="" > info@bizintelapps.com | USA (1.773.699.7898) | India (91.40.65764414) </a>
+        <a style="color:blue" href="" > info@bizintelapps.com | USA 773.699.7898 | India 40.65764414 </a>
         
         <p style="color:blue" align="center"><font size="2">&copy; Copyrights BizIntelApps 2008 All Rights Reserved. <a href="http://bizintelapps.net/" target="_blank"><font color="blue">BizIntelApps</font></a> </font>
         </p>

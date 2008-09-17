@@ -32,11 +32,12 @@
             classpath:context/ApplicationContext-Schedule.xml
         </param-value>
     </context-param>
+    <!--
     <context-param>
         <param-name>log4jConfigLocation</param-name>
         <param-value>classpath:context/log4j.properties</param-value>
     </context-param>
-    
+    -->
     
     <!-- 2. Setup the Acegi Filter Chain Proxy -->
     <filter>

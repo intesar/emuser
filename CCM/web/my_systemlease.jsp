@@ -12,22 +12,9 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <jsp:include page="dhtml_goodies_include.jsp" />
-        <style>
-            a:link    {color:black; text-decoration:none; font-size:11pt}
-            a:hover   {color:black; text-decoration:none; 
-                font-size:11pt}
-            a:active  {color:black; text-decoration:none; font-size:11pt}
-            a:visited {color:black; text-decoration:none; font-size:11pt}
-        </style>
-        <style>
-            a:link    {color:black; text-decoration:none; font-size:11pt}
-            a:hover   {color:black; text-decoration:none; 
-                font-size:11pt}
-            a:active  {color:black; text-decoration:none; font-size:11pt}
-            a:visited {color:black; text-decoration:none; font-size:11pt}
-        </style>
         
-        <script type='text/javascript' src='/CCM/dwr/interface/AjaxAdminService.js'></script>
+         
+        <script type='text/javascript' src='/CCM/dwr/interface/AjaxCustomerService.js'></script>
         <script type='text/javascript' src='/CCM/dwr/engine.js'></script>        
         <script type='text/javascript' src='/CCM/dwr/util.js'></script>
         
@@ -41,7 +28,7 @@
                 var startDate = document.getElementById("DPC_startDate_YYYY-MM-DD").value;
                 var endDate = document.getElementById("DPC_endDate_YYYY-MM-DD").value;
                 if ( startDate != null && startDate.length == 10 && endDate != null && endDate.length == 10 ) {
-                    AjaxAdminService.getSystemLease(startDate,endDate, reply1 );
+                    AjaxCustomerService.getMySystemLease(startDate,endDate, reply1 );
                 } else {
                     alert ( " invalid dates ");
                 }
@@ -91,7 +78,7 @@
             <thead>
                 <tr>
                     <th>
-                        History
+                        My History
                     </th>
                     
                 </tr>

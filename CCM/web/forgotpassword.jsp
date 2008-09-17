@@ -11,66 +11,68 @@
 <jsp:include page="table_style.jsp" ></jsp:include>
 
 <html>
-    
-    <table align="center">
-        <tr>
-            <td>Email us your username at reset.password@bizintelapps.com to reset your password !</td>
-        </tr>
-    </table>
-    <!--
-    <table align="center" bordercolor="#EDDA74" border="2" rules="none" width="80%">
-        <tr>
-            <td>
-                <h2>
-                    <p align="center">CyberCafeManager</p>
-                </h2>
-            </td>    
-        </tr>
-    </table> 
-    
-    <br>
-    <br><br><br>
-    
-    
-    <p align="center" width="40%" > I Cannot Access My Account </p>
-    
-    <table border="2" align="center" width="40%"  rules="none" bordercolor="#EDDA74">
+    <head>
+        <title>FaceGuard</title>
+        <style>
+            a:link    {color:black; text-decoration:none; font-size:8.5pt}
+            a:hover   {color:black; text-decoration:none;
+                font-size:8.5pt}
+            a:active  {color:black; text-decoration:none; font-size:8.5pt}
+            a:visited {color:black; text-decoration:none; font-size:8.5pt}
+        </style>
+        <style>
+            a:link    {color:black; text-decoration:none; font-size:8.5pt}
+            a:hover   {color:black; text-decoration:none;
+                font-size:8.5pt}
+            a:active  {color:black; text-decoration:none; font-size:8.5pt}
+            a:visited {color:black; text-decoration:none; font-size:8.5pt}
+            .style16 {color: #FFFFFF}
+        </style>
         
-        <tbody>
-            <tr> <td> </td></tr>
-            <tr> <td> </td></tr>
-            <tr> <td> </td></tr>
-            <tr> <td> </td></tr>
-            <tr> <td> </td></tr>
-            <tr> <td> </td></tr>
+        
+        <script type='text/javascript' src='/CCM/dwr/interface/AjaxUserService.js'></script>
+        <script type='text/javascript' src='/CCM/dwr/engine.js'></script>
+        <script type="text/javascript" src="email_validation.js"></script>
+        <script type='text/javascript' src='/CCM/dwr/util.js'></script>
+        
+        <script type="text/javascript"> 
+            
+            function recoverPassword() {
+                var email = null;
+                email = dwr.util.getValue("email");
+                if ( validateEmail(email, true, true) ) {
+                    AjaxUserService.forgotPassword(email, function(data) {
+                        alert ( data ) ;
+                    });
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <table align="center" border="0" width="50%" bgcolor="#C00" style="color:#FFF;
+        background:#C00;
+        border-collapse:collapse;
+        width:370px;        
+        border:5px solid #900;" >
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Password Recovery</th>
+                </tr>
+            </thead>
             <tr>
-                <td>&nbsp;&nbsp;Username / Email&nbsp;&nbsp;</td>
-                <td> <input class='itext' type='text' size='35' value='' id='useremail' /> </td>
+                <td>Username/Email :</td>
+                <td><input type="text" name="email" value="" /></td>                
             </tr>
             <tr>
                 <td></td>
+                <td><input type="submit" value="Send to My Email" onclick="recoverPassword();"/></td>
             </tr>
-            <tr> <td> </td></tr>
             <tr>
-                <td></td>
-                <td>&nbsp;&nbsp;&nbsp;<input class='ibutton' type='button' name='Submit'onClick="parent.location='login.jsp'" value='Submit' size="25"/>  </td>
+                <td>
+                    <a href="login.jsp">Login Page</a>
+                </td>
             </tr>
-            <tr> <td> </td></tr>
-            <tr> <td> </td></tr>
-            <tr> <td> </td></tr>
-            <tr> <td> </td></tr>
-            <tr> <td> </td></tr>
-            <tr> <td> </td></tr>
-        </tbody>
-    </table>
-    
-    
-    
-    
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-    
-    <p align="center">
-        <font size="2"> &copy; Copyrights BizIntelApps 2008 All Rights Reserved. <a href="http://bizintelapps.net/"><font color="blue">BizIntelApps</font></a> </font>
-    </p>
-    -->
+        </table>
+    </body>
 </html>
