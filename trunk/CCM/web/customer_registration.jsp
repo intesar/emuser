@@ -12,7 +12,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <jsp:include page="dhtml_goodies_include.jsp" />
-    <script type='text/javascript' src='/CCM/dwr/interface/AjaxWorkService.js'></script>
+    <script type='text/javascript' src='/CCM/dwr/interface/AjaxUserService.js'></script>
     <script type='text/javascript' src='/CCM/dwr/engine.js'></script>        
     <script type='text/javascript' src='/CCM/dwr/util.js'></script>
     <script type="text/javascript" src="email_validation.js"></script>
@@ -57,7 +57,7 @@
                    
                     if ( /*customer.img !="" && */ customer.name != "" && customer.street !=""  && customer.city !="" && customer.zipcode !="" &&  customer.state != "" && customer.country!="")
                     {
-                        AjaxWorkService.createCustomer(customer, reply1);
+                        AjaxUserService.createCustomer(customer, reply1);
                     } 
                     else {
                         alert ( " * Marked Fields are required ! ");
@@ -72,22 +72,18 @@
         }
             
         var reply1 = function (data) {                
-            clearMessages();
+            //clearMessages();
             if ( data == "Customer Created Successfully!" ) {
-                dwr.util.setValue ("successReply", "Created/Updated Profile at " + new Date().toLocaleString());                
+                alert ( "Welcome to FaceGuard,  please check your email for username/password and ask Cyber Cafe Admin to verify your Account! ");
+                //dwr.util.setValue ("successReply", "Created/Updated Profile at " + new Date().toLocaleString());                
             } else {
-                dwr.util.setValue ("failureReply", data);
+                //dwr.util.setValue ("failureReply", data);
+                alert ( data );
             }
         }
         
          
-        function execute() {
-            dwr.util.useLoadingMessage();
-            //alert ( document.getElementById("startDate").value);
-            AjaxAdminService.getSystemLease(document.getElementById("DPC_startDate_YYYY-MM-DD").value,
-            reply1 );
-        }
-            
+       
             
         
         function clearPerson() {
@@ -100,48 +96,17 @@
                 dob:null, gender:null, comments:null });
         }
             
-        function search() {
-            AjaxWorkService.getCustomer(dwr.util.getValue("key"), reply2);
-            dwr.util.useLoadingMessage();
-        }
-            
-        var reply2 = function(customer) {
-            clearMessages();
-            if ( customer.id == null ) {
-                dwr.util.setValue ("failureReply", "No Match for the Given Email, Please create User Profile " );                
-            } else {
-                dwr.util.setValues(customer);
-            }
-        }
+       
     </script>
     <jsp:include page="table_style.jsp" ></jsp:include>
 </head>
 <body>
     
-    <jsp:include page="include.jsp" />
     
-   
-    <table align="center">
-        <thead>
-            <tr>
-                <th>
-                    Customer Look Up
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tr>
-            <td>
-                <input type="text" name="key" id="key" value="" />
-                <input type="submit" value="Search" onclick="search();"/>
-                <br>
-                
-                <img id="image" src="javascript:void(0);"/>
-                <br>
-            </td>
-        </tr>
-    </table>
-    <h2 align="center"> Create / Update Customer Profile</h2>
+    
+    
+    
+    <h2 align="center"> Create Your FaceGuard Profile</h2>
     
     <table align="center">
         
@@ -158,7 +123,7 @@
                 <td><input id="name" type="text" size="30"/></td>
             </tr>
             <tr>
-                <td>Email:&nbsp;&nbsp;*</td>
+                <td>Username / Email:*</td>
                 <td><input id="email" type="text" size="30"/></td>
             </tr>
             <tr>
@@ -247,7 +212,7 @@
             </tr>
             <tr>
                 <td colspan="2" align="right">                    
-                    <input type="button" value="New" onclick="clearPerson()"/> 
+                    <input type="button" value="Clear" onclick="clearPerson()"/> 
                     <input type="button" value="Save" onclick="writePerson()"/>  
                     
                 </td>

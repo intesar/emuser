@@ -5,7 +5,7 @@
     var isMenuCreated = false;
     function createMenu() {
         if ( !isMenuCreated ) {
-            AjaxUserService.isUserAdmin(function(isAdmin) {
+            AjaxUserService.getUserRole(function(isAdmin) {
                 showDiv(isAdmin);
                 isMenuCreated = true;
             });
@@ -17,14 +17,21 @@
         var m = document.getElementById("mainDiv");
         var a = document.getElementById("adminDiv");
         var b = document.getElementById("employeeDiv");
+        var c = document.getElementById("customerDiv");
         //alert ( role );
-        if ( role /* == "admin" */) {        
-            document.getElementById('adminDiv').style.visibility="visible";            
+        if ( role  == "admin" ) {        
+            a.style.visibility="visible";            
             m.removeChild(b);
+            m.removeChild(c);
         }
-        else /* if ( role == "user" ) */{
-            document.getElementById('employeeDiv').style.visibility="visible";            
+        else if ( role == "employee" ) {
+            b.style.visibility="visible";            
             m.removeChild(a);
+            m.removeChild(c);
+        } else {
+            c.style.visibility="visible";            
+            m.removeChild(a);
+            m.removeChild(b);
         }   
         /*
         else {            
@@ -78,6 +85,10 @@
         &nbsp;&nbsp;&nbsp;
         <a onclick="forwardFunction('customer.jsp');"><img src="dash/6.jpg" title="Customer Profiles" width="40" height="40" alt="6"/>
         </a>
+        &nbsp;&nbsp;&nbsp;
+        <a onclick="forwardFunction('my_systemlease.jsp');">
+            <img src="dash/1 home.png" width="40" height="40" alt="Dashboard" title="My History" />            
+        </a>
         &nbsp;&nbsp;&nbsp;        
         <a onclick="forwardFunction('j_acegi_logout');"><img src="dash/logout.png" title="LogOut" width="40" height="40" alt="11 logout"/>
         </a> 
@@ -95,6 +106,10 @@
         &nbsp;&nbsp;&nbsp;
         <a onclick="forwardFunction('customer.jsp');"><img src="dash/6.jpg" title="Customer Profiles" width="40" height="40" alt="6"/>
         </a>
+        &nbsp;&nbsp;&nbsp;
+        <a onclick="forwardFunction('my_systemlease.jsp');">
+            <img src="dash/1 home.png" width="40" height="40" alt="Dashboard" title="My History" />            
+        </a>
         &nbsp;&nbsp;&nbsp;        
         <a onclick="forwardFunction('j_acegi_logout');"><img src="dash/logout.png" title="LogOut" width="40" height="40" alt="11 logout"/>
         </a> 
@@ -102,6 +117,19 @@
         <a onclick="refresh();"><img src="dash/ref.gif" title="Refresh" width="40" height="40" alt="11 logout"/>
         </a> 
     </div>
+    
+    <div id="customerDiv" style="visibility: hidden" align="center">
+        <a onclick="forwardFunction('my_systemlease.jsp');">
+            <img src="dash/1 home.png" width="40" height="40" alt="Dashboard" title="My History" />            
+        </a>
+        &nbsp;&nbsp;&nbsp;        
+        <a onclick="forwardFunction('j_acegi_logout');"><img src="dash/logout.png" title="LogOut" width="40" height="40" alt="11 logout"/>
+        </a> 
+        &nbsp;&nbsp;&nbsp;
+        <a onclick="refresh();"><img src="dash/ref.gif" title="Refresh" width="40" height="40" alt="11 logout"/>
+        </a> 
+    </div>
+    
     <div align="center">
         <font style="color:green"><span id="successReply"></span></font><font style="color:red"><span id="failureReply"></span></font>
     </div>

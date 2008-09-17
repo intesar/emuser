@@ -134,7 +134,8 @@
             
             <tr>
                 <td>
-                    <h2>Users Status</h2>
+                    <h2>Users</h2>
+                    
                     <table>
                         
                         <thead>
@@ -199,10 +200,7 @@
                                 </select>
                             </td>
                         </tr>
-                        <tr>
-                            <td> Phone: </td>
-                            <td><input id="phone" type="text" size="30"/></td>
-                        </tr>          
+                                
                         <tr>
                             <td></td>
                             <td>
