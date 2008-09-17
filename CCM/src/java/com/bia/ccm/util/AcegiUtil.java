@@ -28,7 +28,7 @@ public class AcegiUtil {
         return username;
     }
 
-    public  static final boolean isAdmin() {
+    public static final boolean isAdmin() {
         GrantedAuthority[] authorities = null;
         try {
             authorities = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
@@ -43,5 +43,32 @@ public class AcegiUtil {
             }
         }
         return false;
+    }
+
+    public static final String getUserRole() {
+        GrantedAuthority[] authorities = null;
+        try {
+            authorities = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+        } catch (Exception e) {
+            // logger            
+        }
+        boolean admin = false;
+        boolean employee = false;
+        if (authorities != null) {
+            for (GrantedAuthority a : authorities) {
+                if (a.getAuthority().equalsIgnoreCase("role_admin")) {
+                    admin = true;
+                } else if (a.getAuthority().equalsIgnoreCase("role_user")) {
+                    employee = true;
+                }
+            }
+        }
+        if (admin) {
+            return "admin";
+        } else if (employee) {
+            return "employee";
+        } else {
+            return "customer";
+        }
     }
 }

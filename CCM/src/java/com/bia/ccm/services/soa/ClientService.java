@@ -27,12 +27,14 @@ public class ClientService {
      */
     @WebMethod(operationName = "getStatus")
     public Integer getStatus(@WebParam(name = "macAddress")
-    String macAddress) {
-        //TODO write your implementation code here:
-        return this.workService.getSystemStatus(macAddress);
-        
+    String macAddress) {        
+        return this.workService.getSystemStatus(macAddress);        
     }
     
-    WorkService workService = (WorkService) ServiceFactory.getService("workServiceImpl");
+    public static void main(String []args) {
+        ClientService clientService = new ClientService();
+        System.out.println ( clientService.getStatus("90erw") );
+    }
+    private WorkService workService = (WorkService) ServiceFactory.getService("workServiceImpl");
 
 }

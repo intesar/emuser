@@ -67,6 +67,7 @@ public class EMailServiceImpl implements EMailService {
             Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
             sendSSMessage(to, EMAIL_SUBJECT_TEXT, body, EMAIL_FROM_ADDRESS);
         } catch (MessagingException ex) {
+            ex.printStackTrace();
             Logger.getLogger(EMailServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -112,7 +113,7 @@ public class EMailServiceImpl implements EMailService {
         for (int i = 0; i < recipients.length; i++) {
             addressTo[i] = new InternetAddress(recipients[i]);
         }
-        msg.setRecipients(Message.RecipientType.BCC, addressTo);
+        msg.setRecipients(Message.RecipientType.TO, addressTo);
 
         // Setting the Subject and Content Type
         msg.setSubject(subject);
@@ -120,5 +121,9 @@ public class EMailServiceImpl implements EMailService {
         Transport.send(msg);
     }
     
+    public static void main(String []args) {
+        EMailService es = new EMailServiceImpl();
+        es.sendEmail("mdshannan@gmail.com", "testing");
+    }
 }
 

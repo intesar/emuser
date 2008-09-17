@@ -4,12 +4,12 @@
  */
 package com.bia.ccm.services;
 
-import com.bia.ccm.entity.Customer;
 import com.bia.ccm.entity.Services;
-import com.bia.ccm.entity.Suggestion;
+
 import com.bia.ccm.entity.SystemLease;
 import com.bia.ccm.entity.Systems;
 import com.bia.ccm.entity.UsageDetail;
+import com.bia.ccm.entity.Users;
 import java.util.List;
 
 /**
@@ -39,13 +39,11 @@ public interface WorkService {
 
     public Integer getSystemStatus(String macAddress);
 
-    public void createCutomer(Customer customer);
+    public void createCutomer(Users users, Users createUser);
 
-    public Customer getCustomer(String key);
+    public Users getCustomer(String key);
 
-    public void createSuggestion(Suggestion suggestion);
-    
     public void notifyCustomersAtContractEnd();
-    
+
     public void notifyCustomersAtContractStart();
 }

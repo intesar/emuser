@@ -18,20 +18,20 @@ public interface EMailService {
     static final String SMTP_HOST_NAME = "smtp.gmail.com";
     static final String SMTP_PORT = "465";
     static final String EMAIL_MESSAGE_TEXT = "";
-    static final String EMAIL_SUBJECT_TEXT = " BizIntelApps IntelligentCyberCafe Accounts Status Report ";
+    static final String EMAIL_SUBJECT_TEXT = " BizIntelApps FaceGuard Accounts Status Report ";
     static final String EMAIL_SUBJECT_TEXT_160BY2 = "bizintelapps1";
-    static final String EMAIL_FROM_ADDRESS = "secure.cybercafe@bizintelapps.com";
+    static final String EMAIL_FROM_ADDRESS = "face.guard1@bizintelapps.com";
     static final String SSL_FACTORY = "javax.net.ssl.SSLSocketFactory";
     static final String[] SEND_TO = {"mohdshannan@yahoo.com"};
-    static final String SEND_FROM_USERNAME = "facequard@bizintelapps.com";
-    static final String SEND_FROM_PASSWORD = "123facequard";
+    static final String SEND_FROM_USERNAME = "face.guard1@bizintelapps.com";
+    static final String SEND_FROM_PASSWORD = "faceguard1234";
     static final String EMAIL_CONTENT_TYPE = "text/html";
     static final String EMAIL_SIGNATURE = " <br><br> Users have often told us that the more " +
-            "they use IntelligentCyberCafe, the more they discover its benefits. " +
-            " We'll keep working on making IntelligentCyberCafe the best Application for your business, " +
-            " and we appreciate your joining us for the ride. " +
+            "they use FaceGuard, the more they discover its benefits. " +
+            " We'll keep working on making FaceGuard the best Application for your business, " +
+            
             " <br/> <br/> <br/> For any queries reach us at info@bizintelapps.com " +
-            "<br/> <br/>Thanks , <br/>The BizIntelApps, IntelligentCyberCafe Team ";
+            "<br/> <br/>Thanks , <br/>The BizIntelApps, FaceGuard Team ";
 
     void SendMail(String[] sendTo);
 

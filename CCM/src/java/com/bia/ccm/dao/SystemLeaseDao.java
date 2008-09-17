@@ -29,5 +29,7 @@ public interface SystemLeaseDao extends GenericDao<SystemLease, Integer> {
 
     public List<SystemLease> findByStartAndEndDates(Date sd, Date ed, String org);
 
+    public List<SystemLease> findByUsernameAndStartEndDates(String username, Date startDate, Date endDate);
+
     public List findReportBetweenDates(Date sd, Date ed, String org);
 }

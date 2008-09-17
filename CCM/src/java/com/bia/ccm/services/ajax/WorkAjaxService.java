@@ -4,11 +4,11 @@
  */
 package com.bia.ccm.services.ajax;
 
-import com.bia.ccm.entity.Customer;
 import com.bia.ccm.entity.Services;
 import com.bia.ccm.entity.SystemLease;
 import com.bia.ccm.entity.Systems;
 import com.bia.ccm.entity.UsageDetail;
+import com.bia.ccm.entity.Users;
 import com.bia.ccm.services.WorkService;
 import com.bia.ccm.util.AcegiUtil;
 import com.bia.ccm.util.ServiceFactory;
@@ -91,7 +91,7 @@ public class WorkAjaxService {
         return "Assigned Successfully!";
     }
 
-    public String createCustomer(Customer c) {
+    public String createCustomer(Users c) {
 
         String msg = "Customer Created Successfully!";
         try {
@@ -99,8 +99,11 @@ public class WorkAjaxService {
                 c.setPic(this.bufferedImageToByteArray(c.getImg()));//this.scaleToSize(c.getImg())
             }
             c.setCreateDate(new Date());
-            c.setCreateUser(AcegiUtil.getUsername());
-            this.workService.createCutomer(c);
+            Users u = this.workService.getCustomer(AcegiUtil.getUsername());
+            c.setIsVerified(true);
+            c.setVerifiedBy(u.getUsername());
+            //c.setCreateUser(AcegiUtil.getUsername());
+            this.workService.createCutomer(c, u);
         } catch (RuntimeException re) {
             logger.equals(re);
             //re.printStackTrace();
@@ -113,15 +116,15 @@ public class WorkAjaxService {
         return msg;
     }
 
-    public Customer getCustomer(String key) {
-        Customer c = null;
+    public Users getCustomer(String key) {
+        Users c = null;
         try {
             c = this.workService.getCustomer(key);
         } catch (Exception e) {
             logger.error(e);
         }
         if (c == null) {
-            c = new Customer();
+            c = new Users();
             c.setComments("No record found for given email!");
         }
 
@@ -221,11 +224,12 @@ public class WorkAjaxService {
 
     public static void main(String[] args) {
         WorkAjaxService was = new WorkAjaxService();
-        Customer c = new Customer(null, "Intesar shannan Mohammed", "intesar.mohammed@bizintelapps.com",
-                "9-4-62/23 nizam colony, towli chowki", "hyderabad", "500008", "ap", "india", new Date(), "male");
-    // System.out.println ( was.createCustomer());
+
+//        Users c = new Users(null, "Intesar shannan Mohammed", "intesar.mohammed@bizintelapps.com",
+//                "9-4-62/23 nizam colony, towli chowki", "hyderabad", "500008", "ap", "india", new Date(), "male");
+        // System.out.println ( was.createCustomer());
 //        System.out.println(was.getCustomer("intesar.mohammed@bizintelapps.com").getName());
-    //System.out.println ( was.getPayableAmount(277));
-    //System.out.println ( was.addService("B/W Print", 3, "2", 9.0, "", 9.0) );
+        //System.out.println ( was.getPayableAmount(277));
+        //System.out.println ( was.addService("B/W Print", 3, "2", 9.0, "", 9.0) );
     }
 }

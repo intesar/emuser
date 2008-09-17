@@ -4,17 +4,14 @@
  */
 package com.bia.ccm.services.impl;
 
-import com.abbhsoft.jpadaoframework.dao.PagedResult;
 import com.abbhsoft.jpadaoframework.dao.PagingParams;
-import com.bia.ccm.dao.CustomerDao;
 import com.bia.ccm.dao.ServicesDao;
-import com.bia.ccm.dao.SuggestionDao;
+
 import com.bia.ccm.dao.SystemLeaseDao;
 import com.bia.ccm.dao.SystemsDao;
 import com.bia.ccm.dao.UsersDao;
-import com.bia.ccm.entity.Customer;
 import com.bia.ccm.entity.Services;
-import com.bia.ccm.entity.Suggestion;
+
 import com.bia.ccm.entity.SystemLease;
 import com.bia.ccm.entity.Systems;
 import com.bia.ccm.entity.UsageDetail;
@@ -163,7 +160,7 @@ public class WorkServiceImpl implements WorkService {
             Users user1 = usersDao.findByUsername(agent);
             Systems s = systemsDao.findBySystemNameAndOrganization(u, user1.getOrganization());
             SystemLease sl = new SystemLease(null, new Date(), agent, s.getId(), false);
-            sl.setAmountPaid(paidAmount);
+            //sl.setAmountPaid(paidAmount);
             sl.setEndTime(new Date());
             sl.setLeaseHolderName(s.getCurrentUserEmail());
             sl.setPayableAmount(payableAmount);
@@ -256,6 +253,15 @@ public class WorkServiceImpl implements WorkService {
         Integer status = new Integer(0);
         try {
             Systems system = this.systemsDao.findByMacAddress(macAddress);
+            if (system == null || system.getOrganization() == null || system.getOrganization().length() <= 0) {
+                return 0;
+            }
+            String org = system.getOrganization();
+            Long count = this.systemsDao.findNoOfActiveSystemsByOrganization(org);
+            if (count >= 1) {
+                return 3;
+            }
+
             if (system.getIsShutdown()) {
                 status = 3;
             } else if (system.getIsAvailable()) {
@@ -266,31 +272,44 @@ public class WorkServiceImpl implements WorkService {
 
         } catch (NullPointerException npe) {
             logger.equals(npe);
+            npe.printStackTrace();
         } catch (RuntimeException re) {
             logger.equals(re);
+            re.printStackTrace();
         } catch (Exception e) {
             logger.equals(e);
+            e.printStackTrace();
         }
         return status;
     }
 
-    public void createCutomer(Customer customer) {
+    public void createCutomer(Users customer, Users createUser) {
 
         if (customer.getId() == null) {
             if (customer.getPic() == null) {
                 customer.setComments(customer.getComments().trim() + " No Picture Available");
             }
-            this.customerDao.create(customer);
+            customer.setUsername(customer.getEmail());
+            customer.setPassword(new Date().getTime() + "");
+            customer.setEnabled(true);
+            customer.setCreateDate(new Date());
+            if (createUser != null) {
+                customer.setOrganization(createUser.getOrganization());
+                customer.setCreateUser(createUser.getUsername());
+            }
+            logger.debug("__________________________________ " + "inside save customer");
+            this.usersDao.create(customer);
         } else {
             // get img then update
             if (customer.getPic() == null) {
-                Customer c = this.customerDao.read(customer.getId());
+                Users c = this.usersDao.read(customer.getId());
                 customer.setPic(c.getPic());
             }
             if (customer.getPic() == null) {
                 customer.setComments(customer.getComments() + " No Picture Available");
             }
-            this.customerDao.update(customer);
+
+            this.usersDao.update(customer);
         }
     }
 
@@ -348,13 +367,11 @@ public class WorkServiceImpl implements WorkService {
         }
     }
 
-    public Customer getCustomer(String key) {
-        return this.customerDao.findByKey(key);
+    public Users getCustomer(String key) {
+        return this.usersDao.findByKey(key);
     }
 
-    public void createSuggestion(Suggestion suggestion) {
-        this.suggestionDao.create(suggestion);
-    }
+   
 
     public void setUsersDao(UsersDao usersDao) {
         this.usersDao = usersDao;
@@ -368,23 +385,20 @@ public class WorkServiceImpl implements WorkService {
         this.systemLeaseDao = systemLeaseDao;
     }
 
-    public void setCustomerDao(CustomerDao customerDao) {
-        this.customerDao = customerDao;
-    }
-
-    public void setSuggestionDao(SuggestionDao suggestionDao) {
-        this.suggestionDao = suggestionDao;
-    }
+//    public void setCustomerDao(CustomerDao customerDao) {
+//        this.customerDao = customerDao;
+//    }
+   
 
     public void setServicesDao(ServicesDao servicesDao) {
         this.servicesDao = servicesDao;
     }
     protected final Log logger = LogFactory.getLog(getClass());
-    private CustomerDao customerDao;
+    //private CustomerDao customerDao;
     private SystemsDao systemsDao;
     private UsersDao usersDao;
     private SystemLeaseDao systemLeaseDao;
-    private SuggestionDao suggestionDao;
+    
     private ServicesDao servicesDao;
     private EMailService eMailService = new EMailServiceImpl();
 }
