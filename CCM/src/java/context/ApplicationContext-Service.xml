@@ -40,5 +40,6 @@
         <property name="systemsDao" ref="systemsDao" />
         <property name="systemLeaseDao" ref="systemLeaseDao" />
         <property name="servicesDao" ref="servicesDao" />
+        <property name="organizationDao" ref="organizationDao" />
     </bean>
 </beans>

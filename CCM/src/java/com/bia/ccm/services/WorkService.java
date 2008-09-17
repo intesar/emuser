@@ -18,6 +18,8 @@ import java.util.List;
  */
 public interface WorkService {
 
+    public String getUserEmailByMacAddress(String macAddress);
+
     public List<Services> getAllServices(String org);
 
     public void chargePayment(int systemId, String agent);
