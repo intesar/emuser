@@ -11,7 +11,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <jsp:include page="dhtml_goodies_include.jsp" />
+        
         <script type="text/javascript" src="email_validation.js"></script>
         <script type="text/javascript" src="name_valadation.js"></script>
         
