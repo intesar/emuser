@@ -11,7 +11,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <jsp:include page="dhtml_goodies_include.jsp" />
+    
     <script type='text/javascript' src='/CCM/dwr/interface/AjaxUserService.js'></script>
     <script type='text/javascript' src='/CCM/dwr/engine.js'></script>        
     <script type='text/javascript' src='/CCM/dwr/util.js'></script>

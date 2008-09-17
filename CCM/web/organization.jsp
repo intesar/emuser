@@ -11,7 +11,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <jsp:include page="dhtml_goodies_include.jsp" />
+        
         <style>
             a:link    {color:black; text-decoration:none; font-size:11pt}
             a:hover   {color:black; text-decoration:none; 

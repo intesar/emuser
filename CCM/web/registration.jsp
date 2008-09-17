@@ -10,7 +10,7 @@
 
 <html>
     <head>
-        <jsp:include page="dhtml_goodies_include.jsp" />
+        
         <script type='text/javascript' src='/CCM/dwr/interface/AjaxUserService.js'></script>
         <script type='text/javascript' src='/CCM/dwr/engine.js'></script>
         <script type="text/javascript" src="email_validation.js"></script>
