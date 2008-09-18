@@ -167,7 +167,7 @@
                     
                     
                 </td>
-                <td>
+                <td valign="top">
                     
                     <table>
                         <thead>
@@ -190,9 +190,9 @@
                             <td> 
                             </td>
                             <td>
-                                <button value="Save" id="save" onclick="writePerson()" >Save</button>  
-                                <button value="Delete" onclick="deletePerson()" >Delete</button>                                
                                 <button value="New" onclick="clearPerson()" >New</button>
+                                <button value="Save" id="save" onclick="writePerson()" >Save</button>  
+                                <button value="Delete" onclick="deletePerson()" >Delete</button>                                                                
                             </td>
                         </tr>             
                         

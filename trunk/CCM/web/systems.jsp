@@ -137,8 +137,9 @@
         <tr align="center">
             <td align="center">
                 <div style="height:370px; width:470px; overflow:auto;">
+                    
                     <table>
-                        <thead>
+                        <thead>                            
                             <tr>
                                 <th>No</th>
                                 <th>Description</th>
@@ -164,7 +165,7 @@
                         <tr>
                             <th></th>
                             <th>
-                                Update System Information
+                                Detail Information
                             </th>
                         </tr>
                     </thead>
