@@ -282,7 +282,7 @@
             <tbody>
                 <tr>
                     <td>
-                        <h2>Customer Look Up</h2>
+                        <h2>Customer Search</h2>
                         <table>
                             
                             <tr>
@@ -295,13 +295,13 @@
                                 </td>
                             </tr>
                         </table>
-                        <h2>System Status</h2>
+                        <h2>Systems</h2>
                         <div style="height:370px; width:470px; overflow:auto;">
                             <table width="1000">
                                 <thead>
                                     <tr>
                                         <th>
-                                            System
+                                            No
                                         </th>
                                         <th>
                                             Customer
@@ -310,7 +310,7 @@
                                             Start Time
                                         </th>
                                         <th>
-                                            
+                                            Action 
                                         </th>
                                         <th></th>
                                     </tr>
@@ -320,12 +320,8 @@
                                         <td><span id="name"></span></td>
                                         <td><span id="currentUserEmail"></span></td>
                                         <td><span id="startTimeString1"></span></td>
-                                        <td>
-                                            <!-- <input type="button" id="edit" value="Assign" onclick="assignSystem(this.id);" /> 
-                                        <input type="button" id="deta" value="Detail" onclick="fetchDetail(this.id);" />
-                                        <input type="button" id="geta" value="Paid"  onclick="paid(this.id);" />-->
-                                            <button value="New" onclick="assignSystem(this.id);"  id="edit">Assign</button>
-                                            <button value="New" onclick="fetchDetail(this.id);"  id="deta">>></button>                                        
+                                        <td>                                            
+                                            <button value="New" onclick="assignSystem(this.id);"  id="edit"  >Assign</button><button value="New" onclick="fetchDetail(this.id);"  id="deta">>></button>                                                                                    
                                         </td>
                                     </tr>
                                 </tbody>
@@ -336,7 +332,7 @@
                     </td>
                     
                     
-                    <td>
+                    <td valign="top">
                         <h2>Customer's Accounts Details</h2>
                         
                         
@@ -407,7 +403,7 @@
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td><input type="submit" value="Add to Computer / Charge Now" onclick="addService();" /></td>
+                                <td><input type="submit" value="Add / Charge Now" onclick="addService();" /></td>
                                 
                             </tr>
                         </table>

@@ -133,8 +133,8 @@
             
             
             <tr>
-                <td>
-                    <h2>Users</h2>
+                <td valign="top">
+                    <h2>Administrators</h2>
                     
                     <table>
                         
@@ -167,7 +167,7 @@
                             <tr>
                                 <th></th>
                                 <th>
-                                    User Profile
+                                    Detail Profile
                                 </th>
                             </tr>
                         </thead>

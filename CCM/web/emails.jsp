@@ -134,7 +134,7 @@
         <!-- <h2 align="center"> Email/Phone For Daily Reports </h2>  -->
         <table align="center">
             <tr>
-                <td>
+                <td valign="top">
                     
                     <table>
                         <thead>
