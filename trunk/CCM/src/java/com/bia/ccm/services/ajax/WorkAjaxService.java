@@ -51,6 +51,9 @@ public class WorkAjaxService {
 
     public String leaseSystem(int systemId, String leaseHolder) {
         try {
+            if (leaseHolder != null) {
+                leaseHolder = leaseHolder.toLowerCase();
+            }
             this.workService.leaseSystem(systemId, leaseHolder);
         } catch (Exception e) {
             e.printStackTrace();
@@ -119,6 +122,9 @@ public class WorkAjaxService {
     public Users getCustomer(String key) {
         Users c = null;
         try {
+            if ( key != null ) {
+                key = key.toLowerCase();
+            }
             c = this.workService.getCustomer(key);
         } catch (Exception e) {
             logger.error(e);
@@ -227,9 +233,9 @@ public class WorkAjaxService {
 
 //        Users c = new Users(null, "Intesar shannan Mohammed", "intesar.mohammed@bizintelapps.com",
 //                "9-4-62/23 nizam colony, towli chowki", "hyderabad", "500008", "ap", "india", new Date(), "male");
-        // System.out.println ( was.createCustomer());
+    // System.out.println ( was.createCustomer());
 //        System.out.println(was.getCustomer("intesar.mohammed@bizintelapps.com").getName());
-        //System.out.println ( was.getPayableAmount(277));
-        //System.out.println ( was.addService("B/W Print", 3, "2", 9.0, "", 9.0) );
+    //System.out.println ( was.getPayableAmount(277));
+    //System.out.println ( was.addService("B/W Print", 3, "2", 9.0, "", 9.0) );
     }
 }

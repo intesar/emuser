@@ -54,6 +54,16 @@ public class UserAjaxService {
 
     public String registerNewOrganization(String organizationName, String city,
             String email, String password, Integer minutes, Integer rate, Integer maxSystems) {
+        if ( organizationName != null ) {
+            organizationName = organizationName.toLowerCase();
+        }
+        if ( city != null ) {
+            city = city.toLowerCase();
+        }
+        if ( email != null ) {
+            email = email.toLowerCase();
+        }
+       
         logger.debug("error");
         String str = "Please login with your email and password";
         try {
