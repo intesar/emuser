@@ -11,6 +11,7 @@ import com.bia.ccm.services.WorkService;
 import com.bia.ccm.services.impl.EMailServiceImpl;
 import com.bia.ccm.util.AcegiUtil;
 import com.bia.ccm.util.ServiceFactory;
+import com.bia.converter.Converter;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -28,14 +29,14 @@ import org.apache.commons.logging.LogFactory;
 public class UserAjaxService {
 
     public String getLoggedInUserRole() {
-        String username = "admin";//AcegiUtil.getUsername();
+        String username = AcegiUtil.getUsername();
         return this.userService.getUserRole(username);
     }
 
     public String forgotPassword(String email) {
         String msg = " Please check your email for your password! ";
         try {
-            this.userService.forgotPassword(email);
+            this.userService.forgotPassword(email.toLowerCase());
         } catch (RuntimeException re) {
             logger.error(re);
             msg = re.getMessage();
@@ -69,6 +70,7 @@ public class UserAjaxService {
         try {
             this.userService.registerNewOrganization(organizationName,
                     city, email, password, minutes, rate, maxSystems);
+            eMailService.sendEmail(email, "Welcome to FaceGuard, username / password : " + email + " / " + password);
 
             return str;
         } catch (Exception e) {
@@ -88,6 +90,7 @@ public class UserAjaxService {
             c.setCreateDate(new Date());
             //Users u = this.workService.getCustomer(AcegiUtil.getUsername());
             //c.setCreateUser(AcegiUtil.getUsername());
+            Converter.toLowerCase(c);
             this.workService.createCutomer(c, null);
             eMailService.sendEmail(c.getEmail(), "Welcome to FaceGuard, username / password : " + c.getUsername() + " / " + c.getPassword());
         } catch (RuntimeException re) {

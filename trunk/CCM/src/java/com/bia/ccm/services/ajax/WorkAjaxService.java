@@ -9,9 +9,12 @@ import com.bia.ccm.entity.SystemLease;
 import com.bia.ccm.entity.Systems;
 import com.bia.ccm.entity.UsageDetail;
 import com.bia.ccm.entity.Users;
+import com.bia.ccm.services.EMailService;
 import com.bia.ccm.services.WorkService;
+import com.bia.ccm.services.impl.EMailServiceImpl;
 import com.bia.ccm.util.AcegiUtil;
 import com.bia.ccm.util.ServiceFactory;
+import com.bia.converter.Converter;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
@@ -106,7 +109,9 @@ public class WorkAjaxService {
             c.setIsVerified(true);
             c.setVerifiedBy(u.getUsername());
             //c.setCreateUser(AcegiUtil.getUsername());
+            Converter.toLowerCase(c, "password");
             this.workService.createCutomer(c, u);
+            eMailService.sendEmail(c.getEmail(), "Welcome to FaceGuard, username / password : " + c.getUsername() + " / " + c.getPassword());
         } catch (RuntimeException re) {
             logger.equals(re);
             //re.printStackTrace();
@@ -227,6 +232,7 @@ public class WorkAjaxService {
     }
     protected final Log logger = LogFactory.getLog(getClass());
     private WorkService workService = (WorkService) ServiceFactory.getService("workServiceImpl");
+    private EMailService eMailService = new EMailServiceImpl();
 
     public static void main(String[] args) {
         WorkAjaxService was = new WorkAjaxService();
