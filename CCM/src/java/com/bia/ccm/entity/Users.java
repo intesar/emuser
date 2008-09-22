@@ -93,7 +93,8 @@ public class Users implements Serializable {
     private String drivingLicence;
     @Column(name = "comments")
     private String comments;
-    @Lob
+    @Column(name="pic")
+    @Lob    
     private byte[] pic;
     @Transient
     private BufferedImage img;

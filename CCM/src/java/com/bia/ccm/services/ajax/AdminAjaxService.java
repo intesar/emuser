@@ -14,6 +14,7 @@ import com.bia.ccm.entity.Users;
 import com.bia.ccm.services.AdminService;
 import com.bia.ccm.util.AcegiUtil;
 import com.bia.ccm.util.ServiceFactory;
+import com.bia.converter.Converter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -95,6 +96,10 @@ public class AdminAjaxService {
         String msg = "Operation succesful!";
         try {
             String username = AcegiUtil.getUsername();
+            emailPreference.setEmailOrPhone(emailPreference.getEmailOrPhone().toLowerCase());
+            if (emailPreference.getUsername() != null) {
+                emailPreference.setUsername(emailPreference.getUsername().toLowerCase());
+            }
             this.adminService.saveEmailPreference(emailPreference, username);
         } catch (Exception e) {
             logger.error(e);
@@ -145,6 +150,7 @@ public class AdminAjaxService {
         String msg = "Operation succesful!";
         try {
             String username = AcegiUtil.getUsername();
+            Converter.toLowerCase(organization);
             this.adminService.saveOrganization(organization, username);
         } catch (Exception e) {
             logger.error(e);
@@ -193,6 +199,8 @@ public class AdminAjaxService {
             if (service.getOrganization() == null || service.getOrganization().length() <= 0) {
                 service.setOrganization(this.getOrganization().getName());
             }
+
+            service.setName(service.getName().toLowerCase());
             this.adminService.saveService(service);
             return msg;
         } catch (Exception e) {

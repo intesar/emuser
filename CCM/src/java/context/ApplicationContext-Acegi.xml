@@ -19,7 +19,7 @@ http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
             </value>
         </property>
     </bean>
-
+     
   <!-- responsible for setting up a security context holder for other
        authentication mechanisms to work with -->
     <bean id="httpSessionContextIntegrationFilter"
@@ -145,7 +145,7 @@ http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
             <value>root</value>
         </property>
         <property name="password">
-            <value>apple</value>
+            <value>apple123</value>
         </property>
     </bean>
     <bean id="httpRequestAccessDecisionManager"

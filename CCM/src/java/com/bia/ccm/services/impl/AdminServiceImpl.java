@@ -264,6 +264,7 @@ public class AdminServiceImpl implements AdminService {
 
     public void deleteService(Integer id) {
         Services services = this.servicesDao.read(id);
+        //this.servicesDao.update(services);
         this.servicesDao.delete(services);
     }
 
