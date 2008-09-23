@@ -25,13 +25,15 @@ public interface ApplicationService {
 
     List<String> getDepartmentNames(String collegeName);
 
+    void apply(Integer hallTicketNo, Integer[] ids);
+    
     public void apply(String userId, String college, String department, Integer priority, Date dt);
 
     List<UserAppliedDepartment> getAppliedDetails(String username);
 
     void deleteApplication(Integer id);
 
-    void processAdmissions();
+    void processAdmissions(int startRank, int endRank);
 
     void deleteAllReservationRules();
 

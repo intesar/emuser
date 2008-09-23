@@ -19,6 +19,7 @@
             </table>
             
         </form>
-        
+        <a href="registration.jsp">Sign Up</a> <br/>
+        <a href="">Fogot Username or Password?</a>
     </body>
 </html>

@@ -38,6 +38,9 @@
             <dwr:include method="getCollegeDepartments" />
             <dwr:include method="getCollegeReservations" />
             <dwr:include method="registerUser" />
+            <dwr:include method="applyRegistration" />
+            <dwr:include method="processAdmissions" />
+            <dwr:include method="createReservationData" />
         </dwr:remote>
     </bean>
     

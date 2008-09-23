@@ -44,6 +44,18 @@ public class ApplicationServiceImpl implements ApplicationService {
         return this.collegeDepartmentDao.findByCollege(collegeName);
     }
 
+    public void apply(Integer hallTicketNo, Integer[] ids) {
+        Users user = this.usersDao.findByHallTicketNo(hallTicketNo);
+        Integer userId = user.getId();
+        int priority = 1;
+        for (Integer i : ids) {
+            CollegeDepartment cd = this.collegeDepartmentDao.findById(i);
+            UserAppliedDepartment uad = new UserAppliedDepartment(null, userId, cd.getCollegeDepartmentPK().getCollege(),
+                    cd.getCollegeDepartmentPK().getDepartment(), priority++, new Date());
+            this.userAppliedDepartmentDao.create(uad);
+        }
+    }
+
     public void apply(String username, String college, String department, Integer priority, Date dt) {
         Users user = this.usersDao.findByUsername(username);
         Integer userId = user.getId();
@@ -105,7 +117,9 @@ public class ApplicationServiceImpl implements ApplicationService {
                 CollegeDepartmentSeatsStatus cdss = new CollegeDepartmentSeatsStatus(cd.getCollegeDepartmentPK().getCollege(),
                         cd.getCollegeDepartmentPK().getDepartment(), rr.getReservationRulePK().getName());
                 cdss.setMaleTotalSeats(rr.getMaleReserveSeats());
+                cdss.setMaleAvailableSeats(rr.getMaleReserveSeats());
                 cdss.setFemaleTotalSeats(rr.getFemaleReserveSeats());
+                cdss.setFemaleAvailableSeats(rr.getFemaleReserveSeats());
                 this.collegeDepartmentSeatsStatusDao.create(cdss);
                 System.out.println(cdss.toString());
             //break;
@@ -113,14 +127,18 @@ public class ApplicationServiceImpl implements ApplicationService {
         }
     }
 
-    public void processAdmissions() {
+    public void processAdmissions(int startRank, int endRank) {
         // count no of iterations
 //        int count = 1;
 //        List<Reversation> reservations = this.reservationDao.findAllByPriority();
 //        List<ReservationRule> reservationRules = this.reservationRuleDao.readAll().getResults();
 //        List<CollegeDepartmentSeatsStatus> collegeDepartmentSeatsStatuses = this.collegeDepartmentSeatsStatusDao.readAll().getResults();
         // iterate all users based on there merit or rank
-        List<Users> users = this.usersDao.findAllOrderbyRank();
+        PagingParams pp = new PagingParams();
+        pp.setLimit(endRank-startRank);
+        //pp.setSortBy("rank");
+        pp.setStart(startRank);
+        List<Users> users = this.usersDao.findAllOrderbyRank(pp);
         for (Users u : users) {
             // if u is not admitted
             if (!u.isAdmitted()) {
@@ -199,16 +217,17 @@ public class ApplicationServiceImpl implements ApplicationService {
                                 admitUser(u, r, uad, cdss, cd);
                                 break;
                             }
-                        } else if (u.getGender().contains("f")) {
-                            r = reservationNames[12];
-                            //System.out.println ( cd.getCollegeDepartmentPK().getCollege()+ " " + cd.getCollegeDepartmentPK().getDepartment()+ " " + r + " " + cd.getMaxSeats() );
-                            cdss = this.collegeDepartmentSeatsStatusDao.findByCollegeAndDepartmentAndName(cd.getCollegeDepartmentPK().getCollege(), cd.getCollegeDepartmentPK().getDepartment(), r);
-                            if (cdss != null && ((cdss.getMaleAvailableSeats() > 0 && u.getGender().equals("m")) ||
-                                    (cdss.getFemaleAvailableSeats() > 0 && u.getGender().equals("f")))) {
-                                admitUser(u, r, uad, cdss, cd);
-                                break;
-                            }
                         }
+//                        } else if (u.getGender().contains("f")) {
+//                            r = reservationNames[12];
+//                            //System.out.println ( cd.getCollegeDepartmentPK().getCollege()+ " " + cd.getCollegeDepartmentPK().getDepartment()+ " " + r + " " + cd.getMaxSeats() );
+//                            cdss = this.collegeDepartmentSeatsStatusDao.findByCollegeAndDepartmentAndName(cd.getCollegeDepartmentPK().getCollege(), cd.getCollegeDepartmentPK().getDepartment(), r);
+//                            if (cdss != null && ((cdss.getMaleAvailableSeats() > 0 && u.getGender().equals("m")) ||
+//                                    (cdss.getFemaleAvailableSeats() > 0 && u.getGender().equals("f")))) {
+//                                admitUser(u, r, uad, cdss, cd);
+//                                break;
+//                            }
+//                        }
                     }
 
                 }

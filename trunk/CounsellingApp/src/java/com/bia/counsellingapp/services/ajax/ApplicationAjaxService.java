@@ -31,6 +31,27 @@ public class ApplicationAjaxService {
         return list;
     }
 
+    public String applyRegistration(String ids, Integer hallTicketNo) {
+        String successMsg = "Applied Successfully !";
+        try {
+            String[] id = ids.split(",");
+            Integer[] nos = new Integer[id.length];
+            int k = 0;
+            for (String s : id) {
+                nos[k++] = Integer.parseInt(s.trim());
+            }
+
+            this.applicationService.apply(hallTicketNo, nos);
+        } catch (NullPointerException npe) {
+            npe.printStackTrace();            
+            return "Plase check HallTicketNo and other inputs and or user may have already applied";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return e.getMessage();
+        }
+        return successMsg;
+    }
+
     public String apply(String college, String department, Integer priority) {
         String successMsg = "Applied Successfully !";
         String username = "shannan";//AcegiUtil.getUsername();
@@ -52,8 +73,8 @@ public class ApplicationAjaxService {
         return this.applicationService.getAppliedDetails(username);
     }
 
-    public void processAdmissions() {
-        this.applicationService.processAdmissions();
+    public void processAdmissions(int startRank, int endRank) {
+        this.applicationService.processAdmissions(startRank, endRank);
     }
 
     public void deleteAllReservationRules() {
@@ -93,9 +114,10 @@ public class ApplicationAjaxService {
         //System.out.println ( a.getCollegeNames() );
 //        a.apply("mj", "eee1", 1);
 //        System.out.println ( a.getAppliedDetails() );
-        //a.deleteAllReservationRules();
-        //a.createReservationData();
-        a.processAdmissions();
+//        a.deleteAllReservationRules();
+//        a.createReservationData();
+        // a.processAdmissions();
+        System.out.println(a.applyRegistration("1,  4,2", 2999));
 
     }
 }

@@ -6,6 +6,7 @@
 package com.bia.counsellingapp.dao;
 
 import com.abbhsoft.jpadaoframework.dao.GenericDao;
+import com.abbhsoft.jpadaoframework.dao.PagingParams;
 import com.bia.counsellingapp.entity.Users;
 import java.util.List;
 
@@ -16,7 +17,7 @@ import java.util.List;
 public interface UsersDao extends GenericDao<Users, Integer>{
     List<Users> findByHallTicketNos(Integer hallTicketNo1, Integer hallTicketNo2 );
     Users findByUsername(String username);
-    List<Users> findAllOrderbyRank();
+    List<Users> findAllOrderbyRank(PagingParams... pagingParamses);
     Users findByHallTicketNo(Integer hallTicketNo);
 
 }

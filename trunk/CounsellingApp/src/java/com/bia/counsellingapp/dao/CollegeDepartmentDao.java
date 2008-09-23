@@ -19,5 +19,6 @@ public interface CollegeDepartmentDao extends GenericDao<CollegeDepartment, Coll
     public List<String> findByCollege(String college) ;
     public List<CollegeDepartment> findByCollegeName(String college) ;
     CollegeDepartment findByCollegeAndDepartment(String college, String department);
+    CollegeDepartment findById(Integer id);
 
 }
