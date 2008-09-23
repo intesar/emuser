@@ -4,6 +4,7 @@
  */
 package com.bia.ccm.services.ajax;
 
+import com.abbhsoft.sqlInjectionFilter.SQLInjectionFilterManager;
 import com.bia.ccm.entity.Users;
 import com.bia.ccm.services.EMailService;
 import com.bia.ccm.services.UserService;
@@ -34,6 +35,9 @@ public class UserAjaxService {
     }
 
     public String forgotPassword(String email) {
+        
+        email = SQLInjectionFilterManager.getInstance().filter(email);
+        
         String msg = " Please check your email for your password! ";
         try {
             this.userService.forgotPassword(email.toLowerCase());
@@ -56,12 +60,15 @@ public class UserAjaxService {
     public String registerNewOrganization(String organizationName, String city,
             String email, String password, Integer minutes, Integer rate, Integer maxSystems) {
         if ( organizationName != null ) {
+            organizationName = SQLInjectionFilterManager.getInstance().filter(organizationName);
             organizationName = organizationName.toLowerCase();
         }
         if ( city != null ) {
+            city = SQLInjectionFilterManager.getInstance().filter(city);
             city = city.toLowerCase();
         }
         if ( email != null ) {
+            email = SQLInjectionFilterManager.getInstance().filter(email);
             email = email.toLowerCase();
         }
        
@@ -88,8 +95,8 @@ public class UserAjaxService {
                 c.setPic(this.bufferedImageToByteArray(c.getImg()));//this.scaleToSize(c.getImg())
             }
             c.setCreateDate(new Date());
-            //Users u = this.workService.getCustomer(AcegiUtil.getUsername());
-            //c.setCreateUser(AcegiUtil.getUsername());
+            c.setEmail(SQLInjectionFilterManager.getInstance().filter(c.getEmail()));
+            c.setUsername(SQLInjectionFilterManager.getInstance().filter(c.getUsername()));
             Converter.toLowerCase(c);
             this.workService.createCutomer(c, null);
             eMailService.sendEmail(c.getEmail(), "Welcome to FaceGuard, username / password : " + c.getUsername() + " / " + c.getPassword());

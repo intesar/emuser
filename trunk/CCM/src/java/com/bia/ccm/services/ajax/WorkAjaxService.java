@@ -4,6 +4,7 @@
  */
 package com.bia.ccm.services.ajax;
 
+import com.abbhsoft.sqlInjectionFilter.SQLInjectionFilterManager;
 import com.bia.ccm.entity.Services;
 import com.bia.ccm.entity.SystemLease;
 import com.bia.ccm.entity.Systems;
@@ -55,6 +56,7 @@ public class WorkAjaxService {
     public String leaseSystem(int systemId, String leaseHolder) {
         try {
             if (leaseHolder != null) {
+                leaseHolder = SQLInjectionFilterManager.getInstance().filter(leaseHolder);
                 leaseHolder = leaseHolder.toLowerCase();
             }
             this.workService.leaseSystem(systemId, leaseHolder);
@@ -72,6 +74,12 @@ public class WorkAjaxService {
         String msg = "Service Added Successfully";
         String agent = AcegiUtil.getUsername();
         try {
+            service = SQLInjectionFilterManager.getInstance().filter(service);
+            user = SQLInjectionFilterManager.getInstance().filter(user);
+            comments = SQLInjectionFilterManager.getInstance().filter(comments);
+            if ( units <= 0 || payableAmount <= 0 || paidAmount <= 0 ) {
+                return "We are keeping an Eye on you! ";
+            }
             this.workService.addService(service, units, user, payableAmount, comments, paidAmount, agent);
             return msg;
         } catch (Exception e) {
@@ -88,6 +96,9 @@ public class WorkAjaxService {
 
     public String unleaseSystem(int systemId, double paidAmount) {
         try {
+            if ( systemId <= 0 || paidAmount <= 0 ) {
+                return "We are keeping an Eye on you! ";
+            }
             this.workService.unleaseSystem(systemId, paidAmount);
         } catch (Exception e) {
             //e.printStackTrace();
@@ -126,6 +137,7 @@ public class WorkAjaxService {
 
     public Users getCustomer(String key) {
         Users c = null;
+        key = SQLInjectionFilterManager.getInstance().filter(key);
         try {
             if ( key != null ) {
                 key = key.toLowerCase();
