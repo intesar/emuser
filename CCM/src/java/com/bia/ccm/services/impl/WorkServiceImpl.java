@@ -94,8 +94,14 @@ public class WorkServiceImpl implements WorkService {
     }
 
     public void chargePayment(int systemId, String agent) {
+        Systems s = systemsDao.read(systemId);
+        Users u = usersDao.findByUsername(agent);
+        if (! s.getOrganization().equals(u.getOrganization())) {
+            throw new RuntimeException("We are keeping an Eye on you! ");
+        }
         List<SystemLease> list = getSystemLease(systemId);
         for (SystemLease sl : list) {
+            
             if (sl.getPayableAmount() != null) {
                 sl.setAmountPaid(sl.getPayableAmount());
             }

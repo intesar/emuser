@@ -10,15 +10,15 @@ import com.bia.ccm.util.ServiceFactory;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import javax.jws.WebMethod;
-import javax.jws.WebParam;
-import javax.jws.WebService;
+//import javax.jws.WebMethod;
+//import javax.jws.WebParam;
+//import javax.jws.WebService;
 
 /**
  *
  * @author intesar
  */
-@WebService()
+//@WebService()
 public class ClientService {
 
     /**
@@ -28,16 +28,16 @@ public class ClientService {
      *  3 - shutdown
      * Web service operation
      */
-    @WebMethod(operationName = "getStatus")
-    public Integer getStatus(@WebParam(name = "macAddress") String macAddress) {
+    //@WebMethod(operationName = "getStatus")
+    public Integer getStatus(/*@WebParam(name = "macAddress") */ String macAddress) {
         return this.workService.getSystemStatus(macAddress);
     }
 
     /**
      * Web service operation
      */
-    @WebMethod(operationName = "getUserEmailByMacAddress")
-    public String getUserEmailByMacAddress(@WebParam(name = "macAddress") String macAddress) {
+    //@WebMethod(operationName = "getUserEmailByMacAddress")
+    public String getUserEmailByMacAddress(/* @WebParam(name = "macAddress") */ String macAddress) {
         String email = "faceguard@bizintelapps.com";
         try {
             email = this.workService.getUserEmailByMacAddress(macAddress);

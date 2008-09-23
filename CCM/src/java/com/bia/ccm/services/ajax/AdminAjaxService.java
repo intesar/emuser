@@ -4,6 +4,7 @@
  */
 package com.bia.ccm.services.ajax;
 
+import com.abbhsoft.sqlInjectionFilter.SQLInjectionFilterManager;
 import com.bia.ccm.entity.EmailPreference;
 import com.bia.ccm.entity.EmailTimePreference;
 import com.bia.ccm.entity.Organization;
@@ -44,6 +45,9 @@ public class AdminAjaxService {
     public String updateRentalPrice(int mims, double rate, Integer lmins, Double lrate) {
         String msg = "Price Updated Successful!";
         String username = AcegiUtil.getUsername();
+        if ( mims < 0 || rate < 0.0 || lmins < 0 || lrate < 0.0 ) {
+            return "We are keeping an eye on you! ";
+        }
         try {
             this.adminService.updateRentalPrice(mims, rate, lmins, lrate, username);
             return msg;
@@ -77,6 +81,9 @@ public class AdminAjaxService {
 
     public String saveUsers(Users users) {
         String msg = "Operation succesful!";
+        users.setEmail(SQLInjectionFilterManager.getInstance().filter(users.getEmail()));
+        users.setUsername(SQLInjectionFilterManager.getInstance().filter(users.getUsername()));
+        
         try {
             String username = AcegiUtil.getUsername();
             this.adminService.saveUser(users, username);
@@ -96,6 +103,7 @@ public class AdminAjaxService {
         String msg = "Operation succesful!";
         try {
             String username = AcegiUtil.getUsername();
+            emailPreference.setEmailOrPhone(SQLInjectionFilterManager.getInstance().filter(emailPreference.getEmailOrPhone()));
             emailPreference.setEmailOrPhone(emailPreference.getEmailOrPhone().toLowerCase());
             if (emailPreference.getUsername() != null) {
                 emailPreference.setUsername(emailPreference.getUsername().toLowerCase());
@@ -149,6 +157,7 @@ public class AdminAjaxService {
     public String saveOrganization(Organization organization) {
         String msg = "Operation succesful!";
         try {
+            organization.setName(SQLInjectionFilterManager.getInstance().filter(organization.getName()));
             String username = AcegiUtil.getUsername();
             Converter.toLowerCase(organization);
             this.adminService.saveOrganization(organization, username);
@@ -199,7 +208,7 @@ public class AdminAjaxService {
             if (service.getOrganization() == null || service.getOrganization().length() <= 0) {
                 service.setOrganization(this.getOrganization().getName());
             }
-
+            service.setName(SQLInjectionFilterManager.getInstance().filter(service.getName()));
             service.setName(service.getName().toLowerCase());
             this.adminService.saveService(service);
             return msg;
