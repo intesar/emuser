@@ -17,8 +17,8 @@
         color:#FFF;
         background:#C00;
         border-collapse:collapse;
-        width:450px;        
-        border:5px solid #900;
+        width:400px;        
+        border:2px solid #900;
     }
     
     thead
@@ -29,8 +29,8 @@
     thead th
     {
         padding:1em 1em .5em;
-        border-bottom:1px dotted #FFF;
-        font-size:120%;
+        border-bottom:solid 1px #FFF;
+        font-size:90%;
         text-align:left;
     }
     
@@ -43,7 +43,7 @@
     
     td
     {
-        padding:.5em 1em;
+        padding:.2em 1em;
     }
     
     

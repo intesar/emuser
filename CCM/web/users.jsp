@@ -134,8 +134,14 @@
             
             <tr>
                 <td valign="top">
-                    <h2>Administrators</h2>
-                    
+                    <table>
+                        <thead>
+                            <th>
+                                Users who manages this Cyber Cafes
+                            </th>
+                        </thead>
+                    </table>
+                    <br>
                     <table>
                         
                         <thead>
@@ -204,8 +210,8 @@
                         <tr>
                             <td></td>
                             <td>
-                                <input type="button" value="Save" onclick="writePerson()"/>
                                 <input type="button" value="New" onclick="clearPerson()"/>
+                                <input type="button" value="Save" onclick="writePerson()"/>                                
                             </td>
                         </tr> 
                         

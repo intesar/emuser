@@ -82,7 +82,7 @@
         
          
         function execute() {
-            dwr.util.useLoadingMessage();
+            dwr.util.useLoadingMessage("Please Wait Loading....");
             //alert ( document.getElementById("startDate").value);
             AjaxAdminService.getSystemLease(document.getElementById("DPC_startDate_YYYY-MM-DD").value,
             reply1 );
@@ -102,7 +102,7 @@
             
         function search() {
             AjaxWorkService.getCustomer(dwr.util.getValue("key"), reply2);
-            dwr.util.useLoadingMessage();
+            dwr.util.useLoadingMessage("Please Wait Loading....");
         }
             
         var reply2 = function(customer) {

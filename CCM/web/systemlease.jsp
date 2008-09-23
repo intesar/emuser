@@ -88,14 +88,7 @@
       
         
         <table align="center">
-            <thead>
-                <tr>
-                    <th>
-                        History
-                    </th>
-                    
-                </tr>
-            </thead>
+            
             <tr>
                 <td>
                     
@@ -104,12 +97,19 @@
                     <input type="hidden" id="DPC_MONTH_NAMES" value="['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']">
                     <input type="hidden" id="DPC_DAY_NAMES" value="['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']">
                     
-                    
-                    
-                    <input type="text" name="startDate" id="DPC_startDate_YYYY-MM-DD"> 
-                    
-                    <input type="text" name="endDate" id="DPC_endDate_YYYY-MM-DD" > 
-                    
+                    Start Date    
+                </td>
+                <td>
+                    End Date
+                </td>
+            </tr><tr>
+                <td>
+                    <input type="text" name="startDate" id="DPC_startDate_YYYY-MM-DD" readonly> 
+                </td>
+                <td>
+                    <input type="text" name="endDate" id="DPC_endDate_YYYY-MM-DD" readonly > 
+                </td>
+                <td>
                     <input type="submit" value="Search" onclick="execute();"/>
                 </td>
             </tr>
@@ -121,7 +121,7 @@
             <table align="center">
                 <thead>
                     <tr>
-                        <th> User </th>
+                        <th> Customer </th>
                         <th> System  </th>
                         <th>  Start Time </th>
                         <th> End Time </th>

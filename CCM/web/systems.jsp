@@ -135,18 +135,21 @@
     
     <table align="center">
         <tr align="center">
-            <td align="center">
-                <div style="height:370px; width:470px; overflow:auto;">
-                    
-                    <table>
+            <td valign="top">
+                 <table>
                         <thead>                            
                             <tr>
-                                <th>No</th>
+                                <th>Sys No</th>
                                 <th>Description</th>
                                 <th></th>
                             </tr>
                         </thead>
+                    </table>
+                    <div style="height:420px; width:420px; overflow:auto;">
+                    <table>
+                             
                         <tbody id="peoplebody">
+                        
                             <tr id="pattern" style="display:none;">
                                 <td><span id="name1">No</span></td>
                                 <td><span id="description1">Description</span></td>
@@ -155,10 +158,11 @@
                                 </td>
                             </tr>
                         </tbody>
+                    
                     </table>
                 </div>
             </td>
-            <td align="center">
+            <td valign="top">
                 
                 <table align="center">
                     <thead>
@@ -191,7 +195,23 @@
                         <input type="button" value="Save" onclick="writePerson()"/></td>
                     </tr>
                 </table>
+                <br>
                 <table>
+                    <tr>
+                        <td>
+                            Every 60 mins - 100Rs | Partial First 30 mins - 70Rs
+                        </td>
+                        </tr>
+                            
+                        <tr>
+                        <td>
+                            Every 30 mins - 10Rs | Partial leave blank if you do not need!
+                        </td>
+                    </tr>
+                </table>
+                        <br>
+                <table>
+                    
                 <thead>
                     <tr>
                         <th></th>
@@ -202,19 +222,19 @@
                         <th></th>
                     </tr>
                 </thead>
+               
                 <tr>
-                    <td>Lower Minimum Minutes:*</td>
-                    <td><input type="text" id="lowerMinimumMinutes" size="4"/></td>
-                    <td>Lower Rate:*</td>
-                    <td><input type="text" id="lowerMinuteRate" size="4"/></td>
-                </tr>
-                <tr>
-                    <td>Minimum Minutes:*</td>
+                    <td>Minutes:*</td>
                     <td><input type="text" id="minimumMinutes" size="4"/></td>
                     <td>Rate:*</td>
                     <td><input type="text" id="minuteRate" size="4"/></td>
                 </tr>
-                
+                 <tr>
+                    <td>Partial Billing Minutes:*</td>
+                    <td><input type="text" id="lowerMinimumMinutes" size="4"/></td>
+                    <td>Rate:*</td>
+                    <td><input type="text" id="lowerMinuteRate" size="4"/></td>
+                </tr>
                 <tr>
                 <td></td>
                 <td>

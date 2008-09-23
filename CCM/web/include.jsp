@@ -1,6 +1,11 @@
 <script type='text/javascript' src='/CCM/dwr/interface/AjaxUserService.js'></script>
+
+<!--
 <script type='text/javascript' src='/CCM/dwr/engine.js'></script>
 <script type='text/javascript' src='/CCM/dwr/util.js'></script>
+-->
+
+
 <script type="text/javascript">
     var isMenuCreated = false;
     function createMenu() {
@@ -56,44 +61,44 @@
 <div id="mainDiv">
     <div id="adminDiv" align="center">
         <a onclick="forwardFunction('dashboard2.jsp');">
-            <img src="dash/1 home.png" width="40" height="40" alt="Dashboard" title="Dashboard" />            
+            <img src="icons/dashboard.png" alt="Dashboard" title="Dashboard" />            
         </a>
         &nbsp;&nbsp;&nbsp;
-        <a onclick="forwardFunction('users.jsp');"><img src="dash/2 users.jpg" title="Control Panel" width="40" height="43"/>
+        <a onclick="forwardFunction('users.jsp');"><img src="icons/control panel1.png" title="Control Panel" />
         </a>
         &nbsp;&nbsp;&nbsp;
-        <a onclick="forwardFunction('systems.jsp');"><img src="dash/8 system lease.png" title="Computers" width="40" height="40" alt="3"/>
+        <a onclick="forwardFunction('systems.jsp');"><img src="icons/systems.png" title="Computers" alt="3"/>
         </a>        
         &nbsp;&nbsp;&nbsp;
-        <a onclick="forwardFunction('services.jsp');"><img src="dash/store_services.png" title="Services" width="40" height="38" alt="10 feedback"/>
+        <a onclick="forwardFunction('services.jsp');"><img src="icons/service.png" title="Services"  alt="10 feedback"/>
         </a>
         &nbsp;&nbsp;&nbsp;
-        <a onclick="forwardFunction('emails.jsp');"><img src="dash/4 emails.jpg" title="Emails/SMS"  width="40" height="39" alt="4 emails"/>
+        <a onclick="forwardFunction('emails.jsp');"><img src="icons/emailsms.png" title="Emails/SMS"  alt="4 emails"/>
         </a>
         &nbsp;&nbsp;&nbsp;
-        <a onclick="forwardFunction('emailtimings.jsp');"><img src="dash/5 Time.jpg" title="Report Timing" width="40" height="42" alt="5 Time"/>
+        <a onclick="forwardFunction('emailtimings.jsp');"><img src="icons/report time.png" title="Report Timing"  alt="5 Time"/>
         </a>
         &nbsp;&nbsp;&nbsp;    
-        <a onclick="forwardFunction('organization.jsp');"><img src="dash/profile.png" title="Profile" width="40" height="40" alt="7 profile"/>
+        <a onclick="forwardFunction('organization.jsp');"><img src="icons/profile.png" title="Profile" alt="7 profile"/>
         </a>
         &nbsp;&nbsp;&nbsp;
-        <a onclick="forwardFunction('systemlease.jsp');"><img src="dash/history.gif" title="Rental History" width="40" height="40" alt="9 history"/>
+        <a onclick="forwardFunction('systemlease.jsp');"><img src="icons/rental history.png" title="Rental History" alt="9 history"/>
         </a>
         &nbsp;&nbsp;&nbsp;
-        <a onclick="forwardFunction('report.jsp');"><img src="dash/9 report.png" title="Billing Report" width="40" height="40" alt="8 report"/>
+        <a onclick="forwardFunction('report.jsp');"><img src="icons/billing.png" title="Billing Report" alt="8 report"/>
         </a>
         &nbsp;&nbsp;&nbsp;
-        <a onclick="forwardFunction('customer.jsp');"><img src="dash/6.jpg" title="Customer Profiles" width="40" height="40" alt="6"/>
+        <a onclick="forwardFunction('customer.jsp');"><img src="icons/customer profile_1.png" title="Customer Profiles" alt="6"/>
         </a>
         &nbsp;&nbsp;&nbsp;
         <a onclick="forwardFunction('my_systemlease.jsp');">
-            <img src="dash/1 home.png" width="40" height="40" alt="Dashboard" title="My History" />            
+            <img src="icons/myhistory234.png" alt="Dashboard" title="My History" />            
         </a>
         &nbsp;&nbsp;&nbsp;        
-        <a onclick="forwardFunction('j_acegi_logout');"><img src="dash/logout.png" title="LogOut" width="40" height="40" alt="11 logout"/>
+        <a onclick="forwardFunction('j_acegi_logout');"><img src="icons/logout.png" title="LogOut" alt="11 logout"/>
         </a> 
         &nbsp;&nbsp;&nbsp;
-        <a onclick="refresh();"><img src="dash/ref.gif" title="Refresh" width="40" height="40" alt="11 logout"/>
+        <a onclick="refresh();"><img src="icons/re.png" title="Refresh" alt="11 logout"/>
         </a> 
         
     </div>
@@ -101,37 +106,43 @@
     
     <div id="employeeDiv" style="visibility: hidden" align="center">
         <a onclick="forwardFunction('dashboard2.jsp');">
-            <img src="dash/1 home.png" width="40" height="40" alt="Dashboard" title="Dashboard" />            
+            <img src="icons/dashboard.png" alt="Dashboard" title="Dashboard" />            
         </a>
         &nbsp;&nbsp;&nbsp;
-        <a onclick="forwardFunction('customer.jsp');"><img src="dash/6.jpg" title="Customer Profiles" width="40" height="40" alt="6"/>
+        <a onclick="forwardFunction('customer.jsp');"><img src="icons/customer profile_1.png" title="Customer Profiles" alt="6"/>
         </a>
-        &nbsp;&nbsp;&nbsp;
+         &nbsp;&nbsp;&nbsp;
         <a onclick="forwardFunction('my_systemlease.jsp');">
-            <img src="dash/1 home.png" width="40" height="40" alt="Dashboard" title="My History" />            
+            <img src="icons/myhistory234.png" alt="Dashboard" title="My History" />            
         </a>
         &nbsp;&nbsp;&nbsp;        
-        <a onclick="forwardFunction('j_acegi_logout');"><img src="dash/logout.png" title="LogOut" width="40" height="40" alt="11 logout"/>
+        <a onclick="forwardFunction('j_acegi_logout');"><img src="icons/logout.png" title="LogOut" alt="11 logout"/>
         </a> 
         &nbsp;&nbsp;&nbsp;
-        <a onclick="refresh();"><img src="dash/ref.gif" title="Refresh" width="40" height="40" alt="11 logout"/>
+        <a onclick="refresh();"><img src="icons/re.png" title="Refresh" alt="11 logout"/>
         </a> 
     </div>
     
     <div id="customerDiv" style="visibility: hidden" align="center">
+         
         <a onclick="forwardFunction('my_systemlease.jsp');">
-            <img src="dash/1 home.png" width="40" height="40" alt="Dashboard" title="My History" />            
+            <img src="icons/myhistory234.png" alt="Dashboard" title="My History" />            
         </a>
         &nbsp;&nbsp;&nbsp;        
-        <a onclick="forwardFunction('j_acegi_logout');"><img src="dash/logout.png" title="LogOut" width="40" height="40" alt="11 logout"/>
+        <a onclick="forwardFunction('j_acegi_logout');"><img src="icons/logout.png" title="LogOut" alt="11 logout"/>
         </a> 
         &nbsp;&nbsp;&nbsp;
-        <a onclick="refresh();"><img src="dash/ref.gif" title="Refresh" width="40" height="40" alt="11 logout"/>
+        <a onclick="refresh();"><img src="icons/re.png" title="Refresh" alt="11 logout"/>
         </a> 
     </div>
     
     <div align="center">
-        <font style="color:green"><span id="successReply"></span></font><font style="color:red"><span id="failureReply"></span></font>
+        <font style="color:green">
+            <span id="successReply" ></span>
+        </font>
+        <font style="color:red">
+            <span id="failureReply"></span>
+        </font>
     </div>
 </div>
 <br>
