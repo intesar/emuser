@@ -72,13 +72,13 @@
         
         <table align="center" width="85%">
             <tr>
-                <td width="33%" align="left"><a href="http://www.bizintelapps.net/" target="_blank"><img src="dash/logo.jpg" alt="logo" width="290" height="74" border="0"/></a>
+                <td width="33%" align="left">
                     <br><br>
                     <table border="0" width="50%" bgcolor="#C00" style="color:#FFF;
                     background:#C00;
                     border-collapse:collapse;
                     width:370px;        
-                    border:5px solid #900;" >
+                    border:3px solid #900;" >
                         <thead>
                             <tr>
                                 <th></th>
@@ -241,45 +241,16 @@
                     </table>
                 </td>
                 
-                <td width="4%"><img src="dash/line2.JPG" alt="line2" width="11" height="214" />&nbsp;&nbsp;</td>
-                <td width="10%" align="center">
-                    
-                    <p align="left"><img src="dash/onlinelogo.png" alt="net" height="217"  /></p>
-                    
-                </td>
-                <td width="4%">&nbsp;&nbsp;&nbsp; <img src="dash/line.JPG" alt="line" width="14" height="316" /></td>
                 
-                <td width="31%" align="right">
-                     <table align="left"  style="color:#FFF;
-                    background:#C00;
-                    width:290px;
-                    height:170px;
-                    border-collapse:collapse;
-                    border:5px solid #900;">
-                        <tr>
-                            <td>
-                                
-                                <font color="green" size="4" >
-                                    <tr><td>* FaceGuard.org is webased Cyber Cafe Manager Suite</td></tr>
-                                    <tr><td>* Compliance with Cyber Laws</td></tr>
-                                    <tr><td>* Save Rs 6,000/month by removing unauthorize usage</td></tr>
-                                    <tr><td>* Save Electricity bills (Intelligent Shutdown)</td></tr>
-                                    <tr><td>* Bill Printing, Scanning, Snacks, and vitually anything.</td></tr>
-                                    <tr><td>* Free Report via SMS/Emails</td></tr>
-                                    <tr><td>* Automatic backups every day data.</td></tr>
-                                    <tr><td>* Tackle Terrorism, Crime, Missuse etc</td></tr>
-                                    
-                                </font>
-                            </td>
-                        </tr>
-                    </table>
-                    <form action="j_acegi_security_check" method="POST" id="login_form">
+                <td width="4%">&nbsp;&nbsp;&nbsp; <img src="dash/line.JPG" alt="line" width="14" height="316" /></td>
+                <td>
+                <form action="j_acegi_security_check" method="POST" id="login_form">
                         <table align="left" style="color:#FFF;
                         background:#C00;
                         width:290px;
                         height:170px;
                         border-collapse:collapse;
-                        border:5px solid #900;">
+                        border:3px solid #900;">
                             <thead>
                                 <tr>
                                     <th   style="padding:1em 1em .5em;
@@ -333,7 +304,32 @@
                             </td>
                         </table>       
                     </form>
-                   
+                </td>
+                <td width="31%" align="right">
+                    <table align="left"  style="color:#FFF;
+                    background:#C00;
+                    width:290px;
+                    height:170px;
+                    border-collapse:collapse;
+                    border:3px solid #900;">
+                        <thead>
+                        <tr><th>FaceGuard.org is webased Cyber Cafe Manager Suite</th></tr>
+                                <tr><th> Compliance with Cyber Laws</th></tr>
+                                <tr><th> Save Rs 6,000/month by removing unauthorize usage</th></tr>
+                                <tr><th> Save Electricity bills (Intelligent Shutdown)</th></tr>
+                                <tr><th> Bill Printing, Scanning, Snacks, and vitually anything.</th></tr>
+                                <tr><th> Free Report via SMS/Emails</th></tr>
+                                <tr><th> Automatic backups every day data.</th></tr>
+                                <tr><th> Tackle Terrorism, Crime, Missuse etc</th></tr>
+                                
+                                
+                            </tr>
+                        </thead>
+                    </table>
+                
+                    <br/>
+                    
+                    
                 </td>
             </tr>
             <tr>

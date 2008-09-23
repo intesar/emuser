@@ -103,8 +103,8 @@
         <table align="center">
             <thead>
                 <tr>
-                    <th>  Report  </th>
-                    <th>Time</th>
+                    <th>Daily Report</th>
+                    <th>Times</th>
                     <th></th>
                 </tr>
             </thead>
@@ -147,6 +147,7 @@
                 
             </tr>
         </table>
+        <br>
         
         <table align="center">
             

@@ -17,8 +17,10 @@
         <script type='text/javascript' src='/CCM/dwr/engine.js'></script>        
         <script type='text/javascript' src='/CCM/dwr/util.js'></script>
         <script type="text/javascript" src="email_validation.js"></script>
+        <!--
         <script type="text/javascript" src="util-functions.js"></script>
         <script type="text/javascript" src="clear-default-text.js"></script>
+        -->
         <script type="text/javascript">
             function search() {
                 if ( validateEmail(dwr.util.getValue("key"), true, true) )  {                
@@ -60,7 +62,7 @@
             function fillTable() {
                 //document.getElementById('geta').disabled=true;
                 //document.getElementById('deta').disabled=true;
-                dwr.util.useLoadingMessage();
+                dwr.util.useLoadingMessage("Please Wait, Loading...");
                 AjaxWorkService.getActiveSystems(function(people) {
                     usedSystemList = { };
                     // Delete all the rows except for the "pattern" row
@@ -81,8 +83,11 @@
                             id = person.id;
                             dwr.util.cloneNode("pattern", { idSuffix:id });
                             dwr.util.setValue("name" + id, person.name);
-                            dwr.util.setValue("currentUserEmail" + id, person.currentUserEmail);     
-                            dwr.util.setValue("startTimeString1" + id, person.startTimeString);
+                            var email = person.currentUserEmail;
+                            if ( email != null && email.length > 0 ) {
+                                dwr.util.setValue("currentUserEmail" + id, email.toString().substring(0,14));     
+                                //dwr.util.setValue("startTimeString1" + id, person.startTimeString);
+                                }
                             $("pattern" + id).style.display = "";
                             peopleCache[id] = person;
                             systems1[i] = person;
@@ -277,31 +282,32 @@
     <body>
         <jsp:include page="include.jsp" />
         
-        <table align="center" width="1000">
+        <table align="center" width="800px" >
             
             <tbody>
                 <tr>
                     <td>
-                        <h2>Customer Search</h2>
+                        
                         <table>
                             
                             <tr>
                                 <td>
-                                    <input type="text"  id="key" value="Enter Valid Email..." class="cleardefault" />
-                                    <input type="submit" value="Search" onclick="search();"/>          
+                                    <input type="text"  id="key" value="Email to Assign System " size="30" class="cleardefault" />
+                                    <input type="submit" value="Search Customer" onclick="search();"/>          
                                     <!-- <input type="submit" value="Add To Member List" disabled="disabled" onclick="addToMemberList();"/> -->
                                     <img id="image" src="javascript:void(0);"/>
                                     <br>
                                 </td>
                             </tr>
                         </table>
-                        <h2>Systems</h2>
-                        <div style="height:370px; width:470px; overflow:auto;">
-                            <table width="1000">
+                        <br>
+                        
+                            <table >
                                 <thead>
+                                    
                                     <tr>
                                         <th>
-                                            No
+                                           Sys No
                                         </th>
                                         <th>
                                             Customer
@@ -312,9 +318,12 @@
                                         <th>
                                             Action 
                                         </th>
-                                        <th></th>
+                                        
                                     </tr>
                                 </thead>
+                            </table>
+                            <div style="height:370px; width:420px; overflow:auto;">
+                            <table>
                                 <tbody  id="peoplebody" >
                                     <tr id="pattern" style="display:none;">
                                         <td><span id="name"></span></td>
@@ -332,8 +341,8 @@
                     </td>
                     
                     
-                    <td valign="top">
-                        <h2>Customer's Accounts Details</h2>
+                    <td valign="center">
+                        
                         
                         
                         <table>
@@ -353,9 +362,7 @@
                                         Payable
                                     </th>
                                     
-                                    <th>
-                                        
-                                    </th>
+                                    
                                 </tr>
                             </thead>
                             <tbody  id="detailbody" >
@@ -363,16 +370,24 @@
                                     <td><span id="service"></span></td>
                                     <td><span id="startTimeString"></span></td>                    
                                     <td><span id="totalMinutesUsed">Total</span></td>
-                                    <td><span id="payableAmount"><input type="text" id="paidAmount" value="" disabled="disabled" size="4" /><button value="Paid" onclick="paid();"  id="paidButton" disabled="disabled">Paid</button></span></td>
-                                    <td>  </td>
+                                    <td><span id="payableAmount">
+                                            <input type="text" id="paidAmount" value="" disabled="disabled" size="4" />
+                                    <button value="Paid" onclick="paid();"  id="paidButton" disabled="disabled">Paid</button> </span> </td>
                                 </tr>
                             </tbody>
                             
                         </table>
+                        <br>
                         
-                        <h2>  Extra Sales / Services </h2>
                         <table title="Extra Sale">
-                            
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Extra Sales /</th>
+                                    <th>Services</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
                             <tr>
                                 <td>Service</td>
                                 <td><select name="services" id="services" onfocus="populateSystemNos();">
@@ -403,7 +418,7 @@
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td><input type="submit" value="Add / Charge Now" onclick="addService();" /></td>
+                                <td><input type="submit" value="Add/Charge" onclick="addService();" /></td>
                                 
                             </tr>
                         </table>

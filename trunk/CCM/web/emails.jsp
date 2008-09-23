@@ -159,14 +159,14 @@
                     
                     
                 </td>
-                <td>
+                <td valign="top">
                     
                     <table>
                         <thead>
                             <tr>
-                                <th></th>
+                                <th>Add / Update </th>
                                 <th>
-                                    Email/Phone For Daily Reports
+                                    Email/Mobile For Daily Reports
                                 </th>
                             </tr>
                         </thead>
@@ -194,9 +194,9 @@
                             <td> 
                             </td>
                             <td>
-                                <input type="button" value="Save" onclick="writePerson()"/>  
-                                <input type="button" value="Delete" onclick="deletePerson()"/>                                  
                                 <input type="button" value="Clear" onclick="clearPerson()"/>
+                                <input type="button" value="Save" onclick="writePerson()"/>  
+                                <input type="button" value="Delete" onclick="deletePerson()"/>                                                                  
                             </td>
                         </tr>             
                         

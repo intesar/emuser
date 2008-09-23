@@ -122,6 +122,7 @@
             function deletePerson() {
                 //alert ( 'hi');
                 var x = viewed;
+                //alert ( viewed );
                 AjaxAdminService.deleteService(viewed, function(data) {
                     clearMessages();
                     if ( data == " Service Deleted Successful! ") {
@@ -131,6 +132,21 @@
                         dwr.util.setValue ("failureReply", data + " Or please refresh page!");
                     }  
                 });
+            }
+            function isInteger(s)
+            {
+                var i;
+                s = s.toString();
+                for (i = 0; i < s.length; i++)
+                {
+                    var c = s.charAt(i);
+                    if (isNaN(c) && c != '.') 
+                    {
+                        alert("This field Should contain Only number");
+                        return false;
+                    }
+                }
+                return true;
             }
         </script>
         
@@ -142,7 +158,7 @@
         <!-- <h2 align="center"> Extra Services </h2> -->
         <table align="center">
             <tr>
-                <td>
+                <td valign="top">
                     
                     <table>
                         <thead>
@@ -174,17 +190,17 @@
                             <tr>
                                 <th></th>
                                 <th>
-                                    Service Details
+                                    Add / Udpate Services
                                 </th>
                             </tr>
                         </thead>
                         <tr>
                             <td> Service Name:* </td>
-                            <td><input id="name" type="text" disabled size="30"/></td>
+                            <td><input id="name" type="text" disabled size="25"/></td>
                         </tr> 
                         <tr>
                             <td> Unit Price:* </td>
-                            <td><input id="unitPrice" type="text" size="30"/></td>
+                            <td><input id="unitPrice" type="text" size="5" onKeyup="isInteger(this.value);"/></td>
                         </tr> 
                         <tr>
                             <td> 

@@ -388,12 +388,12 @@ DatePickerControl.createButton = function(input, useId)
 		document.body.appendChild(calButton);
 	}
 	// Set the style and position:
-	var nTop               = getObject.getSize("offsetTop", input);
+	//var nTop               = getObject.getSize("offsetTop", input);
 	var nLeft              = getObject.getSize("offsetLeft", input);
 	calButton.className    = "calendarbutton";
 	calButton.style.zIndex = 10000;
 	calButton.style.cursor = "pointer";
-	calButton.style.top    = (nTop + Math.floor((input.offsetHeight-calButton.offsetHeight)/2) + this.buttonOffsetY) + "px";
+	//calButton.style.top    = (nTop + Math.floor((input.offsetHeight-calButton.offsetHeight)/2) + this.buttonOffsetY) + "px";
 	var btnOffX            = Math.floor((input.offsetHeight - calButton.offsetHeight) / 2);
 	if (this.buttonPosition == "in"){
 		calButton.style.left = (nLeft + input.offsetWidth - calButton.offsetWidth - btnOffX + this.buttonOffsetX) + "px";
@@ -416,18 +416,18 @@ DatePickerControl.show = function()
 		var input = this.inputControl;
 		if (input == null) return;
 		if (input.disabled) return; // just in case ;)
-		var top  = getObject.getSize("offsetTop", input);
+		//var top  = getObject.getSize("offsetTop", input);
 		var left = getObject.getSize("offsetLeft", input);
 		var calframe = document.getElementById(this.calFrameId);
 
-		this.calContainer.style.top        = top + input.offsetHeight + this.offsetY + "px";
+		//this.calContainer.style.top        = top + input.offsetHeight + this.offsetY + "px";
 		this.calContainer.style.left       = left + this.offsetX + "px";
 		this.calContainer.style.display    = "none";
 		this.calContainer.style.visibility = "visible";
 		this.calContainer.style.display    = "block";
 		this.calContainer.style.height     = calframe.offsetHeight;
 		if (this.calBG){ // the ugly patch for IE
-			this.calBG.style.top        = this.calContainer.style.top;
+		//	this.calBG.style.top        = this.calContainer.style.top;
 			this.calBG.style.left       = this.calContainer.style.left;
 			this.calBG.style.display    = "none";
 			this.calBG.style.visibility = "visible";
@@ -452,11 +452,12 @@ DatePickerControl.hide = function()
 	if (this.displayed){
 		this.calContainer.style.visibility = "hidden";
 		this.calContainer.style.left = -1000; // some problems with overlaped controls
-		this.calContainer.style.top = -1000;
+		//
+                //this.calContainer.style.top = -1000;
 		if (this.calBG){ // the ugly patch for IE
 			this.calBG.style.visibility = "hidden";
 			this.calBG.style.left = -1000;
-			this.calBG.style.top = -1000;
+		//	this.calBG.style.top = -1000;
 		}
 		this.inputControl.value = this.originalValue;
 		this.displayed = false;
@@ -1398,7 +1399,7 @@ DatePickerControl.onEditControlKeyDown = function(event)
 	var kc   = event.charCode ? event.charCode : event.which ? event.which : event.keyCode;
 	//alert(event.keyCode);
 	if ( kc >= 65 && kc <= 90 ){ // letters
-		if (event.stopPropagation) event.stopPropagation();
+		//if (event.stopPropagation) event.stopPropagation();
 		if (event.preventDefault)  event.preventDefault();
 		event.returnValue  = false;
 		event.cancelBubble = true;
@@ -1429,7 +1430,7 @@ DatePickerControl.onEditControlKeyPress = function(event)
 	var edit = event.srcElement ? event.srcElement : event.originalTarget;
 	var kc   = event.charCode ? event.charCode : event.which ? event.which : event.keyCode;
 	if (!((kc < 32) || (kc > 44 && kc < 58))){
-		if (event.stopPropagation) event.stopPropagation();
+		//if (event.stopPropagation) event.stopPropagation();
 		if (event.preventDefault)  event.preventDefault();
 		event.returnValue  = false;
 		event.cancelBubble = true;
@@ -1528,7 +1529,7 @@ DatePickerControl.onFormSubmit = function(event)
 			this.writeDate(this.currentDay);
 			if (event == null) event = window.event;
 			var theForm = (event.srcElement) ? event.srcElement : event.originalTarget;
-			if (event.stopPropagation) event.stopPropagation();
+		//	if (event.stopPropagation) event.stopPropagation();
 			if (event.preventDefault)  event.preventDefault();
 			event.returnValue  = false;
 			event.cancelBubble = true;
@@ -1612,9 +1613,9 @@ DatePickerControl.relocateButtons = function()
 			if (calButton.style.display == 'none') continue;
 			var input = document.getElementById(calButton.getAttribute("datepicker_inputid"));
 			if (input.style.display == 'none' || input.offsetTop == 0) continue;
-			var nTop = getObject.getSize("offsetTop", input);
+		//	var nTop = getObject.getSize("offsetTop", input);
 			var nLeft = getObject.getSize("offsetLeft", input);
-			calButton.style.top = (nTop + Math.floor((input.offsetHeight-calButton.offsetHeight)/2) + this.buttonOffsetY) + "px";
+		//	calButton.style.top = (nTop + Math.floor((input.offsetHeight-calButton.offsetHeight)/2) + this.buttonOffsetY) + "px";
 			var btnOffX         = Math.floor((input.offsetHeight - calButton.offsetHeight) / 2);
 			if (this.buttonPosition == "in"){
 				calButton.style.left = (nLeft + input.offsetWidth - calButton.offsetWidth - btnOffX + this.buttonOffsetX) + "px";
@@ -1636,12 +1637,12 @@ DatePickerControl.relocate = function()
 	if (this.displayed){
 		var input = this.inputControl;
 		if (input == null) return;
-		var top  = getObject.getSize("offsetTop", input);
+		//var top  = getObject.getSize("offsetTop", input);
 		var left = getObject.getSize("offsetLeft", input);
-		this.calContainer.style.top  = top + input.offsetHeight + this.offsetY + "px";
+		//this.calContainer.style.top  = top + input.offsetHeight + this.offsetY + "px";
 		this.calContainer.style.left = left + this.offsetX + "px";
 		if (this.calBG){ // the ugly patch for IE
-			this.calBG.style.top  = this.calContainer.style.top;
+		//	this.calBG.style.top  = this.calContainer.style.top;
 			this.calBG.style.left = this.calContainer.style.left;
 		}
 	}
@@ -1696,11 +1697,11 @@ getObject.getSize = function(sParam, hLayer)
 	nPos = 0;
 	while ((hLayer.tagName) && !( /(body|html)/i.test(hLayer.tagName))){
 		nPos += eval('hLayer.' + sParam);
-		if (sParam == 'offsetTop'){
-			if (hLayer.clientTop){
-				nPos += hLayer.clientTop;
-			}
-		}
+		//if (sParam == 'offsetTop'){
+		//	if (hLayer.clientTop){
+		//		nPos += hLayer.clientTop;
+		//	}
+		//}
 		if (sParam == 'offsetLeft'){
 			if (hLayer.clientLeft){
 				nPos += hLayer.clientLeft;

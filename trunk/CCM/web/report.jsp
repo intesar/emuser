@@ -70,32 +70,37 @@
         
         
         
-        
-        <table align="center">
-            <thead>
-                <tr>
-                    <th>
-                        Report
-                    </th>
-                </tr>
-            </thead>
-            <tr> <td>   
+             <table align="center">
+            
+            <tr>
+                <td>
+                    
                     <input type="hidden" id="DPC_TODAY_TEXT" value="today">
                     <input type="hidden" id="DPC_BUTTON_TITLE" value="Open calendar...">
                     <input type="hidden" id="DPC_MONTH_NAMES" value="['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']">
                     <input type="hidden" id="DPC_DAY_NAMES" value="['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']">
                     
-                    
-                    
-                    <input type="text" name="startDate" id="DPC_startDate_YYYY-MM-DD"> 
-                    
-                    <input type="text" name="endDate" id="DPC_endDate_YYYY-MM-DD"> 
-                    
-                    <input type="submit" value="Go" onclick="execute();"/>
+                    Start-Date    
+                </td>
+                <td>
+                    End-Date
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="text" name="startDate" id="DPC_startDate_YYYY-MM-DD" readonly> 
+                </td>
+                <td>
+                    <input type="text" name="endDate" id="DPC_endDate_YYYY-MM-DD" readonly> 
+                </td>
+                <td>
+                    <input type="submit" value="Search" onclick="execute();"/>
                 </td>
             </tr>
         </table>
+        
         <br>
+        
         <br>
         
         <div align="center">
