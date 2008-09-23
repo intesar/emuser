@@ -24,7 +24,8 @@ import javax.persistence.Table;
     @NamedQuery(name = "CollegeDepartment.findByCollegeName", query = "SELECT c FROM CollegeDepartment c WHERE c.collegeDepartmentPK.college = ?1 "),
     @NamedQuery(name = "CollegeDepartment.findByCollegeAndDepartment", query = "SELECT c from CollegeDepartment c where c.collegeDepartmentPK.college = ?1 and c.collegeDepartmentPK.department = ?2 "),
     @NamedQuery(name = "CollegeDepartment.findByDepartment", query = "SELECT c FROM CollegeDepartment c WHERE c.collegeDepartmentPK.department = :department"), 
-    @NamedQuery(name = "CollegeDepartment.findByMaxSeats", query = "SELECT c FROM CollegeDepartment c WHERE c.maxSeats = :maxSeats")
+    @NamedQuery(name = "CollegeDepartment.findByMaxSeats", query = "SELECT c FROM CollegeDepartment c WHERE c.maxSeats = :maxSeats"),
+    @NamedQuery(name = "CollegeDepartment.findById", query = "select c from CollegeDepartment c where c.id = ?1 ")
 })
 public class CollegeDepartment implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -34,6 +35,8 @@ public class CollegeDepartment implements Serializable {
     private Integer maxSeats;
     @Column(name = "filled_seats", nullable = false)
     private int filledSeats;
+    @Column(name= "id")
+    private Integer id;
 
     public CollegeDepartment() {
     }
@@ -70,6 +73,15 @@ public class CollegeDepartment implements Serializable {
         this.filledSeats = filledSeats;
     }
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    
     @Override
     public int hashCode() {
         int hash = 0;

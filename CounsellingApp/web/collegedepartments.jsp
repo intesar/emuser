@@ -57,6 +57,8 @@
                     <td><a href="collegeseats.jsp">Reservation Details</a></td>
                     <td>&nbsp;&nbsp;&nbsp;</td>
                     <td><a href="admin.jsp">Admin</a></td>
+                    <td>&nbsp;&nbsp;&nbsp;</td>
+                    <td><a href="j_acegi_logout">Logout</a></td>
                 </tr>
             </tbody>
         </table>
@@ -65,7 +67,7 @@
         <br/>
         <input type="text" id="hallTicketNos" value="" /><input type="submit" value="Search" onclick="fillTable();"/>
         <input type="submit" value="<" onclick="previous();"/><input type="submit" value=">" onclick="next();"/>
-            <table border="1" class="rowed grey">
+            <table border="0" class="rowed grey">
                 <thead>
                     <tr>
                         <th>College</th>

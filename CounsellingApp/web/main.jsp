@@ -113,9 +113,14 @@
             var reply1 = function(data)
             {
                 //alert ( 'hello ');
-                
+                var x =document.forms['applicationForm'].department.options;
+                for ( var i = 0; i < x.length; i++ ) {
+                    document.forms['applicationForm'].department.options[i] = null;
+                    document.forms['applicationForm'].department = null;
+                }
                 for ( var i = 0; i < data.length; i++ ) {
                     // alert ( data[i]);
+                    
                     document.forms['applicationForm'].department.options[i] = new Option(data[i], data[i]);
 
                 }
@@ -154,6 +159,8 @@
                     <td><a href="collegeseats.jsp">Reservation Details</a></td>
                     <td>&nbsp;&nbsp;&nbsp;</td>
                     <td><a href="admin.jsp">Admin</a></td>
+                    <td>&nbsp;&nbsp;&nbsp;</td>
+                    <td><a href="j_acegi_logout">Logout</a></td>
                 </tr>
             </tbody>
         </table>
@@ -165,7 +172,7 @@
             
             <tbody>
                 <tr>
-                    <td><table border="1" class="rowed grey">
+                    <td><table border="0" class="rowed grey">
                             <thead>
                                 <tr>
                                     <th>College</th>

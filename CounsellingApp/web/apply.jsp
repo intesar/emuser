@@ -1,6 +1,6 @@
 <%-- 
-    Document   : index
-    Created on : Jun 28, 2008, 5:35:23 PM
+    Document   : apply
+    Created on : Jul 5, 2008, 2:50:21 PM
     Author     : intesar
 --%>
 
@@ -11,7 +11,6 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        
         <script type='text/javascript' src='/CounsellingApp/dwr/interface/AjaxApplicationService.js'></script>
         <script type='text/javascript' src='/CounsellingApp/dwr/engine.js'></script>       
         <script type='text/javascript' src='/CounsellingApp/dwr/util.js'></script>
@@ -35,60 +34,37 @@
                 }
                 return eval(text);
             }
-
-            function addUser() {
-                AjaxApplicationService.registerUser (
-                dwr.util.getValue('name'),
-                dwr.util.getValue('email'),
-                dwr.util.getValue('password'),
-                dwr.util.getValue('fathername'),
-                dwr.util.getValue('hallticket'),
-                dwr.util.getValue('rank'),
-                reply1);
+            
+            function executeFunction() {
+                AjaxApplicationService.applyRegistration(
+                dwr.util.getValue("ids"), dwr.util.getValue("hallTicketNo"), reply3);
             }
-            var reply1 = function(data) {
-                alert ( data );
+            
+            var reply3 = function(data) {
+                alert ( data);
             }
         </script>
     </head>
     <body>
         <table border="0">
-            <thead>
-                <tr>
-                    <th><center><h3>Registration</h3></center></th>
-                    <th></th>
-                    
-                </tr>
-            </thead>
+            
             <tbody>
                 <tr>
-                    <td>Username/Email</td>
+                    <td>Hall Ticket No.</td>
+                    <td><input type="text" name="hallTicketNo" value="" /></td>
+                </tr>
+                <tr>
+                    <td>Student Email</td>
                     <td><input type="text" name="email" value="" /></td>
                 </tr>
                 <tr>
-                    <td>Password</td>
-                    <td><input type="password" name="password" value="" /></td>
+                    <td>College Nos Seperated By Comma</td>
+                    <td><textarea name="ids" rows="4" cols="20">
+                    </textarea></td>
                 </tr>
                 <tr>
-                    <td>Student Name</td>
-                    <td><input type="text" name="name" value="" /></td>
-                </tr>
-                <tr>
-                    <td>Father's Name</td>
-                    <td><input type="text" name="fathername" value="" /></td>
-                </tr>
-                <tr>
-                    <td>Hall Ticket Number</td>
-                    <td><input type="text" name="hallticket" value="" /></td>
-                </tr>
-                <tr>
-                    <td>Rank</td>
-                    <td><input type="text" name="rank" value="" /></td>
-                </tr>
-                <tr>
-                <td><input type="reset" value="Clear" /></td>
-                <td><input type="submit" value="Submit" onclick="addUser();"/></td>
-                
+                    <td></td>
+                    <td><input type="submit" value="Apply" onclick="executeFunction();"/></td>
                 </tr>
             </tbody>
         </table>

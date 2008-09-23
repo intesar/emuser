@@ -73,17 +73,22 @@
                     <td><a href="collegeseats.jsp">Reservation Details</a></td>
                     <td>&nbsp;&nbsp;&nbsp;</td>
                     <td><a href="admin.jsp">Admin</a></td>
+                    <td>&nbsp;&nbsp;&nbsp;</td>
+                    <td><a href="j_acegi_logout">Logout</a></td>
                 </tr>
             </tbody>
         </table>
         
         <br/>
         <br/>
-        
+        <input type="radio" name="filter" value="Rank" />Rank
+        <input type="radio" name="filter" value="HallTicket" />HallTicket
+        <input type="radio" name="filter" value="College" />College
+        <br/>
         <input type="text" id="hallTicketNos" value="" /><input type="submit" value="Search" onclick="search();"/>
         
         <input type="submit" value="<" onclick="previous();"/><input type="submit" value=">" onclick="next();"/>
-        <table border="1" class="rowed grey">
+        <table border="0" class="rowed grey">
             <thead>
                 <tr>
                     <th>Name</th>

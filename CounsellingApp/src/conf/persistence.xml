@@ -14,7 +14,7 @@
     <class>com.bia.counsellingapp.entity.ReservationRule</class>
     <class>com.bia.counsellingapp.entity.Reversation</class>
     <class>com.bia.counsellingapp.entity.CollegeDepartmentSeatsStatus</class>
-    <exclude-unlisted-classes>true</exclude-unlisted-classes>
+    <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="toplink.jdbc.user" value="root"/>
       <property name="toplink.jdbc.password" value="apple123"/>

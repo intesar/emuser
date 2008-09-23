@@ -86,7 +86,7 @@ http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
                 /main.jsp*=ROLE_USER,ROLE_ADMIN
                 /collegedepartments.jsp*=ROLE_USER,ROLE_ADMIN      
                 /collegeseats.jsp*=ROLE_USER,ROLE_ADMIN                
-                /admin.jsp*=ROLE_ADMIN                
+                /admin.jsp*=ROLE_USER,ROLE_ADMIN                
             </value>
         </property>
     </bean>

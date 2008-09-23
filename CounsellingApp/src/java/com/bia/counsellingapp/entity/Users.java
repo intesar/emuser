@@ -86,6 +86,10 @@ public class Users implements Serializable {
     private String college;
     @Column(name = "department")
     private String department;
+    @Column(name = "last_degree")
+    private String lastDegree;
+    @Column(name = "total_marks")
+    private String totalMarks;
     
     
     public Users() {
@@ -279,6 +283,22 @@ public class Users implements Serializable {
 
     public void setDepartment(String department) {
         this.department = department;
+    }
+
+    public String getLastDegree() {
+        return lastDegree;
+    }
+
+    public void setLastDegree(String lastDegree) {
+        this.lastDegree = lastDegree;
+    }
+
+    public String getTotalMarks() {
+        return totalMarks;
+    }
+
+    public void setTotalMarks(String totalMarks) {
+        this.totalMarks = totalMarks;
     }
     
     
