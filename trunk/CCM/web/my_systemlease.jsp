@@ -13,7 +13,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         
         
-         
+        
         <script type='text/javascript' src='/CCM/dwr/interface/AjaxCustomerService.js'></script>
         <script type='text/javascript' src='/CCM/dwr/engine.js'></script>        
         <script type='text/javascript' src='/CCM/dwr/util.js'></script>
@@ -57,9 +57,20 @@
                     dwr.util.setValue("totalMinutesUsed" + id, person.totalMinutesUsed);
                     dwr.util.setValue("payableAmount" + id, person.payableAmount);
                     dwr.util.setValue("amountPaid" + id, person.amountPaid);
-                    dwr.util.setValue("issueAgent" + id, person.issueAgent);
-                    dwr.util.setValue("returnAgent" + id, person.returnAgent);
-                    $("pattern" + id).style.display = "table-row";
+                    var maxLength = 0;
+                    var issueAgentEmail = person.issueAgent;
+                    if ( issueAgentEmail != null && issueAgentEmail.length > 0 ) {
+                        maxLength = issueAgentEmail.toString().indexOf("@");
+                        maxLength = maxLength <= 14 ? maxLength : 14;                                
+                        dwr.util.setValue("issueAgent" + id, issueAgentEmail.toString().substring(0,maxLength));
+                    }
+                    var issueReturnedEmail = person.returnAgent;
+                    if ( issueReturnedEmail != null && issueReturnedEmail.length > 0 ) {
+                        maxLength = issueReturnedEmail.toString().indexOf("@");
+                        maxLength = maxLength <= 14 ? maxLength : 14;                                
+                        dwr.util.setValue("returnAgent" + id, issueReturnedEmail.toString().substring(0,maxLength));
+                    }
+                    $("pattern" + id).style.display = "";
                     peopleCache[id] = person;
                 }
              
@@ -72,7 +83,7 @@
     <body>
         <jsp:include page="include.jsp" />
         
-            <table align="center">
+        <table align="center">
             
             <tr>
                 <td>

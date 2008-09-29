@@ -17,20 +17,18 @@
         <script type='text/javascript' src='/CCM/dwr/engine.js'></script>        
         <script type='text/javascript' src='/CCM/dwr/util.js'></script>
         <script type="text/javascript" src="email_validation.js"></script>
-        <!--
-        <script type="text/javascript" src="util-functions.js"></script>
-        <script type="text/javascript" src="clear-default-text.js"></script>
-        -->
+        
         <script type="text/javascript">
             function search() {
                 if ( validateEmail(dwr.util.getValue("key"), true, true) )  {                
                     clearMessages();
-                    AjaxWorkService.getCustomer(dwr.util.getValue("key"), reply2);
+                    AjaxWorkService.getUserWithPic(dwr.util.getValue("key"), reply2);
                 }
                
             } 
             var reply2 = function(customer) {
                 clearMessages();
+                dwr.util.setValue("image", null);
                 if ( customer.id == null ) {
                     dwr.util.setValue ("failureReply", "No Match for the Given Email, Please create User Profile at Users tab " );
                     //alert ( "No match for the given key! " );
@@ -44,9 +42,7 @@
                     dwr.util.setValue("successReply", " Customer Name : " + customer.name);
                 }
             }
-            function addToMemberList() {
-                
-            }
+            
             var reply3 = function (data) {
                 alert ( data );
                 // write to span if successful else alert if error
@@ -84,9 +80,12 @@
                             dwr.util.cloneNode("pattern", { idSuffix:id });
                             dwr.util.setValue("name" + id, person.name);
                             var email = person.currentUserEmail;
+                            
                             if ( email != null && email.length > 0 ) {
-                                dwr.util.setValue("currentUserEmail" + id, email.toString().substring(0,14));     
-                                //dwr.util.setValue("startTimeString1" + id, person.startTimeString);
+                                var maxLength = email.toString().indexOf("@");
+                                 maxLength = maxLength <= 14 ? maxLength : 14;
+                                dwr.util.setValue("currentUserEmail" + id, email.toString().substring(0,maxLength));     
+                                dwr.util.setValue("startTimeString1" + id, person.startTimeString);
                                 }
                             $("pattern" + id).style.display = "";
                             peopleCache[id] = person;
@@ -203,8 +202,9 @@
             var replyService = function (data) {
                 clearMessages();                
                 if (  data == 'Service Added Successfully') {
+                    dwr.util.setValue("successReply", "hello");
                     dwr.util.setValue("successReply", data + " to : " + dwr.util.getValue("systemNos") + " at " + new Date().toLocaleString());
-                    //alert ( dwr.util.getValue("systemNos"));
+                    alert ( dwr.util.getValue("systemNos") + data + " to : " + dwr.util.getValue("systemNos") + " at " + new Date().toLocaleString());
                     if ( dwr.util.getValue("systemNos") != 'Walk-in Customer') {
                         fetchDetail (  dwr.util.getValue("systemNos"));
                     }
@@ -263,17 +263,15 @@
                         dwr.util.setValue("payableAmount1", services[i].unitPrice * u );
                     }
                 }
-                //alert ( s + " " + u);
+                
             }
             
             function populateSystemNos () {
                 DWRUtil.removeAllOptions("systemNos");
                 var dummySystem = {name:'Walk-in Customer', id:'Walk-in Customer'};
-                usedSystemList[usedSystemList.lenght+1] = dummySystem;
-                
+                usedSystemList[usedSystemList.lenght+1] = dummySystem;                
                 DWRUtil.addOptions("systemNos", usedSystemList, "name", "name" );
-                // DWRUtil.addOption("systemNos", "walkin_customer@bizintelapps.com", "Walk-in, Customer" );
-                //usedSystemList[usedSystemList.length] = null;
+                
             }
         </script>
         <jsp:include page="table_style.jsp" ></jsp:include>
@@ -292,7 +290,7 @@
                             
                             <tr>
                                 <td>
-                                    <input type="text"  id="key" value="Email to Assign System " size="30" class="cleardefault" />
+                                    <input type="text"  id="key" value="Email" size="30" class="cleardefault" />
                                     <input type="submit" value="Search Customer" onclick="search();"/>          
                                     <!-- <input type="submit" value="Add To Member List" disabled="disabled" onclick="addToMemberList();"/> -->
                                     <img id="image" src="javascript:void(0);"/>

@@ -30,42 +30,50 @@
             a:visited {color:black; text-decoration:none; font-size:11pt}
         </style>
         
-        <script type='text/javascript' src='/CCM/dwr/interface/AjaxAdminService.js'></script>
         <script type='text/javascript' src='/CCM/dwr/interface/AjaxWorkService.js'></script>
         <script type='text/javascript' src='/CCM/dwr/engine.js'></script>        
         <script type='text/javascript' src='/CCM/dwr/util.js'></script>
         
         <script type="text/javascript">
-            function init() {
-                fillTable();
+            
+            function fillMembershipTypes() {
+                dwr.util.useLoadingMessage();     
+                AjaxWorkService.getAllMembershipTypes(function(data) {                    
+                    DWRUtil.removeAllOptions("membershipTypeString");
+                    DWRUtil.addOptions("membershipTypeString", data, "name", "name" );
+                    //services = data;
+                });
             }
         
             var peopleCache = { };
             var viewed = null;
-        
-            function fillTable() {
-                dwr.util.useLoadingMessage();
-                AjaxAdminService.getAllServices(function(people) {
+            
+            function search() {          
+                dwr.util.useLoadingMessage();                
+                clearMessages();
+                AjaxWorkService.getMemberships(dwr.util.getValue("key"), function(people) {
                     // Delete all the rows except for the "pattern" row
                     dwr.util.removeAllRows("peoplebody", { filter:function(tr) {
                             return (tr.id != "pattern");
                         }});
                     // Create a new set cloned from the pattern row
                     var person, id;
-                    //people.sort(function(p1, p2) { return p1.macAddress.localeCompare(p2.macAddress); });
+                    people.sort(function(p1, p2) { return p1.membershipTypeString.localeCompare(p2.membershipTypeString); });
                     for (var i = 0; i < people.length; i++) {
                         person = people[i];
                         id = person.id;
                         dwr.util.cloneNode("pattern", { idSuffix:id });
-                        dwr.util.setValue("name1" + id, person.name);
-                        dwr.util.setValue("unitPrice1" + id, person.unitPrice);                        
+                        dwr.util.setValue("email1" + id, person.email);
+                        dwr.util.setValue("membershipType1" + id, person.membershipTypeString);                        
                         $("pattern" + id).style.display = "";
                         peopleCache[id] = person;
                     }
                 });
-                document.getElementById("name").disabled=true;                
-            }
-        
+                document.getElementById("email").disabled=true;            
+                document.getElementById("membershipTypeString").disabled=true;     
+                document.getElementById("isActive").disabled=true;            
+            } 
+            
             function editClicked(eleid) {
                 // we were an id of the form "edit{id}", eg "edit42". We lookup the "42"
                 var person = peopleCache[eleid.substring(4)];
@@ -73,81 +81,42 @@
                 dwr.util.setValues(person);
             }
         
-            
-        
             function writePerson() {
                 var person;
                 
                 if ( viewed == null ) {
-                    person = { id:viewed, name:null, unitPrice:null };
+                    person = { id:viewed, email:null, membershipTypeString:null, isActive:null };
                 }   else {
                     person = peopleCache[viewed];
                 }
                 
                 dwr.util.getValues(person);
-                if ( person.name != null && person.name != '' ) {
-                    if ( person.unitPrice != null && person.unitPrice != "") {
-                        AjaxAdminService.saveService(person, reply1);
-                        AjaxWorkService.createMembershipDiscount(person.name);
-                    } 
-                    else {
-                        alert ( " Unit Price Cannot be Empty! ");
-                    }
-                } else {
-                    alert ( " Name Cannot be Empty! ");
-                }
+                if (  validateEmail(dwr.util.getValue("email"), true, true) ) {                    
+                        AjaxWorkService.saveMembership(person, reply1);  
+                }                        
             }
-            //dwr.engine.endBatch();
-            
-            
+           
             var reply1 = function (data) {
                 clearMessages();
-                if ( data == " Service Saved Successful! ") {
+                if ( data == "Saved Successfully!") {
                     dwr.util.setValue ("successReply", data + " at "  + new Date().toLocaleString());
-                    fillTable();
+                    dwr.util.setValue("key", "");
+                    search();
+                    clearPerson();
                 } else {
                     dwr.util.setValue ("failureReply", data );
                 }
-                    
-                    
-                //alert (data);
             }
-               
             
-        
             function clearPerson() {
                 viewed = null;
-                dwr.util.setValues({ id:null, name:null, unitPrice:null });
-                document.getElementById("name").disabled=false;        
-                       
+                dwr.util.setValues({ id:null, email:null, startDate:null, endDate:null });
+                document.getElementById("email").disabled=false;            
+                document.getElementById("membershipTypeString").disabled=false;     
+                document.getElementById("isActive").disabled=false;     
             }
-            function deletePerson() {
-                AjaxAdminService.deleteService(viewed, function(data) {
-                    clearMessages();
-                    if ( data == " Service Deleted Successful! ") {
-                        dwr.util.setValue ("successReply", data + " at " + new Date().toLocaleString());
-                        fillTable();
-                    } else {
-                        //dwr.util.setValue ("failureReply", data + " Or please refresh page!");
-                    }  
-                    fillTable();
-                });
-            }
-            function isInteger(s)
-            {
-                var i;
-                s = s.toString();
-                for (i = 0; i < s.length; i++)
-                {
-                    var c = s.charAt(i);
-                    if (isNaN(c) && c != '.') 
-                    {
-                        alert("This field Should contain Only number");
-                        return false;
-                    }
-                }
-                return true;
-            }
+            
+           
         </script>
         
         <jsp:include page="table_style.jsp" ></jsp:include>
@@ -158,21 +127,34 @@
         <!-- <h2 align="center"> Extra Services </h2> -->
         <table align="center">
             <tr>
-                <td valign="top">
+            <td valign="top">
+                <table>
                     
+                    <tr>
+                        <td>
+                            <input type="text"  id="key" value="Email" size="30" />
+                            <input type="submit" value="Search" onclick="search();"/>                                                                          
+                            <br>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            
+            <tr>
+                <td valign="top">
                     <table>
                         <thead>
                             <tr>
-                                <th> Service/Product </th>
-                                <th> Unit Price </th>                                
+                                <th> User  </th>
+                                <th> Membership </th>                                
                                 <th></th>
                             </tr>
                         </thead>
                         <form>
                             <tbody id="peoplebody">
                                 <tr id="pattern" style="display:none;">
-                                    <td><span id="name1"></span></td>
-                                    <td><span id="unitPrice1"></span></td>
+                                    <td><span id="email1"></span></td>
+                                    <td><span id="membershipType1"></span></td>
                                     <td>
                                         <input id="edit" type="button" value="Edit" onclick="editClicked(this.id)"/>                        
                                     </td>
@@ -180,39 +162,47 @@
                             </tbody>
                         </form>
                     </table>
-                    
-                    
-                </td>
-                <td valign="top">
-                    
+                </td>     
+                <td>
                     <table>
                         <thead>
                             <tr>
                                 <th></th>
                                 <th>
-                                    Add / Udpate Services
+                                    Add / Udpate Memberships
                                 </th>
                             </tr>
                         </thead>
                         <tr>
-                            <td> Service/Product:* </td>
-                            <td><input id="name" type="text" disabled size="25"/>
-                            <br> (eg: printer, dvd burn, potato chips..)
-                            </td>
+                            <td> Username:* </td>
+                            <td><input id="email" type="text" disabled size="25"/></td>
                         </tr> 
                         <tr>
-                            <td> Unit Price:* </td>
-                            <td><input id="unitPrice" type="text" size="5" onKeyup="isInteger(this.value);"/>
-                            <br> (eg: 2, 5.5 etc)
-                            </td>
+                            <td> Membership:* </td>
+                            <td><select id="membershipTypeString" disabled >
+                            </select></td>
+                        </tr> 
+                        <tr>
+                            <td> Active:* </td>
+                            <td><select id="isActive" disabled>
+                                    <option value="true">yes</option>
+                                    <option value="false">no</option>
+                            </select></td>
+                        </tr>
+                        <tr>
+                            <td> Start Date:* </td>
+                            <td><input id="startDateString" type="text" disabled size="25"/></td>
+                        </tr> 
+                        <tr>
+                            <td> Expiration:* </td>
+                            <td><input id="expirationDateString" type="text" disabled size="25"/></td>
                         </tr> 
                         <tr>
                             <td> 
                             </td>
                             <td>
                                 <button value="New" onclick="clearPerson()" >New</button>
-                                <button value="Save" id="save" onclick="writePerson()" >Save</button>  
-                                <button value="Delete" onclick="deletePerson()" >Delete</button>                                                                
+                                <button value="Save" id="save" onclick="writePerson()" >Save</button>                                      
                             </td>
                         </tr>             
                         
@@ -222,8 +212,8 @@
             </tr>
         </table>
         
-        <script type="text/javascript">
-            onload = fillTable();
+       <script type="text/javascript">
+            onload = fillMembershipTypes();
         </script>
         <br>
         <br>
@@ -233,3 +223,4 @@
     </body>
     
 </html>
+

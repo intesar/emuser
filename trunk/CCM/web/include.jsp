@@ -111,7 +111,7 @@
         &nbsp;&nbsp;&nbsp;
         <a onclick="forwardFunction('customer.jsp');"><img src="icons/customer profile_1.png" title="Customer Profiles" alt="6"/>
         </a>
-         &nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;
         <a onclick="forwardFunction('my_systemlease.jsp');">
             <img src="icons/myhistory234.png" alt="Dashboard" title="My History" />            
         </a>
@@ -124,7 +124,7 @@
     </div>
     
     <div id="customerDiv" style="visibility: hidden" align="center">
-         
+        
         <a onclick="forwardFunction('my_systemlease.jsp');">
             <img src="icons/myhistory234.png" alt="Dashboard" title="My History" />            
         </a>
@@ -135,19 +135,26 @@
         <a onclick="refresh();"><img src="icons/re.png" title="Refresh" alt="11 logout"/>
         </a> 
     </div>
-    
+    <br>
     <div align="center">
-        <font style="color:green">
-            <span id="successReply" ></span>
+        
+        <font style="color:green;">            
+            <span id="successReply" style="display:none; background:#FFFFDD; font-weight:bold;"></span>            
         </font>
         <font style="color:red">
-            <span id="failureReply"></span>
+            <span id="failureReply" style="display:none; background:#FFFF66; font-weight:bold;"></span>
         </font>
+         
     </div>
 </div>
 <br>
 <script type="text/javascript">
     onLoad = createMenu();
+    function writeMessage(type,  message) {
+        dwr.util.setValue (type, message);
+        // clear message after 5 seconds
+        //setTimeout("clearMessages();", 5000);
+    }
     function clearMessages() {
         dwr.util.setValue ("failureReply", "" );
         dwr.util.setValue ("successReply", "" );
