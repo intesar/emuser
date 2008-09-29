@@ -95,6 +95,8 @@ http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
                 /dashboard2.jsp*=ROLE_ADMIN,ROLE_USER
                 /customer.jsp*=ROLE_ADMIN,ROLE_USER
                 /services.jsp*=ROLE_ADMIN
+                /memberships.jsp*=ROLE_ADMIN,ROLE_USER
+                /membership_types.jsp*=ROLE_ADMIN,ROLE_USER
             </value>
         </property>
     </bean>
@@ -123,9 +125,24 @@ http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
             </list>
         </property>
     </bean>
+    <!-- Your application may use the PasswordEncryptor in several places, --> 
+  <!-- like for example at new user sign-up.                             -->
+    <bean id="jasyptPasswordEncryptor" class="org.jasypt.util.password.StrongPasswordEncryptor" />
+
+<!-- This Spring Security-friendly PasswordEncoder implementation will -->
+  <!-- wrap the PasswordEncryptor instance so that it can be used from   -->
+  <!-- the security framework.     org.jasypt.spring.security2.PasswordEncoder      -->
+    <bean id="passwordEncoder" class="org.jasypt.spring.security.PasswordEncoder" > 
+        <property name="passwordEncryptor">
+            <ref bean="jasyptPasswordEncryptor" />
+        </property>
+    </bean>
     <bean id="daoAuthenticationProvider"
         class="org.acegisecurity.providers.dao.DaoAuthenticationProvider">
         <property name="userDetailsService" ref="userDetailsService"/> <!-- memoryAuthenticationDao -->
+        <property name="passwordEncoder">
+            <ref bean="passwordEncoder" />
+        </property>
     </bean>
     <bean id="userDetailsService"
           class="org.acegisecurity.userdetails.jdbc.JdbcDaoImpl">
@@ -160,6 +177,4 @@ http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
     <bean id="roleVoter" class="org.acegisecurity.vote.RoleVoter">
         <property name="rolePrefix" value=""/>
     </bean>
-    
-   
 </beans>

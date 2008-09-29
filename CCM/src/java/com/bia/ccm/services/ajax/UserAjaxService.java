@@ -13,13 +13,7 @@ import com.bia.ccm.services.impl.EMailServiceImpl;
 import com.bia.ccm.util.AcegiUtil;
 import com.bia.ccm.util.ServiceFactory;
 import com.bia.converter.Converter;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.imageio.ImageIO;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -34,10 +28,22 @@ public class UserAjaxService {
         return this.userService.getUserRole(username);
     }
 
+    public String resetPassword(String email, String activationCode, String password) {
+        String str = "successful";
+        try {
+            email = SQLInjectionFilterManager.getInstance().filter(email);
+            //activationCode  = SQLInjectionFilterManager.getInstance().filter(activationCode);            
+            this.userService.resetPassword(email, activationCode, password);
+        } catch ( RuntimeException re) {
+            logger.error(re);
+            str = "please check your inputs!";
+        }
+        return str;
+    }
     public String forgotPassword(String email) {
-        
+
         email = SQLInjectionFilterManager.getInstance().filter(email);
-        
+
         String msg = " Please check your email for your password! ";
         try {
             this.userService.forgotPassword(email.toLowerCase());
@@ -59,19 +65,19 @@ public class UserAjaxService {
 
     public String registerNewOrganization(String organizationName, String city,
             String email, String password, Integer minutes, Integer rate, Integer maxSystems) {
-        if ( organizationName != null ) {
+        if (organizationName != null) {
             organizationName = SQLInjectionFilterManager.getInstance().filter(organizationName);
             organizationName = organizationName.toLowerCase();
         }
-        if ( city != null ) {
+        if (city != null) {
             city = SQLInjectionFilterManager.getInstance().filter(city);
             city = city.toLowerCase();
         }
-        if ( email != null ) {
+        if (email != null) {
             email = SQLInjectionFilterManager.getInstance().filter(email);
             email = email.toLowerCase();
         }
-       
+
         logger.debug("error");
         String str = "Please login with your email and password";
         try {
@@ -81,7 +87,8 @@ public class UserAjaxService {
 
             return str;
         } catch (Exception e) {
-            logger.debug("error");
+            e.printStackTrace();
+            logger.debug(e);
             return "Error creating new organization, try registering with different Email or Organization Name";
         }
 
@@ -91,9 +98,9 @@ public class UserAjaxService {
 
         String msg = "Customer Created Successfully!";
         try {
-            if (c.getImg() != null) {
-                c.setPic(this.bufferedImageToByteArray(c.getImg()));//this.scaleToSize(c.getImg())
-            }
+//            if (c.getImg() != null) {
+//                c.setPic(this.bufferedImageToByteArray(c.getImg()));//this.scaleToSize(c.getImg())
+//            }
             c.setCreateDate(new Date());
             c.setEmail(SQLInjectionFilterManager.getInstance().filter(c.getEmail()));
             c.setUsername(SQLInjectionFilterManager.getInstance().filter(c.getUsername()));
@@ -111,28 +118,6 @@ public class UserAjaxService {
         }
         return msg;
     }
-
-    private byte[] bufferedImageToByteArray(BufferedImage aBufferedImage) {
-        try {
-            // O P E N
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-
-            // W R I T E
-            ImageIO.write(aBufferedImage, "jpg", baos);
-
-            // C L O S E
-            baos.flush();
-            byte[] resultImageAsRawBytes = baos.toByteArray();
-            baos.close();
-            return resultImageAsRawBytes;
-
-
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            Logger.getLogger(WorkAjaxService.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-    }
     protected final Log logger = LogFactory.getLog(getClass());
     protected UserService userService = (UserService) ServiceFactory.getService("userServiceImpl");
     private WorkService workService = (WorkService) ServiceFactory.getService("workServiceImpl");
@@ -140,9 +125,9 @@ public class UserAjaxService {
 
     public static void main(String[] args) {
         UserAjaxService uas = new UserAjaxService();
-        //System.out.println(uas.registerNewOrganization("apolokk", "hyd", "apollkkk", "apollo13", 15, 50));
+        uas.registerNewOrganization("apolokk", "hyd", "intesar.mohammed@bizintelapps.com", "apollo13", 15, 50, 10);
         System.out.println(" _________________________________ ");
-        System.out.println(uas.userService.getUser(1));
+        //System.out.println(uas.userService.getUser(1));
         System.out.println(" _________________________________ ");
 
     }

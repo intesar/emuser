@@ -20,11 +20,11 @@ public interface EMailService {
     static final String EMAIL_MESSAGE_TEXT = "";
     static final String EMAIL_SUBJECT_TEXT = " BizIntelApps FaceGuard Accounts Status Report ";
     static final String EMAIL_SUBJECT_TEXT_160BY2 = "bizintelapps1";
-    static final String EMAIL_FROM_ADDRESS = "face.guard1@bizintelapps.com";
+    static final String EMAIL_FROM_ADDRESS = "faceguard2@bizintelapps.com";
     static final String SSL_FACTORY = "javax.net.ssl.SSLSocketFactory";
     static final String[] SEND_TO = {"mohdshannan@yahoo.com"};
-    static final String SEND_FROM_USERNAME = "face.guard1@bizintelapps.com";
-    static final String SEND_FROM_PASSWORD = "faceguard1234";
+    static final String SEND_FROM_USERNAME = "faceguard2@bizintelapps.com";
+    static final String SEND_FROM_PASSWORD = "Abbh1234";
     static final String EMAIL_CONTENT_TYPE = "text/html";
     static final String EMAIL_SIGNATURE = " <br><br> Users have often told us that the more " +
             "they use FaceGuard, the more they discover its benefits. " +

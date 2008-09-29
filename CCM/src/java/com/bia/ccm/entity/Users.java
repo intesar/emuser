@@ -50,7 +50,7 @@ public class Users implements Serializable {
     private String password;
     @Column(name = "enabled", nullable = false)
     private boolean enabled;
-    @Column(name = "organization", nullable = false)
+    @Column(name = "organization")
     private String organization;
     @Column(name = "email")
     private String email;
@@ -93,17 +93,19 @@ public class Users implements Serializable {
     private String drivingLicence;
     @Column(name = "comments")
     private String comments;
-    @Column(name="pic")
-    @Lob    
+    @Column(name = "pic")
+    @Lob
     private byte[] pic;
     @Transient
     private BufferedImage img;
     @Transient
     private BufferedImage image;
     @Column(name = "is_verified", nullable = false)
-    private boolean isVerified;
+    private boolean isVerified = false;
     @Column(name = "verified_by")
     private String verifiedBy;
+//    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
+//    private UserPic userPic;
 
     public Users() {
     }
@@ -356,6 +358,26 @@ public class Users implements Serializable {
         this.pic = pic;
     }
 
+    
+//    public byte[] getPic() {
+//        if ( pic == null && userPic != null && userPic.getPic() != null ) {
+//            return userPic.getPic();
+//        }
+//        return pic;
+//    }
+//
+//    public void setPic(byte[] pic) {
+//        if (pic != null && pic.length > 0) {
+//            if (userPic == null) {
+//                userPic = new UserPic();
+//            }
+//            userPic.setPic(pic);
+//            userPic.setUser(this);
+//        } else if ( userPic != null && userPic.getPic() != null && userPic.getPic().length > 0 ) {
+//            this.pic = userPic.getPic();
+//        }
+//    }
+
     public String getRationCardNo() {
         return rationCardNo;
     }
@@ -404,7 +426,14 @@ public class Users implements Serializable {
         this.verifiedBy = verifiedBy;
     }
 
-    
+//    public UserPic getUserPic() {
+//        return userPic;
+//    }
+//
+//    public void setUserPic(UserPic userPic) {
+//        this.userPic = userPic;
+//    }
+
     @Override
     public int hashCode() {
         int hash = 0;

@@ -12,6 +12,8 @@ import com.bia.ccm.dao.ServicesDao;
 import com.bia.ccm.dao.SystemLeaseDao;
 import com.bia.ccm.dao.SystemsDao;
 import com.bia.ccm.dao.UsersDao;
+import com.bia.ccm.dao.UsersLightDao;
+import com.bia.ccm.dao.UsersPassDao;
 import com.bia.ccm.entity.Authorities;
 import com.bia.ccm.entity.AuthoritiesPK;
 import com.bia.ccm.entity.EmailPreference;
@@ -21,13 +23,18 @@ import com.bia.ccm.entity.Services;
 import com.bia.ccm.entity.SystemLease;
 import com.bia.ccm.entity.Systems;
 import com.bia.ccm.entity.Users;
+import com.bia.ccm.entity.UsersLight;
+import com.bia.ccm.entity.UsersPass;
 import com.bia.ccm.services.AdminService;
 import com.bia.ccm.services.EMailService;
 import com.bia.ccm.util.EMailUtil;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.jasypt.encryption.pbe.PBEStringEncryptor;
+import org.jasypt.util.password.PasswordEncryptor;
 
 /**
  *
@@ -43,7 +50,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     public void updateRentalPrice(int mims, double rate, Integer lmins, Double lrate, String username) {
-        Users u = this.usersDao.findByUsername(username);
+        UsersLight u = this.usersLightDao.findByUsername(username);
         String org = u.getOrganization();
         List<Systems> list = this.systemsDao.findByOrganization(org);
         for (Systems s : list) {
@@ -58,12 +65,12 @@ public class AdminServiceImpl implements AdminService {
     }
 
     public List<Systems> getAllSystems(String username) {
-        Users u = this.getUserByUsername(username);
+        UsersLight u = this.usersLightDao.findByUsername(username);
         return this.systemsDao.findByOrganization(u.getOrganization());
     }
 
     public void saveSystem(Systems systems, String username) {
-        Users u = this.getUserByUsername(username);
+        UsersLight u = this.usersLightDao.findByUsername(username);
         try {
             if (systems != null && systems.getId() == null) {
                 systems.setOrganization(u.getOrganization());
@@ -85,25 +92,36 @@ public class AdminServiceImpl implements AdminService {
     }
 
     public List<Users> getAllUsers(String username) {
-        Users u = this.getUserByUsername(username);
+        UsersLight u = this.usersLightDao.findByUsername(username);
         return this.usersDao.findByOrganization(u.getOrganization());
     }
 
     public void saveUser(Users users, String username) {
-        Users u = this.getUserByUsername(username);
+        UsersLight u = this.usersLightDao.findByUsername(username);
         try {
             if (users != null && users.getId() == null) {
                 users.setOrganization(u.getOrganization());
                 users.setCreateDate(new Date());
                 users.setCreateUser(username);
                 users.setEmail(users.getUsername());
+                String password = users.getPassword();
+                users.setPassword(passwordEncryptor.encryptPassword(users.getPassword()));
                 this.usersDao.create(users);
+                UsersLight ul = new UsersLight(users.getUsername(), u.getOrganization());
+                this.usersLightDao.create(ul);
                 if (users.getRole().equalsIgnoreCase("admin")) {
                     Authorities a1 = new Authorities(users.getUsername(), "ROLE_ADMIN");
                     this.authoritiesDao.create(a1);
                 }
                 Authorities a2 = new Authorities(users.getUsername(), "ROLE_USER");
                 this.authoritiesDao.create(a2);
+                // storing pass in UsersPass
+                String encryptedPass = this.stringEncryptor.encrypt(password);
+                String resetCode = this.stringEncryptor.encrypt( username + Calendar.getInstance().getFirstDayOfWeek());
+                UsersPass usersPass = new UsersPass(null, users.getUsername(),
+                        encryptedPass, true, resetCode, new Date());
+                usersPassDao.create(usersPass);
+                eMailService.sendEmail(u.getUsername(), "Welcome to FaceGuard, username / password : " + u.getUsername() + " / " + password);
             } else if (users != null && users.getId() != null) {
                 this.usersDao.update(users);
                 if (users.getRole().equalsIgnoreCase("employee")) {
@@ -130,7 +148,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     public List<EmailPreference> getAllEmailPreference(String username) {
-        Users u = this.getUserByUsername(username);
+        UsersLight u = this.usersLightDao.findByUsername(username);
         return this.emailPreferenceDao.findByOrganization(u.getOrganization());
     }
 
@@ -140,7 +158,7 @@ public class AdminServiceImpl implements AdminService {
 
     public void saveEmailPreference(
             EmailPreference emailPreference, String username) {
-        Users u = this.getUserByUsername(username);
+        UsersLight u = this.usersLightDao.findByUsername(username);
         try {
             if (emailPreference != null && emailPreference.getId() == null) {
                 emailPreference.setOrganization(u.getOrganization());
@@ -161,13 +179,13 @@ public class AdminServiceImpl implements AdminService {
     }
 
     public List<EmailTimePreference> getAllEmailTimePreference(String username) {
-        Users u = this.getUserByUsername(username);
+        UsersLight u = this.usersLightDao.findByUsername(username);
         return this.emailTimePreferenceDao.findByOrganization(u.getOrganization());
     }
 
     public void saveEmailTimePreference(
             EmailTimePreference emailTimePreference, String username) {
-        Users u = this.getUserByUsername(username);
+        UsersLight u = this.usersLightDao.findByUsername(username);
         EmailTimePreference etp = null;
         try {
             etp = this.emailTimePreferenceDao.findByOrganizationAndReportTime(u.getOrganization(), emailTimePreference.getReportTime());
@@ -191,7 +209,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     public List<SystemLease> getAllSystemLease(String username) {
-        Users u = this.getUserByUsername(username);
+        UsersLight u = this.usersLightDao.findByUsername(username);
         return this.systemLeaseDao.findByOrganization(u.getOrganization());
     }
 
@@ -202,13 +220,13 @@ public class AdminServiceImpl implements AdminService {
 
     public Organization getOrganization(
             String username) {
-        Users u = this.getUserByUsername(username);
+        UsersLight u = this.usersLightDao.findByUsername(username);
         return this.organizationDao.findByOrganization(u.getOrganization());
     }
 
     public void saveOrganization(
             Organization organization, String username) {
-        Users u = this.getUserByUsername(username);
+        UsersLight u = this.usersLightDao.findByUsername(username);
         try {
             if (organization != null) {
                 this.organizationDao.update(organization);
@@ -247,11 +265,6 @@ public class AdminServiceImpl implements AdminService {
         endDate.setHours(23);
         endDate.setMinutes(59);
         return this.systemLeaseDao.findReportBetweenDates(startDate, endDate, org);
-    }
-
-    public Users getUserByUsername(
-            String username) {
-        return this.usersDao.findByUsername(username);
     }
 
     public void saveService(Services service) {
@@ -299,13 +312,18 @@ public class AdminServiceImpl implements AdminService {
                     toAddress[count++] = email;
                 }
 
-                eMailServiceImpl.sendEmail(toAddress, subject, new Date() + " [Total Minutes, Payable, Paid]" + result.toString());
+                eMailService.sendEmail(toAddress, subject, new Date() + " [Total Minutes, Payable, Paid]" + result.toString());
             }
         }
     }
 
     public List<EmailTimePreference> getEmailTimePreferences(short time) {
         return this.emailTimePreferenceDao.findByReportTime(time);
+    }
+
+    public UsersLight getUserByUsername(String username) {
+        UsersLight u = this.usersLightDao.findByUsername(username);
+        return u;
     }
     // getters & setters
     public void setUsersDao(UsersDao usersDao) {
@@ -339,7 +357,25 @@ public class AdminServiceImpl implements AdminService {
     public void setServicesDao(ServicesDao servicesDao) {
         this.servicesDao = servicesDao;
     }
+
+    public void setPasswordEncryptor(PasswordEncryptor passwordEncryptor) {
+        this.passwordEncryptor = passwordEncryptor;
+    }
+
+    public void setUsersLightDao(UsersLightDao usersLightDao) {
+        this.usersLightDao = usersLightDao;
+    }
+
+    public void setUsersPassDao(UsersPassDao usersPassDao) {
+        this.usersPassDao = usersPassDao;
+    }
+
+    public void setStringEncryptor(PBEStringEncryptor stringEncryptor) {
+        this.stringEncryptor = stringEncryptor;
+    }
+    private UsersLightDao usersLightDao;
     private UsersDao usersDao;
+    private UsersPassDao usersPassDao;
     private SystemsDao systemsDao;
     private EmailPreferenceDao emailPreferenceDao;
     private EmailTimePreferenceDao emailTimePreferenceDao;
@@ -347,5 +383,7 @@ public class AdminServiceImpl implements AdminService {
     private OrganizationDao organizationDao;
     private AuthoritiesDao authoritiesDao;
     private ServicesDao servicesDao;
-    private EMailServiceImpl eMailServiceImpl = new EMailServiceImpl();
+    private PasswordEncryptor passwordEncryptor;
+    private PBEStringEncryptor stringEncryptor;
+    private EMailService eMailService = new EMailServiceImpl();
 }

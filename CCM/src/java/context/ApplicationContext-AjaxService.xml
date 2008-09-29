@@ -31,6 +31,7 @@
     <bean id="userAjaxService" class="com.bia.ccm.services.ajax.UserAjaxService" >
         <dwr:remote javascript="AjaxUserService">
             <dwr:include method="forgotPassword" />
+            <dwr:include method="resetPassword" />
             <dwr:include method="registerNewOrganization" />
             <dwr:include method="getLoggedInUserRole" />
             <dwr:include method="isUserAdmin" />
@@ -47,11 +48,19 @@
             <dwr:include method="getPayableAmount" />
             <dwr:include method="createCustomer" />
             <dwr:include method="getCustomer" />
+            <dwr:include method="getUserWithPic" />
             <dwr:include method="addSuggestion" />
             <dwr:include method="getSystemLease" />
             <dwr:include method="addService" />
             <dwr:include method="chargePayment" />
             <dwr:include method="getAllServices" />
+            <dwr:include method="getAllMembershipTypes" />
+            <dwr:include method="saveMembershipType" />
+            <dwr:include method="getMembershipDiscountses" />
+            <dwr:include method="saveMembershipDiscount" />
+            <dwr:include method="getMemberships" />
+            <dwr:include method="saveMembership" />
+            <dwr:include method="createMembershipDiscount" />
         </dwr:remote>
     </bean>
     <bean id="adminAjaxService" class="com.bia.ccm.services.ajax.AdminAjaxService" >
@@ -74,7 +83,7 @@
             <dwr:include method="deleteEmail" />
             <dwr:include method="saveService" />
             <dwr:include method="deleteService" />
-            <dwr:include method="getAllServices" />
+            <dwr:include method="getAllServices" />            
         </dwr:remote>
     </bean>
     <bean id="customerAjaxService" class="com.bia.ccm.services.ajax.CustomerAjaxService" >

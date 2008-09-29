@@ -26,7 +26,7 @@ import javax.persistence.Transient;
 @NamedQueries({
     @NamedQuery(name = "Systems.findByOrganization", query = "select s from Systems s where s.organization = ?1  "),
     @NamedQuery(name = "Systems.findBySystemNameAndOrganization", query = "select s from Systems s where s.name = ?1 and s.organization = ?2"),
-    @NamedQuery(name = "Systems.findByMacAddress", query = "select s from Systems s where s.macAddress = ?1 "),
+    @NamedQuery(name = "Systems.findByMacAddress", query = "select s from Systems s where lower(s.macAddress) = ?1 "),
     @NamedQuery(name = "Systems.findNoOfActiveSystemsByOrganization", query = "select count(s) from Systems s where s.enabled = true and s.isAvailable = true and s.organization = ?1  ")
 })
 public class Systems implements Serializable {

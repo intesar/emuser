@@ -5,31 +5,27 @@
 package com.bia.ccm.services.ajax;
 
 import com.abbhsoft.sqlInjectionFilter.SQLInjectionFilterManager;
+import com.bia.ccm.entity.MembershipDiscounts;
+import com.bia.ccm.entity.MembershipTypes;
+import com.bia.ccm.entity.Memberships;
+import com.bia.ccm.entity.Organization;
 import com.bia.ccm.entity.Services;
 import com.bia.ccm.entity.SystemLease;
 import com.bia.ccm.entity.Systems;
 import com.bia.ccm.entity.UsageDetail;
 import com.bia.ccm.entity.Users;
+import com.bia.ccm.services.AdminService;
 import com.bia.ccm.services.EMailService;
+import com.bia.ccm.services.MembershipService;
 import com.bia.ccm.services.WorkService;
 import com.bia.ccm.services.impl.EMailServiceImpl;
 import com.bia.ccm.util.AcegiUtil;
 import com.bia.ccm.util.ServiceFactory;
 import com.bia.converter.Converter;
-import java.awt.Font;
-import java.awt.Graphics2D;
-import java.awt.geom.AffineTransform;
-import java.awt.image.AffineTransformOp;
 
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.imageio.ImageIO;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -59,7 +55,7 @@ public class WorkAjaxService {
                 leaseHolder = SQLInjectionFilterManager.getInstance().filter(leaseHolder);
                 leaseHolder = leaseHolder.toLowerCase();
             }
-            this.workService.leaseSystem(systemId, leaseHolder);
+            this.workService.leaseSystem(systemId, leaseHolder,AcegiUtil.getUsername());
         } catch (Exception e) {
             e.printStackTrace();
             logger.equals(e);
@@ -77,7 +73,7 @@ public class WorkAjaxService {
             service = SQLInjectionFilterManager.getInstance().filter(service);
             user = SQLInjectionFilterManager.getInstance().filter(user);
             comments = SQLInjectionFilterManager.getInstance().filter(comments);
-            if ( units <= 0 || payableAmount <= 0 || paidAmount <= 0 ) {
+            if (units <= 0 || payableAmount <= 0 || paidAmount <= 0) {
                 return "We are keeping an Eye on you! ";
             }
             this.workService.addService(service, units, user, payableAmount, comments, paidAmount, agent);
@@ -96,10 +92,10 @@ public class WorkAjaxService {
 
     public String unleaseSystem(int systemId, double paidAmount) {
         try {
-            if ( systemId <= 0 || paidAmount <= 0 ) {
+            if (systemId <= 0 || paidAmount <= 0) {
                 return "We are keeping an Eye on you! ";
             }
-            this.workService.unleaseSystem(systemId, paidAmount);
+            this.workService.unleaseSystem(systemId, paidAmount, AcegiUtil.getUsername());
         } catch (Exception e) {
             //e.printStackTrace();
             logger.equals(e);
@@ -112,9 +108,9 @@ public class WorkAjaxService {
 
         String msg = "Customer Created Successfully!";
         try {
-            if (c.getImg() != null) {
-                c.setPic(this.bufferedImageToByteArray(c.getImg()));//this.scaleToSize(c.getImg())
-            }
+//            if (c.getImg() != null) {
+//                c.setPic(this.bufferedImageToByteArray(c.getImg()));//this.scaleToSize(c.getImg())
+//            }
             c.setCreateDate(new Date());
             Users u = this.workService.getCustomer(AcegiUtil.getUsername());
             c.setIsVerified(true);
@@ -135,14 +131,38 @@ public class WorkAjaxService {
         return msg;
     }
 
+    public Users getUserWithPic(String key) {
+        Users c = null;
+        key = SQLInjectionFilterManager.getInstance().filter(key);
+        try {
+            if (key != null) {
+                key = key.toLowerCase();
+            }
+            c = this.workService.getCustomerPic(key);
+        //c.setPassword("Encrypted");
+        } catch (Exception e) {
+            logger.error(e);
+        }
+        if (c == null) {
+            c = new Users();
+        }
+//        if (c.getUserPic() != null && c.getUserPic().getPic() != null ) {
+//            c.setImage(this.byteArrayToBufferedImage(c.getUserPic().getPic()));
+//            c.setImg(null);
+//        }
+
+        return c;
+    }
+
     public Users getCustomer(String key) {
         Users c = null;
         key = SQLInjectionFilterManager.getInstance().filter(key);
         try {
-            if ( key != null ) {
+            if (key != null) {
                 key = key.toLowerCase();
             }
             c = this.workService.getCustomer(key);
+        //c.setPassword("Encrypted");
         } catch (Exception e) {
             logger.error(e);
         }
@@ -151,10 +171,6 @@ public class WorkAjaxService {
             c.setComments("No record found for given email!");
         }
 
-        if (c.getPic() != null && c.getPic().length > 0) {
-            c.setImage(this.byteArrayToBufferedImage(c.getPic()));
-            c.setImg(null);
-        }
 
         return c;
     }
@@ -164,67 +180,13 @@ public class WorkAjaxService {
     }
 
     //public String addSuggestion()
-    /**
-     * Voodoo to scale the image to 200x200
-     * @param uploadImage The image to work on
-     * @return The altered image
-     */
-    private BufferedImage scaleToSize(BufferedImage uploadImage) {
-        AffineTransform atx = new AffineTransform();
-        atx.scale(400d / uploadImage.getWidth(), 400d / uploadImage.getHeight());
-        AffineTransformOp afop = new AffineTransformOp(atx, AffineTransformOp.TYPE_BILINEAR);
-        uploadImage = afop.filter(uploadImage, null);
-        return uploadImage;
-    }
-
-    /**
-     * And scrawl the text on the image in 10 rows of 20 chars
-     * @param uploadImage The image to work on
-     * @param uploadFile The text to write on the image
-     * @param color The selected color
-     * @return The altered image
-     */
-    private BufferedImage grafitiTextOnImage(BufferedImage uploadImage) {
-
-        Graphics2D g2d = uploadImage.createGraphics();
-        for (int row = 0; row < 10; row++) {
-            String output = null;
-
-
-            g2d.setFont(new Font("SansSerif", Font.BOLD, 16));
-
-            g2d.drawString(output, 5, (row + 1) * 20);
-        }
-
-        return uploadImage;
-    }
-
-    private byte[] bufferedImageToByteArray(BufferedImage aBufferedImage) {
-        try {
-            // O P E N
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-
-            // W R I T E
-            ImageIO.write(aBufferedImage, "jpg", baos);
-
-            // C L O S E
-            baos.flush();
-            byte[] resultImageAsRawBytes = baos.toByteArray();
-            baos.close();
-            return resultImageAsRawBytes;
-
-
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            Logger.getLogger(WorkAjaxService.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-    }
-
     public String chargePayment(int systemId) {
         String msg = "Payment Successful!";
         try {
             workService.chargePayment(systemId, AcegiUtil.getUsername());
+        } catch (RuntimeException re) {
+            logger.error(re.getMessage());
+            return re.getMessage();
         } catch (Exception e) {
             logger.error(e.getMessage());
             return e.getMessage();
@@ -232,16 +194,118 @@ public class WorkAjaxService {
         return msg;
     }
 
-    private BufferedImage byteArrayToBufferedImage(byte[] bytes) {
-        try {
-            BufferedImage image = ImageIO.read(new ByteArrayInputStream(bytes));
-            return image;
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            Logger.getLogger(WorkAjaxService.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
+    public Organization getOrganization() {
+        String username = AcegiUtil.getUsername();
+        return this.adminService.getOrganization(username);
     }
+
+    public List<MembershipTypes> getAllMembershipTypes() {
+        String org = this.getOrganization().getName();
+        List<MembershipTypes> list = this.membershipService.getMembershipTypesByOrganization(org);
+        return list;
+    }
+
+    public String saveMembershipType(MembershipTypes membershipTypes) {
+        try {
+            if (membershipTypes == null || membershipTypes.getName() == null ||
+                    membershipTypes.getName().trim().length() <= 0 ||
+                    membershipTypes.getFee() <= 0.0 || membershipTypes.getDaysValidFor() <= 0) {
+                return "Invalid Inputs!";
+            }
+            Organization o = this.getOrganization();
+            if (membershipTypes.getId() == null) {
+                membershipTypes.setCreateDate(new Date());
+                membershipTypes.setCreateUser(AcegiUtil.getUsername());
+                membershipTypes.setOrganization(o);
+                membershipTypes.setName(membershipTypes.getName().toLowerCase());
+                this.membershipService.saveMembershipType(membershipTypes);
+
+                membershipTypes = this.membershipService.getMembershipTypesByOrganizationAndName(o.getName(), membershipTypes.getName());
+                List<Services> serviceses = this.getAllServices();
+                if (serviceses == null) {
+                    serviceses = new ArrayList<Services>();
+                }
+                serviceses.add(new Services(0, "computer", 0, ""));
+
+                for (Services s : serviceses) {
+                    MembershipDiscounts md = new MembershipDiscounts(null, s.getName(),
+                            0.0, new Date(), AcegiUtil.getUsername());
+                    md.setMembershipType(membershipTypes);
+                    this.membershipService.saveMembershipDiscounts(md);
+                }
+            } else {
+                this.membershipService.saveMembershipType(membershipTypes);
+            }
+            return "Created Successfully!";
+        } catch (Exception e) {
+            logger.error(e);
+            return "Error, Please check your inputs or Try later!";
+        }
+    }
+
+    /**
+     * 
+     * @param membershipType
+     * @return
+     */
+    public List<MembershipDiscounts> getMembershipDiscountses(Integer membershipType) {
+        return this.membershipService.getMembershipDiscountsByMembershipTypesId(membershipType);
+    }
+
+    public void createMembershipDiscount(String service) {
+        String org = this.getOrganization().getName();
+        List<MembershipTypes> list = this.membershipService.getMembershipTypesByOrganization(org);
+        for (MembershipTypes mt : list) {
+            MembershipDiscounts md = new MembershipDiscounts(null, service, 0.0, new Date(), AcegiUtil.getUsername());
+            md.setMembershipType(mt);
+            this.membershipService.saveMembershipDiscounts(md);
+        }
+    }
+
+    public String saveMembershipDiscount(int membershipDiscountId, double discountPercentage) {
+        try {
+            if (discountPercentage < 0.0 || discountPercentage > 100.0) {
+                return "Discount Percentage cannot be Negative or Greater than 100!";
+            }
+            MembershipDiscounts discounts = this.membershipService.getMembershipDiscountsById(membershipDiscountId);
+            discounts.setDiscountPercentage(discountPercentage);
+            this.membershipService.saveMembershipDiscounts(discounts);
+            return "Saved Successfully!";
+        } catch (Exception e) {
+            logger.error(e);
+            return "Error, Please try again!";
+        }
+    }
+
+    public String saveMembership(Memberships memberships) {
+        try {
+            this.membershipService.saveMembership(memberships, this.getOrganization(),AcegiUtil.getUsername());
+            return "Saved Successfully!";
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.error(e);
+            return "Error, Try again!";
+        }
+    }
+
+    public List<Memberships> getMemberships(String key) {
+        try {
+            key = SQLInjectionFilterManager.getInstance().filter(key);
+            if (key == null || key.trim().length() < 5) {
+                return this.membershipService.getMembershipsByOrganization(this.getOrganization().getName());
+            } else {
+                List<Memberships> list = new ArrayList<Memberships>();
+                Memberships m = this.membershipService.getMembershipsByOrganizationAndUsername(this.getOrganization().getName(), key);
+                list.add(m);
+                return list;
+            }
+        } catch (Exception e) {
+            logger.error(e);
+            return null;
+        }
+    }
+    private AdminService adminService = (AdminService) ServiceFactory.getService("adminServiceImpl");
+    private MembershipService membershipService = (MembershipService) ServiceFactory.getService("membershipServiceImpl");
     protected final Log logger = LogFactory.getLog(getClass());
     private WorkService workService = (WorkService) ServiceFactory.getService("workServiceImpl");
     private EMailService eMailService = new EMailServiceImpl();
