@@ -38,6 +38,7 @@
         
             var peopleCache = { };
             var viewed = null;
+            var user = null;
         
             function fillTable() {
                 dwr.util.useLoadingMessage();
@@ -63,9 +64,11 @@
                         
                         $("pattern" + id).style.display = "table-row";
                         peopleCache[id] = person;
+                        user = person;
                     }
                 });
                 document.getElementById("username").disabled=true;
+                document.getElementById("password").disabled=true;
             }
         
             function editClicked(eleid) {
@@ -81,19 +84,31 @@
             function writePerson() {
                 var person;
                 if ( viewed == null ) {
-                    person = { id:viewed, username:null, name:null, password:null, enabledString:null, role:null, phone:null };
+                    person = user;
+                    person.id = null;
+                    person.img = null;
+                    //person.email = null;
+                    person.homePhone = null;
+                    person.mobilePhone = null;
+                    person.otherPhone = null;
+                    person.street = null;
+                    person.city = null;
+                    person.zipcode = null;
+                    person.passportNo = null;
+                    person.voterId = null;
+                    person.panCardNo = null;
+                    person.comments = null;
+                    person.gender = null;
                 } else {
                     person = peopleCache[viewed];
                 }
                 dwr.util.getValues(person);
-                if ( person.enabledString == "yes") {
+                if ( dwr.util.getValue('enabledString') == "yes") {
                     person.enabled = true;
                 } else {
                     person.enabled = false;
                 }
         
-                //dwr.engine.beginBatch();
-                //People.setPerson(person);
                 if ( validateEmail(person.username, true, true) ) {
                     if ( person.password != "" ) {
                         AjaxAdminService.saveUsers(person, reply1);
@@ -117,8 +132,9 @@
         
             function clearPerson() {
                 viewed = null;
-                dwr.util.setValues({ id:null, username:null, name:null, password:null, enabled:null, role:null, phone:null });
+                dwr.util.setValues({ id:null, username:null, name:null, password:null, enabled:null, role:null });
                 document.getElementById("username").disabled=false;
+                document.getElementById("password").disabled=false;
 
             }
         </script>
@@ -137,7 +153,7 @@
                     <table>
                         <thead>
                             <th>
-                                Users who manages this Cyber Cafes
+                                Cashiers who manages this Cyber Cafes
                             </th>
                         </thead>
                     </table>
@@ -196,13 +212,14 @@
                             <td><select name="enabledString">
                                     <option>yes</option>
                                     <option>no</option>
-                            </select></td>
+                            </select>
+                            (To Cancel Account set Active:No)</td>
                         </tr>
                         <tr>
                             <td>  Role </td>
                             <td><select name="role">
-                                    <option>admin</option>
-                                    <option>employee</option>
+                                    <option value="admin">Administrator</option>
+                                    <option value="employee">Cashier</option>
                                 </select>
                             </td>
                         </tr>

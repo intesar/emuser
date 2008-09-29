@@ -23,24 +23,26 @@
     <script type="text/javascript">
 
        
-
+        var cust = null;
  
 
 
         
         function writePerson() {
+            var customer = null;
+            if ( cust == null ) {
+                customer = { id:null, name:null, img:null, email:null, 
+                    homePhone:null, mobilePhone:null, otherPhone:null,
+                    street:null,city:null, zipcode:null, state:null, 
+                    country:null, passportNo:null, voterId:null,
+                    collegeName:null, rationCardNo:null, panCardNo:null,
+                    dob:null, gender:null, comments:null };
                 
-            var customer = { id:null, name:null, img:null, email:null, 
-                homePhone:null, mobilePhone:null, otherPhone:null,
-                street:null,city:null, zipcode:null, state:null, 
-                country:null, passportNo:null, voterId:null,
-                collegeName:null, rationCardNo:null, panCardNo:null,
-                dob:null, gender:null, comments:null };
-                
-                
-            dwr.util.getValues(customer);
-                
+            } else {
+                customer = cust;
+            }
             
+            dwr.util.getValues(customer);
             
             var flag1 = customer.img.value.toString().toLowerCase().search ('jpg') ;
             var flag2 = customer.img.value.toString().toLowerCase().search ('bmp') ;
@@ -98,14 +100,17 @@
                 country:null, passportNo:null, voterIdCardNo:null,
                 collegeName:null, rationCardNo:null, panCardNo:null,
                 dob:null, gender:null, comments:null });
+            cust = null;
         }
             
         function search() {
-            AjaxWorkService.getCustomer(dwr.util.getValue("key"), reply2);
+            AjaxWorkService.getUserWithPic(dwr.util.getValue("key"), reply2);
             dwr.util.useLoadingMessage("Please Wait Loading....");
         }
             
         var reply2 = function(customer) {
+            cust = customer;
+            dwr.util.setValue("image", null);
             clearMessages();
             if ( customer.id == null ) {
                 dwr.util.setValue ("failureReply", "No Match for the Given Email, Please create User Profile " );                
@@ -121,24 +126,24 @@
     <jsp:include page="include.jsp" />
     
    
-    <table align="center">
+    <table align="center" width="300px">
         <thead>
             <tr>
                 <th>
-                    Customer Look Up
+                    Customer Look Up 
                 </th>
-                <th></th>
+                <th> <a href="memberships.jsp" style="color:white"> Memberships</a> </th>
+                <th><a href="membership_types.jsp" style="color:white">Rules</a></th>
             </tr>
         </thead>
         <tr>
             <td>
-                <input type="text" name="key" id="key" value="" />
-                <input type="submit" value="Search" onclick="search();"/>
-                <br>
-                
-                <img id="image" src="javascript:void(0);"/>
-                <br>
+                <input type="text" name="key" id="key" value="" size="40"/>                
             </td>
+            <td><input type="submit" value="Search" onclick="search();"/></td>            
+        </tr>
+        <tr>
+            <td><img id="image" src="javascript:void(0);"/>  </td>
         </tr>
     </table>
     <h2 align="center"> Create / Update Customer Profile</h2>
@@ -248,7 +253,7 @@
             <tr>
                 <td colspan="2" align="right">                    
                     <input type="button" value="New" onclick="clearPerson()"/> 
-                    <input type="button" value="Save" onclick="writePerson()"/>  
+                    <input type="button" value="Save & Verified" onclick="writePerson()"/>  
                     
                 </td>
             </tr>

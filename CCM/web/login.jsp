@@ -1,362 +1,310 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml">
     <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
         <title>FaceGuard</title>
+        <style type="text/css">
+            <!--
+            .style2 {font-size: 12px; }
+            .style3 {
+                font-size: 16px;
+                font-weight: bold;
+                color: #cc0001;
+            }
+            .style4 {
+                font-size: 10px;
+                font-family: Geneva, Arial, Helvetica, sans-serif;
+            }
+            .style9 {font-size: 12px; color: #023a8a; }
+            .style10 {
+                font-size: 9px;
+                color: #023a8a;
+            }
+            .style11 {font-family: Arial, Helvetica, sans-serif}
+            .style12 {
+                color: #b7b7b9;
+                font-weight: bold;
+            }
+            .style13 {
+                color: #B7B7B9;
+                font-weight: bold;
+            }
+            .style14 {
+                color: #828287;
+                font-weight: bold;
+            }
+            .style25 {font-size: 12px; font-family: Verdana, Arial, Helvetica, sans-serif; }
+            .style26 {font-size: 11px; font-family: Verdana, Arial, Helvetica, sans-serif; }
+            .style28 {
+                font-size: 11px;
+                font-family: Verdana, Arial, Helvetica, sans-serif;
+                font-weight: bold;
+                color: #FFFFFF;
+            }
+            .style30 {font-size: 11px; font-family: Verdana, Arial, Helvetica, sans-serif; color: #FFFFFF; }
+            .style32 {font-size: 14px; font-family: Verdana, Arial, Helvetica, sans-serif; font-weight: bold; color: #FFFFFF; }
+            .style33 {font-size: 14px}
+            .style35 {font-size: 12px; color: #ffffff; }
+            -->
+        </style>
+        <script type='text/javascript' src='/CCM/dwr/interface/AjaxUserService.js'></script>
+        <script type='text/javascript' src='/CCM/dwr/engine.js'></script>
+        <script type="text/javascript" src="email_validation.js"></script>
+        <script type='text/javascript' src='/CCM/dwr/util.js'></script>
+        
+        <script type="text/javascript"> 
+            var email = "";
+            var password = "";
+            function createAccount() {
+                dwr.util.useLoadingMessage("Please wait while we create your account!");
+                var c = dwr.util.getValue("companyName");
+                var u = dwr.util.getValue("email");
+                var p = dwr.util.getValue("password");
+                var cp = dwr.util.getValue("confirmPassword");
+                var minutes = dwr.util.getValue("minutes");
+                var rate = dwr.util.getValue("rate");
+                var maxSystems = dwr.util.getValue("maxSystems");
+                //alert ( c + u + p + cp);
+                if ( c != null && c != "" && p != null && p != "" && p == cp) {
+                    if ( validateEmail(u, true, true) ) {
+                        email = u;
+                        password = p;
+                        AjaxUserService.registerNewOrganization ( c, "hyd", u, p, minutes, rate, maxSystems, reply1);
+                    }
+                } else {
+                    alert ( " Company Name, Password Cannot be Empty Or \n\ " +
+                        " Password & ConfirmPassword donot match ");
+                }
+        
+            } 
+               
+            var reply1 = function ( data ) {            
+                if ( data == 'Please login with your email and password') {                        
+                    //alert ( 'Congratulation Your Account is Created Successfully!' );
+                    location.href="/CCM/j_acegi_security_check?j_garbage=abcdexehrelasdjf232343lkajflskdjfalsdfjasldkfjasldkfjalsdkjf&j_username=" + email + "&j_password=" + password;
+                } else {                    
+                    alert ( data );
+                }                
+            }
+        </script>
+        
     </head>
     
-    <style>
-        a:link    {color:black; text-decoration:none; font-size:8.5pt}
-        a:hover   {color:black; text-decoration:none;
-            font-size:8.5pt}
-        a:active  {color:black; text-decoration:none; font-size:8.5pt}
-        a:visited {color:black; text-decoration:none; font-size:8.5pt}
-    </style>
-    <style>
-        a:link    {color:black; text-decoration:none; font-size:8.5pt}
-        a:hover   {color:black; text-decoration:none;
-            font-size:8.5pt}
-        a:active  {color:black; text-decoration:none; font-size:8.5pt}
-        a:visited {color:black; text-decoration:none; font-size:8.5pt}
-        .style16 {color: #FFFFFF}
-    </style>
-    <script type='text/javascript' src='/CCM/dwr/interface/AjaxUserService.js'></script>
-    <script type='text/javascript' src='/CCM/dwr/engine.js'></script>
-    <script type="text/javascript" src="email_validation.js"></script>
-    <script type='text/javascript' src='/CCM/dwr/util.js'></script>
-    
-    <script type="text/javascript"> 
-        var email = "";
-        var password = "";
-        function createAccount() {
-            var c = dwr.util.getValue("companyName");
-            var u = dwr.util.getValue("email");
-            var p = dwr.util.getValue("password");
-            var cp = dwr.util.getValue("confirmPassword");
-            var minutes = dwr.util.getValue("minutes");
-            var rate = dwr.util.getValue("rate");
-            var maxSystems = dwr.util.getValue("maxSystems");
-            //alert ( c + u + p + cp);
-            if ( c != null && c != "" && p != null && p != "" && p == cp) {
-                if ( validateEmail(u, true, true) ) {
-                    email = u;
-                    password = p;
-                    AjaxUserService.registerNewOrganization ( c, "hyd", u, p, minutes, rate, maxSystems, reply1);
-                }
-            } else {
-                alert ( " Company Name, Password Cannot be Empty Or \n\ " +
-                    " Password & ConfirmPassword donot match ");
-            }
-        
-                
-            //dwr.engine.endBatch();
-                 
-               
-                    
-        } 
-                          
-            
-            
-        var reply1 = function ( data ) {            
-            if ( data == 'Please login with your email and password') {                        
-                //alert ( 'Congratulation Your Account is Created Successfully!' );
-                location.href="/CCM/j_acegi_security_check?j_garbage=abcdexehrelasdjf232343lkajflskdjfalsdfjasldkfjasldkfjalsdkjf&j_username=" + email + "&j_password=" + password;
-            } else {                    
-                alert ( data );
-            }                
-        }
-    </script>
-    
     <body>
-        
-        
-        
-        <table align="center" width="85%">
+        <table width="830" height="28" border="0" align="center" bordercolor="#cc0001" bgcolor="#cc0001" >
             <tr>
-                <td width="33%" align="left">
-                    <br><br>
-                    <table border="0" width="50%" bgcolor="#C00" style="color:#FFF;
-                    background:#C00;
-                    border-collapse:collapse;
-                    width:370px;        
-                    border:3px solid #900;" >
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th style="padding:1em 1em .5em;
-                                
-                                font-size:120%;
-                                text-align:left;">
-                                    CyberCafe Registration
-                                </th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tr>
-                            <td align="right">Company Name * </td>
-                            <td><input type="text" name="companyName" value="" size="30"/></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td align="right">Username/Email * </td>
-                            <td><input type="text" name="email" value="" size="30" /></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td align="right">Password * </td>
-                            <td><input type="password" name="password" value="" size="30" /></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td align="right">Confirm Password * </td>
-                            <td><input type="password" name="confirmPassword" value="" size="30" /></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td align="right">Rate *</td>
-                            <td><select name="minutes">
-                                    <option value="15">Minimum 15 Minutes</option>
-                                    <option value="30">Minimum 30 Minutes</option>
-                                    <option value="60">Minimum 60 Minutes</option>
-                                </select>
-                                <select name="rate">
-                                    <option value="1">Rs 1</option>
-                                    <option value="2">Rs 2</option>
-                                    <option value="3">Rs 3</option>
-                                    <option value="4">Rs 4</option>
-                                    <option value="5">Rs 5</option>
-                                    <option value="6">Rs 6</option>
-                                    <option value="7">Rs 7</option>
-                                    <option value="8">Rs 8</option>
-                                    <option value="9">Rs 9</option>
-                                    <option value="10">Rs 10</option>
-                                    <option value="11">Rs 11</option>
-                                    <option value="12">Rs 12</option>
-                                    <option value="13">Rs 13</option>
-                                    <option value="14">Rs 14</option>
-                                    <option value="15">Rs 15</option>
-                                    <option value="16">Rs 16</option>
-                                    <option value="17">Rs 17</option>
-                                    <option value="18">Rs 18</option>
-                                    <option value="19">Rs 19</option>
-                                    <option value="20">Rs 20</option>
-                                    <option value="21">Rs 21</option>
-                                    <option value="22">Rs 22</option>
-                                    <option value="23">Rs 23</option>
-                                    <option value="24">Rs 24</option>
-                                    <option value="25">Rs 25</option>
-                                    <option value="26">Rs 26</option>
-                                    <option value="27">Rs 27</option>
-                                    <option value="28">Rs 28</option>
-                                    <option value="29">Rs 29</option>
-                                    <option value="30">Rs 30</option>
-                            </select></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td align="right">Max Computers * </td>
-                            <td>
-                                <select name="maxSystems">
-                                    <option value="10">10</option>
-                                    <option value="15">15</option>
-                                    <option value="20">20</option>
-                                    <option value="30">30</option>
-                                    <option value="40">40</option>
-                                    <option value="50">50</option>
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td>
-                            <input type="submit" value="Create My Account" onclick="createAccount();"/></td>
-                        </tr>
-                        
-                    </table>
-                </td>
-                
-                
-                <td width="4%">&nbsp;&nbsp;&nbsp; <img src="dash/line.JPG" alt="line" width="14" height="316" /></td>
-                <td>
-                <form action="j_acegi_security_check" method="POST" id="login_form">
-                        <table align="left" style="color:#FFF;
-                        background:#C00;
-                        width:290px;
-                        height:170px;
-                        border-collapse:collapse;
-                        border:3px solid #900;">
-                            <thead>
-                                <tr>
-                                    <th   style="padding:1em 1em .5em;
-                                    font-size:120%;
-                                    text-align:left;">Login</th>
-                                    <th  style="padding:1em 1em .5em;
-                                    font-size:120%;
-                                    text-align:left;">FaceGuard</th>
-                                    
-                                </tr>
-                            </thead>
-                            <tr>
-                                <td align="right"> Email *</td>
-                                <td><input type='text' name='j_username' size="25" /> </td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                            </tr> <tr>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td align="right">Password *</td>
-                                <td><input type='password' name='j_password' size="25"> </td>
-                            </tr>
-                            <tr>
-                                <td></td>    
-                                <td>
-                                    <input type="submit" value="Sign In" name="Sign In"  />
-                                    <% if (request.getParameter("login_error") != null) {%> <b> <font color=RED size="2"> Sorry, but either the username or password is incorrect.
-                                    </font></b> <% }%> 
-                                </td>      
-                            </tr>
-                            <tr> 
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                            <td></td>
-                            <td>
-                                <a href="forgotpassword.jsp"><font size="-1" > Forgot Username or Password?</font></a>
-                            </td>
-                        </table>       
-                    </form>
-                </td>
-                <td width="31%" align="right">
-                    <table align="left"  style="color:#FFF;
-                    background:#C00;
-                    width:290px;
-                    height:170px;
-                    border-collapse:collapse;
-                    border:3px solid #900;">
-                        <thead>
-                        <tr><th>FaceGuard.org is webased Cyber Cafe Manager Suite</th></tr>
-                                <tr><th> Compliance with Cyber Laws</th></tr>
-                                <tr><th> Save Rs 6,000/month by removing unauthorize usage</th></tr>
-                                <tr><th> Save Electricity bills (Intelligent Shutdown)</th></tr>
-                                <tr><th> Bill Printing, Scanning, Snacks, and vitually anything.</th></tr>
-                                <tr><th> Free Report via SMS/Emails</th></tr>
-                                <tr><th> Automatic backups every day data.</th></tr>
-                                <tr><th> Tackle Terrorism, Crime, Missuse etc</th></tr>
-                                
-                                
-                            </tr>
-                        </thead>
-                    </table>
-                
-                    <br/>
-                    
-                    
-                </td>
-            </tr>
-            <tr>
-                
+                <td width="824"><span class="style32">FaceGuard Login </span></td>
             </tr>
         </table>
-        
-        
-        <p align="center" >
-        
-        <a style="color:blue" href="http://secure.bizintelapps.net/" >Home Page </a> | 
-        <a style="color:blue" href="http://secure.bizintelapps.net/index.php?option=com_content&view=article&id=1&Itemid=2/" >Features </a> |
-        <a style="color:blue" href="http://secure.bizintelapps.net/" >Client Software </a> | 
-        <a style="color:blue" href="customer_registration.jsp" >Customer Self Registration </a> | 
-        <a style="color:blue" href="http://secure.bizintelapps.net/" >Customer Testimonials </a> |
-        <a style="color:blue" href="http://secure.bizintelapps.net/" >Suport Forum </a> |
-        <a style="color:blue" href="http://secure.bizintelapps.net/" >Suggestions </a> |
-        <a style="color:blue" href="http://secure.bizintelapps.net/" >Benefits </a> |
-        <a style="color:blue" href="http://secure.bizintelapps.net/" >Tutorials & Demo </a> |
-        <a style="color:blue" href="http://secure.bizintelapps.net/" > Live Chat With Representative</a> |
-        <br>
-        <a style="color:blue" href="#" >  Contact Us : </a> 
-        <a style="color:blue" href="" > info@bizintelapps.com | USA 773.699.7898 | India 40.65764414 </a>
-        
-        <p style="color:blue" align="center"><font size="2">&copy; Copyrights BizIntelApps 2008 All Rights Reserved. <a href="http://bizintelapps.net/" target="_blank"><font color="blue">BizIntelApps</font></a> </font>
-        </p>
+        <table width="800" height="554" border="0" align="center" bordercolor="#cc0001"  bgcolor="#ffffff">
+            <tr>
+                <td width="100" height="550" valign="top">
+                    <% if (request.getParameter("login_error") != null) {%> <b> <font color=RED size="2"> Invalid Credentials! </font></b> <% }%> 
+                    <form action="j_acegi_security_check" method="POST" id="login_form" >
+                        <table width="188" border="0" rules="none" align="center" bordercolor="#cc0001" bgcolor="#cc0001">
+                            
+                            <tr>
+                                <td width="185" valign="top"><span class="style28">Email:</span></td>
+                            </tr>
+                            <tr>
+                                
+                                <td valign="top">
+                                    <label>
+                                        <span class="style28"><img src="PNG-Others-Edit_Users.ico-32x32.png" alt="login" width="34" height="29" align="middle" /></span>
+                                        <input type="text" name='j_username' size="17" />
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td valign="top" class="style28">Password:</td>
+                                
+                            </tr>
+                            <tr>
+                                <td valign="top">
+                                    <label>
+                                        <span class="style28"><img src="Locker.png" width="34" height="30" align="middle" /></span>
+                                        <input type="password" name='j_password' size="17" />
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td valign="top">
+                                    <input type="submit" value="Sign In" name="Sign In"  />
+                                    <!--
+                                    <div align="center"> <label><img src="Untitled-6.png" width="82" height="22" onclick="alert('hl');"/></label>
+                                    </div>
+                                    -->
+                                </td>
+                                
+                            </tr>
+                            <tr>
+                            <td valign="top" class="style30"><strong><strong><strong><img src="Tag_32.png" width="32" height="32" align="absmiddle" /></strong></strong><a href="forgotpassword.jsp">Forgot Password ?</a></strong></td>
+                            </tr>
+                        </table>
+                    </form>
+                <p>&nbsp;</p></td>
+                <td width="700" valign="top"><table width="632" height="119" border="1" rules="none" bordercolor="#587498" bgcolor="#ffffff" >
+                        <tr>
+                            <td width="192" height="115"><img src="FG_RED.png" width="200" height="105" /></td>
+                            <td width="424" valign="top"><p class="style12">_____________________________________________________</p>
+                                <p align="center" class="style11">FaceGuard is Web Based <span class="style14">Cyber Cafe Manager Suite</span>, Which care for the future.<img src="firefox_icon.png" width="16" height="16" /> <a href="http://www.download.com/3001-2356_4-10865521.html?spi=ad9af1f8db19c6fd1d3b112303f7e736">Download Mozilla</a></p>
+                            <p align="center" class="style13">_____________________________________________________</p></td>
+                        </tr>
+                    </table>
+                    <table width="636" height="306" border="1"  bordercolor="#587498"  bgcolor="#ffffff" rules="none">
+                        <tr>
+                            <td width="232"><table width="215" align="center" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <th width="233"><div align="left">
+                                                <p> Product Features....</p>
+                                        </div></th>
+                                    </tr>
+                                    <tr>
+                                        <td><div align="left"><img src="right.jpg" width="24" height="23" /><span class="style25">Compliance with Cyber Laws</span></div></td>
+                                    </tr>
+                                    <tr>
+                                        <td><div align="left"><img src="right.jpg" width="24" height="23" /><span class="style25">Save Rs 6,000/month by &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;removing unauthorize usage</span></div></td>
+                                    </tr>
+                                    <tr>
+                                        <td><div align="left"><img src="right.jpg" width="24" height="23" /><span class="style25">Bill Printing, Scanning, &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Snacks,and vitually anything.</span></div></td>
+                                    </tr>
+                                    <tr>
+                                        <td><div align="left"><img src="right.jpg" width="24" height="23" /><span class="style25">Free Report via SMS/Emails</span></div></td>
+                                    </tr>
+                                    <tr>
+                                        <td><div align="left"><img src="right.jpg" width="24" height="23" /><span class="style25">Automatic backups every day &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data.</span></div></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="style25"><img src="right.jpg" width="24" height="23" />Tackle Terrorism, Crime, &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Missuse etc</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <div align="right"><span class="style33">&nbsp;<a href="http://faceguard.bizintelapps.net"><strong>Read more...</strong></a>. </span></div></td>
+                                    </tr>
+                                </table>
+                            <p align="center" class="style3"> <a href="customer_registration.jsp">Customer Self Registration</a> </p></td>
+                            <td width="394"><table width="333" border="1" align="center" bordercolor="#000000" bgcolor="#cc0001" rules="none">
+                                    <tr>
+                                        <td colspan="2"><p style="color:#FFFFFF" align="center"><strong class="style25">Sign up for FaceGuard.</strong><br />
+                                            <span class="style25">It's free and anyone can join.</span></p>
+                                        <div id="reg_subhead"></div></td>
+                                    </tr>
+                                    <tr>
+                                        <td width="139"><div align="right" class="style26" style="color:#FFFFFF">Cyber Cafe Name: * </div></td>
+                                        <td width="184">
+                                            <label>
+                                                <input type="text" name="companyName" size="19" />
+                                            </label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><div align="right" class="style26" style="color:#FFFFFF">Username/Email: * </div></td>
+                                        <td><input type="text" name="email"  size="19" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td><div align="right" class="style26" style="color:#FFFFFF">Password: * </div></td>
+                                        <td><input type="password" name="password" size="19" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td><div align="right" class="style26" style="color:#FFFFFF">Confirm Password: * </div></td>
+                                        <td><input type="password" name="confirmPassword" size="19" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td><div align="right" class="style26" style="color:#FFFFFF">Rate: * </div></td>
+                                        <td>
+                                            <label>
+                                                <select name="minutes">
+                                                    <option value="1"> 1 Minute </option>
+                                                    <option value="15">15 Minutes</option>
+                                                    <option value="30">30 Minutes</option>
+                                                    <option value="60">60 Minutes</option>
+                                                </select>
+                                            </label>
+                                            <label>
+                                                <select name="rate">
+                                                    <option value="1">Rs 1</option>
+                                                    <option value="2">Rs 2</option>
+                                                    <option value="3">Rs 3</option>
+                                                    <option value="4">Rs 4</option>
+                                                    <option value="5">Rs 5</option>
+                                                    <option value="6">Rs 6</option>
+                                                    <option value="7">Rs 7</option>
+                                                    <option value="8">Rs 8</option>
+                                                    <option value="9">Rs 9</option>
+                                                    <option value="10">Rs 10</option>
+                                                    <option value="11">Rs 11</option>
+                                                    <option value="12">Rs 12</option>
+                                                    <option value="13">Rs 13</option>
+                                                    <option value="14">Rs 14</option>
+                                                    <option value="15">Rs 15</option>
+                                                    <option value="16">Rs 16</option>
+                                                    <option value="17">Rs 17</option>
+                                                    <option value="18">Rs 18</option>
+                                                    <option value="19">Rs 19</option>
+                                                    <option value="20">Rs 20</option>
+                                                    <option value="21">Rs 21</option>
+                                                    <option value="22">Rs 22</option>
+                                                    <option value="23">Rs 23</option>
+                                                    <option value="24">Rs 24</option>
+                                                    <option value="25">Rs 25</option>
+                                                    <option value="26">Rs 26</option>
+                                                    <option value="27">Rs 27</option>
+                                                    <option value="28">Rs 28</option>
+                                                    <option value="29">Rs 29</option>
+                                                    <option value="30">Rs 30</option>
+                                                </select>
+                                            </label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><div align="right" class="style26" style="color:#FFFFFF">Max Computers: * </div></td>
+                                        <td>
+                                            <label>
+                                                <select name="maxSystems">
+                                                    <option value="10">10</option>
+                                                    <option value="15">15</option>
+                                                    <option value="20">20</option>
+                                                    <option value="30">30</option>
+                                                    <option value="40">40</option>
+                                                    <option value="50">50</option>
+                                                </select>
+                                            </label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                        <td>
+                                            <label></label>
+                                            <div align="center"><img src="button1over.png" width="156" height="21" onclick="createAccount();"/>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                        <td><span class="style4" style="color:#FFFFFF">By clicking Sign Up, you are indicating that you have read and agree to the </span><span class="style4"><a href="http://faceguard.bizintelapps.net/">Terms of use and Privacy Policy.</a></span><span class="style4" style="color:#FFFFFF"> </span></td>
+                                    </tr>
+                            </table></td>
+                        </tr>
+                    </table>      
+                    <div align="center">
+                        <a href="http://faceguard.bizintelapps.net/" class="style9">Home Page</a> | 
+                        <a href="http://faceguard.bizintelapps.net/index.php?/Features/features.html" class="style9">Features</a> | 
+                        <a href="http://faceguard.bizintelapps.net/index.php?/Features/2008-09-12-08-54-45.html" class="style9">Customer</a> 
+                        <a href="http://faceguard.bizintelapps.net/" class="style9">Testimonials</a> | 
+                        <a href="http://faceguard.bizintelapps.net/" class="style9">Client</a> 
+                        <a href="http://faceguard.bizintelapps.net/" class="style9">Software</a> | 
+                        <a href="http://faceguard.bizintelapps.net/" class="style9">Suggestion</a> | 
+                        <a href="http://faceguard.bizintelapps.net/" class="style9"> Benifits</a> |
+                        <a href="http://faceguard.bizintelapps.net/" class="style9">Tutorials</a> 
+                        <a href="http://faceguard.bizintelapps.net/" class="style9">And Demo</a> | 
+                        <a href="http://faceguard.bizintelapps.net/index.php?/component/option,com_blastchatc/Itemid,47/" class="style9">Live</a> 
+                        <a href="http://faceguard.bizintelapps.net/index.php?/component/option,com_blastchatc/Itemid,47/" class="style9">Chat</a> 
+                        
+                    </div>
+                    <p align="center" class="style9">Contact Us: info@bizintelapps.com | USA 733.699.7898 | India 40.65764414</p>
+                    <p align="center" class="style10 style2" >
+                <span class="style2">&copy;</span> <span class="style2">Copyrights</span> <span class="style2">BizIntelApps</span> <span class="style2">2008</span> <span class="style2">All</span> <span class="style2">Rights</span> <span class="style2">Reserved</span>. </p>    </td>
+            </tr>
+        </table>
     </body>
 </html>
-
-

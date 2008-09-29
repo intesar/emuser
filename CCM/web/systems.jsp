@@ -179,7 +179,10 @@
                     </tr>
                     <tr>
                         <td>MacAddress:</td>
-                        <td><input id="macAddress" type="text" size="30"/></td>
+                        <td><input id="macAddress" type="text" size="30"/>
+                        <br>
+                        (MacAddress is imp for Client to work)
+                        </td>
                     </tr>
                     <tr>
                         <td>Descrption:</td>
@@ -230,9 +233,9 @@
                     <td><input type="text" id="minuteRate" size="4"/></td>
                 </tr>
                  <tr>
-                    <td>Partial Billing Minutes:*</td>
+                    <td>Partial Billing Minutes:</td>
                     <td><input type="text" id="lowerMinimumMinutes" size="4"/></td>
-                    <td>Rate:*</td>
+                    <td>Rate:</td>
                     <td><input type="text" id="lowerMinuteRate" size="4"/></td>
                 </tr>
                 <tr>
