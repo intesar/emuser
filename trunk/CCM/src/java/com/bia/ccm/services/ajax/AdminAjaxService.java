@@ -12,6 +12,7 @@ import com.bia.ccm.entity.Services;
 import com.bia.ccm.entity.SystemLease;
 import com.bia.ccm.entity.Systems;
 import com.bia.ccm.entity.Users;
+import com.bia.ccm.entity.UsersLight;
 import com.bia.ccm.services.AdminService;
 import com.bia.ccm.util.AcegiUtil;
 import com.bia.ccm.util.ServiceFactory;
@@ -45,7 +46,7 @@ public class AdminAjaxService {
     public String updateRentalPrice(int mims, double rate, Integer lmins, Double lrate) {
         String msg = "Price Updated Successful!";
         String username = AcegiUtil.getUsername();
-        if ( mims < 0 || rate < 0.0 || lmins < 0 || lrate < 0.0 ) {
+        if (mims < 0 || rate < 0.0 || (lmins != null & lmins < 0) || (lrate != null && lrate < 0.0)) {
             return "We are keeping an eye on you! ";
         }
         try {
@@ -80,15 +81,18 @@ public class AdminAjaxService {
     }
 
     public String saveUsers(Users users) {
+        logger.debug("inside ------------------ save users ");
         String msg = "Operation succesful!";
         users.setEmail(SQLInjectionFilterManager.getInstance().filter(users.getEmail()));
         users.setUsername(SQLInjectionFilterManager.getInstance().filter(users.getUsername()));
-        
+        logger.debug("inside ------------------ save users1 ");
         try {
             String username = AcegiUtil.getUsername();
             this.adminService.saveUser(users, username);
+            logger.debug("inside ------------------ save users 2 ");
         } catch (Exception e) {
             logger.error(e);
+            logger.debug("inside ------------------ save users 3 " + e.getMessage());
             return e.getMessage();
         }
         return msg;
@@ -173,7 +177,7 @@ public class AdminAjaxService {
         Date startDate = null;
         Date endDate = null;
         String username = AcegiUtil.getUsername();
-        Users u = this.adminService.getUserByUsername(username);
+        UsersLight u = this.adminService.getUserByUsername(username);
 
         try {
             startDate = sdf.parse(startDateString);
@@ -193,7 +197,7 @@ public class AdminAjaxService {
             Date endDate = sdf.parse(endDateString);
             logger.debug(startDate + " " + endDate);
             String username = AcegiUtil.getUsername();
-            Users u = this.adminService.getUserByUsername(username);
+            UsersLight u = this.adminService.getUserByUsername(username);
             return this.adminService.getReport(startDate, endDate, u.getOrganization());
         } catch (ParseException ex) {
             Logger.getLogger(AdminAjaxService.class.getName()).log(Level.SEVERE, null, ex);
@@ -237,11 +241,14 @@ public class AdminAjaxService {
         return this.adminService.getAllServices(org);
     }
 
+    
     public void sendReports() {
         this.adminService.sendReports();
     }
     protected final Log logger = LogFactory.getLog(getClass());
     private AdminService adminService = (AdminService) ServiceFactory.getService("adminServiceImpl");
+    
+    
 
     public static void main(String[] args) {
         AdminAjaxService aas = new AdminAjaxService();

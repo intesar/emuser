@@ -10,6 +10,7 @@ import com.bia.ccm.services.AdminService;
 import com.bia.ccm.services.EMailService;
 import com.bia.ccm.services.WorkService;
 import com.bia.ccm.services.impl.EMailServiceImpl;
+import com.bia.ccm.util.AcegiUtil;
 import com.bia.ccm.util.ServiceFactory;
 import java.util.Date;
 import java.util.List;
@@ -49,7 +50,7 @@ public class ReportEngine {
 
     public void processReport() {
         logger.debug(" inside processing report ___________________________________ ");
-        System.out.println ( " inside processing report ___________________________________ ");
+        System.out.println(" inside processing report ___________________________________ ");
         Date dt = new Date();
         int time = dt.getHours();
         time = time * 100;
@@ -74,7 +75,7 @@ public class ReportEngine {
                     } else if (ep.getServiceProvider().startsWith("i")) {
                         toAddress[count++] = ep.getEmailOrPhone() + eMailService.idea;
                     }
-                }                
+                }
                 this.eMailService.sendEmail(toAddress, list1.toString());
 
             } catch (RuntimeException re) {

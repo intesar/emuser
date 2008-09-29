@@ -33,9 +33,9 @@ public interface WorkService {
 
     public Systems getSystemByNameAndOrganization(int systemNo, String username);
 
-    public void leaseSystem(int id, String leaseHolder);
+    public void leaseSystem(int id, String leaseHolder, String cashier);
 
-    public void unleaseSystem(int id, double amountPaid);
+    public void unleaseSystem(int id, double amountPaid, String cashier);
 
     public UsageDetail getPayableAmount(int id);
 
@@ -43,9 +43,12 @@ public interface WorkService {
 
     public void createCutomer(Users users, Users createUser);
 
+    public Users getCustomerPic(String username);
     public Users getCustomer(String key);
 
-    public void notifyCustomersAtContractEnd();
+    public Users getCustomerWithPic(String key);
+    
+    public void notifyCustomersAtContractEnd( );
 
-    public void notifyCustomersAtContractStart();
+    public void notifyCustomersAtContractStart( );
 }

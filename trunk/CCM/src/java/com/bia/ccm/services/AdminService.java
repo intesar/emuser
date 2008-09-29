@@ -11,6 +11,7 @@ import com.bia.ccm.entity.Services;
 import com.bia.ccm.entity.SystemLease;
 import com.bia.ccm.entity.Systems;
 import com.bia.ccm.entity.Users;
+import com.bia.ccm.entity.UsersLight;
 import java.util.Date;
 import java.util.List;
 
@@ -26,6 +27,8 @@ public interface AdminService {
 
     public List<SystemLease> getMySystemLease(Date startDate, Date endDate, String organization);
 
+    public UsersLight getUserByUsername(String username);
+
     public void updateRentalPrice(int mims, double rate, Integer lmins, Double lrate, String username);
 
     public List<Systems> getAllSystems(String username);
@@ -37,7 +40,7 @@ public interface AdminService {
 
     public void saveUser(Users users, String username);
 
-    public Users getUserByUsername(String username);
+    //public Users getUserByUsername(String username);
     //Email
     public List<EmailPreference> getAllEmailPreference(String username);
 

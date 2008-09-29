@@ -103,6 +103,33 @@
             </bean>
         </property>
     </bean>
+    
+    <bean id="usersLightDao" parent="abstractDao">
+        <property name="proxyInterfaces">
+            <value>com.bia.ccm.dao.UsersLightDao</value>
+        </property>
+        <property name="target">
+            <bean parent="abstractDaoTarget">
+                <constructor-arg>
+                    <value>com.bia.ccm.entity.UsersLight</value>
+                </constructor-arg>
+            </bean>
+        </property>
+    </bean>
+    
+    <bean id="usersPassDao" parent="abstractDao">
+        <property name="proxyInterfaces">
+            <value>com.bia.ccm.dao.UsersPassDao</value>
+        </property>
+        <property name="target">
+            <bean parent="abstractDaoTarget">
+                <constructor-arg>
+                    <value>com.bia.ccm.entity.UsersPass</value>
+                </constructor-arg>
+            </bean>
+        </property>
+    </bean>
+    
     <bean id="emailPreferenceDao" parent="abstractDao">
         <property name="proxyInterfaces">
             <value>com.bia.ccm.dao.EmailPreferenceDao</value>
@@ -183,6 +210,57 @@
             <bean parent="abstractDaoTarget">
                 <constructor-arg>
                     <value>com.bia.ccm.entity.Services</value>
+                </constructor-arg>
+            </bean>
+        </property>
+    </bean>
+     <bean id="userPicDao" parent="abstractDao">
+        <property name="proxyInterfaces">
+            <value>com.bia.ccm.dao.UserPicDao</value>
+        </property>
+        <property name="target">
+            <bean parent="abstractDaoTarget">
+                <constructor-arg>
+                    <value>com.bia.ccm.entity.UserPic</value>
+                </constructor-arg>
+            </bean>
+        </property>
+    </bean>
+    
+    <bean id="membershipDiscountsDao" parent="abstractDao">
+        <property name="proxyInterfaces">
+            <value>com.bia.ccm.dao.MembershipDiscountsDao</value>
+        </property>
+        <property name="target">
+            <bean parent="abstractDaoTarget">
+                <constructor-arg>
+                    <value>com.bia.ccm.entity.MembershipDiscounts</value>
+                </constructor-arg>
+            </bean>
+        </property>
+    </bean>
+    
+    <bean id="membershipTypesDao" parent="abstractDao">
+        <property name="proxyInterfaces">
+            <value>com.bia.ccm.dao.MembershipTypesDao</value>
+        </property>
+        <property name="target">
+            <bean parent="abstractDaoTarget">
+                <constructor-arg>
+                    <value>com.bia.ccm.entity.MembershipTypes</value>
+                </constructor-arg>
+            </bean>
+        </property>
+    </bean>
+    
+    <bean id="membershipsDao" parent="abstractDao">
+        <property name="proxyInterfaces">
+            <value>com.bia.ccm.dao.MembershipsDao</value>
+        </property>
+        <property name="target">
+            <bean parent="abstractDaoTarget">
+                <constructor-arg>
+                    <value>com.bia.ccm.entity.Memberships</value>
                 </constructor-arg>
             </bean>
         </property>

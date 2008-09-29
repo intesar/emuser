@@ -77,6 +77,10 @@ public class SystemLease implements Serializable {
     private Boolean isStartContractNotified = false;
     @Column(name = "is_end_contract_notified")
     private Boolean isEndContractNotified = false;
+    @Column(name="discounts")
+    private Double discounts;
+    @Column(name="comments")
+    private String comments;
 
     public SystemLease() {
     }
@@ -243,6 +247,23 @@ public class SystemLease implements Serializable {
         this.isStartContractNotified = isStartContractNotified;
     }
 
+    public String getComments() {
+        return comments;
+    }
+
+    public void setComments(String comments) {
+        this.comments = comments;
+    }
+
+    public Double getDiscounts() {
+        return discounts;
+    }
+
+    public void setDiscounts(Double discounts) {
+        this.discounts = discounts;
+    }
+
+    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -266,7 +287,7 @@ public class SystemLease implements Serializable {
     @Override
     public String toString() {
         return " System No : " + this.getSystemNo() + " <br> " +
-                " User Issued At Kiosk : " + this.getIssueAgent() + " <br> " +
+                " Admin Issued At Kiosk : " + this.getIssueAgent() + " <br> " +
                 " Start Time : " + this.getStartTimeString() + " <br> " +
                 " End Time : " + this.getEndTimeString() + " <br> " +
                 " User when returning at Kiosk : " + this.getReturnAgent() + " <br> " +

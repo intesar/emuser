@@ -18,8 +18,14 @@
 
     
     -->
+    <bean id="passwordEncryptor" class="org.jasypt.util.password.StrongPasswordEncryptor" />
+    <bean id="stringEncryptor" class="org.jasypt.encryption.pbe.StandardPBEStringEncryptor" >
+        <property name="password" value="faceguard" />
+    </bean>
     <bean id="adminServiceImpl" class="com.bia.ccm.services.impl.AdminServiceImpl" >
         <property name="usersDao" ref="usersDao" />
+        <property name="usersLightDao" ref="usersLightDao" />
+        <property name="usersPassDao" ref="usersPassDao" />
         <property name="systemsDao" ref="systemsDao" />
         <property name="emailPreferenceDao" ref="emailPreferenceDao" />
         <property name="emailTimePreferenceDao" ref="emailTimePreferenceDao" />
@@ -27,19 +33,38 @@
         <property name="organizationDao" ref="organizationDao" />
         <property name="authoritiesDao" ref="authoritiesDao" />
         <property name="servicesDao" ref="servicesDao" />
+        <property name="passwordEncryptor" ref="passwordEncryptor" />
+        <property name="stringEncryptor" ref="stringEncryptor" />
     </bean>
     <bean id="userServiceImpl" class="com.bia.ccm.services.impl.UserServiceImpl" >
         <property name="usersDao" ref="usersDao" />
+        <property name="usersLightDao" ref="usersLightDao" />
+        <property name="usersPassDao" ref="usersPassDao" />
         <property name="organizationDao" ref="organizationDao" />
         <property name="authoritiesDao" ref="authoritiesDao" />
         <property name="systemsDao" ref="systemsDao" />
         <property name="servicesDao" ref="servicesDao" />
+        <property name="passwordEncryptor" ref="passwordEncryptor" />
+        <property name="stringEncryptor" ref="stringEncryptor" />
     </bean>
     <bean id="workServiceImpl" class="com.bia.ccm.services.impl.WorkServiceImpl" >
         <property name="usersDao" ref="usersDao" />
+        <property name="usersLightDao" ref="usersLightDao" />
+        <property name="usersPassDao" ref="usersPassDao" />
         <property name="systemsDao" ref="systemsDao" />
         <property name="systemLeaseDao" ref="systemLeaseDao" />
         <property name="servicesDao" ref="servicesDao" />
         <property name="organizationDao" ref="organizationDao" />
+        <property name="passwordEncryptor" ref="passwordEncryptor" />
+        <property name="stringEncryptor" ref="stringEncryptor" />
+        <property name="userPicDao" ref="userPicDao" />
+        <property name="membershipDiscountsDao" ref="membershipDiscountsDao" />
+        <property name="membershipTypesDao" ref="membershipTypesDao" />
+        <property name="membershipsDao" ref="membershipsDao" />
+    </bean>
+    <bean id="membershipServiceImpl" class="com.bia.ccm.services.impl.MembershipServiceImpl" >
+        <property name="membershipDiscountsDao" ref="membershipDiscountsDao" />
+        <property name="membershipTypesDao" ref="membershipTypesDao" />
+        <property name="membershipsDao" ref="membershipsDao" />
     </bean>
 </beans>

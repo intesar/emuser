@@ -8,18 +8,29 @@ import com.bia.ccm.dao.AuthoritiesDao;
 import com.bia.ccm.dao.OrganizationDao;
 import com.bia.ccm.dao.ServicesDao;
 import com.bia.ccm.dao.SystemsDao;
+//import com.bia.ccm.dao.UsersDao;
+
 import com.bia.ccm.dao.UsersDao;
+import com.bia.ccm.dao.UsersLightDao;
+import com.bia.ccm.dao.UsersPassDao;
 import com.bia.ccm.entity.Authorities;
 import com.bia.ccm.entity.AuthoritiesPK;
 import com.bia.ccm.entity.Organization;
 import com.bia.ccm.entity.Services;
 import com.bia.ccm.entity.Systems;
+//import com.bia.ccm.entity.Users;
+
 import com.bia.ccm.entity.Users;
+import com.bia.ccm.entity.UsersLight;
+import com.bia.ccm.entity.UsersPass;
 import com.bia.ccm.services.EMailService;
 import com.bia.ccm.services.UserService;
+import java.util.Calendar;
 import java.util.Date;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.jasypt.encryption.pbe.PBEStringEncryptor;
+import org.jasypt.util.password.PasswordEncryptor;
 
 /**
  *
@@ -45,14 +56,33 @@ public class UserServiceImpl implements UserService {
         return "";
     }
 
+    public void resetPassword(String email, String activationCode, String password) {
+        UsersPass usersPass = usersPassDao.findByUsernameAndEnabled(email, true);
+        if (usersPass.getResetCode().trim().equals(activationCode.trim())) {
+            Users u = usersDao.findByUsername(email);
+            String password1 = this.passwordEncryptor.encryptPassword(password);
+            u.setPassword(password1);
+            usersDao.update(u);
+            String p = this.stringEncryptor.encrypt(password);
+            String ac = this.stringEncryptor.encrypt(p + email);
+            UsersPass up = new UsersPass(null, email, p, true, ac, new Date());
+            usersPassDao.create(up);
+            usersPass.setEnabled(false);
+            usersPassDao.update(usersPass);
+        } else {
+            throw new RuntimeException("Invalid Inputs");
+        }
+    }
+
     public void forgotPassword(String email) {
-        //String username = AcegiUtil.getUsername();
+
         try {
-            Users u = this.usersDao.findByUsername(email);
-            if (u == null) {
+            UsersPass up = this.usersPassDao.findByUsernameAndEnabled(email, true);
+            if (up == null) {
                 throw new RuntimeException("No Registered user found with this email : " + email);
             }
-            this.eMailService.sendEmail(u.getEmail(), "your password : " + u.getPassword());
+
+            this.eMailService.sendEmail(up.getUsername(), " Activation Code : " + up.getResetCode());
         } catch (NullPointerException npe) {
             logger.error(npe);
             throw new RuntimeException(" No match found!");
@@ -61,7 +91,6 @@ public class UserServiceImpl implements UserService {
             throw new RuntimeException(e);
         }
 
-
     }
 
     public void registerNewOrganization(String organizationName, String city,
@@ -69,17 +98,27 @@ public class UserServiceImpl implements UserService {
         Organization o = new Organization(organizationName, (short) 1, null, city,
                 email, city, null, "india", email, "Silver Member", "ccm", 0, new Date(), "self");
         o.setContactEmail(email);
+        password =
+                this.passwordEncryptor.encryptPassword(password);
         Users u = new Users(null, email, password, true, "admin", organizationName, email);
+        UsersLight ul = new UsersLight(email, organizationName);
         Authorities a1 = new Authorities(email, "ROLE_ADMIN");
         Authorities a2 = new Authorities(email, "ROLE_USER");
         Services s = new Services(null, "other", 1.0, organizationName);
-        Services s1 = new Services(null, "Print B&W", 3.0, organizationName);
-        Services s2 = new Services(null, "Copy B&W", 1.0, organizationName);
-        Services s3 = new Services(null, "Print Color", 5.0, organizationName);
-        Services s4 = new Services(null, "Scan", 5.0, organizationName);
-        Services s5 = new Services(null, "Cool Drink", 10.0, organizationName);
+        Services s1 = new Services(null, "print b&w", 3.0, organizationName);
+        Services s2 = new Services(null, "copy b&w", 1.0, organizationName);
+        Services s3 = new Services(null, "print color", 5.0, organizationName);
+        Services s4 = new Services(null, "scan", 5.0, organizationName);
+        Services s5 = new Services(null, "cool drink", 10.0, organizationName);
+        String encryptedPass = this.stringEncryptor.encrypt(password);
+        String resetCode = this.stringEncryptor.encrypt(email  + Calendar.getInstance().getFirstDayOfWeek());
+        UsersPass usersPass = new UsersPass(null, email,
+                encryptedPass, true, resetCode, new Date());
+
         try {
             this.usersDao.create(u);
+            this.usersLightDao.create(ul);
+            usersPassDao.create(usersPass);
             this.authoritiesDao.create(a1);
             this.authoritiesDao.create(a2);
             this.organizationDao.create(o);
@@ -90,11 +129,13 @@ public class UserServiceImpl implements UserService {
             this.servicesDao.create(s4);
             this.servicesDao.create(s5);
             //Double minuteRate = Double.parseDouble("" + minutes + "." + rate);
-            for (int i = 1; i <= 50; i++) {
+            for (int i = 1; i <=
+                    50; i++) {
                 boolean enabled = false;
                 if (i <= maxSystems) {
                     enabled = true;
                 }
+
                 Systems systems = new Systems(null, i, organizationName, true, null, minutes, rate, enabled);
                 this.systemsDao.create(systems);
             }
@@ -103,8 +144,13 @@ public class UserServiceImpl implements UserService {
             logger.error(e);
             throw new RuntimeException(e);
         }
+
     }
 
+//    @Override
+//    public Users getUser(Integer id) {
+//        return this.usersDao.read(id);
+//    }
     public void setUsersDao(UsersDao usersDao) {
         this.usersDao = usersDao;
     }
@@ -128,17 +174,32 @@ public class UserServiceImpl implements UserService {
     public void setServicesDao(ServicesDao servicesDao) {
         this.servicesDao = servicesDao;
     }
+
+    public void setPasswordEncryptor(PasswordEncryptor passwordEncryptor) {
+        this.passwordEncryptor = passwordEncryptor;
+    }
+
+    public void setUsersLightDao(UsersLightDao usersLightDao) {
+        this.usersLightDao = usersLightDao;
+    }
+
+    public void setUsersPassDao(UsersPassDao usersPassDao) {
+        this.usersPassDao = usersPassDao;
+    }
+
+    public void setStringEncryptor(PBEStringEncryptor stringEncryptor) {
+        this.stringEncryptor = stringEncryptor;
+    }
     private UsersDao usersDao;
+    private UsersLightDao usersLightDao;
+    private UsersPassDao usersPassDao;
     private EMailService eMailService = new EMailServiceImpl();
     private OrganizationDao organizationDao;
     private AuthoritiesDao authoritiesDao;
     private SystemsDao systemsDao;
     private ServicesDao servicesDao;
-
-    @Override
-    public Users getUser(Integer id) {
-        return this.usersDao.read(id);
-    }
+    private PasswordEncryptor passwordEncryptor;
+    private PBEStringEncryptor stringEncryptor;
 }
 
 
