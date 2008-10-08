@@ -39,7 +39,7 @@
         var viewed = null;
         
         function fillTable() {
-            dwr.util.useLoadingMessage();
+            dwr.util.useLoadingMessage("Please wait, Loading");
             AjaxAdminService.getAllSystems(function(people) {
                 // Delete all the rows except for the "pattern" row
                 dwr.util.removeAllRows("peoplebody", { filter:function(tr) {
@@ -56,52 +56,36 @@
                     dwr.util.cloneNode("pattern", { idSuffix:id });
                     dwr.util.setValue("name1" + id, person.name);
                     dwr.util.setValue("description1" + id, person.description);
-                    $("pattern" + id).style.display = "table-row";
+                    $("pattern" + id).style.display = "";
                     peopleCache[id] = person;
                 }
-                //person = peopleCache[0];
-                //viewed = person.id;            
-                //dwr.util.setValues(person);
             });
-            
-            
         }
         
         function editClicked(eleid) {
             // we were an id of the form "edit{id}", eg "edit42". We lookup the "42"
             var person = peopleCache[eleid.substring(4)];
             viewed = person.id;
-            //alert ( person.enabled);
-            //person = {enabled_:false};
             dwr.util.setValues(person);
         }
-        
-            
-        
         function writePerson() {
             var person;
             if ( viewed == null ) {
                 alert ( 'Please refresh your page!' );
-                //person = { id:null, name:null, description:null, minuteRate:null, enabled:true, enabledString:null, macAddress:null };
             } else {
                 person = peopleCache[viewed];
                 dwr.util.getValues(person);        
                 AjaxAdminService.saveSystems(person, function(data) {
                     clearMessages();
                     if ( data == "Operation succesful!") {
-                        dwr.util.setValue ("successReply", "Updated System at " + new Date().toLocaleString());
+                        writeMessage ("successReply", "Updated System at " + new Date().toLocaleString());
                         fillTable();
                     } else {
-                        dwr.util.setValue ("failureReply", data );
+                        writeMessage ("failureReply", "Operation Failed" );
                     }
-                    
                 });
-                
             }
-            
-            
         }
-        
                
         function updatePrice() {
             var mm = dwr.util.getValue("minimumMinutes");
@@ -113,13 +97,11 @@
                 AjaxAdminService.updateRentalPrice ( mm, r, lmm, lr, function(data) {
                     clearMessages();
                     if ( data == "Price Updated Successful!") {
-                        dwr.util.setValue ("successReply", data + " at " + new Date().toLocaleString());
+                        writeMessage ("successReply", data + " at " + new Date().toLocaleString());
                         fillTable();
                     } else {
-                        dwr.util.setValue ("failureReply", data );
+                        writeMessage ("failureReply", data );
                     }
-                    
-                    //alert ( data );
                 });
             }
         }
@@ -130,9 +112,6 @@
 </head>
 <body>
     <jsp:include page="include.jsp" />
-    <!-- <h2 align="center"> System Information  </h2> -->
-    
-    
     <table align="center">
         <tr align="center">
             <td valign="top">

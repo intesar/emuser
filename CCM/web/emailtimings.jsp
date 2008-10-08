@@ -66,31 +66,28 @@
                 //alert ( emailTime.id );
                 AjaxAdminService.deleteEmailTimePreference(emailTime, function(data) {
                     if ( data != "Deleted Successfully") {
+                        writeMessage("successReply", "Operation Successful!");
                         fillTable();
                     }
                     else {
-                        alert ( data );
+                        writeMessage ( "failureReply", "Operation Failed, Please try again!" );
                         
                     }
                 });
             }
-        
-            
-        
             function writePerson() {
                 var person = { id:null, reportTime:null, organization:null};
                 dwr.util.getValues(person);        
                 AjaxAdminService.saveEmailTimePreference(person, function(data) {
                     if ( data == "Added Successfully!") {
+                        writeMessage("successReply", "Operation Successful!");
                         fillTable();
                     }
                     else {
-                        alert ( data );
+                        writeMessage ( "failureReply", "Operation Failed, Please try again!" );
                     }
                 });
             }
-        
-            
         </script>
         
         <jsp:include page="table_style.jsp" ></jsp:include>
@@ -100,7 +97,7 @@
         <jsp:include page="include.jsp" />
         
         
-        <table align="center">
+        <table align="center" >
             <thead>
                 <tr>
                     <th>Daily Report</th>
@@ -161,12 +158,8 @@
             </tbody>
         </table>
         
-        
-        
-        
-        
         <script type="text/javascript">
-            onload = fillTable();
+            window.onload = fillTable;
         </script>
         <br>
         <br>
@@ -176,7 +169,6 @@
         <br>
         <br> <br>
         <br>
-        
         
         <jsp:include page="emailtimings_help.jsp" />
         <jsp:include page="copyright.jsp" />

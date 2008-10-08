@@ -40,7 +40,7 @@
             var viewed = null;
         
             function fillTable() {
-                dwr.util.useLoadingMessage();
+                dwr.util.useLoadingMessage("Please Wait, Loading");
                 AjaxAdminService.getAllEmailPreference(function(people) {
                     // Delete all the rows except for the "pattern" row
                     dwr.util.removeAllRows("peoplebody", { filter:function(tr) {
@@ -59,7 +59,6 @@
                         peopleCache[id] = person;
                     }
                 });
-                //dwr.util.setValues(person);
             }
         
             function editClicked(eleid) {
@@ -87,21 +86,15 @@
                     AjaxAdminService.saveEmailPreference(person, function(data) { 
                         clearMessages();
                         if ( data == "Operation succesful!") {
-                            dwr.util.setValue ("successReply", "Created/Updated Email for report"  + " at " + new Date().toLocaleString() );
+                            writeMessage ("successReply", "Created/Updated Email for report"  + " at " + new Date().toLocaleString() );
                             fillTable();
                         } else {
-                            dwr.util.setValue ("failureReply", data );
+                            writeMessage ("failureReply", "Operation Failed, Please try again");
                         }
-                      
                     });
-                    
                 } else {
                     alert ( " not a valid phone no.")
                 }
-                   
-                
-                
-            
             }
         
             function clearPerson() {
@@ -109,19 +102,15 @@
                 dwr.util.setValues({ id:null, username:null, emailOrPhone:null, serviceProvider:null });
             }
             function deletePerson() {
-                //alert ( 'hi');
-                var x = viewed;
                 AjaxAdminService.deleteEmail(viewed, function(data) {
                     clearMessages();
                     if ( data == "Deleted Email Successful!") {
-                        dwr.util.setValue ("successReply", data  + " at " + new Date().toLocaleString());
+                        writeMessage ("successReply", data  + " at " + new Date().toLocaleString());
                         fillTable();
                         clearPerson();
                     } else {
-                        dwr.util.setValue ("failureReply", data + " Or please refresh page!");
+                        writeMessage ("failureReply", " Operation Failed, Please try again!");
                     }
-                       
-                    
                 });
             }
         </script>
@@ -238,7 +227,7 @@
         </table>
         
         <script type="text/javascript">
-            onload = fillTable();
+            window.onload = fillTable;
         </script>
         <br>
         <br>
