@@ -27,6 +27,8 @@ public class UsersLight implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @Column(name = "id", nullable = false)
+    private Integer id;
     @Column(name = "username", nullable = false)
     private String username;
     @Column(name = "organization")
@@ -57,6 +59,15 @@ public class UsersLight implements Serializable {
         this.username = username;
     }
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {

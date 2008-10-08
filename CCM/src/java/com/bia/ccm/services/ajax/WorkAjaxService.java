@@ -58,7 +58,7 @@ public class WorkAjaxService {
             this.workService.leaseSystem(systemId, leaseHolder,AcegiUtil.getUsername());
         } catch (Exception e) {
             e.printStackTrace();
-            logger.equals(e);
+            logger.error(e);
             return e.getMessage();
         }
         return "Assigned Successfully!";
@@ -98,7 +98,7 @@ public class WorkAjaxService {
             this.workService.unleaseSystem(systemId, paidAmount, AcegiUtil.getUsername());
         } catch (Exception e) {
             //e.printStackTrace();
-            logger.equals(e);
+            logger.error(e);
             return e.getMessage();
         }
         return "Assigned Successfully!";
@@ -120,12 +120,12 @@ public class WorkAjaxService {
             this.workService.createCutomer(c, u);
             eMailService.sendEmail(c.getEmail(), "Welcome to FaceGuard, username / password : " + c.getUsername() + " / " + c.getPassword());
         } catch (RuntimeException re) {
-            logger.equals(re);
+            logger.error(re);
             //re.printStackTrace();
             msg = re.getMessage();
         } catch (Exception e) {
             //e.printStackTrace();
-            logger.equals(e);
+            logger.error(e);
             msg = e.getMessage();
         }
         return msg;

@@ -162,7 +162,7 @@ http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
             <value>root</value>
         </property>
         <property name="password">
-            <value>apple123</value>
+            <value>apple</value>
         </property>
     </bean>
     <bean id="httpRequestAccessDecisionManager"

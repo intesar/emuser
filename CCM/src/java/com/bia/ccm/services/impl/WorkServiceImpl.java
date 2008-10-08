@@ -12,7 +12,6 @@ import com.bia.ccm.dao.OrganizationDao;
 import com.bia.ccm.dao.ServicesDao;
 import com.bia.ccm.dao.SystemLeaseDao;
 import com.bia.ccm.dao.SystemsDao;
-import com.bia.ccm.dao.UserPicDao;
 
 import com.bia.ccm.dao.UsersDao;
 import com.bia.ccm.dao.UsersLightDao;
@@ -349,13 +348,13 @@ public class WorkServiceImpl implements WorkService {
             }
             logger.debug("status " + status);
         } catch (NullPointerException npe) {
-            logger.equals(npe);
+            logger.error(npe);
             npe.printStackTrace();
         } catch (RuntimeException re) {
-            logger.equals(re);
+            logger.error(re);
             re.printStackTrace();
         } catch (Exception e) {
-            logger.equals(e);
+            logger.error(e);
             e.printStackTrace();
         }
         return status;
@@ -364,6 +363,11 @@ public class WorkServiceImpl implements WorkService {
     public void createCutomer(Users customer, Users createUser) {
 
         if (customer.getId() == null) {
+//            Users user = usersDao.findByUsername(customer.getEmail());
+//            logger.info("________________________ before createCustomer1 _________________");
+//            if ( user != null && user.getUsername() != null ) {
+//                throw new RuntimeException("User already exists exception");
+//            }
             customer.setUsername(customer.getEmail());
             customer.setPassword(new Date().getTime() + "");
             customer.setPassword(passwordEncryptor.encryptPassword(customer.getPassword()));
@@ -374,28 +378,33 @@ public class WorkServiceImpl implements WorkService {
             }
             logger.debug("__________________________________ " + "inside save customer");
             UsersLight ul = new UsersLight(customer.getUsername(), null);
-            String encryptedPass = this.stringEncryptor.encrypt(customer.getPassword());
+            String encryptedPass = this.stringEncryptor.encrypt(new Date().getTime() + "");
             String resetCode = this.stringEncryptor.encrypt(customer.getEmail() + Calendar.getInstance().getFirstDayOfWeek());
             UsersPass usersPass = new UsersPass(null, customer.getEmail(),
                     encryptedPass, true, resetCode, new Date());
 
 
-            this.usersPassDao.create(usersPass);
-            this.usersDao.create(customer);
-            this.usersLightDao.create(ul);
-            if (customer.getImage() != null) {
-                customer.setPic(this.bufferedImageToByteArray(customer.getImage()));
+            if (customer.getImg() != null) {
+                customer.setPic(this.bufferedImageToByteArray(customer.getImg()));
             }
-            Users u = usersDao.findByUsername(customer.getUsername());
-
+            //Users u = usersDao.findByUsername(customer.getUsername());
+            logger.info("________________________ before createCustomer _________________");
+            this.usersDao.create(customer);
+            this.usersPassDao.create(usersPass);
+            this.usersLightDao.create(ul);
+            logger.info("________________________ after createCustomer _________________");
         } else {
             // get img then update
-            if (customer.getPic() == null) {
-                Users c = this.usersDao.read(customer.getId());
-                customer.setPic(c.getPic());
-            } else if (customer.getPic() != null) {
-                customer.setPic(this.bufferedImageToByteArray(customer.getImage()));
+            // if img is not null copy img to pic and save it
+            if ( customer.getImg() != null ) {
+                customer.setPic(this.bufferedImageToByteArray(customer.getImg()));
             }
+//            if (customer.getPic() == null) {
+//                Users c = this.usersDao.read(customer.getId());
+//                customer.setPic(c.getPic());
+//            } else if (customer.getPic() != null) {
+//                customer.setPic(this.bufferedImageToByteArray(customer.getImage()));
+//            }
             this.usersDao.update(customer);
         }
     }
@@ -418,11 +427,13 @@ public class WorkServiceImpl implements WorkService {
             for (SystemLease sl : list) {
                 try {
                     logger.debug("********* before method1 " + sl.getService());
-                    this.eMailService.sendEmail(sl.getLeaseHolderName(), getStringAtContractStart(sl, sl.getLeaseHolderName()));
+                    if (!sl.getLeaseHolderName().equalsIgnoreCase("Walkin Customer")) {
+                        this.eMailService.sendEmail(sl.getLeaseHolderName(), getStringAtContractStart(sl, sl.getLeaseHolderName()));
+                    }
                     sl.setIsStartContractNotified(true);
                     this.systemLeaseDao.update(sl);
                 } catch (RuntimeException re) {
-                    re.printStackTrace();
+                    //re.printStackTrace();
                     logger.debug(re);
                 }
             }
@@ -443,11 +454,13 @@ public class WorkServiceImpl implements WorkService {
             for (SystemLease sl : list) {
                 try {
                     logger.debug("********* before method1 " + sl.getService());
-                    this.eMailService.sendEmail(sl.getLeaseHolderName(), getStringAtContractStart(sl, sl.getLeaseHolderName()));
+                    if (!sl.getLeaseHolderName().equalsIgnoreCase("Walkin Customer")) {
+                        this.eMailService.sendEmail(sl.getLeaseHolderName(), getStringAtContractStart(sl, sl.getLeaseHolderName()));
+                    }
                     sl.setIsEndContractNotified(true);
                     this.systemLeaseDao.update(sl);
                 } catch (RuntimeException re) {
-                    re.printStackTrace();
+                    //re.printStackTrace();
                     logger.debug(re);
                 }
             }
@@ -456,7 +469,9 @@ public class WorkServiceImpl implements WorkService {
 
     public Users getCustomerPic(String key) {
         Users u = this.usersDao.findByKey(key);
-        u.setImage(this.byteArrayToBufferedImage(u.getPic()));
+        if (u.getPic() != null) {
+            u.setImage(this.byteArrayToBufferedImage(u.getPic()));
+        }
         return u;
     }
 
@@ -554,15 +569,15 @@ public class WorkServiceImpl implements WorkService {
                 org.getName() + " Contact No : " + org.getPhone() + " <br> " +
                 org.getName() + " Contact Email : " + org.getContactEmail() + " <br> " +
                 org.getName() + " Address : " + org.getStreet() + " " + org.getCity() + " <br> " +
-                org.getName() + " Admin At Kiosk : " + u.getName() + " <br> " +
-                org.getName() + " Operating Hours : " + " <br> " +
+                org.getName() + " Admin At Kiosk : " + sl.getIssueAgent() + " <br> " +
+                org.getName() + " Operating Hours : " + org.getTimings() + " <br> " +
+                org.getName() + " Print Email : " + org.getPrintEmail() + " <br> " +
                 "Service      :" + sl.getService() + " <br> " +
                 "Start Time : " + sl.getStartTimeString() + " <br> " +
                 "<br> " +
-                "21.com Also Offers:  <br> " +
+                org.getName() + " Also Offers:  <br> " +
                 "<table> <thead> <tr> <td> Service </td> <td>  Unit Price </td> </tr> </thead><body> " + s +
                 " If someone else have used the above service at " + org.getName() + " please contact and report Cyber Cafe or Email us at info@bizintelapps.com < br > " +
-                " -- <br> " +
                 " Thanks  <br>" +
                 "Team BizIntelApps (Business Intelligent Application) & FaceGuard.org ";
         return str;
@@ -586,7 +601,7 @@ public class WorkServiceImpl implements WorkService {
                 org.getName() + " Contact Email : " + org.getContactEmail() + " <br> " +
                 org.getName() + " Address : " + org.getStreet() + " " + org.getCity() + " <br> " +
                 org.getName() + " Admin, Issed By : " + sl.getIssueAgent() + " <br> " +
-                org.getName() + " Operating Hours : " + " <br> " +
+                org.getName() + " Operating Hours : " + org.getTimings() + " <br> " +
                 "Service      :" + sl.getService() + " <br> " +
                 "Start Time : " + sl.getStartTimeString() + " <br> " +
                 "End Time : " + sl.getEndTimeString() + " <br> " +
@@ -594,8 +609,9 @@ public class WorkServiceImpl implements WorkService {
                 "Payable Amount :" + sl.getPayableAmount() + "<br> " +
                 "Paid Amount :" + sl.getAmountPaid() + "<br> " +
                 org.getName() + " Admin, Paid To : " + sl.getReturnAgent() + " <br> " +
+                org.getName() + " Print Email : " + org.getPrintEmail() + " <br> " +
                 "<br> " +
-                "21.com Also Offers:  <br> " +
+                org.getName() + " Also Offers:  <br> " +
                 "<table> <thead> <tr> <td> Service </td> <td>  Unit Price </td> </tr> </thead><body> " + s + "</body></table>" +
                 " If someone else have used the above service at " + org.getName() + " please contact and report Cyber Cafe or Email us at info@bizintelapps.com < br > " +
                 " -- <br> " +
@@ -626,10 +642,6 @@ public class WorkServiceImpl implements WorkService {
 
     public void setPasswordEncryptor(PasswordEncryptor passwordEncryptor) {
         this.passwordEncryptor = passwordEncryptor;
-    }
-
-    public void setUserPicDao(UserPicDao userPicDao) {
-        this.userPicDao = userPicDao;
     }
 
     public void setMembershipsDao(MembershipsDao membershipsDao) {
@@ -666,7 +678,6 @@ public class WorkServiceImpl implements WorkService {
     private EMailService eMailService = new EMailServiceImpl();
     private PasswordEncryptor passwordEncryptor;
     private PBEStringEncryptor stringEncryptor;
-    private UserPicDao userPicDao;
     private MembershipsDao membershipsDao;
     private MembershipTypesDao membershipTypesDao;
     private MembershipDiscountsDao membershipDiscountsDao;

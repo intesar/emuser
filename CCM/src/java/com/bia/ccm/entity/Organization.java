@@ -70,6 +70,10 @@ public class Organization implements Serializable {
     @Column(name = "create_date")
     @Temporal(TemporalType.DATE)
     private Date createDate;
+    @Column ( name="timings")
+    private String timings;
+    @Column (name="print_email")
+    private String printEmail;
 
     public Organization() {
     }
@@ -255,6 +259,23 @@ public class Organization implements Serializable {
         this.createDate = createDate;
     }
 
+    public String getPrintEmail() {
+        return printEmail;
+    }
+
+    public void setPrintEmail(String printEmail) {
+        this.printEmail = printEmail;
+    }
+
+    public String getTimings() {
+        return timings;
+    }
+
+    public void setTimings(String timings) {
+        this.timings = timings;
+    }
+
+    
     @Override
     public int hashCode() {
         int hash = 0;
