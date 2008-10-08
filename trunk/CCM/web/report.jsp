@@ -34,7 +34,6 @@
         
         <script type="text/javascript">
             function execute() {
-                //alert ( document.getElementById("startDate").value);
                 dwr.util.useLoadingMessage("Please Wait!");
                  var startDate = document.getElementById("DPC_startDate_YYYY-MM-DD").value;
                  var endDate = document.getElementById("DPC_endDate_YYYY-MM-DD").value;
@@ -43,8 +42,6 @@
                 } else {
                     alert ( " invalid dates ");
                 }
-                //AjaxAdminService.getReport(document.getElementById("DPC_startDate_YYYY-MM-DD").value,
-                //document.getElementById("DPC_endDate_YYYY-MM-DD").value, reply1 );
             }
             
             var reply1 = function(data) {
@@ -54,11 +51,6 @@
                 dwr.util.setValue("id1", str1);
                 dwr.util.setValue("id2", str2);
                 dwr.util.setValue("id3", str3);
-
-                
-            
-                //alert (data);
-            
             }
         </script>
         

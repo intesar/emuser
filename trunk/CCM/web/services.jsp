@@ -103,14 +103,11 @@
             var reply1 = function (data) {
                 clearMessages();
                 if ( data == " Service Saved Successful! ") {
-                    dwr.util.setValue ("successReply", data + " at "  + new Date().toLocaleString());
+                    writeMessage ("successReply", data + " at "  + new Date().toLocaleString());
                     fillTable();
                 } else {
-                    dwr.util.setValue ("failureReply", data );
+                    writeMessage ("failureReply", data );
                 }
-                    
-                    
-                //alert (data);
             }
                
             
@@ -125,10 +122,10 @@
                 AjaxAdminService.deleteService(viewed, function(data) {
                     clearMessages();
                     if ( data == " Service Deleted Successful! ") {
-                        dwr.util.setValue ("successReply", data + " at " + new Date().toLocaleString());
+                        writeMessage ("successReply", data + " at " + new Date().toLocaleString());
                         fillTable();
                     } else {
-                        //dwr.util.setValue ("failureReply", data + " Or please refresh page!");
+                        writeMessage ("failureReply", " You cannot delete this service!");
                     }  
                     fillTable();
                 });
@@ -223,7 +220,7 @@
         </table>
         
         <script type="text/javascript">
-            onload = fillTable();
+            window.onload = fillTable;
         </script>
         <br>
         <br>

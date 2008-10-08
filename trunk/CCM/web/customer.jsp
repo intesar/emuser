@@ -21,14 +21,9 @@
     <link type="text/css" rel="stylesheet" href="/CCM/datepickercontrol.css"> 
     
     <script type="text/javascript">
-
-       
         var cust = null;
- 
-
-
-        
         function writePerson() {
+            dwr.util.useLoadingMessage("Please Wait Loading....");
             var customer = null;
             if ( cust == null ) {
                 customer = { id:null, name:null, img:null, email:null, 
@@ -49,12 +44,7 @@
             var flag3 = customer.img.value.toString().toLowerCase().search ('png') ;
             
             if ( flag1 > 0 || flag2 > 0 || flag3 > 0 || customer.img.value == null || customer.img.value == "") {
-            
-                //customer.imag = null;
-        
-                //dwr.engine.beginBatch();
-                //People.setPerson(person);
-                
+              
                 if ( validateEmail(customer.email, true, true) ) {
                    
                     if ( /*customer.img !="" && */ customer.name != "" && customer.street !=""  && customer.city !="" && customer.zipcode !="" &&  customer.state != "" && customer.country!="")
@@ -76,16 +66,15 @@
         var reply1 = function (data) {                
             clearMessages();
             if ( data == "Customer Created Successfully!" ) {
-                dwr.util.setValue ("successReply", "Created/Updated Profile at " + new Date().toLocaleString());                
+                writeMessage ("successReply", "Created/Updated Profile at " + new Date().toLocaleString());                
             } else {
-                dwr.util.setValue ("failureReply", data);
+                writeMessage ("failureReply", "Please try again with different values");
             }
         }
         
          
         function execute() {
             dwr.util.useLoadingMessage("Please Wait Loading....");
-            //alert ( document.getElementById("startDate").value);
             AjaxAdminService.getSystemLease(document.getElementById("DPC_startDate_YYYY-MM-DD").value,
             reply1 );
         }
@@ -93,7 +82,6 @@
             
         
         function clearPerson() {
-                
             dwr.util.setValues({ id:null, img:null, name:null, email:null, 
                 homePhone:null, mobilePhone:null, otherPhone:null,
                 street:null,city:null, zipcode:null, state:null, 
@@ -104,8 +92,8 @@
         }
             
         function search() {
-            AjaxWorkService.getUserWithPic(dwr.util.getValue("key"), reply2);
             dwr.util.useLoadingMessage("Please Wait Loading....");
+            AjaxWorkService.getUserWithPic(dwr.util.getValue("key"), reply2);            
         }
             
         var reply2 = function(customer) {
@@ -113,8 +101,9 @@
             dwr.util.setValue("image", null);
             clearMessages();
             if ( customer.id == null ) {
-                dwr.util.setValue ("failureReply", "No Match for the Given Email, Please create User Profile " );                
+                writeMessage ("failureReply", "No Match for the Given Email, Please create User Profile " );                
             } else {
+                writeMessage ("successReply", "Found " + customer.name );   
                 dwr.util.setValues(customer);
             }
         }
@@ -146,10 +135,13 @@
             <td><img id="image" src="javascript:void(0);"/>  </td>
         </tr>
     </table>
-    <h2 align="center"> Create / Update Customer Profile</h2>
-    
+    <br>
     <table align="center">
-        
+        <thead>
+            <tr>
+                <td>Create / Update Customer Profile</td>
+            </tr>
+        </thead>
         <tr>
             <td>
             <table>
@@ -212,11 +204,21 @@
     </table> 
     </td>
     <td>
-        <table>
+        <table> 
+            <tr>
+                <td>Verified</td>
+                <td>
+                    <select name="isVerified" disabled>                    
+                        <option value="0">NO</option>
+                        <option value="1">YES</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Government Id</td>
+                <td><input id="ssn" type="text" size="30"/></td>
+            </tr>
             
-            <!-- <input type="submit" value="Search" onclick="execute();"/></td>-->
-
-                
             <tr>
                 <td>Passport No</td>
                 <td><input id="passportNo" type="text" size="30"/></td>

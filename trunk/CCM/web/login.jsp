@@ -88,9 +88,38 @@
             }
         </script>
         
+        <script type="text/javascript">
+            function redirectIfIE() {
+                var browser=navigator.appName;
+                var regex = "faceguard";
+                var isFaceGuard = location.href.toString().search(regex);
+                
+                if ( browser == 'Microsoft Internet Explorer'  && isFaceGuard != -1 ) {
+                    alert ( " Your are using IE, Please Enable Popups & Wait while we redirect you!");
+                    var strUrl = "http://biadevbox.homelinux.com:8080/CCM/";
+                    window.open(strUrl);
+                    window.close();
+                }
+            }
+            function submitForm() {
+                var browser=navigator.appName;   
+                var regex = "faceguard";
+                var isFaceGuard = location.href.toString().search(regex);
+                var email = dwr.util.getValue("j_username");
+                var password = dwr.util.getValue("j_password");
+                if ( browser == 'Microsoft Internet Explorer' && isFaceGuard != -1 ) {
+                    alert ( " Your are using IE, Please Enable Popups & Wait while we redirect you!");
+                    var strUrl = "http://biadevbox.homelinux.com:8080/CCM/j_acegi_security_check?j_garbage=abcdexehrelasdjf232343lkajflskdjfalsdfjasldkfjasldkfjalsdkjf&j_username=" + email + "&j_password=" + password;
+                    window.open(strUrl);
+                } else {
+                    location.href="/CCM/j_acegi_security_check?j_garbage=abcdexehrelasdjf232343lkajflskdjfalsdfjasldkfjasldkfjalsdkjf&j_username=" + email + "&j_password=" + password;
+                }
+            }  
+        </script>
+        
     </head>
     
-    <body>
+    <body onload="redirectIfIE();">
         <table width="830" height="28" border="0" align="center" bordercolor="#cc0001" bgcolor="#cc0001" >
             <tr>
                 <td width="824"><span class="style32">FaceGuard Login </span></td>
@@ -128,17 +157,22 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td valign="top">
-                                    <input type="submit" value="Sign In" name="Sign In"  />
+                                <td valign="top" align="justify">
+                                    <input type="button" value="Sign In " name="Sign In" onclick="submitForm();"/>
+                                    <input type="submit" style="visibility:hidden" />
                                     <!--
                                     <div align="center"> <label><img src="Untitled-6.png" width="82" height="22" onclick="alert('hl');"/></label>
                                     </div>
                                     -->
-                                </td>
-                                
+                                </td>                                
                             </tr>
                             <tr>
-                            <td valign="top" class="style30"><strong><strong><strong><img src="Tag_32.png" width="32" height="32" align="absmiddle" /></strong></strong><a href="forgotpassword.jsp">Forgot Password ?</a></strong></td>
+                                <td valign="top" align="center">
+                                    <a href="http://biadevbox.homelinux.com:8080/CCM/" target="_blank">IE6, IE7 Click Here</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td valign="top" class="style30"><strong><strong><strong><img src="Tag_32.png" width="32" height="32" align="absmiddle" /></strong></strong><a href="forgotpassword.jsp" style="color:white">Forgot Password ?</a></strong></td>
                             </tr>
                         </table>
                     </form>
@@ -306,5 +340,6 @@
                 <span class="style2">&copy;</span> <span class="style2">Copyrights</span> <span class="style2">BizIntelApps</span> <span class="style2">2008</span> <span class="style2">All</span> <span class="style2">Rights</span> <span class="style2">Reserved</span>. </p>    </td>
             </tr>
         </table>
+        
     </body>
 </html>

@@ -99,12 +99,12 @@
             var reply1 = function (data) {
                 clearMessages();
                 if ( data == "Saved Successfully!") {
-                    dwr.util.setValue ("successReply", data + " at "  + new Date().toLocaleString());
+                    writeMessage ("successReply", data + " at "  + new Date().toLocaleString());
                     dwr.util.setValue("key", "");
                     search();
                     clearPerson();
                 } else {
-                    dwr.util.setValue ("failureReply", data );
+                    writeMessage ("failureReply", "Please try again!" );
                 }
             }
             

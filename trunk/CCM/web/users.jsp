@@ -62,7 +62,7 @@
                         }
                         dwr.util.setValue("role1" + id, person.role); 
                         
-                        $("pattern" + id).style.display = "table-row";
+                        $("pattern" + id).style.display = "";
                         peopleCache[id] = person;
                         user = person;
                     }
@@ -123,10 +123,10 @@
             var reply1 = function (data) {
                 clearMessages();
                 if ( data == 'Operation succesful!') {
-                    dwr.util.setValue ("successReply", " Saved/Updated User at " + new Date().toLocaleString() );
+                    writeMessage ("successReply", " Saved/Updated User at " + new Date().toLocaleString() );
                     fillTable();
                 } else {
-                    dwr.util.setValue ("failureReply", data );
+                    writeMessage ("failureReply", data );
                 }
             }
         
@@ -246,7 +246,7 @@
         
         
         <script type="text/javascript">
-            onload = fillTable();
+            window.onload = fillTable;
         </script>
     </body>
     

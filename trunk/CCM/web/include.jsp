@@ -38,17 +38,10 @@
             m.removeChild(a);
             m.removeChild(b);
         }   
-        /*
-        else {            
-            m.removeChild(a);
-            m.removeChild(b);
-        }
-         */
-    
+      
     } 
             
     function refresh() {
-        
         window.location.reload();
     }
     function forwardFunction(link) {
@@ -136,15 +129,9 @@
         </a> 
     </div>
     <br>
-    <div align="center">
-        
-        <font style="color:green;">            
-            <span id="successReply" style="display:none; background:#FFFFDD; font-weight:bold;"></span>            
-        </font>
-        <font style="color:red">
-            <span id="failureReply" style="display:none; background:#FFFF66; font-weight:bold;"></span>
-        </font>
-         
+    <div align="center">   
+        <span id="successReply" style="background-color:#99ff66;"></span>            
+        <span id="failureReply" style="background-color:#ff3300; font-weight:bold;"></span>
     </div>
 </div>
 <br>
@@ -153,7 +140,7 @@
     function writeMessage(type,  message) {
         dwr.util.setValue (type, message);
         // clear message after 5 seconds
-        //setTimeout("clearMessages();", 5000);
+        setTimeout("clearMessages();", 5000);
     }
     function clearMessages() {
         dwr.util.setValue ("failureReply", "" );

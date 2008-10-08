@@ -35,7 +35,7 @@
            
             var org;
             function fillTable() {
-                dwr.util.useLoadingMessage();
+                dwr.util.useLoadingMessage("Please Wait, Loading");
                 AjaxAdminService.getOrganization(function(people) {
                     org = people;
                     dwr.util.setValues(people);
@@ -46,30 +46,24 @@
             function writePerson() {                
                 dwr.util.getValues(org);
                 AjaxAdminService.saveOrganization(org, function (data) {
-                 clearMessages();                
-                if (  data == 'Operation succesful!') {
-                    dwr.util.setValue("successReply", " Profile Updated at " + new Date().toLocaleString());
-                    fillTable();
-                } else {
-                    dwr.util.setValue("failureReply", data);
-                }    
+                    clearMessages();                
+                    if (  data == 'Operation succesful!') {
+                        writeMessage("successReply", " Profile Updated at " + new Date().toLocaleString());
+                        fillTable();
+                    } else {
+                        writeMessage("failureReply", "Please try with different values");
+                    }    
                 });
-                
-                
             }
-        
-            
         </script>
-         
-       <jsp:include page="table_style.jsp" ></jsp:include>
+        
+        <jsp:include page="table_style.jsp" ></jsp:include>
     </head>
     
     <body>
         
         <jsp:include page="include.jsp" />
         
-        
-       
         <table align="center">
             <thead>
                 <tr>
@@ -80,56 +74,64 @@
                 </tr>
             </thead>
             <tr>
-                <td>Organization:</td>
-                <td><input id="name" type="text" size="30" disabled="disabled" /></td>
+                <td>
+                    <table align="center">
+                        
+                        <tr>
+                            <td>Name:</td>
+                            <td><input id="name" type="text" size="30" disabled="disabled" /></td>
+                        </tr>
+                        <tr>
+                            <td>Street:</td>
+                            <td><input type="text" id="street" size="30"/></td>
+                        </tr>
+                        <tr>
+                            <td>City:</td>
+                            <td><input type="text" id="city" size="30"/></td>
+                        </tr>
+                        <tr>
+                            <td>State:</td>
+                            <td><input type="text" id="state" size="30"/></td>
+                        </tr>
+                        <tr>
+                            <td>Zipcode:</td>
+                            <td><input type="text" id="zipcode" size="30"/></td>
+                        </tr>
+                        <tr>
+                            <td>Country:</td>
+                            <td><input type="text" id="country" size="30"/></td>
+                        </tr>
+                    </table>
+                    
+                </td>
+                <td>
+                    <table>
+                        <tr>
+                            <td>CEO</td>
+                            <td><input type="text" id="contactName" size="30"/></td>
+                        </tr>
+                        <tr>
+                            <td>Office Phone</td>
+                            <td><input type="text" id="phone" size="30"/></td>
+                        </tr>
+                        <tr>
+                            <td>Company Email</td>
+                            <td><input type="text" id="contactEmail" size="30"/></td>
+                        </tr>
+                        <tr>
+                            <td>Print Email</td>
+                            <td>(Used for customer printouts) <br>
+                            <input type="text" id="printEmail" size="30"/></td>
+                        </tr>
+                        <tr>
+                            <td>Timings</td>
+                            <td>(eg: mon- sun 9am to 1am) <br>
+                            <textarea id="timings" cols="30" rows="4"></textarea></td>
+                        </tr>
+                    </table>
+                </td>
             </tr>
-            <tr>
-                <td>Active:</td>
-                <td><input id="enabled" type="text" size="30" disabled="disabled" /></td>
-            </tr>
-            <tr>
-                <td>Street:</td>
-                <td><input type="text" id="street" size="30"/></td>
-            </tr>
-            <tr>
-                <td>City:</td>
-                <td><input type="text" id="city" size="30"/></td>
-            </tr>
-            <tr>
-                <td>State:</td>
-                <td><input type="text" id="state" size="30"/></td>
-            </tr>
-            <tr>
-                <td>Zipcode:</td>
-                <td><input type="text" id="zipcode" size="30"/></td>
-            </tr>
-            <tr>
-                <td>Country:</td>
-                <td><input type="text" id="country" size="30"/></td>
-            </tr>
-            <tr>
-                <td>Contact Person</td>
-                <td><input type="text" id="contactName" size="30"/></td>
-            </tr>
-            <tr>
-                <td>Contact Phone</td>
-                <td><input type="text" id="phone" size="30"/></td>
-            </tr>
-            <tr>
-                <td>Contact Email</td>
-                <td><input type="text" id="contactEmail" size="30"/></td>
-            </tr>
-            <tr>
-                <td>License</td>
-                <td><input type="text" id="licenceKey" size="30" disabled="disabled" /></td>
-            </tr>
-            <tr>
-                <td>Expiration Date</td>
-                <td><input type="text" id="expirationDate" size="30" disabled="disabled" value="UnLimited"/></td>
-            </tr>
-            
-            
-            
+            <br>
             <tr>
                 <td >    </td>
                 <td>
@@ -138,13 +140,11 @@
             </tr>
         </table>
         
-        
-        
         <script type="text/javascript">
-            onload = fillTable();
+            window.onload = fillTable;
         </script>
         
-       
+        
         
         <jsp:include page="organization_help.jsp" />
         <jsp:include page="copyright.jsp" />

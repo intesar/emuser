@@ -90,8 +90,7 @@
             }
             
             function editClicked(eleid) {
-                // we were an id of the form "edit{id}", eg "edit42". We lookup the "42"
-               
+                // we were an id of the form "edit{id}", eg "edit42". We lookup the "42"               
                 var person = peopleCache[eleid.substring(4)];               
                 viewed = person.id;
                 dwr.util.setValues(person);               
@@ -126,33 +125,27 @@
             function saveDiscount(eleid) {
                 var membershipDiscountId = eleid.substring(4);
                 var discount = dwr.util.getValue ( "discountPercentage" + membershipDiscountId);
-                //alert ( membershipDiscountId + " " + discount);
                 AjaxWorkService.saveMembershipDiscount(membershipDiscountId, discount, function (data) {
                     clearMessages();
                     if ( data == "Saved Successfully!") {
-                        dwr.util.setValue ("successReply", data + " at "  + new Date().toLocaleString());
+                        writeMessage ("successReply", data + " at "  + new Date().toLocaleString());
                         fillTable();
                     } else {
-                        dwr.util.setValue ("failureReply", data );
+                        writeMessage ("failureReply", data );
                     }
                 });
                 
             }
-            //dwr.engine.endBatch();
-            
-            
             var reply1 = function (data) {
                 clearMessages();
                 if ( data == "Created Successfully!") {
-                    dwr.util.setValue ("successReply", data + " at "  + new Date().toLocaleString());
+                    writeMessage("successReply", data + " at "  + new Date().toLocaleString());
                     fillTable();
                 } else {
-                    dwr.util.setValue ("failureReply", data );
+                    writeMessage ("failureReply", "Operation Failed, Please try again!" );
                 }
             }
                
-            
-        
             function clearPerson() {
                 viewed = null;
                 dwr.util.setValues({ id:null, name:null, fee:null, daysValidFor:null });

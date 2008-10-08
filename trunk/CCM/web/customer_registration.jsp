@@ -21,38 +21,20 @@
     <link type="text/css" rel="stylesheet" href="/CCM/datepickercontrol.css"> 
     
     <script type="text/javascript">
-
-       
-
- 
-
-
-        
         function writePerson() {
-                
+            dwr.util.useLoadingMessage("Please Wait Loading....");
             var customer = { id:null, name:null, img:null, email:null, 
                 homePhone:null, mobilePhone:null, otherPhone:null,
                 street:null,city:null, zipcode:null, state:null, 
                 country:null, passportNo:null, voterId:null,
                 collegeName:null, rationCardNo:null, panCardNo:null,
                 dob:null, gender:null, comments:null };
-                
-                
             dwr.util.getValues(customer);
-                
-            
-            
             var flag1 = customer.img.value.toString().toLowerCase().search ('jpg') ;
             var flag2 = customer.img.value.toString().toLowerCase().search ('bmp') ;
             var flag3 = customer.img.value.toString().toLowerCase().search ('png') ;
             
             if ( flag1 > 0 || flag2 > 0 || flag3 > 0 || customer.img.value == null || customer.img.value == "") {
-            
-                //customer.imag = null;
-        
-                //dwr.engine.beginBatch();
-                //People.setPerson(person);
-                
                 if ( validateEmail(customer.email, true, true) ) {
                    
                     if ( /*customer.img !="" && */ customer.name != "" && customer.street !=""  && customer.city !="" && customer.zipcode !="" &&  customer.state != "" && customer.country!="")
@@ -75,17 +57,11 @@
             //clearMessages();
             if ( data == "Customer Created Successfully!" ) {
                 alert ( "Welcome to FaceGuard,  please check your email for username/password and ask Cyber Cafe Admin to verify your Account! ");
-                //dwr.util.setValue ("successReply", "Created/Updated Profile at " + new Date().toLocaleString());                
+                location.href="/CCM/login.jsp";
             } else {
-                //dwr.util.setValue ("failureReply", data);
-                alert ( data );
+                alert ( "Please try again with different values" );
             }
         }
-        
-         
-       
-            
-        
         function clearPerson() {
                 
             dwr.util.setValues({ id:null, img:null, name:null, email:null, 
@@ -101,11 +77,6 @@
     <jsp:include page="table_style.jsp" ></jsp:include>
 </head>
 <body>
-    
-    
-    
-    
-    
     <h2 align="center"> Create Your FaceGuard Profile</h2>
     
     <table align="center">
@@ -173,10 +144,6 @@
     </td>
     <td>
         <table>
-            
-            <!-- <input type="submit" value="Search" onclick="execute();"/></td>-->
-
-                
             <tr>
                 <td>Passport No</td>
                 <td><input id="passportNo" type="text" size="30"/></td>
@@ -198,8 +165,6 @@
                 <td><input id="panCardNo" type="text" size="30"/></td>
             </tr>
             <tr>
-            
-            
             <tr>
                 <td>Comments</td>
                 <td><textarea name="comments" rows="6" cols="25">
