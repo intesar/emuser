@@ -103,7 +103,6 @@
             </bean>
         </property>
     </bean>
-    
     <bean id="usersLightDao" parent="abstractDao">
         <property name="proxyInterfaces">
             <value>com.bia.ccm.dao.UsersLightDao</value>
@@ -116,7 +115,6 @@
             </bean>
         </property>
     </bean>
-    
     <bean id="usersPassDao" parent="abstractDao">
         <property name="proxyInterfaces">
             <value>com.bia.ccm.dao.UsersPassDao</value>
@@ -129,7 +127,6 @@
             </bean>
         </property>
     </bean>
-    
     <bean id="emailPreferenceDao" parent="abstractDao">
         <property name="proxyInterfaces">
             <value>com.bia.ccm.dao.EmailPreferenceDao</value>
@@ -214,6 +211,7 @@
             </bean>
         </property>
     </bean>
+    <!--
      <bean id="userPicDao" parent="abstractDao">
         <property name="proxyInterfaces">
             <value>com.bia.ccm.dao.UserPicDao</value>
@@ -226,7 +224,7 @@
             </bean>
         </property>
     </bean>
-    
+    -->
     <bean id="membershipDiscountsDao" parent="abstractDao">
         <property name="proxyInterfaces">
             <value>com.bia.ccm.dao.MembershipDiscountsDao</value>
@@ -239,7 +237,6 @@
             </bean>
         </property>
     </bean>
-    
     <bean id="membershipTypesDao" parent="abstractDao">
         <property name="proxyInterfaces">
             <value>com.bia.ccm.dao.MembershipTypesDao</value>
@@ -252,7 +249,6 @@
             </bean>
         </property>
     </bean>
-    
     <bean id="membershipsDao" parent="abstractDao">
         <property name="proxyInterfaces">
             <value>com.bia.ccm.dao.MembershipsDao</value>

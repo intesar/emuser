@@ -105,15 +105,17 @@ public class UserAjaxService {
             c.setEmail(SQLInjectionFilterManager.getInstance().filter(c.getEmail()));
             c.setUsername(SQLInjectionFilterManager.getInstance().filter(c.getUsername()));
             Converter.toLowerCase(c);
+            logger.info("________________________ before create _________________");            
             this.workService.createCutomer(c, null);
+            logger.info("________________________ after create _________________");
             eMailService.sendEmail(c.getEmail(), "Welcome to FaceGuard, username / password : " + c.getUsername() + " / " + c.getPassword());
         } catch (RuntimeException re) {
-            logger.equals(re);
-            //re.printStackTrace();
+            logger.error(re);
+            re.printStackTrace();
             msg = re.getMessage();
         } catch (Exception e) {
-            //e.printStackTrace();
-            logger.equals(e);
+            e.printStackTrace();
+            logger.error(e);
             msg = e.getMessage();
         }
         return msg;

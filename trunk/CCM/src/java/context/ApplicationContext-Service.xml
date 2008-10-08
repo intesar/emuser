@@ -57,7 +57,7 @@
         <property name="organizationDao" ref="organizationDao" />
         <property name="passwordEncryptor" ref="passwordEncryptor" />
         <property name="stringEncryptor" ref="stringEncryptor" />
-        <property name="userPicDao" ref="userPicDao" />
+        <!-- <property name="userPicDao" ref="userPicDao" /> -->
         <property name="membershipDiscountsDao" ref="membershipDiscountsDao" />
         <property name="membershipTypesDao" ref="membershipTypesDao" />
         <property name="membershipsDao" ref="membershipsDao" />

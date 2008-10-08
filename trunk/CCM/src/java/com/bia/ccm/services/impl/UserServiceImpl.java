@@ -98,9 +98,9 @@ public class UserServiceImpl implements UserService {
         Organization o = new Organization(organizationName, (short) 1, null, city,
                 email, city, null, "india", email, "Silver Member", "ccm", 0, new Date(), "self");
         o.setContactEmail(email);
-        password =
-                this.passwordEncryptor.encryptPassword(password);
-        Users u = new Users(null, email, password, true, "admin", organizationName, email);
+        
+        Users u = new Users(null, email, passwordEncryptor.encryptPassword(password),
+                true, "admin", organizationName, email);
         UsersLight ul = new UsersLight(email, organizationName);
         Authorities a1 = new Authorities(email, "ROLE_ADMIN");
         Authorities a2 = new Authorities(email, "ROLE_USER");

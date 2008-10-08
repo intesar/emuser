@@ -22,8 +22,8 @@
         <property name="jobDetail" ref="jobDetailForStartContract" />
     <!-- 180 seconds -->
         <property name="startDelay" value="180000" />
-    <!-- repeat 1 minutes 10 * 60 * 1000-->
-        <property name="repeatInterval" value="600000" />
+    <!-- repeat 15 minutes 15 * 60 * 1000-->
+        <property name="repeatInterval" value="900000" />
         <!-- start time 6 am 
         <property name="startTime" value="0 0 6 * * ?" />
          start time 1 am 
@@ -35,8 +35,8 @@
         <property name="jobDetail" ref="jobDetailForEndContract" />
     <!-- 10 seconds -->
         <property name="startDelay" value="180000" />
-    <!-- repeat 1 minutes 10 * 60 * 1000-->
-        <property name="repeatInterval" value="600000" />
+    <!-- repeat 15 minutes 10 * 60 * 1000-->
+        <property name="repeatInterval" value="900000" />
         <!-- start time 6 am 
         <property name="startTime" value="0 0 6 * * ?" />
          start time 1 am 
