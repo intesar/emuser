@@ -136,7 +136,7 @@
 </div>
 <br>
 <script type="text/javascript">
-    onLoad = createMenu();
+    window.onload = createMenu();
     function writeMessage(type,  message) {
         dwr.util.setValue (type, message);
         // clear message after 5 seconds

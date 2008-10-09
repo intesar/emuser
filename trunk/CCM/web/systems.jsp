@@ -232,7 +232,7 @@
     
     
     <script type="text/javascript">
-        onload = fillTable();
+        window.onload = fillTable();
     </script>
 </body>
 <jsp:include page="systems_help.jsp" />

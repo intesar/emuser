@@ -213,7 +213,7 @@
         </table>
         
        <script type="text/javascript">
-            onload = fillMembershipTypes();
+            window.onload = fillMembershipTypes();
         </script>
         <br>
         <br>
