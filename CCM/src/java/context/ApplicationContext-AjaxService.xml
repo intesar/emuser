@@ -26,7 +26,7 @@
     
     -->
     
-    
+    <bean id="caseConverterImpl" class="com.bia.converter.CaseConverterImpl" />
     
     <bean id="userAjaxService" class="com.bia.ccm.services.ajax.UserAjaxService" >
         <dwr:remote javascript="AjaxUserService">
@@ -38,6 +38,7 @@
             <dwr:include method="getUserRole" />
             <dwr:include method="createCustomer" />
         </dwr:remote>
+        <property name="caseConverter" ref="caseConverterImpl" />
     </bean>
     <bean id="workAjaxService" class="com.bia.ccm.services.ajax.WorkAjaxService" >
         <dwr:remote javascript="AjaxWorkService">
@@ -62,6 +63,7 @@
             <dwr:include method="saveMembership" />
             <dwr:include method="createMembershipDiscount" />
         </dwr:remote>
+        <property name="caseConverter" ref="caseConverterImpl" />
     </bean>
     <bean id="adminAjaxService" class="com.bia.ccm.services.ajax.AdminAjaxService" >
         <dwr:remote javascript="AjaxAdminService">
@@ -85,6 +87,7 @@
             <dwr:include method="deleteService" />
             <dwr:include method="getAllServices" />            
         </dwr:remote>
+        <property name="caseConverter" ref="caseConverterImpl" />
     </bean>
     <bean id="customerAjaxService" class="com.bia.ccm.services.ajax.CustomerAjaxService" >
         <dwr:remote javascript="AjaxCustomerService">

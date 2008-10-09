@@ -5,10 +5,7 @@
 package com.bia.ccm.services.impl;
 
 import com.bia.ccm.services.EMailService;
-import com.crackj2ee.mail.Mail;
-import com.crackj2ee.mail.MailEngine;
-import com.crackj2ee.mail.MailListenerAdapter;
-import com.crackj2ee.mail.MxConfig;
+
 import com.sun.mail.smtp.SMTPSendFailedException;
 import java.security.Security;
 import java.util.Properties;
@@ -122,25 +119,11 @@ public class EMailServiceImpl implements EMailService {
         try {
             Transport.send(msg);
         } catch (SMTPSendFailedException e) {
-            this.sendUsingEasyMail(recipients, message);
+            e.printStackTrace();
         }
     }
 
-    private void sendUsingEasyMail(String[] email, String body) {
-
-        sender.setMxConfig(new MxConfig());
-        // Create a new Mail:
-        for (String s : email) {
-            Mail mail = Mail.buildHtmlMail("faceguard@bizintelapps.com",
-                    s,
-                    "Please Read it!",
-                    body);
-            // send it!
-            sender.send(mail, new MailListenerAdapter());
-        }
-    }
-    private MailEngine sender = new MailEngine();
-
+    
     public static void main(String[] args) {
         EMailService es = new EMailServiceImpl();
         es.sendEmail("mdshannan@gmail.com", "testing");

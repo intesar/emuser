@@ -21,7 +21,8 @@ import com.bia.ccm.services.WorkService;
 import com.bia.ccm.services.impl.EMailServiceImpl;
 import com.bia.ccm.util.AcegiUtil;
 import com.bia.ccm.util.ServiceFactory;
-import com.bia.converter.Converter;
+import com.bia.converter.CaseConverter;
+
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -55,7 +56,7 @@ public class WorkAjaxService {
                 leaseHolder = SQLInjectionFilterManager.getInstance().filter(leaseHolder);
                 leaseHolder = leaseHolder.toLowerCase();
             }
-            this.workService.leaseSystem(systemId, leaseHolder,AcegiUtil.getUsername());
+            this.workService.leaseSystem(systemId, leaseHolder, AcegiUtil.getUsername());
         } catch (Exception e) {
             e.printStackTrace();
             logger.error(e);
@@ -116,7 +117,7 @@ public class WorkAjaxService {
             c.setIsVerified(true);
             c.setVerifiedBy(u.getUsername());
             //c.setCreateUser(AcegiUtil.getUsername());
-            Converter.toLowerCase(c, "password");
+            caseConverter.toLowerCase(c, "password");
             this.workService.createCutomer(c, u);
             eMailService.sendEmail(c.getEmail(), "Welcome to FaceGuard, username / password : " + c.getUsername() + " / " + c.getPassword());
         } catch (RuntimeException re) {
@@ -279,7 +280,7 @@ public class WorkAjaxService {
 
     public String saveMembership(Memberships memberships) {
         try {
-            this.membershipService.saveMembership(memberships, this.getOrganization(),AcegiUtil.getUsername());
+            this.membershipService.saveMembership(memberships, this.getOrganization(), AcegiUtil.getUsername());
             return "Saved Successfully!";
         } catch (Exception e) {
             e.printStackTrace();
@@ -304,6 +305,11 @@ public class WorkAjaxService {
             return null;
         }
     }
+
+    public void setCaseConverter(CaseConverter caseConverter) {
+        this.caseConverter = caseConverter;
+    }
+    private CaseConverter caseConverter;
     private AdminService adminService = (AdminService) ServiceFactory.getService("adminServiceImpl");
     private MembershipService membershipService = (MembershipService) ServiceFactory.getService("membershipServiceImpl");
     protected final Log logger = LogFactory.getLog(getClass());
