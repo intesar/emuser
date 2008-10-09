@@ -16,13 +16,15 @@ import com.bia.ccm.entity.UsersLight;
 import com.bia.ccm.services.AdminService;
 import com.bia.ccm.util.AcegiUtil;
 import com.bia.ccm.util.ServiceFactory;
-import com.bia.converter.Converter;
+
+import com.bia.converter.CaseConverter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -163,7 +165,7 @@ public class AdminAjaxService {
         try {
             organization.setName(SQLInjectionFilterManager.getInstance().filter(organization.getName()));
             String username = AcegiUtil.getUsername();
-            Converter.toLowerCase(organization);
+            caseConverter.toLowerCase(organization);
             this.adminService.saveOrganization(organization, username);
         } catch (Exception e) {
             logger.error(e);
@@ -245,7 +247,13 @@ public class AdminAjaxService {
     public void sendReports() {
         this.adminService.sendReports();
     }
+
+    public void setCaseConverter(CaseConverter caseConverter) {
+        this.caseConverter = caseConverter;
+    }
+    private CaseConverter caseConverter;
     protected final Log logger = LogFactory.getLog(getClass());
+    
     private AdminService adminService = (AdminService) ServiceFactory.getService("adminServiceImpl");
     
     

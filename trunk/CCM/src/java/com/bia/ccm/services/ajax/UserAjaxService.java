@@ -12,8 +12,10 @@ import com.bia.ccm.services.WorkService;
 import com.bia.ccm.services.impl.EMailServiceImpl;
 import com.bia.ccm.util.AcegiUtil;
 import com.bia.ccm.util.ServiceFactory;
-import com.bia.converter.Converter;
+import com.bia.converter.CaseConverter;
+
 import java.util.Date;
+import net.sf.cglib.core.Converter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -104,7 +106,7 @@ public class UserAjaxService {
             c.setCreateDate(new Date());
             c.setEmail(SQLInjectionFilterManager.getInstance().filter(c.getEmail()));
             c.setUsername(SQLInjectionFilterManager.getInstance().filter(c.getUsername()));
-            Converter.toLowerCase(c);
+            caseConverter.toLowerCase(c);
             logger.info("________________________ before create _________________");            
             this.workService.createCutomer(c, null);
             logger.info("________________________ after create _________________");
@@ -120,6 +122,11 @@ public class UserAjaxService {
         }
         return msg;
     }
+    
+    public void setCaseConverter(CaseConverter caseConverter) {
+        this.caseConverter = caseConverter;
+    }
+    private CaseConverter caseConverter;
     protected final Log logger = LogFactory.getLog(getClass());
     protected UserService userService = (UserService) ServiceFactory.getService("userServiceImpl");
     private WorkService workService = (WorkService) ServiceFactory.getService("workServiceImpl");
