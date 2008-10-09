@@ -266,7 +266,7 @@
         </table>
         
         <script type="text/javascript">
-            onload = fillTable();
+            window.onload = fillTable();
         </script>
         <br>
         <br>
