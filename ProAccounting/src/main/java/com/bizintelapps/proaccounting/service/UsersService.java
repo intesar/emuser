@@ -17,11 +17,14 @@
 
 package com.bizintelapps.proaccounting.service;
 
+import com.bizintelapps.proaccounting.entity.Users;
+
 /**
  *
  * @author intesar
  */
 public interface UsersService {
     public void dummy();
+    public void saveUser(Users users);
 
 }

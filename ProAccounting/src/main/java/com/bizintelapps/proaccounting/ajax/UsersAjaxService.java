@@ -14,12 +14,10 @@
  *  limitations under the License.
  *  under the License.
  */
-package com.bizintelapps.proaccounting.service.impl;
+package com.bizintelapps.proaccounting.ajax;
 
-import com.bizintelapps.proaccounting.dao.UsersDao;
 import com.bizintelapps.proaccounting.entity.Users;
 import com.bizintelapps.proaccounting.service.UsersService;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -28,36 +26,34 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  *
  * @author intesar
  */
-public class UsersServiceImpl implements UsersService {
+public class UsersAjaxService {
 
-    private Logger log = Logger.getLogger(getClass());
-    private UsersDao usersDao;
+    private UsersService usersService;
 
-    public void setUsersDao(UsersDao usersDao) {
-        this.usersDao = usersDao;
+    public void setUsersService(UsersService usersService) {
+        this.usersService = usersService;
     }
 
-    public void saveUser(Users users) {
-        usersDao.create(users);
-    }
-
-    public void dummy() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public String saveUser(String msg) {
+        Users u = new Users(101, msg, msg, true);
+        usersService.saveUser(u);
+        return "successfull!";
     }
 
     public static void main(String[] args) {
         ApplicationContext context = new ClassPathXmlApplicationContext(
                 new String[]{
+                    
                     "classpath:applicationContext-dao.xml",
                     "classpath:applicationContext-service.xml",
                     "classpath:applicationContext-service-transactions.xml",
                     "classpath:applicationContext-schedule.xml",
+                    "classpath:applicationContext-ajax.xml"
                 });
 
 // an ApplicationContext is also a BeanFactory (via inheritance)
         BeanFactory factory = (BeanFactory) context;
-        UsersService uas = (UsersService) factory.getBean("usersServiceImpl");
-        Users u = new Users(10, "alskdj", "asldjf", true);
-        uas.saveUser(u);
+        UsersAjaxService uas = (UsersAjaxService) factory.getBean("usersAjaxService");
+        uas.saveUser("imran");
     }
 }
