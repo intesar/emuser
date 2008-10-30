@@ -34,16 +34,29 @@ public class UsersAjaxService {
         this.usersService = usersService;
     }
 
-    public String saveUser(String msg) {
-        Users u = new Users(101, msg, msg, true);
-        usersService.saveUser(u);
-        return "successfull!";
+    /**
+     * 
+     * @param username
+     * @param password
+     * @return
+     * 
+     *  method is exposed as ajax using dwr,
+     *  its creates new user
+     */
+    public String saveUser(String username, String password) {
+        try {
+            Users u = new Users(null, username, password, true);
+            usersService.saveUser(u);
+            return "successfull!";
+        } catch (Exception e) {
+            // log exceptions
+            return "error, please try again!";
+        }
     }
 
     public static void main(String[] args) {
         ApplicationContext context = new ClassPathXmlApplicationContext(
                 new String[]{
-                    
                     "classpath:applicationContext-dao.xml",
                     "classpath:applicationContext-service.xml",
                     "classpath:applicationContext-service-transactions.xml",
@@ -54,6 +67,6 @@ public class UsersAjaxService {
 // an ApplicationContext is also a BeanFactory (via inheritance)
         BeanFactory factory = (BeanFactory) context;
         UsersAjaxService uas = (UsersAjaxService) factory.getBean("usersAjaxService");
-        uas.saveUser("imran");
+    //uas.saveUser("imran");
     }
 }
