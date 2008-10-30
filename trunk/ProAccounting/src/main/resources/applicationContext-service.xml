@@ -16,6 +16,7 @@
         <property name="personDao" ref="personDao"/>
     </bean>
     -->
-    <bean id="usersServiceImpl" class="com.bizintelapps.proaccounting.service.impl.UsersServiceImpl" >        
+    <bean id="usersServiceImpl" class="com.bizintelapps.proaccounting.service.impl.UsersServiceImpl" >
+        <property name="usersDao" ref="usersDaoImpl" />
     </bean>
 </beans>

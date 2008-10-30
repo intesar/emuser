@@ -80,9 +80,7 @@ http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
         <property name="objectDefinitionSource">
             <value>
         CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
-        PATTERN_TYPE_APACHE_ANT                
-                /dwr/interface/ajaxadminservice.js*=ROLE_ADMIN
-                /dwr/interface/ajaxworkservice.js*=ROLE_USER                 
+        PATTERN_TYPE_APACHE_ANT                                              
                 /dashboard.jsp*=ROLE_ADMIN,ROLE_USER               
             </value>
         </property>
