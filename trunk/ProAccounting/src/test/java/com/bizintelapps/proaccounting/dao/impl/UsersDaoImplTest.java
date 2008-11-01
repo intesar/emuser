@@ -25,7 +25,7 @@ import org.springframework.test.jpa.AbstractJpaTests;
  *
  * @author intesar
  */
-public class UsersDaoImplTest { //extends AbstractJpaTests {
+public class UsersDaoImplTest extends AbstractJpaTests {
 
     private Logger log = Logger.getLogger(getClass());
     private UsersDao usersDao;
@@ -43,7 +43,7 @@ public class UsersDaoImplTest { //extends AbstractJpaTests {
     }
 
     protected void onSetUpInTransaction() throws Exception {
-        Users user1 = new Users(2, "username", "password", true);
+        Users user1 = new Users(20, "username", "password", true);
         usersDao.create(user1);
 //        jdbcTemplate.execute("insert into users (id, username, password, first_name, last_name, enabled ) values (3000, 'username1', 'na', 'na', 'na', 1)");
 //        jdbcTemplate.execute("insert into users (id, username, password, first_name, last_name, enabled ) values (3001, 'username2', 'na', 'na', 'na', 1)");
@@ -52,8 +52,8 @@ public class UsersDaoImplTest { //extends AbstractJpaTests {
     }
 
     public void testFindByIdWhereUserExists() {
-        //Users user = usersDao.read(2);
-        //log.debug(user.getUsername());
-        //assertNotNull(user);
+        Users user = usersDao.read(20);
+        log.debug(user.getUsername());
+        assertNotNull(user);
     }
 }
