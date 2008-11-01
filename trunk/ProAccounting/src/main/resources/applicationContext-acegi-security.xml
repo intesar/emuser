@@ -144,6 +144,7 @@ http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
             <ref bean="dataSource"/>
         </property>
     </bean>
+    <!--
     <bean id="dataSource"
           class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName">
@@ -159,6 +160,7 @@ http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
             <value>pa</value>
         </property>
     </bean>
+    -->
     <bean id="httpRequestAccessDecisionManager"
         class="org.acegisecurity.vote.AffirmativeBased">
         <property name="allowIfAllAbstainDecisions" value="false"/>

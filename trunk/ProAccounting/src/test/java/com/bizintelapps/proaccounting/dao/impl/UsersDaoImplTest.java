@@ -36,7 +36,7 @@ public class UsersDaoImplTest extends AbstractJpaTests {
 
     protected String[] getConfigLocations() {
         return new String[]{
-                    "classpath:applicationContext-dao.xml",
+                    "classpath:applicationContext-dao-test.xml",
                     "classpath:applicationContext-service.xml",
                     "classpath:applicationContext-service-transactions.xml"
                 };
