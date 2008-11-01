@@ -9,15 +9,19 @@
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>
-            classpath:applicationContext-acegi-security.xml
-            classpath:applicationContext-dao.xml
-            classpath:applicationContext-service.xml
-            classpath:applicationContext-service-transactions.xml
-            classpath:applicationContext-schedule.xml
+            classpath:applicationContext-acegi-security.xml      
+             classpath:applicationContext-dao.xml       
+             classpath:applicationContext-service.xml
+            classpath:applicationContext-service-transactions.xml  
             classpath:applicationContext-ajax.xml
         </param-value>
     </context-param>
     
+    <!-- 
+    classpath:applicationContext-schedule.xml
+    classpath:applicationContext-service.xml
+    classpath:applicationContext-service-transactions.xml  
+    -->
     <!-- 2. Setup the Acegi Filter Chain Proxy -->
     <filter>
         <filter-name>Acegi Filter Chain Proxy</filter-name>
@@ -38,7 +42,6 @@
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
 	<!--  Define application events listeners  -->
-    
     <servlet>
         <servlet-name>dwr-invoker</servlet-name>
         <servlet-class>org.directwebremoting.spring.DwrSpringServlet</servlet-class>

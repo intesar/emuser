@@ -5,13 +5,13 @@
         <class>com.bizintelapps.proaccounting.entity.TestTable</class>
         <class>com.bizintelapps.proaccounting.entity.Authorities</class>
         <class>com.bizintelapps.proaccounting.entity.Users</class>
-        <!--
+        
         <properties>
             <property name="toplink.jdbc.user" value="pa"/>
             <property name="toplink.jdbc.password" value="pa"/>
             <property name="toplink.jdbc.url" value="jdbc:mysql://biadevbox.homelinux.com:3306/proaccounting"/>
             <property name="toplink.jdbc.driver" value="com.mysql.jdbc.Driver"/>
         </properties>
-        -->
+        
     </persistence-unit>
 </persistence>

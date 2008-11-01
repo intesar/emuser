@@ -49,6 +49,7 @@ public class UsersAjaxService {
             usersService.saveUser(u);
             return "successfull!";
         } catch (Exception e) {
+            e.printStackTrace();
             // log exceptions
             return "error, please try again!";
         }
