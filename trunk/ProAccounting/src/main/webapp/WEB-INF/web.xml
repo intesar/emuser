@@ -10,8 +10,9 @@
         <param-name>contextConfigLocation</param-name>
         <param-value>
             classpath:applicationContext-acegi-security.xml      
-             classpath:applicationContext-dao.xml       
-             classpath:applicationContext-service.xml
+            classpath:applicationContext-dao.xml  
+            classpath:applicationContext-dao-ext.xml
+            classpath:applicationContext-service.xml
             classpath:applicationContext-service-transactions.xml  
             classpath:applicationContext-ajax.xml
         </param-value>
