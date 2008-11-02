@@ -21,16 +21,14 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
         </property>
     </bean>
     <bean id="jpaAdapter" class="org.springframework.orm.jpa.vendor.TopLinkJpaVendorAdapter">
-        <property name="showSql" value="true" />
+        <property name="showSql" value="false" />
         <property name="generateDdl" value="false" />
         <property name="databasePlatform" value="oracle.toplink.essentials.platform.database.MySQL4Platform" />
     </bean>
-    
-    <!-- <context:load-time-weaver/> -->
-    
+    <!--<context:load-time-weaver/>-->
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">
-      <property name="persistenceUnitName" value="ProAccoutingPU"/>
-   </bean>
+        <property name="persistenceUnitName" value="ProAccoutingPU"/>
+    </bean>
    
    <!--
    
@@ -45,11 +43,13 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
         <property name="persistenceUnitName" value="ProAccoutingPU"/>
     </bean>
     -->
+    <!--
     <bean id="usersDaoImpl" class="com.bizintelapps.proaccounting.dao.impl.UsersDaoImpl" >
         <property name="entityManagerFactory">
             <ref bean="entityManagerFactory"/>
         </property>
     </bean>
+    -->
     <!--
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
         <property name="entityManagerFactory" ref="entityManagerFactory"/>
