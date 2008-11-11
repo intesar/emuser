@@ -24,6 +24,19 @@ import com.bizintelapps.promanager.entity.Users;
  *
  * @author intesar
  */
-public interface UsersDao extends GenericDao<Users, Integer>{
+public interface UsersDao extends GenericDao<Users, Integer> {
+    /**
+     * 
+     * @param username
+     * @return Users Object if finds 
+     */
+    public Users findByUsername ( String username );
+    
+    /**
+     * email is unique
+     * @param email
+     * @return
+     */
+    public Users findByEmail ( String email );
 
 }

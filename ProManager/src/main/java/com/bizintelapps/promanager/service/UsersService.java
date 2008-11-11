@@ -17,6 +17,7 @@
 
 package com.bizintelapps.promanager.service;
 
+import com.bizintelapps.promanager.dao.PagingParams;
 import com.bizintelapps.promanager.service.dto.UsersDto;
 
 /**
@@ -29,7 +30,7 @@ public interface UsersService {
      * 
      * @param usersDto
      * 
-     *  persists user to database
+     *  persists or sinks user to database
      * 
      *  if username is not in use and email is not in use
      * 
@@ -40,6 +41,30 @@ public interface UsersService {
      *  throws Spring JPA exception which should not be exposed to client
      * 
      */
-    public void createUser(UsersDto usersDto);
+    public void saveUser(UsersDto usersDto, String savedBy);
+    
+    /**
+     * 
+     * @param userId to be deleted, possible only when user has no data
+     * @param deletedBy deleting user, can only delete if the user is administrator
+     * @throws RuntimeException if not deleted or user doesn't have rights or no match for the given id
+     * 
+     */
+    public void deleteUser( Integer userId, String deletedBy );
 
+    /**
+     *  administrator or self user could change password
+     * @param userId
+     * @param oldPassword
+     * @param newPassword
+     * @param changedBy
+     */
+    public void changePassword(Integer userId, String oldPassword, String newPassword, String changedBy);
+    
+    /**
+     * gets users if administrator or else just get self
+     * @param forUser
+     * @return
+     */
+    public PagingParams<UsersDto> getUsers(String forUser);
 }

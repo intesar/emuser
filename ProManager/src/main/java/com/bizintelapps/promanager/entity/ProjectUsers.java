@@ -36,7 +36,13 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "project_users")
-@NamedQueries({@NamedQuery(name = "ProjectUsers.findById", query = "SELECT p FROM ProjectUsers p WHERE p.id = :id"), @NamedQuery(name = "ProjectUsers.findByCreateDate", query = "SELECT p FROM ProjectUsers p WHERE p.createDate = :createDate"), @NamedQuery(name = "ProjectUsers.findByIsEnabled", query = "SELECT p FROM ProjectUsers p WHERE p.isEnabled = :isEnabled"), @NamedQuery(name = "ProjectUsers.findByExpirationDate", query = "SELECT p FROM ProjectUsers p WHERE p.expirationDate = :expirationDate")})
+@NamedQueries({
+    @NamedQuery(name = "ProjectUsers.findById", query = "SELECT p FROM ProjectUsers p WHERE p.id = :id"), 
+    @NamedQuery(name = "ProjectUsers.findByCreateDate", query = "SELECT p FROM ProjectUsers p WHERE p.createDate = :createDate"), 
+    @NamedQuery(name = "ProjectUsers.findByIsEnabled", query = "SELECT p FROM ProjectUsers p WHERE p.isEnabled = :isEnabled"), 
+    @NamedQuery(name = "ProjectUsers.findByExpirationDate", query = "SELECT p FROM ProjectUsers p WHERE p.expirationDate = :expirationDate"),
+    @NamedQuery(name = "ProjectUsers.findByAdministratorUserId", query = "SELECT p FROM ProjectUsers p WHERE p.role = 'administrator' and p.users.id = ?1 ")
+})
 public class ProjectUsers implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

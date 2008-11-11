@@ -14,7 +14,6 @@
  *  limitations under the License.
  *  under the License.
  */
-
 package com.bizintelapps.promanager.entity;
 
 import java.io.Serializable;
@@ -39,6 +38,7 @@ import javax.persistence.TemporalType;
 @Table(name = "organization")
 @NamedQueries({@NamedQuery(name = "Organization.findById", query = "SELECT o FROM Organization o WHERE o.id = :id"), @NamedQuery(name = "Organization.findByName", query = "SELECT o FROM Organization o WHERE o.name = :name"), @NamedQuery(name = "Organization.findByWebsiteUrl", query = "SELECT o FROM Organization o WHERE o.websiteUrl = :websiteUrl"), @NamedQuery(name = "Organization.findByCreateUser", query = "SELECT o FROM Organization o WHERE o.createUser = :createUser"), @NamedQuery(name = "Organization.findByCreateIp", query = "SELECT o FROM Organization o WHERE o.createIp = :createIp"), @NamedQuery(name = "Organization.findByCreateDate", query = "SELECT o FROM Organization o WHERE o.createDate = :createDate")})
 public class Organization implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @Column(name = "id", nullable = false)
@@ -57,7 +57,7 @@ public class Organization implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "organization")
     private Collection<Project> projectCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "organization")
-    private Collection<OrganizationUsers> organizationUsersCollection;
+    private Collection<Users> usersCollection;
 
     public Organization() {
     }
@@ -128,12 +128,12 @@ public class Organization implements Serializable {
         this.projectCollection = projectCollection;
     }
 
-    public Collection<OrganizationUsers> getOrganizationUsersCollection() {
-        return organizationUsersCollection;
+    public Collection<Users> getUsersCollection() {
+        return usersCollection;
     }
 
-    public void setOrganizationUsersCollection(Collection<OrganizationUsers> organizationUsersCollection) {
-        this.organizationUsersCollection = organizationUsersCollection;
+    public void setUsersCollection(Collection<Users> usersCollection) {
+        this.usersCollection = usersCollection;
     }
 
     @Override
@@ -160,5 +160,4 @@ public class Organization implements Serializable {
     public String toString() {
         return "com.bizintelapps.promanager.entity.Organization[id=" + id + "]";
     }
-
 }

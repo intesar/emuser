@@ -40,7 +40,7 @@ public class AjaxUsersService {
         String msg = " User Created Successfully! ";
         try {
             // this should handle create/update
-            usersService.createUser(usersDto);
+            usersService.saveUser(usersDto, SecurityUtil.getUsername());
         } catch (ValidationException e) {
             log.error(e);
             throw e;

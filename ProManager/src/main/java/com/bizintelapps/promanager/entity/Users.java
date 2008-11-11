@@ -14,7 +14,6 @@
  *  limitations under the License.
  *  under the License.
  */
-
 package com.bizintelapps.promanager.entity;
 
 import java.io.Serializable;
@@ -24,6 +23,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -37,8 +38,22 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "users")
-@NamedQueries({@NamedQuery(name = "Users.findById", query = "SELECT u FROM Users u WHERE u.id = :id"), @NamedQuery(name = "Users.findByUsername", query = "SELECT u FROM Users u WHERE u.username = :username"), @NamedQuery(name = "Users.findByPassword", query = "SELECT u FROM Users u WHERE u.password = :password"), @NamedQuery(name = "Users.findByIsEncrypted", query = "SELECT u FROM Users u WHERE u.isEncrypted = :isEncrypted"), @NamedQuery(name = "Users.findByEnabled", query = "SELECT u FROM Users u WHERE u.enabled = :enabled"), @NamedQuery(name = "Users.findByFirstname", query = "SELECT u FROM Users u WHERE u.firstname = :firstname"), @NamedQuery(name = "Users.findByLastname", query = "SELECT u FROM Users u WHERE u.lastname = :lastname"), @NamedQuery(name = "Users.findByEmail", query = "SELECT u FROM Users u WHERE u.email = :email"), @NamedQuery(name = "Users.findByCity", query = "SELECT u FROM Users u WHERE u.city = :city"), @NamedQuery(name = "Users.findByCountry", query = "SELECT u FROM Users u WHERE u.country = :country"), @NamedQuery(name = "Users.findByCreateUser", query = "SELECT u FROM Users u WHERE u.createUser = :createUser"), @NamedQuery(name = "Users.findByCreateDate", query = "SELECT u FROM Users u WHERE u.createDate = :createDate")})
+@NamedQueries({
+    @NamedQuery(name = "Users.findById", query = "SELECT u FROM Users u WHERE u.id = :id"),
+    @NamedQuery(name = "Users.findByUsername", query = "SELECT u FROM Users u WHERE u.username = ?1 "),
+    @NamedQuery(name = "Users.findByPassword", query = "SELECT u FROM Users u WHERE u.password = :password"),
+    @NamedQuery(name = "Users.findByIsEncrypted", query = "SELECT u FROM Users u WHERE u.isEncrypted = :isEncrypted"),
+    @NamedQuery(name = "Users.findByEnabled", query = "SELECT u FROM Users u WHERE u.enabled = :enabled"),
+    @NamedQuery(name = "Users.findByFirstname", query = "SELECT u FROM Users u WHERE u.firstname = :firstname"),
+    @NamedQuery(name = "Users.findByLastname", query = "SELECT u FROM Users u WHERE u.lastname = :lastname"),
+    @NamedQuery(name = "Users.findByEmail", query = "SELECT u FROM Users u WHERE u.email = :email"),
+    @NamedQuery(name = "Users.findByCity", query = "SELECT u FROM Users u WHERE u.city = :city"),
+    @NamedQuery(name = "Users.findByCountry", query = "SELECT u FROM Users u WHERE u.country = :country"),
+    @NamedQuery(name = "Users.findByCreateUser", query = "SELECT u FROM Users u WHERE u.createUser = :createUser"),
+    @NamedQuery(name = "Users.findByCreateDate", query = "SELECT u FROM Users u WHERE u.createDate = :createDate")
+})
 public class Users implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @Column(name = "id", nullable = false)
@@ -66,6 +81,19 @@ public class Users implements Serializable {
     @Column(name = "create_date", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date createDate;
+    @Column(name = "_role", nullable = false)
+    private String role;
+    @Column(name = "expiration_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date expirationDate;
+    @Column(name = "last_update_user")
+    private Integer lastUpdateUser;
+    @Column(name = "last_update_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date lastUpdateDate;
+    @JoinColumn(name = "organization", referencedColumnName = "id")
+    @ManyToOne
+    private Organization organization;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "createUser")
     private Collection<TaskImpedance> taskImpedanceCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "resolvedUser")
@@ -76,10 +104,6 @@ public class Users implements Serializable {
     private Collection<Task> taskCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "assignedTo")
     private Collection<Task> taskCollection1;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "users")
-    private Collection<OrganizationUsers> organizationUsersCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "createUser")
-    private Collection<OrganizationUsers> organizationUsersCollection1;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "assignedTo")
     private Collection<TaskHistory> taskHistoryCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "updateUser")
@@ -201,6 +225,47 @@ public class Users implements Serializable {
         this.createDate = createDate;
     }
 
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public Date getExpirationDate() {
+        return expirationDate;
+    }
+
+    public void setExpirationDate(Date expirationDate) {
+        this.expirationDate = expirationDate;
+    }
+
+    public Date getLastUpdateDate() {
+        return lastUpdateDate;
+    }
+
+    public void setLastUpdateDate(Date lastUpdateDate) {
+        this.lastUpdateDate = lastUpdateDate;
+    }
+
+    public Integer getLastUpdateUser() {
+        return lastUpdateUser;
+    }
+
+    public void setLastUpdateUser(Integer lastUpdateUser) {
+        this.lastUpdateUser = lastUpdateUser;
+    }
+
+    public Organization getOrganization() {
+        return organization;
+    }
+
+    public void setOrganization(Organization organization) {
+        this.organization = organization;
+    }
+
+    
     public Collection<TaskImpedance> getTaskImpedanceCollection() {
         return taskImpedanceCollection;
     }
@@ -239,22 +304,6 @@ public class Users implements Serializable {
 
     public void setTaskCollection1(Collection<Task> taskCollection1) {
         this.taskCollection1 = taskCollection1;
-    }
-
-    public Collection<OrganizationUsers> getOrganizationUsersCollection() {
-        return organizationUsersCollection;
-    }
-
-    public void setOrganizationUsersCollection(Collection<OrganizationUsers> organizationUsersCollection) {
-        this.organizationUsersCollection = organizationUsersCollection;
-    }
-
-    public Collection<OrganizationUsers> getOrganizationUsersCollection1() {
-        return organizationUsersCollection1;
-    }
-
-    public void setOrganizationUsersCollection1(Collection<OrganizationUsers> organizationUsersCollection1) {
-        this.organizationUsersCollection1 = organizationUsersCollection1;
     }
 
     public Collection<TaskHistory> getTaskHistoryCollection() {
@@ -313,5 +362,4 @@ public class Users implements Serializable {
     public String toString() {
         return "com.bizintelapps.promanager.entity.Users[id=" + id + "]";
     }
-
 }

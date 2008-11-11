@@ -16,12 +16,17 @@
  */
 package com.bizintelapps.promanager.service.impl;
 
+import com.bizintelapps.promanager.dao.PagingParams;
 import com.bizintelapps.promanager.dao.UsersDao;
 import com.bizintelapps.promanager.entity.Users;
 import com.bizintelapps.promanager.service.converters.UsersConverter;
 import com.bizintelapps.promanager.service.UsersService;
 import com.bizintelapps.promanager.service.dto.UsersDto;
+import com.bizintelapps.promanager.service.exceptions.ServiceRuntimeException;
 import com.bizintelapps.promanager.service.validator.UsersValidator;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -31,17 +36,94 @@ import org.apache.commons.logging.LogFactory;
  */
 public class UsersServiceImpl implements UsersService {
 
-    
+    @Override
+    public void saveUser(UsersDto usersDto, String savedBy) {
+        Users savedByUsers = usersDao.findByUsername(savedBy);
+        // if id is null then persist
+        if (usersDto.getId() == null) {
+            // check user is admin
+            if (!savedByUsers.getRole().equalsIgnoreCase("adminstrator")) {
+                throw new ServiceRuntimeException("only administrators can create new users");
+            }
+            // check to see whether username or email is already in use
+            Users u1 = usersDao.findByUsername(usersDto.getUsername());
+            if (u1 != null && u1.getId() != null) {
+                throw new ServiceRuntimeException(usersDto.getUsername() + " is already in use");
+            }
+            Users u2 = usersDao.findByEmail(usersDto.getEmail());
+            if (u2 != null && u2.getId() != null) {
+                throw new ServiceRuntimeException(usersDto.getEmail() + " is already in use");
+            }
+            // copy usersDto contents to new Users object and persist
+            Users users = usersConverter.copyForCreate(usersDto, new Users());
+            users.setCreateDate(new Date());
+            users.setCreateUser(savedByUsers.getId());
+            users.setLastUpdateDate(new Date());
+            users.setLastUpdateUser(savedByUsers.getId());
+            users.setOrganization(savedByUsers.getOrganization());
+            usersDao.create(users);
+        } else { // update state to db
+            Users users = usersDao.read(usersDto.getId());
+            // admin or self can update there records
+            if (!savedByUsers.getRole().equalsIgnoreCase("adminstrator") || !(savedByUsers.getId() == users.getId()) ) {
+                throw new ServiceRuntimeException("only administrators or self can update records");
+            }
+            // copy usersDto contents to existing Users object and persist
+            
+            if (!users.getEmail().equalsIgnoreCase(usersDto.getEmail())) {
+                Users u2 = usersDao.findByEmail(usersDto.getEmail());
+                if (u2 != null && u2.getId() != null) {
+                    throw new ServiceRuntimeException(usersDto.getEmail() + " is already in use");
+                }
+            }
+            usersConverter.copyForUpdate(usersDto, users);
+            users.setLastUpdateDate(new Date());
+            users.setLastUpdateUser(savedByUsers.getId());
+            usersDao.update(users);
+        }
+    }
 
-    public void createUser(UsersDto usersDto) {
-        usersValidator.validate(usersDto);
-        Users users = usersConverter.convert ( usersDto );
-        usersDao.create(users);
-        
+    @Override
+    public void deleteUser(Integer userId, String deletedBy) {
+        Users users = usersDao.findByUsername(deletedBy);
+        Users usersToBeDeleted = usersDao.read(userId);
+        // find user is admin then only can delete other even they are administrators
+        if (users.getRole().equalsIgnoreCase("adminstrator")) {
+            usersDao.delete(usersToBeDeleted);
+        } else {
+            throw new ServiceRuntimeException("Only Administrator can delete users!");
+        }
+    }
+
+    @Override
+    public void changePassword(Integer userId, String oldPassword, String newPassword, String changedBy) {
+        Users users = usersDao.read(userId);
+        Users changedByUser = usersDao.findByUsername(changedBy);
+        // changedBy administrator or self
+        if (changedByUser.getRole().equalsIgnoreCase("administrator") || changedByUser.getId() == users.getId()) {
+            users.setPassword(newPassword);
+            usersDao.update(users);
+        } else {
+            throw new ServiceRuntimeException("Only Administrator can change others password & user can change there own");
+        }
+    }
+
+    @Override
+    public PagingParams<UsersDto> getUsers(String forUser) {
+        PagingParams<UsersDto> pagingParams = new PagingParams<UsersDto>();
+        Users users = usersDao.findByUsername(forUser);
+        if (users.getRole().equalsIgnoreCase("administrator")) {
+            List<UsersDto> list = usersConverter.copyAllForDisplay(users.getOrganization().getUsersCollection());
+            pagingParams.setCurrentList(list);
+        } else {
+            List<UsersDto> list = new ArrayList<UsersDto>();
+            UsersDto usersDto = usersConverter.copyForDisplay(users, new UsersDto());
+            list.add(usersDto);
+        }
+        return pagingParams;
     }
     
     // getter & setters
-
     public void setUsersDao(UsersDao usersDao) {
         this.usersDao = usersDao;
     }
@@ -53,7 +135,6 @@ public class UsersServiceImpl implements UsersService {
     public void setUsersConverter(UsersConverter usersConverter) {
         this.usersConverter = usersConverter;
     }
-    
     private UsersConverter usersConverter;
     private UsersValidator usersValidator;
     private UsersDao usersDao;
