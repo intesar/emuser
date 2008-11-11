@@ -25,12 +25,20 @@ import org.apache.commons.logging.LogFactory;
  *
  * @author intesar
  */
-
 public class UsersDaoImpl extends GenericDaoImpl<Users, Integer> implements UsersDao {
 
     public UsersDaoImpl() {
         super(Users.class);
     }
-    
+
+    @Override
+    public Users findByUsername(String username) {
+        return executeNamedQuerySingleResult("Users.findByUsername", username);
+    }
+
+    @Override
+    public Users findByEmail(String email) {
+        return executeNamedQuerySingleResult("Users.findByEmail", email);
+    }
     private final Log log = LogFactory.getLog(getClass());
 }

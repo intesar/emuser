@@ -52,10 +52,15 @@ public class Project implements Serializable {
     @Column(name = "_status", nullable = false)
     private String status;
     @Column(name = "create_user", nullable = false)
-    private String createUser;
+    private Integer createUser;
     @Column(name = "create_date", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date createDate;
+    @Column(name = "last_update_user", nullable = false)
+    private Integer lastUpdateUser;
+    @Column(name = "last_update_date", nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date lastUpdateDate;    
     @Column(name = "visibility", nullable = false)
     private String visibility;
     @Column(name = "parent_project")
@@ -75,7 +80,7 @@ public class Project implements Serializable {
         this.id = id;
     }
 
-    public Project(Integer id, String name, String status, String createUser, Date createDate, String visibility) {
+    public Project(Integer id, String name, String status, Integer createUser, Date createDate, String visibility) {
         this.id = id;
         this.name = name;
         this.status = status;
@@ -116,11 +121,11 @@ public class Project implements Serializable {
         this.status = status;
     }
 
-    public String getCreateUser() {
+    public Integer getCreateUser() {
         return createUser;
     }
 
-    public void setCreateUser(String createUser) {
+    public void setCreateUser(Integer createUser) {
         this.createUser = createUser;
     }
 
@@ -147,6 +152,24 @@ public class Project implements Serializable {
     public void setParentProject(Integer parentProject) {
         this.parentProject = parentProject;
     }
+
+    public Integer getLastUpdateUser() {
+        return lastUpdateUser;
+    }
+
+    public void setLastUpdateUser(Integer lastUdpateUser) {
+        this.lastUpdateUser = lastUdpateUser;
+    }
+
+    public Date getLastUpdateDate() {
+        return lastUpdateDate;
+    }
+
+    public void setLastUpdateDate(Date lastUpdateDate) {
+        this.lastUpdateDate = lastUpdateDate;
+    }
+    
+    
 
     public Organization getOrganization() {
         return organization;

@@ -19,6 +19,9 @@ package com.bizintelapps.promanager.service.converters;
 
 import com.bizintelapps.promanager.entity.Users;
 import com.bizintelapps.promanager.service.dto.UsersDto;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  *
@@ -26,8 +29,68 @@ import com.bizintelapps.promanager.service.dto.UsersDto;
  */
 public class UsersConverter {
 
-    public Users convert(UsersDto usersDto) {
-        throw new UnsupportedOperationException("Not yet implemented");
+    public List<UsersDto> copyAllForDisplay(Collection<Users> usersCollection) {
+        List<UsersDto> list = new ArrayList<UsersDto> ();
+        for ( Users users : usersCollection ) {
+            UsersDto usersDto = copyForDisplay(users, new UsersDto() );
+            list.add(usersDto);
+        }
+        return list;
+    }
+    
+    public UsersDto copyForDisplay ( Users users, UsersDto usersDto ) {
+        usersDto.setCity(users.getCity());
+        usersDto.setCountry(users.getCountry());
+        usersDto.setEmail(users.getEmail());
+        usersDto.setEnabled(users.getEnabled());
+        usersDto.setExpirationDate(users.getExpirationDate());
+        usersDto.setFirstname(users.getFirstname());
+        usersDto.setId(users.getId());
+        usersDto.setLastname(users.getLastname());
+        usersDto.setRole(users.getRole());
+        usersDto.setUsername(users.getUsername());
+        return usersDto;
+    }
+
+    /**
+     * copies everything from userDto to users
+     * @param usersDto
+     * @param users
+     * @return
+     */
+    public Users copyForCreate(UsersDto usersDto, Users users) {        
+        users.setCity(usersDto.getCity());
+        users.setCountry(usersDto.getCountry());
+        users.setEmail(usersDto.getEmail());
+        users.setEnabled(usersDto.isEnabled());
+        users.setExpirationDate(usersDto.getExpirationDate());
+        users.setFirstname(usersDto.getFirstname());
+        users.setLastname(usersDto.getLastname());
+        users.setRole(users.getRole());
+        users.setCreateDate(usersDto.getCreateDate());
+        users.setCreateUser(usersDto.getCreateUser());
+        users.setPassword(usersDto.getPassword());
+        users.setUsername(usersDto.getUsername());
+        return users;
+    }
+
+    /**
+     * only copies fields that can be changed from client side
+     * @param usersDto
+     * @param users
+     * 
+     */
+    public Users copyForUpdate(UsersDto usersDto, Users users) {
+        users.setCity(usersDto.getCity());
+        users.setCountry(usersDto.getCountry());
+        users.setEmail(usersDto.getEmail());
+        users.setEnabled(usersDto.isEnabled());
+        users.setExpirationDate(usersDto.getExpirationDate());
+        users.setFirstname(usersDto.getFirstname());
+        users.setLastname(usersDto.getLastname());
+        users.setRole(users.getRole());
+        return users;
+        
     }
 
 }
