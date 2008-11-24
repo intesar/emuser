@@ -15,10 +15,10 @@
  *  under the License.
  */
 
-package com.bizintelapps.promanager.service.converters;
+package com.bizintelapps.promanager.converters;
 
 import com.bizintelapps.promanager.entity.Users;
-import com.bizintelapps.promanager.service.dto.UsersDto;
+import com.bizintelapps.promanager.dto.UsersDto;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;

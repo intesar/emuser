@@ -18,8 +18,8 @@ package com.bizintelapps.promanager.ajax;
 
 import com.bizintelapps.promanager.dao.PagingParams;
 import com.bizintelapps.promanager.service.UsersService;
-import com.bizintelapps.promanager.service.dto.UsersDto;
-import com.bizintelapps.promanager.service.validator.ValidationException;
+import com.bizintelapps.promanager.dto.UsersDto;
+import com.bizintelapps.promanager.validator.ValidationException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 

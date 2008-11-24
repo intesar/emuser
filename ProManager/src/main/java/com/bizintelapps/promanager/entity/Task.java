@@ -14,7 +14,6 @@
  *  limitations under the License.
  *  under the License.
  */
-
 package com.bizintelapps.promanager.entity;
 
 import java.io.Serializable;
@@ -40,8 +39,23 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "task")
-@NamedQueries({@NamedQuery(name = "Task.findById", query = "SELECT t FROM Task t WHERE t.id = :id"), @NamedQuery(name = "Task.findByTitle", query = "SELECT t FROM Task t WHERE t.title = :title"), @NamedQuery(name = "Task.findByDescription", query = "SELECT t FROM Task t WHERE t.description = :description"), @NamedQuery(name = "Task.findByDeadline", query = "SELECT t FROM Task t WHERE t.deadline = :deadline"), @NamedQuery(name = "Task.findByCreateDate", query = "SELECT t FROM Task t WHERE t.createDate = :createDate"), @NamedQuery(name = "Task.findByVisibility", query = "SELECT t FROM Task t WHERE t.visibility = :visibility"), @NamedQuery(name = "Task.findByPercentageCompleted", query = "SELECT t FROM Task t WHERE t.percentageCompleted = :percentageCompleted"), @NamedQuery(name = "Task.findByStatus", query = "SELECT t FROM Task t WHERE t.status = :status"), @NamedQuery(name = "Task.findByPriority", query = "SELECT t FROM Task t WHERE t.priority = :priority"), @NamedQuery(name = "Task.findByParentTask", query = "SELECT t FROM Task t WHERE t.parentTask = :parentTask"), @NamedQuery(name = "Task.findBySequenceNumber", query = "SELECT t FROM Task t WHERE t.sequenceNumber = :sequenceNumber"), @NamedQuery(name = "Task.findByCompletedDate", query = "SELECT t FROM Task t WHERE t.completedDate = :completedDate"), @NamedQuery(name = "Task.findByLastStatusChangedDate", query = "SELECT t FROM Task t WHERE t.lastStatusChangedDate = :lastStatusChangedDate")})
+@NamedQueries({
+    @NamedQuery(name = "Task.findById", query = "SELECT t FROM Task t WHERE t.id = :id"),
+    @NamedQuery(name = "Task.findByTitle", query = "SELECT t FROM Task t WHERE t.title = :title"),
+    @NamedQuery(name = "Task.findByDescription", query = "SELECT t FROM Task t WHERE t.description = :description"),
+    @NamedQuery(name = "Task.findByDeadline", query = "SELECT t FROM Task t WHERE t.deadline = :deadline"),
+    @NamedQuery(name = "Task.findByCreateDate", query = "SELECT t FROM Task t WHERE t.createDate = :createDate"),
+    @NamedQuery(name = "Task.findByVisibility", query = "SELECT t FROM Task t WHERE t.visibility = :visibility"),
+    @NamedQuery(name = "Task.findByPercentageCompleted", query = "SELECT t FROM Task t WHERE t.percentageCompleted = :percentageCompleted"),
+    @NamedQuery(name = "Task.findByStatus", query = "SELECT t FROM Task t WHERE t.status = :status"),
+    @NamedQuery(name = "Task.findByPriority", query = "SELECT t FROM Task t WHERE t.priority = :priority"),
+    @NamedQuery(name = "Task.findByParentTask", query = "SELECT t FROM Task t WHERE t.parentTask = :parentTask"),
+    @NamedQuery(name = "Task.findBySequenceNumber", query = "SELECT t FROM Task t WHERE t.sequenceNumber = :sequenceNumber"),
+    @NamedQuery(name = "Task.findByCompletedDate", query = "SELECT t FROM Task t WHERE t.completedDate = :completedDate"),
+    @NamedQuery(name = "Task.findByLastStatusChangedDate", query = "SELECT t FROM Task t WHERE t.lastStatusChangedDate = :lastStatusChangedDate")
+})
 public class Task implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @Column(name = "id", nullable = false)
@@ -68,6 +82,8 @@ public class Task implements Serializable {
     private Integer parentTask;
     @Column(name = "sequence_number")
     private Double sequenceNumber;
+    @Column(name = "context")
+    private String context;
     @Column(name = "completed_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date completedDate;
@@ -195,6 +211,14 @@ public class Task implements Serializable {
         this.sequenceNumber = sequenceNumber;
     }
 
+    public String getContext() {
+        return context;
+    }
+
+    public void setContext(String context) {
+        this.context = context;
+    }
+
     public Date getCompletedDate() {
         return completedDate;
     }
@@ -283,5 +307,4 @@ public class Task implements Serializable {
     public String toString() {
         return "com.bizintelapps.promanager.entity.Task[id=" + id + "]";
     }
-
 }

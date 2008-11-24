@@ -14,7 +14,7 @@
  *  limitations under the License.
  *  under the License.
  */
-package com.bizintelapps.promanager.service.dto;
+package com.bizintelapps.promanager.dto;
 
 import java.util.Date;
 
