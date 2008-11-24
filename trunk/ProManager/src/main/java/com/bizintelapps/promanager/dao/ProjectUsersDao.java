@@ -14,19 +14,26 @@
  *  limitations under the License.
  *  under the License.
  */
+package com.bizintelapps.promanager.dao;
 
-package com.bizintelapps.promanager.service.validator;
-
-import com.bizintelapps.promanager.service.dto.UsersDto;
+import com.bizintelapps.promanager.entity.ProjectUsers;
+import java.util.List;
 
 /**
  *
  * @author intesar
  */
-public class UsersValidator {
+public interface ProjectUsersDao extends GenericDao<ProjectUsers, Integer> {
 
-    public void validate(UsersDto usersDto) {
-        throw new UnsupportedOperationException("Not yet implemented");
-    }
+    /**
+     * 
+     * @param projectName
+     * @param userId
+     * @return
+     */
+    public ProjectUsers findByProjectAdministratorByProjectNameAndUserId(String projectName, Integer userId);
+    
+    public List<ProjectUsers>  findByAdministratorUserId(Integer userId);
 
+    public ProjectUsers findByProjectIdAndUserId(Integer projectId, Integer ownerId);
 }

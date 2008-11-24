@@ -18,7 +18,7 @@
 package com.bizintelapps.promanager.service;
 
 import com.bizintelapps.promanager.dao.PagingParams;
-import com.bizintelapps.promanager.service.dto.UsersDto;
+import com.bizintelapps.promanager.dto.UsersDto;
 
 /**
  *

@@ -14,7 +14,7 @@
  *  limitations under the License.
  *  under the License.
  */
-package com.bizintelapps.promanager.service.validator;
+package com.bizintelapps.promanager.validator;
 
 /**
  *
