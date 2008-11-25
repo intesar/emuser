@@ -36,7 +36,13 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "organization")
-@NamedQueries({@NamedQuery(name = "Organization.findById", query = "SELECT o FROM Organization o WHERE o.id = :id"), @NamedQuery(name = "Organization.findByName", query = "SELECT o FROM Organization o WHERE o.name = :name"), @NamedQuery(name = "Organization.findByWebsiteUrl", query = "SELECT o FROM Organization o WHERE o.websiteUrl = :websiteUrl"), @NamedQuery(name = "Organization.findByCreateUser", query = "SELECT o FROM Organization o WHERE o.createUser = :createUser"), @NamedQuery(name = "Organization.findByCreateIp", query = "SELECT o FROM Organization o WHERE o.createIp = :createIp"), @NamedQuery(name = "Organization.findByCreateDate", query = "SELECT o FROM Organization o WHERE o.createDate = :createDate")})
+@NamedQueries({
+    @NamedQuery(name = "Organization.findById", query = "SELECT o FROM Organization o WHERE o.id = :id"), 
+    @NamedQuery(name = "Organization.findByName", query = "SELECT o FROM Organization o WHERE o.name = ?1 "),
+    @NamedQuery(name = "Organization.findByWebsiteUrl", query = "SELECT o FROM Organization o WHERE o.websiteUrl = :websiteUrl"), 
+    @NamedQuery(name = "Organization.findByCreateUser", query = "SELECT o FROM Organization o WHERE o.createUser = :createUser"), 
+    @NamedQuery(name = "Organization.findByCreateIp", query = "SELECT o FROM Organization o WHERE o.createIp = :createIp"), 
+    @NamedQuery(name = "Organization.findByCreateDate", query = "SELECT o FROM Organization o WHERE o.createDate = :createDate")})
 public class Organization implements Serializable {
 
     private static final long serialVersionUID = 1L;

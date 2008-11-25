@@ -29,6 +29,20 @@ import org.apache.commons.logging.LogFactory;
  */
 public class AjaxUsersService {
 
+    public String signUp(UsersDto usersDto) {
+        String msg = " You have Successfully Signed Up! ";
+        try {
+            // this should handle create/update
+            usersService.signUp(usersDto);
+        } catch (ValidationException e) {
+            log.error(e);
+            throw e;
+        } catch (Exception e) {
+            log.error(e);
+            return ERROR_MESSAGE;
+        }
+        return msg;
+    }
     /**
      *  every method should copy same pattern
      *  msg for success

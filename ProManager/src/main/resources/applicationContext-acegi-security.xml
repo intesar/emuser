@@ -42,13 +42,13 @@ http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
     <bean id="authenticationProcessingFilter"
         class="org.acegisecurity.ui.webapp.AuthenticationProcessingFilter">
         <property name="authenticationManager" ref="authenticationManager"/>
-        <property name="authenticationFailureUrl" value="/login.jsp?login_error=1"/>
+        <property name="authenticationFailureUrl" value="/view/login.jsp?login_error=1"/>
         <property name="defaultTargetUrl" value="/dashboard2.jsp"/>
         <property name="filterProcessesUrl" value="/j_acegi_security_check"/>
         <property name="rememberMeServices" ref="rememberMeServices"/>
     </bean>
     <bean id="logoutFilter" class="org.acegisecurity.ui.logout.LogoutFilter">
-        <constructor-arg index="0" value="/login.jsp"/>
+        <constructor-arg index="0" value="/view/login.jsp"/>
         <constructor-arg index="1">
             <list>
                 <ref local="securityContextLogoutHandler"/>
@@ -90,7 +90,7 @@ http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
             <value>
         CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
         PATTERN_TYPE_APACHE_ANT                                              
-                /dashboard.jsp*=ROLE_ADMIN,ROLE_USER               
+                /index.jsp*=ROLE_ADMIN,ROLE_USER               
             </value>
         </property>
     </bean>
@@ -108,7 +108,7 @@ http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
   <!-- changed to work with formbased login -->
     <bean id="authenticationEntryPoint"
         class="org.acegisecurity.ui.webapp.AuthenticationProcessingFilterEntryPoint">
-        <property name="loginFormUrl" value="/login.jsp"/>
+        <property name="loginFormUrl" value="/view/login.jsp"/>
     </bean>
     <bean id="authenticationManager"
         class="org.acegisecurity.providers.ProviderManager">

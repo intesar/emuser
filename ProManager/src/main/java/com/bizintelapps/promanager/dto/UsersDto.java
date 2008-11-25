@@ -38,6 +38,7 @@ public class UsersDto {
     private Date createDate;
     private boolean administrator;
     private Date expirationDate;
+    private String organization;
 
     public UsersDto(Integer id, String username, String password, Boolean isEncrypted, boolean enabled, String firstname, String lastname, String email, String city, String country, Integer createUser, Date createDate, boolean role, Date expirationDate) {
         this.id = id;
@@ -172,6 +173,14 @@ public class UsersDto {
         this.username = username;
     }
 
+    public String getOrganization() {
+        return organization;
+    }
+
+    public void setOrganization(String organization) {
+        this.organization = organization;
+    }
+    
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {

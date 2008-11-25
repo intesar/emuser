@@ -16,12 +16,14 @@
  */
 package com.bizintelapps.promanager.service.impl;
 
+import com.bizintelapps.promanager.dao.OrganizationDao;
 import com.bizintelapps.promanager.dao.PagingParams;
 import com.bizintelapps.promanager.dao.UsersDao;
 import com.bizintelapps.promanager.entity.Users;
 import com.bizintelapps.promanager.service.converters.UsersConverter;
 import com.bizintelapps.promanager.service.UsersService;
 import com.bizintelapps.promanager.dto.UsersDto;
+import com.bizintelapps.promanager.entity.Organization;
 import com.bizintelapps.promanager.exceptions.ServiceRuntimeException;
 import com.bizintelapps.promanager.service.validator.UsersValidator;
 import java.util.ArrayList;
@@ -35,6 +37,31 @@ import org.apache.commons.logging.LogFactory;
  * @author intesar
  */
 public class UsersServiceImpl implements UsersService {
+
+    @Override
+    public void signUp(UsersDto usersDto) {
+        Users u1 = usersDao.findByUsername(usersDto.getUsername());
+        if (u1 != null && u1.getId() != null) {
+            throw new ServiceRuntimeException(usersDto.getUsername() + " is already in use");
+        }
+        Users u2 = usersDao.findByEmail(usersDto.getEmail());
+        if (u2 != null && u2.getId() != null) {
+            throw new ServiceRuntimeException(usersDto.getEmail() + " is already in use");
+        }
+        Organization org = organizationDao.findByName(usersDto.getOrganization());
+        if ( org != null && org.getId() != null ) {
+            throw new ServiceRuntimeException(usersDto.getOrganization() + " is already in use");
+        }
+        // copy usersDto contents to new Users object and persist
+        Users users = usersConverter.copyForSignUp(usersDto, new Users());
+        org = new Organization(null, usersDto.getOrganization(), new Date());
+        organizationDao.create(org);
+        org = organizationDao.findByName(org.getName());
+        users.setCreateDate(new Date());        
+        users.setLastUpdateDate(new Date());                
+        users.setOrganization(org);
+        usersDao.create(users);
+    }
 
     @Override
     public void saveUser(UsersDto usersDto, String savedBy) {
@@ -69,7 +96,7 @@ public class UsersServiceImpl implements UsersService {
                 throw new ServiceRuntimeException("only administrators or self can update records");
             }
             // copy usersDto contents to existing Users object and persist
-            
+
             if (!users.getEmail().equalsIgnoreCase(usersDto.getEmail())) {
                 Users u2 = usersDao.findByEmail(usersDto.getEmail());
                 if (u2 != null && u2.getId() != null) {
@@ -122,7 +149,7 @@ public class UsersServiceImpl implements UsersService {
         }
         return pagingParams;
     }
-    
+
     @Override
     public void enableDisableUser(Integer userId, boolean enabled, String changedBy) {
         Users changedUser = usersDao.findByUsername(changedBy);
@@ -145,8 +172,14 @@ public class UsersServiceImpl implements UsersService {
     public void setUsersConverter(UsersConverter usersConverter) {
         this.usersConverter = usersConverter;
     }
+
+    public void setOrganizationDao(OrganizationDao organizationDao) {
+        this.organizationDao = organizationDao;
+    }
+    
     private UsersConverter usersConverter;
     private UsersValidator usersValidator;
     private UsersDao usersDao;
+    private OrganizationDao organizationDao;
     private final Log log = LogFactory.getLog(getClass());
 }

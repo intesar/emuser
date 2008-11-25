@@ -26,6 +26,7 @@ import com.bizintelapps.promanager.dto.UsersDto;
  */
 public interface UsersService {
 
+    public void signUp (UsersDto usersDto);
     /**
      * 
      * @param usersDto

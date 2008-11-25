@@ -25,6 +25,7 @@
     -->
     <bean id="usersAjaxService" class="com.bizintelapps.promanager.ajax.AjaxUsersService" >
         <dwr:remote javascript="AjaxUsersService">
+            <dwr:include method="signUp" />
             <dwr:include method="saveUser" />
             <dwr:include method="changePassword" />
             <dwr:include method="getUserDetails" />
