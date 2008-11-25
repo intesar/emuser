@@ -67,4 +67,12 @@ public interface UsersService {
      * @return
      */
     public PagingParams<UsersDto> getUsers(String forUser);
+    
+    /**
+     * 
+     * @param userId
+     * @param enabled
+     * @param changedBy
+     */
+    public void enableDisableUser ( Integer userId, boolean enabled, String changedBy);
 }

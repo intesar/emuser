@@ -15,7 +15,7 @@
  *  under the License.
  */
 
-package com.bizintelapps.promanager.converters;
+package com.bizintelapps.promanager.service.converters;
 
 import com.bizintelapps.promanager.entity.Users;
 import com.bizintelapps.promanager.dto.UsersDto;
@@ -47,7 +47,7 @@ public class UsersConverter {
         usersDto.setFirstname(users.getFirstname());
         usersDto.setId(users.getId());
         usersDto.setLastname(users.getLastname());
-        usersDto.setRole(users.getRole());
+        usersDto.setAdministrator(users.isIsAdministrator());
         usersDto.setUsername(users.getUsername());
         return usersDto;
     }
@@ -66,7 +66,7 @@ public class UsersConverter {
         users.setExpirationDate(usersDto.getExpirationDate());
         users.setFirstname(usersDto.getFirstname());
         users.setLastname(usersDto.getLastname());
-        users.setRole(users.getRole());
+        users.setIsAdministrator(usersDto.isAdministrator());
         users.setCreateDate(usersDto.getCreateDate());
         users.setCreateUser(usersDto.getCreateUser());
         users.setPassword(usersDto.getPassword());
@@ -88,9 +88,8 @@ public class UsersConverter {
         users.setExpirationDate(usersDto.getExpirationDate());
         users.setFirstname(usersDto.getFirstname());
         users.setLastname(usersDto.getLastname());
-        users.setRole(users.getRole());
-        return users;
-        
+        users.setIsAdministrator(usersDto.isAdministrator());
+        return users;        
     }
 
 }

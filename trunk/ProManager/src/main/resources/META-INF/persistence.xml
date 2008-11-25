@@ -2,7 +2,6 @@
 <persistence version="1.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd">
   <persistence-unit name="ProManagerPU" transaction-type="RESOURCE_LOCAL">
     <provider>oracle.toplink.essentials.PersistenceProvider</provider>
-    <class>com.bizintelapps.promanager.entity.OrganizationUsers</class>
     <class>com.bizintelapps.promanager.entity.TaskImpedance</class>
     <class>com.bizintelapps.promanager.entity.TaskHistory</class>
     <class>com.bizintelapps.promanager.entity.Project</class>
@@ -16,7 +15,6 @@
       <property name="toplink.jdbc.password" value="pm"/>
       <property name="toplink.jdbc.url" value="jdbc:mysql://localhost:3306/pm"/>
       <property name="toplink.jdbc.driver" value="com.mysql.jdbc.Driver"/>
-      <property name="toplink.ddl-generation" value="drop-and-create-tables"/>
     </properties>
   </persistence-unit>
 </persistence>

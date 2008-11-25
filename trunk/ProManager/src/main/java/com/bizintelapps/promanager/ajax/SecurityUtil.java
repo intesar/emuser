@@ -38,7 +38,7 @@ public class SecurityUtil {
             log.error(npe);
         }
         if (username == null) {
-            return "na";
+            return "intesar";
         }
         return username;
     }

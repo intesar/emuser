@@ -36,10 +36,10 @@ public class UsersDto {
     private String country;
     private Integer createUser;
     private Date createDate;
-    private String role;
+    private boolean administrator;
     private Date expirationDate;
 
-    public UsersDto(Integer id, String username, String password, Boolean isEncrypted, boolean enabled, String firstname, String lastname, String email, String city, String country, Integer createUser, Date createDate, String role, Date expirationDate) {
+    public UsersDto(Integer id, String username, String password, Boolean isEncrypted, boolean enabled, String firstname, String lastname, String email, String city, String country, Integer createUser, Date createDate, boolean role, Date expirationDate) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -52,7 +52,7 @@ public class UsersDto {
         this.country = country;
         this.createUser = createUser;
         this.createDate = createDate;
-        this.role = role;
+        this.administrator = role;
         this.expirationDate = expirationDate;
     }
 
@@ -156,13 +156,13 @@ public class UsersDto {
         this.password = password;
     }
 
-    public String getRole() {
-        return role;
+    public boolean isAdministrator() {
+        return administrator;
     }
 
-    public void setRole(String role) {
-        this.role = role;
-    }
+    public void setAdministrator(boolean administrator) {
+        this.administrator = administrator;
+    }   
 
     public String getUsername() {
         return username;

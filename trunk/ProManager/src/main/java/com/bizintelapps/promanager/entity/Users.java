@@ -81,8 +81,8 @@ public class Users implements Serializable {
     @Column(name = "create_date", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date createDate;
-    @Column(name = "_role", nullable = false)
-    private String role;
+    @Column(name = "is_administrator", nullable = false)
+    private boolean isAdministrator;
     @Column(name = "expiration_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date expirationDate;
@@ -225,12 +225,12 @@ public class Users implements Serializable {
         this.createDate = createDate;
     }
 
-    public String getRole() {
-        return role;
+    public boolean isIsAdministrator() {
+        return isAdministrator;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setIsAdministrator(boolean isAdministrator) {
+        this.isAdministrator = isAdministrator;
     }
 
     public Date getExpirationDate() {

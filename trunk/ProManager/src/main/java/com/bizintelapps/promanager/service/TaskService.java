@@ -27,7 +27,27 @@ import com.bizintelapps.promanager.dto.TaskDto;
  */
 public interface TaskService {
 
+    /**
+     * Creates, updates a given task to DB & should
+     * @param taskDto
+     * @param savedBy
+     */
     public void saveTask ( TaskDto taskDto, String savedBy );
+    /**
+     * Deletes a task from DB,
+     * Only a Admin or Owner can delete a task
+     * @param taskId
+     * @param deletedBy
+     */
     public void deleteTask ( Integer taskId, String deletedBy);
+    /**
+     * 
+     * @param username 
+     * @param projectName project of the task
+     * @param context we will not use this any more
+     * @param status task have only one status at any time
+     * @param requestedBy is the user requesting this operation
+     * @return
+     */
     public PagingParams<Task> getTasks ( String username, String projectName, String context, String status, String requestedBy);
 }

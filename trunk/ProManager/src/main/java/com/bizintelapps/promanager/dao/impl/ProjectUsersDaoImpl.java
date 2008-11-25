@@ -28,6 +28,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class ProjectUsersDaoImpl extends GenericDaoImpl<ProjectUsers, Integer> implements ProjectUsersDao {
 
+    private final Log log = LogFactory.getLog(getClass());
     public ProjectUsersDaoImpl() {
         super(ProjectUsers.class);
     }
@@ -37,10 +38,15 @@ public class ProjectUsersDaoImpl extends GenericDaoImpl<ProjectUsers, Integer> i
         throw new UnsupportedOperationException("Not supported yet.");
     }
     
-    private final Log log = LogFactory.getLog(getClass());
+    
 
     @Override
     public List<ProjectUsers> findByAdministratorUserId(Integer userId) {
         return executeNamedQueryList("ProjectUsers.findByAdministratorUserId", null, userId);
+    }
+
+    @Override
+    public ProjectUsers findByProjectIdAndUserId(Integer projectId, Integer ownerId) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }
