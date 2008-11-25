@@ -26,7 +26,7 @@ import com.bizintelapps.promanager.entity.ProjectUsers;
 import com.bizintelapps.promanager.entity.Task;
 import com.bizintelapps.promanager.entity.Users;
 import com.bizintelapps.promanager.service.TaskService;
-import com.bizintelapps.promanager.converters.TaskConverter;
+import com.bizintelapps.promanager.service.converters.TaskConverter;
 import com.bizintelapps.promanager.dto.TaskDto;
 import com.bizintelapps.promanager.exceptions.ServiceRuntimeException;
 import java.util.Date;

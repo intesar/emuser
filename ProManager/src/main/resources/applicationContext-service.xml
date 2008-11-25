@@ -24,8 +24,8 @@
     </bean>
     
     
-    <!-- converters -- >
-    <bean id="usersConverter" class="com.bizintelapps.promanager.service.converters.UsersConverter" >
+    <!-- converters -->
+    <bean id="usersConverter" class="com.bizintelapps.promanager.service.converters.UsersConverter" />
     <!-- validators -->
-        <bean id="usersValidator" class="com.bizintelapps.promanager.service.validator.UsersValidator" >
-        </beans>
+    <bean id="usersValidator" class="com.bizintelapps.promanager.service.validator.UsersValidator" />
+</beans>

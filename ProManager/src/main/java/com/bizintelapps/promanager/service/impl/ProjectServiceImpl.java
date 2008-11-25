@@ -24,7 +24,7 @@ import com.bizintelapps.promanager.entity.Project;
 import com.bizintelapps.promanager.entity.ProjectUsers;
 import com.bizintelapps.promanager.entity.Users;
 import com.bizintelapps.promanager.service.ProjectService;
-import com.bizintelapps.promanager.converters.ProjectConverter;
+import com.bizintelapps.promanager.service.converters.ProjectConverter;
 import com.bizintelapps.promanager.dto.ProjectDto;
 import com.bizintelapps.promanager.exceptions.ServiceRuntimeException;
 
@@ -45,7 +45,7 @@ public class ProjectServiceImpl implements ProjectService {
         // administrator can create projects
         Users savedByUsers = usersDao.findByUsername(savedBy);
         if (projectDto.getId() == null) {
-            if (!savedByUsers.getRole().equalsIgnoreCase("adminstrator")) {
+            if (!savedByUsers.isIsAdministrator()) {
                 throw new ServiceRuntimeException("only administrators can create new Project");
             }
             // project should have unique name
@@ -64,7 +64,7 @@ public class ProjectServiceImpl implements ProjectService {
             projectDao.create(project);
         } else {
             ProjectUsers projectUsers = projectUsersDao.findByProjectAdministratorByProjectNameAndUserId(projectDto.getName(), savedByUsers.getId());
-            if (!savedByUsers.getRole().equalsIgnoreCase("adminstrator") || projectUsers == null ||
+            if (!savedByUsers.isIsAdministrator() || projectUsers == null ||
                     projectUsers.getId() == null) {
                 throw new ServiceRuntimeException("only Org Administrators or Project Administrator can update Project");
             }
@@ -90,7 +90,7 @@ public class ProjectServiceImpl implements ProjectService {
         Users users = usersDao.findByUsername(deletedBy);
         Project project = projectDao.read(projectId);
         // find user is admin then only can delete other even they are administrators
-        if (users.getRole().equalsIgnoreCase("adminstrator")) {
+        if (users.isIsAdministrator()) {
             projectDao.delete(project);
         } else {
             throw new ServiceRuntimeException("Only Administrator can delete Project!");
@@ -101,7 +101,7 @@ public class ProjectServiceImpl implements ProjectService {
     public PagingParams<ProjectDto> getProjects(String requestedBy) {
         PagingParams<ProjectDto> pagingParams = new PagingParams<ProjectDto>();
         Users users = usersDao.findByUsername(requestedBy);
-        if (users.getRole().equalsIgnoreCase("administrator")) {
+        if (users.isIsAdministrator()) {
             List<ProjectDto> list = projectConverter.copyAllForDisplay(users.getOrganization().getProjectCollection());
             pagingParams.setCurrentList(list);
         } else {

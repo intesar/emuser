@@ -14,7 +14,7 @@
  *  limitations under the License.
  *  under the License.
  */
-package com.bizintelapps.promanager.converters;
+package com.bizintelapps.promanager.service.converters;
 
 import com.bizintelapps.promanager.entity.Task;
 import com.bizintelapps.promanager.entity.Users;

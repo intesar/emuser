@@ -14,19 +14,16 @@
  *  limitations under the License.
  *  under the License.
  */
-
-package com.bizintelapps.promanager.validator;
-
-import com.bizintelapps.promanager.dto.UsersDto;
+package com.bizintelapps.promanager.service.validator;
 
 /**
  *
  * @author intesar
  */
-public class UsersValidator {
+public class ValidationException extends RuntimeException {
 
-    public void validate(UsersDto usersDto) {
-        throw new UnsupportedOperationException("Not yet implemented");
+    public ValidationException(String message) {
+        super(message);
     }
-
+    
 }
