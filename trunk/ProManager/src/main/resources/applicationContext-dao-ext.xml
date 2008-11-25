@@ -7,4 +7,9 @@
             <ref bean="entityManagerFactory"/>
         </property>
     </bean>
+    <bean id="organizationDaoImpl" class="com.bizintelapps.promanager.dao.impl.OrganizationDaoImpl" >
+        <property name="entityManagerFactory">
+            <ref bean="entityManagerFactory"/>
+        </property>
+    </bean>
 </beans>

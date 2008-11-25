@@ -74,6 +74,20 @@ public class UsersConverter {
         return users;
     }
 
+    public Users copyForSignUp(UsersDto usersDto, Users users) {
+        users.setCity(usersDto.getCity());
+        users.setCountry(usersDto.getCountry());
+        users.setEmail(usersDto.getEmail());
+        users.setEnabled(true);
+        users.setExpirationDate(null);
+        users.setFirstname(usersDto.getFirstname());
+        users.setLastname(usersDto.getLastname());
+        users.setIsAdministrator(true);
+        users.setPassword(usersDto.getPassword());
+        users.setUsername(usersDto.getUsername());        
+        return users;
+    }
+
     /**
      * only copies fields that can be changed from client side
      * @param usersDto
