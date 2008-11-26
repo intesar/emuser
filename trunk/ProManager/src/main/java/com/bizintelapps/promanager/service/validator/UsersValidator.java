@@ -18,11 +18,13 @@
 package com.bizintelapps.promanager.service.validator;
 
 import com.bizintelapps.promanager.dto.UsersDto;
+import org.springframework.stereotype.Component;
 
 /**
  *
  * @author intesar
  */
+@Component
 public class UsersValidator {
 
     public void validate(UsersDto usersDto) {

@@ -18,11 +18,13 @@ package com.bizintelapps.promanager.dao.impl;
 
 import com.bizintelapps.promanager.dao.OrganizationDao;
 import com.bizintelapps.promanager.entity.Organization;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author intesar
  */
+@Repository
 public class OrganizationDaoImpl extends GenericDaoImpl<Organization, Integer> implements OrganizationDao {
 
     public OrganizationDaoImpl() {

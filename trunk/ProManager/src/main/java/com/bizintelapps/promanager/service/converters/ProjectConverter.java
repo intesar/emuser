@@ -21,11 +21,13 @@ import com.bizintelapps.promanager.dto.ProjectDto;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author intesar
  */
+@Service
 public class ProjectConverter {
 
     public List<ProjectDto> copyAllForDisplay(Collection<Project> projectCollection) {

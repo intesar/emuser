@@ -32,11 +32,14 @@ import com.bizintelapps.promanager.exceptions.ServiceRuntimeException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author intesar
  */
+@Service
 public class ProjectServiceImpl implements ProjectService {
 
     @Override
@@ -147,8 +150,12 @@ public class ProjectServiceImpl implements ProjectService {
     public void setProjectUsersDao(ProjectUsersDao projectUsersDao) {
         this.projectUsersDao = projectUsersDao;
     }
+    @Autowired
     private UsersDao usersDao;
+    @Autowired
     private ProjectDao projectDao;
+    @Autowired
     private ProjectUsersDao projectUsersDao;
+    @Autowired
     private ProjectConverter projectConverter;
 }

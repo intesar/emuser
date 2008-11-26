@@ -21,11 +21,13 @@ import com.bizintelapps.promanager.entity.ProjectUsers;
 import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author intesar
  */
+@Repository
 public class ProjectUsersDaoImpl extends GenericDaoImpl<ProjectUsers, Integer> implements ProjectUsersDao {
 
     private final Log log = LogFactory.getLog(getClass());

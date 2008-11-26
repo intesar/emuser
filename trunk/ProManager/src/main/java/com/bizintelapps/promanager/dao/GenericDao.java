@@ -17,7 +17,6 @@
 package com.bizintelapps.promanager.dao;
 
 import java.io.Serializable;
-import java.util.List;
 
 /**
  *
@@ -30,7 +29,7 @@ public interface GenericDao<T, PK extends Serializable> {
      * @param newInstance
      * @return
      */
-    PK create(T newInstance);
+    void create(T newInstance);
 
     /**
      * merges the new state to the database
@@ -81,42 +80,5 @@ public interface GenericDao<T, PK extends Serializable> {
      */
     PagingParams<T> findByProperty(String propertyName, Object value, PagingParams<T> pagingParams);
 
-    /**
-     * 
-     * @param namedQuery named query
-     * @param namedQueryCount named query for find total counts can be null
-     * @param pagingParams can be null
-     * @param params required parameters
-     * @return PageResult
-     * 
-     *  this method needs two queries however second one is optional
-     * 
-     *  
-     * 
-     */
-    public PagingParams<T> executeNamedQueryPagedResult(String namedQuery, String namedQueryCount, PagingParams<T> pagingParams, Object... params);
-    /**
-     * 
-     * @param namedQuery
-     * @param pagingParams can be null
-     * @param params required parameters
-     * @return List
-     */
-    public List<T> executeNamedQueryList(String namedQuery, PagingParams<T> pagingParams, Object... params);
-    /**
-     * 
-     * @param namedQuery
-     * @param pagingParams can be null
-     * @param params required parameters
-     * @return Entity
-     */
-    public T executeNamedQuerySingleResult(String namedQuery, Object... params);
-    /**
-     * 
-     * @param namedQuery
-     * @param pagingParams can be null
-     * @param params required parameters
-     * @return long
-     */
-    public Long executeNamedQuerySingleLong(String namedQuery, Object... params);
+
 }

@@ -17,17 +17,17 @@
 package com.bizintelapps.promanager.service.converters;
 
 import com.bizintelapps.promanager.entity.Task;
-import com.bizintelapps.promanager.entity.Users;
 import com.bizintelapps.promanager.dto.TaskDto;
-import com.bizintelapps.promanager.dto.UsersDto;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author intesar
  */
+@Service
 public class TaskConverter {
 
     public List<TaskDto> copyAllForDisplay(Collection<Task> usersCollection) {

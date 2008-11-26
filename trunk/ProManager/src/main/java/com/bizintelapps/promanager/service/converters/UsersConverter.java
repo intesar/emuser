@@ -22,11 +22,14 @@ import com.bizintelapps.promanager.dto.UsersDto;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import org.springframework.stereotype.Service;
+
 
 /**
  *
  * @author intesar
  */
+@Service
 public class UsersConverter {
 
     public List<UsersDto> copyAllForDisplay(Collection<Users> usersCollection) {

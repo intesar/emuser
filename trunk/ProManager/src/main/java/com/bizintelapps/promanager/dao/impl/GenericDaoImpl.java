@@ -21,13 +21,11 @@ import com.bizintelapps.promanager.dao.PagingParams;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceException;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.dao.DataAccessException;
-import org.springframework.orm.jpa.JpaCallback;
-import org.springframework.orm.jpa.support.JpaDaoSupport;
 
 /**
  * Hibernate implementation of GenericDao. A typesafe implementation of CRUD and finder methods
@@ -36,36 +34,44 @@ import org.springframework.orm.jpa.support.JpaDaoSupport;
  *
  * 
  */
-public class GenericDaoImpl<T, PK extends Serializable> extends JpaDaoSupport implements GenericDao<T, PK> {
+public class GenericDaoImpl<T, PK extends Serializable> implements GenericDao<T, PK> {
 
     private final Log log = LogFactory.getLog(getClass());
     // default FinderNamingStrategy can be overriden in Spring config
+    private EntityManager entityManager;
     private Class<T> type;
-    // ****************************** ctors ******************************
+    // ****************************** constructors ******************************
     public GenericDaoImpl(Class<T> type) {
         this.type = type;
     }
+
+    @PersistenceContext
+    public void setEntityManager(EntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
     // ****************************** methods ******************************
-    @SuppressWarnings(value = "unchecked")
-    public PK create(T o) {
-        getJpaTemplate().persist(o);
-        return null;
+    @Override
+    public void create(T o) {
+        entityManager.persist(o);
     }
 
-    @SuppressWarnings(value = "unchecked")
+    @Override
     public T read(PK id) {
-        return getJpaTemplate().find(type, id);
+        return entityManager.find(type, id);
     }
 
+    @Override
     public void update(T o) {
-        getJpaTemplate().merge(o);
+        entityManager.merge(o);
     }
 
+    @Override
     public void delete(T o) {
-        getJpaTemplate().remove(o);
-
+        entityManager.merge(o);
+        entityManager.remove(o);
     }
 
+    @Override
     public PagingParams<T> findAll(PagingParams pagingParams) {
         // ql = select o from users o;
         // creating findall query
@@ -87,50 +93,17 @@ public class GenericDaoImpl<T, PK extends Serializable> extends JpaDaoSupport im
         return pagingParams;
     }
 
-    private Integer executeQueryReturnInt(final String jpql, final Object... params) throws DataAccessException {
-        return (Integer) getJpaTemplate().execute(new JpaCallback() {
-
-            public Object doInJpa(EntityManager em) throws PersistenceException {
-                Query query = em.createQuery(jpql);
-                int i = 1;
-                for ( Object param : params ) {
-                    query.setParameter(i++, param);
-                }
-                Long result = (Long) query.getSingleResult();
-                return result.intValue();
-            }
-        });
-    }
-
-    private List<T> executeQueryReturnList(final String jpql, final PagingParams pagingParams, final Object... params) throws DataAccessException {
-        return (List<T>) getJpaTemplate().execute(new JpaCallback() {
-
-            public Object doInJpa(EntityManager em) throws PersistenceException {
-                Query query = em.createQuery(jpql);
-                if (pagingParams != null) {
-                    query.setFirstResult((int) pagingParams.getStart());
-                    query.setMaxResults(pagingParams.getMaxLimit());
-                }
-                int i = 1;
-                for ( Object param : params ) {
-                    query.setParameter(i++, param);
-                }
-                List result = query.getResultList();
-                return result;
-            }
-        });
-    }
-
+    @Override
     public PagingParams<T> findByProperty(String propertyName, Object value, PagingParams<T> pagingParams) {
         // ql = select o from users o where o.propertyName = ?1 ;                
-        String ql = " select o from " + type.getSimpleName() + " o where o." + 
-                propertyName + " = ?1 ";        
+        String ql = " select o from " + type.getSimpleName() + " o where o." +
+                propertyName + " = ?1 ";
         if (pagingParams == null) {
             pagingParams = new PagingParams(0, 50, null);
         }
         if (pagingParams.getSortBy() != null && pagingParams.getSortBy().length() > 0) {
-            ql = " select o from " + type.getSimpleName() + " o where o." + 
-                propertyName + " = ?1 order by o." + pagingParams.getSortBy();
+            ql = " select o from " + type.getSimpleName() + " o where o." +
+                    propertyName + " = ?1 order by o." + pagingParams.getSortBy();
         }
         // execute the query
         List result = executeQueryReturnList(ql, pagingParams, value);
@@ -143,7 +116,7 @@ public class GenericDaoImpl<T, PK extends Serializable> extends JpaDaoSupport im
         return pagingParams;
     }
 
-    public PagingParams<T> executeNamedQueryPagedResult(String namedQuery, String namedQueryCount, PagingParams<T> pagingParams, Object... params) {
+    protected PagingParams<T> executeNamedQueryPagedResult(String namedQuery, String namedQueryCount, PagingParams<T> pagingParams, Object... params) {
         Long total = 0L;
         if (namedQueryCount != null || namedQueryCount.length() > 0) {
             total = (Long) executeNamedQueryReturnSingleObject(namedQueryCount, params);
@@ -157,48 +130,63 @@ public class GenericDaoImpl<T, PK extends Serializable> extends JpaDaoSupport im
         return pagingParams;
     }
 
-    public List<T> executeNamedQueryList(String namedQuery, PagingParams<T> pagingParams, Object... params) {
+    protected List<T> executeNamedQueryList(String namedQuery, PagingParams<T> pagingParams, Object... params) {
         return executeNamedQueryReturnList(namedQuery, pagingParams, params);
     }
 
-    public T executeNamedQuerySingleResult(String namedQuery, Object... params) {
+    protected T executeNamedQuerySingleResult(String namedQuery, Object... params) {
         return (T) executeNamedQueryReturnSingleObject(namedQuery, params);
     }
 
-    public Long executeNamedQuerySingleLong(String namedQuery, Object... params) {
+    protected Long executeNamedQuerySingleLong(String namedQuery, Object... params) {
         return (Long) executeNamedQueryReturnSingleObject(namedQuery, params);
     }
 
     private Object executeNamedQueryReturnSingleObject(final String namedQuery, final Object... params) throws DataAccessException {
-        return getJpaTemplate().execute(new JpaCallback() {
-
-            public Object doInJpa(EntityManager em) throws PersistenceException {
-                Query query = em.createNamedQuery(namedQuery);
-                int i = 1;
-                for (Object param : params) {
-                    query.setParameter(i++, param);
-                }
-                return query.getSingleResult();
-            }
-        });
+        Query query = entityManager.createNamedQuery(namedQuery);
+        int i = 1;
+        for (Object param : params) {
+            query.setParameter(i++, param);
+        }
+        return query.getSingleResult();
     }
 
     private List<T> executeNamedQueryReturnList(final String namedQuery, final PagingParams pagingParams, final Object... params) throws DataAccessException {
-        return (List<T>) getJpaTemplate().execute(new JpaCallback() {
+        Query query = entityManager.createNamedQuery(namedQuery);
+        int i = 1;
+        for (Object param : params) {
+            query.setParameter(i++, param);
+        }
+        if (pagingParams != null) {
+            query.setFirstResult((int) pagingParams.getStart());
+            query.setMaxResults(pagingParams.getMaxLimit());
+        }
+        List result = query.getResultList();
+        return result;
+    }
 
-            public Object doInJpa(EntityManager em) throws PersistenceException {
-                Query query = em.createNamedQuery(namedQuery);
-                int i = 1;
-                for (Object param : params) {
-                    query.setParameter(i++, param);
-                }
-                if (pagingParams != null) {
-                    query.setFirstResult((int) pagingParams.getStart());
-                    query.setMaxResults(pagingParams.getMaxLimit());
-                }
-                List result = query.getResultList();
-                return result;
-            }
-        });
+    private Integer executeQueryReturnInt(final String jpql, final Object... params) throws DataAccessException {
+        Query query = entityManager.createQuery(jpql);
+        int i = 1;
+        for (Object param : params) {
+            query.setParameter(i++, param);
+        }
+        Long result = (Long) query.getSingleResult();
+        return result.intValue();
+    }
+
+    private List<T> executeQueryReturnList(final String jpql, final PagingParams pagingParams, final Object... params) throws DataAccessException {
+        Query query = entityManager.createQuery(jpql);
+        if (pagingParams != null) {
+            query.setFirstResult((int) pagingParams.getStart());
+            query.setMaxResults(pagingParams.getMaxLimit());
+        }
+        int i = 1;
+        for (Object param : params) {
+            query.setParameter(i++, param);
+        }
+        List result = query.getResultList();
+        return result;
+
     }
 }

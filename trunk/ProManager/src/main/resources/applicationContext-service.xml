@@ -17,16 +17,21 @@
         <property name="personDao" ref="personDao"/>
     </bean>
     -->
+    <!--
     <bean id="usersServiceImpl" class="com.bizintelapps.promanager.service.impl.UsersServiceImpl" >
         <property name="usersDao" ref="usersDaoImpl" />
         <property name="organizationDao" ref="organizationDaoImpl" />
         <property name="usersConverter" ref="usersConverter" />
         <property name="usersValidator" ref="usersValidator" />
     </bean>
-    
+    -->
     
     <!-- converters -->
+    <!--
     <bean id="usersConverter" class="com.bizintelapps.promanager.service.converters.UsersConverter" />
+    -->
     <!-- validators -->
+    <!--
     <bean id="usersValidator" class="com.bizintelapps.promanager.service.validator.UsersValidator" />
+    -->
 </beans>

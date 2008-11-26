@@ -20,11 +20,13 @@ import com.bizintelapps.promanager.dao.UsersDao;
 import com.bizintelapps.promanager.entity.Users;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author intesar
  */
+@Repository
 public class UsersDaoImpl extends GenericDaoImpl<Users, Integer> implements UsersDao {
 
     public UsersDaoImpl() {

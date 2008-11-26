@@ -22,6 +22,7 @@ import com.bizintelapps.promanager.dto.UsersDto;
 import com.bizintelapps.promanager.service.validator.ValidationException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
@@ -174,7 +175,7 @@ public class AjaxUsersService {
         this.usersService = usersService;
     }
 
-    
+    @Autowired
     private UsersService usersService;
     private final String ERROR_MESSAGE = "Error, Please change input and try again!";
     private final Log log = LogFactory.getLog(getClass());

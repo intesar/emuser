@@ -29,14 +29,18 @@ import com.bizintelapps.promanager.service.TaskService;
 import com.bizintelapps.promanager.service.converters.TaskConverter;
 import com.bizintelapps.promanager.dto.TaskDto;
 import com.bizintelapps.promanager.exceptions.ServiceRuntimeException;
+
 import java.util.Date;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author intesar
  */
+@Service
 public class TaskServiceImpl implements TaskService {
 
     /**
@@ -292,10 +296,15 @@ public class TaskServiceImpl implements TaskService {
     public void setTaskConverter(TaskConverter taskConverter) {
         this.taskConverter = taskConverter;
     }
+    @Autowired
     private TaskConverter taskConverter;
+    @Autowired
     private UsersDao usersDao;
+    @Autowired
     private TaskDao taskDao;
+    @Autowired
     private ProjectDao projectDao;
-    private ProjectUsersDao projectUsersDao;
+    @Autowired
+    private ProjectUsersDao projectUsersDao;    
     private final Log log = LogFactory.getLog(getClass());
 }
