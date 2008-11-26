@@ -33,7 +33,7 @@
             <dwr:include method="enableDisalbeUser" />
             <dwr:include method="deleteeUser" />
         </dwr:remote>
-        <property name="usersService" ref="usersServiceImpl" />
+        <!-- <property name="usersService" ref="usersServiceImpl" /> -->
     </bean>
     <dwr:configuration>
         <dwr:convert type="bean" class="com.bizintelapps.promanager.service.dto.*" />

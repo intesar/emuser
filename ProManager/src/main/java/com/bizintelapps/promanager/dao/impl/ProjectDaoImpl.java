@@ -20,11 +20,13 @@ import com.bizintelapps.promanager.dao.ProjectDao;
 import com.bizintelapps.promanager.entity.Project;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author intesar
  */
+@Repository
 public class ProjectDaoImpl extends GenericDaoImpl<Project, Integer> implements ProjectDao {
 
     public ProjectDaoImpl() {

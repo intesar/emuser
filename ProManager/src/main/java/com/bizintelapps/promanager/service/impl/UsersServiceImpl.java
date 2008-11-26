@@ -31,11 +31,14 @@ import java.util.Date;
 import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author intesar
  */
+@Service
 public class UsersServiceImpl implements UsersService {
 
     @Override
@@ -177,9 +180,13 @@ public class UsersServiceImpl implements UsersService {
         this.organizationDao = organizationDao;
     }
     
+    @Autowired
     private UsersConverter usersConverter;
+    @Autowired
     private UsersValidator usersValidator;
+    @Autowired
     private UsersDao usersDao;
+    @Autowired
     private OrganizationDao organizationDao;
     private final Log log = LogFactory.getLog(getClass());
 }
