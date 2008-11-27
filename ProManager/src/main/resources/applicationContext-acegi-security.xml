@@ -24,7 +24,7 @@ http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
             <value>
         CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
         PATTERN_TYPE_APACHE_ANT
-        /**=httpSessionContextIntegrationFilter,rememberMeProcessingFilter,authenticationProcessingFilter,logoutFilter,exceptionTranslationFilter,filterInvocationInterceptor
+        /**=httpSessionContextIntegrationFilter,logoutFilter,authenticationProcessingFilter,securityContextHolderAwareRequestFilter,rememberMeProcessingFilter,anonymousProcessingFilter,exceptionTranslationFilter,filterInvocationInterceptor
             </value>
         </property>
     </bean>
@@ -43,7 +43,7 @@ http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
         class="org.acegisecurity.ui.webapp.AuthenticationProcessingFilter">
         <property name="authenticationManager" ref="authenticationManager"/>
         <property name="authenticationFailureUrl" value="/view/login.jsp?login_error=1"/>
-        <property name="defaultTargetUrl" value="/dashboard2.jsp"/>
+        <property name="defaultTargetUrl" value="/"/>
         <property name="filterProcessesUrl" value="/j_acegi_security_check"/>
         <property name="rememberMeServices" ref="rememberMeServices"/>
     </bean>
@@ -56,6 +56,7 @@ http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
             </list>
         </constructor-arg>
     </bean>
+    <bean id="securityContextHolderAwareRequestFilter" class="org.acegisecurity.wrapper.SecurityContextHolderAwareRequestFilter"/>
     <bean id="securityContextLogoutHandler" class="org.acegisecurity.ui.logout.SecurityContextLogoutHandler"/>
 
   <!-- remember me processing filter used to handle logout -->
@@ -75,7 +76,11 @@ http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
         class="org.acegisecurity.providers.rememberme.RememberMeAuthenticationProvider">
         <property name="key" value="someTokenName"/>
     </bean>
-
+    <bean id="anonymousProcessingFilter" class="org.acegisecurity.providers.anonymous.AnonymousProcessingFilter">
+        <property name="key" value="changeThis"/>
+        <property name="userAttribute" value="anonymousUser,ROLE_ANONYMOUS"/>
+    </bean>
+    
   <!--http://www.acegisecurity.org/docbook/acegi.html#remember-me -->
 
   <!-- filter responsible for access decisions. What urlrequests may be
@@ -90,17 +95,25 @@ http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
             <value>
         CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
         PATTERN_TYPE_APACHE_ANT                                              
-                /index.jsp*=ROLE_ADMIN,ROLE_USER               
+                /index.jsp*=ROLE_ADMIN,ROLE_USER
             </value>
         </property>
     </bean>
 
   <!-- filter responsible for translating exceptions and delegating to the
        provided authenticationEntryPoint -->
-    <bean id="exceptionTranslationFilter"
-        class="org.acegisecurity.ui.ExceptionTranslationFilter">
-        <property name="authenticationEntryPoint"
-              ref="authenticationEntryPoint"/>
+    <bean id="exceptionTranslationFilter" class="org.acegisecurity.ui.ExceptionTranslationFilter">
+        <property name="authenticationEntryPoint">
+            <bean class="org.acegisecurity.ui.webapp.AuthenticationProcessingFilterEntryPoint">
+                <property name="loginFormUrl" value="/view/login.jsp"/>
+                <property name="forceHttps" value="false"/>
+            </bean>
+        </property>
+        <property name="accessDeniedHandler">
+            <bean class="org.acegisecurity.ui.AccessDeniedHandlerImpl">
+                <property name="errorPage" value="/view/denied.html"/>
+            </bean>
+        </property>
     </bean>
 
   <!-- ======================== AUTHENTICATION ======================= -->
@@ -137,6 +150,18 @@ http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
         <property name="passwordEncoder">
             <ref bean="passwordEncoder" />
         </property>
+        <property name="userCache">
+            <bean class="org.acegisecurity.providers.dao.cache.EhCacheBasedUserCache">
+                <property name="cache">
+                    <bean class="org.springframework.cache.ehcache.EhCacheFactoryBean">
+                        <property name="cacheManager">
+                            <bean class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean"/>
+                        </property>
+                        <property name="cacheName" value="userCache"/>
+                    </bean>
+                </property>
+            </bean>
+        </property>
     </bean>
     <bean id="userDetailsService"
           class="org.acegisecurity.userdetails.jdbc.JdbcDaoImpl">
@@ -172,5 +197,40 @@ http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
     </bean>
     <bean id="roleVoter" class="org.acegisecurity.vote.RoleVoter">
         <property name="rolePrefix" value=""/>
+    </bean>
+    <bean id="methodSecurityInterceptor" class="org.acegisecurity.intercept.method.aopalliance.MethodSecurityInterceptor">
+        <property name="authenticationManager">
+            <ref bean="authenticationManager" />
+        </property>
+        <property name="accessDecisionManager">
+            <bean class="org.acegisecurity.vote.AffirmativeBased">
+                <property name="allowIfAllAbstainDecisions" value="false" />
+                <property name="decisionVoters">
+                    <list>
+                        <bean class="org.acegisecurity.vote.RoleVoter" />
+                        <bean class="org.acegisecurity.vote.AuthenticatedVoter" />
+                    </list>
+                </property>
+            </bean>
+        </property>
+        <property name="objectDefinitionSource">
+            <value>
+            com.bizintelapps.promanager.ajax.AjaxUsersService.signUp=ROLE_ANONYMOUS
+            com.bizintelapps.promanager.ajax.AjaxUsersService.enableDisalbeUser=ROLE_ANONYMOUS
+            com.bizintelapps.promanager.ajax.AjaxUsersService.*=ROLE_ADMIN
+            </value>
+        </property>
+    </bean>
+    <bean id="autoProxyCreator" class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
+        <property name="interceptorNames">
+            <list>
+                <value>methodSecurityInterceptor</value>
+            </list>
+        </property>
+        <property name="beanNames">
+            <list>
+                <value>usersAjaxService</value>
+            </list>
+        </property>
     </bean>
 </beans>

@@ -57,7 +57,12 @@ public class GenericDaoImpl<T, PK extends Serializable> implements GenericDao<T,
 
     @Override
     public T read(PK id) {
-        return entityManager.find(type, id);
+        try {
+            return entityManager.find(type, id);
+        } catch (RuntimeException re) {
+            log.debug(re);
+            return null;
+        }
     }
 
     @Override
@@ -148,7 +153,12 @@ public class GenericDaoImpl<T, PK extends Serializable> implements GenericDao<T,
         for (Object param : params) {
             query.setParameter(i++, param);
         }
-        return query.getSingleResult();
+        try {
+            return query.getSingleResult();
+        } catch (RuntimeException re) {
+            log.debug(re);
+            return null;
+        }
     }
 
     private List<T> executeNamedQueryReturnList(final String namedQuery, final PagingParams pagingParams, final Object... params) throws DataAccessException {
@@ -161,8 +171,13 @@ public class GenericDaoImpl<T, PK extends Serializable> implements GenericDao<T,
             query.setFirstResult((int) pagingParams.getStart());
             query.setMaxResults(pagingParams.getMaxLimit());
         }
-        List result = query.getResultList();
-        return result;
+        try {
+            List result = query.getResultList();
+            return result;
+        } catch (RuntimeException re) {
+            log.debug(re);
+            return null;
+        }
     }
 
     private Integer executeQueryReturnInt(final String jpql, final Object... params) throws DataAccessException {
@@ -172,7 +187,12 @@ public class GenericDaoImpl<T, PK extends Serializable> implements GenericDao<T,
             query.setParameter(i++, param);
         }
         Long result = (Long) query.getSingleResult();
-        return result.intValue();
+        try {
+            return result.intValue();
+        } catch (RuntimeException re) {
+            log.debug(re);
+            return null;
+        }
     }
 
     private List<T> executeQueryReturnList(final String jpql, final PagingParams pagingParams, final Object... params) throws DataAccessException {
@@ -185,8 +205,13 @@ public class GenericDaoImpl<T, PK extends Serializable> implements GenericDao<T,
         for (Object param : params) {
             query.setParameter(i++, param);
         }
-        List result = query.getResultList();
-        return result;
+        try {
+            List result = query.getResultList();
+            return result;
+        } catch (RuntimeException re) {
+            log.debug(re);
+            return null;
+        }
 
     }
 }

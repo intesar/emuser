@@ -37,7 +37,7 @@ public class SecurityUtil {
         } catch (NullPointerException npe) {
             log.error(npe);
         }
-        if (username == null) {
+        if (username == null || username.equals("anonymousUser")) {
             return "intesar";
         }
         return username;

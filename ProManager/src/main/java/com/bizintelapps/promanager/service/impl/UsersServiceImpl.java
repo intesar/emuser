@@ -16,6 +16,7 @@
  */
 package com.bizintelapps.promanager.service.impl;
 
+import com.bizintelapps.promanager.dao.AuthoritiesDao;
 import com.bizintelapps.promanager.dao.OrganizationDao;
 import com.bizintelapps.promanager.dao.PagingParams;
 import com.bizintelapps.promanager.dao.UsersDao;
@@ -23,6 +24,7 @@ import com.bizintelapps.promanager.entity.Users;
 import com.bizintelapps.promanager.service.converters.UsersConverter;
 import com.bizintelapps.promanager.service.UsersService;
 import com.bizintelapps.promanager.dto.UsersDto;
+import com.bizintelapps.promanager.entity.Authorities;
 import com.bizintelapps.promanager.entity.Organization;
 import com.bizintelapps.promanager.exceptions.ServiceRuntimeException;
 import com.bizintelapps.promanager.service.validator.UsersValidator;
@@ -31,6 +33,7 @@ import java.util.Date;
 import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.jasypt.util.password.PasswordEncryptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -52,18 +55,25 @@ public class UsersServiceImpl implements UsersService {
             throw new ServiceRuntimeException(usersDto.getEmail() + " is already in use");
         }
         Organization org = organizationDao.findByName(usersDto.getOrganization());
-        if ( org != null && org.getId() != null ) {
+        if (org != null && org.getId() != null) {
             throw new ServiceRuntimeException(usersDto.getOrganization() + " is already in use");
         }
         // copy usersDto contents to new Users object and persist
-        Users users = usersConverter.copyForSignUp(usersDto, new Users());
+
         org = new Organization(null, usersDto.getOrganization(), new Date());
         organizationDao.create(org);
         org = organizationDao.findByName(org.getName());
-        users.setCreateDate(new Date());        
-        users.setLastUpdateDate(new Date());                
+        Users users = usersConverter.copyForSignUp(usersDto, new Users());
+        users.setPassword(passwordEncryptor.encryptPassword(users.getPassword()));
+        users.setIsEncrypted(true);
+        users.setCreateDate(new Date());
+        users.setLastUpdateDate(new Date());
         users.setOrganization(org);
         usersDao.create(users);
+        Authorities authorities1 = new Authorities(null, users.getUsername(), Authorities.ROLE_ADMIN);
+        Authorities authorities2 = new Authorities(null, users.getUsername(), Authorities.ROLE_USER);
+        authoritiesDao.create(authorities1);
+        authoritiesDao.create(authorities2);
     }
 
     @Override
@@ -91,6 +101,8 @@ public class UsersServiceImpl implements UsersService {
             users.setLastUpdateDate(new Date());
             users.setLastUpdateUser(savedByUsers.getId());
             users.setOrganization(savedByUsers.getOrganization());
+            users.setPassword(passwordEncryptor.encryptPassword(users.getPassword()));
+            users.setIsEncrypted(true);
             usersDao.create(users);
         } else { // update state to db
             Users users = usersDao.read(usersDto.getId());
@@ -130,8 +142,8 @@ public class UsersServiceImpl implements UsersService {
         Users users = usersDao.read(userId);
         Users changedByUser = usersDao.findByUsername(changedBy);
         // changedBy administrator or self
-        if (((users.getOrganization().equals(changedByUser.getOrganization()) && changedByUser.isIsAdministrator()) || changedByUser.equals(users)) && users.getPassword().equals(oldPassword)) {
-            users.setPassword(newPassword);
+        if (((users.getOrganization().equals(changedByUser.getOrganization()) && changedByUser.isIsAdministrator()) || changedByUser.equals(users)) && users.getPassword().equals(passwordEncryptor.encryptPassword(oldPassword))) {
+            users.setPassword(passwordEncryptor.encryptPassword(newPassword));
             usersDao.update(users);
         } else {
             throw new ServiceRuntimeException("Only Administrator can change others password Or user can change there own Or Invalid Old Password");
@@ -155,10 +167,13 @@ public class UsersServiceImpl implements UsersService {
 
     @Override
     public void enableDisableUser(Integer userId, boolean enabled, String changedBy) {
+        log.debug("---- executing findByUsername with " + changedBy);
         Users changedUser = usersDao.findByUsername(changedBy);
+        log.debug("---- changedUser " + changedUser.getUsername());
         Users users = usersDao.read(userId);
         if ((users.getOrganization().equals(changedUser.getOrganization()) && changedUser.isIsAdministrator()) || changedUser.equals(users)) {
             users.setEnabled(enabled);
+            usersDao.update(users);
         } else {
             throw new ServiceRuntimeException(changedBy + " is not an Administrator");
         }
@@ -179,7 +194,14 @@ public class UsersServiceImpl implements UsersService {
     public void setOrganizationDao(OrganizationDao organizationDao) {
         this.organizationDao = organizationDao;
     }
-    
+
+    public void setPasswordEncryptor(PasswordEncryptor passwordEncryptor) {
+        this.passwordEncryptor = passwordEncryptor;
+    }
+
+    public void setAuthoritiesDao(AuthoritiesDao authoritiesDao) {
+        this.authoritiesDao = authoritiesDao;
+    }
     @Autowired
     private UsersConverter usersConverter;
     @Autowired
@@ -188,5 +210,9 @@ public class UsersServiceImpl implements UsersService {
     private UsersDao usersDao;
     @Autowired
     private OrganizationDao organizationDao;
+    @Autowired
+    private PasswordEncryptor passwordEncryptor;
+    @Autowired
+    private AuthoritiesDao authoritiesDao;
     private final Log log = LogFactory.getLog(getClass());
 }
