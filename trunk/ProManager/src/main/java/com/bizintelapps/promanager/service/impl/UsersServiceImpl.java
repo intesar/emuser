@@ -104,6 +104,8 @@ public class UsersServiceImpl implements UsersService {
             users.setPassword(passwordEncryptor.encryptPassword(users.getPassword()));
             users.setIsEncrypted(true);
             usersDao.create(users);
+            Authorities authorities = new Authorities(null, users.getUsername(), Authorities.ROLE_USER);
+            authoritiesDao.create(authorities);
         } else { // update state to db
             Users users = usersDao.read(usersDto.getId());
             // admin or self can update there records

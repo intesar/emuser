@@ -64,6 +64,14 @@ $(document).ready(function() {
                 required: "Please enter a valid email address",
                 minlength: "Please enter a valid email address",
                 remote: jQuery.format("{0} is already in use")
+            },
+            organization: {
+                required: "Please enter a valid Organization Name",
+                minlength: jQuery.format("Enter at least {0} characters")
+            },
+            city: {
+                required: "Please enter a valid city",
+                minlength: jQuery.format("Enter at least {0} characters")
             }
         },
                 
