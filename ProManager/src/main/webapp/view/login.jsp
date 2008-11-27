@@ -9,42 +9,40 @@
         
         <div align="center" >
             
-            <table width="800" height="554" border="0" align="center" >
+            <table width="800" height="554" border="1" align="center" >
                 <tr>
-                    <td width="100" height="550" valign="top">
+                    <td>
                     <% if (request.getParameter("login_error") != null) {%> <b> <font color=RED size="2"> Invalid Credentials! </font></b> <% }%> 
-                    <form action="/ProManager/j_acegi_security_check" method="POST" id="login_form" >
+                    <form action="../j_acegi_security_check" method="POST" id="login_form" >
                         <table width="188" border="0" rules="none" align="center" >
                             
                             <tr>
-                                <td width="185" valign="top"><span class="style28">Username:</span></td>
-                                <td valign="top">
-                                    <label>
-                                        <span class="style28"></span>
-                                        <input type="text" name='j_username' size="30" />
-                                    </label>
+                                <td>Username:</td>
+                                <td>
+                                    <input type="text" name='j_username' size="30" />
                                 </td>
                             </tr>
                             <tr>
-                                <td valign="top" class="style28">Password:</td>
-                                <td valign="top">
-                                    <label>                                        
-                                        <input type="password" name='j_password' size="30" />
-                                    </label>
+                                <td>Password:</td>
+                                <td>
+                                    <input type="password" name='j_password' size="30" />                                    
                                 </td>
                             </tr>
                             <tr>
+                                <td>Remember-me:</td>
+                                <td><input type="checkbox" name="_acegi_security_remember_me"/></td>
+                            </tr>
+                            <tr></tr>
+                            <tr>                                
                                 <td></td>
                                 <td valign="top" align="justify">
                                     <input type="submit" value="Sign In " name="Sign In" />
-                                </td>                                
+                                <a href="../view/signup.jsp"> Sign Up </a> </td>
                             </tr>
-                            
                         </table>
-                    </form>                    
-                    
-                    
+                    </form>    
                 </tr>
+                
             </table>
         </div>
     </body>
