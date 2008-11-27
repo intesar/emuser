@@ -10,6 +10,7 @@
     <class>com.bizintelapps.promanager.entity.ProjectUsers</class>
     <class>com.bizintelapps.promanager.entity.Task</class>
     <class>com.bizintelapps.promanager.entity.Organization</class>
+    <class>com.bizintelapps.promanager.entity.Authorities</class>
     <properties>
       <property name="toplink.jdbc.user" value="pm"/>
       <property name="toplink.jdbc.password" value="pm"/>

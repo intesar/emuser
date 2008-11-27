@@ -87,7 +87,7 @@ public class UsersConverter {
         users.setLastname(usersDto.getLastname());
         users.setIsAdministrator(true);
         users.setPassword(usersDto.getPassword());
-        users.setUsername(usersDto.getUsername());        
+        users.setUsername(usersDto.getUsername());          
         return users;
     }
 

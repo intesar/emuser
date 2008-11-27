@@ -36,7 +36,7 @@
         <!-- <property name="usersService" ref="usersServiceImpl" /> -->
     </bean>
     <dwr:configuration>
-        <dwr:convert type="bean" class="com.bizintelapps.promanager.service.dto.*" />
+        <dwr:convert type="bean" class="com.bizintelapps.promanager.dto.*" />
         <dwr:convert type="bean"  class="java.util.*"  />
     </dwr:configuration>
 </beans>
