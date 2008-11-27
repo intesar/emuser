@@ -43,7 +43,7 @@ http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
         class="org.acegisecurity.ui.webapp.AuthenticationProcessingFilter">
         <property name="authenticationManager" ref="authenticationManager"/>
         <property name="authenticationFailureUrl" value="/view/login.jsp?login_error=1"/>
-        <property name="defaultTargetUrl" value="/"/>
+        <property name="defaultTargetUrl" value="/view/task.jsp"/>
         <property name="filterProcessesUrl" value="/j_acegi_security_check"/>
         <property name="rememberMeServices" ref="rememberMeServices"/>
     </bean>
@@ -95,7 +95,12 @@ http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
             <value>
         CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
         PATTERN_TYPE_APACHE_ANT                                              
-                /index.jsp*=ROLE_ADMIN,ROLE_USER
+                /view/task.jsp*=ROLE_USER,ROLE_ADMIN
+                /view/organization.jsp*=ROLE_USER,ROLE_ADMIN
+                /view/projects.jsp*=ROLE_USER,ROLE_ADMIN
+                /view/reports.jsp*=ROLE_USER,ROLE_ADMIN
+                /view/settings.jsp*=ROLE_USER,ROLE_ADMIN
+                /view/users.jsp*=ROLE_USER,ROLE_ADMIN
             </value>
         </property>
     </bean>
@@ -215,9 +220,9 @@ http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
         </property>
         <property name="objectDefinitionSource">
             <value>
-            com.bizintelapps.promanager.ajax.AjaxUsersService.signUp=ROLE_ANONYMOUS
-            com.bizintelapps.promanager.ajax.AjaxUsersService.enableDisalbeUser=ROLE_ANONYMOUS
-            com.bizintelapps.promanager.ajax.AjaxUsersService.*=ROLE_ADMIN
+            com.bizintelapps.promanager.ajax.AjaxUsersService.signUp=ROLE_ANONYMOUS,ROLE_USER,ROLE_ADMIN
+            com.bizintelapps.promanager.ajax.AjaxUsersService.enableDisalbeUser=ROLE_ANONYMOUS,ROLE_USER,ROLE_ADMIN
+            com.bizintelapps.promanager.ajax.AjaxUsersService.*=ROLE_USER,ROLE_ADMIN
             </value>
         </property>
     </bean>
