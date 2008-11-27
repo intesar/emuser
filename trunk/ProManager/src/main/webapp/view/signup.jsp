@@ -1,30 +1,42 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<%@page contentType="text/html" pageEncoding="windows-1252"%>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+   "http://www.w3.org/TR/html4/loose.dtd">
+<html>
     <head>
+        
         <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-        <link rel="stylesheet" type="text/css" media="screen" href="/ProManager/css/milk.css">
-        <link rel="stylesheet" type="text/css" media="screen" href="/ProManager/css/chili.css">
-        <script src="/ProManager/js/jquery.js" type="text/javascript"></script>
-        <script src="/ProManager/js/jquery.validate.js" type="text/javascript"></script>
-        <script src="/ProManager/js/lib/users.validate.js" type="text/javascript"></script>
-        <script type='text/javascript' src='/ProManager/dwr/interface/AjaxUsersService.js'></script>
-        <script type='text/javascript' src='/ProManager/dwr/engine.js'></script>
-        <script type='text/javascript' src='/ProManager/dwr/util.js'></script>
-        <script type='text/javascript' src='/ProManager/js/lib/users.js'></script>
+        
+        <link rel="stylesheet" type="text/css" media="screen" href="../css/milk.css">
+        <link rel="stylesheet" type="text/css" media="screen" href="../css/chili.css">
+        <script type="text/javascript" src="../js/jquery-1.2.6.min.js" ></script>
+        <script type="text/javascript" src="../js/jquery.validate.js"></script>
+        <script type="text/javascript" src="../js/lib/signup.validate.js"></script>
+        <script type='text/javascript' src='../js/lib/signup.js'></script>
+        <script type='text/javascript' src='../dwr/interface/AjaxUsersService.js'></script>
+        <script type='text/javascript' src='../dwr/engine.js'></script>
+        <script type='text/javascript' src='../dwr/util.js'></script>
+        
         <style type="text/css">
             pre { text-align: left; }
         </style>        
+        
+        
     </head>
     <body>
+        
+        
         <div id="main">
+            
             <div id="content">
+                
                 <div id="header">
+                    
                 </div>
-                <div style="clear: both;">
-                    <div>
-                    </div>
-                </div>
+                <div style="clear: both;"><div></div></div>
+                
+                
                 <div class="content">
+                    
                     <div id="signupwrap">
                         <form id="signupform" autocomplete="off" method="get" action="">
                             <table>
@@ -57,12 +69,27 @@
                                         <td class="label"><label id="lemail" for="email">Email Address</label></td>
                                         <td class="field"><input id="email" name="email" value="" maxlength="150" type="text"></td>
                                         <td class="status"></td>
-                                    </tr>                                    
+                                    </tr>
+                                    <tr>
+                                        <td class="label"><label id="lorganization" for="email">Company Name</label></td>
+                                        <td class="field"><input id="organization" name="organization" value="" maxlength="150" type="text"></td>
+                                        <td class="status"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="label"><label id="lcity" for="email">City</label></td>
+                                        <td class="field"><input id="city" name="city" value="" maxlength="150" type="text"></td>
+                                        <td class="status"></td>
+                                    </tr>
                                     <tr>
                                         <td class="label"><label id="lsignupsubmit" for="signupsubmit">Signup</label></td>
                                         <td class="field" colspan="2">
-                                            <input id="signup" name="signup" value="Create" type="button" onclick="createClicked();">
+                                            <input id="signup" name="signup" value="Signup" type="button" onclick="signupClicked();">
                                         </td>
+                                    </tr>
+                                    <tr></tr>
+                                    <tr>
+                                        <td></td>
+                                        <td><a href="../view/login.jsp"> Login Here </a></td>
                                     </tr>
                                 </tbody>
                             </table>
