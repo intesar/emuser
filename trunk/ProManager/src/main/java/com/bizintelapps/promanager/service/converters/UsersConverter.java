@@ -35,13 +35,14 @@ public class UsersConverter {
     public List<UsersDto> copyAllForDisplay(Collection<Users> usersCollection) {
         List<UsersDto> list = new ArrayList<UsersDto> ();
         for ( Users users : usersCollection ) {
-            UsersDto usersDto = copyForDisplay(users, new UsersDto() );
+            UsersDto usersDto = new UsersDto();
+            copyForDisplay(users, usersDto );
             list.add(usersDto);
         }
         return list;
     }
     
-    public UsersDto copyForDisplay ( Users users, UsersDto usersDto ) {
+    public void copyForDisplay ( Users users, UsersDto usersDto ) {
         usersDto.setCity(users.getCity());
         usersDto.setCountry(users.getCountry());
         usersDto.setEmail(users.getEmail());
@@ -52,7 +53,7 @@ public class UsersConverter {
         usersDto.setLastname(users.getLastname());
         usersDto.setAdministrator(users.isIsAdministrator());
         usersDto.setUsername(users.getUsername());
-        return usersDto;
+        
     }
 
     /**
@@ -61,7 +62,7 @@ public class UsersConverter {
      * @param users
      * @return
      */
-    public Users copyForCreate(UsersDto usersDto, Users users) {        
+    public void copyForCreate(UsersDto usersDto, Users users) {        
         users.setCity(usersDto.getCity());
         users.setCountry(usersDto.getCountry());
         users.setEmail(usersDto.getEmail());
@@ -74,10 +75,10 @@ public class UsersConverter {
         users.setCreateUser(usersDto.getCreateUser());
         users.setPassword(usersDto.getPassword());
         users.setUsername(usersDto.getUsername());
-        return users;
+        
     }
 
-    public Users copyForSignUp(UsersDto usersDto, Users users) {
+    public void copyForSignUp(UsersDto usersDto, Users users) {
         users.setCity(usersDto.getCity());
         users.setCountry(usersDto.getCountry());
         users.setEmail(usersDto.getEmail());
@@ -88,7 +89,7 @@ public class UsersConverter {
         users.setIsAdministrator(true);
         users.setPassword(usersDto.getPassword());
         users.setUsername(usersDto.getUsername());          
-        return users;
+        
     }
 
     /**
@@ -97,16 +98,16 @@ public class UsersConverter {
      * @param users
      * 
      */
-    public Users copyForUpdate(UsersDto usersDto, Users users) {
-        users.setCity(usersDto.getCity());
-        users.setCountry(usersDto.getCountry());
+    public void copyForUpdate(UsersDto usersDto, Users users) {
+        //users.setCity(usersDto.getCity());
+        //users.setCountry(usersDto.getCountry());
         users.setEmail(usersDto.getEmail());
         users.setEnabled(usersDto.isEnabled());
-        users.setExpirationDate(usersDto.getExpirationDate());
+        //users.setExpirationDate(usersDto.getExpirationDate());
         users.setFirstname(usersDto.getFirstname());
         users.setLastname(usersDto.getLastname());
         users.setIsAdministrator(usersDto.isAdministrator());
-        return users;        
+        
     }
 
 }

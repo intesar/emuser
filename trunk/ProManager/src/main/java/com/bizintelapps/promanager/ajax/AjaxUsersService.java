@@ -16,10 +16,10 @@
  */
 package com.bizintelapps.promanager.ajax;
 
-import com.bizintelapps.promanager.dao.PagingParams;
 import com.bizintelapps.promanager.service.UsersService;
 import com.bizintelapps.promanager.dto.UsersDto;
 import com.bizintelapps.promanager.service.validator.ValidationException;
+import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,20 +51,19 @@ public class AjaxUsersService {
      * @param usersDto
      * @return
      */
-    public String saveUser(UsersDto usersDto) {
-        String msg = " User Created Successfully! ";
+    public List<UsersDto> saveUser(UsersDto usersDto) {        
         try {
             // this should handle create/update
-            usersService.saveUser(usersDto, SecurityUtil.getUsername());
+            return usersService.saveAndGetUser(usersDto, SecurityUtil.getUsername());
         } catch (ValidationException e) {
             log.error(e);
+            e.printStackTrace();
             throw e;
         } catch (Exception e) {
+            e.printStackTrace();
             log.error(e);
-            return ERROR_MESSAGE;
         }
-
-        return msg;
+        throw new RuntimeException("Error, Please try again! ");
     }
 
     /**
@@ -113,9 +112,9 @@ public class AjaxUsersService {
      * 
      * @return
      */
-    public PagingParams<UsersDto> getUserList() {
+    public List<UsersDto> getUserList() {
         try {
-            return usersService.getUsers(SecurityUtil.getUsername());
+            return usersService.getUsers(SecurityUtil.getUsername()).getCurrentList();
         } catch (ValidationException e) {
             log.error(e);
             throw e;

@@ -35,7 +35,8 @@ import javax.persistence.Table;
 @NamedQueries({
     @NamedQuery(name = "Authorities.findByUsername", query = "SELECT a FROM Authorities a WHERE a.username = :username"),
     @NamedQuery(name = "Authorities.findByAuthority", query = "SELECT a FROM Authorities a WHERE a.authority = :authority"),
-    @NamedQuery(name = "Authorities.findById", query = "SELECT a FROM Authorities a WHERE a.id = :id")
+    @NamedQuery(name = "Authorities.findById", query = "SELECT a FROM Authorities a WHERE a.id = :id"),
+    @NamedQuery(name = "Authorities.findByUsernameAndAuthority", query = "SELECT a FROM Authorities a WHERE a.username = ?1 and a.authority = ?2")
 })
 public class Authorities implements Serializable {    
     public static final String ROLE_ADMIN = "ROLE_ADMIN";

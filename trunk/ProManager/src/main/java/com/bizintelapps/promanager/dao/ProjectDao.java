@@ -18,6 +18,7 @@
 package com.bizintelapps.promanager.dao;
 
 import com.bizintelapps.promanager.entity.Project;
+import java.util.List;
 
 /**
  *
@@ -26,5 +27,7 @@ import com.bizintelapps.promanager.entity.Project;
 public interface ProjectDao extends GenericDao<Project, Integer> {
 
     public Project findByNameAndOrganization(String name, Integer id);
+    
+    List<Project> findByOrganization (Integer id);
 
 }

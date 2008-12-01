@@ -21,7 +21,6 @@ import com.bizintelapps.promanager.dao.ProjectDao;
 import com.bizintelapps.promanager.dao.ProjectUsersDao;
 import com.bizintelapps.promanager.dao.UsersDao;
 import com.bizintelapps.promanager.entity.Project;
-import com.bizintelapps.promanager.entity.ProjectUsers;
 import com.bizintelapps.promanager.entity.Users;
 import com.bizintelapps.promanager.service.ProjectService;
 import com.bizintelapps.promanager.service.converters.ProjectConverter;
@@ -29,9 +28,10 @@ import com.bizintelapps.promanager.dto.ProjectDto;
 import com.bizintelapps.promanager.exceptions.ServiceRuntimeException;
 
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -43,14 +43,22 @@ import org.springframework.stereotype.Service;
 public class ProjectServiceImpl implements ProjectService {
 
     @Override
+    public List<ProjectDto> saveAndGetProjects(ProjectDto projectDto, String savedBy) {
+        saveProject(projectDto, savedBy);
+        return getProjects(savedBy).getCurrentList();
+    }
+
+    @Override
     public void saveProject(ProjectDto projectDto, String savedBy) {
+        Users savedByUsers = usersDao.findByUsername(savedBy);
+        if (!savedByUsers.isIsAdministrator()) {
+            throw new ServiceRuntimeException("only administrators can create new Project");
+        }
+
+        log.debug("----------- project id " + projectDto.getId());
         // create new if id null
         // administrator can create projects
-        Users savedByUsers = usersDao.findByUsername(savedBy);
         if (projectDto.getId() == null) {
-            if (!savedByUsers.isIsAdministrator()) {
-                throw new ServiceRuntimeException("only administrators can create new Project");
-            }
             // project should have unique name
             Project project1 = projectDao.findByNameAndOrganization(projectDto.getName(),
                     savedByUsers.getOrganization().getId());
@@ -66,24 +74,12 @@ public class ProjectServiceImpl implements ProjectService {
             project.setOrganization(savedByUsers.getOrganization());
             projectDao.create(project);
         } else {
-            ProjectUsers projectUsers = projectUsersDao.findByProjectAdministratorByProjectNameAndUserId(projectDto.getName(), savedByUsers.getId());
-            if (!savedByUsers.isIsAdministrator() || projectUsers == null ||
-                    projectUsers.getId() == null) {
-                throw new ServiceRuntimeException("only Org Administrators or Project Administrator can update Project");
-            }
-            // project should have unique name
-            Project project1 = projectDao.read(projectDto.getId());
-            if (!project1.getName().equals(projectDto.getName())) {
-                Project p1 = projectDao.findByNameAndOrganization(projectDto.getName(), savedByUsers.getOrganization().getId());
-                if (p1 != null && p1.getId() != null) {
-                    throw new ServiceRuntimeException(projectDto.getName() + " name is already in use");
-                }
-            }
             // copy usersDto contents to new Users object and persist
-            Project project = projectConverter.copyForUpdate(projectDto, new Project());
+            Project project = projectDao.read(projectDto.getId());
+            projectConverter.copyForUpdate(projectDto, project);
             project.setLastUpdateDate(new Date());
             project.setLastUpdateUser(savedByUsers.getId());
-            projectDao.create(project);
+            projectDao.update(project);
         }
 
     }
@@ -105,17 +101,18 @@ public class ProjectServiceImpl implements ProjectService {
         PagingParams<ProjectDto> pagingParams = new PagingParams<ProjectDto>();
         Users users = usersDao.findByUsername(requestedBy);
         if (users.isIsAdministrator()) {
-            List<ProjectDto> list = projectConverter.copyAllForDisplay(users.getOrganization().getProjectCollection());
+            List<ProjectDto> list = projectConverter.copyAllForDisplay(projectDao.findByOrganization(users.getOrganization().getId()));
             pagingParams.setCurrentList(list);
-        } else {
-            List<ProjectDto> list = new ArrayList<ProjectDto>();
-            List<ProjectUsers> projectUsersList = projectUsersDao.findByAdministratorUserId(users.getId());
-            ProjectDto projectDto = null;
-            for (ProjectUsers projectUsers : projectUsersList) {
-                projectDto = projectConverter.copyForDisplay(projectUsers.getProject(), new ProjectDto());
-            }
-            list.add(projectDto);
         }
+//        } else {
+//            List<ProjectDto> list = new ArrayList<ProjectDto>();
+//            List<ProjectUsers> projectUsersList = projectUsersDao.findByAdministratorUserId(users.getId());
+//            ProjectDto projectDto = null;
+//            for (ProjectUsers projectUsers : projectUsersList) {
+//                projectDto = projectConverter.copyForDisplay(projectUsers.getProject(), new ProjectDto());
+//            }
+//            list.add(projectDto);
+//        }
         return pagingParams;
     }
 
@@ -158,4 +155,5 @@ public class ProjectServiceImpl implements ProjectService {
     private ProjectUsersDao projectUsersDao;
     @Autowired
     private ProjectConverter projectConverter;
+    private final Log log = LogFactory.getLog(getClass());
 }

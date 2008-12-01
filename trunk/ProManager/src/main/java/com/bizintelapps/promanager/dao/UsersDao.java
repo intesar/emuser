@@ -18,6 +18,7 @@
 package com.bizintelapps.promanager.dao;
 
 import com.bizintelapps.promanager.entity.Users;
+import java.util.List;
 
 
 /**
@@ -25,6 +26,7 @@ import com.bizintelapps.promanager.entity.Users;
  * @author intesar
  */
 public interface UsersDao extends GenericDao<Users, Integer> {
+    public List<Users> findByOrganizationId(Integer organizationId);
     /**
      * 
      * @param username

@@ -1,6 +1,6 @@
 <%@page contentType="text/html" pageEncoding="windows-1252"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-   "http://www.w3.org/TR/html4/loose.dtd">
+"http://www.w3.org/TR/html4/loose.dtd">
 <html>
     <head>
         
@@ -29,10 +29,12 @@
             
             <div id="content">
                 
-                <div id="header">
-                    
+                <div id="header">                    
                 </div>
-                <div style="clear: both;"><div></div></div>
+                
+                <div style="clear: both;">
+                    <div></div>
+                </div>
                 
                 
                 <div class="content">
@@ -40,7 +42,8 @@
                     <div id="signupwrap">
                         <form id="signupform" autocomplete="off" method="get" action="">
                             <table>
-                                <tbody><tr>
+                                <tbody>
+                                    <tr>
                                         <td class="label"><label id="lfirstname" for="firstname">First Name</label></td>
                                         <td class="field"><input class="" id="firstname" name="firstname" value="" maxlength="100" type="text"></td>
                                         <td class="status"><label class="" generated="true" for="firstname">&nbsp;</label></td>

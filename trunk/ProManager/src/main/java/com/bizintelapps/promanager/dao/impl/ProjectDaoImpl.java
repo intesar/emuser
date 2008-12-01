@@ -18,6 +18,7 @@ package com.bizintelapps.promanager.dao.impl;
 
 import com.bizintelapps.promanager.dao.ProjectDao;
 import com.bizintelapps.promanager.entity.Project;
+import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Repository;
@@ -34,8 +35,13 @@ public class ProjectDaoImpl extends GenericDaoImpl<Project, Integer> implements 
     }
     
     @Override
-    public Project findByNameAndOrganization(String name, Integer id) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public Project findByNameAndOrganization(String name, Integer organizationId) {
+        return executeNamedQuerySingleResult("Project.findByNameAndOrganization", name, organizationId);
+    }
+    
+    @Override
+    public List<Project> findByOrganization (Integer organizationId) {
+        return executeNamedQueryList("Project.findByOrganization", null, organizationId);
     }
     private final Log log = LogFactory.getLog(getClass());
 

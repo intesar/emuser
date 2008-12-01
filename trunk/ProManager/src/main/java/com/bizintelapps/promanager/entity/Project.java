@@ -14,7 +14,6 @@
  *  limitations under the License.
  *  under the License.
  */
-
 package com.bizintelapps.promanager.entity;
 
 import java.io.Serializable;
@@ -39,8 +38,19 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "project")
-@NamedQueries({@NamedQuery(name = "Project.findById", query = "SELECT p FROM Project p WHERE p.id = :id"), @NamedQuery(name = "Project.findByName", query = "SELECT p FROM Project p WHERE p.name = :name"), @NamedQuery(name = "Project.findByDescription", query = "SELECT p FROM Project p WHERE p.description = :description"), @NamedQuery(name = "Project.findByStatus", query = "SELECT p FROM Project p WHERE p.status = :status"), @NamedQuery(name = "Project.findByCreateUser", query = "SELECT p FROM Project p WHERE p.createUser = :createUser"), @NamedQuery(name = "Project.findByCreateDate", query = "SELECT p FROM Project p WHERE p.createDate = :createDate"), @NamedQuery(name = "Project.findByVisibility", query = "SELECT p FROM Project p WHERE p.visibility = :visibility"), @NamedQuery(name = "Project.findByParentProject", query = "SELECT p FROM Project p WHERE p.parentProject = :parentProject")})
+@NamedQueries({@NamedQuery(name = "Project.findById", query = "SELECT p FROM Project p WHERE p.id = :id"),
+    @NamedQuery(name = "Project.findByName", query = "SELECT p FROM Project p WHERE p.name = :name"),
+    @NamedQuery(name = "Project.findByDescription", query = "SELECT p FROM Project p WHERE p.description = :description"),
+    @NamedQuery(name = "Project.findByStatus", query = "SELECT p FROM Project p WHERE p.status = :status"),
+    @NamedQuery(name = "Project.findByCreateUser", query = "SELECT p FROM Project p WHERE p.createUser = :createUser"),
+    @NamedQuery(name = "Project.findByCreateDate", query = "SELECT p FROM Project p WHERE p.createDate = :createDate"),
+    @NamedQuery(name = "Project.findByVisibility", query = "SELECT p FROM Project p WHERE p.visibility = :visibility"),
+    @NamedQuery(name = "Project.findByParentProject", query = "SELECT p FROM Project p WHERE p.parentProject = :parentProject"),
+    @NamedQuery(name = "Project.findByNameAndOrganization", query = "SELECT p FROM Project p WHERE p.name = ?1 and p.organization.id = ?2"),
+    @NamedQuery(name = "Project.findByOrganization", query = "SELECT p FROM Project p WHERE p.organization.id = ?1")
+})
 public class Project implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @Column(name = "id", nullable = false)
@@ -60,7 +70,7 @@ public class Project implements Serializable {
     private Integer lastUpdateUser;
     @Column(name = "last_update_date", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
-    private Date lastUpdateDate;    
+    private Date lastUpdateDate;
     @Column(name = "visibility", nullable = false)
     private String visibility;
     @Column(name = "parent_project")
@@ -168,8 +178,6 @@ public class Project implements Serializable {
     public void setLastUpdateDate(Date lastUpdateDate) {
         this.lastUpdateDate = lastUpdateDate;
     }
-    
-    
 
     public Organization getOrganization() {
         return organization;
@@ -219,5 +227,4 @@ public class Project implements Serializable {
     public String toString() {
         return "com.bizintelapps.promanager.entity.Project[id=" + id + "]";
     }
-
 }

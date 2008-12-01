@@ -19,6 +19,7 @@ package com.bizintelapps.promanager.service;
 
 import com.bizintelapps.promanager.dao.PagingParams;
 import com.bizintelapps.promanager.dto.UsersDto;
+import java.util.List;
 
 /**
  *
@@ -27,6 +28,8 @@ import com.bizintelapps.promanager.dto.UsersDto;
 public interface UsersService {
 
     public void signUp (UsersDto usersDto);
+    
+    public List<UsersDto> saveAndGetUser(UsersDto usersDto, String savedBy);
     /**
      * 
      * @param usersDto
@@ -67,6 +70,7 @@ public interface UsersService {
      * @param forUser
      * @return
      */
+    
     public PagingParams<UsersDto> getUsers(String forUser);
     
     /**

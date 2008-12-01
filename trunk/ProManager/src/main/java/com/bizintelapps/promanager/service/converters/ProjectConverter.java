@@ -18,6 +18,7 @@ package com.bizintelapps.promanager.service.converters;
 
 import com.bizintelapps.promanager.entity.Project;
 import com.bizintelapps.promanager.dto.ProjectDto;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -44,8 +45,10 @@ public class ProjectConverter {
         projectDto.setCreateUser(project.getCreateUser());
         projectDto.setDescription(project.getDescription());
         projectDto.setId(project.getId());
-        projectDto.setLastUpdateUser(project.getLastUpdateUser());
-        projectDto.setLastUpdateDate(project.getLastUpdateDate());
+        //projectDto.setLastUpdateUser(project.getLastUpdateUser());
+        //String pattern = "yyyy.MM.dd hh:mm";
+        //SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        //projectDto.setLastUpdateDate(simpleDateFormat.format(project.getLastUpdateDate()));
         projectDto.setName(project.getName());
         projectDto.setStatus(project.getStatus());
         projectDto.setVisibility(project.getVisibility());
@@ -56,16 +59,12 @@ public class ProjectConverter {
         project.setDescription(projectDto.getDescription());
         project.setName(projectDto.getName());
         project.setStatus(projectDto.getStatus());
-        project.setVisibility(projectDto.getVisibility());
         return project;
     }
 
     public Project copyForUpdate(ProjectDto projectDto, Project project) {
-        project.setId(projectDto.getId());
-        project.setDescription(projectDto.getDescription());
-        project.setName(projectDto.getName());
+        project.setDescription(projectDto.getDescription());        
         project.setStatus(projectDto.getStatus());
-        project.setVisibility(projectDto.getVisibility());
         return project;
     }
 }

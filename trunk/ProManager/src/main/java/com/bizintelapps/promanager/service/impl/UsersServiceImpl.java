@@ -63,7 +63,8 @@ public class UsersServiceImpl implements UsersService {
         org = new Organization(null, usersDto.getOrganization(), new Date());
         organizationDao.create(org);
         org = organizationDao.findByName(org.getName());
-        Users users = usersConverter.copyForSignUp(usersDto, new Users());
+        Users users = new Users();
+        usersConverter.copyForSignUp(usersDto, users);
         users.setPassword(passwordEncryptor.encryptPassword(users.getPassword()));
         users.setIsEncrypted(true);
         users.setCreateDate(new Date());
@@ -76,6 +77,14 @@ public class UsersServiceImpl implements UsersService {
         authoritiesDao.create(authorities2);
     }
 
+    
+    
+    @Override
+    public List<UsersDto> saveAndGetUser(UsersDto usersDto, String savedBy) {
+        saveUser(usersDto, savedBy);
+        return getUsers(savedBy).getCurrentList();
+    }
+    
     @Override
     public void saveUser(UsersDto usersDto, String savedBy) {
         Users savedByUsers = usersDao.findByUsername(savedBy);
@@ -95,21 +104,26 @@ public class UsersServiceImpl implements UsersService {
                 throw new ServiceRuntimeException(usersDto.getEmail() + " is already in use");
             }
             // copy usersDto contents to new Users object and persist
-            Users users = usersConverter.copyForCreate(usersDto, new Users());
+            Users users = new Users();
+            usersConverter.copyForCreate(usersDto, users);
             users.setCreateDate(new Date());
             users.setCreateUser(savedByUsers.getId());
             users.setLastUpdateDate(new Date());
             users.setLastUpdateUser(savedByUsers.getId());
             users.setOrganization(savedByUsers.getOrganization());
-            users.setPassword(passwordEncryptor.encryptPassword(users.getPassword()));
+            users.setPassword(passwordEncryptor.encryptPassword(usersDto.getUsername()));
             users.setIsEncrypted(true);
             usersDao.create(users);
             Authorities authorities = new Authorities(null, users.getUsername(), Authorities.ROLE_USER);
+            if ( usersDto.isAdministrator()) {
+                Authorities authorities1 = new Authorities(null, users.getUsername(), Authorities.ROLE_ADMIN);
+                authoritiesDao.create(authorities1);
+            }
             authoritiesDao.create(authorities);
         } else { // update state to db
             Users users = usersDao.read(usersDto.getId());
             // admin or self can update there records
-            if (!savedByUsers.isIsAdministrator() || !(savedByUsers.getId() == users.getId())) {
+            if (!savedByUsers.isIsAdministrator() || !savedByUsers.getOrganization().equals(users.getOrganization())) {
                 throw new ServiceRuntimeException("only administrators or self can update records");
             }
             // copy usersDto contents to existing Users object and persist
@@ -120,10 +134,34 @@ public class UsersServiceImpl implements UsersService {
                     throw new ServiceRuntimeException(usersDto.getEmail() + " is already in use");
                 }
             }
+            
+            // check admin criteria
+            if ( users.getUsername().equals(savedByUsers.getUsername()) && 
+                    users.isIsAdministrator() && usersDto.isAdministrator()) {
+                throw new ServiceRuntimeException("User cannot demote himself");
+            }
+            log.debug("---------  usersDto.isAdministrator() " + usersDto.isAdministrator());
+            log.debug("---------  users.isIsAdministrator() " + users.isIsAdministrator());
+            log.debug("---------  usersDto.enabled() " + usersDto.isEnabled());
+            log.debug("---------  users.enabled() " + users.getEnabled());
+            
+           if ( usersDto.isAdministrator() && !users.isIsAdministrator() ) {
+                // add him to authority
+               log.debug("--------- ADD AUTHORITY ");
+                Authorities authority = new Authorities(null, usersDto.getUsername(), Authorities.ROLE_ADMIN);
+                authoritiesDao.create(authority);
+            } else  if ( !usersDto.isAdministrator() && users.isIsAdministrator() ) {
+                // remove him from authority
+                log.debug("--------- DELETE AUTHORITY ");
+                Authorities authorities = authoritiesDao.findByUsernameAndAuthority(usersDto.getUsername(), Authorities.ROLE_ADMIN);
+                authoritiesDao.delete(authorities);
+            }
+            log.debug("--------- before copy ");
             usersConverter.copyForUpdate(usersDto, users);
             users.setLastUpdateDate(new Date());
             users.setLastUpdateUser(savedByUsers.getId());
             usersDao.update(users);
+            log.debug("--------- after updated ");
         }
     }
 
@@ -157,11 +195,12 @@ public class UsersServiceImpl implements UsersService {
         PagingParams<UsersDto> pagingParams = new PagingParams<UsersDto>();
         Users users = usersDao.findByUsername(forUser);
         if (users.isIsAdministrator()) {
-            List<UsersDto> list = usersConverter.copyAllForDisplay(users.getOrganization().getUsersCollection());
+            List<UsersDto> list = usersConverter.copyAllForDisplay(usersDao.findByOrganizationId(users.getOrganization().getId()));
             pagingParams.setCurrentList(list);
         } else {
             List<UsersDto> list = new ArrayList<UsersDto>();
-            UsersDto usersDto = usersConverter.copyForDisplay(users, new UsersDto());
+            UsersDto usersDto = new UsersDto();
+            usersConverter.copyForDisplay(users, usersDto);
             list.add(usersDto);
         }
         return pagingParams;

@@ -30,11 +30,11 @@ public class ProjectDto {
     private String status;
     private Integer createUser;
     private Date createDate;
-    private Integer lastUpdateUser;
-    private Date lastUpdateDate;
+    private String lastUpdateUser;
+    private String lastUpdateDate;
     private String visibility;
 
-    public ProjectDto(Integer id, String name, String description, String status, Integer createUser, Date createDate, Integer lastUdpateUser, Date lastUpdateDate, String visibility) {
+    public ProjectDto(Integer id, String name, String description, String status, Integer createUser, Date createDate, String lastUdpateUser, String lastUpdateDate, String visibility) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -81,19 +81,19 @@ public class ProjectDto {
         this.id = id;
     }
 
-    public Integer getLastUpdateUser() {
+    public String getLastUpdateUser() {
         return lastUpdateUser;
     }
 
-    public void setLastUpdateUser(Integer lastUdpateUser) {
+    public void setLastUpdateUser(String lastUdpateUser) {
         this.lastUpdateUser = lastUdpateUser;
     }
 
-    public Date getLastUpdateDate() {
+    public String getLastUpdateDate() {
         return lastUpdateDate;
     }
 
-    public void setLastUpdateDate(Date lastUpdateDate) {
+    public void setLastUpdateDate(String lastUpdateDate) {
         this.lastUpdateDate = lastUpdateDate;
     }
 
