@@ -1,7 +1,7 @@
 $(document).ready(function() {
     // validate signup form on keyup and submit
 
-    var validator = $("#signupform").validate({
+    var validator = jquery("#signupform").validate({
         rules: {
             firstname:  {
                 required: true,
@@ -15,26 +15,9 @@ $(document).ready(function() {
                 required: true,
                 minlength: 2
             },
-            password: {
-                required: true,
-                minlength: 5
-            },
-            password_confirm: {
-                required: true,
-                minlength: 5,
-                equalTo: "#password"
-            },
             email: {
                 required: true,
                 email: true
-            },
-            organization: {
-                required: true,
-                minlength: 2
-            },
-            city:  {
-                required: false,
-                minlength: 2
             }
         },
         messages: {
@@ -51,27 +34,10 @@ $(document).ready(function() {
                 minlength: jQuery.format("Enter at least {0} characters"),
                 remote: jQuery.format("{0} is already in use")
             },
-            password: {
-                required: "Provide a password",
-                rangelength: jQuery.format("Enter at least {0} characters")
-            },
-            password_confirm: {
-                required: "Repeat your password",
-                minlength: jQuery.format("Enter at least {0} characters"),
-                equalTo: "Enter the same password as above"
-            },
             email: {
                 required: "Please enter a valid email address",
                 minlength: "Please enter a valid email address",
                 remote: jQuery.format("{0} is already in use")
-            },
-            organization: {
-                required: "Please enter a valid Organization Name",
-                minlength: jQuery.format("Enter at least {0} characters")
-            },
-            city: {
-                required: "Please enter a valid city",
-                minlength: jQuery.format("Enter at least {0} characters")
             }
         },
                 

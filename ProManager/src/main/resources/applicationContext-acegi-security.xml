@@ -223,6 +223,7 @@ http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
             com.bizintelapps.promanager.ajax.AjaxUsersService.signUp=ROLE_ANONYMOUS,ROLE_USER,ROLE_ADMIN
             com.bizintelapps.promanager.ajax.AjaxUsersService.enableDisalbeUser=ROLE_ANONYMOUS,ROLE_USER,ROLE_ADMIN
             com.bizintelapps.promanager.ajax.AjaxUsersService.*=ROLE_USER,ROLE_ADMIN
+            com.bizintelapps.promanager.ajax.AjaxProjectService.*=ROLE_ADMIN
             </value>
         </property>
     </bean>

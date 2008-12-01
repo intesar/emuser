@@ -35,6 +35,14 @@
         </dwr:remote>
         <!-- <property name="usersService" ref="usersServiceImpl" /> -->
     </bean>
+    
+    <bean id="projectAjaxService" class="com.bizintelapps.promanager.ajax.AjaxProjectService" >
+        <dwr:remote javascript="AjaxProjectService">
+            <dwr:include method="saveProject" />
+            <dwr:include method="getProjectList" />
+        </dwr:remote>
+    </bean>
+    
     <dwr:configuration>
         <dwr:convert type="bean" class="com.bizintelapps.promanager.dto.*" />
         <dwr:convert type="bean"  class="java.util.*"  />

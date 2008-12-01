@@ -33,4 +33,11 @@ public class AuthoritiesDaoImpl extends GenericDaoImpl<Authorities, Integer> imp
         super(Authorities.class);
     }
     private final Log log = LogFactory.getLog(getClass());
+    
+    @Override
+     public Authorities findByUsernameAndAuthority(String username, String ROLE_ADMIN) {
+         Authorities authorities = null;
+         authorities = executeNamedQuerySingleResult("Authorities.findByUsernameAndAuthority", username, ROLE_ADMIN);
+         return authorities;
+     }
 }

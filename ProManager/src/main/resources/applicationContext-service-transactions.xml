@@ -17,14 +17,14 @@
         <!--
         <aop:pointcut id="serviceMethods" expression="execution(* com.bia.counsellingapp.services.*.*(..))"/>
         -->
-        <!-- aop will intercept any request to all instance defined in this package -->
-        <aop:pointcut id="serviceMethods" expression="within(com.bizintelapps.promanager.service..*)"/>
+        <!-- aop will intercept any request to all instance defined in this package ..*)-->
+        <aop:pointcut id="serviceMethods" expression="execution(* com.bizintelapps.promanager.service.*.*(..))"/>
         <aop:advisor advice-ref="txAdvice" pointcut-ref="serviceMethods"/>
     </aop:config>
     <tx:advice id="txAdvice" transaction-manager="transactionManager">
         <tx:attributes>                        
             <!-- get methods will not change database state -->
-            <tx:method name="get*" propagation="SUPPORTS" read-only="true"/>
+            <!-- <tx:method name="get*" propagation="SUPPORTS" read-only="true"/> -->
             <!-- all other methods will be able to change database state -->
             <tx:method name="*" propagation="REQUIRED" />       
             <!--<tx:method name="someOtherBusinessMethod" propagation="REQUIRES_NEW"/>-->

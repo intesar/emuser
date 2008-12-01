@@ -25,4 +25,6 @@ import com.bizintelapps.promanager.entity.Authorities;
  */
 public interface AuthoritiesDao extends GenericDao<Authorities, Integer> {
 
+    public Authorities findByUsernameAndAuthority(String username, String ROLE_ADMIN);
+
 }

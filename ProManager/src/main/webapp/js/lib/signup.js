@@ -1,7 +1,6 @@
 
 function signupClicked() {
-    dwr.util.useLoadingMessage("Please Wait, Loading");
-    alert ( ' inside click ');
+    dwr.util.useLoadingMessage("Please Wait, Loading");    
     function errh(msg) {
         alert(msg);
     }

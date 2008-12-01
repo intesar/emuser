@@ -17,6 +17,14 @@
 
 package com.bizintelapps.promanager.ajax;
 
+import com.bizintelapps.promanager.dto.ProjectDto;
+import com.bizintelapps.promanager.service.ProjectService;
+import com.bizintelapps.promanager.service.validator.ValidationException;
+import java.util.List;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+
 /**
  *
  * @author intesar
@@ -24,7 +32,56 @@ package com.bizintelapps.promanager.ajax;
 public class AjaxProjectService {
 
     // saveProject should handle create|update
+    
+        /**
+     *  every method should copy same pattern
+     *  msg for success
+     *  should catch exceptions exactly the same way
+     * @param usersDto
+     * @return
+     */
+    public List<ProjectDto> saveProject(ProjectDto projectDto) {        
+        try {
+            // this should handle create/update
+            return projectService.saveAndGetProjects(projectDto, SecurityUtil.getUsername());
+        } catch (ValidationException e) {
+            log.error(e);
+            e.printStackTrace();
+            throw e;
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.error(e);
+        }
+        throw new RuntimeException("Error, Please try again! ");
+    }
+
+    
     // getProjectList should get all projects visible ot user with brief summary
+    
+        /**
+     * 
+     * @return
+     */
+    public List<ProjectDto> getProjectList() {
+        try {
+            return projectService.getProjects(SecurityUtil.getUsername()).getCurrentList();
+        } catch (ValidationException e) {
+            log.error(e);
+            throw e;
+        } catch (Exception e) {
+            log.error(e);
+        //return ERROR_MESSAGE;
+        }
+        return null;
+    }
+
+    public void setProjectService(ProjectService projectService) {
+        this.projectService = projectService;
+    }
+    
     // getProjectInfo should get Project with its member list
     // deleteProject should delete project
+    private final Log log = LogFactory.getLog(getClass());
+    @Autowired
+    private ProjectService projectService;
 }

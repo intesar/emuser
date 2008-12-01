@@ -18,6 +18,7 @@ package com.bizintelapps.promanager.dao.impl;
 
 import com.bizintelapps.promanager.dao.UsersDao;
 import com.bizintelapps.promanager.entity.Users;
+import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Repository;
@@ -43,4 +44,9 @@ public class UsersDaoImpl extends GenericDaoImpl<Users, Integer> implements User
         return executeNamedQuerySingleResult("Users.findByEmail", email);
     }
     private final Log log = LogFactory.getLog(getClass());
+
+    @Override
+    public List<Users> findByOrganizationId(Integer organizationId) {
+        return executeNamedQueryList("Users.findByOrganizationId", null, organizationId);
+    }
 }

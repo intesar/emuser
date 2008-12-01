@@ -19,6 +19,7 @@ package com.bizintelapps.promanager.service;
 
 import com.bizintelapps.promanager.dao.PagingParams;
 import com.bizintelapps.promanager.dto.ProjectDto;
+import java.util.List;
 
 /**
  *
@@ -26,6 +27,7 @@ import com.bizintelapps.promanager.dto.ProjectDto;
  */
 public interface ProjectService {
 
+    public List<ProjectDto> saveAndGetProjects( ProjectDto projectDto, String savedBy);
     /**
      *  saves or updates a project to db
      * @param projectDto
@@ -46,4 +48,8 @@ public interface ProjectService {
      * @return
      */
     public PagingParams<ProjectDto> getProjects ( String requestedBy );
+    
+    String IN_PROGRESS = "In Progess";
+    String ON_HOLD = "On Hold";
+    String COMPLETED = "Completed";
 }
