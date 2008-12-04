@@ -121,7 +121,7 @@ public class AdminServiceImpl implements AdminService {
                 UsersPass usersPass = new UsersPass(null, users.getUsername(),
                         encryptedPass, true, resetCode, new Date());
                 usersPassDao.create(usersPass);
-                eMailService.sendEmail(u.getUsername(), "Welcome to FaceGuard, username / password : " + u.getUsername() + " / " + password);
+                emailService.sendEmail(u.getUsername(), "Welcome to FaceGuard, username / password : " + u.getUsername() + " / " + password);
             } else if (users != null && users.getId() != null) {
                 this.usersDao.update(users);
                 if (users.getRole().equalsIgnoreCase("employee")) {
@@ -312,7 +312,7 @@ public class AdminServiceImpl implements AdminService {
                     toAddress[count++] = email;
                 }
 
-                eMailService.sendEmail(toAddress, subject, new Date() + " [Total Minutes, Payable, Paid]" + result.toString());
+                emailService.sendEmail(toAddress, subject, new Date() + " [Total Minutes, Payable, Paid]" + result.toString());
             }
         }
     }
@@ -373,6 +373,11 @@ public class AdminServiceImpl implements AdminService {
     public void setStringEncryptor(PBEStringEncryptor stringEncryptor) {
         this.stringEncryptor = stringEncryptor;
     }
+
+    public void setEmailService(EMailService emailService) {
+        this.emailService = emailService;
+    }
+    private EMailService emailService;
     private UsersLightDao usersLightDao;
     private UsersDao usersDao;
     private UsersPassDao usersPassDao;
@@ -385,5 +390,5 @@ public class AdminServiceImpl implements AdminService {
     private ServicesDao servicesDao;
     private PasswordEncryptor passwordEncryptor;
     private PBEStringEncryptor stringEncryptor;
-    private EMailService eMailService = new EMailServiceImpl();
+    
 }
