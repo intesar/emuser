@@ -54,44 +54,44 @@
 <div id="mainDiv">
     <div id="adminDiv" align="center">
         <a onclick="forwardFunction('dashboard2.jsp');">
-            <img src="icons/dashboard.png" alt="Dashboard" title="Dashboard" />            
+            <img src="menu_icons/dashboard.png" alt="Dashboard" title="Dashboard" />            
         </a>
-        &nbsp;&nbsp;&nbsp;
-        <a onclick="forwardFunction('users.jsp');"><img src="icons/control panel1.png" title="Control Panel" />
+        
+        <a onclick="forwardFunction('users.jsp');"><img src="menu_icons/controlpanel.png" title="Control Panel" />
         </a>
-        &nbsp;&nbsp;&nbsp;
-        <a onclick="forwardFunction('systems.jsp');"><img src="icons/systems.png" title="Computers" alt="3"/>
+        
+        <a onclick="forwardFunction('systems.jsp');"><img src="menu_icons/systems.png" title="Computers" alt="3"/>
         </a>        
-        &nbsp;&nbsp;&nbsp;
-        <a onclick="forwardFunction('services.jsp');"><img src="icons/service.png" title="Services"  alt="10 feedback"/>
+        
+        <a onclick="forwardFunction('services.jsp');"><img src="menu_icons/extraservices.png" title="Services"  alt="10 feedback"/>
         </a>
-        &nbsp;&nbsp;&nbsp;
-        <a onclick="forwardFunction('emails.jsp');"><img src="icons/emailsms.png" title="Emails/SMS"  alt="4 emails"/>
+        
+        <a onclick="forwardFunction('emails.jsp');"><img src="menu_icons/email.png" title="Emails/SMS"  alt="4 emails"/>
         </a>
-        &nbsp;&nbsp;&nbsp;
-        <a onclick="forwardFunction('emailtimings.jsp');"><img src="icons/report time.png" title="Report Timing"  alt="5 Time"/>
+        
+        <a onclick="forwardFunction('emailtimings.jsp');"><img src="menu_icons/report time.png" title="Report Timing"  alt="5 Time"/>
         </a>
-        &nbsp;&nbsp;&nbsp;    
-        <a onclick="forwardFunction('organization.jsp');"><img src="icons/profile.png" title="Profile" alt="7 profile"/>
+        
+        <a onclick="forwardFunction('organization.jsp');"><img src="menu_icons/company details1.png" title="Profile" alt="7 profile"/>
         </a>
-        &nbsp;&nbsp;&nbsp;
-        <a onclick="forwardFunction('systemlease.jsp');"><img src="icons/rental history.png" title="Rental History" alt="9 history"/>
+        
+        <a onclick="forwardFunction('systemlease.jsp');"><img src="menu_icons/rental history.png" title="Rental History" alt="9 history"/>
         </a>
-        &nbsp;&nbsp;&nbsp;
-        <a onclick="forwardFunction('report.jsp');"><img src="icons/billing.png" title="Billing Report" alt="8 report"/>
+        
+        <a onclick="forwardFunction('report.jsp');"><img src="menu_icons/billing.png" title="Billing Report" alt="8 report"/>
         </a>
-        &nbsp;&nbsp;&nbsp;
-        <a onclick="forwardFunction('customer.jsp');"><img src="icons/customer profile_1.png" title="Customer Profiles" alt="6"/>
+        
+        <a onclick="forwardFunction('customer.jsp');"><img src="menu_icons/custoemrprofile.png" title="Customer Profiles" alt="6"/>
         </a>
-        &nbsp;&nbsp;&nbsp;
+        
         <a onclick="forwardFunction('my_systemlease.jsp');">
-            <img src="icons/myhistory234.png" alt="Dashboard" title="My History" />            
+            <img src="menu_icons/myhistory.png" alt="Dashboard" title="My History" />            
         </a>
-        &nbsp;&nbsp;&nbsp;        
-        <a onclick="forwardFunction('j_acegi_logout');"><img src="icons/logout.png" title="LogOut" alt="11 logout"/>
+        
+        <a onclick="forwardFunction('j_acegi_logout');"><img src="menu_icons/logout.png" title="LogOut" alt="11 logout"/>
         </a> 
-        &nbsp;&nbsp;&nbsp;
-        <a onclick="refresh();"><img src="icons/re.png" title="Refresh" alt="11 logout"/>
+        
+        <a onclick="refresh();"><img src="menu_icons/refresh.png" title="Refresh" alt="11 logout"/>
         </a> 
         
     </div>
@@ -99,33 +99,33 @@
     
     <div id="employeeDiv" style="visibility: hidden" align="center">
         <a onclick="forwardFunction('dashboard2.jsp');">
-            <img src="icons/dashboard.png" alt="Dashboard" title="Dashboard" />            
+            <img src="menu_icons/dashboard.png" alt="Dashboard" title="Dashboard" />            
         </a>
-        &nbsp;&nbsp;&nbsp;
-        <a onclick="forwardFunction('customer.jsp');"><img src="icons/customer profile_1.png" title="Customer Profiles" alt="6"/>
+        
+        <a onclick="forwardFunction('customer.jsp');"><img src="menu_icons/custoemrprofile.png" title="Customer Profiles" alt="6"/>
         </a>
-        &nbsp;&nbsp;&nbsp;
+        
         <a onclick="forwardFunction('my_systemlease.jsp');">
-            <img src="icons/myhistory234.png" alt="Dashboard" title="My History" />            
+            <img src="menu_icons/myhistory.png" alt="Dashboard" title="My History" />            
         </a>
-        &nbsp;&nbsp;&nbsp;        
-        <a onclick="forwardFunction('j_acegi_logout');"><img src="icons/logout.png" title="LogOut" alt="11 logout"/>
+        
+        <a onclick="forwardFunction('j_acegi_logout');"><img src="menu_icons/logout.png" title="LogOut" alt="11 logout"/>
         </a> 
-        &nbsp;&nbsp;&nbsp;
-        <a onclick="refresh();"><img src="icons/re.png" title="Refresh" alt="11 logout"/>
+        
+        <a onclick="refresh();"><img src="menu_icons/refresh.png" title="Refresh" alt="11 logout"/>
         </a> 
     </div>
     
     <div id="customerDiv" style="visibility: hidden" align="center">
         
         <a onclick="forwardFunction('my_systemlease.jsp');">
-            <img src="icons/myhistory234.png" alt="Dashboard" title="My History" />            
+            <img src="menu_icons/myhistory.png" alt="Dashboard" title="My History" />            
         </a>
-        &nbsp;&nbsp;&nbsp;        
-        <a onclick="forwardFunction('j_acegi_logout');"><img src="icons/logout.png" title="LogOut" alt="11 logout"/>
+        
+        <a onclick="forwardFunction('j_acegi_logout');"><img src="menu_icons/logout.png" title="LogOut" alt="11 logout"/>
         </a> 
-        &nbsp;&nbsp;&nbsp;
-        <a onclick="refresh();"><img src="icons/re.png" title="Refresh" alt="11 logout"/>
+        
+        <a onclick="refresh();"><img src="menu_icons/refresh.png" title="Refresh" alt="11 logout"/>
         </a> 
     </div>
     <br>
@@ -134,7 +134,7 @@
         <span id="failureReply" style="background-color:#ff3300; font-weight:bold;"></span>
     </div>
 </div>
-<br>
+
 <script type="text/javascript">
     window.onload = createMenu();
     function writeMessage(type,  message) {
