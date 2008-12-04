@@ -114,8 +114,9 @@
             var paidId = null;
             function fetchDetail(eleid) {
                 var system = null;
+                var systemName = null;
                 if (!isNaN(eleid)   ) {
-                    var systemName = parseInt(eleid);
+                    systemName = parseInt(eleid);
                     for ( var i = 0; i <= systems1.length; i++ ) {
                         var s = systems1[i];
                         if ( s != null && s.name == systemName ) {
@@ -144,6 +145,8 @@
                     }
                     dwr.util.setValue("paidAmount", total);
                     document.getElementById("paidButton").disabled = false;
+                    populateSystemNos ();
+                    dwr.util.setValue("systemNos", system.name);
                 });
             }
             function addService() {
@@ -221,8 +224,7 @@
                 DWRUtil.removeAllOptions("systemNos");
                 var dummySystem = {name:'Walk-in Customer', id:'Walk-in Customer'};
                 usedSystemList[usedSystemList.lenght+1] = dummySystem;                
-                DWRUtil.addOptions("systemNos", usedSystemList, "name", "name" );
-                
+                DWRUtil.addOptions("systemNos", usedSystemList, "name", "name" );                
             }
         </script>
         <jsp:include page="table_style.jsp" ></jsp:include>
