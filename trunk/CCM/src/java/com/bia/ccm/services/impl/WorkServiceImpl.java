@@ -12,7 +12,6 @@ import com.bia.ccm.dao.OrganizationDao;
 import com.bia.ccm.dao.ServicesDao;
 import com.bia.ccm.dao.SystemLeaseDao;
 import com.bia.ccm.dao.SystemsDao;
-
 import com.bia.ccm.dao.UsersDao;
 import com.bia.ccm.dao.UsersLightDao;
 import com.bia.ccm.dao.UsersPassDao;
@@ -20,7 +19,6 @@ import com.bia.ccm.entity.MembershipDiscounts;
 import com.bia.ccm.entity.MembershipTypes;
 import com.bia.ccm.entity.Memberships;
 import com.bia.ccm.entity.Organization;
-
 import com.bia.ccm.entity.Services;
 import com.bia.ccm.entity.SystemLease;
 import com.bia.ccm.entity.Systems;
@@ -30,8 +28,6 @@ import com.bia.ccm.entity.UsersLight;
 import com.bia.ccm.entity.UsersPass;
 import com.bia.ccm.services.EMailService;
 import com.bia.ccm.services.WorkService;
-
-
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
@@ -44,7 +40,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-
 import javax.imageio.ImageIO;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -396,7 +391,7 @@ public class WorkServiceImpl implements WorkService {
         } else {
             // get img then update
             // if img is not null copy img to pic and save it
-            if ( customer.getImg() != null ) {
+            if (customer.getImg() != null) {
                 customer.setPic(this.bufferedImageToByteArray(customer.getImg()));
             }
 //            if (customer.getPic() == null) {
@@ -418,7 +413,7 @@ public class WorkServiceImpl implements WorkService {
         long start = 0;
         int limit = 100;
         for (; true; start += limit) {
-            List<SystemLease> list = this.systemLeaseDao.findByIsStartContractNotified(true, new PagingParams(start, limit, null));
+            List<SystemLease> list = this.systemLeaseDao.findByIsStartContractNotified(false, new PagingParams(start, limit, null));
             logger.debug("********* list ");
             if (list == null || list.size() <= 0) {
                 break;
@@ -428,13 +423,13 @@ public class WorkServiceImpl implements WorkService {
                 try {
                     logger.debug("********* before method1 " + sl.getService());
                     if (!sl.getLeaseHolderName().equalsIgnoreCase("Walkin Customer")) {
-                        this.eMailService.sendEmail(sl.getLeaseHolderName(), getStringAtContractStart(sl, sl.getLeaseHolderName()));
+                        this.emailService.sendEmail(sl.getLeaseHolderName(), getStringAtContractStart(sl, sl.getIssueAgent()));
                     }
                     sl.setIsStartContractNotified(true);
                     this.systemLeaseDao.update(sl);
                 } catch (RuntimeException re) {
-                    //re.printStackTrace();
-                    logger.debug(re);
+                    re.printStackTrace();
+                    logger.error(re);
                 }
             }
         }
@@ -445,7 +440,7 @@ public class WorkServiceImpl implements WorkService {
         long start = 0;
         int limit = 100;
         for (; true; start += limit) {
-            List<SystemLease> list = this.systemLeaseDao.findByIsEndContractNotified(true, new PagingParams(start, limit, null));
+            List<SystemLease> list = this.systemLeaseDao.findByIsEndContractNotified(false, new PagingParams(start, limit, null));
             logger.debug("********* list ");
             if (list == null || list.size() <= 0) {
                 break;
@@ -454,14 +449,16 @@ public class WorkServiceImpl implements WorkService {
             for (SystemLease sl : list) {
                 try {
                     logger.debug("********* before method1 " + sl.getService());
+                    logger.debug("********* System id " + sl.getId());
+                    System.out.println ( "********* System id " + sl.getId() );
                     if (!sl.getLeaseHolderName().equalsIgnoreCase("Walkin Customer")) {
-                        this.eMailService.sendEmail(sl.getLeaseHolderName(), getStringAtContractStart(sl, sl.getLeaseHolderName()));
+                        this.emailService.sendEmail(sl.getLeaseHolderName(), getStringAtContractStart(sl, sl.getReturnAgent()));
                     }
                     sl.setIsEndContractNotified(true);
                     this.systemLeaseDao.update(sl);
                 } catch (RuntimeException re) {
-                    //re.printStackTrace();
-                    logger.debug(re);
+                    re.printStackTrace();
+                    logger.error(re);
                 }
             }
         }
@@ -667,6 +664,11 @@ public class WorkServiceImpl implements WorkService {
     public void setStringEncryptor(PBEStringEncryptor stringEncryptor) {
         this.stringEncryptor = stringEncryptor;
     }
+
+    public void setEmailService(EMailService emailService) {
+        this.emailService = emailService;
+    }
+    private EMailService emailService;
     protected final Log logger = LogFactory.getLog(getClass());
     private SystemsDao systemsDao;
     private UsersDao usersDao;
@@ -675,7 +677,6 @@ public class WorkServiceImpl implements WorkService {
     private SystemLeaseDao systemLeaseDao;
     private OrganizationDao organizationDao;
     private ServicesDao servicesDao;
-    private EMailService eMailService = new EMailServiceImpl();
     private PasswordEncryptor passwordEncryptor;
     private PBEStringEncryptor stringEncryptor;
     private MembershipsDao membershipsDao;
