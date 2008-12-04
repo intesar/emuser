@@ -15,18 +15,22 @@ public interface EMailService {
     String hutch = "@south.hutch.co.in";
     String bsnl = "@bsnlumS.com";
     String _160BY2 = "@160by2.com";
-    static final String SMTP_HOST_NAME = "smtp.gmail.com";
-    static final String SMTP_PORT = "465";
-    static final String EMAIL_MESSAGE_TEXT = "";
-    static final String EMAIL_SUBJECT_TEXT = " BizIntelApps FaceGuard Accounts Status Report ";
-    static final String EMAIL_SUBJECT_TEXT_160BY2 = "bizintelapps1";
-    static final String EMAIL_FROM_ADDRESS = "faceguard2@bizintelapps.com";
-    static final String SSL_FACTORY = "javax.net.ssl.SSLSocketFactory";
-    static final String[] SEND_TO = {"mohdshannan@yahoo.com"};
-    static final String SEND_FROM_USERNAME = "faceguard2@bizintelapps.com";
-    static final String SEND_FROM_PASSWORD = "Abbh1234";
-    static final String EMAIL_CONTENT_TYPE = "text/html";
-    static final String EMAIL_SIGNATURE = " <br><br> Users have often told us that the more " +
+    String SMTP_HOST_NAME = "smtp.gmail.com";
+    String SMTP_PORT = "465";
+    String EMAIL_MESSAGE_TEXT = "";
+    String EMAIL_SUBJECT_TEXT = " BizIntelApps FaceGuard Accounts Status Report ";
+    String EMAIL_SUBJECT_TEXT_160BY2 = "bizintelapps1";
+    String EMAIL_FROM_ADDRESS = "faceguard3@bizintelapps.com";    
+    String SEND_FROM_USERNAME = "faceguard3@bizintelapps.com";
+    String EMAIL_FROM_ADDRESS1 = "face.guard3@bizintelapps.com";    
+    String SEND_FROM_USERNAME1 = "face.guard3@bizintelapps.com";
+    String EMAIL_FROM_ADDRESS2 = "face.guard4@bizintelapps.com";    
+    String SEND_FROM_USERNAME2 = "face.guard4@bizintelapps.com";
+    String SEND_FROM_PASSWORD = "Abbh1234";
+    String SSL_FACTORY = "javax.net.ssl.SSLSocketFactory";
+    String[] SEND_TO = {"mohdshannan@yahoo.com"};
+    String EMAIL_CONTENT_TYPE = "text/html";
+    String EMAIL_SIGNATURE = " <br><br> Users have often told us that the more " +
             "they use FaceGuard, the more they discover its benefits. " +
             " We'll keep working on making FaceGuard the best Application for your business, " +
             
