@@ -113,7 +113,7 @@ public class MembershipServiceImpl implements MembershipService {
             logger.debug("inside saveMembership------------- added all ");
             this.membershipsDao.create(memberships);
             String emails[] = {memberships.getEmail(), org.getContactEmail()};
-            this.eMailService.sendEmail(emails, getMembershipStringAtContractStart(memberships, org));
+            this.emailService.sendEmail(emails, getMembershipStringAtContractStart(memberships, org));
         } else {
             logger.debug("inside saveMembership------------- else");
             this.membershipsDao.update(memberships);
@@ -200,9 +200,13 @@ public class MembershipServiceImpl implements MembershipService {
     public void setMembershipsDao(MembershipsDao membershipsDao) {
         this.membershipsDao = membershipsDao;
     }
+     public void setEmailService(EMailService emailService) {
+        this.emailService = emailService;
+    }
+    private EMailService emailService;
     protected final Log logger = LogFactory.getLog(getClass());
     private MembershipsDao membershipsDao;
     private MembershipTypesDao membershipTypesDao;
     private MembershipDiscountsDao membershipDiscountsDao;
-    private EMailService eMailService = new EMailServiceImpl();
+    
 }
