@@ -90,36 +90,36 @@
         
         <script type="text/javascript">
             function redirectIfIE() {
-                var browser=navigator.appName;
-                var regex = "faceguard";
-                var isFaceGuard = location.href.toString().search(regex);
+                //var browser=navigator.appName;
+                //var regex = "faceguard";
+                //var isFaceGuard = location.href.toString().search(regex);
                 
-                if ( browser == 'Microsoft Internet Explorer'  && isFaceGuard != -1 ) {
-                    alert ( " Your are using IE, Please Enable Popups & Wait while we redirect you!");
-                    var strUrl = "http://biadevbox.homelinux.com:8080/CCM/";
-                    window.open(strUrl);
-                    window.close();
-                }
+                //if ( browser == 'Microsoft Internet Explorer'  && isFaceGuard != -1 ) {
+                    //alert ( " Your are using IE, Please Enable Popups & Wait while we redirect you!");
+                    //var strUrl = "http://biadevbox.homelinux.com:8080/CCM/";
+                    //window.open(strUrl);
+                    //window.close();
+                //}
             }
             function submitForm() {
-                var browser=navigator.appName;   
-                var regex = "faceguard";
-                var isFaceGuard = location.href.toString().search(regex);
+                //var browser=navigator.appName;   
+                //var regex = "faceguard";
+                //var isFaceGuard = location.href.toString().search(regex);
                 var email = dwr.util.getValue("j_username");
                 var password = dwr.util.getValue("j_password");
-                if ( browser == 'Microsoft Internet Explorer' && isFaceGuard != -1 ) {
-                    alert ( " Your are using IE, Please Enable Popups & Wait while we redirect you!");
-                    var strUrl = "http://biadevbox.homelinux.com:8080/CCM/j_acegi_security_check?j_garbage=abcdexehrelasdjf232343lkajflskdjfalsdfjasldkfjasldkfjalsdkjf&j_username=" + email + "&j_password=" + password;
-                    window.open(strUrl);
-                } else {
+                //if ( browser == 'Microsoft Internet Explorer' && isFaceGuard != -1 ) {
+                //    alert ( " Your are using IE, Please Enable Popups & Wait while we redirect you!");
+                //    var strUrl = "http://biadevbox.homelinux.com:8080/CCM/j_acegi_security_check?j_garbage=abcdexehrelasdjf232343lkajflskdjfalsdfjasldkfjasldkfjalsdkjf&j_username=" + email + "&j_password=" + password;
+                //    window.open(strUrl);
+                //} else {
                     location.href="/CCM/j_acegi_security_check?j_garbage=abcdexehrelasdjf232343lkajflskdjfalsdfjasldkfjasldkfjalsdkjf&j_username=" + email + "&j_password=" + password;
-                }
+                //}
             }  
         </script>
         
     </head>
     
-    <body onload="redirectIfIE();">
+    <body>
         <table width="830" height="28" border="0" align="center" bordercolor="#cc0001" bgcolor="#cc0001" >
             <tr>
                 <td width="824"><span class="style32">FaceGuard Login </span></td>
@@ -140,7 +140,7 @@
                                 <td valign="top">
                                     <label>
                                         <span class="style28"><img src="PNG-Others-Edit_Users.ico-32x32.png" alt="login" width="34" height="29" align="middle" /></span>
-                                        <input type="text" name='j_username' size="17" />
+                                        <input type="text" name='j_username' size="19" />
                                     </label>
                                 </td>
                             </tr>
@@ -152,25 +152,16 @@
                                 <td valign="top">
                                     <label>
                                         <span class="style28"><img src="Locker.png" width="34" height="30" align="middle" /></span>
-                                        <input type="password" name='j_password' size="17" />
+                                        <input type="password" name='j_password' size="19" />
                                     </label>
                                 </td>
                             </tr>
-                            <tr>
-                                <td valign="top" align="justify">
-                                    <input type="button" value="Sign In " name="Sign In" onclick="submitForm();"/>
-                                    <input type="submit" style="visibility:hidden" />
-                                    <!--
-                                    <div align="center"> <label><img src="Untitled-6.png" width="82" height="22" onclick="alert('hl');"/></label>
-                                    </div>
-                                    -->
-                                </td>                                
-                            </tr>
-                            <tr>
+                            <tr align="right">
                                 <td valign="top" align="center">
-                                    <a href="http://biadevbox.homelinux.com:8080/CCM/" target="_blank">IE6, IE7 Click Here</a>
-                                </td>
-                            </tr>
+                                    <input type="button" value="Sign In " name="Sign In" onclick="submitForm();"/>
+                                    <input type="submit" style="visibility:hidden" />                                    
+                                </td>                                
+                            </tr>                            
                             <tr>
                                 <td valign="top" class="style30"><strong><strong><strong><img src="Tag_32.png" width="32" height="32" align="absmiddle" /></strong></strong><a href="forgotpassword.jsp" style="color:white">Forgot Password ?</a></strong></td>
                             </tr>
@@ -179,9 +170,12 @@
                 <p>&nbsp;</p></td>
                 <td width="700" valign="top"><table width="632" height="119" border="1" rules="none" bordercolor="#587498" bgcolor="#ffffff" >
                         <tr>
-                            <td width="192" height="115"><img src="FG_RED.png" width="200" height="105" /></td>
+                            <td width="192" height="115"><img src="FG_RED.png" width="200" height="105" />
+                            </td>
                             <td width="424" valign="top"><p class="style12">_____________________________________________________</p>
-                                <p align="center" class="style11">FaceGuard is Web Based <span class="style14">Cyber Cafe Manager Suite</span>, Which care for the future.<img src="firefox_icon.png" width="16" height="16" /> <a href="http://www.download.com/3001-2356_4-10865521.html?spi=ad9af1f8db19c6fd1d3b112303f7e736">Download Mozilla</a></p>
+                                <p align="center" class="style25"><span class="style14">FaceGuard is Web Based Cyber Cafe Manager Suite</span> </p>
+                                <p align="center" class="style25"><span class="style14">Guards you from Cyber Terror</span></p>
+                                <p align="center" class="style25"><span class="style14"> Life Time Free if registered before Dec 31 2008 (India)</span></p>                                
                             <p align="center" class="style13">_____________________________________________________</p></td>
                         </tr>
                     </table>
@@ -213,7 +207,7 @@
                                     </tr>
                                     <tr>
                                         <td>&nbsp;&nbsp;&nbsp;&nbsp;
-                                        <div align="right"><span class="style33">&nbsp;<a href="http://faceguard.bizintelapps.net"><strong>Read more...</strong></a>. </span></div></td>
+                                        <div align="right"><span class="style33">&nbsp;<a href="http://faceguard.bizintelapps.com"><strong>Read more...</strong></a>. </span></div></td>
                                     </tr>
                                 </table>
                             <p align="center" class="style3"> <a href="customer_registration.jsp">Customer Self Registration</a> </p></td>
@@ -315,29 +309,29 @@
                                     </tr>
                                     <tr>
                                         <td>&nbsp;</td>
-                                        <td><span class="style4" style="color:#FFFFFF">By clicking Sign Up, you are indicating that you have read and agree to the </span><span class="style4"><a href="http://faceguard.bizintelapps.net/">Terms of use and Privacy Policy.</a></span><span class="style4" style="color:#FFFFFF"> </span></td>
+                                        <td><span class="style4" style="color:#FFFFFF">By clicking Sign Up, you are indicating that you have read and agree to the </span><span class="style4"><a href="http://faceguard.bizintelapps.com/">Terms of use and Privacy Policy.</a></span><span class="style4" style="color:#FFFFFF"> </span></td>
                                     </tr>
                             </table></td>
                         </tr>
                     </table>      
                     <div align="center">
-                        <a href="http://faceguard.bizintelapps.net/" class="style9">Home Page</a> | 
-                        <a href="http://faceguard.bizintelapps.net/index.php?/Features/features.html" class="style9">Features</a> | 
-                        <a href="http://faceguard.bizintelapps.net/index.php?/Features/2008-09-12-08-54-45.html" class="style9">Customer</a> 
-                        <a href="http://faceguard.bizintelapps.net/" class="style9">Testimonials</a> | 
-                        <a href="http://faceguard.bizintelapps.net/" class="style9">Client</a> 
-                        <a href="http://faceguard.bizintelapps.net/" class="style9">Software</a> | 
-                        <a href="http://faceguard.bizintelapps.net/" class="style9">Suggestion</a> | 
-                        <a href="http://faceguard.bizintelapps.net/" class="style9"> Benifits</a> |
-                        <a href="http://faceguard.bizintelapps.net/" class="style9">Tutorials</a> 
-                        <a href="http://faceguard.bizintelapps.net/" class="style9">And Demo</a> | 
-                        <a href="http://faceguard.bizintelapps.net/index.php?/component/option,com_blastchatc/Itemid,47/" class="style9">Live</a> 
-                        <a href="http://faceguard.bizintelapps.net/index.php?/component/option,com_blastchatc/Itemid,47/" class="style9">Chat</a> 
+                        <a href="http://faceguard.bizintelapps.com/" class="style9">Home Page</a> | 
+                        <a href="http://faceguard.bizintelapps.com/" class="style9">Features</a> | 
+                        <a href="http://faceguard.bizintelapps.com/" class="style9">Customer</a> 
+                        <a href="http://faceguard.bizintelapps.com/" class="style9">Testimonials</a> | 
+                        <a href="http://faceguard.bizintelapps.com/" class="style9">Client</a> 
+                        <a href="http://faceguard.bizintelapps.com/" class="style9">Software</a> | 
+                        <a href="http://faceguard.bizintelapps.com/" class="style9">Suggestion</a> | 
+                        <a href="http://faceguard.bizintelapps.com/" class="style9"> Benifits</a> |
+                        <a href="http://faceguard.bizintelapps.com/" class="style9">Tutorials</a> 
+                        <a href="http://faceguard.bizintelapps.com/" class="style9">And Demo</a> | 
+                        <a href="http://faceguard.bizintelapps.com/" class="style9">Live</a> 
+                        <a href="http://faceguard.bizintelapps.com/" class="style9">Chat</a> 
                         
                     </div>
-                    <p align="center" class="style9">Contact Us: info@bizintelapps.com | USA 733.699.7898 | India 40.65764414</p>
+                    <p align="center" class="style9"> <a href="http://faceguard.bizintelapps.com/index.php?option=com_contact&view=contact&id=1%3Acontact-bizintelapps&catid=12%3Acontacts&Itemid=62" class="style9">Contact Us</a> | USA 733.699.7898 | India 40.65764414</p>
                     <p align="center" class="style10 style2" >
-                <span class="style2">&copy;</span> <span class="style2">Copyrights</span> <span class="style2">BizIntelApps</span> <span class="style2">2008</span> <span class="style2">All</span> <span class="style2">Rights</span> <span class="style2">Reserved</span>. </p>    </td>
+                <span class="style2">&copy;</span> <span class="style2">Copyrights</span> <span class="style2"><a href="http://www.bizintelapps.com">BizIntelApps</a></span> <span class="style2">2008</span> <span class="style2">All</span> <span class="style2">Rights</span> <span class="style2">Reserved</span>. </p>    </td>
             </tr>
         </table>
         
