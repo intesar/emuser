@@ -9,8 +9,6 @@ import com.bia.ccm.entity.EmailTimePreference;
 import com.bia.ccm.services.AdminService;
 import com.bia.ccm.services.EMailService;
 import com.bia.ccm.services.WorkService;
-import com.bia.ccm.services.impl.EMailServiceImpl;
-import com.bia.ccm.util.AcegiUtil;
 import com.bia.ccm.util.ServiceFactory;
 import java.util.Date;
 import java.util.List;
@@ -68,15 +66,16 @@ public class ReportEngine {
                 for (EmailPreference ep : emailPreferences) {
                     if (ep.getServiceProvider().equals("email")) {
                         toAddress[count++] = ep.getEmailOrPhone();
-                    } else if (ep.getServiceProvider().startsWith("a")) {
-                        toAddress[count++] = ep.getEmailOrPhone() + eMailService.airtel;
-                    } else if (ep.getServiceProvider().startsWith("b")) {
-                        toAddress[count++] = ep.getEmailOrPhone() + eMailService.bsnl;
-                    } else if (ep.getServiceProvider().startsWith("i")) {
-                        toAddress[count++] = ep.getEmailOrPhone() + eMailService.idea;
+                    } else {
+                        toAddress[count++] = ep.getEmailOrPhone() + ep.getServiceProvider();
                     }
+//                    } else if (ep.getServiceProvider().startsWith("b")) {
+//                        toAddress[count++] = ep.getEmailOrPhone() + emailService.bsnl;
+//                    } else if (ep.getServiceProvider().startsWith("i")) {
+//                        toAddress[count++] = ep.getEmailOrPhone() + emailService.idea;
+//                    }
                 }
-                this.eMailService.sendEmail(toAddress, list1.toString());
+                this.emailService.sendEmail(toAddress, list1.toString());
 
             } catch (RuntimeException re) {
                 logger.error(re);
@@ -87,10 +86,16 @@ public class ReportEngine {
 
     public static void main(String[] args) {
         ReportEngine re = new ReportEngine();
-        re.processReportAtContractStart();
+        re.workService.notifyCustomersAtContractStart();
+        
     }
-    private EMailService eMailService = new EMailServiceImpl();
+     public void setEmailService(EMailService emailService) {
+        this.emailService = emailService;
+    }
+    private EMailService emailService;
     private WorkService workService = (WorkService) ServiceFactory.getService("workServiceImpl");
     private AdminService adminService = (AdminService) ServiceFactory.getService("adminServiceImpl");
     protected final Log logger = LogFactory.getLog(getClass());
+    
+   
 }
