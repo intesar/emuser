@@ -9,13 +9,10 @@ import com.bia.ccm.entity.Users;
 import com.bia.ccm.services.EMailService;
 import com.bia.ccm.services.UserService;
 import com.bia.ccm.services.WorkService;
-import com.bia.ccm.services.impl.EMailServiceImpl;
 import com.bia.ccm.util.AcegiUtil;
 import com.bia.ccm.util.ServiceFactory;
 import com.bia.converter.CaseConverter;
-
 import java.util.Date;
-import net.sf.cglib.core.Converter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -85,7 +82,7 @@ public class UserAjaxService {
         try {
             this.userService.registerNewOrganization(organizationName,
                     city, email, password, minutes, rate, maxSystems);
-            eMailService.sendEmail(email, "Welcome to FaceGuard, username / password : " + email + " / " + password);
+            emailService.sendEmail(email, "Welcome to FaceGuard, username / password : " + email + " / " + password);
 
             return str;
         } catch (Exception e) {
@@ -110,7 +107,7 @@ public class UserAjaxService {
             logger.info("________________________ before create _________________");            
             this.workService.createCutomer(c, null);
             logger.info("________________________ after create _________________");
-            eMailService.sendEmail(c.getEmail(), "Welcome to FaceGuard, username / password : " + c.getUsername() + " / " + c.getPassword());
+            emailService.sendEmail(c.getEmail(), "Welcome to FaceGuard, username / password : " + c.getUsername() + " / " + c.getPassword());
         } catch (RuntimeException re) {
             logger.error(re);
             re.printStackTrace();
@@ -126,11 +123,15 @@ public class UserAjaxService {
     public void setCaseConverter(CaseConverter caseConverter) {
         this.caseConverter = caseConverter;
     }
+     public void setEmailService(EMailService emailService) {
+        this.emailService = emailService;
+    }
+    private EMailService emailService;
     private CaseConverter caseConverter;
     protected final Log logger = LogFactory.getLog(getClass());
     protected UserService userService = (UserService) ServiceFactory.getService("userServiceImpl");
     private WorkService workService = (WorkService) ServiceFactory.getService("workServiceImpl");
-    private EMailService eMailService = new EMailServiceImpl();
+    
 
     public static void main(String[] args) {
         UserAjaxService uas = new UserAjaxService();
