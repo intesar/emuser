@@ -5,7 +5,6 @@
 package com.bia.ccm.dao;
 
 import com.abbhsoft.jpadaoframework.dao.GenericDao;
-import com.abbhsoft.jpadaoframework.dao.PagedResult;
 import com.abbhsoft.jpadaoframework.dao.PagingParams;
 import com.bia.ccm.entity.SystemLease;
 import java.util.Date;
