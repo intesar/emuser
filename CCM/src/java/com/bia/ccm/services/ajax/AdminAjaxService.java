@@ -20,6 +20,7 @@ import com.bia.ccm.util.ServiceFactory;
 import com.bia.converter.CaseConverter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -79,7 +80,12 @@ public class AdminAjaxService {
 
     public List<Users> getAllUsers() {
         String username = AcegiUtil.getUsername();
-        return this.adminService.getAllUsers(username);
+        List<Users> users = null;
+        users =  this.adminService.getAllUsers(username);
+        for ( Users u : users ) {
+            u.setPic(null);
+        }
+        return users;
     }
 
     public String saveUsers(Users users) {
@@ -100,6 +106,10 @@ public class AdminAjaxService {
         return msg;
     }
 
+    public List<Users> saveAndGetUsers(Users users) {
+        saveUsers(users);
+        return getAllUsers();
+    }
     public List<EmailPreference> getAllEmailPreference() {
         String username = AcegiUtil.getUsername();
         return this.adminService.getAllEmailPreference(username);
