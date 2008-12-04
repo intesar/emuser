@@ -8,8 +8,6 @@ import com.bia.ccm.dao.AuthoritiesDao;
 import com.bia.ccm.dao.OrganizationDao;
 import com.bia.ccm.dao.ServicesDao;
 import com.bia.ccm.dao.SystemsDao;
-//import com.bia.ccm.dao.UsersDao;
-
 import com.bia.ccm.dao.UsersDao;
 import com.bia.ccm.dao.UsersLightDao;
 import com.bia.ccm.dao.UsersPassDao;
@@ -18,8 +16,6 @@ import com.bia.ccm.entity.AuthoritiesPK;
 import com.bia.ccm.entity.Organization;
 import com.bia.ccm.entity.Services;
 import com.bia.ccm.entity.Systems;
-//import com.bia.ccm.entity.Users;
-
 import com.bia.ccm.entity.Users;
 import com.bia.ccm.entity.UsersLight;
 import com.bia.ccm.entity.UsersPass;
@@ -82,7 +78,7 @@ public class UserServiceImpl implements UserService {
                 throw new RuntimeException("No Registered user found with this email : " + email);
             }
 
-            this.eMailService.sendEmail(up.getUsername(), " Activation Code : " + up.getResetCode());
+            this.emailService.sendEmail(up.getUsername(), " Activation Code : " + up.getResetCode());
         } catch (NullPointerException npe) {
             logger.error(npe);
             throw new RuntimeException(" No match found!");
@@ -156,7 +152,7 @@ public class UserServiceImpl implements UserService {
     }
 
     public void setEMailService(EMailService eMailService) {
-        this.eMailService = eMailService;
+        this.emailService = eMailService;
     }
 
     public void setOrganizationDao(OrganizationDao organizationDao) {
@@ -190,10 +186,14 @@ public class UserServiceImpl implements UserService {
     public void setStringEncryptor(PBEStringEncryptor stringEncryptor) {
         this.stringEncryptor = stringEncryptor;
     }
+     public void setEmailService(EMailService emailService) {
+        this.emailService = emailService;
+    }
+    private EMailService emailService;
     private UsersDao usersDao;
     private UsersLightDao usersLightDao;
     private UsersPassDao usersPassDao;
-    private EMailService eMailService = new EMailServiceImpl();
+    
     private OrganizationDao organizationDao;
     private AuthoritiesDao authoritiesDao;
     private SystemsDao systemsDao;
