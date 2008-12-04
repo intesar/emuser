@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
 <beans>
-    <bean id="reportEngine" class="com.bia.ccm.services.ajax.ReportEngine"/>
+    <bean id="reportEngine" class="com.bia.ccm.services.ajax.ReportEngine" >
+        <property name="emailService" ref="emailServiceImpl" />
+    </bean>
     <bean id="jobDetailForStartContract" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
         <property name="targetObject" ref="reportEngine"/> <!--reportEngine" /> -->
         <property name="targetMethod" value="processReportAtContractStart" />
@@ -20,8 +22,8 @@
     <bean id="simpleTriggerStartContract" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
     <!-- see the example of method invoking job above -->
         <property name="jobDetail" ref="jobDetailForStartContract" />
-    <!-- 180 seconds -->
-        <property name="startDelay" value="180000" />
+    <!-- 18 seconds -->
+        <property name="startDelay" value="18000" />
     <!-- repeat 15 minutes 15 * 60 * 1000-->
         <property name="repeatInterval" value="900000" />
         <!-- start time 6 am 
@@ -33,8 +35,8 @@
     <bean id="simpleTriggerEndContract" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
     <!-- see the example of method invoking job above -->
         <property name="jobDetail" ref="jobDetailForEndContract" />
-    <!-- 10 seconds -->
-        <property name="startDelay" value="180000" />
+    <!-- 18 seconds -->
+        <property name="startDelay" value="18000" />
     <!-- repeat 15 minutes 10 * 60 * 1000-->
         <property name="repeatInterval" value="900000" />
         <!-- start time 6 am 
