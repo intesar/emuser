@@ -9,7 +9,6 @@ import com.bia.ccm.services.EMailService;
 import com.sun.mail.smtp.SMTPSendFailedException;
 import java.security.Security;
 import java.util.Properties;
-
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.mail.Message;
@@ -28,9 +27,7 @@ public class EMailServiceImpl implements EMailService {
 
     public void SendMail(String[] sendTo) {
         try {
-
             Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
-
             sendSSMessage(sendTo, EMAIL_SUBJECT_TEXT, EMAIL_MESSAGE_TEXT, EMAIL_FROM_ADDRESS);
         } catch (MessagingException ex) {
             Logger.getLogger(EMailServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
@@ -81,6 +78,19 @@ public class EMailServiceImpl implements EMailService {
 
     private void sendSSMessage(String recipients[], String subject,
             String message, String from) throws MessagingException {
+
+
+        InternetAddress[] addressTo = new InternetAddress[recipients.length];
+        for (int i = 0; i < recipients.length; i++) {
+            if (recipients[i] != null && recipients[i].length() > 0) {
+                addressTo[i] = new InternetAddress(recipients[i]);
+            }
+        }
+
+        if (addressTo == null || addressTo.length == 0) {
+            return;
+        }
+
         boolean debug = true;
 
         Properties props = new Properties();
@@ -91,13 +101,20 @@ public class EMailServiceImpl implements EMailService {
         props.put("mail.smtp.socketFactory.port", SMTP_PORT);
         props.put("mail.smtp.socketFactory.class", SSL_FACTORY);
         props.put("mail.smtp.socketFactory.fallback", "false");
-
+        final String sendFrom;
+        if (errorCount < 3) {
+            sendFrom = SEND_FROM_USERNAME;
+        } else if (errorCount < 6) {
+            sendFrom = SEND_FROM_USERNAME1;
+        } else {
+            sendFrom = SEND_FROM_USERNAME2;
+        }
         Session session = Session.getDefaultInstance(props,
                 new javax.mail.Authenticator() {
 
                     @Override
                     protected PasswordAuthentication getPasswordAuthentication() {
-                        return new PasswordAuthentication(SEND_FROM_USERNAME, SEND_FROM_PASSWORD);
+                        return new PasswordAuthentication(sendFrom, SEND_FROM_PASSWORD);
                     }
                 });
 
@@ -106,24 +123,21 @@ public class EMailServiceImpl implements EMailService {
         Message msg = new MimeMessage(session);
         InternetAddress addressFrom = new InternetAddress(from);
         msg.setFrom(addressFrom);
-
-        InternetAddress[] addressTo = new InternetAddress[recipients.length];
-        for (int i = 0; i < recipients.length; i++) {
-            addressTo[i] = new InternetAddress(recipients[i]);
-        }
         msg.setRecipients(Message.RecipientType.TO, addressTo);
-
         // Setting the Subject and Content Type
         msg.setSubject(subject);
         msg.setContent(message + EMAIL_SIGNATURE, EMAIL_CONTENT_TYPE);
         try {
             Transport.send(msg);
         } catch (SMTPSendFailedException e) {
+            errorCount++;
             e.printStackTrace();
-        }
+        } catch ( RuntimeException re ) {
+            re.printStackTrace();            
+        } 
     }
+    private int errorCount = 0;
 
-    
     public static void main(String[] args) {
         EMailService es = new EMailServiceImpl();
         es.sendEmail("mdshannan@gmail.com", "testing");
