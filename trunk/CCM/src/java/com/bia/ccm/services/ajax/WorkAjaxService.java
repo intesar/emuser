@@ -18,12 +18,9 @@ import com.bia.ccm.services.AdminService;
 import com.bia.ccm.services.EMailService;
 import com.bia.ccm.services.MembershipService;
 import com.bia.ccm.services.WorkService;
-import com.bia.ccm.services.impl.EMailServiceImpl;
 import com.bia.ccm.util.AcegiUtil;
 import com.bia.ccm.util.ServiceFactory;
 import com.bia.converter.CaseConverter;
-
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -119,7 +116,7 @@ public class WorkAjaxService {
             //c.setCreateUser(AcegiUtil.getUsername());
             caseConverter.toLowerCase(c, "password");
             this.workService.createCutomer(c, u);
-            eMailService.sendEmail(c.getEmail(), "Welcome to FaceGuard, username / password : " + c.getUsername() + " / " + c.getPassword());
+            emailService.sendEmail(c.getEmail(), "Welcome to FaceGuard, username / password : " + c.getUsername() + " / " + c.getPassword());
         } catch (RuntimeException re) {
             logger.error(re);
             //re.printStackTrace();
@@ -309,12 +306,16 @@ public class WorkAjaxService {
     public void setCaseConverter(CaseConverter caseConverter) {
         this.caseConverter = caseConverter;
     }
+
+    public void setEmailService(EMailService emailService) {
+        this.emailService = emailService;
+    }
+    private EMailService emailService;
     private CaseConverter caseConverter;
     private AdminService adminService = (AdminService) ServiceFactory.getService("adminServiceImpl");
     private MembershipService membershipService = (MembershipService) ServiceFactory.getService("membershipServiceImpl");
     protected final Log logger = LogFactory.getLog(getClass());
     private WorkService workService = (WorkService) ServiceFactory.getService("workServiceImpl");
-    private EMailService eMailService = new EMailServiceImpl();
 
     public static void main(String[] args) {
         WorkAjaxService was = new WorkAjaxService();
