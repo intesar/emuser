@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans
-  xmlns="http://www.springframework.org/schema/beans"
+<beans   xmlns="http://www.springframework.org/schema/beans"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xmlns:dwr="http://www.directwebremoting.org/schema/spring-dwr"
   xsi:schemaLocation="http://www.springframework.org/schema/beans
     http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
     http://www.directwebremoting.org/schema/spring-dwr
     http://www.directwebremoting.org/schema/spring-dwr-2.0.xsd">
-    
-    
+   
     
     <!--
      ##########################################################################
@@ -25,9 +23,8 @@
 
     
     -->
-    
+    <bean id="emailServiceImpl" class="com.bia.ccm.services.impl.EMailServiceImpl" />
     <bean id="caseConverterImpl" class="com.bia.converter.CaseConverterImpl" />
-    
     <bean id="userAjaxService" class="com.bia.ccm.services.ajax.UserAjaxService" >
         <dwr:remote javascript="AjaxUserService">
             <dwr:include method="forgotPassword" />
@@ -39,6 +36,7 @@
             <dwr:include method="createCustomer" />
         </dwr:remote>
         <property name="caseConverter" ref="caseConverterImpl" />
+        <property name="emailService" ref="emailServiceImpl" />
     </bean>
     <bean id="workAjaxService" class="com.bia.ccm.services.ajax.WorkAjaxService" >
         <dwr:remote javascript="AjaxWorkService">
@@ -64,6 +62,7 @@
             <dwr:include method="createMembershipDiscount" />
         </dwr:remote>
         <property name="caseConverter" ref="caseConverterImpl" />
+        <property name="emailService" ref="emailServiceImpl" />
     </bean>
     <bean id="adminAjaxService" class="com.bia.ccm.services.ajax.AdminAjaxService" >
         <dwr:remote javascript="AjaxAdminService">
@@ -71,6 +70,7 @@
             <dwr:include method="saveSystems" />
             <dwr:include method="getAllUsers" />
             <dwr:include method="saveUsers" />
+            <dwr:include method="saveAndGetUsers" />
             <dwr:include method="getAllEmailPreference" />
             <dwr:include method="saveEmailPreference" />
             <dwr:include method="getAllEmailTimePreference" />
@@ -85,7 +85,7 @@
             <dwr:include method="deleteEmail" />
             <dwr:include method="saveService" />
             <dwr:include method="deleteService" />
-            <dwr:include method="getAllServices" />            
+            <dwr:include method="getAllServices" />
         </dwr:remote>
         <property name="caseConverter" ref="caseConverterImpl" />
     </bean>
