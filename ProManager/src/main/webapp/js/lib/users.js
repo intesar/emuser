@@ -7,8 +7,7 @@ var giCount = 2;
 			
 $(document).ready(function() {
     oTable = $('#usersTable').dataTable( {
-        "sPaginationType": "full_numbers",
-        "iDisplayLength"  : "5"
+        "sPaginationType": "full_numbers"        
     } );
     
     $('#createANewUser').click(function() {        
