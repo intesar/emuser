@@ -1,4 +1,27 @@
 
+/* Global variable for the DataTables object */
+var oTable;
+			
+/* Global var for counter */
+var giCount = 2;
+			
+$(document).ready(function() {
+    oTable = $('#projectTable').dataTable( {
+        "sPaginationType": "full_numbers"        
+    } );
+    
+    $('#createANewProject').click(function() {                
+        $('#projectTableContainer').slideUp("fast");
+        $('#newProjectContainer').slideDown("fast");
+    });
+
+    $('#backToProjectList').click(function() {
+        $('#newProjectContainer').slideUp("fast");
+        $('#projectTableContainer').slideDown("fast");
+    });
+} );
+
+
 var projectCache = { };
 var viewed = null;
 var project = null;

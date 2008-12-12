@@ -15,14 +15,12 @@
         <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
         <!-- <link rel="stylesheet" type="text/css" media="screen" href="../css/table.css">-->
         <link rel="stylesheet" type="text/css" media="screen" href="../css/demos.css" />
-        <link rel="stylesheet" type="text/css" media="screen" href="../css/jq.css" />
-        
+        <link rel="stylesheet" type="text/css" media="screen" href="../css/jq.css" />        
         <script type="text/javascript" src="../dwr/interface/AjaxUsersService.js"></script>
         <script type="text/javascript" src="../dwr/engine.js"></script>
         <script type="text/javascript" src="../js/jquery-1.2.6.min.js"></script>
         <script type="text/javascript" src="../js/jquery.livequery.min.js"></script>
-        <script type="text/javascript" src="../js/jquery.dataTables.min.js"></script>
-        <script type="text/javascript" src="../dwr/engine.js"></script>
+        <script type="text/javascript" src="../js/jquery.dataTables.min.js"></script>        
         <!-- <script type="text/javascript" src="../dwr/util.js"></script> -->
         <script type="text/javascript" src="../js/lib/users.js"></script>
         
@@ -30,7 +28,7 @@
     <body id="dt_example" class="example_alt_pagination">
         <jsp:include page="header.jsp" />
         <br>      
-        <div id="tableContainer" align="center" > 
+        <div id="userTableContainer" align="center" > 
             <a id="createANewUser">Create a new user</a>
             <br><br>
             <table id="usersTable" cellpadding="0" cellspacing="0" border="0" class="display" >                        
