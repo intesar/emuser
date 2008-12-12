@@ -1,11 +1,46 @@
 
+/* Global variable for the DataTables object */
+var oTable;
+			
+/* Global var for counter */
+var giCount = 2;
+			
+$(document).ready(function() {
+    oTable = $('#usersTable').dataTable( {
+        "sPaginationType": "full_numbers",
+        "iDisplayLength"  : "5"
+    } );
+    
+    $('#createANewUser').click(function() {        
+        $('#newUserContainer').slideDown("fast");
+        $('#tableContainer').slideUp("fast");
+    });
+
+    $('#backToUserList').click(function() {
+        $('#newUserContainer').slideUp("fast");
+        $('#tableContainer').slideDown("fast");
+    });
+} );
+
+
+
+function fnClickAddRow() {
+    oTable.fnAddData( [
+        giCount+".1",
+        giCount+".2",
+        giCount+".3",
+        giCount+".4" ] );
+				
+    giCount++;
+}
+		
 var userCache = { };
 var viewed = null;
 var user = null;
     
         
 function fillTable() {
-    dwr.util.useLoadingMessage("Please Wait, Loading");
+    dwr.util.useLoadingMessage("Please wait, loading user information");
     AjaxUsersService.getUserList(usersList);                
 }
         
@@ -62,7 +97,7 @@ function writePerson() {
         dwr.util.getValues(usersDto);
     } else {
         usersDto = {id:null, firstname:null, lastname:null, username:null, 
-        email:null, enabled:null, administrator:null};
+            email:null, enabled:null, administrator:null};
         dwr.util.getValues(usersDto);
     }    
     AjaxUsersService.saveUser(usersDto, usersList);     
