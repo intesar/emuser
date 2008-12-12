@@ -13,12 +13,12 @@ $(document).ready(function() {
     
     $('#createANewUser').click(function() {        
         $('#newUserContainer').slideDown("fast");
-        $('#tableContainer').slideUp("fast");
+        $('#userTableContainer').slideUp("fast");
     });
 
     $('#backToUserList').click(function() {
         $('#newUserContainer').slideUp("fast");
-        $('#tableContainer').slideDown("fast");
+        $('#userTableContainer').slideDown("fast");
     });
 } );
 
