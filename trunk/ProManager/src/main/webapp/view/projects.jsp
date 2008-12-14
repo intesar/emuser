@@ -17,7 +17,7 @@
     <body  id="dt_example" class="example_alt_pagination">
         <jsp:include page="header.jsp" />
         <br>      
-        <div id="projectTableContainer" style="width:90%; height:90%; border: 0px solid #000; padding: 5px; " align="right"> 
+        <div id="projectTableContainer" style="width:90%; height:90%; border: 0px solid #000; padding: 5px; " align="center"> 
             <div id="container">
                 <a id="createANewProject">Create a new project<font size="1"> >> </font></a>
                 <br><br>
@@ -35,63 +35,67 @@
             </div>
         </div>
         <div id="newProjectContainer" style="display:none" align="center">
-            <a id="backToProjectList"><font size="1"><< </font>Back to project list</a><br><br>
-            <table>
-                <thead>
+            <div id="container">
+                <a id="backToProjectList"><font size="1"><< </font>Back to project list</a><br><br>
+                <table>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
                     <tr>
-                        <th></th>
-                        <th></th>
+                        <td>Name <font color="RED">*</font><br>
+                        <input id="name" name="name" value="" maxlength="40" type="text"></td>                                
                     </tr>
-                </thead>
-                <tr>
-                    <td>Name <font color="RED">*</font><br>
-                    <input id="name" name="name" value="" maxlength="40" type="text"></td>                                
-                </tr>
-                <tr>
-                    <td><br>Description<br>
-                    <textarea name="description" rows="8" cols="40"></textarea></td>
-                </tr>                       
-                <tr>
-                    <td>                    
-                        <input type="button" value="Create new project" id="createNewProject"/>                                
-                        <input type="button" value="Cancel" id="clear"/>
-                    </td>   
-                </tr>                         
-            </table>    
+                    <tr>
+                        <td><br>Description<br>
+                        <textarea name="description" rows="8" cols="40"></textarea></td>
+                    </tr>                       
+                    <tr>
+                        <td>                    
+                            <input type="button" value="Create new project" id="createNewProject"/>                                
+                            <input type="button" value="Cancel" id="clear"/>
+                        </td>   
+                    </tr>                         
+                </table>    
+            </div>
         </div>        
         
         <div id="editProjectContainer" style="display:none" align="center">
-            <a id="backToProjectListFromEdit"><font size="1"><< </font>Back to project list</a><br><br>
-            <table>
-                <thead>
+            <div id="container">
+                <a id="backToProjectListFromEdit"><font size="1"><< </font>Back to project list</a><br><br>
+                <table>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
                     <tr>
-                        <th></th>
-                        <th></th>
+                        <td>Name <font color="RED">*</font><br>
+                        <input id="nameE" name="nameE" value="" maxlength="40" type="text" disabled></td>                                
                     </tr>
-                </thead>
-                <tr>
-                    <td>Name <font color="RED">*</font><br>
-                    <input id="nameE" name="nameE" value="" maxlength="40" type="text" disabled></td>                                
-                </tr>
-                <tr>
-                    
-                    <td><br>Status<br>
-                        <select name="statusE" id="statusE">
-                            <option value="In Progess">In Progess</option>
-                            <option value="On Hold">On Hold</option>
-                            <option value="Completed">Completed</option>
-                    </select></td>
-                </tr>
-                <tr>
-                    <td><br>Description<br>
-                    <textarea id="descriptionE"  name="descriptionE" rows="8" cols="40"></textarea></td>
-                </tr>                       
-                <tr>
-                    <td>                    
-                        <input type="button" value="Save" id="saveProject"/>
-                    </td>   
-                </tr>                         
-            </table>    
+                    <tr>
+                        
+                        <td><br>Status<br>
+                            <select name="statusE" id="statusE">
+                                <option value="In Progess">In Progess</option>
+                                <option value="On Hold">On Hold</option>
+                                <option value="Completed">Completed</option>
+                        </select></td>
+                    </tr>
+                    <tr>
+                        <td><br>Description<br>
+                        <textarea id="descriptionE"  name="descriptionE" rows="8" cols="40"></textarea></td>
+                    </tr>                       
+                    <tr>
+                        <td>                    
+                            <input type="button" value="Save" id="saveProject"/>
+                        </td>   
+                    </tr>                         
+                </table>   
+            </div>
         </div>        
     </body>
 </html>

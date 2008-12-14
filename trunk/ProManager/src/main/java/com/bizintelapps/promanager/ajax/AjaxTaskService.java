@@ -17,6 +17,11 @@
 
 package com.bizintelapps.promanager.ajax;
 
+import com.bizintelapps.promanager.dto.TaskDto;
+import com.bizintelapps.promanager.service.TaskService;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+
 /**
  *
  * @author intesar
@@ -27,4 +32,15 @@ public class AjaxTaskService {
     // saveTaskComment create|update comments
     // deleteTask 
     // getTaskList ( user, context, project, task status ) 
+    
+    public List<TaskDto> getCurrentTask() {
+        return taskService.getCurrentTasks(SecurityUtil.getUsername());
+    }
+
+    public void setTaskService(TaskService taskService) {
+        this.taskService = taskService;
+    }
+    
+    @Autowired
+    private TaskService taskService;
 }

@@ -44,6 +44,12 @@
         </dwr:remote>
     </bean>
     
+    <bean id="taskAjaxService" class="com.bizintelapps.promanager.ajax.AjaxTaskService" >
+        <dwr:remote javascript="AjaxProjectService">
+            <dwr:include method="getCurrentTask" />
+        </dwr:remote>
+    </bean>
+    
     <dwr:configuration>
         <dwr:convert type="bean" class="com.bizintelapps.promanager.dto.*" />
         <dwr:convert type="bean"  class="java.util.*"  />
