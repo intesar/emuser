@@ -14,7 +14,6 @@
  *  limitations under the License.
  *  under the License.
  */
-
 package com.bizintelapps.promanager.ajax;
 
 import com.bizintelapps.promanager.dto.ProjectDto;
@@ -32,18 +31,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class AjaxProjectService {
 
     // saveProject should handle create|update
-    
-        /**
+    /**
      *  every method should copy same pattern
      *  msg for success
      *  should catch exceptions exactly the same way
      * @param usersDto
      * @return
      */
-    public List<ProjectDto> saveProject(ProjectDto projectDto) {        
+    public List<ProjectDto> saveProject(ProjectDto projectDto) {
         try {
             // this should handle create/update
-            return projectService.saveAndGetProjects(projectDto, SecurityUtil.getUsername());
+            projectService.saveProject(projectDto, SecurityUtil.getUsername());
+            return projectService.getProjects( SecurityUtil.getUsername()).getCurrentList();
         } catch (ValidationException e) {
             log.error(e);
             e.printStackTrace();
@@ -54,11 +53,8 @@ public class AjaxProjectService {
         }
         throw new RuntimeException("Error, Please try again! ");
     }
-
-    
     // getProjectList should get all projects visible ot user with brief summary
-    
-        /**
+    /**
      * 
      * @return
      */
@@ -75,11 +71,18 @@ public class AjaxProjectService {
         return null;
     }
 
+    public void deleteProject(Integer projectId) {
+        try {
+            this.projectService.deleteProject(projectId, SecurityUtil.getUsername());
+        } catch (RuntimeException re) {
+            // log re
+            throw new RuntimeException("Project cannot be deleted!");
+        }
+    }
+
     public void setProjectService(ProjectService projectService) {
         this.projectService = projectService;
-    }
-    
-    // getProjectInfo should get Project with its member list
+    }    // getProjectInfo should get Project with its member list
     // deleteProject should delete project
     private final Log log = LogFactory.getLog(getClass());
     @Autowired

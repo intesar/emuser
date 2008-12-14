@@ -10,25 +10,16 @@
 
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
         <title>Tasks - ProManager</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-        <!-- <link rel="stylesheet" type="text/css" media="screen" href="../css/table.css"> -->
-        <link rel="stylesheet" type="text/css" media="screen" href="../css/demos.css" />
-        <link rel="stylesheet" type="text/css" media="screen" href="../css/jq.css" />   
+        <jsp:include page="include.jsp" />
         <script type="text/javascript" src="../dwr/interface/AjaxProjectService.js"></script>
-        <script type="text/javascript" src="../dwr/engine.js"></script>
-        <!-- <script type="text/javascript" src="../dwr/util.js"></script> -->
-        <script type="text/javascript" src="../js/jquery-1.2.6.min.js"></script>
-        <script type="text/javascript" src="../js/jquery.livequery.min.js"></script>
-        <script type="text/javascript" src="../js/jquery.dataTables.min.js"></script>                 
         <script type="text/javascript" src="../js/lib/task.js"></script>             
     </head>
     <body  id="dt_example" class="example_alt_pagination">
         <jsp:include page="header.jsp" />        
         <br>      
-        <div id="taskTableContainer" align="center" > 
-            <a id="createANewTask">Create a new Task<font size="1"> >> </font></a>
+        <div id="taskTableContainer" style="width:90%; height:90%; border: 0px solid #000; padding: 5px; " align="right" > 
+            <a id="createANewTask">Create a new task<font size="1"> >> </font></a>
             <br><br>
             <table   id="taskTable" cellpadding="0" cellspacing="0" border="0" class="display" >                        
                 <thead>
@@ -45,58 +36,74 @@
                     </tr>
                 </thead>                
                 <tbody id="projectbody">
-                    <tr id="projectRow" style="display:none;">
-                        <td><span id="id1">ID</span></td>                                      
-                        <td><span id="title1">Title</span></td>  
-                        <td><span id="project1">Project</span></td>
-                        <td><span id="priority1">Priority</span></td>
-                        <td><span id="status1">Status</span></td>  
-                        <td><span id="deadline1">Deadline</span></td>
-                        <td><span id="owner1">Owner</span></td>
-                        <td><span id="assign-to1">Assige-To</span></td>                                    
-                        <td>
-                            <input id="edit" type="button" value="Edit" onclick="editClicked(this.id)"/>                        
-                        </td>
-                    </tr>
+                   
                 </tbody>                
             </table>    
         </div>
         <div id="newTaskContainer" style="display:none" align="center">
-            <a href="" id="backToTaskList"><font size="1"><< </font>Back to task list</a><br><br>
-            <table style="width:200px;">
-                <tr>
-                    <td>Priority</td>
-                    <td></td>
-                </tr>                        
-                <tr>
-                    <td>Status</td>
-                    <td><select name="status" id="status">
-                            <option value="In Progess">In Progess</option>
-                            <option value="On Hold">On Hold</option>
-                            <option value="Completed">Completed</option>
-                    </select></td>
-                </tr>
-                <tr>
-                    <td>Assign-To</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>Deadline</td>
-                    <td></td>
-                </tr>                                               
-                <tr>
-                    <td></td>                            
-                    <td>
-                        <input type="button" value="New" onclick="clearPerson()"/>
-                        <input type="button" value="Save" onclick="writePerson()"/>                                
-                    </td>   
-                </tr>                         
-            </table>                
+            <a  id="backToTaskList"><font size="1"><< </font>Back to task list</a><br><br>
             <table>
                 <tr>
-                    <td>Description</td>
-                    <td><textarea name="description" rows="8" cols="40"></textarea></td>
-                </tr>
+                    <td>
+                        <table>
+                            <tr>
+                                <td> Title <font color="RED">*</font> <br>
+                                <input id="title" name="title" value="" maxlength="40" size="50" type="text"/>
+                            </tr>
+                            <tr>
+                                <td><br></td>
+                            </tr>
+                            <tr>
+                                <td>Project <br>
+                                    <select name="project" id="project">
+                                        <option value="In Progess">Todo</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><br></td>
+                            </tr>
+                            <tr>
+                                <td>Priority <br>                    
+                                    <input type="radio" name="priority" value="High"  /> High
+                                    <input type="radio" name="priority" value="Medium" checked="checked"/> Medium
+                                    <input type="radio" name="priority" value="Low"  /> Low
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><br></td>
+                            </tr>                        
+                            
+                            <tr>
+                                <td>Assign-To <br>
+                                <select name="assignTo" id="assignTo">                        
+                                </select>
+                            </tr>
+                            <tr>
+                                <td><br></td>
+                            </tr> 
+                            <tr>
+                                <td>End Time       Estimated time<br>
+                                    <input id="deadline" name="deadline" value="" maxlength="3" size="3" type="text" /><small>mins (eg: 10, 120)</small>
+                                </td>
+                            </tr> 
+                        </table>      
+                    </td>
+                    <td valign="top">
+                        <table>
+                            <tr>
+                                <td>Description<br>
+                                <textarea name="description" rows="16" cols="50"></textarea></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>   
+                <tr>                    
+                    <td>
+                        <input type="button" value="Create new task" onclick="writePerson()"/>                                
+                        <input type="button" value="Cancel" onclick="clearPerson()"/>
+                    </td>   
+                </tr>  
             </table>
         </div>
     </body>
