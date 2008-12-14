@@ -27,7 +27,7 @@ $(document).ready(function() {
             if ( users[i].administrator ) {
                 administrator = "Y";
             }
-            var data = [ users[i].firstname + " " + users[i].lastname, "" + active, administrator, "<a id='editUser" + users[i].id + "' class='editUser'>Edit</a> <a id='deleteUser" + users[i].id + "' class='deleteUser'>Delete</a>"];                                              
+            var data = [ users[i].firstname + " " + users[i].lastname, "" + active, administrator, "<a id='editUser" + users[i].id + "' class='editUser'>Edit</a>-<a id='deleteUser" + users[i].id + "' class='deleteUser'>Del</a>"];                                              
             usersCache[users[i].id] = users[i];
             dArray[i] = data;                                     
         }                                                         

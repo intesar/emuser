@@ -2,7 +2,7 @@
 // this function is executed on load 	
 $(document).ready(function() {
     // checkout datatable plugin to understand below code
-    oTable = $('#projectTable').dataTable( {
+    oTable = $('#taskTable').dataTable( {
         "sPaginationType": "full_numbers"        
     } );
     
@@ -10,19 +10,23 @@ $(document).ready(function() {
     var oTable;	
     /* Global var for counter */
     var giCount = 2;    
-    var projectCache = {};
+    var tasksCache = {};
     var viewed = null;
     
     
-    var projectList = function (projects) {
+    var taskList = function (tasks) {
         var dArray = new Array();
         // Delete all the rows from table
         oTable.fnClearTable();
-        for ( var i = 0 ; i < projects.length; i++ ) {  
+        for ( var i = 0 ; i < tasks.length; i++) {  
             // create object
-            var data = [ ""+projects[i].name, ""+projects[i].status, "<a id='editProject"+projects[i].id + "' class='editProject'>Edit</a> <a id='deleteProject"+projects[i].id +"' class='deleteProject'>Delete</a>"];                                  
-            projectCache[projects[i].id] = projects[i];
-            dArray[i] = data;                                     
+            var project = tasks[i].projectName; //if ( project == null) project = "NONE";
+            var deadline = tasks[i].deadlineFormat; //if (deadline == null ) deadline = "NONE";
+            var data = [ "" + tasks[i].id, "" + tasks[i].title, project,
+                tasks[i].priority, tasks[i].status, tasks[i].ownerUsername, 
+                ""+tasks[i].assignedToUsername, deadline, "<a id='editProject"+tasks[i].id + "' class='editTask'>Edit</a>-<a id='deleteTask"+tasks[i].id +"' class='deleteTask'>Del</a>"];                                  
+            tasksCache[tasks[i].id] = tasks[i];            
+            dArray[i] = data;    
         }                   
         // adds object array to table and displays
         oTable.fnAddData( dArray );
@@ -30,17 +34,17 @@ $(document).ready(function() {
         giCount++;
     }
     // executed onload
-    AjaxProjectService.getProjectList(projectList);
+    AjaxTaskService.getCurrentTask(taskList);
     
     // executed on "create new project" link is clicked
-    $('#createANewProject').click(function() {                
-        $('#projectTableContainer').slideUp("fast");
-        $('#newProjectContainer').slideDown("fast");
+    $('#createANewTask').click(function() {                
+        $('#taskTableContainer').slideUp("fast");
+        $('#newTaskContainer').slideDown("fast");
     });
     // executed on "back to project" link is clicked
-    $('#backToProjectList').click(function() {
-        $('#newProjectContainer').slideUp("fast");    
-        $('#projectTableContainer').slideDown("fast");
+    $('#backToTaskList').click(function() {
+        $('#newTaskContainer').slideUp("fast");    
+        $('#taskTableContainer').slideDown("fast");
     });
     // executed on "back to project" link is clicked
     $('#backToProjectListFromEdit').click(function() {

@@ -16,6 +16,7 @@
  */
 package com.bizintelapps.promanager.dto;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -28,7 +29,9 @@ public class TaskDto {
     private String title;
     private String description;
     private Date deadline;
+    private String deadlineFormat;
     private Date createDate;
+    private String createDateFormat;
     private String visibility;
     private int percentageCompleted;
     private String status;
@@ -36,15 +39,19 @@ public class TaskDto {
     private Integer parentTask;
     private Double sequenceNumber;
     private Date completedDate;
+    private String completedDateFormat;
     private Date lastStatusChangedDate;
+    private String lastStatusChangedDateFormat;
     private Integer ownerId;
     private String ownerUsername;
     private Integer projectId;
     private String projectName;
     private Integer assignedToId;
     private String assignedToUsername;
-
+    private SimpleDateFormat simpleDateFormat;
     public TaskDto() {
+        String pattern = "MMM d, ''yy";
+        simpleDateFormat = new SimpleDateFormat(pattern);
     }
 
     public Integer getAssignedToId() {
@@ -197,6 +204,50 @@ public class TaskDto {
 
     public void setVisibility(String visibility) {
         this.visibility = visibility;
+    }
+
+    public String getCompletedDateFormat() {
+        if (completedDate != null) {
+            return simpleDateFormat.format(completedDate);
+        }
+        return completedDateFormat;
+    }
+
+    public void setCompletedDateFormat(String completedDateFormat) {
+        this.completedDateFormat = completedDateFormat;
+    }
+
+    public String getCreateDateFormat() {
+        if (createDateFormat != null) {
+            return simpleDateFormat.format(createDateFormat);
+        }
+        return createDateFormat;
+    }
+
+    public void setCreateDateFormat(String createDateFormat) {
+        this.createDateFormat = createDateFormat;
+    }
+
+    public String getDeadlineFormat() {
+        if (deadlineFormat != null) {
+            return simpleDateFormat.format(deadlineFormat);
+        }
+        return deadlineFormat;
+    }
+
+    public void setDeadlineFormat(String deadlineFormat) {
+        this.deadlineFormat = deadlineFormat;
+    }
+
+    public String getLastStatusChangedDateFormat() {
+        if (lastStatusChangedDateFormat != null) {
+            return simpleDateFormat.format(lastStatusChangedDateFormat);
+        }
+        return lastStatusChangedDateFormat;
+    }
+
+    public void setLastStatusChangedDateFormat(String lastStatusChangedDateFormat) {
+        this.lastStatusChangedDateFormat = lastStatusChangedDateFormat;
     }
 
     @Override

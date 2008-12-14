@@ -12,7 +12,7 @@
     <head>
         <title>Tasks - ProManager</title>
         <jsp:include page="include.jsp" />
-        <script type="text/javascript" src="../dwr/interface/AjaxProjectService.js"></script>
+        <script type='text/javascript' src='../dwr/interface/AjaxTaskService.js'></script>
         <script type="text/javascript" src="../js/lib/task.js"></script>             
     </head>
     <body  id="dt_example" class="example_alt_pagination">
@@ -30,14 +30,15 @@
                             <th>Project</th>
                             <th>Priority</th>
                             <th>Status</th>
-                            <th>Deadline</th>
+                            <th>Owner</th>                            
                             <th>Assign-To</th>
-                            <th>Owner</th>
+                            <th>Deadline</th>                            
                             <th></th>
                         </tr>
                     </thead>                
-                    <tbody id="projectbody">
-                        
+                    <tbody> 
+                        <!-- this row is required by the datatable plugin to work -->
+                        <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
                     </tbody>                
                 </table>    
             </div>
