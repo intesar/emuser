@@ -21,13 +21,14 @@ import com.bizintelapps.promanager.dto.TaskDto;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 /**
  *
  * @author intesar
  */
-@Service
+@Component
 public class TaskConverter {
 
     public List<TaskDto> copyAllForDisplay(Collection<Task> usersCollection) {
@@ -39,9 +40,20 @@ public class TaskConverter {
         return list;
     }
 
-    public TaskDto copyForDisplay(Task users, TaskDto usersDto) {
-
-        return usersDto;
+    public TaskDto copyForDisplay(Task task, TaskDto taskDto) {
+        taskDto.setAssignedToUsername(task.getAssignedTo().getUsername());
+        taskDto.setCompletedDate(task.getCompletedDate());
+        taskDto.setCreateDate(task.getCreateDate());
+        taskDto.setDeadline(task.getDeadline());
+        //taskDto.setDescription(description);
+        taskDto.setId(task.getId());
+        taskDto.setLastStatusChangedDate(task.getLastStatusChangedDate());
+        taskDto.setOwnerUsername(task.getOwner().getUsername());
+        taskDto.setPriority(task.getPriority());
+        taskDto.setProjectName(task.getProject().getName());
+        taskDto.setStatus(task.getStatus());
+        taskDto.setTitle(task.getTitle());        
+        return taskDto;
     }
 
     /**

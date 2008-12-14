@@ -18,11 +18,14 @@
 package com.bizintelapps.promanager.dao;
 
 import com.bizintelapps.promanager.entity.Task;
+import java.util.List;
 
 /**
  *
  * @author intesar
  */
 public interface TaskDao  extends GenericDao<Task, Integer> {
+    
+    public List<Task> findByTaskStatusAndUserId(String status, String username);
 
 }

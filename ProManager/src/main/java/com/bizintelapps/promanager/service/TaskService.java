@@ -14,12 +14,12 @@
  *  limitations under the License.
  *  under the License.
  */
-
 package com.bizintelapps.promanager.service;
 
 import com.bizintelapps.promanager.dao.PagingParams;
 import com.bizintelapps.promanager.entity.Task;
 import com.bizintelapps.promanager.dto.TaskDto;
+import java.util.List;
 
 /**
  *
@@ -27,19 +27,26 @@ import com.bizintelapps.promanager.dto.TaskDto;
  */
 public interface TaskService {
 
+    String TASK_STATUS_NEW = "New";
+    String TASK_STATUS_IN_PROGRESS = "In Progress";
+    String TASK_STATUS_ON_HOLD = "On Hold";
+    String TASK_STATUS_COMPLETED = "Completed";
+
     /**
      * Creates, updates a given task to DB & should
      * @param taskDto
      * @param savedBy
      */
-    public void saveTask ( TaskDto taskDto, String savedBy );
+    public void saveTask(TaskDto taskDto, String savedBy);
+
     /**
      * Deletes a task from DB,
      * Only a Admin or Owner can delete a task
      * @param taskId
      * @param deletedBy
      */
-    public void deleteTask ( Integer taskId, String deletedBy);
+    public void deleteTask(Integer taskId, String deletedBy);
+
     /**
      * 
      * @param username 
@@ -49,5 +56,13 @@ public interface TaskService {
      * @param requestedBy is the user requesting this operation
      * @return
      */
-    public PagingParams<Task> getTasks ( String username, String projectName, String context, String status, String requestedBy);
+    public PagingParams<Task> getTasks(String username, String projectName, String context, String status, String requestedBy);
+
+    /**
+     * 
+     * @param status
+     * @param requestedBy
+     * @return
+     */
+    public List<TaskDto> getCurrentTasks( String requestedBy);
 }

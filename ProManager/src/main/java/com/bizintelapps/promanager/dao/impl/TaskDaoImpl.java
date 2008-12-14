@@ -18,6 +18,7 @@ package com.bizintelapps.promanager.dao.impl;
 
 import com.bizintelapps.promanager.dao.TaskDao;
 import com.bizintelapps.promanager.entity.Task;
+import java.util.List;
 import org.springframework.stereotype.Repository;
 
 
@@ -30,5 +31,10 @@ public class TaskDaoImpl extends GenericDaoImpl<Task, Integer> implements TaskDa
 
     public TaskDaoImpl() {
         super(Task.class);
+    }
+
+    @Override
+    public List<Task> findByTaskStatusAndUserId(String status, String username) {
+        return executeNamedQueryList("Task.findByStatusAndUser", null, status, username, username);
     }
 }
