@@ -33,7 +33,9 @@
                         </tr>
                     </thead>
                     <form>
-                        <tbody id="userbody">                       
+                        <tbody>                       
+                        <!-- required by plugin-->
+                        <tr><td></td><td></td><td></td><td></td></tr>
                         </tbody>
                     </form>
                 </table>    

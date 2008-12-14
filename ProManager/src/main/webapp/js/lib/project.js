@@ -20,7 +20,7 @@ $(document).ready(function() {
         oTable.fnClearTable();
         for ( var i = 0 ; i < projects.length; i++ ) {  
             // create object
-            var data = [ ""+projects[i].name, ""+projects[i].status, "<a id='editProject"+projects[i].id + "' class='editProject'>Edit</a> <a id='deleteProject"+projects[i].id +"' class='deleteProject'>Delete</a>"];                                  
+            var data = [ ""+projects[i].name, ""+projects[i].status, "<a id='editProject"+projects[i].id + "' class='editProject'>Edit</a>-<a id='deleteProject"+projects[i].id +"' class='deleteProject'>Del</a>"];                                  
             projectCache[projects[i].id] = projects[i];
             dArray[i] = data;                                     
         }                   
