@@ -35,6 +35,6 @@ public class TaskDaoImpl extends GenericDaoImpl<Task, Integer> implements TaskDa
 
     @Override
     public List<Task> findByTaskStatusAndUserId(String status, String username) {
-        return executeNamedQueryList("Task.findByStatusAndUser", null, status, username, username);
+        return executeNamedQueryList("Task.findByNotCompleteAndUser", null, status, username, username);
     }
 }
