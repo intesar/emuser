@@ -12,6 +12,5 @@
     <a href="../view/organization.jsp"> Company </a>    &nbsp;&nbsp;&nbsp;    
     <a href="../view/settings.jsp"> Settings </a>    &nbsp;&nbsp;&nbsp;    
     <a href="../j_acegi_logout"> Logout </a>      &nbsp;&nbsp;&nbsp;
-    
 </div>
-<br><br>
+<br>

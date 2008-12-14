@@ -12,8 +12,9 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
         <title>Company - ProManager</title>
+        <jsp:include page="include.jsp" />
     </head>
-    <body>
+    <body  id="dt_example" class="example_alt_pagination">
         <jsp:include page="header.jsp" />
     </body>
 </html>
