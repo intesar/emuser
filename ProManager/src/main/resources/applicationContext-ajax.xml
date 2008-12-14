@@ -45,7 +45,7 @@
     </bean>
     
     <bean id="taskAjaxService" class="com.bizintelapps.promanager.ajax.AjaxTaskService" >
-        <dwr:remote javascript="AjaxProjectService">
+        <dwr:remote javascript="AjaxTaskService">
             <dwr:include method="getCurrentTask" />
         </dwr:remote>
     </bean>

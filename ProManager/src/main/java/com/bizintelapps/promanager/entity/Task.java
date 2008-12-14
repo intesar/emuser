@@ -53,7 +53,7 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "Task.findBySequenceNumber", query = "SELECT t FROM Task t WHERE t.sequenceNumber = :sequenceNumber"),
     @NamedQuery(name = "Task.findByCompletedDate", query = "SELECT t FROM Task t WHERE t.completedDate = :completedDate"),
     @NamedQuery(name = "Task.findByLastStatusChangedDate", query = "SELECT t FROM Task t WHERE t.lastStatusChangedDate = :lastStatusChangedDate"),
-    @NamedQuery(name = "Task.findByNotCompleteAndUser", query = "SELECT t FROM Task t WHERE t.status <> ?1 and ( assignedTo.username = ?2 or owner.username = ?3) ")
+    @NamedQuery(name = "Task.findByNotCompleteAndUser", query = "SELECT t FROM Task t WHERE t.status <> ?1 and ( t.assignedTo.username = ?2 or t.owner.username = ?3) ")
 })
 public class Task implements Serializable {
 
