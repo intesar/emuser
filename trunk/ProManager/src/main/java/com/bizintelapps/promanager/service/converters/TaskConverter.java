@@ -50,9 +50,11 @@ public class TaskConverter {
         taskDto.setLastStatusChangedDate(task.getLastStatusChangedDate());
         taskDto.setOwnerUsername(task.getOwner().getUsername());
         taskDto.setPriority(task.getPriority());
-        taskDto.setProjectName(task.getProject().getName());
+        if (task.getProject() != null) {
+            taskDto.setProjectName(task.getProject().getName());
+        }
         taskDto.setStatus(task.getStatus());
-        taskDto.setTitle(task.getTitle());        
+        taskDto.setTitle(task.getTitle());
         return taskDto;
     }
 
