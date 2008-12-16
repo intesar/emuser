@@ -17,6 +17,7 @@
 <body  id="dt_example" class="example_alt_pagination">
 <jsp:include page="header.jsp" />
 <br>      
+<div style="position:absolute; left:5%; top:10%; bottom:5%; width:70%; height:90%; ">
 <div id="projectTableContainer" style="width:90%; height:90%; border: 0px solid #000; padding: 5px; " align="center"> 
 <div id="container">
 <a id="createANewProject">Create a new project<font size="1"> >> </font></a>
@@ -98,5 +99,7 @@
         </table>   
     </div>
 </div>        
+</div>
+<div id="pc" style="position:absolute; left:67%; top:20%; bottom:0; width:15%; height:90%; "></div>
 </body>
 </html>

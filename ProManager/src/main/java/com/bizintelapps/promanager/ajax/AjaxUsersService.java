@@ -40,7 +40,7 @@ public class AjaxUsersService {
             throw e;
         } catch (Exception e) {
             log.error(e);
-            return ERROR_MESSAGE;
+            return e.getMessage();
         }
         return msg;
     }

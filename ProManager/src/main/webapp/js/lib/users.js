@@ -1,4 +1,10 @@
-
+$(document).ready(function() {
+    $("#pc").gchart({width:'450', height:'200', type: 'pie', 
+        dataLabels: ['User', 'Admins', 'Active'], legend: 'right', 
+        series: [$.gchart.series([88.16, 1.61, 8.13], $.gchart.color(0, 128, 0))] 
+    }); 
+});
+   
 	
 // this function is executed on load 	
 $(document).ready(function() {
