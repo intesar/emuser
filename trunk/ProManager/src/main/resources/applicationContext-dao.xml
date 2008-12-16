@@ -17,10 +17,10 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
             <value>jdbc:mysql://localhost:3306/pm</value>
         </property>
         <property name="username">
-            <value>pm</value>
+            <value>root</value>
         </property>
         <property name="password">
-            <value>pm</value>
+            <value>apple</value>
         </property>
     </bean>
     <bean id="jpaAdapter" class="org.springframework.orm.jpa.vendor.TopLinkJpaVendorAdapter">

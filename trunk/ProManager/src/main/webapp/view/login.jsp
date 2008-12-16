@@ -19,18 +19,18 @@
                             <tr>
                                 <td>Username:</td>
                                 <td>
-                                    <input type="text" name='j_username' size="30" />
+                                    <input type="text" name='j_username' value="shannan.mohammed" size="30" />
                                 </td>
                             </tr>
                             <tr>
                                 <td>Password:</td>
                                 <td>
-                                    <input type="password" name='j_password' size="30" />                                    
+                                    <input type="password" name='j_password' size="30" value="shannan"/>                                    
                                 </td>
                             </tr>
                             <tr>
                                 <td>Remember-me:</td>
-                                <td><input type="checkbox" name="_acegi_security_remember_me"/></td>
+                                <td><input type="checkbox" name="_acegi_security_remember_me" checked/></td>
                             </tr>
                             <tr></tr>
                             <tr>                                
