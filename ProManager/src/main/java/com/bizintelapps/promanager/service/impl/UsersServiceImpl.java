@@ -16,6 +16,7 @@
  */
 package com.bizintelapps.promanager.service.impl;
 
+import com.bizintelapps.mail.MailSender;
 import com.bizintelapps.promanager.dao.AuthoritiesDao;
 import com.bizintelapps.promanager.dao.OrganizationDao;
 import com.bizintelapps.promanager.dao.PagingParams;
@@ -74,17 +75,15 @@ public class UsersServiceImpl implements UsersService {
         Authorities authorities1 = new Authorities(null, users.getUsername(), Authorities.ROLE_ADMIN);
         Authorities authorities2 = new Authorities(null, users.getUsername(), Authorities.ROLE_USER);
         authoritiesDao.create(authorities1);
-        authoritiesDao.create(authorities2);
+        authoritiesDao.create(authorities2);        
     }
 
-    
-    
     @Override
     public List<UsersDto> saveAndGetUser(UsersDto usersDto, String savedBy) {
         saveUser(usersDto, savedBy);
         return getUsers(savedBy).getCurrentList();
     }
-    
+
     @Override
     public void saveUser(UsersDto usersDto, String savedBy) {
         Users savedByUsers = usersDao.findByUsername(savedBy);
@@ -115,7 +114,7 @@ public class UsersServiceImpl implements UsersService {
             users.setIsEncrypted(true);
             usersDao.create(users);
             Authorities authorities = new Authorities(null, users.getUsername(), Authorities.ROLE_USER);
-            if ( usersDto.isAdministrator()) {
+            if (usersDto.isAdministrator()) {
                 Authorities authorities1 = new Authorities(null, users.getUsername(), Authorities.ROLE_ADMIN);
                 authoritiesDao.create(authorities1);
             }
@@ -134,9 +133,9 @@ public class UsersServiceImpl implements UsersService {
                     throw new ServiceRuntimeException(usersDto.getEmail() + " is already in use");
                 }
             }
-            
+
             // check admin criteria
-            if ( users.getUsername().equals(savedByUsers.getUsername()) && 
+            if (users.getUsername().equals(savedByUsers.getUsername()) &&
                     users.isIsAdministrator() && usersDto.isAdministrator()) {
                 throw new ServiceRuntimeException("User cannot demote himself");
             }
@@ -144,13 +143,13 @@ public class UsersServiceImpl implements UsersService {
             log.debug("---------  users.isIsAdministrator() " + users.isIsAdministrator());
             log.debug("---------  usersDto.enabled() " + usersDto.isEnabled());
             log.debug("---------  users.enabled() " + users.getEnabled());
-            
-           if ( usersDto.isAdministrator() && !users.isIsAdministrator() ) {
+
+            if (usersDto.isAdministrator() && !users.isIsAdministrator()) {
                 // add him to authority
-               log.debug("--------- ADD AUTHORITY ");
+                log.debug("--------- ADD AUTHORITY ");
                 Authorities authority = new Authorities(null, usersDto.getUsername(), Authorities.ROLE_ADMIN);
                 authoritiesDao.create(authority);
-            } else  if ( !usersDto.isAdministrator() && users.isIsAdministrator() ) {
+            } else if (!usersDto.isAdministrator() && users.isIsAdministrator()) {
                 // remove him from authority
                 log.debug("--------- DELETE AUTHORITY ");
                 Authorities authorities = authoritiesDao.findByUsernameAndAuthority(usersDto.getUsername(), Authorities.ROLE_ADMIN);
@@ -243,6 +242,10 @@ public class UsersServiceImpl implements UsersService {
     public void setAuthoritiesDao(AuthoritiesDao authoritiesDao) {
         this.authoritiesDao = authoritiesDao;
     }
+
+    public void setMailSender(MailSender mailSender) {
+        this.mailSender = mailSender;
+    }
     @Autowired
     private UsersConverter usersConverter;
     @Autowired
@@ -255,5 +258,7 @@ public class UsersServiceImpl implements UsersService {
     private PasswordEncryptor passwordEncryptor;
     @Autowired
     private AuthoritiesDao authoritiesDao;
+    @Autowired
+    private MailSender mailSender;
     private final Log log = LogFactory.getLog(getClass());
 }

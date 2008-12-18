@@ -16,6 +16,7 @@
  */
 package com.bizintelapps.promanager.ajax;
 
+import com.bizintelapps.mail.MailSender;
 import com.bizintelapps.promanager.service.UsersService;
 import com.bizintelapps.promanager.dto.UsersDto;
 import com.bizintelapps.promanager.service.validator.ValidationException;
@@ -35,6 +36,7 @@ public class AjaxUsersService {
         try {
             // this should handle create/update
             usersService.signUp(usersDto);
+            mailSender.sendMail(new String[]{}, "Welcome to Pro-Task-Management, Here's what you need to know.", "");
         } catch (ValidationException e) {
             log.error(e);
             throw e;
@@ -44,6 +46,7 @@ public class AjaxUsersService {
         }
         return msg;
     }
+
     /**
      *  every method should copy same pattern
      *  msg for success
@@ -51,7 +54,7 @@ public class AjaxUsersService {
      * @param usersDto
      * @return
      */
-    public List<UsersDto> saveUser(UsersDto usersDto) {        
+    public List<UsersDto> saveUser(UsersDto usersDto) {
         try {
             // this should handle create/update
             return usersService.saveAndGetUser(usersDto, SecurityUtil.getUsername());
@@ -87,7 +90,7 @@ public class AjaxUsersService {
 
         return msg;
     }
-    
+
     /**
      * 
      * @param userId
@@ -108,6 +111,7 @@ public class AjaxUsersService {
 
         return null;
     }
+
     /**
      * 
      * @return
@@ -124,7 +128,7 @@ public class AjaxUsersService {
         }
         return null;
     }
-    
+
     /**
      * 
      * @param userId
@@ -133,7 +137,7 @@ public class AjaxUsersService {
      */
     public String enableDisalbeUser(Integer userId, boolean enabled) {
         String msg = " User Status Changed Successfully! ";
-        try {            
+        try {
             usersService.enableDisableUser(userId, enabled, SecurityUtil.getUsername());
         } catch (ValidationException e) {
             log.error(e);
@@ -145,7 +149,7 @@ public class AjaxUsersService {
 
         return msg;
     }
-    
+
     /**
      * 
      * @param userId
@@ -165,7 +169,7 @@ public class AjaxUsersService {
 
         return msg;
     }
-    
+
     /**
      * 
      * @param usersService
@@ -174,6 +178,11 @@ public class AjaxUsersService {
         this.usersService = usersService;
     }
 
+    public void setMailSender(MailSender mailSender) {
+        this.mailSender = mailSender;
+    }
+    @Autowired
+    private MailSender mailSender;
     @Autowired
     private UsersService usersService;
     private final String ERROR_MESSAGE = "Error, Please change input and try again!";
