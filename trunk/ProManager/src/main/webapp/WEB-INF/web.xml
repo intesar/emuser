@@ -13,6 +13,7 @@
             classpath:applicationContext-dao.xml  
             classpath:applicationContext-service-transactions.xml  
             classpath:applicationContext-ajax.xml
+            classpath:applicationContext-mail.xml
         </param-value>
     </context-param>
     
