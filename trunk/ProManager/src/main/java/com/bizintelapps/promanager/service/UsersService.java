@@ -66,6 +66,32 @@ public interface UsersService {
     public void changePassword(Integer userId, String oldPassword, String newPassword, String changedBy);
     
     /**
+     * 
+     * @param username email
+     * @param oldPassword 
+     * @param newPassword
+     */
+    public void changePassword ( String username, String oldPassword, String newPassword);
+    
+    /**
+     * 
+     * @param username email
+     *  
+     *  sends a unique key to email address if valid
+     */
+    public void requestPasswordKeySendToEmail (String username);
+    
+    /**
+     * 
+     * @param username email
+     * @param emailKey key to send to user email
+     * @param newPassword new password
+     * @return
+     */
+    public void resetPasswordWithKey(String username, String emailKey, String newPassword);
+    
+    
+    /**
      * gets users if administrator or else just get self
      * @param forUser
      * @return
