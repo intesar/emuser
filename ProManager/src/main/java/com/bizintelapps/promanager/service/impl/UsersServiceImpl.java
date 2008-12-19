@@ -75,7 +75,7 @@ public class UsersServiceImpl implements UsersService {
         Authorities authorities1 = new Authorities(null, users.getUsername(), Authorities.ROLE_ADMIN);
         Authorities authorities2 = new Authorities(null, users.getUsername(), Authorities.ROLE_USER);
         authoritiesDao.create(authorities1);
-        authoritiesDao.create(authorities2);        
+        authoritiesDao.create(authorities2);
     }
 
     @Override
@@ -186,6 +186,51 @@ public class UsersServiceImpl implements UsersService {
             usersDao.update(users);
         } else {
             throw new ServiceRuntimeException("Only Administrator can change others password Or user can change there own Or Invalid Old Password");
+        }
+    }
+
+    @Override
+    public void changePassword(String username, String oldPassword, String newPassword) {
+        Users users = usersDao.findByUsername(username);
+        //self
+        if (users != null && users.getPassword().equals(passwordEncryptor.encryptPassword(oldPassword))) {
+            users.setPassword(passwordEncryptor.encryptPassword(newPassword));
+            usersDao.update(users);
+        } else {
+            throw new ServiceRuntimeException("Invalid Old Password");
+        }
+    }
+
+    @Override
+    public void requestPasswordKeySendToEmail(String username) {
+        Users users = usersDao.findByUsername(username);
+        if (users == null) {
+            throw new ServiceRuntimeException("We didn't find your email in our system!");
+        }
+        // key is password - 3 chars
+        String password = users.getPassword();
+        String key = password.substring(0, password.length() - 5);
+        // email this key
+        this.mailSender.sendMail(new String[]{username}, "Password Resett Key", "Please ignore this email if you have " +
+                "not requested for password reset key, as it won't harm your login, if you want to reset your password please " +
+                "use this key :" + key);
+    }
+
+    @Override
+    public void resetPasswordWithKey(String username, String emailKey, String newPassword) {
+        Users users = usersDao.findByUsername(username);
+        if (users == null) {
+            throw new ServiceRuntimeException("We didn't find your email in our system!");
+        }
+        // key is password - 3 chars
+        String password = users.getPassword();
+        String key = password.substring(0, password.length() - 5);
+        if (key.equals(emailKey)) {
+            users.setPassword(passwordEncryptor.encryptPassword(newPassword));
+            usersDao.update(users);
+            mailSender.sendMail(new String[]{username}, "Password Changed", "");
+        } else {
+            throw new ServiceRuntimeException("Key mismatch, please remove spaces from begining and end of key and try again!");
         }
     }
 

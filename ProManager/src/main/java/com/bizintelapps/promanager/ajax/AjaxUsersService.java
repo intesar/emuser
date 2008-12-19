@@ -36,7 +36,6 @@ public class AjaxUsersService {
         try {
             // this should handle create/update
             usersService.signUp(usersDto);
-            mailSender.sendMail(new String[]{}, "Welcome to Pro-Task-Management, Here's what you need to know.", "");
         } catch (ValidationException e) {
             log.error(e);
             throw e;
@@ -93,6 +92,39 @@ public class AjaxUsersService {
 
     /**
      * 
+     * @param oldPassword
+     * @param newPassword
+     * @return
+     */
+    public String changeMyPassword(String oldPassword, String newPassword) {
+        usersService.changePassword(SecurityUtil.getUsername(), oldPassword, newPassword);
+        return "Password changed successfully!";
+    }
+
+    /**
+     * 
+     * @param username
+     * @return
+     */
+    public String requestPasswordKeySendToEmail(String username) {
+        usersService.requestPasswordKeySendToEmail(username);
+        return "A key has been send to your email please use it to change your account password!";
+    }
+
+    /**
+     * 
+     * @param username email
+     * @param emailKey key to send to user email
+     * @param newPassword new password
+     * @return
+     */
+    public String resetPasswordWithKey(String username, String emailKey, String newPassword) {
+        usersService.resetPasswordWithKey(username, emailKey, newPassword);
+        return "Password changed successfully, please login with your new password";
+    }
+
+    /**
+     * 
      * @param userId
      * @return
      */
@@ -106,7 +138,7 @@ public class AjaxUsersService {
             throw e;
         } catch (Exception e) {
             log.error(e);
-        //return ERROR_MESSAGE;
+            //return ERROR_MESSAGE;
         }
 
         return null;
@@ -124,7 +156,7 @@ public class AjaxUsersService {
             throw e;
         } catch (Exception e) {
             log.error(e);
-        //return ERROR_MESSAGE;
+            //return ERROR_MESSAGE;
         }
         return null;
     }
