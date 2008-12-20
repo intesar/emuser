@@ -12,9 +12,9 @@
     <class>com.bizintelapps.promanager.entity.Organization</class>
     <class>com.bizintelapps.promanager.entity.Authorities</class>
     <properties>
-      <property name="toplink.jdbc.user" value="root"/>
-      <property name="toplink.jdbc.password" value="apple"/>
-      <property name="toplink.jdbc.url" value="jdbc:mysql://localhost:3306/pm"/>
+      <property name="toplink.jdbc.user" value="pm"/>
+      <property name="toplink.jdbc.password" value="pm"/>
+      <property name="toplink.jdbc.url" value="jdbc:mysql://faceguard.org:3306/pm"/>
       <property name="toplink.jdbc.driver" value="com.mysql.jdbc.Driver"/>
     </properties>
   </persistence-unit>
