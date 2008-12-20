@@ -159,6 +159,8 @@ View Existing Project
 
 Description:
 admins should be able to see all existing projects in the company
+Project Manager will see all there manage projects
+General users will not be able to see anything
 
 Acceptance Criteria:
 
@@ -170,20 +172,14 @@ Total Hours Spend
 
 
 
-
-
-
 Story No. 6
 
 Title:
 Update Project information
 
 Description:
-admins should be able to change project status
-change roles
-change enable status
-change password
-
+admins should be able to change any project status
+Project managers will be able to change manage project status
 
 Acceptance Criteria:
 
@@ -194,14 +190,13 @@ Total Hours Spend
 
 
 
-
-Story No. 7
+Story No. 6.1
 
 Title:
-Add Or Update Project Manager
+view project users
 
 Description:
-
+Admin or Project manager will be able to view current project users
 
 Acceptance Criteria:
 
@@ -212,13 +207,65 @@ Total Hours Spend
 
 
 
+Story No. 7
+
+Title:
+Add user to project
+
+Description:
+Admin or Project manager will be able to add new users to projects
+any added user can be designated as project manager
+
+
+Acceptance Criteria:
+
+Story Pt : 1T + 1D + 2S + 1E + 1A + 1H + 2J
+Estimated Hours
+
+Total Hours Spend
+
 Story No. 8
+
+Title:
+Remove user as project manager
+
+Description:
+Admin or Project manager will be able to remove users as project managers
+
+Acceptance Criteria:
+
+Story Pt : 1T + 1D + 2S + 1E + 1A + 1H + 2J
+Estimated Hours
+
+Total Hours Spend
+
+
+Story No. 9
+
+Title:
+Remove user from a project
+
+Description:
+Admin or Project manager will be able to remove users from projects
+
+Acceptance Criteria:
+
+Story Pt : 1T + 1D + 2S + 1E + 1A + 1H + 2J
+Estimated Hours
+
+Total Hours Spend
+
+
+Story No. 10
 
 Title:
 Create Task
 
 Description:
-
+Admin can create task on any project and for any user
+Project manager can create task on all managed projects
+Members can create task on projects
+Users can create todo's
 
 Acceptance Criteria:
 Story Pt : 1T + 1D + 2S + 1E + 1A + 1H + 2J
@@ -230,7 +277,7 @@ Total Hours Spend
 
 
 
-Story No. 9
+Story No. 11
 
 Title:
 Task Search
@@ -245,16 +292,54 @@ Estimated Hours
 Total Hours Spend
 
 
+Story No. 12
+
+Title:
+Take task responsibility
+Admin, PM, Owner can assign to different user
+
+Description:
+users can poll for non assigned tasks
+
+Acceptance Criteria:
+Story Pt : 1D + 3S + +2U + 1A + 1H + 2J
+Estimated Hours
+
+Total Hours Spend
+
+Story No. 13
+
+Title:
+Delete Task
+
+Description:
+Admins, PM, Owners can delete task
+
+Acceptance Criteria:
+Story Pt : 1D + 3S + +2U + 1A + 1H + 2J
+Estimated Hours
+
+Total Hours Spend
+
+Story No. 14
+
+Title:
+Change Task Status
+
+Description:
+Admins, PM, Owners, assigned can change task status
+
+Acceptance Criteria:
+Story Pt : 1D + 3S + +2U + 1A + 1H + 2J
+Estimated Hours
+
+Total Hours Spend
 
 
-Story No. 10
+Story No. 15
 
 Title:
 Update Task
-take task responsibility
-change task status
-Delete Task
-Change User
 Update Description
 Add Comment
 
