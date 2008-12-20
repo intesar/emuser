@@ -43,9 +43,9 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class TaskServiceImpl implements TaskService {
-    
+
     @Override
-    public List<TaskDto> getCurrentTasks( String requestedBy) {
+    public List<TaskDto> getCurrentTasks(String requestedBy) {
         List<Task> list = taskDao.findByTaskStatusAndUserId("Completed", requestedBy);
         List<TaskDto> tasks = taskConverter.copyAllForDisplay(list);
         return tasks;
@@ -265,6 +265,61 @@ public class TaskServiceImpl implements TaskService {
         }
     }
 
+    @Override
+    public List<TaskDto> searchTasks(Integer projectId, Date start, Date end, Integer userId, String taskStatus, String requestedBy) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void assignTaskUser(Integer taskId, Integer userId, String requestedBy) {
+        Users users = usersDao.read(userId);
+        Users users1 = usersDao.findByUsername(requestedBy);
+        Task task = taskDao.read(taskId);
+        Project project = task.getProject();
+        ProjectUsers projectUsers = projectUsersDao.findByProjectIdAndUserId(project.getId(), userId);
+        ProjectUsers projectUsers1 = projectUsersDao.findByProjectIdAndUserId(project.getId(), users1.getId());
+        // user cannot be assigned unless project member or admin
+        if (!users.isIsAdministrator() || !(projectUsers != null && projectUsers.getId() != null)) {
+            throw new ServiceRuntimeException("Invalid Operation!");
+        }
+
+        // assignedTo can be ovverriden if requested by admin, pm or owner 
+        if (task.getAssignedTo() == null && task.getAssignedTo().getId() == null) {
+            task.setAssignedTo(users);
+            taskDao.update(task);
+        } else if (users1.isIsAdministrator() || projectUsers1.getIsManager() || projectUsers1.getCreateUser().equals(users1)) {
+            task.setAssignedTo(users);
+            taskDao.update(task);
+        } else {
+            throw new ServiceRuntimeException("Invalid Operation!");
+        }
+
+    }
+
+    @Override
+    public void changeTaskStatus(Integer taskId, String status, String requestedBy) {
+        Users users1 = usersDao.findByUsername(requestedBy);
+        Task task = taskDao.read(taskId);
+        Project project = task.getProject();
+        ProjectUsers projectUsers = projectUsersDao.findByProjectIdAndUserId(project.getId(), users1.getId());
+        
+        if (users1.isIsAdministrator() || task.getAssignedTo().equals(users1) || task.getOwner().equals(users1) ||
+                (projectUsers != null && projectUsers.getIsManager())) {
+            task.setStatus(status);
+            taskDao.update(task);            
+        }
+    }
+
+    @Override
+    public void addTaskComment(Integer taskId, String comment, String requestedBy) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void udpateTaskDescription(Integer taskId, String description, String requestedBy) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+    //----------------------- getters & setters--------------------------
     public ProjectDao getProjectDao() {
         return projectDao;
     }
@@ -313,8 +368,6 @@ public class TaskServiceImpl implements TaskService {
     @Autowired
     private ProjectDao projectDao;
     @Autowired
-    private ProjectUsersDao projectUsersDao;    
+    private ProjectUsersDao projectUsersDao;
     private final Log log = LogFactory.getLog(getClass());
-
-    
 }

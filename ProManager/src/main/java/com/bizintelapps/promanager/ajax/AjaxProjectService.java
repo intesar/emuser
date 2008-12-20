@@ -17,6 +17,7 @@
 package com.bizintelapps.promanager.ajax;
 
 import com.bizintelapps.promanager.dto.ProjectDto;
+import com.bizintelapps.promanager.entity.ProjectUsers;
 import com.bizintelapps.promanager.service.ProjectService;
 import com.bizintelapps.promanager.service.validator.ValidationException;
 import java.util.List;
@@ -42,7 +43,7 @@ public class AjaxProjectService {
         try {
             // this should handle create/update
             projectService.saveProject(projectDto, SecurityUtil.getUsername());
-            return projectService.getProjects( SecurityUtil.getUsername()).getCurrentList();
+            return projectService.getProjects(SecurityUtil.getUsername());
         } catch (ValidationException e) {
             log.error(e);
             e.printStackTrace();
@@ -60,7 +61,7 @@ public class AjaxProjectService {
      */
     public List<ProjectDto> getProjectList() {
         try {
-            return projectService.getProjects(SecurityUtil.getUsername()).getCurrentList();
+            return projectService.getProjects(SecurityUtil.getUsername());
         } catch (ValidationException e) {
             log.error(e);
             throw e;
@@ -71,6 +72,10 @@ public class AjaxProjectService {
         return null;
     }
 
+    /**
+     * 
+     * @param projectId
+     */
     public void deleteProject(Integer projectId) {
         try {
             this.projectService.deleteProject(projectId, SecurityUtil.getUsername());
@@ -78,6 +83,39 @@ public class AjaxProjectService {
             // log re
             throw new RuntimeException("Project cannot be deleted!");
         }
+    }
+
+    /**
+     * creates or updates user to project
+     * @param projectId
+     * @param userId
+     * @param isManager if true user can manage this project
+     * 
+     */
+    public List<ProjectUsers> saveUserToProject(Integer projectId, Integer userId, boolean isManager) {
+        projectService.saveUserToProject(projectId, userId, isManager, SecurityUtil.getUsername());
+        return projectService.getProjectUsers(projectId, SecurityUtil.getUsername());
+    }
+
+    /**
+     * only admin or pm can execute this
+     * @param projectId
+     * 
+     */
+    public List<ProjectUsers> getProjectUsers(Integer projectId) {
+        return projectService.getProjectUsers(projectId, SecurityUtil.getUsername());
+
+    }
+
+    /**
+     * removes user from project
+     * @param userId
+     * @param projectId
+     * 
+     */
+    public List<ProjectUsers> deleteUserFromProject(Integer userId, Integer projectId) {
+        projectService.deleteUserFromProject(userId, projectId, SecurityUtil.getUsername());
+        return projectService.getProjectUsers(projectId, SecurityUtil.getUsername());
     }
 
     public void setProjectService(ProjectService projectService) {

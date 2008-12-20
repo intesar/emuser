@@ -19,6 +19,7 @@ package com.bizintelapps.promanager.service;
 import com.bizintelapps.promanager.dao.PagingParams;
 import com.bizintelapps.promanager.entity.Task;
 import com.bizintelapps.promanager.dto.TaskDto;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -49,6 +50,49 @@ public interface TaskService {
 
     /**
      * 
+     * @param projectId
+     * @param start
+     * @param end
+     * @param userId
+     * @param taskStatus
+     * @return
+     */
+    public List<TaskDto> searchTasks(Integer projectId, Date start, Date end, Integer userId, String taskStatus, String requestedBy);
+
+    /**
+     * 
+     * @param taskId
+     * @param userId
+     * @param requestedBy
+     */
+    public void assignTaskUser(Integer taskId, Integer userId, String requestedBy);
+
+    /**
+     *  admin, pm, owner, assignedTo can change status
+     * @param taskId
+     * @param status
+     * @param requestedBy
+     */
+    public void changeTaskStatus(Integer taskId, String status, String requestedBy);
+
+    /**
+     * 
+     * @param taskId
+     * @param comment
+     * @param requestedBy
+     */
+    public void addTaskComment(Integer taskId, String comment, String requestedBy);
+
+    /**
+     * 
+     * @param taskId
+     * @param description
+     * @param requestedBy
+     */
+    public void udpateTaskDescription(Integer taskId, String description, String requestedBy);
+
+    /**
+     * 
      * @param username 
      * @param projectName project of the task
      * @param context we will not use this any more
@@ -64,5 +108,5 @@ public interface TaskService {
      * @param requestedBy
      * @return
      */
-    public List<TaskDto> getCurrentTasks( String requestedBy);
+    public List<TaskDto> getCurrentTasks(String requestedBy);
 }

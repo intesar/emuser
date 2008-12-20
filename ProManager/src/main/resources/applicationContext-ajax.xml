@@ -41,6 +41,9 @@
             <dwr:include method="saveProject" />
             <dwr:include method="getProjectList" />
             <dwr:include method="deleteProject" />
+            <dwr:include method="saveUserToProject" />
+            <dwr:include method="getProjectUsers" />
+            <dwr:include method="deleteUserFromProject" />
         </dwr:remote>
     </bean>
     
