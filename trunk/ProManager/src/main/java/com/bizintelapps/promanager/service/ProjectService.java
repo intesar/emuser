@@ -14,11 +14,10 @@
  *  limitations under the License.
  *  under the License.
  */
-
 package com.bizintelapps.promanager.service;
 
-import com.bizintelapps.promanager.dao.PagingParams;
 import com.bizintelapps.promanager.dto.ProjectDto;
+import com.bizintelapps.promanager.entity.ProjectUsers;
 import java.util.List;
 
 /**
@@ -27,28 +26,54 @@ import java.util.List;
  */
 public interface ProjectService {
 
-    public List<ProjectDto> saveAndGetProjects( ProjectDto projectDto, String savedBy);
+    public List<ProjectDto> saveAndGetProjects(ProjectDto projectDto, String savedBy);
+
     /**
      *  saves or updates a project to db
+     *  only admin can create new project
+     *  admin or project manager can change status (update)
      * @param projectDto
      * @param savedBy
      */
-    public void saveProject ( ProjectDto projectDto, String savedBy );
-    
+    public void saveProject(ProjectDto projectDto, String savedBy);
+
     /**
      *  tries to delete project
      * @param projectId
      * @param deletedBy
      */
-    public void deleteProject ( Integer projectId, String deletedBy );
-    
+    public void deleteProject(Integer projectId, String deletedBy);
+
     /**
      * returns projects for client display                   
      * @param requestedBy
      * @return
      */
-    public PagingParams<ProjectDto> getProjects ( String requestedBy );
-    
+    public List<ProjectDto> getProjects(String requestedBy);
+
+    /**
+     * creates or updates user to project
+     * @param projectId
+     * @param userId
+     * @param isManager if true user can manage this project
+     * @param savedBy 
+     */
+    public void saveUserToProject(Integer projectId, Integer userId, boolean isManager, String savedBy);
+
+    /**
+     * only admin or pm can execute this
+     * @param projectId
+     * @param requestedBy
+     */
+    public List<ProjectUsers> getProjectUsers(Integer projectId, String requestedBy);
+
+    /**
+     * removes user from project
+     * @param userId
+     * @param projectId
+     * @param savedBy
+     */
+    public void deleteUserFromProject(Integer userId, Integer projectId, String savedBy);
     String IN_PROGRESS = "In Progess";
     String ON_HOLD = "On Hold";
     String COMPLETED = "Completed";

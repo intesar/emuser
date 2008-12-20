@@ -16,7 +16,6 @@
  */
 package com.bizintelapps.promanager.service.impl;
 
-import com.bizintelapps.promanager.dao.PagingParams;
 import com.bizintelapps.promanager.dao.ProjectDao;
 import com.bizintelapps.promanager.dao.ProjectUsersDao;
 import com.bizintelapps.promanager.dao.UsersDao;
@@ -25,9 +24,11 @@ import com.bizintelapps.promanager.entity.Users;
 import com.bizintelapps.promanager.service.ProjectService;
 import com.bizintelapps.promanager.service.converters.ProjectConverter;
 import com.bizintelapps.promanager.dto.ProjectDto;
+import com.bizintelapps.promanager.entity.ProjectUsers;
 import com.bizintelapps.promanager.exceptions.ServiceRuntimeException;
 
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import org.apache.commons.logging.Log;
@@ -45,25 +46,24 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public List<ProjectDto> saveAndGetProjects(ProjectDto projectDto, String savedBy) {
         saveProject(projectDto, savedBy);
-        return getProjects(savedBy).getCurrentList();
+        return getProjects(savedBy);
     }
 
     @Override
     public void saveProject(ProjectDto projectDto, String savedBy) {
         Users savedByUsers = usersDao.findByUsername(savedBy);
-        if (!savedByUsers.isIsAdministrator()) {
-            throw new ServiceRuntimeException("only administrators can create new Project");
-        }
-
         log.debug("----------- project id " + projectDto.getId());
         // create new if id null
         // administrator can create projects
         if (projectDto.getId() == null) {
+            if (!savedByUsers.isIsAdministrator()) {
+                throw new ServiceRuntimeException("only Administrator can create new Project");
+            }
             // project should have unique name
             Project project1 = projectDao.findByNameAndOrganization(projectDto.getName(),
                     savedByUsers.getOrganization().getId());
             if (project1 != null && project1.getId() != null) {
-                throw new ServiceRuntimeException(projectDto.getName() + " name is already in use");
+                throw new ServiceRuntimeException(projectDto.getName() + " name is already in use, please provide a different name!");
             }
             // copy usersDto contents to new Users object and persist
             Project project = projectConverter.copyForCreate(projectDto, new Project());
@@ -74,12 +74,18 @@ public class ProjectServiceImpl implements ProjectService {
             project.setOrganization(savedByUsers.getOrganization());
             projectDao.create(project);
         } else {
-            // copy usersDto contents to new Users object and persist
-            Project project = projectDao.read(projectDto.getId());
-            projectConverter.copyForUpdate(projectDto, project);
-            project.setLastUpdateDate(new Date());
-            project.setLastUpdateUser(savedByUsers.getId());
-            projectDao.update(project);
+            // copy projectDto contents 
+            // user should be either admin or pm
+            if (savedByUsers.isIsAdministrator() || projectUsersDao.findByProjectIdAndUserId(projectDto.getId(), savedByUsers.getId()).getIsManager()) {
+
+                Project project = projectDao.read(projectDto.getId());
+                projectConverter.copyForUpdate(projectDto, project);
+                project.setLastUpdateDate(new Date());
+                project.setLastUpdateUser(savedByUsers.getId());
+                projectDao.update(project);
+            } else {
+                throw new ServiceRuntimeException(" Only Administrator or ProjectManagers can update project");
+            }
         }
 
     }
@@ -97,23 +103,64 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public PagingParams<ProjectDto> getProjects(String requestedBy) {
-        PagingParams<ProjectDto> pagingParams = new PagingParams<ProjectDto>();
+    public List<ProjectDto> getProjects(String requestedBy) {
+        List<ProjectDto> list = new ArrayList<ProjectDto>();
         Users users = usersDao.findByUsername(requestedBy);
         if (users.isIsAdministrator()) {
-            List<ProjectDto> list = projectConverter.copyAllForDisplay(projectDao.findByOrganization(users.getOrganization().getId()));
-            pagingParams.setCurrentList(list);
+            list = projectConverter.copyAllForDisplay(projectDao.findByOrganization(users.getOrganization().getId()));
+            return list;
+        } else { // users will see all managed projectes                
+            List<ProjectUsers> projectUsersList = projectUsersDao.findManagedProjectsByUserId(users.getId());
+            ProjectDto projectDto = null;
+            for (ProjectUsers projectUsers : projectUsersList) {
+                projectDto = projectConverter.copyForDisplay(projectUsers.getProject(), new ProjectDto());
+                list.add(projectDto);
+            }
         }
-//        } else {
-//            List<ProjectDto> list = new ArrayList<ProjectDto>();
-//            List<ProjectUsers> projectUsersList = projectUsersDao.findByAdministratorUserId(users.getId());
-//            ProjectDto projectDto = null;
-//            for (ProjectUsers projectUsers : projectUsersList) {
-//                projectDto = projectConverter.copyForDisplay(projectUsers.getProject(), new ProjectDto());
-//            }
-//            list.add(projectDto);
-//        }
-        return pagingParams;
+        return list;
+    }
+
+    @Override
+    public void saveUserToProject(Integer projectId, Integer userId, boolean isManager, String savedBy) {
+        Users savedUsers = usersDao.findByUsername(savedBy);
+        ProjectUsers savedByProjectUsers = projectUsersDao.findByProjectIdAndUserId(projectId, savedUsers.getId());
+        // user should be either admin or project manager to do this operation
+        if (!savedUsers.isIsAdministrator() || !savedByProjectUsers.getIsManager()) {
+            throw new ServiceRuntimeException("Invalid operation!");
+        }
+        // user if not assigned to this project then create one else udpate his record
+        Users users = usersDao.read(userId);
+        Project project = projectDao.read(projectId);
+        ProjectUsers projectUsers = projectUsersDao.findByProjectIdAndUserId(projectId, userId);
+
+        if (projectUsers == null || projectUsers.getId() == null) {
+            projectUsers = new ProjectUsers(null, isManager, new Date(), project, users, savedUsers);
+            projectUsersDao.create(projectUsers);
+        } else if (projectUsers.getIsManager() != isManager) {
+            projectUsers.setIsManager(isManager);
+            projectUsersDao.update(projectUsers);
+        }
+    }
+
+    @Override
+    public List<ProjectUsers> getProjectUsers(Integer projectId, String requestedBy) {
+        Users savedUsers = usersDao.findByUsername(requestedBy);
+        ProjectUsers savedByProjectUsers = projectUsersDao.findByProjectIdAndUserId(projectId, savedUsers.getId());
+        if (!savedUsers.isIsAdministrator() || !savedByProjectUsers.getIsManager()) {
+            throw new ServiceRuntimeException("Invalid operation!");
+        }
+        return projectUsersDao.findByProperty("Users.id", savedUsers.getId(), null).getCurrentList();
+
+    }
+
+    @Override
+    public void deleteUserFromProject(Integer userId, Integer projectId, String savedBy) {
+        Users savedUsers = usersDao.findByUsername(savedBy);
+        ProjectUsers savedByProjectUsers = projectUsersDao.findByProjectIdAndUserId(projectId, savedUsers.getId());
+        if (!savedUsers.isIsAdministrator() || !savedByProjectUsers.getIsManager()) {
+            throw new ServiceRuntimeException("Invalid operation!");
+        }
+        projectUsersDao.delete(savedByProjectUsers);
     }
 
     public ProjectDao getProjectDao() {

@@ -43,8 +43,8 @@ public class ProjectUsersDaoImpl extends GenericDaoImpl<ProjectUsers, Integer> i
     
 
     @Override
-    public List<ProjectUsers> findByAdministratorUserId(Integer userId) {
-        return executeNamedQueryList("ProjectUsers.findByAdministratorUserId", null, userId);
+    public List<ProjectUsers> findManagedProjectsByUserId(Integer userId) {
+        return executeNamedQueryList("ProjectUsers.findManagedProjectsByUserId", null, userId);
     }
 
     @Override

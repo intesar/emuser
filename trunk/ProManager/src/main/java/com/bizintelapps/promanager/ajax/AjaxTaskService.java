@@ -14,11 +14,11 @@
  *  limitations under the License.
  *  under the License.
  */
-
 package com.bizintelapps.promanager.ajax;
 
 import com.bizintelapps.promanager.dto.TaskDto;
 import com.bizintelapps.promanager.service.TaskService;
+import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -28,11 +28,71 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 public class AjaxTaskService {
 
-    // saveTask create|update task
-    // saveTaskComment create|update comments
-    // deleteTask 
-    // getTaskList ( user, context, project, task status ) 
-    
+    /**
+     * 
+     * @param taskDto
+     * @return
+     */
+    public String saveTask(TaskDto taskDto) {
+        return "task created successfully";
+    }
+
+    /**
+     * 
+     * @param projectId
+     * @param start
+     * @param end
+     * @param userId
+     * @param taskStatus
+     * @return
+     */
+    public List<TaskDto> searchTasks(Integer projectId, Date start, Date end, Integer userId, String taskStatus) {
+        return null;
+    }
+
+    /**
+     * 
+     * @param taskId
+     * @param userId
+     */
+    public void assignTaskUser(Integer taskId, Integer userId) {
+    }
+
+    /**
+     * 
+     * @param taskId
+     */
+    public void deleteTask(Integer taskId) {
+    }
+
+    /**
+     * 
+     * @param taskId
+     * @param status
+     */
+    public void changeTaskStatus(Integer taskId, String status) {
+    }
+
+    /**
+     * 
+     * @param taskId
+     * @param comment
+     */
+    public void addTaskComment(Integer taskId, String comment) {
+    }
+
+    /**
+     * 
+     * @param taskId
+     * @param description
+     */
+    public void udpateTaskDescription(Integer taskId, String description) {
+    }
+
+    /**
+     * 
+     * @return
+     */
     public List<TaskDto> getCurrentTask() {
         return taskService.getCurrentTasks(SecurityUtil.getUsername());
     }
@@ -40,7 +100,6 @@ public class AjaxTaskService {
     public void setTaskService(TaskService taskService) {
         this.taskService = taskService;
     }
-    
     @Autowired
     private TaskService taskService;
 }

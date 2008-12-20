@@ -14,7 +14,6 @@
  *  limitations under the License.
  *  under the License.
  */
-
 package com.bizintelapps.promanager.entity;
 
 import java.io.Serializable;
@@ -37,23 +36,24 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "project_users")
 @NamedQueries({
-    @NamedQuery(name = "ProjectUsers.findById", query = "SELECT p FROM ProjectUsers p WHERE p.id = :id"), 
-    @NamedQuery(name = "ProjectUsers.findByCreateDate", query = "SELECT p FROM ProjectUsers p WHERE p.createDate = :createDate"), 
-    @NamedQuery(name = "ProjectUsers.findByIsEnabled", query = "SELECT p FROM ProjectUsers p WHERE p.isEnabled = :isEnabled"), 
-    @NamedQuery(name = "ProjectUsers.findByExpirationDate", query = "SELECT p FROM ProjectUsers p WHERE p.expirationDate = :expirationDate"),
-    @NamedQuery(name = "ProjectUsers.findByAdministratorUserId", query = "SELECT p FROM ProjectUsers p WHERE p.role = 'administrator' and p.users.id = ?1 ")
+    @NamedQuery(name = "ProjectUsers.findById", query = "SELECT p FROM ProjectUsers p WHERE p.id = :id"),
+    @NamedQuery(name = "ProjectUsers.findByCreateDate", query = "SELECT p FROM ProjectUsers p WHERE p.createDate = :createDate"),
+    @NamedQuery(name = "ProjectUsers.findByIsEnabled", query = "SELECT p FROM ProjectUsers p WHERE p.isEnabled = :isEnabled"),
+    @NamedQuery(name = "ProjectUsers.findByExpirationDate", query = "SELECT p FROM ProjectUsers p WHERE p.expirationDate = :expirationDate"),    
+    @NamedQuery(name = "ProjectUsers.findManagedProjectsByUserId", query = "SELECT p FROM ProjectUsers p WHERE p.isManager = true and p.users.id = ?1 ")
 })
 public class ProjectUsers implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @Column(name = "id", nullable = false)
     private Integer id;
-    @Column(name = "_role", nullable = false)
-    private String role;
+    @Column(name = "is_manager", nullable = false)
+    private boolean isManager = false;
     @Column(name = "create_date", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date createDate;
-    @Column(name = "is_enabled", nullable = false)
+    @Column(name = "is_enabled")
     private boolean isEnabled;
     @Column(name = "expiration_date")
     @Temporal(TemporalType.TIMESTAMP)
@@ -75,10 +75,14 @@ public class ProjectUsers implements Serializable {
         this.id = id;
     }
 
-    public ProjectUsers(Integer id, Date createDate, boolean isEnabled) {
+    public ProjectUsers(Integer id, boolean isManager, Date createDate, Project project, Users users, Users createUsers) {
         this.id = id;
         this.createDate = createDate;
-        this.isEnabled = isEnabled;
+        this.isManager = isManager;
+        this.createDate = createDate;
+        this.project = project;
+        this.users = users;
+        this.createUser = createUsers;
     }
 
     public Integer getId() {
@@ -89,14 +93,14 @@ public class ProjectUsers implements Serializable {
         this.id = id;
     }
 
-    public String getRole() {
-        return role;
+    public boolean getIsManager() {
+        return isManager;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setIsManager(boolean isManager) {
+        this.isManager = isManager;
     }
-    
+
     public Date getCreateDate() {
         return createDate;
     }
@@ -169,5 +173,4 @@ public class ProjectUsers implements Serializable {
     public String toString() {
         return "com.bizintelapps.promanager.entity.ProjectUsers[id=" + id + "]";
     }
-
 }

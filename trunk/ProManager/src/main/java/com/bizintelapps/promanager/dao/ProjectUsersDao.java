@@ -33,7 +33,7 @@ public interface ProjectUsersDao extends GenericDao<ProjectUsers, Integer> {
      */
     public ProjectUsers findByProjectAdministratorByProjectNameAndUserId(String projectName, Integer userId);
     
-    public List<ProjectUsers>  findByAdministratorUserId(Integer userId);
+    public List<ProjectUsers>  findManagedProjectsByUserId(Integer userId);
 
     public ProjectUsers findByProjectIdAndUserId(Integer projectId, Integer ownerId);
 }
