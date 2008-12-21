@@ -84,19 +84,24 @@ $(document).ready(function() {
     });
     // executed on "create new project" button is clicked
     $('#createNewUser').click(function() {
-        var user1 = {id:null, firstname:null, lastname:null, administrator:null};
+        var user1 = {id:null, firstname:null, lastname:null, password:null, username:null, email:null, 
+            enabled:'true', dministrator:null};
         user1.firstname = $('#firstname').val();
         user1.lastname = $('#lastname').val();        
+        user1.username = $('#email').val();
+        user1.email = user1.username;
+        
+        AjaxUsersService.saveUser ( user1, usersList);
         $('#backToUserList').trigger("click");
-        AjaxProjectService.saveUser ( user1, usersList);
+        
     });
     // executed on "save project" button is clicked
-    $('#saveProject').click(function() {
-        var user1 = projectCache[viewed];        
+    $('#saveUser').click(function() {
+        var user1 = usersCache[viewed];        
         user1.firstname = $('#firstname').val();
         user1.lastname = $('#lastname').val();
         $('#backToUserListFromEdit').trigger("click");
-        AjaxProjectService.saveProject ( user, usersList);
+        AjaxUsersService.saveUser ( user, usersList);
     });
     
 } );
