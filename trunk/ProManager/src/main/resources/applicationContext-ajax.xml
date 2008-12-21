@@ -32,6 +32,9 @@
             <dwr:include method="getUserList" />
             <dwr:include method="enableDisalbeUser" />
             <dwr:include method="deleteeUser" />
+            <dwr:include method="changeMyPassword" />
+            <dwr:include method="requestPasswordKeySendToEmail" />
+            <dwr:include method="resetPasswordWithKey" />
         </dwr:remote>
         <!-- <property name="usersService" ref="usersServiceImpl" /> -->
     </bean>
