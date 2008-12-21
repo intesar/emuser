@@ -193,7 +193,11 @@ public class UsersServiceImpl implements UsersService {
     public void changePassword(String username, String oldPassword, String newPassword) {
         Users users = usersDao.findByUsername(username);
         //self
-        if (users != null && users.getPassword().equals(passwordEncryptor.encryptPassword(oldPassword))) {
+        log.debug("----- oldPassword" + oldPassword + "====" + username);
+        log.debug("----- oldPassword" + passwordEncryptor.encryptPassword(oldPassword));
+        log.debug("----- oldPassword" + users.getPassword());
+        log.debug("=====" + passwordEncryptor.checkPassword(oldPassword, users.getPassword()));
+        if (users != null && passwordEncryptor.checkPassword(oldPassword, users.getPassword())) {
             users.setPassword(passwordEncryptor.encryptPassword(newPassword));
             usersDao.update(users);
         } else {
