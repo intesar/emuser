@@ -101,6 +101,7 @@ http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
                 /view/reports.jsp*=ROLE_USER,ROLE_ADMIN
                 /view/settings.jsp*=ROLE_USER,ROLE_ADMIN
                 /view/users.jsp*=ROLE_USER,ROLE_ADMIN
+                /dwr/**=ROLE_ADMIN,ROLE_SUPER
             </value>
         </property>
     </bean>
@@ -221,12 +222,23 @@ http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
         <property name="objectDefinitionSource">
             <value>
             com.bizintelapps.promanager.ajax.AjaxUsersService.signUp=ROLE_ANONYMOUS,ROLE_USER,ROLE_ADMIN
+            com.bizintelapps.promanager.ajax.AjaxUsersService.saveUser=ROLE_ADMIN
+            com.bizintelapps.promanager.ajax.AjaxUsersService.changePassword=ROLE_ANONYMOUS,ROLE_USER,ROLE_ADMIN
             com.bizintelapps.promanager.ajax.AjaxUsersService.changeMyPassword=ROLE_USER,ROLE_ADMIN
             com.bizintelapps.promanager.ajax.AjaxUsersService.requestPasswordKeySendToEmail=ROLE_ANONYMOUS,ROLE_USER,ROLE_ADMIN
             com.bizintelapps.promanager.ajax.AjaxUsersService.resetPasswordWithKey=ROLE_ANONYMOUS,ROLE_USER,ROLE_ADMIN
+            com.bizintelapps.promanager.ajax.AjaxUsersService.getUserDetails=ROLE_ADMIN
+            com.bizintelapps.promanager.ajax.AjaxUsersService.getActiveUserList=ROLE_USER,ROLE_ADMIN
+            com.bizintelapps.promanager.ajax.AjaxUsersService.getUserList=ROLE_ADMIN
             com.bizintelapps.promanager.ajax.AjaxUsersService.enableDisalbeUser=ROLE_ANONYMOUS,ROLE_USER,ROLE_ADMIN
-            com.bizintelapps.promanager.ajax.AjaxUsersService.*=ROLE_USER,ROLE_ADMIN
-            com.bizintelapps.promanager.ajax.AjaxProjectService.*=ROLE_ADMIN, ROLE_USER
+            com.bizintelapps.promanager.ajax.AjaxUsersService.deleteeUser=ROLE_ADMIN
+            com.bizintelapps.promanager.ajax.AjaxProjectService.saveProject=ROLE_ADMIN,ROLE_USER
+            com.bizintelapps.promanager.ajax.AjaxProjectService.getProjectList=ROLE_ADMIN,ROLE_USER
+            com.bizintelapps.promanager.ajax.AjaxProjectService.getProjectsForDropdown=ROLE_ADMIN,ROLE_USER
+            com.bizintelapps.promanager.ajax.AjaxProjectService.deleteProject=ROLE_ADMIN
+            com.bizintelapps.promanager.ajax.AjaxProjectService.saveUserToProject=ROLE_ADMIN,ROLE_USER            
+            com.bizintelapps.promanager.ajax.AjaxProjectService.getProjectUsers=ROLE_ADMIN,ROLE_USER
+            com.bizintelapps.promanager.ajax.AjaxProjectService.deleteUserFromProject=ROLE_ADMIN,ROLE_USER
             com.bizintelapps.promanager.ajax.AjaxTaskService.*=ROLE_USER,ROLE_ADMIN
             </value>
         </property>
