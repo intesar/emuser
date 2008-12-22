@@ -11,6 +11,7 @@
         <param-value>
             classpath:applicationContext-acegi-security.xml      
             classpath:applicationContext-dao.xml  
+            classpath:applicationContext-dao-em.xml  
             classpath:applicationContext-service-transactions.xml  
             classpath:applicationContext-ajax.xml
             classpath:applicationContext-mail.xml
