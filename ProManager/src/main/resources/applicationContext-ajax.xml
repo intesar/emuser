@@ -25,37 +25,43 @@
     -->
     <bean id="usersAjaxService" class="com.bizintelapps.promanager.ajax.AjaxUsersService" >
         <dwr:remote javascript="AjaxUsersService">
-            <dwr:include method="signUp" />
-            <dwr:include method="saveUser" />
-            <dwr:include method="changePassword" />
-            <dwr:include method="getUserDetails" />
-            <dwr:include method="getUserList" />
-            <dwr:include method="enableDisalbeUser" />
-            <dwr:include method="deleteeUser" />
-            <dwr:include method="changeMyPassword" />
-            <dwr:include method="requestPasswordKeySendToEmail" />
-            <dwr:include method="resetPasswordWithKey" />
+            <dwr:include method="signUp" /> <!-- annonymous -->
+            <dwr:include method="saveUser" /> <!-- admin -->
+            <dwr:include method="changePassword" /> <!-- annonymous -->
+            <dwr:include method="changeMyPassword" /> <!-- user -->
+            <dwr:include method="requestPasswordKeySendToEmail" /> <!-- annonymous -->
+            <dwr:include method="resetPasswordWithKey" /> <!-- annonymous -->
+            <dwr:include method="getUserDetails" /> <!-- admin -->
+            <dwr:include method="getActiveUserList" /> <!-- user -->
+            <dwr:include method="getUserList" /> <!-- admin -->
+            <dwr:include method="enableDisalbeUser" /> <!-- admin -->
+            <dwr:include method="deleteeUser" /> <!-- admin -->
         </dwr:remote>
         <!-- <property name="usersService" ref="usersServiceImpl" /> -->
     </bean>
-    
     <bean id="projectAjaxService" class="com.bizintelapps.promanager.ajax.AjaxProjectService" >
         <dwr:remote javascript="AjaxProjectService">
-            <dwr:include method="saveProject" />
-            <dwr:include method="getProjectList" />
-            <dwr:include method="deleteProject" />
-            <dwr:include method="saveUserToProject" />
-            <dwr:include method="getProjectUsers" />
-            <dwr:include method="deleteUserFromProject" />
+            <dwr:include method="saveProject" /> <!-- user -->
+            <dwr:include method="getProjectList" /> <!-- user -->
+            <dwr:include method="getProjectsForDropdown" /> <!-- user -->
+            <dwr:include method="deleteProject" /> <!-- admin -->
+            <dwr:include method="saveUserToProject" /> <!-- user -->
+            <dwr:include method="getProjectUsers" /> <!-- user -->
+            <dwr:include method="deleteUserFromProject" /> <!-- user -->
         </dwr:remote>
     </bean>
-    
     <bean id="taskAjaxService" class="com.bizintelapps.promanager.ajax.AjaxTaskService" >
         <dwr:remote javascript="AjaxTaskService">
-            <dwr:include method="getCurrentTask" />
+            <dwr:include method="saveTask" /><!-- user -->
+            <dwr:include method="searchTasks" /><!-- user -->
+            <dwr:include method="assignTaskUser" /><!-- user -->
+            <dwr:include method="deleteTask" /><!-- user -->
+            <dwr:include method="changeTaskStatus" /><!-- user -->
+            <dwr:include method="addTaskComment" /><!-- user -->
+            <dwr:include method="udpateTaskDescription" /><!-- user -->
+            <dwr:include method="getCurrentTask" /><!-- user -->
         </dwr:remote>
     </bean>
-    
     <dwr:configuration>
         <dwr:convert type="bean" class="com.bizintelapps.promanager.dto.*" />
         <dwr:convert type="bean"  class="java.util.*"  />
