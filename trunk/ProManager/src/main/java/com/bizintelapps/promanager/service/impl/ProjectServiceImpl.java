@@ -24,6 +24,7 @@ import com.bizintelapps.promanager.entity.Users;
 import com.bizintelapps.promanager.service.ProjectService;
 import com.bizintelapps.promanager.service.converters.ProjectConverter;
 import com.bizintelapps.promanager.dto.ProjectDto;
+import com.bizintelapps.promanager.dto.ProjectUserDto;
 import com.bizintelapps.promanager.entity.ProjectUsers;
 import com.bizintelapps.promanager.exceptions.ServiceRuntimeException;
 
@@ -120,6 +121,20 @@ public class ProjectServiceImpl implements ProjectService {
         return list;
     }
 
+    @Override
+    public List<ProjectUserDto> getProjectsForDropdown(String requestedBy) {
+        Users users = usersDao.findByUsername(requestedBy);
+        List<ProjectUserDto> projectUserDtos = null;
+        if ( users.isIsAdministrator() ) { //return all active projects
+            List<Project> projects = projectDao.findByStatusAndOrganization(IN_PROGRESS, users.getOrganization().getId());
+            projectUserDtos = projectConverter.copyAllProjectAlongUsers ( projects);            
+        } else { // return user projects
+            List<ProjectUsers> projectUsers = projectUsersDao.findByProjectStatusAndUserId( IN_PROGRESS, users.getId() );
+            projectUserDtos = projectConverter.copyAllProjectAlongUsers1(projectUsers);
+            // send to converter
+        }
+        return projectUserDtos;
+    }
     @Override
     public void saveUserToProject(Integer projectId, Integer userId, boolean isManager, String savedBy) {
         Users savedUsers = usersDao.findByUsername(savedBy);

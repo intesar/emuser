@@ -30,6 +30,8 @@ import com.bizintelapps.promanager.service.converters.TaskConverter;
 import com.bizintelapps.promanager.dto.TaskDto;
 import com.bizintelapps.promanager.exceptions.ServiceRuntimeException;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import org.apache.commons.logging.Log;
@@ -44,7 +46,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class TaskServiceImpl implements TaskService {
 
-    @Override
+    @Deprecated
     public List<TaskDto> getCurrentTasks(String requestedBy) {
         List<Task> list = taskDao.findByTaskStatusAndUserId("Completed", requestedBy);
         List<TaskDto> tasks = taskConverter.copyAllForDisplay(list);
@@ -60,7 +62,7 @@ public class TaskServiceImpl implements TaskService {
      * @param requestedBy logged in user
      * @return
      */
-    @Override
+    @Deprecated
     public PagingParams<Task> getTasks(String username, String projectName,
             String context, String status, String requestedBy) {
         PagingParams pagingParams = null;
@@ -219,37 +221,45 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public void saveTask(TaskDto taskDto, String savedBy) {
-        // to create a task user should be part of the project
+        // to create a task user should be part of the project or admin
         // or user can create todo for other users
         Users savedByUser = usersDao.findByUsername(savedBy);
-        Project project = projectDao.read(taskDto.getProjectId());
-        if (taskDto.getId() == null) {
-            Task task = taskConverter.copyForCreate(taskDto, new Task());
-            if (taskDto.getProjectId() == null) {
-                taskDao.create(task);
-            } else {
-                ProjectUsers projectUsers = projectUsersDao.findByProjectIdAndUserId(
-                        taskDto.getProjectId(), savedByUser.getId());
-                if (projectUsers != null || projectUsers.getId() != null) {
+        if (taskDto == null) {
+            if (taskDto.getProjectId() != null) {
+                // user should be either admin or project member
+                if (savedByUser.isIsAdministrator() ||
+                        (projectUsersDao.findByProjectIdAndUserId(taskDto.getProjectId(), savedByUser.getId()) != null) &&
+                        (projectUsersDao.findByProjectIdAndUserId(taskDto.getProjectId(), savedByUser.getId()).getId() != null)) {
+                    Task task = taskConverter.copyForCreate(taskDto, new Task());
+                    Project project = projectDao.read(taskDto.getProjectId());
                     task.setCreateDate(new Date());
                     task.setOwner(savedByUser);
                     task.setProject(project);
                     taskDao.create(task);
                 }
-
+            } else {
+                Task task = taskConverter.copyForCreate(taskDto, new Task());
+                Project project = projectDao.read(taskDto.getProjectId());
+                task.setCreateDate(new Date());
+                task.setOwner(savedByUser);
+                task.setProject(project);
+                taskDao.create(task);
             }
-        } // to update task user should be owner or project admiinistrator
-        else {
+        } else { // only admin, owner, assigned or pm can update task
             Task task = taskDao.read(taskDto.getId());
-            ProjectUsers projectUsers = projectUsersDao.findByProjectAdministratorByProjectNameAndUserId(
-                    project.getName(), savedByUser.getId());
-            if (task.getOwner().equals(savedByUser) ||
-                    (projectUsers != null && projectUsers.getId() != null)) {
+            if (savedByUser.isIsAdministrator() || task.getOwner().equals(savedByUser) || task.getAssignedTo().equals(savedByUser)) {
                 Task task1 = taskConverter.copyForUpdate(taskDto, new Task());
                 taskDao.update(task1);
             } else {
-                throw new ServiceRuntimeException("Task can by only updated by Owner or Administrator");
+                ProjectUsers projectUser = projectUsersDao.findByProjectIdAndUserId(task.getProject().getId(), savedByUser.getId());
+                if (projectUser.getIsManager()) {
+                    Task task1 = taskConverter.copyForUpdate(taskDto, new Task());
+                    taskDao.update(task1);
+                } else {
+                    throw new ServiceRuntimeException("Task can by only updated by Owner or Administrator");
+                }
             }
+
         }
     }
 
@@ -257,17 +267,52 @@ public class TaskServiceImpl implements TaskService {
     public void deleteTask(Integer taskId, String deletedBy) {
         Users users = usersDao.findByUsername(deletedBy);
         Task task = taskDao.read(taskId);
-        // find user is admin then only can delete other even they are administrators
-        if (task.getOwner().equals(users)) {
+        // admins, owner or pm can delete a task
+        if (users.isIsAdministrator() || task.getOwner().equals(users)) {
             taskDao.delete(task);
         } else {
-            throw new ServiceRuntimeException("Only Task Owner can delete task!");
+            ProjectUsers pu = projectUsersDao.findByProjectIdAndUserId(task.getProject().getId(), users.getId());
+            if (pu.getIsManager()) {
+                taskDao.delete(task);
+            } else {
+                throw new ServiceRuntimeException("Only Task Owner can delete task!");
+            }
         }
+
     }
 
     @Override
-    public List<TaskDto> searchTasks(Integer projectId, Date start, Date end, Integer userId, String taskStatus, String requestedBy) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    /**
+     * 
+     * @param projectId can be null, 0 means todo + projects
+     * @param start if null then today - 7 days
+     * @param end if null then today + 7 days
+     * @param userId if null then requestedBy and if 0 all users
+     * @param taskStatus if null then searches for New & In Progress
+     * @param requestedBy 
+     * @return
+     */
+    public List<TaskDto> searchTasks(String projectIds, Date start, Date end, String userIds, boolean active, String requestedBy) {
+        if (start == null) {
+            Calendar c = Calendar.getInstance();
+            c.add(Calendar.DAY_OF_MONTH, WEEK);
+            start = c.getTime();
+        }
+        if (end == null) {
+            Calendar c = Calendar.getInstance();
+            c.add(Calendar.DAY_OF_MONTH, -WEEK);
+            end = c.getTime();
+        }
+        String statuses = "'" + TASK_STATUS_NEW + "'" + ", " + "'" + TASK_STATUS_IN_PROGRESS + "'" + ", " + "'" + TASK_STATUS_ON_HOLD + "'" + ", " + "'" + TASK_STATUS_COMPLETED + "'";
+        if (active) {
+            statuses = "'" + TASK_STATUS_NEW + "'" + ", " + "'" + TASK_STATUS_IN_PROGRESS + "'";
+        }
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
+        String startDate = sdf.format(start) + "%";
+        String endDate = sdf.format(end) + "%";
+        List<Task> tasks = taskDao.search(statuses, startDate, endDate, userIds, projectIds);
+        List<TaskDto> dtos = taskConverter.copyAllForDisplay(tasks);
+        return dtos;
     }
 
     @Override
@@ -276,23 +321,26 @@ public class TaskServiceImpl implements TaskService {
         Users users1 = usersDao.findByUsername(requestedBy);
         Task task = taskDao.read(taskId);
         Project project = task.getProject();
-        ProjectUsers projectUsers = projectUsersDao.findByProjectIdAndUserId(project.getId(), userId);
-        ProjectUsers projectUsers1 = projectUsersDao.findByProjectIdAndUserId(project.getId(), users1.getId());
-        // user cannot be assigned unless project member or admin
-        if (!users.isIsAdministrator() || !(projectUsers != null && projectUsers.getId() != null)) {
+        ProjectUsers projectUsers = null;
+        ProjectUsers projectUsers1 = null;
+        if (project != null) {
+            projectUsers = projectUsersDao.findByProjectIdAndUserId(project.getId(), userId);
+            projectUsers1 =
+                    projectUsersDao.findByProjectIdAndUserId(project.getId(), users1.getId());
+        }
+
+// * user can only be assigned if its todo or a project member        
+        if (project != null && projectUsers == null) {
+            throw new ServiceRuntimeException("Invalid Operation!");
+        }
+// * only admin, owner, pm can assign others
+        if (!users1.isIsAdministrator() || !task.getOwner().equals(users1) || !(projectUsers1 != null && projectUsers1.getIsManager()) ||
+                task.getAssignedTo() != null) {
             throw new ServiceRuntimeException("Invalid Operation!");
         }
 
-        // assignedTo can be ovverriden if requested by admin, pm or owner 
-        if (task.getAssignedTo() == null && task.getAssignedTo().getId() == null) {
-            task.setAssignedTo(users);
-            taskDao.update(task);
-        } else if (users1.isIsAdministrator() || projectUsers1.getIsManager() || projectUsers1.getCreateUser().equals(users1)) {
-            task.setAssignedTo(users);
-            taskDao.update(task);
-        } else {
-            throw new ServiceRuntimeException("Invalid Operation!");
-        }
+        task.setAssignedTo(users);
+        taskDao.update(task);
 
     }
 
@@ -301,25 +349,24 @@ public class TaskServiceImpl implements TaskService {
         Users users1 = usersDao.findByUsername(requestedBy);
         Task task = taskDao.read(taskId);
         Project project = task.getProject();
-        ProjectUsers projectUsers = projectUsersDao.findByProjectIdAndUserId(project.getId(), users1.getId());
-        
+        ProjectUsers projectUsers = null;
+        if (project != null) {
+            projectUsers = projectUsersDao.findByProjectIdAndUserId(project.getId(), users1.getId());
+        }
+// admin, owner, assigned, or pm can change
         if (users1.isIsAdministrator() || task.getAssignedTo().equals(users1) || task.getOwner().equals(users1) ||
                 (projectUsers != null && projectUsers.getIsManager())) {
             task.setStatus(status);
-            taskDao.update(task);            
+            taskDao.update(task);
         }
+
     }
 
     @Override
     public void addTaskComment(Integer taskId, String comment, String requestedBy) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-
-    @Override
-    public void udpateTaskDescription(Integer taskId, String description, String requestedBy) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-    //----------------------- getters & setters--------------------------
+//----------------------- getters & setters--------------------------
     public ProjectDao getProjectDao() {
         return projectDao;
     }

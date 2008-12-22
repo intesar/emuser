@@ -18,9 +18,10 @@ package com.bizintelapps.promanager.dao.impl;
 
 import com.bizintelapps.promanager.dao.TaskDao;
 import com.bizintelapps.promanager.entity.Task;
+import java.util.Date;
 import java.util.List;
+import javax.persistence.EntityManager;
 import org.springframework.stereotype.Repository;
-
 
 /**
  *
@@ -36,5 +37,17 @@ public class TaskDaoImpl extends GenericDaoImpl<Task, Integer> implements TaskDa
     @Override
     public List<Task> findByTaskStatusAndUserId(String status, String username) {
         return executeNamedQueryList("Task.findByNotCompleteAndUser", null, status, username, username);
+    }
+
+    @Override
+    public List<Task> search(String statuses, String start, String end, String users, String project) {
+        String sql = " select * from task t where " +
+                " _status in (" + statuses + ") and ( deadline between " + start + " and " + end +
+                " or create_date between " + start + " and " + end + " ) " +
+                " and ( owner in ( " + users + ") or assigned_to in ( " + users + " ) ) ";
+        if (project != null) {
+            sql += " and project in (" + project + ")";
+        }
+        return this.getEntityManager().createNativeQuery(sql, Task.class).getResultList();        
     }
 }

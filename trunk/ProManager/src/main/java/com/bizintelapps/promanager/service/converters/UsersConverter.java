@@ -41,6 +41,19 @@ public class UsersConverter {
         }
         return list;
     }
+
+    public List<UsersDto> copyAllForDropdown(List<Users> list) {
+        List<UsersDto> dtos = new ArrayList<UsersDto>();
+        for ( Users u : list ) {
+            UsersDto dto = new UsersDto();
+            dto.setId(u.getId());
+            dto.setFirstname(u.getFirstname());
+            dto.setLastname(u.getLastname());
+            dto.setUsername(u.getUsername());
+            dtos.add(dto);
+        }
+        return dtos;
+    }
     
     public void copyForDisplay ( Users users, UsersDto usersDto ) {
         usersDto.setCity(users.getCity());

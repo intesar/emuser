@@ -17,6 +17,7 @@
 package com.bizintelapps.promanager.ajax;
 
 import com.bizintelapps.promanager.dto.ProjectDto;
+import com.bizintelapps.promanager.dto.ProjectUserDto;
 import com.bizintelapps.promanager.entity.ProjectUsers;
 import com.bizintelapps.promanager.service.ProjectService;
 import com.bizintelapps.promanager.service.validator.ValidationException;
@@ -70,6 +71,10 @@ public class AjaxProjectService {
         //return ERROR_MESSAGE;
         }
         return null;
+    }
+
+    public List<ProjectUserDto> getProjectsForDropdown() {
+        return projectService.getProjectsForDropdown(SecurityUtil.getUsername());
     }
 
     /**

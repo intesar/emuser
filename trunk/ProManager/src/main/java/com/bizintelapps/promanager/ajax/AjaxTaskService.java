@@ -38,16 +38,16 @@ public class AjaxTaskService {
     }
 
     /**
-     * 
-     * @param projectId
-     * @param start
-     * @param end
-     * @param userId
-     * @param taskStatus
+     * Start And End Dates shouldn't be more than 30days
+     * @param projectId can be null or should look like this "'2', '3', '55'"
+     * @param start can be null
+     * @param end can be null
+     * @param userId cannot be null should look like this "'22', '2342', '3'";
+     * @param taskStatus true or false
      * @return
      */
-    public List<TaskDto> searchTasks(Integer projectId, Date start, Date end, Integer userId, String taskStatus) {
-        return null;
+    public List<TaskDto> searchTasks(String projectIds, Date start, Date end, String userIds, boolean isActiveTask) {
+        return taskService.searchTasks(projectIds, start, end, userIds, isActiveTask, SecurityUtil.getUsername());
     }
 
     /**
@@ -94,7 +94,7 @@ public class AjaxTaskService {
      * @return
      */
     public List<TaskDto> getCurrentTask() {
-        return taskService.getCurrentTasks(SecurityUtil.getUsername());
+        return null;//taskService.getCurrentTasks(SecurityUtil.getUsername());
     }
 
     public void setTaskService(TaskService taskService) {

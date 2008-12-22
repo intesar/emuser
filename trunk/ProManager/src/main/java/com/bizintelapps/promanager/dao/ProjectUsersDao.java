@@ -36,4 +36,12 @@ public interface ProjectUsersDao extends GenericDao<ProjectUsers, Integer> {
     public List<ProjectUsers>  findManagedProjectsByUserId(Integer userId);
 
     public ProjectUsers findByProjectIdAndUserId(Integer projectId, Integer ownerId);
+    
+    /**
+     *  
+     * @param status
+     * @param userId
+     * @return
+     */
+    public List<ProjectUsers> findByProjectStatusAndUserId ( String status, Integer userId);
 }

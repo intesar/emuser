@@ -49,6 +49,11 @@ public class GenericDaoImpl<T, PK extends Serializable> implements GenericDao<T,
     public void setEntityManager(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
+
+    public EntityManager getEntityManager() {
+        return entityManager;
+    }
+    
     // ****************************** methods ******************************
     @Override
     public void create(T o) {

@@ -14,31 +14,37 @@
  *  limitations under the License.
  *  under the License.
  */
-
 package com.bizintelapps.promanager.dao;
 
 import com.bizintelapps.promanager.entity.Users;
 import java.util.List;
-
 
 /**
  *
  * @author intesar
  */
 public interface UsersDao extends GenericDao<Users, Integer> {
+
     public List<Users> findByOrganizationId(Integer organizationId);
+
     /**
      * 
      * @param username
      * @return Users Object if finds 
      */
-    public Users findByUsername ( String username );
-    
+    public Users findByUsername(String username);
+
     /**
      * email is unique
      * @param email
      * @return
      */
-    public Users findByEmail ( String email );
+    public Users findByEmail(String email);
 
+    /**
+     * all enabled users for the given organization
+     * @param organizationId
+     * @return
+     */
+    public List<Users> findEnabledUsersByOrganizationId(Integer organizationId);
 }
