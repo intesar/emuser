@@ -233,7 +233,7 @@ public class UsersServiceImpl implements UsersService {
         if (key.equals(emailKey)) {
             users.setPassword(passwordEncryptor.encryptPassword(newPassword));
             usersDao.update(users);
-            mailSender.sendMail(new String[]{username}, "Password Changed", "");
+            mailSender.sendMail(new String[]{username}, "Your password has been successfully changed", "");
         } else {
             throw new ServiceRuntimeException("Key mismatch, please remove spaces from begining and end of key and try again!");
         }

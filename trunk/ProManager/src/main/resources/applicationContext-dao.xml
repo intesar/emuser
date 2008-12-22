@@ -21,12 +21,10 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
             <value>${jdbc.password}</value>
         </property>
     </bean>
-    <bean id="jpaAdapter" class="org.springframework.orm.jpa.vendor.TopLinkJpaVendorAdapter">
+    <bean id="jpaAdapter" class="org.springframework.orm.jpa.vendor.TopLinkJpaVendorAdapter"> <!-- org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"> -->
         <property name="showSql" value="true" />
         <property name="generateDdl" value="false" />
-        <property name="databasePlatform" value="oracle.toplink.essentials.platform.database.MySQL4Platform" />
+        <property name="databasePlatform" value="oracle.toplink.essentials.platform.database.MySQL4Platform" /> <!-- org.hibernate.dialect.MySQLDialect -->
     </bean>
-    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">
-        <property name="persistenceUnitName" value="ProManagerPU"/>
-    </bean>
+    
 </beans>
