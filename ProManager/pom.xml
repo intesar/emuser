@@ -19,38 +19,20 @@
                 <role>Project Manager</role>
             </roles>
         </contributor>
-        <contributor>
-            <organizationUrl>http://www.bizintelapps.com</organizationUrl>
-            <organization>BizIntelApps</organization>
-            <name>Paul Martin</name>
-            <roles>
-                <role>Java Architect</role>
-            </roles>
-        </contributor>
-        <contributor>
-            <organizationUrl>http://www.bizintelapps.com</organizationUrl>
-            <organization>BizIntelApps</organization>
-            <name>Syed Khader</name>
-            <roles>
-                <role>Java Architect</role>
-            </roles>
-        </contributor>
-        <contributor>
-            <organizationUrl>http://www.bizintelapps.com</organizationUrl>
-            <organization>BizIntelApps</organization>
-            <name>Sumair Mohammed</name>
-            <roles>
-                <role>Java Architect</role>
-                <role>FrontEnd Designer</role>
-            </roles>
-        </contributor>
     </contributors>
     <!-- xml & log4j file locations -->
-    <properties>       
+    <properties>
         <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
         <jdbc.url>jdbc:mysql:///pm</jdbc.url>
         <jdbc.username>pm</jdbc.username>
         <jdbc.password>pm</jdbc.password>
+        <logging.level>INFO</logging.level>
+        <cache.type>SoftWeak</cache.type>
+        <jdbc.read-connections.max>20</jdbc.read-connections.max>
+        <jdbc.read-connections.min>2</jdbc.read-connections.min>
+        <jdbc.write-connections.max>30</jdbc.write-connections.max>
+        <jdbc.write-connections.min>2</jdbc.write-connections.min>
+        <cache.size>10000</cache.size>
     </properties>
     <build>
         <resources>
