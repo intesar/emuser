@@ -46,6 +46,12 @@
         </contributor>
     </contributors>
     <!-- xml & log4j file locations -->
+    <properties>       
+        <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
+        <jdbc.url>jdbc:mysql:///pm</jdbc.url>
+        <jdbc.username>pm</jdbc.username>
+        <jdbc.password>pm</jdbc.password>
+    </properties>
     <build>
         <resources>
             <resource>
