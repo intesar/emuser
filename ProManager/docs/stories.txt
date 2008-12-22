@@ -267,6 +267,8 @@ Project manager can create task on all managed projects
 Members can create task on projects
 Users can create todo's
 
+getProjectsForDropdown() returns project name and id along with user list for creating tasks
+
 Acceptance Criteria:
 Story Pt : 1T + 1D + 2S + 1E + 1A + 1H + 2J
 Estimated Hours
