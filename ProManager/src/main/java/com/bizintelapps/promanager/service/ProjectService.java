@@ -17,6 +17,7 @@
 package com.bizintelapps.promanager.service;
 
 import com.bizintelapps.promanager.dto.ProjectDto;
+import com.bizintelapps.promanager.dto.ProjectUserDto;
 import com.bizintelapps.promanager.entity.ProjectUsers;
 import java.util.List;
 
@@ -50,6 +51,14 @@ public interface ProjectService {
      * @return
      */
     public List<ProjectDto> getProjects(String requestedBy);
+
+    /**
+     * if admin return all active projects
+     * else return all active projects for the users (user should be member of that project)
+     * @param requestedBy
+     * @return
+     */
+    public List<ProjectUserDto> getProjectsForDropdown(String requestedBy);
 
     /**
      * creates or updates user to project

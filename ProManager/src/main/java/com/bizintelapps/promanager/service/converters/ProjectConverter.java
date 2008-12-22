@@ -16,9 +16,12 @@
  */
 package com.bizintelapps.promanager.service.converters;
 
+import com.bizintelapps.promanager.dto.ProjectUserDto;
 import com.bizintelapps.promanager.entity.Project;
 import com.bizintelapps.promanager.dto.ProjectDto;
-import java.text.SimpleDateFormat;
+import com.bizintelapps.promanager.dto.UsersDto;
+import com.bizintelapps.promanager.entity.ProjectUsers;
+import com.bizintelapps.promanager.entity.Users;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -36,6 +39,47 @@ public class ProjectConverter {
         for (Project project : projectCollection) {
             ProjectDto projectDto = copyForDisplay(project, new ProjectDto());
             list.add(projectDto);
+        }
+        return list;
+    }
+
+    public List<ProjectUserDto> copyAllProjectAlongUsers1(List<ProjectUsers> projectUsers) {
+        List<ProjectUserDto> list = new ArrayList<ProjectUserDto>();
+        for (ProjectUsers u : projectUsers) {
+            List<UsersDto> users = new ArrayList<UsersDto>();
+            for (ProjectUsers pu : u.getProject().getProjectUsersCollection()) {
+                if (pu.getUsers().getEnabled()) {
+                    UsersDto usersDto = new UsersDto();
+                    usersDto.setId(pu.getUsers().getId());
+                    usersDto.setFirstname(pu.getUsers().getFirstname());
+                    usersDto.setLastname(pu.getUsers().getLastname());
+                    usersDto.setUsername(pu.getUsers().getUsername());
+                    users.add(usersDto);
+                }
+            }
+            ProjectUserDto dto = new ProjectUserDto(u.getProject().getId(), u.getProject().getName(), users);
+            list.add(dto);
+        }
+        return list;
+    }
+
+    public List<ProjectUserDto> copyAllProjectAlongUsers(List<Project> projects) {
+        List<ProjectUserDto> list = new ArrayList<ProjectUserDto>();
+        for (Project p : projects) {
+            List<UsersDto> users = new ArrayList<UsersDto>();
+            Collection<ProjectUsers> projectUserses = p.getProjectUsersCollection();
+            for (ProjectUsers pu : projectUserses) {
+                if (pu.getUsers().getEnabled()) {
+                    UsersDto usersDto = new UsersDto();
+                    usersDto.setId(pu.getUsers().getId());
+                    usersDto.setFirstname(pu.getUsers().getFirstname());
+                    usersDto.setLastname(pu.getUsers().getLastname());
+                    usersDto.setUsername(pu.getUsers().getUsername());
+                    users.add(usersDto);
+                }
+            }
+            ProjectUserDto dto = new ProjectUserDto(p.getId(), p.getName(), users);
+            list.add(dto);
         }
         return list;
     }
@@ -63,7 +107,7 @@ public class ProjectConverter {
     }
 
     public Project copyForUpdate(ProjectDto projectDto, Project project) {
-        project.setDescription(projectDto.getDescription());        
+        project.setDescription(projectDto.getDescription());
         project.setStatus(projectDto.getStatus());
         return project;
     }

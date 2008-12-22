@@ -40,7 +40,8 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "ProjectUsers.findByCreateDate", query = "SELECT p FROM ProjectUsers p WHERE p.createDate = :createDate"),
     @NamedQuery(name = "ProjectUsers.findByIsEnabled", query = "SELECT p FROM ProjectUsers p WHERE p.isEnabled = :isEnabled"),
     @NamedQuery(name = "ProjectUsers.findByExpirationDate", query = "SELECT p FROM ProjectUsers p WHERE p.expirationDate = :expirationDate"),    
-    @NamedQuery(name = "ProjectUsers.findManagedProjectsByUserId", query = "SELECT p FROM ProjectUsers p WHERE p.isManager = true and p.users.id = ?1 ")
+    @NamedQuery(name = "ProjectUsers.findManagedProjectsByUserId", query = "SELECT p FROM ProjectUsers p WHERE p.isManager = true and p.users.id = ?1 "),
+    @NamedQuery(name = "ProjectUsers.findByProjectStatusAndUserId", query = "SELECT p FROM ProjectUsers p WHERE p.project.status = ?1 and p.users.id = ?2 ")
 })
 public class ProjectUsers implements Serializable {
 

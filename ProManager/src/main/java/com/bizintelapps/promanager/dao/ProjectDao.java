@@ -29,5 +29,13 @@ public interface ProjectDao extends GenericDao<Project, Integer> {
     public Project findByNameAndOrganization(String name, Integer id);
     
     List<Project> findByOrganization (Integer id);
+    
+    /**
+     * 
+     * @param status
+     * @param organizationId
+     * @return
+     */
+    List<Project> findByStatusAndOrganization (String status, Integer organizationId);
 
 }

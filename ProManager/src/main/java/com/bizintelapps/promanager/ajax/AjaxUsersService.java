@@ -138,10 +138,18 @@ public class AjaxUsersService {
             throw e;
         } catch (Exception e) {
             log.error(e);
-            //return ERROR_MESSAGE;
+        //return ERROR_MESSAGE;
         }
 
         return null;
+    }
+
+    /**
+     * user list for dropdown
+     * @return
+     */
+    public List<UsersDto> getActiveUserList() {
+        return usersService.getActiveUserList(SecurityUtil.getUsername());
     }
 
     /**
@@ -156,7 +164,7 @@ public class AjaxUsersService {
             throw e;
         } catch (Exception e) {
             log.error(e);
-            //return ERROR_MESSAGE;
+        //return ERROR_MESSAGE;
         }
         return null;
     }

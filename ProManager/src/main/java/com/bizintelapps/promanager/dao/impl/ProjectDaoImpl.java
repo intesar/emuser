@@ -43,6 +43,12 @@ public class ProjectDaoImpl extends GenericDaoImpl<Project, Integer> implements 
     public List<Project> findByOrganization (Integer organizationId) {
         return executeNamedQueryList("Project.findByOrganization", null, organizationId);
     }
+    
+    @Override
+    public List<Project> findByStatusAndOrganization (String status, Integer organizationId) {
+        return executeNamedQueryList("Project.findByStatusAndOrganization", null, status, organizationId);
+    }
+            
     private final Log log = LogFactory.getLog(getClass());
 
     

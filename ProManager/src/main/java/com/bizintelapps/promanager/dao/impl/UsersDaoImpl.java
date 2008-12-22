@@ -49,4 +49,9 @@ public class UsersDaoImpl extends GenericDaoImpl<Users, Integer> implements User
     public List<Users> findByOrganizationId(Integer organizationId) {
         return executeNamedQueryList("Users.findByOrganizationId", null, organizationId);
     }
+
+    @Override
+    public List<Users> findEnabledUsersByOrganizationId(Integer organizationId) {
+        return executeNamedQueryList("Users.findEnabledUsersByOrganizationId", null, organizationId);
+    }
 }

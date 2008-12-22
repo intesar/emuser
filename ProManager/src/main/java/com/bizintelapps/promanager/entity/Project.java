@@ -47,7 +47,8 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "Project.findByVisibility", query = "SELECT p FROM Project p WHERE p.visibility = :visibility"),
     @NamedQuery(name = "Project.findByParentProject", query = "SELECT p FROM Project p WHERE p.parentProject = :parentProject"),
     @NamedQuery(name = "Project.findByNameAndOrganization", query = "SELECT p FROM Project p WHERE p.name = ?1 and p.organization.id = ?2"),
-    @NamedQuery(name = "Project.findByOrganization", query = "SELECT p FROM Project p WHERE p.organization.id = ?1")
+    @NamedQuery(name = "Project.findByOrganization", query = "SELECT p FROM Project p WHERE p.organization.id = ?1"),
+    @NamedQuery(name = "Project.findByStatusAndOrganization", query = "SELECT p FROM Project p WHERE p.status = ?1 and p.organization.id = ?2")
 })
 public class Project implements Serializable {
 

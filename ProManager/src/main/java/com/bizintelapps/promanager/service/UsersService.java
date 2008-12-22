@@ -27,6 +27,12 @@ import java.util.List;
  */
 public interface UsersService {
 
+    /**
+     * enabled users with id, firstname, lastname, username
+     * @return
+     */
+    public List<UsersDto> getActiveUserList(String requestedBy);
+
     public void signUp (UsersDto usersDto);
     
     public List<UsersDto> saveAndGetUser(UsersDto usersDto, String savedBy);

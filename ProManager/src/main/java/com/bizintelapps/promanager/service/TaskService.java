@@ -16,8 +16,6 @@
  */
 package com.bizintelapps.promanager.service;
 
-import com.bizintelapps.promanager.dao.PagingParams;
-import com.bizintelapps.promanager.entity.Task;
 import com.bizintelapps.promanager.dto.TaskDto;
 import java.util.Date;
 import java.util.List;
@@ -32,6 +30,7 @@ public interface TaskService {
     String TASK_STATUS_IN_PROGRESS = "In Progress";
     String TASK_STATUS_ON_HOLD = "On Hold";
     String TASK_STATUS_COMPLETED = "Completed";
+    int WEEK = 7;
 
     /**
      * Creates, updates a given task to DB & should
@@ -50,17 +49,19 @@ public interface TaskService {
 
     /**
      * 
-     * @param projectId
-     * @param start
-     * @param end
-     * @param userId
-     * @param taskStatus
+     * @param projectId can be null, 0 means todo + projects
+     * @param start if null then today - 7 days
+     * @param end if null then today + 7 days
+     * @param userId if null then requestedBy
+     * @param taskStatus if null then searches for New & In Progress
+     * @param requestedBy 
      * @return
      */
-    public List<TaskDto> searchTasks(Integer projectId, Date start, Date end, Integer userId, String taskStatus, String requestedBy);
+    public List<TaskDto> searchTasks(String projectIds, Date start, Date end, String userIds, boolean active, String requestedBy);
 
     /**
-     * 
+     * user can only be assigned if its todo or project memeber
+     * only admin, pm and other project members can assign others
      * @param taskId
      * @param userId
      * @param requestedBy
@@ -83,14 +84,7 @@ public interface TaskService {
      */
     public void addTaskComment(Integer taskId, String comment, String requestedBy);
 
-    /**
-     * 
-     * @param taskId
-     * @param description
-     * @param requestedBy
-     */
-    public void udpateTaskDescription(Integer taskId, String description, String requestedBy);
-
+    
     /**
      * 
      * @param username 
@@ -99,14 +93,12 @@ public interface TaskService {
      * @param status task have only one status at any time
      * @param requestedBy is the user requesting this operation
      * @return
-     */
-    public PagingParams<Task> getTasks(String username, String projectName, String context, String status, String requestedBy);
-
+     */    //public PagingParams<Task> getTasks(String username, String projectName, String context, String status, String requestedBy);
     /**
      * 
      * @param status
      * @param requestedBy
      * @return
      */
-    public List<TaskDto> getCurrentTasks(String requestedBy);
+    //public List<TaskDto> getCurrentTasks(String requestedBy);
 }

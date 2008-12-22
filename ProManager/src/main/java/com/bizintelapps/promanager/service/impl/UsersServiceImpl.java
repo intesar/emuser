@@ -181,7 +181,8 @@ public class UsersServiceImpl implements UsersService {
         Users users = usersDao.read(userId);
         Users changedByUser = usersDao.findByUsername(changedBy);
         // changedBy administrator or self
-        if (((users.getOrganization().equals(changedByUser.getOrganization()) && changedByUser.isIsAdministrator()) || changedByUser.equals(users)) && users.getPassword().equals(passwordEncryptor.encryptPassword(oldPassword))) {
+        if (((users.getOrganization().equals(changedByUser.getOrganization()) && changedByUser.isIsAdministrator()) ||
+                changedByUser.equals(users)) && passwordEncryptor.checkPassword(oldPassword, users.getPassword())) {
             users.setPassword(passwordEncryptor.encryptPassword(newPassword));
             usersDao.update(users);
         } else {
@@ -252,6 +253,14 @@ public class UsersServiceImpl implements UsersService {
             list.add(usersDto);
         }
         return pagingParams;
+    }
+
+    @Override
+    public List<UsersDto> getActiveUserList(String requestedBy) {
+        Users users = usersDao.findByUsername(requestedBy);
+        List<Users> list = usersDao.findEnabledUsersByOrganizationId(users.getOrganization().getId());
+        List<UsersDto> dtos = usersConverter.copyAllForDropdown(list);
+        return dtos;
     }
 
     @Override

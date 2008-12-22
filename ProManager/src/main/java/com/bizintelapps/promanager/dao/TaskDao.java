@@ -27,5 +27,7 @@ import java.util.List;
 public interface TaskDao  extends GenericDao<Task, Integer> {
     
     public List<Task> findByTaskStatusAndUserId(String status, String username);
+    
+    public List<Task> search(String statuses, String start, String end, String users, String project);
 
 }
