@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="1.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd">
-  <persistence-unit name="ProManagerPU" transaction-type="RESOURCE_LOCAL">
-    <provider>oracle.toplink.essentials.PersistenceProvider</provider>
-    <class>com.bizintelapps.promanager.entity.TaskImpedance</class>
-    <class>com.bizintelapps.promanager.entity.TaskHistory</class>
-    <class>com.bizintelapps.promanager.entity.Project</class>
-    <class>com.bizintelapps.promanager.entity.Users</class>
-    <class>com.bizintelapps.promanager.entity.TaskComments</class>
-    <class>com.bizintelapps.promanager.entity.ProjectUsers</class>
-    <class>com.bizintelapps.promanager.entity.Task</class>
-    <class>com.bizintelapps.promanager.entity.Organization</class>
-    <class>com.bizintelapps.promanager.entity.Authorities</class>
-    <properties>
-      <property name="toplink.jdbc.user" value="root"/>
-      <property name="toplink.jdbc.password" value="imran123"/>
-      <property name="toplink.jdbc.url" value="jdbc:mysql:///pm"/>
-      <property name="toplink.jdbc.driver" value="com.mysql.jdbc.Driver"/>
-    </properties>
-  </persistence-unit>
+    <persistence-unit name="ProManagerPU" transaction-type="RESOURCE_LOCAL">
+        <provider>oracle.toplink.essentials.PersistenceProvider</provider>
+        <class>com.bizintelapps.promanager.entity.TaskImpedance</class>
+        <class>com.bizintelapps.promanager.entity.TaskHistory</class>
+        <class>com.bizintelapps.promanager.entity.Project</class>
+        <class>com.bizintelapps.promanager.entity.Users</class>
+        <class>com.bizintelapps.promanager.entity.TaskComments</class>
+        <class>com.bizintelapps.promanager.entity.ProjectUsers</class>
+        <class>com.bizintelapps.promanager.entity.Task</class>
+        <class>com.bizintelapps.promanager.entity.Organization</class>
+        <class>com.bizintelapps.promanager.entity.Authorities</class>
+        <properties>
+            <property name="toplink.jdbc.driver" value="${jdbc.driverClassName}"/>
+            <property name="toplink.jdbc.url" value="${jdbc.url}"/>
+            <property name="toplink.jdbc.user" value="${jdbc.username}"/>
+            <property name="toplink.jdbc.password" value="${jdbc.password}"/>
+        </properties>
+    </persistence-unit>
 </persistence>
