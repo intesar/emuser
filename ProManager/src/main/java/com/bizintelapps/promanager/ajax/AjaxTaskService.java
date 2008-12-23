@@ -17,8 +17,10 @@
 package com.bizintelapps.promanager.ajax;
 
 import com.bizintelapps.promanager.dto.TaskDto;
+import com.bizintelapps.promanager.dto.UsersDto;
 import com.bizintelapps.promanager.exceptions.ServiceRuntimeException;
 import com.bizintelapps.promanager.service.TaskService;
+import com.bizintelapps.promanager.service.UsersService;
 import java.util.Date;
 import java.util.List;
 import org.apache.log4j.Logger;
@@ -159,7 +161,8 @@ public class AjaxTaskService {
      */
     public List<TaskDto> getCurrentTask() {
         try {
-            return taskService.searchTasks(null, null, null, null, true, SecurityUtil.getUsername());
+            UsersDto dto = usersService.getUserByUsername(SecurityUtil.getUsername());
+            return taskService.searchTasks(null, null, null, "'"+ dto.getId() +"'", true, SecurityUtil.getUsername());
         } catch (ServiceRuntimeException se) {
             log.error(se);
             throw se;
@@ -174,6 +177,8 @@ public class AjaxTaskService {
     }
     @Autowired
     private TaskService taskService;
+    @Autowired
+    private UsersService usersService;
     private final String ERROR_MESSAGE = "Error, Please change input and try again!";
     private Logger log = Logger.getLogger(getClass());
 }

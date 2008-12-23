@@ -106,6 +106,13 @@ public interface UsersService {
     public PagingParams<UsersDto> getUsers(String forUser);
     
     /**
+     * return user instance for given username
+     * @param username
+     * @return
+     */
+    public UsersDto getUserByUsername (String username);
+    
+    /**
      * 
      * @param userId
      * @param enabled

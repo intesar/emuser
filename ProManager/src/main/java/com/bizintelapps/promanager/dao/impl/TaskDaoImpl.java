@@ -18,9 +18,8 @@ package com.bizintelapps.promanager.dao.impl;
 
 import com.bizintelapps.promanager.dao.TaskDao;
 import com.bizintelapps.promanager.entity.Task;
-import java.util.Date;
 import java.util.List;
-import javax.persistence.EntityManager;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -48,6 +47,9 @@ public class TaskDaoImpl extends GenericDaoImpl<Task, Integer> implements TaskDa
         if (project != null) {
             sql += " and project in (" + project + ")";
         }
+        log.debug (sql);
         return this.getEntityManager().createNativeQuery(sql, Task.class).getResultList();        
     }
+    
+    private Logger log = Logger.getLogger(getClass());
 }
