@@ -17,9 +17,11 @@
 package com.bizintelapps.promanager.ajax;
 
 import com.bizintelapps.promanager.dto.TaskDto;
+import com.bizintelapps.promanager.exceptions.ServiceRuntimeException;
 import com.bizintelapps.promanager.service.TaskService;
 import java.util.Date;
 import java.util.List;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -29,12 +31,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class AjaxTaskService {
 
     /**
-     * 
+     * creates or updates a task
      * @param taskDto
      * @return
      */
     public String saveTask(TaskDto taskDto) {
-        return "task created successfully";
+        try {
+            taskService.saveTask(taskDto, SecurityUtil.getUsername());
+            return "task created successfully";
+        } catch (ServiceRuntimeException se) {
+            log.error(se);
+            throw se;
+        } catch (Exception e) {
+            log.error(e);
+            throw new ServiceRuntimeException(ERROR_MESSAGE);
+        }
     }
 
     /**
@@ -47,7 +58,15 @@ public class AjaxTaskService {
      * @return
      */
     public List<TaskDto> searchTasks(String projectIds, Date start, Date end, String userIds, boolean isActiveTask) {
-        return taskService.searchTasks(projectIds, start, end, userIds, isActiveTask, SecurityUtil.getUsername());
+        try {
+            return taskService.searchTasks(projectIds, start, end, userIds, isActiveTask, SecurityUtil.getUsername());
+        } catch (ServiceRuntimeException se) {
+            log.error(se);
+            throw se;
+        } catch (Exception e) {
+            log.error(e);
+            throw new ServiceRuntimeException("No results, change input and try again!");
+        }
     }
 
     /**
@@ -56,6 +75,15 @@ public class AjaxTaskService {
      * @param userId
      */
     public void assignTaskUser(Integer taskId, Integer userId) {
+        try {
+            taskService.assignTaskUser(taskId, userId, SecurityUtil.getUsername());
+        } catch (ServiceRuntimeException se) {
+            log.error(se);
+            throw se;
+        } catch (Exception e) {
+            log.error(e);
+            throw new ServiceRuntimeException(ERROR_MESSAGE);
+        }
     }
 
     /**
@@ -63,6 +91,15 @@ public class AjaxTaskService {
      * @param taskId
      */
     public void deleteTask(Integer taskId) {
+        try {
+            taskService.deleteTask(taskId, SecurityUtil.getUsername());
+        } catch (ServiceRuntimeException se) {
+            log.error(se);
+            throw se;
+        } catch (Exception e) {
+            log.error(e);
+            throw new ServiceRuntimeException(ERROR_MESSAGE);
+        }
     }
 
     /**
@@ -71,6 +108,15 @@ public class AjaxTaskService {
      * @param status
      */
     public void changeTaskStatus(Integer taskId, String status) {
+        try {
+            taskService.changeTaskStatus(taskId, status, SecurityUtil.getUsername());
+        } catch (ServiceRuntimeException se) {
+            log.error(se);
+            throw se;
+        } catch (Exception e) {
+            log.error(e);
+            throw new ServiceRuntimeException(ERROR_MESSAGE);
+        }
     }
 
     /**
@@ -79,6 +125,15 @@ public class AjaxTaskService {
      * @param comment
      */
     public void addTaskComment(Integer taskId, String comment) {
+        try {
+            //
+        } catch (ServiceRuntimeException se) {
+            log.error(se);
+            throw se;
+        } catch (Exception e) {
+            log.error(e);
+            throw new ServiceRuntimeException(ERROR_MESSAGE);
+        }
     }
 
     /**
@@ -87,6 +142,15 @@ public class AjaxTaskService {
      * @param description
      */
     public void udpateTaskDescription(Integer taskId, String description) {
+        try {
+        } catch (ServiceRuntimeException se) {
+            log.error(se);
+            throw se;
+        } catch (Exception e) {
+            log.error(e);
+            throw new ServiceRuntimeException(ERROR_MESSAGE);
+        }
+
     }
 
     /**
@@ -94,12 +158,22 @@ public class AjaxTaskService {
      * @return
      */
     public List<TaskDto> getCurrentTask() {
-        return null;//taskService.getCurrentTasks(SecurityUtil.getUsername());
+        try {
+            return taskService.searchTasks(null, null, null, null, true, SecurityUtil.getUsername());
+        } catch (ServiceRuntimeException se) {
+            log.error(se);
+            throw se;
+        } catch (Exception e) {
+            log.error(e);
+            throw new ServiceRuntimeException(ERROR_MESSAGE);
+        }
     }
-
+    //------------------------ getters & setters -----------------------------//
     public void setTaskService(TaskService taskService) {
         this.taskService = taskService;
     }
     @Autowired
     private TaskService taskService;
+    private final String ERROR_MESSAGE = "Error, Please change input and try again!";
+    private Logger log = Logger.getLogger(getClass());
 }

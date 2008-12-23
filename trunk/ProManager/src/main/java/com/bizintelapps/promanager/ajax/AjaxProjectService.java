@@ -49,15 +49,10 @@ public class AjaxProjectService {
         } catch (ServiceRuntimeException se) {
             log.error(se);
             throw se;
-        } catch (ValidationException e) {
-            log.error(e);
-            e.printStackTrace();
-            throw e;
         } catch (Exception e) {
-            e.printStackTrace();
             log.error(e);
+            throw new ServiceRuntimeException(ERROR_MESSAGE);
         }
-        throw new RuntimeException("Error, Please try again! ");
     }
     // getProjectList should get all projects visible ot user with brief summary
     /**
@@ -67,30 +62,44 @@ public class AjaxProjectService {
     public List<ProjectDto> getProjectList() {
         try {
             return projectService.getProjects(SecurityUtil.getUsername());
-        } catch (ValidationException e) {
-            log.error(e);
-            throw e;
+        } catch (ServiceRuntimeException se) {
+            log.error(se);
+            throw se;
         } catch (Exception e) {
             log.error(e);
-        //return ERROR_MESSAGE;
+            throw new ServiceRuntimeException(ERROR_MESSAGE);
         }
-        return null;
-    }
-
-    public List<ProjectUserDto> getProjectsForDropdown() {
-        return projectService.getProjectsForDropdown(SecurityUtil.getUsername());
     }
 
     /**
-     * 
+     * used on task page for project dropdown
+     * @return
+     */
+    public List<ProjectUserDto> getProjectsForDropdown() {
+        try {
+            return projectService.getProjectsForDropdown(SecurityUtil.getUsername());
+        } catch (ServiceRuntimeException se) {
+            log.error(se);
+            throw se;
+        } catch (Exception e) {
+            log.error(e);
+            throw new ServiceRuntimeException(ERROR_MESSAGE);
+        }
+    }
+
+    /**
+     * deletes project if possible
      * @param projectId
      */
     public void deleteProject(Integer projectId) {
         try {
             this.projectService.deleteProject(projectId, SecurityUtil.getUsername());
-        } catch (RuntimeException re) {
-            // log re
-            throw new RuntimeException("Project cannot be deleted!");
+        } catch (ServiceRuntimeException se) {
+            log.error(se);
+            throw se;
+        } catch (Exception e) {
+            log.error(e);
+            throw new ServiceRuntimeException(ERROR_MESSAGE);
         }
     }
 
@@ -102,8 +111,16 @@ public class AjaxProjectService {
      * 
      */
     public List<ProjectUsers> saveUserToProject(Integer projectId, Integer userId, boolean isManager) {
-        projectService.saveUserToProject(projectId, userId, isManager, SecurityUtil.getUsername());
-        return projectService.getProjectUsers(projectId, SecurityUtil.getUsername());
+        try {
+            projectService.saveUserToProject(projectId, userId, isManager, SecurityUtil.getUsername());
+            return projectService.getProjectUsers(projectId, SecurityUtil.getUsername());
+        } catch (ServiceRuntimeException se) {
+            log.error(se);
+            throw se;
+        } catch (Exception e) {
+            log.error(e);
+            throw new ServiceRuntimeException(ERROR_MESSAGE);
+        }
     }
 
     /**
@@ -112,26 +129,44 @@ public class AjaxProjectService {
      * 
      */
     public List<ProjectUsers> getProjectUsers(Integer projectId) {
-        return projectService.getProjectUsers(projectId, SecurityUtil.getUsername());
+        try {
+            return projectService.getProjectUsers(projectId, SecurityUtil.getUsername());
+        } catch (ServiceRuntimeException se) {
+            log.error(se);
+            throw se;
+        } catch (Exception e) {
+            log.error(e);
+            throw new ServiceRuntimeException(ERROR_MESSAGE);
+        }
 
     }
 
     /**
+     * removes user from project 
      * removes user from project
      * @param userId
      * @param projectId
      * 
      */
     public List<ProjectUsers> deleteUserFromProject(Integer userId, Integer projectId) {
-        projectService.deleteUserFromProject(userId, projectId, SecurityUtil.getUsername());
-        return projectService.getProjectUsers(projectId, SecurityUtil.getUsername());
+        try {
+            projectService.deleteUserFromProject(userId, projectId, SecurityUtil.getUsername());
+            return projectService.getProjectUsers(projectId, SecurityUtil.getUsername());
+        } catch (ServiceRuntimeException se) {
+            log.error(se);
+            throw se;
+        } catch (Exception e) {
+            log.error(e);
+            throw new ServiceRuntimeException(ERROR_MESSAGE);
+        }
     }
 
+    //----------------------- setters & getters ------------------------------//
     public void setProjectService(ProjectService projectService) {
         this.projectService = projectService;
-    }    // getProjectInfo should get Project with its member list
-    // deleteProject should delete project
+    }
     private final Log log = LogFactory.getLog(getClass());
     @Autowired
     private ProjectService projectService;
+    private final String ERROR_MESSAGE = "Error, Please change input and try again!";
 }

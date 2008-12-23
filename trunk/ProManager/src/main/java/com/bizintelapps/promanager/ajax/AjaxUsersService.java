@@ -19,7 +19,7 @@ package com.bizintelapps.promanager.ajax;
 import com.bizintelapps.mail.MailSender;
 import com.bizintelapps.promanager.service.UsersService;
 import com.bizintelapps.promanager.dto.UsersDto;
-import com.bizintelapps.promanager.service.validator.ValidationException;
+import com.bizintelapps.promanager.exceptions.ServiceRuntimeException;
 import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -31,25 +31,30 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 public class AjaxUsersService {
 
+    /**
+     * registration for new enterprise or company
+     * 
+     * @param usersDto
+     * @return
+     */
     public String signUp(UsersDto usersDto) {
         String msg = " You have Successfully Signed Up! ";
         try {
             // this should handle create/update
             usersService.signUp(usersDto);
-        } catch (ValidationException e) {
+        } catch (ServiceRuntimeException e) {
             log.error(e);
             throw e;
         } catch (Exception e) {
             log.error(e);
-            return e.getMessage();
+            throw new ServiceRuntimeException(ERROR_MESSAGE);
         }
         return msg;
     }
 
     /**
-     *  every method should copy same pattern
-     *  msg for success
-     *  should catch exceptions exactly the same way
+     *  
+     * saves and returns user list
      * @param usersDto
      * @return
      */
@@ -57,19 +62,18 @@ public class AjaxUsersService {
         try {
             // this should handle create/update
             return usersService.saveAndGetUser(usersDto, SecurityUtil.getUsername());
-        } catch (ValidationException e) {
+        } catch (ServiceRuntimeException e) {
             log.error(e);
-            e.printStackTrace();
             throw e;
         } catch (Exception e) {
-            e.printStackTrace();
             log.error(e);
+            throw new ServiceRuntimeException(ERROR_MESSAGE);
         }
-        throw new RuntimeException("Error, Please try again! ");
+
     }
 
     /**
-     * 
+     *  used by admins to change users password
      * @param userId
      * @param oldPassword
      * @param newPassword
@@ -79,69 +83,95 @@ public class AjaxUsersService {
         String msg = " Password Changed Successfully! ";
         try {
             usersService.changePassword(userId, oldPassword, newPassword, SecurityUtil.getUsername());
-        } catch (ValidationException e) {
+        } catch (ServiceRuntimeException e) {
             log.error(e);
             throw e;
         } catch (Exception e) {
             log.error(e);
-            return ERROR_MESSAGE;
+            throw new ServiceRuntimeException(ERROR_MESSAGE);
         }
 
         return msg;
     }
 
     /**
-     * 
+     * excuted by logged in user to change password
      * @param oldPassword
      * @param newPassword
      * @return
      */
     public String changeMyPassword(String oldPassword, String newPassword) {
-        usersService.changePassword(SecurityUtil.getUsername(), oldPassword, newPassword);
-        return "Password changed successfully!";
+        try {
+            usersService.changePassword(SecurityUtil.getUsername(), oldPassword, newPassword);
+            return "Password changed successfully!";
+        } catch (ServiceRuntimeException se) {
+            log.error(se);
+            throw se;
+        } catch (Exception e) {
+            log.error(e);
+            throw new ServiceRuntimeException(ERROR_MESSAGE);
+        }
     }
 
     /**
-     * 
+     * first step in forgot password
+     * user requests that he forgots password and enters his username/email
+     * systems sends a unique code to his email which he uses it to change his password
      * @param username
      * @return
      */
     public String requestPasswordKeySendToEmail(String username) {
-        usersService.requestPasswordKeySendToEmail(username);
-        return "A key has been send to your email please use it to change your account password!";
+        try {
+            usersService.requestPasswordKeySendToEmail(username);
+            return "A key has been send to your email please use it to change your account password!";
+        } catch (ServiceRuntimeException se) {
+            log.error(se);
+            throw se;
+        } catch (Exception e) {
+            log.error(e);
+            throw new ServiceRuntimeException(ERROR_MESSAGE);
+        }
     }
 
     /**
-     * 
+     * second step in forgot password
+     * user uses key to change password
      * @param username email
      * @param emailKey key to send to user email
      * @param newPassword new password
      * @return
      */
     public String resetPasswordWithKey(String username, String emailKey, String newPassword) {
-        usersService.resetPasswordWithKey(username, emailKey, newPassword);
-        return "Password changed successfully, please login with your new password";
+        try {
+            usersService.resetPasswordWithKey(username, emailKey, newPassword);
+            return "Password changed successfully, please login with your new password";
+        } catch (ServiceRuntimeException se) {
+            log.error(se);
+            throw se;
+        } catch (Exception e) {
+            log.error(e);
+            throw new ServiceRuntimeException(ERROR_MESSAGE);
+        }
     }
 
     /**
-     * 
+     * user object for given id
      * @param userId
      * @return
      */
     public UsersDto getUserDetails(Integer userId) {
-
         try {
             // FIXME
-            throw new RuntimeException("Not Supported");
-        } catch (ValidationException e) {
-            log.error(e);
-            throw e;
+            throw new ServiceRuntimeException("Not Supported");
+        } catch (ServiceRuntimeException se) {
+            log.error(se);
+            throw se;
         } catch (Exception e) {
             log.error(e);
-        //return ERROR_MESSAGE;
+            throw new ServiceRuntimeException(ERROR_MESSAGE);
         }
 
-        return null;
+
     }
 
     /**
@@ -149,7 +179,15 @@ public class AjaxUsersService {
      * @return
      */
     public List<UsersDto> getActiveUserList() {
-        return usersService.getActiveUserList(SecurityUtil.getUsername());
+        try {
+            return usersService.getActiveUserList(SecurityUtil.getUsername());
+        } catch (ServiceRuntimeException se) {
+            log.error(se);
+            throw se;
+        } catch (Exception e) {
+            log.error(e);
+            throw new ServiceRuntimeException(ERROR_MESSAGE);
+        }
     }
 
     /**
@@ -159,39 +197,37 @@ public class AjaxUsersService {
     public List<UsersDto> getUserList() {
         try {
             return usersService.getUsers(SecurityUtil.getUsername()).getCurrentList();
-        } catch (ValidationException e) {
-            log.error(e);
-            throw e;
+        } catch (ServiceRuntimeException se) {
+            log.error(se);
+            throw se;
         } catch (Exception e) {
             log.error(e);
-        //return ERROR_MESSAGE;
+            throw new ServiceRuntimeException(ERROR_MESSAGE);
         }
-        return null;
     }
 
     /**
      * 
-     * @param userId
-     * @param enabled
+     * @param userId 
+     * @param enabled if true user is enabled else user is disabled and cannot access system
      * @return
      */
     public String enableDisalbeUser(Integer userId, boolean enabled) {
         String msg = " User Status Changed Successfully! ";
         try {
             usersService.enableDisableUser(userId, enabled, SecurityUtil.getUsername());
-        } catch (ValidationException e) {
-            log.error(e);
-            throw e;
+            return msg;
+        } catch (ServiceRuntimeException se) {
+            log.error(se);
+            throw se;
         } catch (Exception e) {
             log.error(e);
-            return ERROR_MESSAGE;
+            throw new ServiceRuntimeException(ERROR_MESSAGE);
         }
-
-        return msg;
     }
 
     /**
-     * 
+     * deletes user if possible
      * @param userId
      * @return
      */
@@ -199,15 +235,14 @@ public class AjaxUsersService {
         String msg = " User Deleted Successfully! ";
         try {
             usersService.deleteUser(userId, SecurityUtil.getUsername());
-        } catch (ValidationException e) {
-            log.error(e);
-            throw e;
+            return msg;
+        } catch (ServiceRuntimeException se) {
+            log.error(se);
+            throw se;
         } catch (Exception e) {
             log.error(e);
-            return ERROR_MESSAGE;
+            throw new ServiceRuntimeException(ERROR_MESSAGE);
         }
-
-        return msg;
     }
 
     /**
