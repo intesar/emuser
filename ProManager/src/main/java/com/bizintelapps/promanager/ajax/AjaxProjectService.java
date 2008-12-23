@@ -19,6 +19,7 @@ package com.bizintelapps.promanager.ajax;
 import com.bizintelapps.promanager.dto.ProjectDto;
 import com.bizintelapps.promanager.dto.ProjectUserDto;
 import com.bizintelapps.promanager.entity.ProjectUsers;
+import com.bizintelapps.promanager.exceptions.ServiceRuntimeException;
 import com.bizintelapps.promanager.service.ProjectService;
 import com.bizintelapps.promanager.service.validator.ValidationException;
 import java.util.List;
@@ -45,6 +46,9 @@ public class AjaxProjectService {
             // this should handle create/update
             projectService.saveProject(projectDto, SecurityUtil.getUsername());
             return projectService.getProjects(SecurityUtil.getUsername());
+        } catch (ServiceRuntimeException se) {
+            log.error(se);
+            throw se;
         } catch (ValidationException e) {
             log.error(e);
             e.printStackTrace();
