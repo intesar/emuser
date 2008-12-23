@@ -138,9 +138,7 @@ http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
             </list>
         </property>
     </bean>
-    <!-- Your application may use the PasswordEncryptor in several places, --> 
-  <!-- like for example at new user sign-up.                             -->
-    <bean id="jasyptPasswordEncryptor" class="org.jasypt.util.password.StrongPasswordEncryptor" />
+   
 
 <!-- This Spring Security-friendly PasswordEncoder implementation will -->
   <!-- wrap the PasswordEncryptor instance so that it can be used from   -->

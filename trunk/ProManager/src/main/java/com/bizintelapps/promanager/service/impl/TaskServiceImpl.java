@@ -295,21 +295,22 @@ public class TaskServiceImpl implements TaskService {
     public List<TaskDto> searchTasks(String projectIds, Date start, Date end, String userIds, boolean active, String requestedBy) {
         if (start == null) {
             Calendar c = Calendar.getInstance();
-            c.add(Calendar.DAY_OF_MONTH, WEEK);
+            c.add(Calendar.DAY_OF_MONTH, -WEEK);
             start = c.getTime();
         }
         if (end == null) {
             Calendar c = Calendar.getInstance();
-            c.add(Calendar.DAY_OF_MONTH, -WEEK);
+            c.add(Calendar.DAY_OF_MONTH, +WEEK);
             end = c.getTime();
         }
         String statuses = "'" + TASK_STATUS_NEW + "'" + ", " + "'" + TASK_STATUS_IN_PROGRESS + "'" + ", " + "'" + TASK_STATUS_ON_HOLD + "'" + ", " + "'" + TASK_STATUS_COMPLETED + "'";
         if (active) {
             statuses = "'" + TASK_STATUS_NEW + "'" + ", " + "'" + TASK_STATUS_IN_PROGRESS + "'";
-        }
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
-        String startDate = sdf.format(start) + "%";
-        String endDate = sdf.format(end) + "%";
+        }        
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String startDate = "'" + sdf.format(start) + "%" +"'";
+        String endDate = "'" + sdf.format(end) + "%" +"'";
+        if ( log.isDebugEnabled()) log.debug("----- " +start.toString() +"--" + end +"--" + startDate +"--" + endDate);
         List<Task> tasks = taskDao.search(statuses, startDate, endDate, userIds, projectIds);
         List<TaskDto> dtos = taskConverter.copyAllForDisplay(tasks);
         return dtos;

@@ -36,6 +36,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.jasypt.util.password.PasswordEncryptor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 /**
@@ -276,7 +277,15 @@ public class UsersServiceImpl implements UsersService {
             throw new ServiceRuntimeException(changedBy + " is not an Administrator");
         }
     }
-    // getter & setters
+    
+    @Override
+    public UsersDto getUserByUsername(String username) {
+        UsersDto dto = new UsersDto();
+        Users users = usersDao.findByUsername(username);
+        usersConverter.copyForDisplay(users, dto);
+        return dto;
+    }
+    // -------------------------------getter & setters---------------------------------
     public void setUsersDao(UsersDao usersDao) {
         this.usersDao = usersDao;
     }
@@ -293,7 +302,7 @@ public class UsersServiceImpl implements UsersService {
         this.organizationDao = organizationDao;
     }
 
-    public void setPasswordEncryptor(PasswordEncryptor passwordEncryptor) {
+    public void setPasswordEncryptor(@Qualifier(value="pro")PasswordEncryptor passwordEncryptor) {
         this.passwordEncryptor = passwordEncryptor;
     }
 
@@ -313,6 +322,7 @@ public class UsersServiceImpl implements UsersService {
     @Autowired
     private OrganizationDao organizationDao;
     @Autowired
+    @Qualifier(value="pro")
     private PasswordEncryptor passwordEncryptor;
     @Autowired
     private AuthoritiesDao authoritiesDao;

@@ -26,5 +26,9 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
         <property name="generateDdl" value="false" />
         <property name="databasePlatform" value="oracle.toplink.essentials.platform.database.MySQL4Platform" /> <!-- org.hibernate.dialect.MySQLDialect -->
     </bean>
-    
+     <!-- Your application may use the PasswordEncryptor in several places, --> 
+  <!-- like for example at new user sign-up.                             -->
+    <bean id="jasyptPasswordEncryptor" class="org.jasypt.util.password.StrongPasswordEncryptor" >
+        <qualifier value="pro"/>
+    </bean>
 </beans>
