@@ -6,3 +6,4 @@
 <script type="text/javascript" src="../js/jquery.livequery.min.js"></script>
 <script type="text/javascript" src="../js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="../js/jquery.gchart.js"></script>
+<script type="text/javascript" src="../js/lib/error.js"></script>

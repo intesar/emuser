@@ -63,7 +63,10 @@
         </dwr:remote>
     </bean>
     <dwr:configuration>
-        <dwr:convert type="bean" class="com.bizintelapps.promanager.dto.*" />
-        <dwr:convert type="bean"  class="java.util.*"  />
+        <dwr:convert class="com.bizintelapps.promanager.dto.*" type="bean"/>
+        <dwr:convert class="java.util.*" type="bean"/>
+        <dwr:convert class="com.bizintelapps.promanager.exceptions.ServiceRuntimeException" type="exception" >
+            <dwr:include method="message" />
+        </dwr:convert>
     </dwr:configuration>
 </beans>
