@@ -24,8 +24,8 @@
     <properties>
         <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
         <jdbc.url>jdbc:mysql:///pm</jdbc.url>
-        <jdbc.username>pm</jdbc.username>
-        <jdbc.password>pm</jdbc.password>
+        <jdbc.username>root</jdbc.username>
+        <jdbc.password>imran123</jdbc.password>
         <logging.level>INFO</logging.level>
         <cache.type>SoftWeak</cache.type>
         <jdbc.read-connections.max>20</jdbc.read-connections.max>
