@@ -26,7 +26,7 @@ import com.bizintelapps.promanager.entity.ProjectUsers;
 import com.bizintelapps.promanager.entity.Task;
 import com.bizintelapps.promanager.entity.Users;
 import com.bizintelapps.promanager.service.TaskService;
-import com.bizintelapps.promanager.service.converters.TaskConverter;
+import com.bizintelapps.promanager.dtoa.TaskDtoA;
 import com.bizintelapps.promanager.dto.TaskDto;
 import com.bizintelapps.promanager.exceptions.ServiceRuntimeException;
 
@@ -400,15 +400,15 @@ public class TaskServiceImpl implements TaskService {
         this.projectUsersDao = projectUsersDao;
     }
 
-    public TaskConverter getTaskConverter() {
+    public TaskDtoA getTaskConverter() {
         return taskConverter;
     }
 
-    public void setTaskConverter(TaskConverter taskConverter) {
+    public void setTaskConverter(TaskDtoA taskConverter) {
         this.taskConverter = taskConverter;
     }
     @Autowired
-    private TaskConverter taskConverter;
+    private TaskDtoA taskConverter;
     @Autowired
     private UsersDao usersDao;
     @Autowired

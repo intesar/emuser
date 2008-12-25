@@ -18,10 +18,8 @@ package com.bizintelapps.promanager.ajax;
 
 import com.bizintelapps.promanager.dto.ProjectDto;
 import com.bizintelapps.promanager.dto.ProjectUserDto;
-import com.bizintelapps.promanager.entity.ProjectUsers;
 import com.bizintelapps.promanager.exceptions.ServiceRuntimeException;
 import com.bizintelapps.promanager.service.ProjectService;
-import com.bizintelapps.promanager.service.validator.ValidationException;
 import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -110,14 +108,16 @@ public class AjaxProjectService {
      * @param isManager if true user can manage this project
      * 
      */
-    public List<ProjectUsers> saveUserToProject(Integer projectId, Integer userId, boolean isManager) {
+    public ProjectUserDto saveUserToProject(Integer projectId, Integer userId, boolean isManager) {
         try {
             projectService.saveUserToProject(projectId, userId, isManager, SecurityUtil.getUsername());
+            System.out.println ( " ----------------- ");
             return projectService.getProjectUsers(projectId, SecurityUtil.getUsername());
         } catch (ServiceRuntimeException se) {
             log.error(se);
             throw se;
         } catch (Exception e) {
+            e.printStackTrace();
             log.error(e);
             throw new ServiceRuntimeException(ERROR_MESSAGE);
         }
@@ -128,7 +128,7 @@ public class AjaxProjectService {
      * @param projectId
      * 
      */
-    public List<ProjectUsers> getProjectUsers(Integer projectId) {
+    public ProjectUserDto getProjectUsers(Integer projectId) {
         try {
             return projectService.getProjectUsers(projectId, SecurityUtil.getUsername());
         } catch (ServiceRuntimeException se) {
@@ -148,7 +148,7 @@ public class AjaxProjectService {
      * @param projectId
      * 
      */
-    public List<ProjectUsers> deleteUserFromProject(Integer userId, Integer projectId) {
+    public ProjectUserDto deleteUserFromProject(Integer projectId, Integer userId ) {
         try {
             projectService.deleteUserFromProject(userId, projectId, SecurityUtil.getUsername());
             return projectService.getProjectUsers(projectId, SecurityUtil.getUsername());

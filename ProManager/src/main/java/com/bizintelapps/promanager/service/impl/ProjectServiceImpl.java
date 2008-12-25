@@ -22,7 +22,7 @@ import com.bizintelapps.promanager.dao.UsersDao;
 import com.bizintelapps.promanager.entity.Project;
 import com.bizintelapps.promanager.entity.Users;
 import com.bizintelapps.promanager.service.ProjectService;
-import com.bizintelapps.promanager.service.converters.ProjectConverter;
+import com.bizintelapps.promanager.dtoa.ProjectDtoA;
 import com.bizintelapps.promanager.dto.ProjectDto;
 import com.bizintelapps.promanager.dto.ProjectUserDto;
 import com.bizintelapps.promanager.entity.ProjectUsers;
@@ -125,22 +125,23 @@ public class ProjectServiceImpl implements ProjectService {
     public List<ProjectUserDto> getProjectsForDropdown(String requestedBy) {
         Users users = usersDao.findByUsername(requestedBy);
         List<ProjectUserDto> projectUserDtos = null;
-        if ( users.isIsAdministrator() ) { //return all active projects
+        if (users.isIsAdministrator()) { //return all active projects
             List<Project> projects = projectDao.findByStatusAndOrganization(IN_PROGRESS, users.getOrganization().getId());
-            projectUserDtos = projectConverter.copyAllProjectAlongUsers ( projects);            
+            projectUserDtos = projectConverter.copyAllProjectAlongUsers(projects);
         } else { // return user projects
-            List<ProjectUsers> projectUsers = projectUsersDao.findByProjectStatusAndUserId( IN_PROGRESS, users.getId() );
-            projectUserDtos = projectConverter.copyAllProjectAlongUsers1(projectUsers);
-            // send to converter
+            List<ProjectUsers> projectUsers = projectUsersDao.findByProjectStatusAndUserId(IN_PROGRESS, users.getId());
+            projectUserDtos = projectConverter.copyAllProjectAlongUsers2(projectUsers);
+        // send to converter
         }
         return projectUserDtos;
     }
+
     @Override
     public void saveUserToProject(Integer projectId, Integer userId, boolean isManager, String savedBy) {
         Users savedUsers = usersDao.findByUsername(savedBy);
         ProjectUsers savedByProjectUsers = projectUsersDao.findByProjectIdAndUserId(projectId, savedUsers.getId());
         // user should be either admin or project manager to do this operation
-        if (!savedUsers.isIsAdministrator() || !savedByProjectUsers.getIsManager()) {
+        if (!savedUsers.isIsAdministrator() || (savedByProjectUsers == null || !savedByProjectUsers.getIsManager())) {
             throw new ServiceRuntimeException("Invalid operation!");
         }
         // user if not assigned to this project then create one else udpate his record
@@ -149,7 +150,7 @@ public class ProjectServiceImpl implements ProjectService {
         ProjectUsers projectUsers = projectUsersDao.findByProjectIdAndUserId(projectId, userId);
 
         if (projectUsers == null || projectUsers.getId() == null) {
-            projectUsers = new ProjectUsers(null, isManager, new Date(), project, users, savedUsers);
+            projectUsers = new ProjectUsers(null, true, isManager, new Date(), project, users, savedUsers);
             projectUsersDao.create(projectUsers);
         } else if (projectUsers.getIsManager() != isManager) {
             projectUsers.setIsManager(isManager);
@@ -158,13 +159,17 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public List<ProjectUsers> getProjectUsers(Integer projectId, String requestedBy) {
+    public ProjectUserDto getProjectUsers(Integer projectId, String requestedBy) {
         Users savedUsers = usersDao.findByUsername(requestedBy);
         ProjectUsers savedByProjectUsers = projectUsersDao.findByProjectIdAndUserId(projectId, savedUsers.getId());
-        if (!savedUsers.isIsAdministrator() || !savedByProjectUsers.getIsManager()) {
+        if (!savedUsers.isIsAdministrator() || (savedByProjectUsers == null || !savedByProjectUsers.getIsManager())) {
             throw new ServiceRuntimeException("Invalid operation!");
         }
-        return projectUsersDao.findByProperty("Users.id", savedUsers.getId(), null).getCurrentList();
+        List<ProjectUsers> list = null;
+
+        list = projectUsersDao.findByProperty("project.id", projectId, null).getCurrentList();
+
+        return projectConverter.copyAllProjectAlongUsers1(list);
 
     }
 
@@ -172,10 +177,11 @@ public class ProjectServiceImpl implements ProjectService {
     public void deleteUserFromProject(Integer userId, Integer projectId, String savedBy) {
         Users savedUsers = usersDao.findByUsername(savedBy);
         ProjectUsers savedByProjectUsers = projectUsersDao.findByProjectIdAndUserId(projectId, savedUsers.getId());
-        if (!savedUsers.isIsAdministrator() || !savedByProjectUsers.getIsManager()) {
+        if (!savedUsers.isIsAdministrator() || (savedByProjectUsers == null || !savedByProjectUsers.getIsManager())) {
             throw new ServiceRuntimeException("Invalid operation!");
         }
-        projectUsersDao.delete(savedByProjectUsers);
+        ProjectUsers pu = projectUsersDao.findByProjectIdAndUserId(projectId, userId);
+        projectUsersDao.delete(pu);
     }
 
     public ProjectDao getProjectDao() {
@@ -194,11 +200,11 @@ public class ProjectServiceImpl implements ProjectService {
         this.usersDao = usersDao;
     }
 
-    public ProjectConverter getProjectConverter() {
+    public ProjectDtoA getProjectConverter() {
         return projectConverter;
     }
 
-    public void setProjectConverter(ProjectConverter projectConverter) {
+    public void setProjectConverter(ProjectDtoA projectConverter) {
         this.projectConverter = projectConverter;
     }
 
@@ -216,6 +222,6 @@ public class ProjectServiceImpl implements ProjectService {
     @Autowired
     private ProjectUsersDao projectUsersDao;
     @Autowired
-    private ProjectConverter projectConverter;
+    private ProjectDtoA projectConverter;
     private final Log log = LogFactory.getLog(getClass());
 }

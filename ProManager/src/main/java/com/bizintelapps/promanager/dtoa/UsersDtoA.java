@@ -15,7 +15,7 @@
  *  under the License.
  */
 
-package com.bizintelapps.promanager.service.converters;
+package com.bizintelapps.promanager.dtoa;
 
 import com.bizintelapps.promanager.entity.Users;
 import com.bizintelapps.promanager.dto.UsersDto;
@@ -30,7 +30,7 @@ import org.springframework.stereotype.Service;
  * @author intesar
  */
 @Service
-public class UsersConverter {
+public class UsersDtoA {
 
     public List<UsersDto> copyAllForDisplay(Collection<Users> usersCollection) {
         List<UsersDto> list = new ArrayList<UsersDto> ();

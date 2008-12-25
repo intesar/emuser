@@ -22,7 +22,7 @@ import com.bizintelapps.promanager.dao.OrganizationDao;
 import com.bizintelapps.promanager.dao.PagingParams;
 import com.bizintelapps.promanager.dao.UsersDao;
 import com.bizintelapps.promanager.entity.Users;
-import com.bizintelapps.promanager.service.converters.UsersConverter;
+import com.bizintelapps.promanager.dtoa.UsersDtoA;
 import com.bizintelapps.promanager.service.UsersService;
 import com.bizintelapps.promanager.dto.UsersDto;
 import com.bizintelapps.promanager.entity.Authorities;
@@ -294,7 +294,7 @@ public class UsersServiceImpl implements UsersService {
         this.usersValidator = usersValidator;
     }
 
-    public void setUsersConverter(UsersConverter usersConverter) {
+    public void setUsersConverter(UsersDtoA usersConverter) {
         this.usersConverter = usersConverter;
     }
 
@@ -314,7 +314,7 @@ public class UsersServiceImpl implements UsersService {
         this.mailSender = mailSender;
     }
     @Autowired
-    private UsersConverter usersConverter;
+    private UsersDtoA usersConverter;
     @Autowired
     private UsersValidator usersValidator;
     @Autowired

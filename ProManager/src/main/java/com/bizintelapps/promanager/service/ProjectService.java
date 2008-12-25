@@ -18,7 +18,6 @@ package com.bizintelapps.promanager.service;
 
 import com.bizintelapps.promanager.dto.ProjectDto;
 import com.bizintelapps.promanager.dto.ProjectUserDto;
-import com.bizintelapps.promanager.entity.ProjectUsers;
 import java.util.List;
 
 /**
@@ -74,7 +73,7 @@ public interface ProjectService {
      * @param projectId
      * @param requestedBy
      */
-    public List<ProjectUsers> getProjectUsers(Integer projectId, String requestedBy);
+    public ProjectUserDto getProjectUsers(Integer projectId, String requestedBy);
 
     /**
      * removes user from project

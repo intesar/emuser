@@ -14,12 +14,13 @@
  *  limitations under the License.
  *  under the License.
  */
-package com.bizintelapps.promanager.service.converters;
+package com.bizintelapps.promanager.dtoa;
 
 import com.bizintelapps.promanager.dto.ProjectUserDto;
 import com.bizintelapps.promanager.entity.Project;
 import com.bizintelapps.promanager.dto.ProjectDto;
 import com.bizintelapps.promanager.dto.UsersDto;
+import com.bizintelapps.promanager.dto.UsersMinDto;
 import com.bizintelapps.promanager.entity.ProjectUsers;
 import com.bizintelapps.promanager.entity.Users;
 import java.util.ArrayList;
@@ -32,7 +33,7 @@ import org.springframework.stereotype.Service;
  * @author intesar
  */
 @Service
-public class ProjectConverter {
+public class ProjectDtoA {
 
     public List<ProjectDto> copyAllForDisplay(Collection<Project> projectCollection) {
         List<ProjectDto> list = new ArrayList<ProjectDto>();
@@ -43,38 +44,38 @@ public class ProjectConverter {
         return list;
     }
 
-    public List<ProjectUserDto> copyAllProjectAlongUsers1(List<ProjectUsers> projectUsers) {
-        List<ProjectUserDto> list = new ArrayList<ProjectUserDto>();
-        for (ProjectUsers u : projectUsers) {
-            List<UsersDto> users = new ArrayList<UsersDto>();
-            for (ProjectUsers pu : u.getProject().getProjectUsersCollection()) {
-                if (pu.getUsers().getEnabled()) {
-                    UsersDto usersDto = new UsersDto();
-                    usersDto.setId(pu.getUsers().getId());
-                    usersDto.setFirstname(pu.getUsers().getFirstname());
-                    usersDto.setLastname(pu.getUsers().getLastname());
-                    usersDto.setUsername(pu.getUsers().getUsername());
-                    users.add(usersDto);
-                }
+    public ProjectUserDto copyAllProjectAlongUsers1(List<ProjectUsers> projectUsers) {
+        Project project = null;
+        List<UsersMinDto> users = new ArrayList<UsersMinDto>();
+        for (ProjectUsers pu : projectUsers) {
+            project = pu.getProject();
+            if (pu.getUsers().getEnabled()) {
+                Users user = pu.getUsers();
+                UsersMinDto usersMinDto = new UsersMinDto(user.getId(),
+                        user.getUsername(), user.getFirstname(), user.getLastname(), false,
+                        pu.getIsManager());
+                users.add(usersMinDto);
             }
-            ProjectUserDto dto = new ProjectUserDto(u.getProject().getId(), u.getProject().getName(), users);
-            list.add(dto);
         }
-        return list;
+        ProjectUserDto dto = new ProjectUserDto(project.getId(), project.getName(), users);
+        return dto;
     }
 
+     public List<ProjectUserDto> copyAllProjectAlongUsers2(List<ProjectUsers> projectUsers) {
+        return null;
+    }
+     
     public List<ProjectUserDto> copyAllProjectAlongUsers(List<Project> projects) {
         List<ProjectUserDto> list = new ArrayList<ProjectUserDto>();
         for (Project p : projects) {
-            List<UsersDto> users = new ArrayList<UsersDto>();
+            List<UsersMinDto> users = new ArrayList<UsersMinDto>();
             Collection<ProjectUsers> projectUserses = p.getProjectUsersCollection();
             for (ProjectUsers pu : projectUserses) {
+                Users user = pu.getUsers();
                 if (pu.getUsers().getEnabled()) {
-                    UsersDto usersDto = new UsersDto();
-                    usersDto.setId(pu.getUsers().getId());
-                    usersDto.setFirstname(pu.getUsers().getFirstname());
-                    usersDto.setLastname(pu.getUsers().getLastname());
-                    usersDto.setUsername(pu.getUsers().getUsername());
+                    UsersMinDto usersDto = new UsersMinDto(user.getId(),
+                            user.getUsername(), user.getFirstname(), user.getLastname(), false,
+                            pu.getIsManager());
                     users.add(usersDto);
                 }
             }
