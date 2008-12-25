@@ -7,10 +7,10 @@ $(document).ready(function() {
 });
 // this function is executed on load 	
 $(document).ready(function() {
-   
-    
     // checkout datatable plugin to understand below code
-    oTable = $('#taskTable').dataTable();
+    oTable = $('#taskTable').dataTable( {             
+        "sDom": '<"top"i>rt<"bottom"flp<"clear">'
+    } );
     
     /* Global variable for the DataTables object */
     var oTable;	
@@ -24,15 +24,15 @@ $(document).ready(function() {
         var dArray = new Array();
         // Delete all the rows from table
         oTable.fnClearTable();
-        for ( var i = 0 ; i < tasks.length; i++) {  
+        for ( var i = 0 ; i < tasks.length; i++) {             
             // create object
             var project = tasks[i].projectName; //if ( project == null) project = "NONE";
             var deadline = tasks[i].deadlineFormat; //if (deadline == null ) deadline = "NONE";
-            var data = [ "" + tasks[i].id, "" + tasks[i].title, project,
-                tasks[i].priority, tasks[i].status, tasks[i].ownerUsername, 
-                ""+tasks[i].assignedToUsername, deadline, "<a id='editProject"+tasks[i].id + "' class='editTask'>Edit</a>-<a id='deleteTask"+tasks[i].id +"' class='deleteTask'>Del</a>"];                                  
+            var data = [ /*"" + tasks[i].id,*/ "" + tasks[i].title, project,
+                /*tasks[i].priority,*/ tasks[i].status, /*tasks[i].ownerUsername, */
+                ""+tasks[i].assignedToUsername,/* deadline,*/ "<a id='editProject"+tasks[i].id + "' class='editTask'>Edit</a>-<a id='deleteTask"+tasks[i].id +"' class='deleteTask'>Del</a>"];                                  
             tasksCache[tasks[i].id] = tasks[i];            
-            dArray[i] = data;    
+            dArray[i] = data;                
         }                   
         // adds object array to table and displays
         oTable.fnAddData( dArray );
@@ -98,6 +98,10 @@ $(document).ready(function() {
         $('#backToProjectListFromEdit').trigger("click");
         AjaxProjectService.saveProject ( project, projectList);
     });
+    
+    $('#printTaskTable').click(function() {
+        $.jPrintArea($('#taskTableContainer'));
+    })
     
 } );
 

@@ -85,6 +85,12 @@ public class Task implements Serializable {
     private Double sequenceNumber;
     @Column(name = "context")
     private String context;
+    @Column(name = "estimated_hours")
+    private double estimatedHours;
+    @Column(name = "spend_hours")
+    private double spendHours;
+    @Column(name = "notification_emails")
+    private String notificationEmails;
     @Column(name = "completed_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date completedDate;
@@ -234,6 +240,30 @@ public class Task implements Serializable {
 
     public void setLastStatusChangedDate(Date lastStatusChangedDate) {
         this.lastStatusChangedDate = lastStatusChangedDate;
+    }
+
+    public double getEstimatedHours() {
+        return estimatedHours;
+    }
+
+    public void setEstimatedHours(double estimatedHours) {
+        this.estimatedHours = estimatedHours;
+    }
+
+    public String getNotificationEmails() {
+        return notificationEmails;
+    }
+
+    public void setNotificationEmails(String notificationEmails) {
+        this.notificationEmails = notificationEmails;
+    }
+
+    public double getSpendHours() {
+        return spendHours;
+    }
+
+    public void setSpendHours(double spendHours) {
+        this.spendHours = spendHours;
     }
 
     public Collection<TaskImpedance> getTaskImpedanceCollection() {

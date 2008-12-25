@@ -76,6 +76,14 @@ public class Project implements Serializable {
     private String visibility;
     @Column(name = "parent_project")
     private Integer parentProject;
+    @Column(name = "estimated_hours")
+    private double estimatedHours;
+    @Column(name = "hourly_rate")
+    private double hourlyRate;
+    @Column(name = "estimatedCost")
+    private double estimatedCost;
+    @Column(name = "notification_emails")
+    private double notificationEmails;
     @JoinColumn(name = "organization", referencedColumnName = "id")
     @ManyToOne
     private Organization organization;
@@ -179,6 +187,40 @@ public class Project implements Serializable {
     public void setLastUpdateDate(Date lastUpdateDate) {
         this.lastUpdateDate = lastUpdateDate;
     }
+
+    public double getEstimatedCost() {
+        return estimatedCost;
+    }
+
+    public void setEstimatedCost(double estimatedCost) {
+        this.estimatedCost = estimatedCost;
+    }
+
+    public double getEstimatedHours() {
+        return estimatedHours;
+    }
+
+    public void setEstimatedHours(double estimatedHours) {
+        this.estimatedHours = estimatedHours;
+    }
+
+    public double getHourlyRate() {
+        return hourlyRate;
+    }
+
+    public void setHourlyRate(double hourlyRate) {
+        this.hourlyRate = hourlyRate;
+    }
+
+    public double getNotificationEmails() {
+        return notificationEmails;
+    }
+
+    public void setNotificationEmails(double notificationEmails) {
+        this.notificationEmails = notificationEmails;
+    }
+    
+    
 
     public Organization getOrganization() {
         return organization;

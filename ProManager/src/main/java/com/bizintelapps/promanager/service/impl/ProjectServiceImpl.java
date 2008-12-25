@@ -73,6 +73,10 @@ public class ProjectServiceImpl implements ProjectService {
             project.setLastUpdateDate(new Date());
             project.setLastUpdateUser(savedByUsers.getId());
             project.setOrganization(savedByUsers.getOrganization());
+            project.setEstimatedCost(projectDto.getEstimatedCost());
+            project.setEstimatedHours(projectDto.getEstimatedHours());
+            project.setHourlyRate(projectDto.getHourlyRate());
+            project.setNotificationEmails(projectDto.getNotificationEmails());
             projectDao.create(project);
         } else {
             // copy projectDto contents 
@@ -83,6 +87,10 @@ public class ProjectServiceImpl implements ProjectService {
                 projectConverter.copyForUpdate(projectDto, project);
                 project.setLastUpdateDate(new Date());
                 project.setLastUpdateUser(savedByUsers.getId());
+                project.setEstimatedCost(projectDto.getEstimatedCost());
+                project.setEstimatedHours(projectDto.getEstimatedHours());
+                project.setHourlyRate(projectDto.getHourlyRate());
+                project.setNotificationEmails(projectDto.getNotificationEmails());
                 projectDao.update(project);
             } else {
                 throw new ServiceRuntimeException(" Only Administrator or ProjectManagers can update project");

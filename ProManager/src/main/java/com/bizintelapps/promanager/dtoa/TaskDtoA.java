@@ -18,11 +18,12 @@ package com.bizintelapps.promanager.dtoa;
 
 import com.bizintelapps.promanager.entity.Task;
 import com.bizintelapps.promanager.dto.TaskDto;
+import com.bizintelapps.promanager.entity.ProjectUsers;
+import com.bizintelapps.promanager.entity.Users;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 /**
  *
@@ -31,21 +32,25 @@ import org.springframework.stereotype.Service;
 @Component
 public class TaskDtoA {
 
-    public List<TaskDto> copyAllForDisplay(Collection<Task> usersCollection) {
+    public List<TaskDto> copyAllForDisplay(Collection<Task> usersCollection, boolean isAdmin, Integer requestedUserId) {
         List<TaskDto> list = new ArrayList<TaskDto>();
         for (Task task : usersCollection) {
-            TaskDto taskDto = copyForDisplay(task, new TaskDto());
+            TaskDto taskDto = copyForDisplay(task, new TaskDto(), isAdmin, requestedUserId);
             list.add(taskDto);
         }
         return list;
     }
 
-    public TaskDto copyForDisplay(Task task, TaskDto taskDto) {
+    public TaskDto copyForDisplay(Task task, TaskDto taskDto, boolean isAdmin, Integer requestedUserId) {
         taskDto.setAssignedToUsername(task.getAssignedTo().getUsername());
         taskDto.setCompletedDate(task.getCompletedDate());
         taskDto.setCreateDate(task.getCreateDate());
         taskDto.setDeadline(task.getDeadline());
-        //taskDto.setDescription(description);
+        taskDto.setEstimatedHours(task.getEstimatedHours());
+        taskDto.setSpendHours(task.getSpendHours());
+        taskDto.setDescription(task.getDescription());
+        taskDto.setNotificationEmails(task.getNotificationEmails());
+        taskDto.setDescription(task.getDescription());
         taskDto.setId(task.getId());
         taskDto.setLastStatusChangedDate(task.getLastStatusChangedDate());
         taskDto.setOwnerUsername(task.getOwner().getUsername());
@@ -55,6 +60,19 @@ public class TaskDtoA {
         }
         taskDto.setStatus(task.getStatus());
         taskDto.setTitle(task.getTitle());
+        if (isAdmin || task.getOwner().getId().equals(requestedUserId)) {
+            taskDto.setIsOwner(true);
+        } else {
+            if (task.getProject() != null) {
+                Collection<ProjectUsers> pus = task.getProject().getProjectUsersCollection();
+                for (ProjectUsers pu : pus) {
+                    if (pu.getIsManager() && pu.getUsers().getId().equals(requestedUserId)) {
+                        taskDto.setIsOwner(true);
+                        break;
+                    }
+                }
+            }
+        }
         return taskDto;
     }
 
@@ -70,12 +88,36 @@ public class TaskDtoA {
 
     /**
      * only copies fields that can be changed from client side
+     * Owner: title, assigned, end date, estimated hours, status, priority,
+     * complete date, hours spend, description, add comment, listeners
      * @param usersDto
      * @param users
      * 
      */
     public Task copyForUpdate(TaskDto taskDto, Task task) {
+        task.setTitle(taskDto.getTitle());
+        task.setAssignedTo(new Users(taskDto.getAssignedToId()));
+        task.setDeadline(taskDto.getCompletedDate());
+        task.setEstimatedHours(taskDto.getEstimatedHours());
+        task.setStatus(taskDto.getStatus());
+        task.setPriority(taskDto.getPriority());
+        task.setCompletedDate(taskDto.getCompletedDate());
+        task.setSpendHours(taskDto.getSpendHours());
+        task.setDescription(taskDto.getDescription());
+        task.setNotificationEmails(taskDto.getNotificationEmails());
         return task;
+    }
 
+    /**
+     * Assigned: status, complete date, hours spend, add comment
+     * @param taskDto
+     * @param task
+     * @return
+     */
+    public Task copyForUpdateForAssignee(TaskDto taskDto, Task task) {
+        task.setStatus(taskDto.getStatus());
+        task.setCompletedDate(taskDto.getCompletedDate());
+        task.setSpendHours(taskDto.getSpendHours());
+        return task;
     }
 }

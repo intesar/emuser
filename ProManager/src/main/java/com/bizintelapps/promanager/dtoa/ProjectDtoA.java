@@ -19,7 +19,6 @@ package com.bizintelapps.promanager.dtoa;
 import com.bizintelapps.promanager.dto.ProjectUserDto;
 import com.bizintelapps.promanager.entity.Project;
 import com.bizintelapps.promanager.dto.ProjectDto;
-import com.bizintelapps.promanager.dto.UsersDto;
 import com.bizintelapps.promanager.dto.UsersMinDto;
 import com.bizintelapps.promanager.entity.ProjectUsers;
 import com.bizintelapps.promanager.entity.Users;
@@ -61,10 +60,10 @@ public class ProjectDtoA {
         return dto;
     }
 
-     public List<ProjectUserDto> copyAllProjectAlongUsers2(List<ProjectUsers> projectUsers) {
+    public List<ProjectUserDto> copyAllProjectAlongUsers2(List<ProjectUsers> projectUsers) {
         return null;
     }
-     
+
     public List<ProjectUserDto> copyAllProjectAlongUsers(List<Project> projects) {
         List<ProjectUserDto> list = new ArrayList<ProjectUserDto>();
         for (Project p : projects) {
@@ -90,6 +89,10 @@ public class ProjectDtoA {
         projectDto.setCreateUser(project.getCreateUser());
         projectDto.setDescription(project.getDescription());
         projectDto.setId(project.getId());
+        projectDto.setEstimatedCost(project.getEstimatedCost());
+        projectDto.setEstimatedHours(project.getEstimatedHours());
+        projectDto.setHourlyRate(project.getHourlyRate());
+        projectDto.setNotificationEmails(project.getNotificationEmails());
         //projectDto.setLastUpdateUser(project.getLastUpdateUser());
         //String pattern = "yyyy.MM.dd hh:mm";
         //SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);

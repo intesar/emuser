@@ -46,185 +46,184 @@ import org.springframework.stereotype.Service;
 @Service
 public class TaskServiceImpl implements TaskService {
 
-    @Deprecated
-    public List<TaskDto> getCurrentTasks(String requestedBy) {
-        List<Task> list = taskDao.findByTaskStatusAndUserId("Completed", requestedBy);
-        List<TaskDto> tasks = taskConverter.copyAllForDisplay(list);
-        return tasks;
-    }
-
-    /**
-     *  
-     * @param username {all, username}
-     * @param projectName {all, projectName}
-     * @param context {all, context }
-     * @param status { all, status }
-     * @param requestedBy logged in user
-     * @return
-     */
-    @Deprecated
-    public PagingParams<Task> getTasks(String username, String projectName,
-            String context, String status, String requestedBy) {
-        PagingParams pagingParams = null;
-        String ql = "";
-        Users requestedByUser = usersDao.findByUsername(requestedBy);
-        // if requestedByUser is username he can pull everything
-        if (requestedByUser.getUsername().equalsIgnoreCase(username)) {
-            // project could be all or any one
-            if (projectName.equalsIgnoreCase("all")) {
-                // context could be all or any one
-                if (context.equalsIgnoreCase("all")) {
-                    // status could be all or any one 
-                    if (status.equalsIgnoreCase("all")) {
-                        ql = " select t from Task t where t.assignedTo.id = ?1 ";
-                    } else {
-                        ql = " select t from Task t where t.assignedTo.id = ?1 and t.status = ?2 ";
-                    }
-                } else {
-                    // status could be all or any one 
-                    if (status.equalsIgnoreCase("all")) {
-                        ql = " select t from Task t where t.assignedTo.id = ?1 and t.context = ?2";
-                    } else {
-                        ql = " select t from Task t where t.assignedTo.id = ?1 and t.context = ?2 and t.status = ?3 ";
-                    }
-                }
-            } else {
-                // context could be all or any one
-                if (context.equalsIgnoreCase("all")) {
-                    // status could be all or any one 
-                    if (status.equalsIgnoreCase("all")) {
-                        ql = " select t from Task t where t.assignedTo.id = ?1 and t.project.id = ?2 ";
-                    } else {
-                        ql = " select t from Task t where t.assignedTo.id = ?1 and t.project.id = ?2 and t.status = ?3 ";
-                    }
-                } else {
-                    // status could be all or any one 
-                    if (status.equalsIgnoreCase("all")) {
-                        ql = " select t from Task t where t.assignedTo.id = ?1 and t.project.id = ?2 and t.context = ?3";
-                    } else {
-                        ql = " select t from Task t where t.assignedTo.id = ?1 and t.project.id = ?2 and t.context = ?3 and t.status = ?4 ";
-                    }
-                }
-            }
-        } else // if requestedByUser is username he can pull everything
-        if (requestedByUser.getUsername().equalsIgnoreCase("all")) {
-            Users u = usersDao.findByUsername(username);
-            // project could be all or any one
-            if (projectName.equalsIgnoreCase("all")) {
-                // context could be all or any one
-                if (context.equalsIgnoreCase("all")) {
-                    // status could be all or any one 
-                    if (status.equalsIgnoreCase("all")) {
-                        ql = " select t from Task t where " +
-                                "(t.visibility = ?1 or t.project in (select pu.project from ProjectUsers " +
-                                "where pu.user.id ?2))";
-                    } else {
-                        ql = " select t from Task t where t.status = ?1 and " +
-                                "(t.visibility = ?2 or t.project in (select pu.project from ProjectUsers " +
-                                "where pu.user.id ?3))";
-                    }
-                } else {
-                    // status could be all or any one 
-                    if (status.equalsIgnoreCase("all")) {
-                        ql = " select t from Task t where t.context = ?1 and " +
-                                "(t.visibility = ?2 or t.project in (select pu.project from ProjectUsers " +
-                                "where pu.user.id ?3))";
-                    } else {
-                        ql = " select t from Task t where t.context = ?1 and t.status = ?2 and " +
-                                "(t.visibility = ?3 or t.project in (select pu.project from ProjectUsers " +
-                                "where pu.user.id ?4))";
-                    }
-                }
-            } else {
-                // context could be all or any one
-                if (context.equalsIgnoreCase("all")) {
-                    // status could be all or any one 
-                    if (status.equalsIgnoreCase("all")) {
-                        ql = " select t from Task t where t.project.id = ?1 and " +
-                                "(t.visibility = ?2 or t.project in (select pu.project from ProjectUsers " +
-                                "where pu.user.id ?3))";
-                    } else {
-                        ql = " select t from Task t where t.project.id = ?1 and t.status = ?2 and " +
-                                "(t.visibility = ?3 or t.project in (select pu.project from ProjectUsers " +
-                                "where pu.user.id ?4))";
-                    }
-                } else {
-                    // status could be all or any one 
-                    if (status.equalsIgnoreCase("all")) {
-                        ql = " select t from Task t where t.project.id = ?1 and t.context = ?2 and " +
-                                "(t.visibility = ?3 or t.project in (select pu.project from ProjectUsers " +
-                                "where pu.user.id ?4))";
-                    } else {
-                        ql = " select t from Task t where t.project.id = ?1 and t.context = ?2 and t.status = ?3 and " +
-                                "(t.visibility = ?4 or t.project in (select pu.project from ProjectUsers " +
-                                "where pu.user.id ?5))";
-                    }
-                }
-            }
-        } else {// if requestedByUser is username he can pull everything {
-            Users u = usersDao.findByUsername(username);
-            // project could be all or any one
-            if (projectName.equalsIgnoreCase("all")) {
-                // context could be all or any one
-                if (context.equalsIgnoreCase("all")) {
-                    // status could be all or any one 
-                    if (status.equalsIgnoreCase("all")) {
-                        ql = " select t from Task t where t.assignedTo.id = ?1 and " +
-                                "(t.visibility = ?2 or t.project in (select pu.project from ProjectUsers " +
-                                "where pu.user.id ?3))";
-                    } else {
-                        ql = " select t from Task t where t.assignedTo.id = ?1 and t.status = ?2 and " +
-                                "(t.visibility = ?3 or t.project in (select pu.project from ProjectUsers " +
-                                "where pu.user.id ?4))";
-                    }
-                } else {
-                    // status could be all or any one 
-                    if (status.equalsIgnoreCase("all")) {
-                        ql = " select t from Task t where t.assignedTo.id = ?1 and t.context = ?2 and " +
-                                "(t.visibility = ?3 or t.project in (select pu.project from ProjectUsers " +
-                                "where pu.user.id ?4))";
-                    } else {
-                        ql = " select t from Task t where t.assignedTo.id = ?1 and t.context = ?2 and t.status = ?3 and " +
-                                "(t.visibility = ?4 or t.project in (select pu.project from ProjectUsers " +
-                                "where pu.user.id ?5))";
-                    }
-                }
-            } else {
-                // context could be all or any one
-                if (context.equalsIgnoreCase("all")) {
-                    // status could be all or any one 
-                    if (status.equalsIgnoreCase("all")) {
-                        ql = " select t from Task t where t.assignedTo.id = ?1 and t.project.id = ?2 and " +
-                                "(t.visibility = ?3 or t.project in (select pu.project from ProjectUsers " +
-                                "where pu.user.id ?4))";
-                    } else {
-                        ql = " select t from Task t where t.assignedTo.id = ?1 and t.project.id = ?2 and t.status = ?3 and " +
-                                "(t.visibility = ?4 or t.project in (select pu.project from ProjectUsers " +
-                                "where pu.user.id ?5))";
-                    }
-                } else {
-                    // status could be all or any one 
-                    if (status.equalsIgnoreCase("all")) {
-                        ql = " select t from Task t where t.assignedTo.id = ?1 and t.project.id = ?2 and t.context = ?3 and " +
-                                "(t.visibility = ?4 or t.project in (select pu.project from ProjectUsers " +
-                                "where pu.user.id ?5))";
-                    } else {
-                        ql = " select t from Task t where t.assignedTo.id = ?1 and t.project.id = ?2 and t.context = ?3 and t.status = ?4 and " +
-                                "(t.visibility = ?5 or t.project in (select pu.project from ProjectUsers " +
-                                "where pu.user.id ?6))";
-                    }
-                }
-            }
-        }
-        return pagingParams;
-    }
-
+//    @Deprecated
+//    public List<TaskDto> getCurrentTasks(String requestedBy) {
+//        List<Task> list = taskDao.findByTaskStatusAndUserId("Completed", requestedBy);
+//        List<TaskDto> tasks = taskConverter.copyAllForDisplay(list);
+//        return tasks;
+//    }
+//
+//    /**
+//     *  
+//     * @param username {all, username}
+//     * @param projectName {all, projectName}
+//     * @param context {all, context }
+//     * @param status { all, status }
+//     * @param requestedBy logged in user
+//     * @return
+//     */
+//    @Deprecated
+//    public PagingParams<Task> getTasks(String username, String projectName,
+//            String context, String status, String requestedBy) {
+//        PagingParams pagingParams = null;
+//        String ql = "";
+//        Users requestedByUser = usersDao.findByUsername(requestedBy);
+//        // if requestedByUser is username he can pull everything
+//        if (requestedByUser.getUsername().equalsIgnoreCase(username)) {
+//            // project could be all or any one
+//            if (projectName.equalsIgnoreCase("all")) {
+//                // context could be all or any one
+//                if (context.equalsIgnoreCase("all")) {
+//                    // status could be all or any one 
+//                    if (status.equalsIgnoreCase("all")) {
+//                        ql = " select t from Task t where t.assignedTo.id = ?1 ";
+//                    } else {
+//                        ql = " select t from Task t where t.assignedTo.id = ?1 and t.status = ?2 ";
+//                    }
+//                } else {
+//                    // status could be all or any one 
+//                    if (status.equalsIgnoreCase("all")) {
+//                        ql = " select t from Task t where t.assignedTo.id = ?1 and t.context = ?2";
+//                    } else {
+//                        ql = " select t from Task t where t.assignedTo.id = ?1 and t.context = ?2 and t.status = ?3 ";
+//                    }
+//                }
+//            } else {
+//                // context could be all or any one
+//                if (context.equalsIgnoreCase("all")) {
+//                    // status could be all or any one 
+//                    if (status.equalsIgnoreCase("all")) {
+//                        ql = " select t from Task t where t.assignedTo.id = ?1 and t.project.id = ?2 ";
+//                    } else {
+//                        ql = " select t from Task t where t.assignedTo.id = ?1 and t.project.id = ?2 and t.status = ?3 ";
+//                    }
+//                } else {
+//                    // status could be all or any one 
+//                    if (status.equalsIgnoreCase("all")) {
+//                        ql = " select t from Task t where t.assignedTo.id = ?1 and t.project.id = ?2 and t.context = ?3";
+//                    } else {
+//                        ql = " select t from Task t where t.assignedTo.id = ?1 and t.project.id = ?2 and t.context = ?3 and t.status = ?4 ";
+//                    }
+//                }
+//            }
+//        } else // if requestedByUser is username he can pull everything
+//        if (requestedByUser.getUsername().equalsIgnoreCase("all")) {
+//            Users u = usersDao.findByUsername(username);
+//            // project could be all or any one
+//            if (projectName.equalsIgnoreCase("all")) {
+//                // context could be all or any one
+//                if (context.equalsIgnoreCase("all")) {
+//                    // status could be all or any one 
+//                    if (status.equalsIgnoreCase("all")) {
+//                        ql = " select t from Task t where " +
+//                                "(t.visibility = ?1 or t.project in (select pu.project from ProjectUsers " +
+//                                "where pu.user.id ?2))";
+//                    } else {
+//                        ql = " select t from Task t where t.status = ?1 and " +
+//                                "(t.visibility = ?2 or t.project in (select pu.project from ProjectUsers " +
+//                                "where pu.user.id ?3))";
+//                    }
+//                } else {
+//                    // status could be all or any one 
+//                    if (status.equalsIgnoreCase("all")) {
+//                        ql = " select t from Task t where t.context = ?1 and " +
+//                                "(t.visibility = ?2 or t.project in (select pu.project from ProjectUsers " +
+//                                "where pu.user.id ?3))";
+//                    } else {
+//                        ql = " select t from Task t where t.context = ?1 and t.status = ?2 and " +
+//                                "(t.visibility = ?3 or t.project in (select pu.project from ProjectUsers " +
+//                                "where pu.user.id ?4))";
+//                    }
+//                }
+//            } else {
+//                // context could be all or any one
+//                if (context.equalsIgnoreCase("all")) {
+//                    // status could be all or any one 
+//                    if (status.equalsIgnoreCase("all")) {
+//                        ql = " select t from Task t where t.project.id = ?1 and " +
+//                                "(t.visibility = ?2 or t.project in (select pu.project from ProjectUsers " +
+//                                "where pu.user.id ?3))";
+//                    } else {
+//                        ql = " select t from Task t where t.project.id = ?1 and t.status = ?2 and " +
+//                                "(t.visibility = ?3 or t.project in (select pu.project from ProjectUsers " +
+//                                "where pu.user.id ?4))";
+//                    }
+//                } else {
+//                    // status could be all or any one 
+//                    if (status.equalsIgnoreCase("all")) {
+//                        ql = " select t from Task t where t.project.id = ?1 and t.context = ?2 and " +
+//                                "(t.visibility = ?3 or t.project in (select pu.project from ProjectUsers " +
+//                                "where pu.user.id ?4))";
+//                    } else {
+//                        ql = " select t from Task t where t.project.id = ?1 and t.context = ?2 and t.status = ?3 and " +
+//                                "(t.visibility = ?4 or t.project in (select pu.project from ProjectUsers " +
+//                                "where pu.user.id ?5))";
+//                    }
+//                }
+//            }
+//        } else {// if requestedByUser is username he can pull everything {
+//            Users u = usersDao.findByUsername(username);
+//            // project could be all or any one
+//            if (projectName.equalsIgnoreCase("all")) {
+//                // context could be all or any one
+//                if (context.equalsIgnoreCase("all")) {
+//                    // status could be all or any one 
+//                    if (status.equalsIgnoreCase("all")) {
+//                        ql = " select t from Task t where t.assignedTo.id = ?1 and " +
+//                                "(t.visibility = ?2 or t.project in (select pu.project from ProjectUsers " +
+//                                "where pu.user.id ?3))";
+//                    } else {
+//                        ql = " select t from Task t where t.assignedTo.id = ?1 and t.status = ?2 and " +
+//                                "(t.visibility = ?3 or t.project in (select pu.project from ProjectUsers " +
+//                                "where pu.user.id ?4))";
+//                    }
+//                } else {
+//                    // status could be all or any one 
+//                    if (status.equalsIgnoreCase("all")) {
+//                        ql = " select t from Task t where t.assignedTo.id = ?1 and t.context = ?2 and " +
+//                                "(t.visibility = ?3 or t.project in (select pu.project from ProjectUsers " +
+//                                "where pu.user.id ?4))";
+//                    } else {
+//                        ql = " select t from Task t where t.assignedTo.id = ?1 and t.context = ?2 and t.status = ?3 and " +
+//                                "(t.visibility = ?4 or t.project in (select pu.project from ProjectUsers " +
+//                                "where pu.user.id ?5))";
+//                    }
+//                }
+//            } else {
+//                // context could be all or any one
+//                if (context.equalsIgnoreCase("all")) {
+//                    // status could be all or any one 
+//                    if (status.equalsIgnoreCase("all")) {
+//                        ql = " select t from Task t where t.assignedTo.id = ?1 and t.project.id = ?2 and " +
+//                                "(t.visibility = ?3 or t.project in (select pu.project from ProjectUsers " +
+//                                "where pu.user.id ?4))";
+//                    } else {
+//                        ql = " select t from Task t where t.assignedTo.id = ?1 and t.project.id = ?2 and t.status = ?3 and " +
+//                                "(t.visibility = ?4 or t.project in (select pu.project from ProjectUsers " +
+//                                "where pu.user.id ?5))";
+//                    }
+//                } else {
+//                    // status could be all or any one 
+//                    if (status.equalsIgnoreCase("all")) {
+//                        ql = " select t from Task t where t.assignedTo.id = ?1 and t.project.id = ?2 and t.context = ?3 and " +
+//                                "(t.visibility = ?4 or t.project in (select pu.project from ProjectUsers " +
+//                                "where pu.user.id ?5))";
+//                    } else {
+//                        ql = " select t from Task t where t.assignedTo.id = ?1 and t.project.id = ?2 and t.context = ?3 and t.status = ?4 and " +
+//                                "(t.visibility = ?5 or t.project in (select pu.project from ProjectUsers " +
+//                                "where pu.user.id ?6))";
+//                    }
+//                }
+//            }
+//        }
+//        return pagingParams;
+//    }
     @Override
     public void saveTask(TaskDto taskDto, String savedBy) {
         // to create a task user should be part of the project or admin
         // or user can create todo for other users
         Users savedByUser = usersDao.findByUsername(savedBy);
-        if (taskDto == null) {
+        if (taskDto != null && taskDto.getId() == null) {
             if (taskDto.getProjectId() != null) {
                 // user should be either admin or project member
                 if (savedByUser.isIsAdministrator() ||
@@ -247,17 +246,15 @@ public class TaskServiceImpl implements TaskService {
             }
         } else { // only admin, owner, assigned or pm can update task
             Task task = taskDao.read(taskDto.getId());
-            if (savedByUser.isIsAdministrator() || task.getOwner().equals(savedByUser) || task.getAssignedTo().equals(savedByUser)) {
+            if (savedByUser.isIsAdministrator() || task.getOwner().equals(savedByUser) ||
+                    (task.getProject() != null && projectUsersDao.findByProjectIdAndUserId(task.getProject().getId(), savedByUser.getId()).getIsManager())) {
                 Task task1 = taskConverter.copyForUpdate(taskDto, new Task());
                 taskDao.update(task1);
+            } else if (task.getAssignedTo().equals(savedByUser)) {
+                Task task1 = taskConverter.copyForUpdateForAssignee(taskDto, new Task());
+                taskDao.update(task1);
             } else {
-                ProjectUsers projectUser = projectUsersDao.findByProjectIdAndUserId(task.getProject().getId(), savedByUser.getId());
-                if (projectUser.getIsManager()) {
-                    Task task1 = taskConverter.copyForUpdate(taskDto, new Task());
-                    taskDao.update(task1);
-                } else {
-                    throw new ServiceRuntimeException("Task can by only updated by Owner or Administrator");
-                }
+                throw new ServiceRuntimeException("Illegal Action");
             }
 
         }
@@ -306,13 +303,17 @@ public class TaskServiceImpl implements TaskService {
         String statuses = "'" + TASK_STATUS_NEW + "'" + ", " + "'" + TASK_STATUS_IN_PROGRESS + "'" + ", " + "'" + TASK_STATUS_ON_HOLD + "'" + ", " + "'" + TASK_STATUS_COMPLETED + "'";
         if (active) {
             statuses = "'" + TASK_STATUS_NEW + "'" + ", " + "'" + TASK_STATUS_IN_PROGRESS + "'";
-        }        
+        }
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        String startDate = "'" + sdf.format(start) + "%" +"'";
-        String endDate = "'" + sdf.format(end) + "%" +"'";
-        if ( log.isDebugEnabled()) log.debug("----- " +start.toString() +"--" + end +"--" + startDate +"--" + endDate);
+        String startDate = "'" + sdf.format(start) + "%" + "'";
+        String endDate = "'" + sdf.format(end) + "%" + "'";
+        if (log.isDebugEnabled()) {
+            log.debug("----- " + start.toString() + "--" + end + "--" + startDate + "--" + endDate);
+        }
         List<Task> tasks = taskDao.search(statuses, startDate, endDate, userIds, projectIds);
-        List<TaskDto> dtos = taskConverter.copyAllForDisplay(tasks);
+        // requestedBy if admin, pm or owner can udpate lot on task
+        Users u = usersDao.findByUsername(requestedBy);
+        List<TaskDto> dtos = taskConverter.copyAllForDisplay(tasks, u.isIsAdministrator(), u.getId());
         return dtos;
     }
 
