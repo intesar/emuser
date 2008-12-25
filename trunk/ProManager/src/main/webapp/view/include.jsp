@@ -9,3 +9,4 @@
 <script type="text/javascript" src="../js/jquery.gchart.js"></script>
 <script type="text/javascript" src="../js/lib/error.js"></script>
 <script type="text/javascript" src="../js/facebox.js"></script>
+<script type="text/javascript" src="../js/jprintarea.js"></script>

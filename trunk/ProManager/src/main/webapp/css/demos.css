@@ -191,7 +191,7 @@ table.display td {
 }
 
 table.display td.center {
-	text-align: center;
+	text-align: left;
 }
 
 

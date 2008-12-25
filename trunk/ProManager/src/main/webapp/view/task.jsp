@@ -11,38 +11,41 @@
 <html>
     <head>
         <title>Tasks - ProManager</title>
+        
         <jsp:include page="include.jsp" />
+        
         <script type='text/javascript' src='../dwr/interface/AjaxTaskService.js'></script>
-        <script type="text/javascript" src="../js/lib/task.js"></script>             
+        <script type="text/javascript" src="../js/lib/task.js"></script>  
+        
     </head>
     <body  id="dt_example" class="example_alt_pagination" style="width:100%; height:100%;">
         <jsp:include page="header.jsp" />        
         <br>   
         <div style="position:absolute; left:5%; top:10%; bottom:5%; width:70%; height:90%; ">
             <div id="taskTableContainer" style="width:90%; height:90%; border: 0px solid #000; padding: 5px; " align="center" > 
-                <div id="container">
+                <div id="container">                    
+                    
                     <a id="createANewTask">Create a new task<font size="1"> >> </font></a>
                     <br><br>
                     <table   id="taskTable" cellpadding="0" cellspacing="0" border="0" class="display" >                        
                         <thead>
-                            <tr>
-                                <th>ID</th>                                                                                             
+                            <tr>                                                                                                                             
                                 <th>Title</th>
-                                <th>Project</th>
-                                <th>Priority</th>
-                                <th>Status</th>
-                                <th>Owner</th>                            
-                                <th>Assign-To</th>
-                                <th>Deadline</th>                            
+                                <th>Project</th>                                
+                                <th>Status</th>                                
+                                <th>Assign-To</th>                                
                                 <th></th>
                             </tr>
                         </thead>                
                         <tbody> 
                             <!-- this row is required by the datatable plugin to work -->
-                            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                            <tr><td></td><td></td><td></td><td></td><td></td></tr>
                         </tbody>                
                     </table>    
                 </div>
+                <p>
+                    <a id="printTaskTable">Print this Table</a>
+                </p>
             </div>
             <div id="newTaskContainer" style="display:none" align="center">
                 <div id="container">
@@ -113,6 +116,6 @@
                 </div>
             </div>
         </div>
-        <div id="pc" style="position:absolute; left:67%; top:20%; bottom:0; width:15%; height:90%; "></div>
+        <div id="pc" style="position:absolute; left:67%; top:20%; bottom:0; width:15%; height:90%; "></div>        
     </body>
 </html>

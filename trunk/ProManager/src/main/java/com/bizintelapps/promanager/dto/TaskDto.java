@@ -49,6 +49,11 @@ public class TaskDto {
     private Integer assignedToId;
     private String assignedToUsername;
     private SimpleDateFormat simpleDateFormat;
+    private boolean isOwner;
+    private double estimatedHours;
+    private String notificationEmails;
+    private double spendHours;
+
     public TaskDto() {
         String pattern = "MMM d, ''yy";
         simpleDateFormat = new SimpleDateFormat(pattern);
@@ -248,6 +253,38 @@ public class TaskDto {
 
     public void setLastStatusChangedDateFormat(String lastStatusChangedDateFormat) {
         this.lastStatusChangedDateFormat = lastStatusChangedDateFormat;
+    }
+
+    public boolean isIsOwner() {
+        return isOwner;
+    }
+
+    public void setIsOwner(boolean isOwner) {
+        this.isOwner = isOwner;
+    }
+
+    public double getEstimatedHours() {
+        return estimatedHours;
+    }
+
+    public void setEstimatedHours(double estimatedHours) {
+        this.estimatedHours = estimatedHours;
+    }
+
+    public String getNotificationEmails() {
+        return notificationEmails;
+    }
+
+    public void setNotificationEmails(String notificationEmails) {
+        this.notificationEmails = notificationEmails;
+    }
+
+    public double getSpendHours() {
+        return spendHours;
+    }
+
+    public void setSpendHours(double spendHours) {
+        this.spendHours = spendHours;
     }
 
     @Override

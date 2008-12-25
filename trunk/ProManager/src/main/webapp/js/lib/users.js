@@ -9,7 +9,8 @@ $(document).ready(function() {
 // this function is executed on load 	
 $(document).ready(function() {
     oTable = $('#usersTable').dataTable( {
-        "sPaginationType": "full_numbers"        
+        //"sPaginationType": "full_numbers"  
+        "sDom": '<"top"i>rt<"bottom"flp<"clear">'        
     } );
     
     /* Global variable for the DataTables object */

@@ -33,6 +33,10 @@ public class ProjectDto {
     private String lastUpdateUser;
     private String lastUpdateDate;
     private String visibility;
+    private double estimatedHours;
+    private double hourlyRate;
+    private double estimatedCost;
+    private double notificationEmails;
 
     public ProjectDto(Integer id, String name, String description, String status, Integer createUser, Date createDate, String lastUdpateUser, String lastUpdateDate, String visibility) {
         this.id = id;
@@ -119,6 +123,38 @@ public class ProjectDto {
 
     public void setVisibility(String visibility) {
         this.visibility = visibility;
+    }
+
+    public double getEstimatedCost() {
+        return estimatedCost;
+    }
+
+    public void setEstimatedCost(double estimatedCost) {
+        this.estimatedCost = estimatedCost;
+    }
+
+    public double getEstimatedHours() {
+        return estimatedHours;
+    }
+
+    public void setEstimatedHours(double estimatedHours) {
+        this.estimatedHours = estimatedHours;
+    }
+
+    public double getHourlyRate() {
+        return hourlyRate;
+    }
+
+    public void setHourlyRate(double hourlyRate) {
+        this.hourlyRate = hourlyRate;
+    }
+
+    public double getNotificationEmails() {
+        return notificationEmails;
+    }
+
+    public void setNotificationEmails(double notificationEmails) {
+        this.notificationEmails = notificationEmails;
     }
 
     @Override
