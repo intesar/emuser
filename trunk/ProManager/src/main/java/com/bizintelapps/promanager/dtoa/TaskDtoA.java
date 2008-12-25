@@ -14,7 +14,7 @@
  *  limitations under the License.
  *  under the License.
  */
-package com.bizintelapps.promanager.service.converters;
+package com.bizintelapps.promanager.dtoa;
 
 import com.bizintelapps.promanager.entity.Task;
 import com.bizintelapps.promanager.dto.TaskDto;
@@ -29,7 +29,7 @@ import org.springframework.stereotype.Service;
  * @author intesar
  */
 @Component
-public class TaskConverter {
+public class TaskDtoA {
 
     public List<TaskDto> copyAllForDisplay(Collection<Task> usersCollection) {
         List<TaskDto> list = new ArrayList<TaskDto>();

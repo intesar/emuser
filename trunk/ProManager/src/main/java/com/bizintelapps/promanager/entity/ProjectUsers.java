@@ -41,7 +41,8 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "ProjectUsers.findByIsEnabled", query = "SELECT p FROM ProjectUsers p WHERE p.isEnabled = :isEnabled"),
     @NamedQuery(name = "ProjectUsers.findByExpirationDate", query = "SELECT p FROM ProjectUsers p WHERE p.expirationDate = :expirationDate"),    
     @NamedQuery(name = "ProjectUsers.findManagedProjectsByUserId", query = "SELECT p FROM ProjectUsers p WHERE p.isManager = true and p.users.id = ?1 "),
-    @NamedQuery(name = "ProjectUsers.findByProjectStatusAndUserId", query = "SELECT p FROM ProjectUsers p WHERE p.project.status = ?1 and p.users.id = ?2 ")
+    @NamedQuery(name = "ProjectUsers.findByProjectStatusAndUserId", query = "SELECT p FROM ProjectUsers p WHERE p.project.status = ?1 and p.users.id = ?2 "),
+    @NamedQuery(name = "ProjectUsers.findByProjectIdAndUserId", query = "SELECT p FROM ProjectUsers p WHERE p.project.id = ?1 and p.users.id = ?2 ")
 })
 public class ProjectUsers implements Serializable {
 
@@ -76,8 +77,9 @@ public class ProjectUsers implements Serializable {
         this.id = id;
     }
 
-    public ProjectUsers(Integer id, boolean isManager, Date createDate, Project project, Users users, Users createUsers) {
+    public ProjectUsers(Integer id, boolean enabled, boolean isManager, Date createDate, Project project, Users users, Users createUsers) {
         this.id = id;
+        this.isEnabled = enabled;
         this.createDate = createDate;
         this.isManager = isManager;
         this.createDate = createDate;

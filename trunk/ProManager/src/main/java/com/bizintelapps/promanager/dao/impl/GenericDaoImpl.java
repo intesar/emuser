@@ -53,7 +53,6 @@ public class GenericDaoImpl<T, PK extends Serializable> implements GenericDao<T,
     public EntityManager getEntityManager() {
         return entityManager;
     }
-    
     // ****************************** methods ******************************
     @Override
     public void create(T o) {
@@ -105,24 +104,32 @@ public class GenericDaoImpl<T, PK extends Serializable> implements GenericDao<T,
 
     @Override
     public PagingParams<T> findByProperty(String propertyName, Object value, PagingParams<T> pagingParams) {
-        // ql = select o from users o where o.propertyName = ?1 ;                
-        String ql = " select o from " + type.getSimpleName() + " o where o." +
-                propertyName + " = ?1 ";
-        if (pagingParams == null) {
-            pagingParams = new PagingParams(0, 50, null);
+        try {
+            // ql = select o from users o where o.propertyName = ?1 ;                
+            String ql = " select o from " + type.getSimpleName() + " o where o." +
+                    propertyName + " = ?1 ";
+            System.out.println(ql);
+            if (pagingParams == null) {
+                pagingParams = new PagingParams(0, 50, null);
+            }
+            if (pagingParams.getSortBy() != null && pagingParams.getSortBy().length() > 0) {
+                ql = " select o from " + type.getSimpleName() + " o where o." +
+                        propertyName + " = ?1 order by o." + pagingParams.getSortBy();
+            }
+            // execute the query
+            List result = executeQueryReturnList(ql, pagingParams, value);
+            // create query to find total objects in table
+            // select count(o) from users o
+            String qlCount = " select count(o) from " + type.getSimpleName() + " o  where o." +
+                    propertyName + " = ?1 ";
+            System.out.println(qlCount);
+            Long total = executeQueryReturnInt(qlCount, value).longValue();
+            pagingParams.setTotalObjects(total);
+            pagingParams.setCurrentList(result);
+            System.out.println("finish");
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        if (pagingParams.getSortBy() != null && pagingParams.getSortBy().length() > 0) {
-            ql = " select o from " + type.getSimpleName() + " o where o." +
-                    propertyName + " = ?1 order by o." + pagingParams.getSortBy();
-        }
-        // execute the query
-        List result = executeQueryReturnList(ql, pagingParams, value);
-        // create query to find total objects in table
-        // select count(o) from users o
-        String qlCount = " select count(o) from " + type.getSimpleName() + " o ";
-        Long total = executeQueryReturnInt(qlCount, value).longValue();
-        pagingParams.setTotalObjects(total);
-        pagingParams.setCurrentList(result);
         return pagingParams;
     }
 

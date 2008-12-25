@@ -26,9 +26,9 @@ public class ProjectUserDto {
 
     private Integer projectId;
     private String projectName;
-    private List<UsersDto> users;
+    private List<UsersMinDto> users;
 
-    public ProjectUserDto(Integer projectId, String projectName, List<UsersDto> users) {
+    public ProjectUserDto(Integer projectId, String projectName, List<UsersMinDto> users) {
         this.projectId = projectId;
         this.projectName = projectName;
         this.users = users;
@@ -58,11 +58,11 @@ public class ProjectUserDto {
         this.projectName = projectName;
     }
 
-    public List<UsersDto> getUsers() {
+    public List<UsersMinDto> getUsers() {
         return users;
     }
 
-    public void setUsers(List<UsersDto> users) {
+    public void setUsers(List<UsersMinDto> users) {
         this.users = users;
     }
 
@@ -87,4 +87,11 @@ public class ProjectUserDto {
         hash = 71 * hash + (this.projectId != null ? this.projectId.hashCode() : 0);
         return hash;
     }
+
+    @Override
+    public String toString() {
+        return projectName;
+    }
+    
+    
 }
