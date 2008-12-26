@@ -13,7 +13,15 @@
         <title>Tasks - ProManager</title>
         
         <jsp:include page="include.jsp" />
-        
+        <script src="../js/transendent-date-range-picker/init.js"  type="text/javascript"></script> 
+        <script type="text/javascript" src="../js/transendent-date-range-picker/ui.datepicker.js"></script>
+        <link href="../js/transendent-date-range-picker/demoPages.css"  media="screen" rel="Stylesheet" type="text/css" />
+        <link type="text/css" href="../js/transendent-date-range-picker/screen.css"  media="screen" rel="Stylesheet" />
+        <!-- the following 2 links are for running this demo page -->
+        <script type="text/javascript" src="../js/transendent-date-range-picker/demoScripts.js" ></script>
+        <style type="text/css">
+            div.rangePicker { width: 250px; margin: .5em 0;}
+        </style>
         <script type='text/javascript' src='../dwr/interface/AjaxTaskService.js'></script>
         <script type="text/javascript" src="../js/lib/task.js"></script>  
         
@@ -28,7 +36,30 @@
                     <a id="createANewTask">Create a new task<font size="1"> >> </font></a>
                     <br><br>
                     <div align="left">
-                        <a id="#advanceSearchDiv" rel="facebox">Advance Search</a>
+                        <a id="advanceSearch" rel="facebox">Advance Search</a>
+                    </div>
+                    <div style="display:none" id="advanceSearchDiv" align="left">
+                        <table>
+                            <tr>
+                                <td>Projects<br><select name="projectsDropdown">
+                                        <option>All</option>
+                                        <option>Todo</option>
+                                    </select>
+                                </td>
+                                <td>Users<br><select name="usersDropdown">
+                                        <option>Me</option>
+                                    </select>
+                                </td>                    
+                                <td><div class="rangePicker futureRange">            
+                                        <input type="text" name="start_date" id="start_date" value="mm/dd/yyyy" />            
+                                        <input type="text" name="end_date" id="end_date" value="mm/dd/yyyy" />
+                                </div></td>
+                                <td>
+                                    <input type="button" value="Current Task" id="currentTask" />
+                                    <input type="button" value="All Task" id="allTask" />
+                                </td>
+                            </tr>
+                        </table>
                     </div>
                     <table   id="taskTable" cellpadding="0" cellspacing="0" border="0" class="display" >                        
                         <thead>
@@ -143,23 +174,6 @@
             </div>
         </div>
         <div id="pc" style="position:absolute; left:67%; top:20%; bottom:0; width:15%; height:90%; "></div>        
-        <div style="display:none" id="advanceSearchDiv">
-            <table>
-                <tr>
-                    <td>Projects<br>
-                    </td>
-                    <td>Users<br>
-                    </td>                    
-                    <td><div class="rangePicker futureRange">            
-                            <input type="text" name="start_date" id="start_date" value="mm/dd/yyyy" />            
-                            <input type="text" name="end_date" id="end_date" value="mm/dd/yyyy" />
-                    </div></td>
-                    <td>
-                        <input type="button" value="Current Task" id="currentTask" />
-                        <input type="button" value="All Task" id="allTask" />
-                    </td>
-                </tr>
-            </table>
-        </div>
+        
     </body>
 </html>
