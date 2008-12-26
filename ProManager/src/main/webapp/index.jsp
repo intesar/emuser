@@ -1,5 +1,9 @@
 <html>
-<body>
-<h2>Hello World!</h2>
-</body>
+    <body>
+        <%
+        response.setStatus(HttpServletResponse.SC_MOVED_PERMANENTLY);
+        String newLocn = "view/task.jsp";
+        response.setHeader("Location",newLocn);
+        %>
+    </body>
 </html>
