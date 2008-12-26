@@ -35,8 +35,9 @@
                     
                     <a id="createANewTask">Create a new task<font size="1"> >> </font></a>
                     <br><br>
-                    <div align="left">
-                        <a id="advanceSearch" rel="facebox">Advance Search</a>
+                    <div>
+                        <div align="left" > <a id="advanceSearch">Advance Search</a>
+                        </div>
                     </div>
                     <div style="display:none" id="advanceSearchDiv" align="left">
                         <table>
@@ -55,8 +56,8 @@
                                         <input type="text" name="end_date" id="end_date" value="mm/dd/yyyy" />
                                 </div></td>
                                 <td>
-                                    <input type="button" value="Current Task" id="currentTask" />
-                                    <input type="button" value="All Task" id="allTask" />
+                                    <a id="currentTask" >Current-Task</a>&nbsp;&nbsp;
+                                    <a id="allTask">All-Task</a>
                                 </td>
                             </tr>
                         </table>
@@ -77,9 +78,7 @@
                         </tbody>                
                     </table>    
                 </div>
-                <p>
-                    <a id="printTaskTable">Print Above List</a>
-                </p>
+                <div><a id="printTaskTable">Print List</a></div>
             </div>
             <div id="newTaskContainer" style="display:none" align="center">
                 <div id="container">
