@@ -238,6 +238,14 @@ http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
             com.bizintelapps.promanager.ajax.AjaxProjectService.getProjectUsers=ROLE_ADMIN,ROLE_USER
             com.bizintelapps.promanager.ajax.AjaxProjectService.deleteUserFromProject=ROLE_ADMIN,ROLE_USER
             com.bizintelapps.promanager.ajax.AjaxTaskService.*=ROLE_USER,ROLE_ADMIN
+            com.bizintelapps.promanager.ajax.AjaxReportService.getUserTaskReport=ROLE_USER,ROLE_ADMIN
+            com.bizintelapps.promanager.ajax.AjaxReportService.getProjectTaskReport=ROLE_USER,ROLE_ADMIN
+            com.bizintelapps.promanager.ajax.AjaxReportService.getAllUsersTaskReport=ROLE_USER,ROLE_ADMIN
+            com.bizintelapps.promanager.ajax.AjaxReportService.getAllProjectTaskReport=ROLE_USER,ROLE_ADMIN
+            com.bizintelapps.promanager.ajax.AjaxReportService.getBusyUsersReport=ROLE_USER,ROLE_ADMIN
+            com.bizintelapps.promanager.ajax.AjaxReportService.getBusyProjectsReport=ROLE_USER,ROLE_ADMIN
+            com.bizintelapps.promanager.ajax.AjaxReportService.getSlowUsersReport=ROLE_USER,ROLE_ADMIN
+            com.bizintelapps.promanager.ajax.AjaxReportService.getSlowProjectsReport=ROLE_USER,ROLE_ADMIN
             </value>
         </property>
     </bean>
