@@ -35,6 +35,9 @@
     </tbody>                
 </table>                    
 </div>
+<p>
+    <a id="printProjectTable">Print Above List</a>
+</p>
 </div>
 <div id="newProjectContainer" style="display:none" align="center">
     <div id="container">

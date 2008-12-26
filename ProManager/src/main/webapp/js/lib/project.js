@@ -96,6 +96,10 @@ $(document).ready(function() {
         AjaxProjectService.saveProject ( project, projectList);
     });
     
+    
+    $('#printProjectTable').click(function() {
+        $.jPrintArea($('#projectTableContainer'));
+    })
 } );
 
 

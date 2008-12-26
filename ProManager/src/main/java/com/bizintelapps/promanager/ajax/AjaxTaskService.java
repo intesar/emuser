@@ -167,6 +167,7 @@ public class AjaxTaskService {
             log.error(se);
             throw se;
         } catch (Exception e) {
+            e.printStackTrace();
             log.error(e);
             throw new ServiceRuntimeException(ERROR_MESSAGE);
         }
