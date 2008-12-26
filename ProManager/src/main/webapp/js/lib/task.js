@@ -110,10 +110,9 @@ $(document).ready(function() {
         $.jPrintArea($('#taskTableContainer'));
     });
     
-    $('a[rel*=facebox]').facebox({
-        loading_image : 'loading.gif',
-        close_image : 'closelabel.gif'
-    }) ;
+    $('#advanceSearch').click(function() {
+       $('#advanceSearchDiv').slideToggle('fast');
+    });
     
 } );
 
