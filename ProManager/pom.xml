@@ -25,8 +25,8 @@
         <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
         <jdbc.url>jdbc:mysql:///pm</jdbc.url>
         <jdbc.username>root</jdbc.username>
-        <jdbc.password>imran123</jdbc.password>
-        <logging.level>INFO</logging.level>
+        <jdbc.password>apple</jdbc.password>
+        <logging.level>SEVERE</logging.level>
         <cache.type>SoftWeak</cache.type>
         <jdbc.read-connections.max>20</jdbc.read-connections.max>
         <jdbc.read-connections.min>2</jdbc.read-connections.min>
@@ -131,6 +131,7 @@
             <version>5.0.5</version>
             <scope>compile</scope>
         </dependency>
+        <!--
         <dependency>
             <groupId>dom4j</groupId>
             <artifactId>dom4j</artifactId>
@@ -148,13 +149,14 @@
                     <artifactId>jta</artifactId>
                 </exclusion>
             </exclusions>
-        </dependency>
+        </dependency>       
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
             <version>1.0</version>
             <scope>compile</scope>
         </dependency>
+        -->
         <dependency>
             <groupId>javax.persistence</groupId>
             <artifactId>persistence-api</artifactId>
@@ -167,6 +169,12 @@
             <version>1.0</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>cglib</groupId>
+            <artifactId>cglib</artifactId>
+            <version>2.1_3</version>
+        </dependency>
+        <!--
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-annotations</artifactId>
@@ -185,6 +193,7 @@
             <version>3.3.2.GA</version>
             <scope>compile</scope>
         </dependency>
+        -->
     <!-- Spring Framework -->
         <dependency>
             <groupId>org.springframework</groupId>
