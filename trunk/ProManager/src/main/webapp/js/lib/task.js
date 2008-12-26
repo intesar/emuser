@@ -26,11 +26,12 @@ $(document).ready(function() {
         oTable.fnClearTable();
         for ( var i = 0 ; i < tasks.length; i++) {             
             // create object
-            var project = tasks[i].projectName; //if ( project == null) project = "NONE";
-            var deadline = tasks[i].deadlineFormat; //if (deadline == null ) deadline = "NONE";
+            var project = tasks[i].projectName; if ( project == null) project = "Todo";
+            var deadline = tasks[i].deadlineFormat; if (deadline == null ) deadline = "NA";
+            var assignedUser = tasks[i].assignedToUsername; if ( assignedUser == null ) assignedUser = "<a id='assignMe"+tasks[i].id + "' class='editTask'>Assign Me</a>";
             var data = [ /*"" + tasks[i].id,*/ "" + tasks[i].title, project,
-                /*tasks[i].priority,*/ tasks[i].status, /*tasks[i].ownerUsername, */
-                ""+tasks[i].assignedToUsername,/* deadline,*/ "<a id='editProject"+tasks[i].id + "' class='editTask'>Edit</a>-<a id='deleteTask"+tasks[i].id +"' class='deleteTask'>Del</a>"];                                  
+                /*tasks[i].priority,*/ /*tasks[i].status,*/deadline, /*tasks[i].ownerUsername, */
+                ""+assignedUser,/* deadline,*/ "<a id='editProject"+tasks[i].id + "' class='editTask'>Edit</a>-<a id='deleteTask"+tasks[i].id +"' class='deleteTask'>Del</a>"];                                  
             tasksCache[tasks[i].id] = tasks[i];            
             dArray[i] = data;                
         }                   
@@ -58,7 +59,7 @@ $(document).ready(function() {
         $('#projectTableContainer').slideDown("fast");
     });
     // executed on "edit" link is clicked
-    $('.editProject').livequery('click', function () {                
+    $('.editTask').livequery('click', function () {                
         $('#projectTableContainer').slideUp("fast");        
         viewed = $(this).attr('id').toString().substring(11);        
         $('#editProjectContainer').slideDown("fast");
@@ -69,7 +70,7 @@ $(document).ready(function() {
     });
 
     // executed on "delete" link is clicked
-    $('.deleteProject').livequery('click', function () {                                
+    $('.deleteTask').livequery('click', function () {                                
         viewed = $(this).attr('id').toString().substring(11);      
         AjaxProjectService.deleteProject ( viewed, function ( data ) {
             alert (data);
@@ -81,12 +82,18 @@ $(document).ready(function() {
         $('#name').val("");        
         $('#description').val("");
     });
-    // executed on "create new project" button is clicked
-    $('#createNewProject').click(function() {
-        var project1 = {id:null, name:null, description:null, status:'In Progress'};
-        project1.name = $('#name').val();
-        project1.description = $('#description').val();
-        $('#backToProjectList').trigger("click");
+    // executed on "create new task" button is clicked
+    $('#createNewTask').click(function() {
+        var task1 = {id:null, title:null, deadline:null, priority:null, projectName:null, assignedToUsername:null, estimatedHours:null, notificationEmails:null, description:null};
+        task1.title = $('#title').val();
+        task1.deadline = $('#deadline').val();
+        task1.priority = $('#priority').val();
+        task1.projectName = $('#project');
+        task1.assignedToUsername = $('#assignedTo').val();
+        task1.estimatedHours = $('#estimatedHours').val();
+        task1.notificationEmails = $('#notificationEmails').val();        
+        task1.description = $('#description').val();
+        //$('#backToProjectList').trigger("click");
         AjaxProjectService.saveProject ( project1, projectList);
     });
     
@@ -101,7 +108,12 @@ $(document).ready(function() {
     
     $('#printTaskTable').click(function() {
         $.jPrintArea($('#taskTableContainer'));
-    })
+    });
+    
+    $('a[rel*=facebox]').facebox({
+        loading_image : 'loading.gif',
+        close_image : 'closelabel.gif'
+    }) ;
     
 } );
 

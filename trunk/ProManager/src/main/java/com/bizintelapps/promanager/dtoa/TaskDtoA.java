@@ -42,7 +42,9 @@ public class TaskDtoA {
     }
 
     public TaskDto copyForDisplay(Task task, TaskDto taskDto, boolean isAdmin, Integer requestedUserId) {
-        taskDto.setAssignedToUsername(task.getAssignedTo().getUsername());
+        if (task.getAssignedTo() != null) {
+            taskDto.setAssignedToUsername(task.getAssignedTo().getUsername());
+        }
         taskDto.setCompletedDate(task.getCompletedDate());
         taskDto.setCreateDate(task.getCreateDate());
         taskDto.setDeadline(task.getDeadline());
@@ -53,7 +55,9 @@ public class TaskDtoA {
         taskDto.setDescription(task.getDescription());
         taskDto.setId(task.getId());
         taskDto.setLastStatusChangedDate(task.getLastStatusChangedDate());
-        taskDto.setOwnerUsername(task.getOwner().getUsername());
+        if (task.getOwner() != null) {
+            taskDto.setOwnerUsername(task.getOwner().getUsername());
+        }
         taskDto.setPriority(task.getPriority());
         if (task.getProject() != null) {
             taskDto.setProjectName(task.getProject().getName());

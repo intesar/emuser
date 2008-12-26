@@ -27,12 +27,15 @@
                     
                     <a id="createANewTask">Create a new task<font size="1"> >> </font></a>
                     <br><br>
+                    <div align="left">
+                        <a id="#advanceSearchDiv" rel="facebox">Advance Search</a>
+                    </div>
                     <table   id="taskTable" cellpadding="0" cellspacing="0" border="0" class="display" >                        
                         <thead>
                             <tr>                                                                                                                             
                                 <th>Title</th>
                                 <th>Project</th>                                
-                                <th>Status</th>                                
+                                <th>End Date</th>                                
                                 <th>Assign-To</th>                                
                                 <th></th>
                             </tr>
@@ -44,7 +47,7 @@
                     </table>    
                 </div>
                 <p>
-                    <a id="printTaskTable">Print this Table</a>
+                    <a id="printTaskTable">Print Above List</a>
                 </p>
             </div>
             <div id="newTaskContainer" style="display:none" align="center">
@@ -52,6 +55,14 @@
                     <a  id="backToTaskList"><font size="1"><< </font>Back to task list</a><br><br>
                     <table>
                         <tr>
+                            <td valign="top">
+                                <table>
+                                    <tr>
+                                        <td>Description<br>
+                                        <textarea name="description" rows="16" cols="50"></textarea></td>
+                                    </tr>
+                                </table>
+                            </td>
                             <td>
                                 <table>
                                     <tr>
@@ -64,7 +75,7 @@
                                     <tr>
                                         <td>Project <br>
                                             <select name="project" id="project">
-                                                <option value="In Progess">Todo</option>
+                                                <option>Todo</option>
                                             </select>
                                         </td>
                                     </tr>
@@ -84,32 +95,47 @@
                                     
                                     <tr>
                                         <td>Assign-To <br>
-                                        <select name="assignTo" id="assignTo">                        
+                                        <select name="assignTo" id="assignTo">     
+                                            <option>--NONE--</option>
+                                            <option>Me</option>
                                         </select>
                                     </tr>
                                     <tr>
                                         <td><br></td>
                                     </tr> 
                                     <tr>
-                                        <td>End Time       Estimated time<br>
-                                            <input id="deadline" name="deadline" value="" maxlength="3" size="3" type="text" /><small>mins (eg: 10, 120)</small>
+                                        <td>Estimated Hours <br>
+                                            <input id="estimatedHours" name="estimatedHours" value="" maxlength="5" size="5" type="text" /><small> (eg: 0.5, 5, 12)</small>
                                         </td>
                                     </tr> 
+                                    <tr>
+                                        <td><br></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Finish By <br>
+                                            <input id="deadline" name="deadline" value="" type="text" />
+                                        </td>
+                                    </tr> 
+                                    <tr>
+                                        <td><br></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Notification Emails<br>
+                                            <input id="notificationEmails" name="notificationEmails" value="" size="50" type="text" /><small> (comma seperated)</small>
+                                        </td>
+                                    </tr> 
+                                    <tr>
+                                        <td><br></td>
+                                    </tr>
                                 </table>      
                             </td>
-                            <td valign="top">
-                                <table>
-                                    <tr>
-                                        <td>Description<br>
-                                        <textarea name="description" rows="16" cols="50"></textarea></td>
-                                    </tr>
-                                </table>
-                            </td>
+                            
                         </tr>   
-                        <tr>                    
+                        <tr>        
+                            <td></td>
                             <td>
-                                <input type="button" value="Create new task" onclick="writePerson()"/>                                
-                                <input type="button" value="Cancel" onclick="clearPerson()"/>
+                                <input type="button" value="Create new task" id="createNewTask"/>                                
+                                <input type="button" value="Cancel" />
                             </td>   
                         </tr>  
                     </table>
@@ -117,5 +143,23 @@
             </div>
         </div>
         <div id="pc" style="position:absolute; left:67%; top:20%; bottom:0; width:15%; height:90%; "></div>        
+        <div style="display:none" id="advanceSearchDiv">
+            <table>
+                <tr>
+                    <td>Projects<br>
+                    </td>
+                    <td>Users<br>
+                    </td>                    
+                    <td><div class="rangePicker futureRange">            
+                            <input type="text" name="start_date" id="start_date" value="mm/dd/yyyy" />            
+                            <input type="text" name="end_date" id="end_date" value="mm/dd/yyyy" />
+                    </div></td>
+                    <td>
+                        <input type="button" value="Current Task" id="currentTask" />
+                        <input type="button" value="All Task" id="allTask" />
+                    </td>
+                </tr>
+            </table>
+        </div>
     </body>
 </html>

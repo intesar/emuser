@@ -16,7 +16,6 @@
  */
 package com.bizintelapps.promanager.service.impl;
 
-import com.bizintelapps.promanager.dao.PagingParams;
 import com.bizintelapps.promanager.dao.ProjectDao;
 import com.bizintelapps.promanager.dao.ProjectUsersDao;
 import com.bizintelapps.promanager.dao.TaskDao;

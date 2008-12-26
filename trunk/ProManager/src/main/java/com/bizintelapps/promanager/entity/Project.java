@@ -80,7 +80,7 @@ public class Project implements Serializable {
     private double estimatedHours;
     @Column(name = "hourly_rate")
     private double hourlyRate;
-    @Column(name = "estimatedCost")
+    @Column(name = "estimated_cost")
     private double estimatedCost;
     @Column(name = "notification_emails")
     private double notificationEmails;
