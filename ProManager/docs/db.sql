@@ -32,7 +32,7 @@ CREATE TABLE `authorities` (
   `id` int(10) unsigned NOT NULL auto_increment,
   PRIMARY KEY  (`id`),
   UNIQUE KEY `Index_2` (`username`,`authority`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `authorities`
@@ -49,6 +49,7 @@ INSERT INTO `authorities` (`username`,`authority`,`id`) VALUES
  ('i','ROLE_USER',21),
  ('intesar.mohammed','ROLE_ADMIN',3),
  ('intesar.mohammed','ROLE_USER',2),
+ ('irfan.mohammed@bizintelapps.com','ROLE_USER',26),
  ('jjj','ROLE_ADMIN',18),
  ('jjj','ROLE_USER',19),
  ('kkk','ROLE_ADMIN',14),
@@ -111,34 +112,39 @@ CREATE TABLE `project` (
   `organization` int(10) unsigned NOT NULL,
   `last_update_user` int(10) unsigned default NULL,
   `last_update_date` datetime default NULL,
+  `estimated_hours` double default '0',
+  `hourly_rate` double default '0',
+  `estimated_cost` double default '0',
+  `notification_emails` varchar(255) default NULL,
   PRIMARY KEY  (`id`),
   KEY `FK_project_organization` (`organization`),
   CONSTRAINT `FK_project_1` FOREIGN KEY (`organization`) REFERENCES `organization` (`id`),
   CONSTRAINT `FK_project_organization` FOREIGN KEY (`organization`) REFERENCES `organization` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `project`
 --
 
 /*!40000 ALTER TABLE `project` DISABLE KEYS */;
-INSERT INTO `project` (`id`,`name`,`description`,`_status`,`create_user`,`create_date`,`visibility`,`parent_project`,`organization`,`last_update_user`,`last_update_date`) VALUES 
- (1,'TheNIkah','Muslim Matrimonials,','On Hold','5','2008-11-29 23:03:56',NULL,NULL,8,5,'2008-11-29 23:45:26'),
- (2,'OurUmmah','Muslim Social Networking. alksjdflaks','On Hold','5','2008-11-29 23:45:52',NULL,NULL,8,15,'2008-12-13 19:25:53'),
- (3,'OurUmmah3','Muslim Social Networking','Completed','5','2008-11-29 23:45:52','',NULL,8,15,'2008-12-13 19:26:49'),
- (4,'OurUmmah4','Muslim Social Networking','In Progess','5','2008-11-29 23:45:52','',NULL,8,5,'2008-11-29 00:00:00'),
- (5,'OurUmmah5','Muslim Social Networking','In Progess','5','2008-11-29 23:45:52','',NULL,8,5,'2008-11-29 00:00:00'),
- (6,'OurUmmah6','Muslim Social Networking','In Progess','5','2008-11-29 23:45:52','',NULL,8,5,'2008-11-29 00:00:00'),
- (7,'OurUmmah7','Muslim Social Networking','In Progess','5','2008-11-29 23:45:52','',NULL,8,5,'2008-11-29 00:00:00'),
- (8,'OurUmmah8','Muslim Social Networking','In Progess','5','2008-11-29 23:45:52','',NULL,8,5,'2008-11-29 00:00:00'),
- (9,'OurUmmah9','Muslim Social Networking','In Progess','5','2008-11-29 23:45:52','',NULL,8,5,'2008-11-29 00:00:00'),
- (10,'OurUmmah10','Muslim Social Networking...... testing this','On Hold','5','2008-11-29 23:45:52','',NULL,8,15,'2008-12-13 19:31:42'),
- (11,'OurUmmah11','Muslim Social Networking','In Progess','5','2008-11-29 23:45:52','',NULL,8,5,'2008-11-29 00:00:00'),
- (12,'OurUmmah12','Muslim Social Networking','In Progess','5','2008-11-29 23:45:52','',NULL,8,5,'2008-11-29 00:00:00'),
- (13,'OurUmmah13','Muslim Social Networking','In Progess','5','2008-11-29 23:45:52','',NULL,8,5,'2008-11-29 00:00:00'),
- (14,'test-project1',NULL,'In Progress','15','2008-12-13 19:34:14',NULL,NULL,8,15,'2008-12-13 19:34:14'),
- (15,'urooj',NULL,'In Progress','15','2008-12-19 22:11:49',NULL,NULL,8,15,'2008-12-19 22:11:49'),
- (16,'ittefaaq','','Completed','15','2008-12-19 22:12:10',NULL,NULL,8,15,'2008-12-20 14:56:11');
+INSERT INTO `project` (`id`,`name`,`description`,`_status`,`create_user`,`create_date`,`visibility`,`parent_project`,`organization`,`last_update_user`,`last_update_date`,`estimated_hours`,`hourly_rate`,`estimated_cost`,`notification_emails`) VALUES 
+ (2,'OurUmmah','Muslim Social Networking. alksjdflaks','On Hold','5','2008-11-29 23:45:52',NULL,NULL,8,15,'2008-12-13 19:25:53',0,0,0,NULL),
+ (3,'OurUmmah3','Muslim Social Networking','Completed','5','2008-11-29 23:45:52','',NULL,8,15,'2008-12-13 19:26:49',0,0,0,NULL),
+ (4,'OurUmmah4','Muslim Social Networking','In Progess','5','2008-11-29 23:45:52','',NULL,8,5,'2008-11-29 00:00:00',0,0,0,NULL),
+ (5,'OurUmmah5','Muslim Social Networking','In Progess','5','2008-11-29 23:45:52','',NULL,8,5,'2008-11-29 00:00:00',0,0,0,NULL),
+ (6,'OurUmmah6','Muslim Social Networking','In Progess','5','2008-11-29 23:45:52','',NULL,8,5,'2008-11-29 00:00:00',0,0,0,NULL),
+ (7,'OurUmmah7','Muslim Social Networking','In Progess','5','2008-11-29 23:45:52','',NULL,8,5,'2008-11-29 00:00:00',0,0,0,NULL),
+ (8,'OurUmmah8','Muslim Social Networking','In Progess','5','2008-11-29 23:45:52','',NULL,8,5,'2008-11-29 00:00:00',0,0,0,NULL),
+ (9,'OurUmmah9','Muslim Social Networking','In Progess','5','2008-11-29 23:45:52','',NULL,8,5,'2008-11-29 00:00:00',0,0,0,NULL),
+ (10,'OurUmmah10','Muslim Social Networking...... testing this','On Hold','5','2008-11-29 23:45:52','',NULL,8,15,'2008-12-13 19:31:42',0,0,0,NULL),
+ (11,'OurUmmah11','Muslim Social Networking','In Progess','5','2008-11-29 23:45:52','',NULL,8,5,'2008-11-29 00:00:00',0,0,0,NULL),
+ (12,'OurUmmah12','Muslim Social Networking','In Progess','5','2008-11-29 23:45:52','',NULL,8,5,'2008-11-29 00:00:00',0,0,0,NULL),
+ (13,'OurUmmah13','Muslim Social Networking','In Progess','5','2008-11-29 23:45:52','',NULL,8,5,'2008-11-29 00:00:00',0,0,0,NULL),
+ (14,'test-project1',NULL,'In Progress','15','2008-12-13 19:34:14',NULL,NULL,8,15,'2008-12-13 19:34:14',0,0,0,NULL),
+ (15,'urooj',NULL,'In Progress','15','2008-12-19 22:11:49',NULL,NULL,8,15,'2008-12-19 22:11:49',0,0,0,NULL),
+ (16,'ittefaaq','','Completed','15','2008-12-19 22:12:10',NULL,NULL,8,15,'2008-12-20 14:56:11',0,0,0,NULL),
+ (17,'',NULL,'In Progress','15','2008-12-22 20:39:44',NULL,NULL,8,15,'2008-12-22 20:39:44',0,0,0,NULL),
+ (18,'hello-brother',NULL,'In Progress','15','2008-12-25 19:07:38',NULL,NULL,8,15,'2008-12-25 19:07:38',0,0,0,'0.0');
 /*!40000 ALTER TABLE `project` ENABLE KEYS */;
 
 
@@ -148,7 +154,7 @@ INSERT INTO `project` (`id`,`name`,`description`,`_status`,`create_user`,`create
 
 DROP TABLE IF EXISTS `project_users`;
 CREATE TABLE `project_users` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL auto_increment,
   `is_enabled` tinyint(1) default '0',
   `expiration_date` datetime default NULL,
   `is_manager` tinyint(1) unsigned NOT NULL default '0',
@@ -157,13 +163,16 @@ CREATE TABLE `project_users` (
   `create_user` int(11) default NULL,
   `users` int(11) default NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `project_users`
 --
 
 /*!40000 ALTER TABLE `project_users` DISABLE KEYS */;
+INSERT INTO `project_users` (`id`,`is_enabled`,`expiration_date`,`is_manager`,`create_date`,`project`,`create_user`,`users`) VALUES 
+ (1,1,NULL,1,'2008-12-21 00:02:39',3,15,15),
+ (13,1,NULL,1,'2008-12-25 02:34:02',3,15,12);
 /*!40000 ALTER TABLE `project_users` ENABLE KEYS */;
 
 
@@ -176,20 +185,23 @@ CREATE TABLE `task` (
   `id` int(11) NOT NULL,
   `parent_task` int(11) default NULL,
   `sequence_number` double default NULL,
-  `title` varchar(255) NOT NULL,
-  `context` varchar(255) default NULL,
+  `title` varchar(105) NOT NULL default 'na',
+  `context` varchar(45) default NULL,
   `deadline` datetime default NULL,
   `completed_date` datetime default NULL,
-  `visibility` varchar(255) default NULL,
+  `visibility` varchar(45) default NULL,
   `last_status_changed_date` datetime default NULL,
-  `_status` varchar(255) NOT NULL,
+  `_status` varchar(45) NOT NULL default 'New',
   `create_date` datetime default NULL,
   `percentage_completed` int(11) default NULL,
   `description` varchar(255) default NULL,
-  `priority` varchar(255) NOT NULL,
+  `priority` varchar(45) NOT NULL default 'Medium',
   `project` int(11) default NULL,
   `owner` int(11) default NULL,
   `assigned_to` int(11) default NULL,
+  `estimated_hours` double default NULL,
+  `spend_hours` double default '1',
+  `notification_emails` varchar(255) default NULL,
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -198,17 +210,17 @@ CREATE TABLE `task` (
 --
 
 /*!40000 ALTER TABLE `task` DISABLE KEYS */;
-INSERT INTO `task` (`id`,`parent_task`,`sequence_number`,`title`,`context`,`deadline`,`completed_date`,`visibility`,`last_status_changed_date`,`_status`,`create_date`,`percentage_completed`,`description`,`priority`,`project`,`owner`,`assigned_to`) VALUES 
- (1,NULL,NULL,'test1',NULL,'2009-10-10 00:00:00','2009-10-11 00:00:00',NULL,NULL,'new','2008-12-10 00:00:00',NULL,'testing task','Medium',NULL,15,8),
- (7,NULL,NULL,'tes71','','2009-10-10 00:00:00','2009-10-11 00:00:00','','2009-10-11 00:00:00','new','2008-12-10 00:00:00',NULL,'testing task','Medium',NULL,15,8),
- (8,NULL,NULL,'tes71','','2009-10-10 00:00:00','2009-10-11 00:00:00','','2009-10-11 00:00:00','new','2008-12-10 00:00:00',NULL,'testing task','Medium',NULL,15,8),
- (9,NULL,NULL,'tes71','','2009-10-10 00:00:00','2009-10-11 00:00:00','','2009-10-11 00:00:00','new','2008-12-10 00:00:00',NULL,'testing task','Medium',NULL,15,8),
- (21,NULL,NULL,'tes21','','2009-10-10 00:00:00','2009-10-11 00:00:00','','2009-10-11 00:00:00','new','2008-12-10 00:00:00',NULL,'testing task','Medium',NULL,15,8),
- (31,NULL,NULL,'tes31','','2009-10-10 00:00:00','2009-10-11 00:00:00','','2009-10-11 00:00:00','new','2008-12-10 00:00:00',NULL,'testing task','Medium',NULL,15,8),
- (41,NULL,NULL,'tes41','','2009-10-10 00:00:00','2009-10-11 00:00:00','','2009-10-11 00:00:00','new','2008-12-10 00:00:00',NULL,'testing task','Medium',NULL,15,8),
- (51,NULL,NULL,'tes51','','2009-10-10 00:00:00','2009-10-11 00:00:00','','2009-10-11 00:00:00','new','2008-12-10 00:00:00',NULL,'testing task','Medium',NULL,15,8),
- (61,NULL,NULL,'tes61','','2009-10-10 00:00:00','2009-10-11 00:00:00','','2009-10-11 00:00:00','new','2008-12-10 00:00:00',NULL,'testing task','Medium',NULL,15,8),
- (71,NULL,NULL,'tes71','','2009-10-10 00:00:00','2009-10-11 00:00:00','','2009-10-11 00:00:00','new','2008-12-10 00:00:00',NULL,'testing task','Medium',NULL,15,8);
+INSERT INTO `task` (`id`,`parent_task`,`sequence_number`,`title`,`context`,`deadline`,`completed_date`,`visibility`,`last_status_changed_date`,`_status`,`create_date`,`percentage_completed`,`description`,`priority`,`project`,`owner`,`assigned_to`,`estimated_hours`,`spend_hours`,`notification_emails`) VALUES 
+ (1,NULL,NULL,'test1',NULL,'2009-10-10 00:00:00','2009-10-11 00:00:00',NULL,NULL,'New','2008-12-25 00:00:00',NULL,'testing task','Medium',NULL,15,8,NULL,1,NULL),
+ (7,NULL,NULL,'tes71','','2009-10-10 00:00:00','2009-10-11 00:00:00','','2009-10-11 00:00:00','New','2008-12-21 00:00:00',NULL,'testing task','Medium',3,15,8,NULL,1,NULL),
+ (8,NULL,NULL,'tes71','','2009-10-10 00:00:00','2009-10-11 00:00:00','','2009-10-11 00:00:00','New','2008-12-22 00:00:00',NULL,'testing task','Medium',4,15,NULL,NULL,1,NULL),
+ (9,NULL,NULL,'tes71','','2009-10-10 00:00:00','2009-10-11 00:00:00','','2009-10-11 00:00:00','New','2008-12-23 00:00:00',NULL,'testing task','Medium',NULL,15,8,NULL,1,NULL),
+ (21,NULL,NULL,'tes21','','2009-10-10 00:00:00','2009-10-11 00:00:00','','2009-10-11 00:00:00','New','2008-12-10 00:00:00',NULL,'testing task','Medium',NULL,15,8,NULL,1,NULL),
+ (31,NULL,NULL,'tes31','','2009-10-10 00:00:00','2009-10-11 00:00:00','','2009-10-11 00:00:00','New','2008-12-10 00:00:00',NULL,'testing task','Medium',NULL,15,8,NULL,1,NULL),
+ (41,NULL,NULL,'tes41','','2009-10-10 00:00:00','2009-10-11 00:00:00','','2009-10-11 00:00:00','New','2008-12-10 00:00:00',NULL,'testing task','Medium',NULL,15,8,NULL,1,NULL),
+ (51,NULL,NULL,'tes51','','2009-10-10 00:00:00','2009-10-11 00:00:00','','2009-10-11 00:00:00','New','2008-12-10 00:00:00',NULL,'testing task','Medium',NULL,15,8,NULL,1,NULL),
+ (61,NULL,NULL,'tes61','','2009-10-10 00:00:00','2009-10-11 00:00:00','','2009-10-11 00:00:00','New','2008-12-10 00:00:00',NULL,'testing task','Medium',NULL,15,8,NULL,1,NULL),
+ (71,NULL,NULL,'tes71','','2009-10-10 00:00:00','2009-10-11 00:00:00','','2009-10-11 00:00:00','New','2008-12-10 00:00:00',NULL,'testing task','Medium',NULL,15,8,NULL,1,NULL);
 /*!40000 ALTER TABLE `task` ENABLE KEYS */;
 
 
@@ -319,7 +331,7 @@ CREATE TABLE `users` (
   KEY `FK_users_organization` (`organization`),
   CONSTRAINT `FK_users_1` FOREIGN KEY (`organization`) REFERENCES `organization` (`id`),
   CONSTRAINT `FK_users_organization` FOREIGN KEY (`organization`) REFERENCES `organization` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `users`
@@ -338,7 +350,8 @@ INSERT INTO `users` (`id`,`username`,`password`,`is_encrypted`,`enabled`,`firstn
  (13,'jjj','9GyiQ2METG18dGvzsZwPnu983a4WHk4Qtz63MA06vTKaDuPxh2IjlydicJFhGCEz',1,1,'jjj','jjj','jj',NULL,NULL,5,'2008-11-29 20:25:46',1,NULL,'5',7,'2008-11-29 20:25:46'),
  (14,'i','yJxkRs9r9YVdOYy+aA8xHH4tqkjDi9ST0iMCo2+gSiBfxwkPX8w83ekzbdfnQx6k',1,1,'ii','ii','i',NULL,NULL,5,'2008-11-29 20:26:32',1,NULL,'5',7,'2008-11-29 20:26:32'),
  (15,'shannan.mohammed','t47r7C9kne725+yCiBSX/d8+I3r0tIWSsGSkXsupe3Qkn9xV6ZaIBJoFFwpzxmZG',1,1,'shannan','mohammed','shannan.mohammed@gmail.com','hyderabad',NULL,NULL,'2008-12-11 19:44:35',1,NULL,NULL,8,'2008-12-11 19:44:35'),
- (16,'mdshannan@gmail.com','PB5iXUgBhQnbXwd2s31cth0DlaeRlkyTvpawVHBNpBmJmNSyMsl1jJKUntBtJKby',1,1,'shannan','md','mdshannan@gmail.com','city',NULL,NULL,'2008-12-20 23:04:48',1,NULL,NULL,9,'2008-12-20 23:04:48');
+ (16,'mdshannan@gmail.com','PB5iXUgBhQnbXwd2s31cth0DlaeRlkyTvpawVHBNpBmJmNSyMsl1jJKUntBtJKby',1,1,'shannan','md','mdshannan@gmail.com','city',NULL,NULL,'2008-12-20 23:04:48',1,NULL,NULL,9,'2008-12-20 23:04:48'),
+ (17,'irfan.mohammed@bizintelapps.com','vY+38+ih7DWPisS5Q84knmTZxdcM3clKFj5ncY28Ruq53qXZeYSxDj0KlwlMoMRI',1,1,'irfan','mohammed','irfan.mohammed@bizintelapps.com',NULL,NULL,15,'2008-12-21 00:02:39',0,NULL,'15',8,'2008-12-21 00:02:39');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
 
