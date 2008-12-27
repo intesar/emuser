@@ -26,7 +26,7 @@
         <jdbc.url>jdbc:mysql:///pm</jdbc.url>
         <jdbc.username>root</jdbc.username>
         <jdbc.password>apple</jdbc.password>
-        <logging.level>SEVERE</logging.level>
+        <logging.level>INFO</logging.level>
         <cache.type>SoftWeak</cache.type>
         <jdbc.read-connections.max>20</jdbc.read-connections.max>
         <jdbc.read-connections.min>2</jdbc.read-connections.min>

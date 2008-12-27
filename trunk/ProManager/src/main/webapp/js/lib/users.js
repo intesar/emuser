@@ -20,8 +20,10 @@ $(document).ready(function() {
     var usersCache = {};
     var viewed = null;
     
-    
-    var usersList = function (users) {
+    var usersList = function ( users ) {
+        displayList( users);
+    }
+    function displayList(users) {
         var dArray = new Array();
         // Delete all the rows except for the "pattern" row
         oTable.fnClearTable();
@@ -44,26 +46,29 @@ $(document).ready(function() {
     // executed onload
     AjaxUsersService.getUserList(usersList);
     // executed on "create new project" link is clicked
-    $('#createANewUser').click(function() {                
-        $('#userTableContainer').slideUp("fast");
-        $('#newUserContainer').slideDown("fast");
+    $('#createANewUser').click(function() {    
+        $('#newUserContainer').modal();
+        //$('#userTableContainer').slideUp("fast");
+        //$('#newUserContainer').slideDown("fast");
     });
     // executed on "back to project" link is clicked
-    $('#backToUserList').click(function() {
-        $('#newUserContainer').slideUp("fast");    
-        $('#userTableContainer').slideDown("fast");
-    });
+//    $('#backToUserList').click(function() {
+//        $('#newUserContainer').slideUp("fast");    
+//        $('#userTableContainer').slideDown("fast");
+//    });
     // executed on "back to project" link is clicked
-    $('#backToUserListFromEdit').click(function() {
-        $('#editUserContainer').slideUp("fast");
-        $('#userTableContainer').slideDown("fast");
-    });
+//    $('#backToUserListFromEdit').click(function() {
+//        $('#editUserContainer').slideUp("fast");
+//        $('#userTableContainer').slideDown("fast");
+//    });
     // executed on "edit" link is clicked
     $('.editUser').livequery('click', function () {                
-        $('#userTableContainer').slideUp("fast");        
+        //$('#userTableContainer').slideUp("fast");        
         viewed = $(this).attr('id').toString().substring(8);        
-        $('#editUserContainer').slideDown("fast");
-        var user = usersCache[viewed];        
+        //$('#editUserContainer').slideDown("fast");
+        $('#editUserContainer').modal();
+        var user = usersCache[viewed]; 
+        $('#emailE').val(user.username);
         $('#firstnameE').val(user.firstname);
         $('#lastnameE').val(user.lastname);
         $('#enabledE').val(user.enabled);
@@ -71,9 +76,11 @@ $(document).ready(function() {
     });
     // executed on "delete" link is clicked
     $('.deleteUser').livequery('click', function () {                                
-        viewed = $(this).attr('id').toString().substring(8);      
-        AjaxUsersService.deleteUser ( viewed, function ( data ) {
-            alert (data);
+        viewed = $(this).attr('id').toString().substring(10);      
+        AjaxUsersService.deleteUser ( viewed, function ( users ) {
+            displayList( users);
+            $.modal('<h3> User deleted sucessfully! </h3>');
+            
         });
     });
     // executed on "click" link is clicked
@@ -93,7 +100,7 @@ $(document).ready(function() {
         user1.email = user1.username;
         
         AjaxUsersService.saveUser ( user1, usersList);
-        $('#backToUserList').trigger("click");
+        //$('#backToUserList').trigger("click");
         
     });
     // executed on "save project" button is clicked
@@ -101,7 +108,7 @@ $(document).ready(function() {
         var user1 = usersCache[viewed];        
         user1.firstname = $('#firstname').val();
         user1.lastname = $('#lastname').val();
-        $('#backToUserListFromEdit').trigger("click");
+        //$('#backToUserListFromEdit').trigger("click");
         AjaxUsersService.saveUser ( user, usersList);
     });
     

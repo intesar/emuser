@@ -170,8 +170,12 @@ public class UsersServiceImpl implements UsersService {
         Users users = usersDao.findByUsername(deletedBy);
         Users usersToBeDeleted = usersDao.read(userId);
         // find user is admin then only can delete other even they are administrators
-        if ((users.getOrganization().equals(usersToBeDeleted.getOrganization()) && usersToBeDeleted.isIsAdministrator())) {
+        if ((users.getOrganization().equals(usersToBeDeleted.getOrganization()) && users.isIsAdministrator())) {
             usersDao.delete(usersToBeDeleted);
+            List<Authorities> authorities = authoritiesDao.findByProperty("username", usersToBeDeleted.getUsername(), null).getCurrentList();
+            for (Authorities authority : authorities) {
+                authoritiesDao.delete(authority);
+            }
         } else {
             throw new ServiceRuntimeException("Only Administrator can delete users!");
         }
@@ -302,7 +306,7 @@ public class UsersServiceImpl implements UsersService {
         this.organizationDao = organizationDao;
     }
 
-    public void setPasswordEncryptor(@Qualifier(value="pro")PasswordEncryptor passwordEncryptor) {
+    public void setPasswordEncryptor(@Qualifier(value = "pro") PasswordEncryptor passwordEncryptor) {
         this.passwordEncryptor = passwordEncryptor;
     }
 
@@ -322,7 +326,7 @@ public class UsersServiceImpl implements UsersService {
     @Autowired
     private OrganizationDao organizationDao;
     @Autowired
-    @Qualifier(value="pro")
+    @Qualifier(value = "pro")
     private PasswordEncryptor passwordEncryptor;
     @Autowired
     private AuthoritiesDao authoritiesDao;

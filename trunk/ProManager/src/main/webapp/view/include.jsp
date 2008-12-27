@@ -2,6 +2,7 @@
 <link rel="stylesheet" type="text/css" media="screen" href="../css/demos.css" />
 <link rel="stylesheet" type="text/css" media="screen" href="../css/jq.css" />   
 <link rel="stylesheet" type="text/css" media="screen" href="../css/facebox.css" />   
+<link rel="stylesheet" type="text/css" media="screen" href="../css/basic.css" />   
 <script type="text/javascript" src="../dwr/engine.js"></script>
 <script type="text/javascript" src="../js/jquery-1.2.6.min.js"></script>
 <script type="text/javascript" src="../js/jquery.livequery.min.js"></script>
@@ -11,3 +12,4 @@
 <script type="text/javascript" src="../js/facebox.js"></script>
 <script type="text/javascript" src="../js/jprintarea.js"></script>
 <script type="text/javascript" src="../js/jgcharts.js"> </script>
+<script type="text/javascript" src="../js/jquery.simplemodal-1.2.2.min.js"> </script>
