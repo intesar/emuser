@@ -231,11 +231,11 @@ public class AjaxUsersService {
      * @param userId
      * @return
      */
-    public String deleteeUser(Integer userId) {
-        String msg = " User Deleted Successfully! ";
+    public List<UsersDto> deleteUser(Integer userId) {
+        //String msg = " User Deleted Successfully! ";
         try {
             usersService.deleteUser(userId, SecurityUtil.getUsername());
-            return msg;
+            return getUserList();
         } catch (ServiceRuntimeException se) {
             log.error(se);
             throw se;

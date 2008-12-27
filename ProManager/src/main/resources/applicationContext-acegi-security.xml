@@ -229,7 +229,7 @@ http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
             com.bizintelapps.promanager.ajax.AjaxUsersService.getActiveUserList=ROLE_USER,ROLE_ADMIN
             com.bizintelapps.promanager.ajax.AjaxUsersService.getUserList=ROLE_ADMIN
             com.bizintelapps.promanager.ajax.AjaxUsersService.enableDisalbeUser=ROLE_ANONYMOUS,ROLE_USER,ROLE_ADMIN
-            com.bizintelapps.promanager.ajax.AjaxUsersService.deleteeUser=ROLE_ADMIN
+            com.bizintelapps.promanager.ajax.AjaxUsersService.deleteUser=ROLE_ADMIN
             com.bizintelapps.promanager.ajax.AjaxProjectService.saveProject=ROLE_ADMIN,ROLE_USER
             com.bizintelapps.promanager.ajax.AjaxProjectService.getProjectList=ROLE_ADMIN,ROLE_USER
             com.bizintelapps.promanager.ajax.AjaxProjectService.getProjectsForDropdown=ROLE_ADMIN,ROLE_USER

@@ -35,7 +35,7 @@
             <dwr:include method="getActiveUserList" /> <!-- user -->
             <dwr:include method="getUserList" /> <!-- admin -->
             <dwr:include method="enableDisalbeUser" /> <!-- admin -->
-            <dwr:include method="deleteeUser" /> <!-- admin -->
+            <dwr:include method="deleteUser" /> <!-- admin -->
         </dwr:remote>
         <!-- <property name="usersService" ref="usersServiceImpl" /> -->
     </bean>

@@ -44,13 +44,13 @@
             </div>
             
             <div id="newUserContainer" style="display:none" align="center">
-                <div id="container">
-                    <a id="backToUserList"><font size="1"><< </font>Back to user list</a><br><br>
+                <div id="container" align="center" >
+                    <!--<a id="backToUserList"><font size="1"><< </font>Back to user list</a><br><br>-->
                     <table>                
                         <tr>
-                            <td>First name<br>
+                            <td>Firstname<br>
                             <input id="firstname" name="firstname" value="" maxlength="40" type="text"></td>                                
-                            <td>Last Name<font color="RED">*</font><br>
+                            <td>Lastname<font color="RED">*</font><br>
                             <input id="lastname" name="lastname" value="" maxlength="40" type="text"></td>
                         </tr>
                         <tr>
@@ -83,7 +83,7 @@
             
             <div id="editUserContainer" style="display:none" align="center">
                 <div id="container">
-                    <a id="backToUserListFromEdit"><font size="1"><< </font>Back to user list</a><br><br>
+                    <!--<a id="backToUserListFromEdit"><font size="1"><< </font>Back to user list</a><br><br>-->
                     <table>                
                         <tr>
                             <td>Email Address<font color="RED">*</font><br>
