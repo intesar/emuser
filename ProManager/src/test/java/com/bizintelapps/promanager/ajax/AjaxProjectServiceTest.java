@@ -33,7 +33,9 @@ public class AjaxProjectServiceTest extends BaseTest {
     }
     
     public void testSaveProjectUser () {
-        System.out.println (ajaxProjectService.saveUserToProject(3, 16, true));        
+        
+        //System.out.println (ajaxProjectService.getProjectsForDropdown());        
+        //fail();
     }
 
 }

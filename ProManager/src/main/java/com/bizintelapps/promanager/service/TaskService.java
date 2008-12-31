@@ -57,7 +57,7 @@ public interface TaskService {
      * @param requestedBy 
      * @return
      */
-    public List<TaskDto> searchTasks(String projectIds, Date start, Date end, String userIds, boolean active, String requestedBy);
+    public List<TaskDto> searchTasks(String statuses, String requestedBy);
 
     /**
      * user can only be assigned if its todo or project memeber

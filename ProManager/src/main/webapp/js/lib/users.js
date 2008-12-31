@@ -1,17 +1,11 @@
-$(document).ready(function() {
-    $("#pc").gchart({width:'450', height:'200', type: 'pie', 
-        dataLabels: ['User', 'Admins', 'Active'], legend: 'right', 
-        series: [$.gchart.series([88.16, 1.61, 8.13], $.gchart.color(0, 128, 0))] 
-    }); 
-});
-   
-	
+
 // this function is executed on load 	
-$(document).ready(function() {
+$(document).ready(function() {    
     oTable = $('#usersTable').dataTable( {
         //"sPaginationType": "full_numbers"  
-        "sDom": '<"top"i>rt<"bottom"flp<"clear">'        
-    } );
+        "sDom": '<"top"i>rt<"bottom"flp<"clear">',
+        "aoData": [{"bVisible":false},null,null,null,{"sClass":"action"}]
+    });
     
     /* Global variable for the DataTables object */
     var oTable;	
@@ -36,85 +30,80 @@ $(document).ready(function() {
             if ( users[i].administrator ) {
                 administrator = "Y";
             }
-            var data = [ users[i].firstname + " " + users[i].lastname, "" + active, administrator, "<a id='editUser" + users[i].id + "' class='editUser'>Edit</a>-<a id='deleteUser" + users[i].id + "' class='deleteUser'>Del</a>"];                                              
+            var data = [ users[i].id, users[i].firstname + " " + users[i].lastname, active, administrator, "<a id='deleteUser" + users[i].id + "' class='deleteUser'>Delete</a>"];                                              
             usersCache[users[i].id] = users[i];
             dArray[i] = data;                                     
         }                                                         
         oTable.fnAddData( dArray );
         giCount++;
+        $('#usersTable').tableHover()
     }
     // executed onload
     AjaxUsersService.getUserList(usersList);
-    // executed on "create new project" link is clicked
+
+    // load div and check enabled to true
     $('#createANewUser').click(function() {    
-        $('#newUserContainer').modal();
-        //$('#userTableContainer').slideUp("fast");
-        //$('#newUserContainer').slideDown("fast");
+        $('#clear').trigger('click');
+        viewed = null;
+        $('#newEditContainer').modal();
+        $('#enabled').attr('checked', 'checked');
+        $('#email').attr('disabled', false);
     });
-    // executed on "back to project" link is clicked
-//    $('#backToUserList').click(function() {
-//        $('#newUserContainer').slideUp("fast");    
-//        $('#userTableContainer').slideDown("fast");
-//    });
-    // executed on "back to project" link is clicked
-//    $('#backToUserListFromEdit').click(function() {
-//        $('#editUserContainer').slideUp("fast");
-//        $('#userTableContainer').slideDown("fast");
-//    });
-    // executed on "edit" link is clicked
-    $('.editUser').livequery('click', function () {                
-        //$('#userTableContainer').slideUp("fast");        
-        viewed = $(this).attr('id').toString().substring(8);        
-        //$('#editUserContainer').slideDown("fast");
-        $('#editUserContainer').modal();
-        var user = usersCache[viewed]; 
-        $('#emailE').val(user.username);
-        $('#firstnameE').val(user.firstname);
-        $('#lastnameE').val(user.lastname);
-        $('#enabledE').val(user.enabled);
-        $('#administratorE').val(user.administrator);
-    });
+
+    
     // executed on "delete" link is clicked
     $('.deleteUser').livequery('click', function () {                                
-        viewed = $(this).attr('id').toString().substring(10);      
-        AjaxUsersService.deleteUser ( viewed, function ( users ) {
-            displayList( users);
-            $.modal('<h3> User deleted sucessfully! </h3>');
-            
-        });
+        viewed = $(this).attr('id').toString().substring(10); 
+        var user = usersCache[viewed]; 
+        if ( confirm("Are you sure you want to delete " + user.firstname + " " + user.lastname + "?") ) {
+            AjaxUsersService.deleteUser ( viewed, function ( users ) {
+                displayList( users);
+                alert(' User deleted sucessfully! ');            
+            });
+        }
     });
+    
     // executed on "click" link is clicked
     $('#clear').click(function() {
         $('#firstname').val("");        
         $('#lastname').val("");        
         $('#email').val("");        
-        $('#administrator').val("");        
+        $('#enabled').removeAttr('checked');        
+        $('#administrator').removeAttr('checked');        
     });
+    
+    // open user in a modal
+    $('#usersTable td').livequery( function () { 
+        $(this).not('.action').click(function () { 
+            viewed = $(this).parent().children()[3].firstChild.id.toString().substring(10);
+            $('#newEditContainer').modal();
+            var user = usersCache[viewed]; 
+            $('#email').val(user.username);
+            $('#email').attr('disabled', true);
+            $('#firstname').val(user.firstname);
+            $('#lastname').val(user.lastname);
+            if ( user.enabled == true ) {  $('#enabled').attr('checked', 'checked'); }
+            else { $('#enabled').removeAttr('checked', ''); }
+            if ( user.administrator == true) {  $('#administrator').attr('checked', 'checked'); }
+            else {  $('#administrator').removeAttr('checked');   }
+        });
+    });
+    
     // executed on "create new project" button is clicked
-    $('#createNewUser').click(function() {
-        var user1 = {id:null, firstname:null, lastname:null, password:null, username:null, email:null, 
-            enabled:'true', dministrator:null};
-        user1.firstname = $('#firstname').val();
-        user1.lastname = $('#lastname').val();        
-        user1.username = $('#email').val();
-        user1.email = user1.username;
-        
-        AjaxUsersService.saveUser ( user1, usersList);
-        //$('#backToUserList').trigger("click");
-        
-    });
-    // executed on "save project" button is clicked
     $('#saveUser').click(function() {
-        var user1 = usersCache[viewed];        
+        var user1 = null;
+        if ( viewed == null ) {
+            user1 = {id:null, firstname:null, lastname:null, password:null, username:null, email:null, 
+                enabled:'true', administrator:null};          
+            user1.username = $('#email').val();
+            user1.email = user1.username;                
+        } else {
+            user1 = usersCache[viewed];   
+        }
         user1.firstname = $('#firstname').val();
-        user1.lastname = $('#lastname').val();
-        //$('#backToUserListFromEdit').trigger("click");
-        AjaxUsersService.saveUser ( user, usersList);
-    });
-    
+        user1.lastname = $('#lastname').val();  
+        user1.enabled = $('#enabled').attr('checked');
+        user1.administrator = $('#administrator').attr('checked');               
+        AjaxUsersService.saveUser ( user1, usersList);            
+    });   
 } );
-
-
-    
-
-

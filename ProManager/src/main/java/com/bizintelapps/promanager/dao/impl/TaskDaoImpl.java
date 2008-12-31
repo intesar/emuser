@@ -39,14 +39,19 @@ public class TaskDaoImpl extends GenericDaoImpl<Task, Integer> implements TaskDa
     }
 
     @Override
-    public List<Task> search(String statuses, String start, String end, String users, String project) {
-        String sql = " select * from task t where " +
-                " _status in (" + statuses + ") and ( deadline between " + start + " and " + end +
-                " or create_date between " + start + " and " + end + " ) " +
-                " and ( owner in ( " + users + ") or assigned_to in ( " + users + " ) ) ";
-        if (project != null) {
-            sql += " and project in (" + project + ")";
-        }
+    public List<Task> search(String statuses, Integer userId) {
+        //String sql = " select * from task t where " +
+        //        " _status in (" + statuses + ") " + //and ( deadline between " + start + " and " + end +
+                //" or create_date between " + start + " and " + end + " ) " +
+        //        " and ( owner in ( " + users + ") or assigned_to in ( " + users + " ) ) ";
+        //if (project != null) {
+        //    sql += " and project in (" + project + ")";
+        //}
+        String sql = "select * from task t " +
+            " where t._status in (" + statuses + ") " +
+            " and ( t.owner = " + userId + " or t.assigned_to = " + userId + " or (t.assigned_to = null and t.project = null) " +
+            " or (t.project in (select project from project_users where users = " + userId + " and is_manager = 1))" +
+            " or (t.assigned_to = null and t.project in (select project from project_users where users = " + userId + "))) ";
         log.debug (sql);
         return this.getEntityManager().createNativeQuery(sql, Task.class).getResultList();        
     }

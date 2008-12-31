@@ -43,11 +43,10 @@ public class ProjectDtoA {
         return list;
     }
 
-    public ProjectUserDto copyAllProjectAlongUsers1(List<ProjectUsers> projectUsers) {
-        Project project = null;
+    public ProjectUserDto copyAllProjectAlongUsers1(Integer projectId, String projectName, List<ProjectUsers> projectUsers) {
+        
         List<UsersMinDto> users = new ArrayList<UsersMinDto>();
-        for (ProjectUsers pu : projectUsers) {
-            project = pu.getProject();
+        for (ProjectUsers pu : projectUsers) {        
             if (pu.getUsers().getEnabled()) {
                 Users user = pu.getUsers();
                 UsersMinDto usersMinDto = new UsersMinDto(user.getId(),
@@ -56,7 +55,7 @@ public class ProjectDtoA {
                 users.add(usersMinDto);
             }
         }
-        ProjectUserDto dto = new ProjectUserDto(project.getId(), project.getName(), users);
+        ProjectUserDto dto = new ProjectUserDto(projectId, projectName, users);
         return dto;
     }
 

@@ -66,7 +66,7 @@ public interface ProjectService {
      * @param isManager if true user can manage this project
      * @param savedBy 
      */
-    public void saveUserToProject(Integer projectId, Integer userId, boolean isManager, String savedBy);
+    public void saveUserToProject(Integer projectId, String username, boolean isManager, String savedBy);
 
     /**
      * only admin or pm can execute this
@@ -82,7 +82,7 @@ public interface ProjectService {
      * @param savedBy
      */
     public void deleteUserFromProject(Integer userId, Integer projectId, String savedBy);
-    String IN_PROGRESS = "In Progess";
+    String IN_PROGRESS = "In Progress";
     String ON_HOLD = "On Hold";
     String COMPLETED = "Completed";
 }

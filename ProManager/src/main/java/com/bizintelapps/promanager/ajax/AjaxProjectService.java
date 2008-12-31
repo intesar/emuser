@@ -89,9 +89,10 @@ public class AjaxProjectService {
      * deletes project if possible
      * @param projectId
      */
-    public void deleteProject(Integer projectId) {
+    public List<ProjectDto> deleteProject(Integer projectId) {
         try {
-            this.projectService.deleteProject(projectId, SecurityUtil.getUsername());
+            projectService.deleteProject(projectId, SecurityUtil.getUsername());
+            return getProjectList();
         } catch (ServiceRuntimeException se) {
             log.error(se);
             throw se;
@@ -108,9 +109,9 @@ public class AjaxProjectService {
      * @param isManager if true user can manage this project
      * 
      */
-    public ProjectUserDto saveUserToProject(Integer projectId, Integer userId, boolean isManager) {
-        try {
-            projectService.saveUserToProject(projectId, userId, isManager, SecurityUtil.getUsername());
+    public ProjectUserDto saveUserToProject(Integer projectId, String username, boolean isManager) {
+        try {            
+            projectService.saveUserToProject(projectId, username, isManager, SecurityUtil.getUsername());
             System.out.println ( " ----------------- ");
             return projectService.getProjectUsers(projectId, SecurityUtil.getUsername());
         } catch (ServiceRuntimeException se) {
