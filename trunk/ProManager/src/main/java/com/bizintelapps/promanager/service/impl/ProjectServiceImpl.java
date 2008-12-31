@@ -134,7 +134,7 @@ public class ProjectServiceImpl implements ProjectService {
         Users users = usersDao.findByUsername(requestedBy);
         List<ProjectUserDto> projectUserDtos = null;
         if (users.isIsAdministrator()) { //return all active projects
-            List<Project> projects = projectDao.findByStatusAndOrganization(IN_PROGRESS, users.getOrganization().getId());
+            List<Project> projects = projectDao.findByStatusAndOrganization(IN_PROGRESS, users.getOrganization().getId());            
             projectUserDtos = projectConverter.copyAllProjectAlongUsers(projects);
         } else { // return user projects
             List<ProjectUsers> projectUsers = projectUsersDao.findByProjectStatusAndUserId(IN_PROGRESS, users.getId());
@@ -145,53 +145,64 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public void saveUserToProject(Integer projectId, Integer userId, boolean isManager, String savedBy) {
+    public void saveUserToProject(Integer projectId, String userId, boolean isManager, String savedBy) {
         Users savedUsers = usersDao.findByUsername(savedBy);
         ProjectUsers savedByProjectUsers = projectUsersDao.findByProjectIdAndUserId(projectId, savedUsers.getId());
         // user should be either admin or project manager to do this operation
-        if (!savedUsers.isIsAdministrator() || (savedByProjectUsers == null || !savedByProjectUsers.getIsManager())) {
-            throw new ServiceRuntimeException("Invalid operation!");
-        }
-        // user if not assigned to this project then create one else udpate his record
-        Users users = usersDao.read(userId);
-        Project project = projectDao.read(projectId);
-        ProjectUsers projectUsers = projectUsersDao.findByProjectIdAndUserId(projectId, userId);
+        if (savedUsers.isIsAdministrator() || isProjectManager(savedByProjectUsers)) {
+            // user if not assigned to this project then create one else udpate his record
+            Users users = usersDao.findByUsername(userId);
+            Project project = projectDao.read(projectId);
+            ProjectUsers projectUsers = projectUsersDao.findByProjectIdAndUserId(projectId, users.getId());
 
-        if (projectUsers == null || projectUsers.getId() == null) {
-            projectUsers = new ProjectUsers(null, true, isManager, new Date(), project, users, savedUsers);
-            projectUsersDao.create(projectUsers);
-        } else if (projectUsers.getIsManager() != isManager) {
-            projectUsers.setIsManager(isManager);
-            projectUsersDao.update(projectUsers);
+            if (projectUsers == null || projectUsers.getId() == null) {
+                projectUsers = new ProjectUsers(null, true, isManager, new Date(), project, users, savedUsers);
+                projectUsersDao.create(projectUsers);
+            } else if (projectUsers.getIsManager() != isManager) {
+                projectUsers.setIsManager(isManager);
+                projectUsersDao.update(projectUsers);
+            }
+        } else {
+            throw new ServiceRuntimeException("Invalid operation!");
         }
     }
 
     @Override
     public ProjectUserDto getProjectUsers(Integer projectId, String requestedBy) {
         Users savedUsers = usersDao.findByUsername(requestedBy);
+        Project project = projectDao.read(projectId);
         ProjectUsers savedByProjectUsers = projectUsersDao.findByProjectIdAndUserId(projectId, savedUsers.getId());
-        if (!savedUsers.isIsAdministrator() || (savedByProjectUsers == null || !savedByProjectUsers.getIsManager())) {
+        if (savedUsers.isIsAdministrator() || isProjectManager(savedByProjectUsers)) {
+            List<ProjectUsers> list = projectUsersDao.findByProperty("project.id", projectId, null).getCurrentList();
+            if (list == null) {
+                list = new ArrayList<ProjectUsers>();
+            }
+            return projectConverter.copyAllProjectAlongUsers1(project.getId(), project.getName(), list);
+        } else {
             throw new ServiceRuntimeException("Invalid operation!");
         }
-        List<ProjectUsers> list = null;
-
-        list = projectUsersDao.findByProperty("project.id", projectId, null).getCurrentList();
-
-        return projectConverter.copyAllProjectAlongUsers1(list);
-
     }
 
     @Override
-    public void deleteUserFromProject(Integer userId, Integer projectId, String savedBy) {
+    public void deleteUserFromProject(Integer userId, Integer projectId,
+            String savedBy) {
         Users savedUsers = usersDao.findByUsername(savedBy);
         ProjectUsers savedByProjectUsers = projectUsersDao.findByProjectIdAndUserId(projectId, savedUsers.getId());
-        if (!savedUsers.isIsAdministrator() || (savedByProjectUsers == null || !savedByProjectUsers.getIsManager())) {
+        if (savedUsers.isIsAdministrator() || isProjectManager(savedByProjectUsers)) {
+            ProjectUsers pu = projectUsersDao.findByProjectIdAndUserId(projectId, userId);
+            projectUsersDao.delete(pu);
+        } else {
             throw new ServiceRuntimeException("Invalid operation!");
         }
-        ProjectUsers pu = projectUsersDao.findByProjectIdAndUserId(projectId, userId);
-        projectUsersDao.delete(pu);
     }
 
+    private boolean isProjectManager(ProjectUsers pu) {
+        if (pu != null && pu.getIsManager()) {
+            return true;
+        }
+        return false;
+    }
+    // --------------------- daos -----------------------------------------
     public ProjectDao getProjectDao() {
         return projectDao;
     }

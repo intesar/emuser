@@ -22,35 +22,35 @@
         <div style="position:absolute; left:5%; top:10%; bottom:5%; width:70%; height:90%; ">
             <div id="userTableContainer" style="width:90%; height:90%; border: 0px solid #000; padding: 5px; " align="center"> 
                 <div id="container">
-                    <a id="createANewUser" >Create a new user<font size="1"> >> </font></a>
-                    <br><br>
-                    <table id="usersTable" cellpadding="0" cellspacing="0" border="0" class="display" align="center">                        
-                        <thead>
-                            <tr>
-                                <th>Name</th>                                                            
-                                <th>Active</th>
-                                <th>Administrator</th>
-                                <th>Edit</th>                                
+                    <div align="right">
+                        <a id="createANewUser" href="javascript:void(0)">Create a new user</a>                    
+                    </div>
+                    <table id="usersTable" cellpadding="0" cellspacing="0" border="0" class="display render" align="center">                        
+                        <thead class="render">
+                            <tr class="render">
+                                <th class="render">ID</th>
+                                <th class="render">Name</th>                                                            
+                                <th class="render">Active</th>
+                                <th class="render">Administrator</th>
+                                <th class="render">Edit</th>                                
                             </tr>
-                        </thead>
-                        <form>
-                            <tbody>                       
-                                <!-- required by plugin-->
-                                <tr><td></td><td></td><td></td><td></td></tr>
-                            </tbody>
-                        </form>
+                        </thead>                        
+                        <tbody>                       
+                            <!-- required by plugin-->
+                            <tr><td></td><td></td><td></td><td></td><td></td></tr>
+                        </tbody>                        
                     </table>    
                 </div>
             </div>
             
-            <div id="newUserContainer" style="display:none" align="center">
+            <div id="newEditContainer" style="display:none" align="center">
                 <div id="container" align="center" >
                     <!--<a id="backToUserList"><font size="1"><< </font>Back to user list</a><br><br>-->
                     <table>                
                         <tr>
-                            <td>Firstname<br>
+                            <td><b>Firstname<font color="RED">*</font></b><br>
                             <input id="firstname" name="firstname" value="" maxlength="40" type="text"></td>                                
-                            <td>Lastname<font color="RED">*</font><br>
+                            <td><b>Lastname<font color="RED">*</font></b><br>
                             <input id="lastname" name="lastname" value="" maxlength="40" type="text"></td>
                         </tr>
                         <tr>
@@ -58,66 +58,33 @@
                             <td><br></td>
                         </tr>
                         <tr>
-                            <td>Email Address<font color="RED">*</font><br>
+                            <td><b>Email<font color="RED">*</font></b><small>(email is username)</small><br>
                             <input id="email" name="email" value="" maxlength="40" type="text"></td>
-                            
-                            <td>  Administrator 
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><br></td>
+                        </tr>
+                        <tr>
+                            <td>  <b>Enabled</b>
+                                <br><input type="checkbox" id="enabled" value="ON" />
+                            <small>(User cannot login if disabled)</small></td>
+                            <td>  <b>Admin</b>
                                 <br><input type="checkbox" id="administrator" value="ON" />
-                            <small>(can manage all users and settings)</small></td>
+                            <small>(manages all users and settings)</small></td>                            
                         </tr>           
                         <tr>
                             <td></td>
                             <td><br></td>
                         </tr>
                         <tr>
-                            <td><input type="button" value="Create new user" id="createNewUser"/> </td>
+                            <td><input type="button" value="Save User" id="saveUser"/> </td>
                             
                             <td>
                                 <input type="button" value="Cancel" id="clear"/>
                                 
                             </td>   
-                        </tr>                         
-                    </table>    
-                </div>
-            </div>
-            
-            <div id="editUserContainer" style="display:none" align="center">
-                <div id="container">
-                    <!--<a id="backToUserListFromEdit"><font size="1"><< </font>Back to user list</a><br><br>-->
-                    <table>                
-                        <tr>
-                            <td>Email Address<font color="RED">*</font><br>
-                            <input id="emailE" name="emailE" value="" maxlength="40" type="text" disabled></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td><br></td>
-                        </tr>
-                        <tr>
-                            <td>First name<br>
-                            <input id="firstnameE" name="firstnameE" value="" maxlength="40" type="text"></td>                                
-                            <td>Last Name<font color="RED">*</font><br>
-                            <input id="lastnameE" name="lastnameE" value="" maxlength="40" type="text"></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td><br></td>
-                        </tr>
-                        <tr>                        
-                            <td>  Enabled 
-                                <br><input type="checkbox" id="enabledE" value="ON" />
-                            <small>(User cannot login if disabled)</small></td>
-                            <td>  Administrator 
-                                <br><input type="checkbox" id="administratorE" value="ON" />
-                            <small>(can manage all users and settings)</small></td>
-                        </tr>           
-                        <tr>
-                            <td></td>
-                            <td><br></td>
-                        </tr>
-                        <tr>
-                            <td><input type="button" value="Save user" id="saveUser"/> </td>
                         </tr>                         
                     </table>    
                 </div>

@@ -64,6 +64,7 @@
                 </td>   
             </tr>                         
         </table>    
+        
     </div>
 </div>        
 
@@ -101,7 +102,50 @@
             </tr>                         
         </table>   
     </div>
-</div>        
+</div>   
+<div>
+<div id="projectUsersDiv" align="center">
+<br>
+<a id="saveProjectUsersLink" >Add User to Project</a>
+<table id="projectUsersTable"  cellpadding="0" cellspacing="0" border="0" class="display" >                        
+    <thead>
+        <tr>
+            <th>User</th>                                                            
+            <th>Is Manager</th>   
+            <th>Action</th>
+        </tr>
+    </thead>                
+    <!-- required by plugin-->
+    <tr><td></td><td></td><td></td></tr>
+    </tbody>                
+</table>  
+</div>
+<br>
+<div id="projectUsersSaveDiv" style="display:none">
+    <table>
+        <thead>
+            <tr>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tr>
+            <td>Project <font color="RED">*</font><br>
+            <input id="projectName" name="name" value="" maxlength="40" disabled type="text"></td>                                
+        </tr>
+        <tr>
+            <td>Username <font color="RED">*</font><br>
+            <input id="projectUsername" name="name" value="" maxlength="40" type="text"></td>                                
+        </tr>
+                            
+        <tr>
+            <td>                    
+                <input type="button" value="Create new project" id="addUserToProjectBtn"/>                                                
+            </td>   
+        </tr>                         
+    </table>    
+</div>
+</div>
 </div>
 <div id="pc" style="position:absolute; left:67%; top:20%; bottom:0; width:15%; height:90%; "></div>
 </body>

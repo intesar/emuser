@@ -1,10 +1,3 @@
-
-$(document).ready(function() {
-    $("#pc").gchart({width:'450', height:'200', type: 'pie', 
-        dataLabels: ['New', 'In-Progress', 'Completed'], legend: 'right', 
-        series: [$.gchart.series([88.16, 1.61, 8.13], $.gchart.color(0, 128, 0))] 
-    });   
-});
 // this function is executed on load 	
 $(document).ready(function() {
     // checkout datatable plugin to understand below code
@@ -41,28 +34,17 @@ $(document).ready(function() {
         giCount++;
     }
     // executed onload
-    AjaxTaskService.getCurrentTask(taskList);
+    AjaxTaskService.getCurrentTask("Current Task", taskList);
     
     // executed on "create new project" link is clicked
     $('#createANewTask').click(function() {                
-        $('#taskTableContainer').slideUp("fast");
-        $('#newTaskContainer').slideDown("fast");
+        $('#newTaskContainer').modal();
     });
-    // executed on "back to project" link is clicked
-    $('#backToTaskList').click(function() {
-        $('#newTaskContainer').slideUp("fast");    
-        $('#taskTableContainer').slideDown("fast");
-    });
-    // executed on "back to project" link is clicked
-    $('#backToProjectListFromEdit').click(function() {
-        $('#editProjectContainer').slideUp("fast");
-        $('#projectTableContainer').slideDown("fast");
-    });
+
     // executed on "edit" link is clicked
-    $('.editTask').livequery('click', function () {                
-        $('#projectTableContainer').slideUp("fast");        
+    $('.editTask').livequery('click', function () {                    
         viewed = $(this).attr('id').toString().substring(11);        
-        $('#editProjectContainer').slideDown("fast");
+        $('#editProjectContainer').modal();
         var project = projectCache[viewed];        
         $('#nameE').val(project.name);
         $('#statusE').val(project.status);
@@ -110,8 +92,59 @@ $(document).ready(function() {
         $.jPrintArea($('#taskTableContainer'));
     });
     
+    $('#projectStatusDropdown').change(function() {
+        var selectedStatus = $(this).val();       
+        AjaxTaskService.getCurrentTask(selectedStatus, taskList);
+    });
     $('#advanceSearch').click(function() {
-       $('#advanceSearchDiv').slideToggle('fast');
+        $('#advanceSearchDiv').slideToggle('fast');
+    });
+    
+    var projectDDCache = {};
+    
+    function displayProjectDDList(projectDDList) {
+        var options = "<option value='Todo'>Todo</option>";
+        for ( var i = 0; i < projectDDList.length; i++ ) {
+            options += "<option value='"+ projectDDList[i].projectId+"'>"+projectDDList[i].projectName + "</option>";
+            projectDDCache[projectDDList[i].projectId] = projectDDList[i];
+        }
+        $('#projectDD').html(options);
+    }
+    $('#projectDD').livequery ('change', function() {
+        var projectId =$(this).val();
+        alert ( projectId );
+        var x = projectDDCache;
+        var user = projectDDCache[projectId].users;
+        var options = "<option value='None'>None</option>";
+        for ( var i = 0; i < i.length; i++ ) {
+            options += "<option value='" + user[i].id + "'>" + user[i].firstname + " " + user[i].lastname + "</option>";
+        }
+        $('#assignToDD').html (options );
+    });
+    projectDDList = function ( projectDDListData ) {
+        displayProjectDDList ( projectDDListData );
+    }
+    AjaxProjectService.getProjectsForDropdown(projectDDList);
+    
+    function displayUsersDDList(usersDDList) {
+        var options = "<option value='me'>me</option>";
+        for ( var i = 0; i < usersDDList.length; i++ ) {
+            options += "<option value='"+ usersDDList[i].id+"'>"+usersDDList[i].firstname + " " + usersDDList[i].lastname + "</option>";
+            //projectDDCache[projectDDList.projectId] =usersDDList[i];
+        }
+        $('#assignToDD').html(options);
+    }
+    usersDDList = function ( usersDDListData ) {
+        displayUsersDDList ( usersDDListData );
+    }
+    AjaxUsersService.getActiveUserList(usersDDList);
+    
+    $("#deadline").datepicker({ 
+        minDate: 0, 
+        maxDate: 365 
+        //showOn: "both", 
+        //buttonImage: "templates/images/calendar.gif", 
+        //buttonImageOnly: true 
     });
     
 } );
