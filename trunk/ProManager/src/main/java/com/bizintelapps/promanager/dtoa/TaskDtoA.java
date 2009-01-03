@@ -19,10 +19,8 @@ package com.bizintelapps.promanager.dtoa;
 import com.bizintelapps.promanager.entity.Task;
 import com.bizintelapps.promanager.dto.TaskDto;
 import com.bizintelapps.promanager.entity.ProjectUsers;
-import com.bizintelapps.promanager.entity.Users;
-import java.util.ArrayList;
+import com.bizintelapps.promanager.service.TaskService;
 import java.util.Collection;
-import java.util.List;
 import org.springframework.stereotype.Component;
 
 /**
@@ -32,18 +30,14 @@ import org.springframework.stereotype.Component;
 @Component
 public class TaskDtoA {
 
-    public List<TaskDto> copyAllForDisplay(Collection<Task> usersCollection, boolean isAdmin, Integer requestedUserId) {
-        List<TaskDto> list = new ArrayList<TaskDto>();
-        for (Task task : usersCollection) {
-            TaskDto taskDto = copyForDisplay(task, new TaskDto(), isAdmin, requestedUserId);
-            list.add(taskDto);
-        }
-        return list;
-    }
-
     public TaskDto copyForDisplay(Task task, TaskDto taskDto, boolean isAdmin, Integer requestedUserId) {
         if (task.getAssignedTo() != null) {
-            taskDto.setAssignedToUsername(task.getAssignedTo().getUsername());
+            taskDto.setId(task.getAssignedTo().getId());
+            if (task.getAssignedTo().getId().equals(requestedUserId)) {
+                taskDto.setAssignedToUsername("me");
+            } else {
+                taskDto.setAssignedToUsername(task.getAssignedTo().getUsername());
+            }
         }
         taskDto.setCompletedDate(task.getCompletedDate());
         taskDto.setCreateDate(task.getCreateDate());
@@ -56,7 +50,11 @@ public class TaskDtoA {
         taskDto.setId(task.getId());
         taskDto.setLastStatusChangedDate(task.getLastStatusChangedDate());
         if (task.getOwner() != null) {
-            taskDto.setOwnerUsername(task.getOwner().getUsername());
+            if (task.getOwner().getId().equals(requestedUserId)) {
+                taskDto.setOwnerUsername("me");
+            } else {
+                taskDto.setOwnerUsername(task.getOwner().getUsername());
+            }
         }
         taskDto.setPriority(task.getPriority());
         if (task.getProject() != null) {
@@ -99,13 +97,14 @@ public class TaskDtoA {
      * 
      */
     public Task copyForUpdate(TaskDto taskDto, Task task) {
-        task.setTitle(taskDto.getTitle());
-        task.setAssignedTo(new Users(taskDto.getAssignedToId()));
+        task.setTitle(taskDto.getTitle());        
         task.setDeadline(taskDto.getCompletedDate());
         task.setEstimatedHours(taskDto.getEstimatedHours());
         task.setStatus(taskDto.getStatus());
         task.setPriority(taskDto.getPriority());
-        task.setCompletedDate(taskDto.getCompletedDate());
+        if (!task.getStatus().equals(TaskService.TASK_STATUS_COMPLETED) && taskDto.getStatus().equals(TaskService.TASK_STATUS_COMPLETED)) {
+            task.setCompletedDate(taskDto.getCompletedDate());
+        }
         task.setSpendHours(taskDto.getSpendHours());
         task.setDescription(taskDto.getDescription());
         task.setNotificationEmails(taskDto.getNotificationEmails());
@@ -120,8 +119,12 @@ public class TaskDtoA {
      */
     public Task copyForUpdateForAssignee(TaskDto taskDto, Task task) {
         task.setStatus(taskDto.getStatus());
-        task.setCompletedDate(taskDto.getCompletedDate());
+        task.setPriority(taskDto.getPriority());
+        if (!task.getStatus().equals(TaskService.TASK_STATUS_COMPLETED) && taskDto.getStatus().equals(TaskService.TASK_STATUS_COMPLETED)) {
+            task.setCompletedDate(taskDto.getCompletedDate());
+        }
         task.setSpendHours(taskDto.getSpendHours());
+        task.setDescription(taskDto.getDescription());
         return task;
     }
 }

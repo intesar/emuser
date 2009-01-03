@@ -55,7 +55,7 @@ public class TaskDto {
     private double spendHours;
 
     public TaskDto() {
-        String pattern = "MMM d, ''yy";
+        String pattern = "MM/dd/yyyy";
         simpleDateFormat = new SimpleDateFormat(pattern);
     }
 
@@ -311,6 +311,9 @@ public class TaskDto {
 
     @Override
     public String toString() {
-        return super.toString();
+        return "assignedToUsername " + assignedToUsername +
+                " description " + description + " notificationEmails " + notificationEmails + " ownerUsername " + ownerUsername + " priority " + priority + " projectName " + projectName + " status " + status + " title " + title + " assignedToId " + assignedToId +
+                " completedDate " + completedDate + " createDate " + createDate + " deadline " + deadline + " id " + id + " estimatedHours " + estimatedHours + " isOwner " + isOwner +
+                " ownerId " + ownerId + " projectId " + projectId + " spendHours " + spendHours;
     }
 }

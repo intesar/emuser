@@ -45,7 +45,7 @@ $(document).ready(function() {
     $('#createANewUser').click(function() {    
         $('#clear').trigger('click');
         viewed = null;
-        $('#newEditContainer').modal();
+        $('#newEditContainer').modal({persist: true});
         $('#enabled').attr('checked', 'checked');
         $('#email').attr('disabled', false);
     });
@@ -69,10 +69,12 @@ $(document).ready(function() {
         $('#lastname').val("");        
         $('#email').val("");        
         $('#enabled').removeAttr('checked');        
-        $('#administrator').removeAttr('checked');        
+        $('#administrator').removeAttr('checked');  
+        $('#email').attr('disabled', false);        
+        viewed = null;
     });
     
-    // open user in a modal
+    // open user in a modal for editing
     $('#usersTable td').livequery( function () { 
         $(this).not('.action').click(function () { 
             viewed = $(this).parent().children()[3].firstChild.id.toString().substring(10);
@@ -106,4 +108,6 @@ $(document).ready(function() {
         user1.administrator = $('#administrator').attr('checked');               
         AjaxUsersService.saveUser ( user1, usersList);            
     });   
+    
+    
 } );

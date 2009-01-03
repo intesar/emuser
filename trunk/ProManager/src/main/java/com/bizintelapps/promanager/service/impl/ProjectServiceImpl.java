@@ -154,7 +154,6 @@ public class ProjectServiceImpl implements ProjectService {
             Users users = usersDao.findByUsername(userId);
             Project project = projectDao.read(projectId);
             ProjectUsers projectUsers = projectUsersDao.findByProjectIdAndUserId(projectId, users.getId());
-
             if (projectUsers == null || projectUsers.getId() == null) {
                 projectUsers = new ProjectUsers(null, true, isManager, new Date(), project, users, savedUsers);
                 projectUsersDao.create(projectUsers);

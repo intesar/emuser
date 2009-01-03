@@ -14,22 +14,24 @@
  *  limitations under the License.
  *  under the License.
  */
-
 package com.bizintelapps.promanager.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Version;
 
 /**
  *
  * @author intesar
  */
-
 @Entity
 @Table(name = "authorities")
 @NamedQueries({
@@ -38,7 +40,8 @@ import javax.persistence.Table;
     @NamedQuery(name = "Authorities.findById", query = "SELECT a FROM Authorities a WHERE a.id = :id"),
     @NamedQuery(name = "Authorities.findByUsernameAndAuthority", query = "SELECT a FROM Authorities a WHERE a.username = ?1 and a.authority = ?2")
 })
-public class Authorities implements Serializable {    
+public class Authorities implements Serializable {
+
     public static final String ROLE_ADMIN = "ROLE_ADMIN";
     public static final String ROLE_USER = "ROLE_USER";
     private static final long serialVersionUID = 1L;
@@ -49,6 +52,14 @@ public class Authorities implements Serializable {
     @Id
     @Column(name = "id", nullable = false)
     private Integer id;
+    @Column(name = "create_date", nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createDate;
+    @Column(name = "create_user")
+    private Integer createUser;
+    @Column(name = "vid")
+    @Version
+    private Integer vid;
 
     public Authorities() {
     }
@@ -87,6 +98,31 @@ public class Authorities implements Serializable {
         this.id = id;
     }
 
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
+
+    public Integer getCreateUser() {
+        return createUser;
+    }
+
+    public void setCreateUser(Integer createUser) {
+        this.createUser = createUser;
+    }
+
+    public Integer getVid() {
+        return vid;
+    }
+
+    public void setVid(Integer vid) {
+        this.vid = vid;
+    }
+
+    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -111,5 +147,4 @@ public class Authorities implements Serializable {
     public String toString() {
         return "com.bizintelapps.promanager.entity.Authorities[id=" + id + "]";
     }
-
 }

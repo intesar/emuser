@@ -12,16 +12,15 @@
     <title>Project - ProManager</title>
     <jsp:include page="include.jsp" />
     <script type="text/javascript" src="../dwr/interface/AjaxProjectService.js"></script>
-    <script type="text/javascript" src="../js/lib/project.js"></script>
+    <script type="text/javascript" src="../js/local/project.js"></script>
 </head>
 <body  id="dt_example" class="example_alt_pagination">
 <jsp:include page="header.jsp" />
 <br>      
-<div style="position:absolute; left:5%; top:10%; bottom:5%; width:70%; height:90%; ">
-<div id="projectTableContainer" style="width:90%; height:90%; border: 0px solid #000; padding: 5px; " align="center"> 
+<div id="leftDiv">
+<div id="projectTableContainer"  align="center"> 
 <div id="container">
-<a id="createANewProject">Create a new project<font size="1"> >> </font></a>
-<br><br>
+<div align="right"><a id="createANewProject" href="javascript:void(0)">new project</a></div>
 <table id="projectTable"  cellpadding="0" cellspacing="0" border="0" class="display" >                        
     <thead>
         <tr>
@@ -35,93 +34,72 @@
     </tbody>                
 </table>                    
 </div>
-<p>
-    <a id="printProjectTable">Print Above List</a>
-</p>
-</div>
+
 <div id="newProjectContainer" style="display:none" align="center">
-    <div id="container">
-        <a id="backToProjectList"><font size="1"><< </font>Back to project list</a><br><br>
+    <div id="container">        
         <table>
             <thead>
                 <tr>
-                    <th></th>
-                    <th></th>
+                    <th></th>                    
                 </tr>
             </thead>
             <tr>
-                <td>Name <font color="RED">*</font><br>
+                <td><b>Name <font color="RED">*</font></b><br>
                 <input id="name" name="name" value="" maxlength="40" type="text"></td>                                
             </tr>
             <tr>
-                <td><br>Description<br>
-                <textarea name="description" rows="8" cols="40"></textarea></td>
-            </tr>                       
-            <tr>
-                <td>                    
-                    <input type="button" value="Create new project" id="createNewProject"/>                                
-                    <input type="button" value="Cancel" id="clear"/>
-                </td>   
-            </tr>                         
-        </table>    
-        
-    </div>
-</div>        
-
-<div id="editProjectContainer" style="display:none" align="center">
-    <div id="container">
-        <a id="backToProjectListFromEdit"><font size="1"><< </font>Back to project list</a><br><br>
-        <table>
-            <thead>
-                <tr>
-                    <th></th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tr>
-                <td>Name <font color="RED">*</font><br>
-                <input id="nameE" name="nameE" value="" maxlength="40" type="text" disabled></td>                                
+                <td></td>                
             </tr>
-            <tr>
-                
-                <td><br>Status<br>
-                    <select name="statusE" id="statusE">
+            <tr>                
+                <td><b>Status</b><br>
+                    <select name="status" id="status">
                         <option value="In Progess">In Progess</option>
                         <option value="On Hold">On Hold</option>
                         <option value="Completed">Completed</option>
                 </select></td>
             </tr>
             <tr>
-                <td><br>Description<br>
-                <textarea id="descriptionE"  name="descriptionE" rows="8" cols="40"></textarea></td>
-            </tr>                       
+                <td></td>                
+            </tr>
             <tr>
-                <td>                    
-                    <input type="button" value="Save" id="saveProject"/>
+                <td><b>Description</b><br>
+                <textarea name="description" rows="8" cols="40"></textarea></td>
+            </tr>       
+            <tr>
+                <td></td>                
+            </tr>
+            <tr>
+                <td>
+                    <input type="button" value="Cancel" id="clear"/>
+                    <input type="button" value="Save & Close" class='simplemodal-close' id="saveProject"/>                                                    
                 </td>   
             </tr>                         
-        </table>   
+        </table>            
     </div>
-</div>   
-<div>
-<div id="projectUsersDiv" align="center">
-<br>
-<a id="saveProjectUsersLink" >Add User to Project</a>
+</div>        
+</div>
+<div id="projectUsersDiv" align="center" style="left:5%;">
+<div id="container">
+<div align="right">
+    <a id="saveProjectUsersLink" href="javascript:void(0);">Add User to Project</a>
+</div>
 <table id="projectUsersTable"  cellpadding="0" cellspacing="0" border="0" class="display" >                        
     <thead>
         <tr>
+            <th>Project</th>
             <th>User</th>                                                            
-            <th>Is Manager</th>   
+            <th>Role</th>   
             <th>Action</th>
         </tr>
     </thead>                
     <!-- required by plugin-->
-    <tr><td></td><td></td><td></td></tr>
+    <tr><td></td><td></td><td></td><td></td></tr>
     </tbody>                
 </table>  
 </div>
+</div>
 <br>
-<div id="projectUsersSaveDiv" style="display:none">
+<div id="projectUsersSaveDiv" style="display:none" align="center">
     <table>
         <thead>
             <tr>
@@ -130,23 +108,37 @@
             </tr>
         </thead>
         <tr>
-            <td>Project <font color="RED">*</font><br>
+            <td><b>Project<font color="RED">*</font></b><br>
             <input id="projectName" name="name" value="" maxlength="40" disabled type="text"></td>                                
         </tr>
         <tr>
-            <td>Username <font color="RED">*</font><br>
+            <td></td>                
+        </tr>
+        <tr>
+            <td><b>Username<font color="RED">*</font></b><br>
             <input id="projectUsername" name="name" value="" maxlength="40" type="text"></td>                                
         </tr>
-                            
+        <tr>
+            <td></td>                
+        </tr>
+        <tr>
+            <td><b>Project Manager</b><br>
+                <input type="checkbox" id="manager" value="ON" /> <small>(moniters project activity & reports)</small>
+            </td>
+        </tr>
+        <tr>
+            <td></td>                
+        </tr>
         <tr>
             <td>                    
-                <input type="button" value="Create new project" id="addUserToProjectBtn"/>                                                
+                <input type="button" value="Create new project" class='simplemodal-close' id="addUserToProjectBtn"/>                                                
             </td>   
         </tr>                         
     </table>    
 </div>
 </div>
-</div>
-<div id="pc" style="position:absolute; left:67%; top:20%; bottom:0; width:15%; height:90%; "></div>
+
+
+<div id="rightDiv" ></div>
 </body>
 </html>

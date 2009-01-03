@@ -57,6 +57,7 @@
             <dwr:include method="assignTaskUser" /><!-- user -->
             <dwr:include method="deleteTask" /><!-- user -->
             <dwr:include method="changeTaskStatus" /><!-- user -->
+            <dwr:include method="changeTaskPriority" /><!-- user -->
             <dwr:include method="addTaskComment" /><!-- user -->
             <dwr:include method="udpateTaskDescription" /><!-- user -->
             <dwr:include method="getCurrentTask" /><!-- user -->
@@ -76,7 +77,7 @@
     </bean>
     <dwr:configuration>
         <dwr:convert class="com.bizintelapps.promanager.dto.*" type="bean"/>
-        <dwr:convert class="java.util.*" type="bean"/>
+        <dwr:convert class="java.util.*" type="bean"/>        
         <dwr:convert class="com.bizintelapps.promanager.exceptions.ServiceRuntimeException" type="exception" >
             <dwr:include method="message" />
         </dwr:convert>

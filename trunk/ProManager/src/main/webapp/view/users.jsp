@@ -13,26 +13,26 @@
         <title>Users - ProManager</title>
         <jsp:include page="include.jsp" />
         <script type="text/javascript" src="../dwr/interface/AjaxUsersService.js"></script>
-        <script type="text/javascript" src="../js/lib/users.js"></script>
+        <script type="text/javascript" src="../js/local/users.js"></script>
         
     </head>
     <body id="dt_example" class="example_alt_pagination" style="">
         <jsp:include page="header.jsp" />
         <br>   
-        <div style="position:absolute; left:5%; top:10%; bottom:5%; width:70%; height:90%; ">
-            <div id="userTableContainer" style="width:90%; height:90%; border: 0px solid #000; padding: 5px; " align="center"> 
+        <div id="leftDiv">
+            <div id="userTableContainer"  align="center"> 
                 <div id="container">
                     <div align="right">
-                        <a id="createANewUser" href="javascript:void(0)">Create a new user</a>                    
+                        <a id="createANewUser" href="javascript:void(0)">new user</a>                    
                     </div>
-                    <table id="usersTable" cellpadding="0" cellspacing="0" border="0" class="display render" align="center">                        
-                        <thead class="render">
-                            <tr class="render">
-                                <th class="render">ID</th>
-                                <th class="render">Name</th>                                                            
-                                <th class="render">Active</th>
-                                <th class="render">Administrator</th>
-                                <th class="render">Edit</th>                                
+                    <table id="usersTable" cellpadding="0" cellspacing="0" border="0" class="display" align="center">                        
+                        <thead class="">
+                            <tr class="">
+                                <th>ID</th>
+                                <th>Name</th>                                                            
+                                <th>Active</th>
+                                <th>Administrator</th>
+                                <th>Edit</th>                                
                             </tr>
                         </thead>                        
                         <tbody>                       
@@ -79,18 +79,15 @@
                             <td><br></td>
                         </tr>
                         <tr>
-                            <td><input type="button" value="Save User" id="saveUser"/> </td>
-                            
-                            <td>
-                                <input type="button" value="Cancel" id="clear"/>
-                                
-                            </td>   
+                            <td><input type="button" value="Cancel" id="clear"/>   
+                            <input type="button" value="Save & Close" class='simplemodal-close' id="saveUser"/></td>                            
+                            <td></td>
                         </tr>                         
                     </table>    
                 </div>
             </div>
         </div>
-        <div id="pc" style="position:absolute; left:67%; top:20%; bottom:0; width:15%; height:90%; "></div>
+        <div id="rightDiv"></div>
     </body>
 </html>
 
