@@ -20,6 +20,7 @@ import com.bizintelapps.promanager.dto.TaskDto;
 import com.bizintelapps.promanager.exceptions.ServiceRuntimeException;
 import com.bizintelapps.promanager.service.TaskService;
 import com.bizintelapps.promanager.service.UsersService;
+import java.util.ArrayList;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +49,6 @@ public class AjaxTaskService {
         }
     }
 
-    
     /**
      * 
      * @param taskId
@@ -99,6 +99,23 @@ public class AjaxTaskService {
         }
     }
 
+     /**
+     * 
+     * @param taskId
+     * @param status
+     */
+    public void changeTaskPriority(Integer taskId, String status) {
+        try {
+            taskService.changeTaskPriority(taskId, status, SecurityUtil.getUsername());
+        } catch (ServiceRuntimeException se) {
+            log.error(se);
+            throw se;
+        } catch (Exception e) {
+            log.error(e);
+            throw new ServiceRuntimeException(ERROR_MESSAGE);
+        }
+    }
+    
     /**
      * 
      * @param taskId
@@ -141,12 +158,19 @@ public class AjaxTaskService {
         try {
             String allStatuses = "'New', 'In Progress', 'On Hold', 'Completed'";
             String completedTask = "'Completed'";
-            String statuses = "'New', 'In Progress', 'On Hold'";            
-            if ( status.equals("Completed Task")) {
+            String currentTask = "'New', 'In Progress', 'On Hold'";
+            String statuses = null;
+            if (status.equals("Completed Task")) {
                 statuses = completedTask;
-            } else if ( status.equals("All Task")) {
+            } else if (status.equals("All Task")) {
                 statuses = allStatuses;
-            }                     
+            } else if (status.equals("Current Task")) {
+                statuses = currentTask;
+            } else {
+                List<TaskDto> taskDtos = new ArrayList<TaskDto>(1);
+                taskDtos.add(taskService.getTask(Integer.parseInt(status), SecurityUtil.getUsername()));
+                return taskDtos;
+            }
             return taskService.searchTasks(statuses, SecurityUtil.getUsername());
         } catch (ServiceRuntimeException se) {
             log.error(se);

@@ -31,6 +31,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Version;
 
 /**
  *
@@ -93,6 +94,11 @@ public class Users implements Serializable {
     @Column(name = "last_update_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastUpdateDate;
+    @Column(name = "vid")
+    @Version
+    private Integer vid;
+    @Column(name = "is_super")
+    private boolean isSuper;
     @JoinColumn(name = "organization", referencedColumnName = "id")
     @ManyToOne
     private Organization organization;
@@ -267,7 +273,6 @@ public class Users implements Serializable {
         this.organization = organization;
     }
 
-    
     public Collection<TaskImpedance> getTaskImpedanceCollection() {
         return taskImpedanceCollection;
     }
@@ -338,6 +343,22 @@ public class Users implements Serializable {
 
     public void setProjectUsersCollection1(Collection<ProjectUsers> projectUsersCollection1) {
         this.projectUsersCollection1 = projectUsersCollection1;
+    }
+
+    public Integer getVid() {
+        return vid;
+    }
+
+    public void setVid(Integer vid) {
+        this.vid = vid;
+    }
+
+    public boolean isIsSuper() {
+        return isSuper;
+    }
+
+    public void setIsSuper(boolean isSuper) {
+        this.isSuper = isSuper;
     }
 
     @Override

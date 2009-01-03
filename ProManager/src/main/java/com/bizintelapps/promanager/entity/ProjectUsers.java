@@ -28,6 +28,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Version;
 
 /**
  *
@@ -39,7 +40,7 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "ProjectUsers.findById", query = "SELECT p FROM ProjectUsers p WHERE p.id = :id"),
     @NamedQuery(name = "ProjectUsers.findByCreateDate", query = "SELECT p FROM ProjectUsers p WHERE p.createDate = :createDate"),
     @NamedQuery(name = "ProjectUsers.findByIsEnabled", query = "SELECT p FROM ProjectUsers p WHERE p.isEnabled = :isEnabled"),
-    @NamedQuery(name = "ProjectUsers.findByExpirationDate", query = "SELECT p FROM ProjectUsers p WHERE p.expirationDate = :expirationDate"),    
+    @NamedQuery(name = "ProjectUsers.findByExpirationDate", query = "SELECT p FROM ProjectUsers p WHERE p.expirationDate = :expirationDate"),
     @NamedQuery(name = "ProjectUsers.findManagedProjectsByUserId", query = "SELECT p FROM ProjectUsers p WHERE p.isManager = true and p.users.id = ?1 "),
     @NamedQuery(name = "ProjectUsers.findByProjectStatusAndUserId", query = "SELECT p FROM ProjectUsers p WHERE p.project.status = ?1 and p.users.id = ?2 "),
     @NamedQuery(name = "ProjectUsers.findByProjectIdAndUserId", query = "SELECT p FROM ProjectUsers p WHERE p.project.id = ?1 and p.users.id = ?2 ")
@@ -69,6 +70,9 @@ public class ProjectUsers implements Serializable {
     @JoinColumn(name = "create_user", referencedColumnName = "id")
     @ManyToOne
     private Users createUser;
+    @Column(name = "vid")
+    @Version
+    private Integer vid;
 
     public ProjectUsers() {
     }
@@ -150,6 +154,14 @@ public class ProjectUsers implements Serializable {
 
     public void setCreateUser(Users createUser) {
         this.createUser = createUser;
+    }
+
+    public Integer getVid() {
+        return vid;
+    }
+
+    public void setVid(Integer vid) {
+        this.vid = vid;
     }
 
     @Override

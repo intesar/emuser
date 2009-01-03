@@ -17,7 +17,6 @@
 package com.bizintelapps.promanager.service;
 
 import com.bizintelapps.promanager.dto.TaskDto;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -77,6 +76,13 @@ public interface TaskService {
     public void changeTaskStatus(Integer taskId, String status, String requestedBy);
 
     /**
+     * admin, pm, owner, assignTo can change priority
+     * @param taskId
+     * @param priority
+     * @param requestedBy
+     */
+    public void changeTaskPriority ( Integer taskId, String priority, String requestedBy);
+    /**
      * 
      * @param taskId
      * @param comment
@@ -84,6 +90,14 @@ public interface TaskService {
      */
     public void addTaskComment(Integer taskId, String comment, String requestedBy);
 
+    /**
+     * 
+     * @param taskId
+     * @param requestedBy
+     * @return
+     */
+    public TaskDto getTask(Integer taskId, String requestedBy);
+    
     
     /**
      * 

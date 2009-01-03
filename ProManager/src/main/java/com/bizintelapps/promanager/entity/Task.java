@@ -32,6 +32,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Version;
 
 /**
  *
@@ -112,6 +113,9 @@ public class Task implements Serializable {
     private Users assignedTo;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "task")
     private Collection<TaskHistory> taskHistoryCollection;
+    @Column(name = "vid")
+    @Version
+    private Integer vid;
 
     public Task() {
     }
@@ -314,6 +318,15 @@ public class Task implements Serializable {
         this.taskHistoryCollection = taskHistoryCollection;
     }
 
+    public Integer getVid() {
+        return vid;
+    }
+
+    public void setVid(Integer vid) {
+        this.vid = vid;
+    }
+
+    
     @Override
     public int hashCode() {
         int hash = 0;

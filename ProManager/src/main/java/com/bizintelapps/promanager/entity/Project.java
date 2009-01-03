@@ -31,6 +31,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Version;
 
 /**
  *
@@ -91,6 +92,9 @@ public class Project implements Serializable {
     private Collection<Task> taskCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "project")
     private Collection<ProjectUsers> projectUsersCollection;
+    @Column(name = "vid")
+    @Version
+    private Integer vid;
 
     public Project() {
     }
@@ -219,8 +223,6 @@ public class Project implements Serializable {
     public void setNotificationEmails(double notificationEmails) {
         this.notificationEmails = notificationEmails;
     }
-    
-    
 
     public Organization getOrganization() {
         return organization;
@@ -244,6 +246,14 @@ public class Project implements Serializable {
 
     public void setProjectUsersCollection(Collection<ProjectUsers> projectUsersCollection) {
         this.projectUsersCollection = projectUsersCollection;
+    }
+
+    public Integer getVid() {
+        return vid;
+    }
+
+    public void setVid(Integer vid) {
+        this.vid = vid;
     }
 
     @Override

@@ -8,10 +8,10 @@
         
         <link rel="stylesheet" type="text/css" media="screen" href="../css/milk.css">
         <link rel="stylesheet" type="text/css" media="screen" href="../css/chili.css">
-        <script type="text/javascript" src="../js/jquery-1.2.6.min.js" ></script>
-        <script type="text/javascript" src="../js/jquery.validate.js"></script>
-        <script type="text/javascript" src="../js/lib/signup.validate.js"></script>
-        <script type='text/javascript' src='../js/lib/signup.js'></script>
+        <script type="text/javascript" src="../js/lib/jquery-1.2.6.min.js" ></script>
+        <script type="text/javascript" src="../js/lib/jquery.validate.js"></script>
+        <script type="text/javascript" src="../js/local/signup.validate.js"></script>
+        <script type='text/javascript' src='../js/local/signup.js'></script>
         <script type='text/javascript' src='../dwr/interface/AjaxUsersService.js'></script>
         <script type='text/javascript' src='../dwr/engine.js'></script>
         <script type='text/javascript' src='../dwr/util.js'></script>
