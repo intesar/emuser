@@ -48,20 +48,22 @@ public class UsersServiceImpl implements UsersService {
 
     @Override
     public void signUp(UsersDto usersDto) {
+        // check username is not in use
         Users u1 = usersDao.findByUsername(usersDto.getUsername());
         if (u1 != null && u1.getId() != null) {
             throw new ServiceRuntimeException(usersDto.getUsername() + " is already in use");
         }
+        // checking email is not in use
         Users u2 = usersDao.findByEmail(usersDto.getEmail());
         if (u2 != null && u2.getId() != null) {
             throw new ServiceRuntimeException(usersDto.getEmail() + " is already in use");
         }
+        // checking organization name is not in use
         Organization org = organizationDao.findByName(usersDto.getOrganization());
         if (org != null && org.getId() != null) {
             throw new ServiceRuntimeException(usersDto.getOrganization() + " is already in use");
         }
         // copy usersDto contents to new Users object and persist
-
         org = new Organization(null, usersDto.getOrganization(), new Date());
         organizationDao.create(org);
         org = organizationDao.findByName(org.getName());
@@ -69,8 +71,6 @@ public class UsersServiceImpl implements UsersService {
         usersConverter.copyForSignUp(usersDto, users);
         users.setPassword(passwordEncryptor.encryptPassword(users.getPassword()));
         users.setIsEncrypted(true);
-        users.setCreateDate(new Date());
-        users.setLastUpdateDate(new Date());
         users.setOrganization(org);
         usersDao.create(users);
         Authorities authorities1 = new Authorities(null, users.getUsername(), Authorities.ROLE_ADMIN);
@@ -94,7 +94,7 @@ public class UsersServiceImpl implements UsersService {
             if (!savedByUsers.isIsAdministrator()) {
                 throw new ServiceRuntimeException("only administrators can create new users");
             }
-            // check to see whether username or email is already in use
+            // check whether username or email is already in use
             Users u1 = usersDao.findByUsername(usersDto.getUsername());
             if (u1 != null && u1.getId() != null) {
                 throw new ServiceRuntimeException(usersDto.getUsername() + " is already in use");
@@ -123,28 +123,19 @@ public class UsersServiceImpl implements UsersService {
         } else { // update state to db
             Users users = usersDao.read(usersDto.getId());
             // admin or self can update there records
-            if (!savedByUsers.isIsAdministrator() || !savedByUsers.getOrganization().equals(users.getOrganization())) {
+            if (savedByUsers.isIsAdministrator() || savedByUsers.equals(users) || savedByUsers.getOrganization().equals(users.getOrganization())) {
+                // do nothing
+            } else {
                 throw new ServiceRuntimeException("only administrators or self can update records");
             }
             // copy usersDto contents to existing Users object and persist
-
-            if (!users.getEmail().equalsIgnoreCase(usersDto.getEmail())) {
-                Users u2 = usersDao.findByEmail(usersDto.getEmail());
-                if (u2 != null && u2.getId() != null) {
-                    throw new ServiceRuntimeException(usersDto.getEmail() + " is already in use");
-                }
-            }
-
-            // check admin criteria
-            if (users.getUsername().equals(savedByUsers.getUsername()) &&
-                    users.isIsAdministrator() && usersDto.isAdministrator()) {
-                throw new ServiceRuntimeException("User cannot demote himself");
+            if (users.isIsSuper() && (!usersDto.isAdministrator() || !usersDto.isEnabled())) {
+                throw new ServiceRuntimeException("Super user cannot be demoted from admin or disabled");
             }
             log.debug("---------  usersDto.isAdministrator() " + usersDto.isAdministrator());
             log.debug("---------  users.isIsAdministrator() " + users.isIsAdministrator());
             log.debug("---------  usersDto.enabled() " + usersDto.isEnabled());
             log.debug("---------  users.enabled() " + users.getEnabled());
-
             if (usersDto.isAdministrator() && !users.isIsAdministrator()) {
                 // add him to authority
                 log.debug("--------- ADD AUTHORITY ");
@@ -161,6 +152,7 @@ public class UsersServiceImpl implements UsersService {
             users.setLastUpdateDate(new Date());
             users.setLastUpdateUser(savedByUsers.getId());
             usersDao.update(users);
+            mailSender.sendMail(new String[]{users.getUsername()}, "Welcome " + users.getFirstname() + " " + users.getLastname() + " your registration was Successfull!", "");
             log.debug("--------- after updated ");
         }
     }
@@ -169,29 +161,15 @@ public class UsersServiceImpl implements UsersService {
     public void deleteUser(Integer userId, String deletedBy) {
         Users users = usersDao.findByUsername(deletedBy);
         Users usersToBeDeleted = usersDao.read(userId);
-        // find user is admin then only can delete other even they are administrators
-        if ((users.getOrganization().equals(usersToBeDeleted.getOrganization()) && users.isIsAdministrator())) {
+        // super user cannot be deleted & only admin can delete others
+        if ((users.getOrganization().equals(usersToBeDeleted.getOrganization()) && users.isIsAdministrator()) && !users.isIsSuper()) {
             usersDao.delete(usersToBeDeleted);
-            List<Authorities> authorities = authoritiesDao.findByProperty("username", usersToBeDeleted.getUsername(), null).getCurrentList();
+            List<Authorities> authorities = authoritiesDao.findByUsername(usersToBeDeleted.getUsername());
             for (Authorities authority : authorities) {
                 authoritiesDao.delete(authority);
             }
         } else {
             throw new ServiceRuntimeException("Only Administrator can delete users!");
-        }
-    }
-
-    @Override
-    public void changePassword(Integer userId, String oldPassword, String newPassword, String changedBy) {
-        Users users = usersDao.read(userId);
-        Users changedByUser = usersDao.findByUsername(changedBy);
-        // changedBy administrator or self
-        if (((users.getOrganization().equals(changedByUser.getOrganization()) && changedByUser.isIsAdministrator()) ||
-                changedByUser.equals(users)) && passwordEncryptor.checkPassword(oldPassword, users.getPassword())) {
-            users.setPassword(passwordEncryptor.encryptPassword(newPassword));
-            usersDao.update(users);
-        } else {
-            throw new ServiceRuntimeException("Only Administrator can change others password Or user can change there own Or Invalid Old Password");
         }
     }
 
@@ -217,12 +195,12 @@ public class UsersServiceImpl implements UsersService {
         if (users == null) {
             throw new ServiceRuntimeException("We didn't find your email in our system!");
         }
-        // key is password - 3 chars
+        // key is password - 5 chars
         String password = users.getPassword();
         String key = password.substring(0, password.length() - 5);
         // email this key
-        this.mailSender.sendMail(new String[]{username}, "Password Resett Key", "Please ignore this email if you have " +
-                "not requested for password reset key, as it won't harm your login, if you want to reset your password please " +
+        this.mailSender.sendMail(new String[]{username}, "Password Reset Key", "Please ignore this email if you have " +
+                "not requested for password reset key, as it won't change your login, However if you want to reset your password please " +
                 "use this key :" + key);
     }
 
@@ -271,17 +249,18 @@ public class UsersServiceImpl implements UsersService {
     @Override
     public void enableDisableUser(Integer userId, boolean enabled, String changedBy) {
         log.debug("---- executing findByUsername with " + changedBy);
-        Users changedUser = usersDao.findByUsername(changedBy);
-        log.debug("---- changedUser " + changedUser.getUsername());
+        Users changedByUser = usersDao.findByUsername(changedBy);
+        log.debug("---- changedUser " + changedByUser.getUsername());
         Users users = usersDao.read(userId);
-        if ((users.getOrganization().equals(changedUser.getOrganization()) && changedUser.isIsAdministrator()) || changedUser.equals(users)) {
+        // super user cannot be deleted & only admin can delete others
+        if ((users.getOrganization().equals(changedByUser.getOrganization()) && changedByUser.isIsAdministrator()) && !users.isIsSuper()) {
             users.setEnabled(enabled);
             usersDao.update(users);
         } else {
             throw new ServiceRuntimeException(changedBy + " is not an Administrator");
         }
     }
-    
+
     @Override
     public UsersDto getUserByUsername(String username) {
         UsersDto dto = new UsersDto();

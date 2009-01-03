@@ -220,8 +220,7 @@ http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
         <property name="objectDefinitionSource">
             <value>
             com.bizintelapps.promanager.ajax.AjaxUsersService.signUp=ROLE_ANONYMOUS,ROLE_USER,ROLE_ADMIN
-            com.bizintelapps.promanager.ajax.AjaxUsersService.saveUser=ROLE_ADMIN
-            com.bizintelapps.promanager.ajax.AjaxUsersService.changePassword=ROLE_ANONYMOUS,ROLE_USER,ROLE_ADMIN
+            com.bizintelapps.promanager.ajax.AjaxUsersService.saveUser=ROLE_ADMIN            
             com.bizintelapps.promanager.ajax.AjaxUsersService.changeMyPassword=ROLE_USER,ROLE_ADMIN
             com.bizintelapps.promanager.ajax.AjaxUsersService.requestPasswordKeySendToEmail=ROLE_ANONYMOUS,ROLE_USER,ROLE_ADMIN
             com.bizintelapps.promanager.ajax.AjaxUsersService.resetPasswordWithKey=ROLE_ANONYMOUS,ROLE_USER,ROLE_ADMIN

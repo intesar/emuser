@@ -35,7 +35,7 @@ import javax.persistence.Version;
 @Entity
 @Table(name = "authorities")
 @NamedQueries({
-    @NamedQuery(name = "Authorities.findByUsername", query = "SELECT a FROM Authorities a WHERE a.username = :username"),
+    @NamedQuery(name = "Authorities.findByUsername", query = "SELECT a FROM Authorities a WHERE a.username = ?1 "),
     @NamedQuery(name = "Authorities.findByAuthority", query = "SELECT a FROM Authorities a WHERE a.authority = :authority"),
     @NamedQuery(name = "Authorities.findById", query = "SELECT a FROM Authorities a WHERE a.id = :id"),
     @NamedQuery(name = "Authorities.findByUsernameAndAuthority", query = "SELECT a FROM Authorities a WHERE a.username = ?1 and a.authority = ?2")

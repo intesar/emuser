@@ -18,6 +18,7 @@ package com.bizintelapps.promanager.dao.impl;
 
 import com.bizintelapps.promanager.dao.AuthoritiesDao;
 import com.bizintelapps.promanager.entity.Authorities;
+import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Repository;
@@ -33,11 +34,16 @@ public class AuthoritiesDaoImpl extends GenericDaoImpl<Authorities, Integer> imp
         super(Authorities.class);
     }
     private final Log log = LogFactory.getLog(getClass());
-    
+
     @Override
-     public Authorities findByUsernameAndAuthority(String username, String ROLE_ADMIN) {
-         Authorities authorities = null;
-         authorities = executeNamedQuerySingleResult("Authorities.findByUsernameAndAuthority", username, ROLE_ADMIN);
-         return authorities;
-     }
+    public Authorities findByUsernameAndAuthority(String username, String ROLE_ADMIN) {
+        Authorities authorities = null;
+        authorities = executeNamedQuerySingleResult("Authorities.findByUsernameAndAuthority", username, ROLE_ADMIN);
+        return authorities;
+    }
+
+    @Override
+    public List<Authorities> findByUsername(String username) {
+        return executeNamedQueryList("Authorities.findByUsername", null, username);
+    }
 }

@@ -77,12 +77,12 @@ public class ProjectServiceImpl implements ProjectService {
             project.setEstimatedHours(projectDto.getEstimatedHours());
             project.setHourlyRate(projectDto.getHourlyRate());
             project.setNotificationEmails(projectDto.getNotificationEmails());
+            project.setEnabled(true);
             projectDao.create(project);
         } else {
             // copy projectDto contents 
             // user should be either admin or pm
-            if (savedByUsers.isIsAdministrator() || projectUsersDao.findByProjectIdAndUserId(projectDto.getId(), savedByUsers.getId()).getIsManager()) {
-
+            if (savedByUsers.isIsAdministrator() || isProjectManager(projectDto.getId(), savedByUsers.getId())) {
                 Project project = projectDao.read(projectDto.getId());
                 projectConverter.copyForUpdate(projectDto, project);
                 project.setLastUpdateDate(new Date());
@@ -96,7 +96,6 @@ public class ProjectServiceImpl implements ProjectService {
                 throw new ServiceRuntimeException(" Only Administrator or ProjectManagers can update project");
             }
         }
-
     }
 
     @Override
@@ -104,8 +103,14 @@ public class ProjectServiceImpl implements ProjectService {
         Users users = usersDao.findByUsername(deletedBy);
         Project project = projectDao.read(projectId);
         // find user is admin then only can delete other even they are administrators
+        // delete project if no task created
         if (users.isIsAdministrator()) {
-            projectDao.delete(project);
+            if (project.getTaskCollection() != null && project.getTaskCollection().size() > 0) {
+                project.setEnabled(false);
+                projectDao.update(project);
+            } else {
+                projectDao.delete(project);
+            }
         } else {
             throw new ServiceRuntimeException("Only Administrator can delete Project!");
         }
@@ -134,7 +139,7 @@ public class ProjectServiceImpl implements ProjectService {
         Users users = usersDao.findByUsername(requestedBy);
         List<ProjectUserDto> projectUserDtos = null;
         if (users.isIsAdministrator()) { //return all active projects
-            List<Project> projects = projectDao.findByStatusAndOrganization(IN_PROGRESS, users.getOrganization().getId());            
+            List<Project> projects = projectDao.findByStatusAndOrganization(IN_PROGRESS, users.getOrganization().getId());
             projectUserDtos = projectConverter.copyAllProjectAlongUsers(projects);
         } else { // return user projects
             List<ProjectUsers> projectUsers = projectUsersDao.findByProjectStatusAndUserId(IN_PROGRESS, users.getId());
@@ -198,6 +203,14 @@ public class ProjectServiceImpl implements ProjectService {
     private boolean isProjectManager(ProjectUsers pu) {
         if (pu != null && pu.getIsManager()) {
             return true;
+        }
+        return false;
+    }
+
+    private boolean isProjectManager(Integer projectId, Integer usersId) {
+        ProjectUsers projectUsers = projectUsersDao.findByProjectIdAndUserId(projectId, usersId);
+        if (projectUsers != null) {
+            return projectUsers.getIsManager();
         }
         return false;
     }

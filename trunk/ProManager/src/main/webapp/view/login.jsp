@@ -19,13 +19,13 @@
                             <tr>
                                 <td>Username:</td>
                                 <td>
-                                    <input type="text" name='j_username' value="shannan.mohammed" size="30" />
+                                    <input type="text" name='j_username' value="xy" size="30" />
                                 </td>
                             </tr>
                             <tr>
                                 <td>Password:</td>
                                 <td>
-                                    <input type="password" name='j_password' size="30" value="shannan"/>                                    
+                                    <input type="password" name='j_password' size="30" value="xy"/>                                    
                                 </td>
                             </tr>
                             <tr>

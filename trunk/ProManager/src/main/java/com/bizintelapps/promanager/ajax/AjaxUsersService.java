@@ -72,27 +72,7 @@ public class AjaxUsersService {
 
     }
 
-    /**
-     *  used by admins to change users password
-     * @param userId
-     * @param oldPassword
-     * @param newPassword
-     * @return
-     */
-    public String changePassword(Integer userId, String oldPassword, String newPassword) {
-        String msg = " Password Changed Successfully! ";
-        try {
-            usersService.changePassword(userId, oldPassword, newPassword, SecurityUtil.getUsername());
-        } catch (ServiceRuntimeException e) {
-            log.error(e);
-            throw e;
-        } catch (Exception e) {
-            log.error(e);
-            throw new ServiceRuntimeException(ERROR_MESSAGE);
-        }
-
-        return msg;
-    }
+   
 
     /**
      * excuted by logged in user to change password

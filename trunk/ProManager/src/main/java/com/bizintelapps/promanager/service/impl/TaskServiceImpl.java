@@ -16,6 +16,7 @@
  */
 package com.bizintelapps.promanager.service.impl;
 
+import com.bizintelapps.mail.MailSender;
 import com.bizintelapps.promanager.dao.ProjectDao;
 import com.bizintelapps.promanager.dao.ProjectUsersDao;
 import com.bizintelapps.promanager.dao.TaskDao;
@@ -62,6 +63,7 @@ public class TaskServiceImpl implements TaskService {
                 task.setProject(project);
             }
             taskDao.create(task);
+            sendTaskAlert ( task );
         } else { // only admin, owner, assigned or pm can update task
             Task task = taskDao.read(taskDto.getId());
             if (savedByUser.isIsAdministrator() || task.getOwner().equals(savedByUser) ||
@@ -74,10 +76,18 @@ public class TaskServiceImpl implements TaskService {
             } else if (task.getAssignedTo() != null && task.getAssignedTo().equals(savedByUser)) {
                 Task task1 = taskConverter.copyForUpdateForAssignee(taskDto, task);
                 taskDao.update(task1);
+                sendTaskAlert ( task1 );
             } else {
                 throw new ServiceRuntimeException("Illegal Action");
             }
         }
+    }
+    
+    private void sendTaskAlert ( Task task ) {
+        String[] tos = new String[] {};
+        String subject = "Task : " + task.getId() + " alert!";
+        String body = "";
+        mailSender.sendMail(tos, subject, body);
     }
 
     @Override
@@ -92,7 +102,6 @@ public class TaskServiceImpl implements TaskService {
         }
     }
 
-    @Override
     /**
      * 
      * @param projectId can be null, 0 means todo + projects
@@ -103,6 +112,7 @@ public class TaskServiceImpl implements TaskService {
      * @param requestedBy 
      * @return
      */
+    @Override
     public List<TaskDto> searchTasks(String statuses, String requestedBy) {
         Users u = usersDao.findByUsername(requestedBy);
         List<Task> tasks = taskDao.search(statuses, u.getId());
@@ -174,28 +184,12 @@ public class TaskServiceImpl implements TaskService {
         Users users = usersDao.read(userId);
         Users users1 = usersDao.findByUsername(requestedBy);
         Task task = taskDao.read(taskId);
-        Project project = task.getProject();
-        ProjectUsers projectUsers = null;
-        ProjectUsers projectUsers1 = null;
-        if (project != null) {
-            projectUsers = projectUsersDao.findByProjectIdAndUserId(project.getId(), userId);
-            projectUsers1 =
-                    projectUsersDao.findByProjectIdAndUserId(project.getId(), users1.getId());
-        }
-
-// * user can only be assigned if its todo or a project member        
-        if (project != null && projectUsers == null) {
-            throw new ServiceRuntimeException("Invalid Operation!");
-        }
-// * only admin, owner, pm can assign others
-        if (!users1.isIsAdministrator() || !task.getOwner().equals(users1) || !(projectUsers1 != null && projectUsers1.getIsManager()) ||
-                task.getAssignedTo() != null) {
-            throw new ServiceRuntimeException("Invalid Operation!");
-        }
-
+        // * only admin, owner, pm can assign others
+        if (users1.isIsAdministrator() || users.equals(users1) || task.getOwner().equals(users1) || 
+                isUserProjectManager(users1.getId(), task.getProject())) {            
+        } else {throw new ServiceRuntimeException("Invalid Operation!");}
         task.setAssignedTo(users);
         taskDao.update(task);
-
     }
 
     @Override
@@ -282,4 +276,6 @@ public class TaskServiceImpl implements TaskService {
     @Autowired
     private ProjectUsersDao projectUsersDao;
     private final Log log = LogFactory.getLog(getClass());
+    @Autowired
+    private MailSender mailSender;
 }
