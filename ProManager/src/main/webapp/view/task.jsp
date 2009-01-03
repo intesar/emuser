@@ -129,7 +129,7 @@
                         <br>
                         <td>
                             <input type="button" value="Refresh" id="clear"/>
-                            <input type="button" value="Save & Close" id="saveTask"/>                                
+                            <input type="button" value="Save & Close" id="saveTask" class='simplemodal-close'/>                                
                             <a href="javascript(0);">Add Comment</a>
                         </td>   
                     </tr>  

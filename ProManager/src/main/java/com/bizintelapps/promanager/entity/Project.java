@@ -95,6 +95,8 @@ public class Project implements Serializable {
     @Column(name = "vid")
     @Version
     private Integer vid;
+    @Column(name = "enabled")
+    private boolean enabled;
 
     public Project() {
     }
@@ -254,6 +256,14 @@ public class Project implements Serializable {
 
     public void setVid(Integer vid) {
         this.vid = vid;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
     @Override

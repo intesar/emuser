@@ -14,16 +14,15 @@
  *  limitations under the License.
  *  under the License.
  */
-
 package com.bizintelapps.promanager.dtoa;
 
 import com.bizintelapps.promanager.entity.Users;
 import com.bizintelapps.promanager.dto.UsersDto;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import org.springframework.stereotype.Service;
-
 
 /**
  *
@@ -33,10 +32,10 @@ import org.springframework.stereotype.Service;
 public class UsersDtoA {
 
     public List<UsersDto> copyAllForDisplay(Collection<Users> usersCollection) {
-        List<UsersDto> list = new ArrayList<UsersDto> ();
-        for ( Users users : usersCollection ) {
+        List<UsersDto> list = new ArrayList<UsersDto>();
+        for (Users users : usersCollection) {
             UsersDto usersDto = new UsersDto();
-            copyForDisplay(users, usersDto );
+            copyForDisplay(users, usersDto);
             list.add(usersDto);
         }
         return list;
@@ -44,7 +43,7 @@ public class UsersDtoA {
 
     public List<UsersDto> copyAllForDropdown(List<Users> list) {
         List<UsersDto> dtos = new ArrayList<UsersDto>();
-        for ( Users u : list ) {
+        for (Users u : list) {
             UsersDto dto = new UsersDto();
             dto.setId(u.getId());
             dto.setFirstname(u.getFirstname());
@@ -54,8 +53,8 @@ public class UsersDtoA {
         }
         return dtos;
     }
-    
-    public void copyForDisplay ( Users users, UsersDto usersDto ) {
+
+    public void copyForDisplay(Users users, UsersDto usersDto) {
         usersDto.setCity(users.getCity());
         usersDto.setCountry(users.getCountry());
         usersDto.setEmail(users.getEmail());
@@ -66,7 +65,6 @@ public class UsersDtoA {
         usersDto.setLastname(users.getLastname());
         usersDto.setAdministrator(users.isIsAdministrator());
         usersDto.setUsername(users.getUsername());
-        
     }
 
     /**
@@ -75,7 +73,7 @@ public class UsersDtoA {
      * @param users
      * @return
      */
-    public void copyForCreate(UsersDto usersDto, Users users) {        
+    public void copyForCreate(UsersDto usersDto, Users users) {
         users.setCity(usersDto.getCity());
         users.setCountry(usersDto.getCountry());
         users.setEmail(usersDto.getEmail());
@@ -88,7 +86,6 @@ public class UsersDtoA {
         users.setCreateUser(usersDto.getCreateUser());
         users.setPassword(usersDto.getPassword());
         users.setUsername(usersDto.getUsername());
-        
     }
 
     public void copyForSignUp(UsersDto usersDto, Users users) {
@@ -100,9 +97,11 @@ public class UsersDtoA {
         users.setFirstname(usersDto.getFirstname());
         users.setLastname(usersDto.getLastname());
         users.setIsAdministrator(true);
+        users.setIsSuper(true);
         users.setPassword(usersDto.getPassword());
-        users.setUsername(usersDto.getUsername());          
-        
+        users.setUsername(usersDto.getUsername());
+        users.setCreateDate(new Date());
+        users.setLastUpdateDate(new Date());
     }
 
     /**
@@ -114,13 +113,11 @@ public class UsersDtoA {
     public void copyForUpdate(UsersDto usersDto, Users users) {
         //users.setCity(usersDto.getCity());
         //users.setCountry(usersDto.getCountry());
-        users.setEmail(usersDto.getEmail());
-        users.setEnabled(usersDto.isEnabled());
+        //users.setEmail(usersDto.getEmail());
         //users.setExpirationDate(usersDto.getExpirationDate());
+        users.setEnabled(usersDto.isEnabled());
         users.setFirstname(usersDto.getFirstname());
         users.setLastname(usersDto.getLastname());
         users.setIsAdministrator(usersDto.isAdministrator());
-        
     }
-
 }

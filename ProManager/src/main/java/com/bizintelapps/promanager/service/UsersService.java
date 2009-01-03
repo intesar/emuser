@@ -32,7 +32,12 @@ public interface UsersService {
      * @return
      */
     public List<UsersDto> getActiveUserList(String requestedBy);
-
+    
+    
+    /**
+     * creates
+     * @param usersDto
+     */
     public void signUp (UsersDto usersDto);
     
     public List<UsersDto> saveAndGetUser(UsersDto usersDto, String savedBy);
@@ -69,7 +74,7 @@ public interface UsersService {
      * @param newPassword
      * @param changedBy
      */
-    public void changePassword(Integer userId, String oldPassword, String newPassword, String changedBy);
+    //public void changePassword(Integer userId, String oldPassword, String newPassword, String changedBy);
     
     /**
      * 

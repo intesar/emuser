@@ -36,10 +36,10 @@ public class AjaxTaskService {
      * @param taskDto
      * @return
      */
-    public String saveTask(TaskDto taskDto) {
+    public List<TaskDto> saveTask(TaskDto taskDto) {
         try {
             taskService.saveTask(taskDto, SecurityUtil.getUsername());
-            return "task created successfully";
+            return getCurrentTask("Current Task");
         } catch (ServiceRuntimeException se) {
             log.error(se);
             throw se;
@@ -99,7 +99,7 @@ public class AjaxTaskService {
         }
     }
 
-     /**
+    /**
      * 
      * @param taskId
      * @param status
@@ -115,7 +115,7 @@ public class AjaxTaskService {
             throw new ServiceRuntimeException(ERROR_MESSAGE);
         }
     }
-    
+
     /**
      * 
      * @param taskId
