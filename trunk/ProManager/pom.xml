@@ -23,9 +23,9 @@
     <!-- xml & log4j file locations -->
     <properties>
         <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
-        <jdbc.url>jdbc:mysql:///pm</jdbc.url>
-        <jdbc.username>root</jdbc.username>
-        <jdbc.password>apple</jdbc.password>
+        <jdbc.url>jdbc:mysql://faceguard.org/pm</jdbc.url>
+        <jdbc.username>pm</jdbc.username>
+        <jdbc.password>pm</jdbc.password>
         <logging.level>INFO</logging.level>
         <cache.type>SoftWeak</cache.type>
         <jdbc.read-connections.max>20</jdbc.read-connections.max>
