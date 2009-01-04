@@ -54,23 +54,23 @@ public class UserReport implements Serializable {
     @Column(name = "year", nullable = false)
     private int year;
     @Column(name = "total_created")
-    private Integer totalCreated;
+    private Integer totalCreated = 0;
     @Column(name = "assigned")
-    private Integer assigned;
+    private Integer assigned = 0;
     @Column(name = "self_assigned")
-    private Integer selfAssigned;
+    private Integer selfAssigned = 0;
     @Column(name = "total_assigned")
-    private Integer totalAssigned;
+    private Integer totalAssigned = 0;
     @Column(name = "estimated_hours")
-    private Double estimatedHours;
+    private Double estimatedHours = 0.0;
     @Column(name = "hours_spend")
-    private Double hoursSpend;
+    private Double hoursSpend = 0.0;
     @Column(name = "total_completed", nullable = false)
-    private int totalCompleted;
+    private int totalCompleted = 0;
     @Column(name = "user", nullable = false)
     private int user;
     @Column (name="created_self_assigned")
-    private int createdSelfAssigned;
+    private int createdSelfAssigned = 0;
     
     public UserReport() {
     }

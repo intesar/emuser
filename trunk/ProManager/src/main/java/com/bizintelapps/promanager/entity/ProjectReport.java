@@ -38,8 +38,8 @@ import javax.persistence.Table;
     @NamedQuery(name = "ProjectReport.findByTimeSpend", query = "SELECT p FROM ProjectReport p WHERE p.timeSpend = :timeSpend"),
     @NamedQuery(name = "ProjectReport.findByMonth", query = "SELECT p FROM ProjectReport p WHERE p.month = :month"),
     @NamedQuery(name = "ProjectReport.findByYear", query = "SELECT p FROM ProjectReport p WHERE p.year = :year"),
-    @NamedQuery(name = "ProjectReport.findByProjectMonthAndYear", query = "SELECT p FROM ProjectReport p WHERE p.project = ?1 and u.month = ?2 and u.year = ?3"),
-    @NamedQuery(name = "ProjectReport.findByOrganizationMonthAndYear", query = "SELECT p FROM ProjectReport p WHERE p.organization = ?1 and u.month = ?2 and u.year = ?3")
+    @NamedQuery(name = "ProjectReport.findByProjectMonthAndYear", query = "SELECT p FROM ProjectReport p WHERE p.project = ?1 and p.month = ?2 and p.year = ?3"),
+    @NamedQuery(name = "ProjectReport.findByOrganizationMonthAndYear", query = "SELECT p FROM ProjectReport p WHERE p.organization = ?1 and p.month = ?2 and p.year = ?3")
 })
 public class ProjectReport implements Serializable {
 
@@ -48,13 +48,13 @@ public class ProjectReport implements Serializable {
     @Column(name = "id", nullable = false)
     private Integer id;
     @Column(name = "task_created", nullable = false)
-    private int taskCreated;
+    private int taskCreated = 0;
     @Column(name = "task_finished")
-    private Integer taskFinished;
+    private Integer taskFinished = 0;
     @Column(name = "estimated_time")
-    private Double estimatedTime;
+    private Double estimatedTime = 0.0;
     @Column(name = "time_spend")
-    private Double timeSpend;
+    private Double timeSpend = 0.0;
     @Column(name = "month", nullable = false)
     private int month;
     @Column(name = "year", nullable = false)
@@ -62,7 +62,7 @@ public class ProjectReport implements Serializable {
     @Column(name = "project")
     private Integer project;
     @Column(name = "organization", nullable = false)
-    private int organization;
+    private Integer organization;
 
     public ProjectReport() {
     }
@@ -151,11 +151,11 @@ public class ProjectReport implements Serializable {
         this.project = project;
     }
 
-    public int getOrganization() {
+    public Integer getOrganization() {
         return organization;
     }
 
-    public void setOrganization(int organization) {
+    public void setOrganization(Integer organization) {
         this.organization = organization;
     }
 

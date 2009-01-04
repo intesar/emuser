@@ -38,7 +38,7 @@ public class SecurityUtil {
             log.error(npe);
         }
         if (username == null || username.equals("anonymousUser")) {
-            return "shannan.mohammed";
+            return "xy";
         }
         return username;
     }

@@ -16,6 +16,9 @@
  */
 package com.bizintelapps.promanager.ajax;
 
+import com.bizintelapps.promanager.dto.TaskDto;
+import java.util.Date;
+
 /**
  *
  * @author intesar
@@ -35,8 +38,17 @@ public class AjaxTaskServiceTest extends BaseTest {
      */
     public void testGetCurrentTask() {
         System.out.println("getCurrentTask");
-    //List<TaskDto> result = ajaxTaskService.getCurrentTask("Current Task");
-    //System.out.println ( "------------------- " + result );
-    //assertNotNull(result);
+        TaskDto taskDto = new TaskDto();        
+        taskDto.setAssignedToId(7);
+        taskDto.setDeadline(new Date());
+        taskDto.setDescription("testing!");
+        taskDto.setEstimatedHours(4.0);
+        taskDto.setNotificationEmails("mdshannan@gmail.com");
+        taskDto.setPriority("Medium");
+        taskDto.setProjectId(21);
+        taskDto.setStatus("New");
+        taskDto.setTitle("title");        
+        taskDto.setProjectName("demo");
+        ajaxTaskService.saveTask(taskDto);    
     }
 }

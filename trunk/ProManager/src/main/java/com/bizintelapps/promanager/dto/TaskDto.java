@@ -53,12 +53,32 @@ public class TaskDto {
     private double estimatedHours;
     private String notificationEmails;
     private double spendHours;
+    private Integer assignedById;
+    private Date assignedDate;
 
     public TaskDto() {
         String pattern = "MM/dd/yyyy";
         simpleDateFormat = new SimpleDateFormat(pattern);
     }
 
+    public Date getAssignedDate() {
+        return assignedDate;
+    }
+
+    public void setAssignedDate(Date assignedDate) {
+        this.assignedDate = assignedDate;
+    }
+
+    
+    public Integer getAssignedById() {
+        return assignedById;
+    }
+
+    public void setAssignedById(Integer assignedById) {
+        this.assignedById = assignedById;
+    }
+
+    
     public Integer getAssignedToId() {
         return assignedToId;
     }

@@ -11,7 +11,8 @@ $(document).ready(function() {
     var giCount = 2;    
     var tasksCache = {};
     var viewed = null;
-    
+    var projectDDCache = {};
+    var usersDDCache = {};
     // start 
     var x1 = null;
     var x21 = "<option>New</option>";
@@ -155,29 +156,42 @@ $(document).ready(function() {
         $('#deadline').attr('disabled', false);
     });
     // executed on "create new task" button is clicked
-    $('#saveTask').click(function() {
-        var task1 = {id:null, title:null, deadline:null, priority:null, projectName:null, assignedToUsername:null, estimatedHours:null, notificationEmails:null, description:null};
+    $('#saveTask').click(function() {        
+        var task1 = null;
         if ( viewed != null ) {
             task1 = tasksCache[viewed];
         }
-        if (viewed != null && task1.isOwner == false) {            
-            // Admin, Owner, PM can change title, project, status, priority, assignTo, est hours, hours spend, notification, deadline, description
-            //assignTo can change status, priority, hoursSpend
-            task1.status = $('#status').val();    
-            task1.priority = $('#priority').val();
-            task1.spendHours = $('#hoursSpend').val();            
-        }  else {// user can change everything on new task        
-            task1.title = $('#title').val();
-            //task1.deadline = Date.parse($('#deadline').val());
-            task1.priority = $('#priority').val();
-            task1.projectName = $('#projectDD').val();
-            task1.status = $('#status').val();            
-            task1.spendHours = $('#hoursSpend').val();
-            task1.assignedToUsername = $('#assignToDD').val();
-            task1.estimatedHours = $('#estimatedHours').val();
-            task1.notificationEmails = $('#notificationEmails').val();        
-            task1.description = $('#description').val();                
+        //if (viewed != null && task1.isOwner == false) {            
+        // Admin, Owner, PM can change title, project, status, priority, assignTo, est hours, hours spend, notification, deadline, description
+        //assignTo can change status, priority, hoursSpend                                       
+        //}  else {// user can change everything on new task  
+        if ( task1 == null) {
+            task1 = {id:null, title:null, deadline:null, priority:null, projectName:null, assignedToUsername:null, estimatedHours:null, notificationEmails:null, description:null};            
         }
+        task1.title = $('#title').val();
+        //task1.deadline = Date.parse($('#deadline').val());
+        task1.priority = $('#priority').val();
+        var proj = $('#projectDD').val();
+        if ( "Todo" != proj ) {
+            task1.projectId = proj;
+            task1.projectName = projectDDCache[task1.projectId];
+        }  else {
+            task1.projectId = null;
+            task1.projectName = null;
+        }  
+        task1.status = $('#status').val();            
+        task1.spendHours = $('#hoursSpend').val();
+        var u = $('#assignToDD').val();
+        if ( u != "None") {
+            task1.assignedToId = u;
+            task1.assignedToUsername = usersDDCache[task1.assignedTo];
+        }else {
+            task1.assignedToId = null;
+            task1.assignedToUsername = null;
+        }  
+        task1.estimatedHours = $('#estimatedHours').val();
+        task1.notificationEmails = $('#notificationEmails').val();        
+        task1.description = $('#description').val();        
         AjaxTaskService.saveTask(task1, taskList);
         //$('#clear').trigger("click");
     });
@@ -199,7 +213,7 @@ $(document).ready(function() {
         $('#advanceSearchDiv').slideToggle('fast');
     });
     
-    var projectDDCache = {};
+    
     
     function displayProjectDDList(projectDDList) {
         var options = "<option value='Todo'>Todo</option>";
@@ -211,8 +225,8 @@ $(document).ready(function() {
     }
     $('#projectDD').livequery ('change', function() {
         var projectId =$(this).val();
-        alert ( projectId );
-        var x = projectDDCache;
+        //alert ( projectId );
+        //var x = projectDDCache;
         var user = projectDDCache[projectId].users;
         var options = "<option value='None'>None</option>";
         for ( var i = 0; i < i.length; i++ ) {
@@ -223,13 +237,15 @@ $(document).ready(function() {
     projectDDList = function ( projectDDListData ) {
         displayProjectDDList ( projectDDListData );
     }
+    
+    
     AjaxProjectService.getProjectsForDropdown(projectDDList);
     
     function displayUsersDDList(usersDDList) {
-        var options = "<option value='me'>me</option>";
+        var options = "<option value='None'>None</option>";
         for ( var i = 0; i < usersDDList.length; i++ ) {
             options += "<option value='"+ usersDDList[i].id+"'>"+usersDDList[i].firstname + " " + usersDDList[i].lastname + "</option>";
-            //projectDDCache[projectDDList.projectId] =usersDDList[i];
+            usersDDCache[usersDDList.id] = usersDDList[i];
         }
         $('#assignToDD').html(options);
     }
