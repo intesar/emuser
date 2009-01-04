@@ -64,14 +64,14 @@
     </bean>
     <bean id="reportAjaxService" class="com.bizintelapps.promanager.ajax.AjaxReportService">
         <dwr:remote javascript="AjaxReportService">
-            <dwr:include method="getUserTaskReport" /> <!-- user -->
-            <dwr:include method="getProjectTaskReport" /> <!-- user admin -->
-            <dwr:include method="getAllUsersTaskReport" /> <!-- admin -->
-            <dwr:include method="getAllProjectTaskReport" /> <!-- admin -->
-            <dwr:include method="getBusyUsersReport" /> <!-- user admin -->
-            <dwr:include method="getBusyProjectsReport" /> <!-- user admin -->
-            <dwr:include method="getSlowUsersReport" /> <!-- admin -->
-            <dwr:include method="getSlowProjectsReport" /> <!-- admin -->
+            <!--<dwr:include method="getUserTaskReport" />--> <!-- user -->
+            <!--<dwr:include method="getProjectTaskReport" />--> <!-- user admin -->
+            <!--<dwr:include method="getAllUsersTaskReport" />--> <!-- admin -->
+            <!--<dwr:include method="getAllProjectTaskReport" />--> <!-- admin -->
+            <!--<dwr:include method="getBusyUsersReport" />--> <!-- user admin -->
+            <!--<dwr:include method="getBusyProjectsReport" />--> <!-- user admin -->
+            <!--<dwr:include method="getSlowUsersReport" />--> <!-- admin -->
+            <!--<dwr:include method="getSlowProjectsReport" />--> <!-- admin -->
         </dwr:remote>
     </bean>
     <dwr:configuration>

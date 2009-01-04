@@ -72,6 +72,9 @@ public class Task implements Serializable {
     @Column(name = "create_date", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date createDate;
+    @Column(name = "assigned_date", nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date assignedDate;
     @Column(name = "visibility", nullable = false)
     private String visibility;
     @Column(name = "percentage_completed", nullable = false)
@@ -116,6 +119,10 @@ public class Task implements Serializable {
     @Column(name = "vid")
     @Version
     private Integer vid;
+    @JoinColumn(name = "assigned_by", referencedColumnName = "id")
+    @ManyToOne
+    private Users assignedBy;
+    
 
     public Task() {
     }
@@ -238,6 +245,15 @@ public class Task implements Serializable {
         this.completedDate = completedDate;
     }
 
+    public Date getAssignedDate() {
+        return assignedDate;
+    }
+
+    public void setAssignedDate(Date assignedDate) {
+        this.assignedDate = assignedDate;
+    }
+
+    
     public Date getLastStatusChangedDate() {
         return lastStatusChangedDate;
     }
@@ -326,6 +342,15 @@ public class Task implements Serializable {
         this.vid = vid;
     }
 
+    public Users getAssignedBy() {
+        return assignedBy;
+    }
+
+    public void setAssignedBy(Users assignedBy) {
+        this.assignedBy = assignedBy;
+    }
+
+    
     
     @Override
     public int hashCode() {
