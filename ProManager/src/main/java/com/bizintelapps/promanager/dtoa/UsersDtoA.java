@@ -18,6 +18,7 @@ package com.bizintelapps.promanager.dtoa;
 
 import com.bizintelapps.promanager.entity.Users;
 import com.bizintelapps.promanager.dto.UsersDto;
+import com.bizintelapps.promanager.dto.UsersMinDto;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -30,7 +31,25 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class UsersDtoA {
-
+    
+    public List<UsersMinDto> copyAllForReportDropdown(List<Users> users) {
+        List<UsersMinDto> dtos = new ArrayList<UsersMinDto> ();
+        for ( Users u : users) {
+            UsersMinDto dto = new UsersMinDto();
+            copyForReportDropdown(u, dto);
+            dtos.add(dto);
+        }
+        return dtos;
+    }
+    public void copyForReportDropdown(Users u, UsersMinDto dto ) {
+        dto.setUsername(u.getUsername());
+        dto.setEnabled(u.getEnabled());
+        dto.setAdministrator(u.isIsAdministrator());
+        dto.setFirstname(u.getFirstname());
+        dto.setLastname(u.getLastname());
+        dto.setId(u.getId());
+    }
+    
     public List<UsersDto> copyAllForDisplay(Collection<Users> usersCollection) {
         List<UsersDto> list = new ArrayList<UsersDto>();
         for (Users users : usersCollection) {

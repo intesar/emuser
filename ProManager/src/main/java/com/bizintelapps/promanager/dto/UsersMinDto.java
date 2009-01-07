@@ -28,7 +28,12 @@ public class UsersMinDto {
     private String lastname;
     private boolean administrator;
     private boolean manager;
+    private boolean enabled;
 
+    public UsersMinDto() {
+    }
+
+    
     public UsersMinDto(Integer id, String username, String firstname, String lastname, boolean administrator, boolean manager) {
         this.id = id;
         this.username = username;
@@ -85,6 +90,14 @@ public class UsersMinDto {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
     
     

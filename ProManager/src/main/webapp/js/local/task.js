@@ -269,56 +269,36 @@ $(document).ready(function() {
     
     
     
-    function displayReportFunction (data) {
-        var title = data.reportDate;
-        var tasksAssigned = data.totalAssigned;
-        var tasksCompleted = data.totalCompleted;
-        var hoursAssigned = data.estimatedHours;
-        var hoursDone = data.hoursSpend;
-        var myCreatedTask = data.totalCreated;
-        var api = new jGCharts.Api(); 
-        $('#reportDiv').empty();
-        jQuery('<img>') 
-        .attr('src', api.make({
-            title       : title, 
-            grid        : true,
-            data : [[tasksAssigned, tasksCompleted, hoursAssigned, hoursDone, myCreatedTask]],
-            axis_labels : [''],
-            legend : ['Tasks Assigned', 'Tasks Completed','Hours Assigned','Hours Done','My Created Tasks']
-        })).appendTo("#reportDiv");	
+    function displayReportFunction (data, divId) {
+        $('#' + divId).empty();
+        for ( var i = 0; i < data.length; i++ ) {
+            var title = data[i].reportDate;
+            var tasksAssigned = data[i].totalAssigned;
+            var tasksCompleted = data[i].totalCompleted;
+            var hoursAssigned = data[i].estimatedHours;
+            var hoursDone = data[i].hoursSpend;
+            var myCreatedTask = data[i].totalCreated;
+            var api = new jGCharts.Api();             
+            jQuery('<img>') 
+            .attr('src', api.make({
+                title       : title, 
+                grid        : true,
+                data : [[tasksAssigned, tasksCompleted, hoursAssigned, hoursDone, myCreatedTask]],
+                axis_labels : [''],
+                legend : ['Tasks Assigned', 'Tasks Completed','Hours Assigned','Hours Done','My Created Tasks']
+            })).appendTo("#" + divId);	
+        }
     }
     
     displayReport = function( data) {
-        displayReportFunction(data);
+        displayReportFunction(data, "reportDiv");
     }
     
-    function displaySummaryReportFunction (data) {
-        var title = "Lifetime Summary";
-        var tasksAssigned = data.totalAssigned;
-        var tasksCompleted = data.totalCompleted;
-        var hoursAssigned = data.estimatedHours;
-        var hoursDone = data.hoursSpend;
-        var myCreatedTask = data.totalCreated;
-        var api = new jGCharts.Api(); 
-        $('#reportSummaryDiv').empty();
-        jQuery('<img>') 
-        .attr('src', api.make({
-            title       : title, 
-            grid        : false,
-            data : [[tasksAssigned, tasksCompleted, hoursAssigned, hoursDone, myCreatedTask]],
-            axis_labels : ['']
-        })).appendTo("#reportSummaryDiv");	
-    }
-    
-    displaySummaryReport = function ( data ) {
-        displaySummaryReportFunction (data );
-    }
-    
-    AjaxReportService.getCurrentUserReport(0, displayReport);
-    AjaxReportService.getUserReportSummary(0, displaySummaryReport);
+    AjaxReportService.getUserReports(0, 3,displayReport);
+    //AjaxReportService.getUserReportSummary(0, displaySummaryReport);
     $('#refreshReport').click(function() {        
-        AjaxReportService.getCurrentUserReport(0, displayReport);
-        AjaxReportService.getUserReportSummary(0, displaySummaryReport);
+        AjaxReportService.getUserReports(0, 3, displayReport);
+        //AjaxReportService.getUserReportSummary(0, displaySummaryReport);
     })
     
 } );

@@ -29,7 +29,7 @@ public interface ProjectReportDao extends GenericDao<ProjectReport, Integer> {
 
     ProjectReport findByOrganizationMonthAndYear(Integer organization, Integer month, Integer year);
 
-    List<ProjectReport> findByProject(Integer project);
+    List<ProjectReport> findByProject(Integer project, int maxRecords);
 
     List<ProjectReport> findByOrganization(Integer organization);
     

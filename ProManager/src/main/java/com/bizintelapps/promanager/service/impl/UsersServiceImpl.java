@@ -21,6 +21,7 @@ import com.bizintelapps.promanager.dao.AuthoritiesDao;
 import com.bizintelapps.promanager.dao.OrganizationDao;
 import com.bizintelapps.promanager.dao.PagingParams;
 import com.bizintelapps.promanager.dao.UsersDao;
+import com.bizintelapps.promanager.dto.UsersMinDto;
 import com.bizintelapps.promanager.entity.Users;
 import com.bizintelapps.promanager.dtoa.UsersDtoA;
 import com.bizintelapps.promanager.service.UsersService;
@@ -83,6 +84,17 @@ public class UsersServiceImpl implements UsersService {
     public List<UsersDto> saveAndGetUser(UsersDto usersDto, String savedBy) {
         saveUser(usersDto, savedBy);
         return getUsers(savedBy).getCurrentList();
+    }
+
+    @Override
+    public List<UsersMinDto> getUsersListforDropdown(String requestedBy) {
+        Users u = usersDao.findByUsername(requestedBy);
+        if (u.isIsAdministrator()) {
+            List<Users> list = usersDao.findAll(null).getCurrentList();
+            return usersConverter.copyAllForReportDropdown(list);
+        } else {
+            return new ArrayList<UsersMinDto> ();
+        }
     }
 
     @Override
@@ -245,8 +257,6 @@ public class UsersServiceImpl implements UsersService {
         List<UsersDto> dtos = usersConverter.copyAllForDropdown(list);
         return dtos;
     }
-
-    
 
     @Override
     public void enableDisableUser(Integer userId, boolean enabled, String changedBy) {

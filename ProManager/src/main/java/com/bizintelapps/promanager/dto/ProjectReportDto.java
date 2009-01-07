@@ -32,6 +32,11 @@ public class ProjectReportDto {
     private String projectName;
     private Integer organization;
     private String organizationName;
+    private String reportDate;
+    private String[] months = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul",
+        "Aug", "Sep", "Oct", "Nov", "Dec"
+    };
+    private String title;
 
     public ProjectReportDto() {
     }
@@ -43,6 +48,22 @@ public class ProjectReportDto {
         this.timeSpend = timeSpend;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    
+    public String getReportDate() {
+        return months[month] + " " + year;
+    }
+
+    public void setReportDate(String reportDate) {
+        this.reportDate = reportDate;
+    }
     public Double getEstimatedTime() {
         return estimatedTime;
     }

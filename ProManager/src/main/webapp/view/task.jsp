@@ -32,24 +32,24 @@
         <script type='text/javascript' src='../dwr/interface/AjaxReportService.js'></script>
         <script type='text/javascript' src='../js/lib/jgcharts.js'></script>
         <script type='text/javascript' src='../js/local/task.js'></script>  
-        
+        <script type='text/javascript' src='../js/local/report.js'></script>
     </head>
     <body  id="dt_example" class="example_alt_pagination" style="width:100%; height:100%;">
-        <jsp:include page="header.jsp" />        
-        <br>   
+        <jsp:include page="header.jsp" />                
         <div id='leftDiv' >
-            <div id="taskTableContainer" align="center" > 
-                <div id="container"> 
-                    <div align="left" >                         
-                        <select name="projectStatusDropdown" id="projectStatusDropdown">
-                            <option>Current Task</option>
-                            <option>Completed Task</option>
-                            <option>All Task</option>
-                            <option>Find by Task ID</option>
-                        </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <a id="printTaskTable" href='javascript:void(0);'>Print</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <a id="createANewTask" href='javascript:void(0);'>New task</a>                        
-                    </div>                                 
+            <div align="center" >                         
+                <select name="projectStatusDropdown" id="projectStatusDropdown">
+                    <option>Current Task</option>
+                    <option>Completed Task</option>
+                    <option>All Task</option>
+                    <option>Find by Task ID</option>
+                </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <a id="printTaskTable" href='javascript:void(0);'>Print</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <a id="workspace_reports" href='javascript:void(0);'>Workspace|Reports</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <a id="createANewTask" href='javascript:void(0);'>New task</a>                        
+            </div>   
+            <div id="taskTableContainer" align="left" > 
+                <div id="container">                                               
                     <table   id="taskTable" cellpadding="0" cellspacing="0" border="0" class="display" >                        
                         <thead>
                             <tr>    
@@ -70,80 +70,87 @@
                     </table>   
                 </div>
             </div>
-        </div>
-        <div id="newTaskContainer" style="display:none" align="left">
-            <div id="container">                    
-                <table>
-                    <tr>
-                        <td> <b>Title <font color="RED">*</font> </b><br>
-                        <input id="title" name="title" value="" maxlength="60" size="60" type="text"/>
-                    </tr>
-                    <tr>
-                        <table>
-                            <tr><td><b>Project</b></td><td><b>Assign-To</b></td><td><b>Priority</b></td><td><b>Status</b></td></tr>
-                            <tr><td>
-                                    <select name="projectDD" id="projectDD">
-                                    </select>
-                                </td>
-                                <td> 
-                                    <select name="assignToDD" id="assignToDD">     
-                                    </select>
-                                </td>
-                                <td>
-                                    <select name="priority" id="priority">
-                                        <option>Low</option>
-                                        <option selected>Medium</option>
-                                        <option>High</option>
-                                    </select>
-                                </td>
-                                <td><select name="status" id="status">
-                                        <option>New</option>
-                                        <option>In Progress</option>
-                                        <option>On Hold</option>
-                                        <option>Completed</option>
-                                    </select>
-                                </td>
-                            </tr>
-                        </table>
-                    </tr>                        
-                    <tr>
-                        <table>
-                            <tr><td><b>Est Hours</b></td><td><b>Hours Spend</b></td><td><b>Finish By</b></td></tr>
-                            <tr>
-                                <td> <input id="estimatedHours" name="estimatedHours" value="" maxlength="5" size="5" type="text" />
-                                <td> <input id="hoursSpend" name="hoursSpend" value="" maxlength="5" size="5" type="text" />
-                                <td><input id="deadline" name="deadline" value="" type="text" size="10" maxlength="10"/><small>(mm/dd/yyyy)</small></td>
-                            </tr>
-                        </table>
-                    </tr>
-                    <tr>
-                        <td> <b>Notification Emails</b><br>
-                            <input id="notificationEmails" name="notificationEmails" value="" size="50" type="text" /><small> (abc@example.com, ..)</small>                                
-                        </td>
-                    </tr>
-                    <tr>
-                        <br>
-                        <td><b>Description</b><br>
-                            <textarea id="description" rows="5" cols="50"></textarea>
-                        </td>
-                    </tr>
-                    <tr>                  
-                        <br>
-                        <td>
-                            <input type="button" value="Refresh" id="clear"/>
-                            <input type="button" value="Save & Close" id="saveTask" class='simplemodal-close'/>                                
-                            <a href="javascript(0);">Add Comment</a>
-                        </td>   
-                    </tr>  
-                </table>
+            <div id="detailReports" align="center" style="display:none">   
+                <br>
+                <select id="usersDDReports"></select>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <select id="projectDDReports"></select>
+                <div id="reportsArea"></div>
+            </div>
+            
+            <div id="newTaskContainer" style="display:none" align="left">
+                <div id="container">                    
+                    <table>
+                        <tr>
+                            <td> <b>Title <font color="RED">*</font> </b><br>
+                            <input id="title" name="title" value="" maxlength="60" size="60" type="text"/>
+                        </tr>
+                        <tr>
+                            <table>
+                                <tr><td><b>Project</b></td><td><b>Assign-To</b></td><td><b>Priority</b></td><td><b>Status</b></td></tr>
+                                <tr><td>
+                                        <select name="projectDD" id="projectDD">
+                                        </select>
+                                    </td>
+                                    <td> 
+                                        <select name="assignToDD" id="assignToDD">     
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select name="priority" id="priority">
+                                            <option>Low</option>
+                                            <option selected>Medium</option>
+                                            <option>High</option>
+                                        </select>
+                                    </td>
+                                    <td><select name="status" id="status">
+                                            <option>New</option>
+                                            <option>In Progress</option>
+                                            <option>On Hold</option>
+                                            <option>Completed</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                            </table>
+                        </tr>                        
+                        <tr>
+                            <table>
+                                <tr><td><b>Est Hours</b></td><td><b>Hours Spend</b></td><td><b>Finish By</b></td></tr>
+                                <tr>
+                                    <td> <input id="estimatedHours" name="estimatedHours" value="" maxlength="5" size="5" type="text" />
+                                    <td> <input id="hoursSpend" name="hoursSpend" value="" maxlength="5" size="5" type="text" />
+                                    <td><input id="deadline" name="deadline" value="" type="text" size="10" maxlength="10"/><small>(mm/dd/yyyy)</small></td>
+                                </tr>
+                            </table>
+                        </tr>
+                        <tr>
+                            <td> <b>Notification Emails</b><br>
+                                <input id="notificationEmails" name="notificationEmails" value="" size="50" type="text" /><small> (abc@example.com, ..)</small>                                
+                            </td>
+                        </tr>
+                        <tr>
+                            <br>
+                            <td><b>Description</b><br>
+                                <textarea id="description" rows="5" cols="50"></textarea>
+                            </td>
+                        </tr>
+                        <tr>                  
+                            <br>
+                            <td>
+                                <input type="button" value="Refresh" id="clear"/>
+                                <input type="button" value="Save & Close" id="saveTask" class='simplemodal-close'/>                                
+                                <a href="javascript(0);">Add Comment</a>
+                            </td>   
+                        </tr>  
+                    </table>
+                </div>            
             </div>
         </div>
         
         <div id="rightDiv" >
             <a id="refreshReport" href="javascript:void(0);">Refresh</a>
             <div id="reportDiv"></div>
-            <div id="reportSummaryDiv"></div>
-            
+            <div id="reportSummaryDiv"></div>            
         </div>        
         
     </body>

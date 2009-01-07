@@ -41,7 +41,7 @@ public interface ReportService {
      * @param requestedBy
      * @return
      */
-    public List<UserReportDto> getUserReports(Integer user, String requestedBy);
+    public List<UserReportDto> getUserReports(Integer user, Integer maxReports, String requestedBy);
     
     /**
      * return summary of all user report
@@ -74,7 +74,7 @@ public interface ReportService {
      * @param requestedBy
      * @return
      */
-    public List<ProjectReportDto> getProjectReports(Integer project, String requestedBy);
+    public List<ProjectReportDto> getProjectReports(Integer project, Integer maxReports, String requestedBy);
 
     /**
      * 

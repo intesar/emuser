@@ -35,6 +35,7 @@
             <dwr:include method="getUserList" /> <!-- admin -->
             <dwr:include method="enableDisalbeUser" /> <!-- admin -->
             <dwr:include method="deleteUser" /> <!-- admin -->
+            <dwr:include method="getUsersListforDropdown" /> <!-- users -->
         </dwr:remote>
         <!-- <property name="usersService" ref="usersServiceImpl" /> -->
     </bean>

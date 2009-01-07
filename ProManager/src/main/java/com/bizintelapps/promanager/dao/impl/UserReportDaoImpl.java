@@ -16,6 +16,7 @@
  */
 package com.bizintelapps.promanager.dao.impl;
 
+import com.bizintelapps.promanager.dao.PagingParams;
 import com.bizintelapps.promanager.dao.UserReportDao;
 import com.bizintelapps.promanager.dto.UserReportDto;
 import com.bizintelapps.promanager.entity.UserReport;
@@ -39,8 +40,9 @@ public class UserReportDaoImpl extends GenericDaoImpl<UserReport, Integer> imple
     }
 
     @Override
-    public List<UserReport> findByUser(Integer user) {
-        return executeNamedQueryList("UserReport.findByUser", null, user);
+    public List<UserReport> findByUser(Integer user, Integer maxReports) {
+        PagingParams<UserReport> pp = new PagingParams<UserReport>(0,maxReports, null);
+        return executeNamedQueryList("UserReport.findByUser", pp, user);
     }
 
     @Override

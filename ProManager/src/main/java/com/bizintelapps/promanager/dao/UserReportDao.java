@@ -27,7 +27,7 @@ public interface UserReportDao extends GenericDao<UserReport, Integer> {
 
     UserReport findByUserMonthAndYear(Integer user, Integer month, Integer year);
     
-    List<UserReport> findByUser ( Integer user);    
+    List<UserReport> findByUser ( Integer user, Integer maxReports);    
     
     Object findUserSummary ( Integer user);
     

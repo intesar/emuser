@@ -42,7 +42,7 @@ import javax.persistence.Table;
     @NamedQuery(name = "UserReport.findByHoursSpend", query = "SELECT u FROM UserReport u WHERE u.hoursSpend = :hoursSpend"),
     @NamedQuery(name = "UserReport.findByTotalCompleted", query = "SELECT u FROM UserReport u WHERE u.totalCompleted = :totalCompleted"),
     @NamedQuery(name = "UserReport.findByUserMonthAndYear", query = "SELECT u FROM UserReport u WHERE u.user = ?1 and u.month = ?2 and u.year = ?3"),
-    @NamedQuery(name = "UserReport.findByUser", query = "SELECT u FROM UserReport u WHERE u.user = ?1"),
+    @NamedQuery(name = "UserReport.findByUser", query = "SELECT u FROM UserReport u WHERE u.user = ?1  order by u.year desc, u.month desc"),
     @NamedQuery(name = "UserReport.findUserSummary", query = "SELECT New com.bizintelapps.promanager.dto.UserReportDto (sum(u.totalCreated), sum(u.assigned), sum(u.selfAssigned), sum(u.totalAssigned), " +
     "sum(u.estimatedHours), sum(u.hoursSpend), sum(u.totalCompleted), sum(u.createdSelfAssigned))  FROM UserReport u where u.user = ?1")
 })

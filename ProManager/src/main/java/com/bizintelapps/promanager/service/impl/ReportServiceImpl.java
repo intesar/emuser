@@ -55,7 +55,10 @@ public class ReportServiceImpl implements ReportService {
     }
 
     @Override
-    public List<UserReportDto> getUserReports(Integer user, String requestedBy) {
+    public List<UserReportDto> getUserReports(Integer user, Integer maxReports, String requestedBy) {
+        if (maxReports == null || maxReports < 1) {
+            maxReports = 3;
+        }
         Users requestedUser = usersDao.findByUsername(requestedBy);
         List<UserReportDto> dtos = new ArrayList<UserReportDto>();
         if (user == null || user.equals(0)) {
@@ -63,7 +66,7 @@ public class ReportServiceImpl implements ReportService {
         }
         // only admin, self can see graph
         if (user.equals(requestedUser.getId()) || requestedUser.isIsAdministrator()) {
-            List<UserReport> list = userReportDao.findByUser(user);
+            List<UserReport> list = userReportDao.findByUser(user, maxReports);
             // copy for display
             for (UserReport ur : list) {
                 dtos.add(userReportDtoA.copyForDisplay(ur));
@@ -111,7 +114,10 @@ public class ReportServiceImpl implements ReportService {
     }
 
     @Override
-    public List<ProjectReportDto> getProjectReports(Integer project, String requestedBy) {
+    public List<ProjectReportDto> getProjectReports(Integer project, Integer maxReports, String requestedBy) {
+        if (maxReports == null || maxReports < 1) {
+            maxReports = 3;
+        }
         Users requestedUser = usersDao.findByUsername(requestedBy);
         Integer org = null;
         List<ProjectReport> list = null;
@@ -120,7 +126,7 @@ public class ReportServiceImpl implements ReportService {
             org = requestedUser.getOrganization().getId();
             list = projectReportDao.findByOrganization(org);
         } else {
-            list = projectReportDao.findByProject(project);
+            list = projectReportDao.findByProject(project, maxReports);
         }
         // copy for display
         for (ProjectReport pr : list) {

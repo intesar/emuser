@@ -38,7 +38,7 @@ import javax.persistence.Table;
     @NamedQuery(name = "ProjectReport.findByTimeSpend", query = "SELECT p FROM ProjectReport p WHERE p.timeSpend = :timeSpend"),
     @NamedQuery(name = "ProjectReport.findByMonth", query = "SELECT p FROM ProjectReport p WHERE p.month = :month"),
     @NamedQuery(name = "ProjectReport.findByYear", query = "SELECT p FROM ProjectReport p WHERE p.year = :year"),
-    @NamedQuery(name = "ProjectReport.findByProject", query = "SELECT p FROM ProjectReport p WHERE p.project = ?1"),
+    @NamedQuery(name = "ProjectReport.findByProject", query = "SELECT p FROM ProjectReport p WHERE p.project = ?1  order by p.year desc, p.month desc"),
     @NamedQuery(name = "ProjectReport.findByOrganization", query = "SELECT p FROM ProjectReport p WHERE p.organization = ?1"),
     @NamedQuery(name = "ProjectReport.findByProjectMonthAndYear", query = "SELECT p FROM ProjectReport p WHERE p.project = ?1 and p.month = ?2 and p.year = ?3"),
     @NamedQuery(name = "ProjectReport.findByOrganizationMonthAndYear", query = "SELECT p FROM ProjectReport p WHERE p.organization = ?1 and p.month = ?2 and p.year = ?3"),
