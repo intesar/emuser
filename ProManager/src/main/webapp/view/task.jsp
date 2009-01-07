@@ -29,7 +29,9 @@
         <script type='text/javascript' src='../dwr/interface/AjaxTaskService.js'></script>
         <script type='text/javascript' src='../dwr/interface/AjaxProjectService.js'></script>
         <script type='text/javascript' src='../dwr/interface/AjaxUsersService.js'></script>
-        <script type="text/javascript" src="../js/local/task.js"></script>  
+        <script type='text/javascript' src='../dwr/interface/AjaxReportService.js'></script>
+        <script type='text/javascript' src='../js/lib/jgcharts.js'></script>
+        <script type='text/javascript' src='../js/local/task.js'></script>  
         
     </head>
     <body  id="dt_example" class="example_alt_pagination" style="width:100%; height:100%;">
@@ -46,7 +48,7 @@
                             <option>Find by Task ID</option>
                         </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <a id="printTaskTable" href='javascript:void(0);'>Print</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <a id="createANewTask" href='javascript:void(0);'>new task</a>                        
+                        <a id="createANewTask" href='javascript:void(0);'>New task</a>                        
                     </div>                                 
                     <table   id="taskTable" cellpadding="0" cellspacing="0" border="0" class="display" >                        
                         <thead>
@@ -138,6 +140,9 @@
         </div>
         
         <div id="rightDiv" >
+            <a id="refreshReport" href="javascript:void(0);">Refresh</a>
+            <div id="reportDiv"></div>
+            <div id="reportSummaryDiv"></div>
             
         </div>        
         

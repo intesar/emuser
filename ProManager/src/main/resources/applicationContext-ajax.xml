@@ -26,7 +26,7 @@
     <bean id="usersAjaxService" class="com.bizintelapps.promanager.ajax.AjaxUsersService" >
         <dwr:remote javascript="AjaxUsersService">
             <dwr:include method="signUp" /> <!-- annonymous -->
-            <dwr:include method="saveUser" /> <!-- admin -->            
+            <dwr:include method="saveUser" /> <!-- admin -->
             <dwr:include method="changeMyPassword" /> <!-- user -->
             <dwr:include method="requestPasswordKeySendToEmail" /> <!-- annonymous -->
             <dwr:include method="resetPasswordWithKey" /> <!-- annonymous -->
@@ -64,19 +64,18 @@
     </bean>
     <bean id="reportAjaxService" class="com.bizintelapps.promanager.ajax.AjaxReportService">
         <dwr:remote javascript="AjaxReportService">
-            <!--<dwr:include method="getUserTaskReport" />--> <!-- user -->
-            <!--<dwr:include method="getProjectTaskReport" />--> <!-- user admin -->
-            <!--<dwr:include method="getAllUsersTaskReport" />--> <!-- admin -->
-            <!--<dwr:include method="getAllProjectTaskReport" />--> <!-- admin -->
-            <!--<dwr:include method="getBusyUsersReport" />--> <!-- user admin -->
-            <!--<dwr:include method="getBusyProjectsReport" />--> <!-- user admin -->
-            <!--<dwr:include method="getSlowUsersReport" />--> <!-- admin -->
-            <!--<dwr:include method="getSlowProjectsReport" />--> <!-- admin -->
+            <dwr:include method="getUserReports" /> <!-- user -->
+            <dwr:include method="getCurrentUserReport" /> <!-- user -->
+            <dwr:include method="getAllUserReport" /> <!-- admin -->
+            <dwr:include method="getProjectReports" /><!-- user -->
+            <dwr:include method="getProjectReportSummary" /> <!-- user -->
+            <dwr:include method="getCurrentProjectReport" /> <!-- user -->
+            <dwr:include method="getUserReportSummary" /> 
         </dwr:remote>
     </bean>
     <dwr:configuration>
         <dwr:convert class="com.bizintelapps.promanager.dto.*" type="bean"/>
-        <dwr:convert class="java.util.*" type="bean"/>        
+        <dwr:convert class="java.util.*" type="bean"/>
         <dwr:convert class="com.bizintelapps.promanager.exceptions.ServiceRuntimeException" type="exception" >
             <dwr:include method="message" />
         </dwr:convert>

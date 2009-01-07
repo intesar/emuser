@@ -237,6 +237,7 @@ http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
             com.bizintelapps.promanager.ajax.AjaxProjectService.getProjectUsers=ROLE_ADMIN,ROLE_USER
             com.bizintelapps.promanager.ajax.AjaxProjectService.deleteUserFromProject=ROLE_ADMIN,ROLE_USER
             com.bizintelapps.promanager.ajax.AjaxTaskService.*=ROLE_USER,ROLE_ADMIN
+            com.bizintelapps.promanager.ajax.AjaxReportService.*=ROLE_USER
             </value>
         </property>
     </bean>

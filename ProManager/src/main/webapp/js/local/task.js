@@ -3,8 +3,11 @@ $(document).ready(function() {
     // checkout datatable plugin to understand below code
     oTable = $('#taskTable').dataTable( {             
         "sDom": '<"top"i>rt<"bottom"flp<"clear">',
-        "aoData": [null,{"sClass":"action","sType":"html"},null,null,{"sClass":"action","sType":"html"},{"sWidth":"250px"},{"sType":"html"},{"sClass":"action","sType":"html"}]        
+        "aoData": [null,null,null,null,null,{"sWidth":"250px"},null,{"sClass":"action","sType":"html"}]        
     } );
+    $('#taskTable tr').livequery(function() {
+        $(this).parent().tableHover();
+    });
     /* Global variable for the DataTables object */
     var oTable;	
     /* Global var for counter */
@@ -68,14 +71,15 @@ $(document).ready(function() {
         oTable.fnClearTable();
         for ( var i = 0 ; i < tasks.length; i++) {             
             // create object            
-            var statusRowDD = getStatusDD(tasks[i].status, tasks[i].id);
-            var priorityRowDD = getPriorityDD ( tasks[i].priority, tasks[i].id);  
-            var project = tasks[i].projectName; if ( project == null) project = "Todo";
+            //var statusRowDD = getStatusDD(tasks[i].status, tasks[i].id);
+            //var priorityRowDD = getPriorityDD ( tasks[i].priority, tasks[i].id);  
+            var project = tasks[i].projectName; if ( project == null) project = "Todo";            
             var deadline = tasks[i].deadlineFormat; if (deadline == null ) deadline = "NA";
             var title = "<small>" + tasks[i].title + "<small>";
-            var assignedUser = tasks[i].assignedToUsername; if ( assignedUser == null ) assignedUser = "<a id='assignMe"+tasks[i].id + "' class='editTask'>Assign Me</a>";
-            var data = [  tasks[i].id, statusRowDD, project, assignedUser, priorityRowDD, title, 
-                deadline, "<a id='deleteTask"+tasks[i].id +"' class='deleteTask' href='javascript:void(0);'>Delete</a>"];                                  
+            var assignedUser = "<small>" + tasks[i].assignedToName +"<small>" ;            
+            var data = [  "<small>" + tasks[i].id + "</small>" , "<small>" + tasks[i].status + "</small>", 
+                "<small>" + project + "</small>", assignedUser, "<small>" + tasks[i].priority + "</small>", title, 
+                "<small>" + deadline + "</small>", "<a id='deleteTask"+tasks[i].id +"' class='deleteTask' href='javascript:void(0);'>Delete</a>"];                                  
             tasksCache[tasks[i].id] = tasks[i];            
             dArray[i] = data;                
         }                   
@@ -83,7 +87,7 @@ $(document).ready(function() {
         oTable.fnAddData( dArray );
         // required by daatable plugin
         giCount++;
-        $('#taskTable').tableHover()
+        $('#taskTable').tableHover();
     }
     // executed onload
     AjaxTaskService.getCurrentTask("Current Task", taskList);
@@ -133,10 +137,8 @@ $(document).ready(function() {
 
     // executed on "delete" link is clicked
     $('.deleteTask').livequery('click', function () {                                
-        viewed = $(this).attr('id').toString().substring(11);      
-        AjaxProjectService.deleteProject ( viewed, function ( data ) {
-            alert (data);
-        });
+        var taskId = $(this).attr('id').toString().substring(10);      
+        AjaxTaskService.deleteTask ( taskId, taskList);
     });
     
     // executed on "clear" button is clicked
@@ -261,6 +263,63 @@ $(document).ready(function() {
         //buttonImage: "templates/images/calendar.gif", 
         //buttonImageOnly: true 
     });
+    
+    
+    // --------------- reporting -----------------------------------//
+    
+    
+    
+    function displayReportFunction (data) {
+        var title = data.reportDate;
+        var tasksAssigned = data.totalAssigned;
+        var tasksCompleted = data.totalCompleted;
+        var hoursAssigned = data.estimatedHours;
+        var hoursDone = data.hoursSpend;
+        var myCreatedTask = data.totalCreated;
+        var api = new jGCharts.Api(); 
+        $('#reportDiv').empty();
+        jQuery('<img>') 
+        .attr('src', api.make({
+            title       : title, 
+            grid        : true,
+            data : [[tasksAssigned, tasksCompleted, hoursAssigned, hoursDone, myCreatedTask]],
+            axis_labels : [''],
+            legend : ['Tasks Assigned', 'Tasks Completed','Hours Assigned','Hours Done','My Created Tasks']
+        })).appendTo("#reportDiv");	
+    }
+    
+    displayReport = function( data) {
+        displayReportFunction(data);
+    }
+    
+    function displaySummaryReportFunction (data) {
+        var title = "Lifetime Summary";
+        var tasksAssigned = data.totalAssigned;
+        var tasksCompleted = data.totalCompleted;
+        var hoursAssigned = data.estimatedHours;
+        var hoursDone = data.hoursSpend;
+        var myCreatedTask = data.totalCreated;
+        var api = new jGCharts.Api(); 
+        $('#reportSummaryDiv').empty();
+        jQuery('<img>') 
+        .attr('src', api.make({
+            title       : title, 
+            grid        : false,
+            data : [[tasksAssigned, tasksCompleted, hoursAssigned, hoursDone, myCreatedTask]],
+            axis_labels : ['']
+        })).appendTo("#reportSummaryDiv");	
+    }
+    
+    displaySummaryReport = function ( data ) {
+        displaySummaryReportFunction (data );
+    }
+    
+    AjaxReportService.getCurrentUserReport(0, displayReport);
+    AjaxReportService.getUserReportSummary(0, displaySummaryReport);
+    $('#refreshReport').click(function() {        
+        AjaxReportService.getCurrentUserReport(0, displayReport);
+        AjaxReportService.getUserReportSummary(0, displaySummaryReport);
+    })
     
 } );
 

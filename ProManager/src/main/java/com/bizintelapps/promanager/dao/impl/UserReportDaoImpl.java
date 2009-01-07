@@ -17,7 +17,9 @@
 package com.bizintelapps.promanager.dao.impl;
 
 import com.bizintelapps.promanager.dao.UserReportDao;
+import com.bizintelapps.promanager.dto.UserReportDto;
 import com.bizintelapps.promanager.entity.UserReport;
+import java.util.List;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -34,5 +36,16 @@ public class UserReportDaoImpl extends GenericDaoImpl<UserReport, Integer> imple
     @Override
     public UserReport findByUserMonthAndYear(Integer user, Integer month, Integer year) {
         return executeNamedQuerySingleResult("UserReport.findByUserMonthAndYear", user, month, year);
+    }
+
+    @Override
+    public List<UserReport> findByUser(Integer user) {
+        return executeNamedQueryList("UserReport.findByUser", null, user);
+    }
+
+    @Override
+    public Object findUserSummary(Integer user) {
+        Object obj = executeNamedQueryReturnSingleObject("UserReport.findUserSummary", user);
+        return obj;
     }
 }

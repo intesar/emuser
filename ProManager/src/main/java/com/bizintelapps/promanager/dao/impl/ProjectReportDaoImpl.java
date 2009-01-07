@@ -18,6 +18,7 @@ package com.bizintelapps.promanager.dao.impl;
 
 import com.bizintelapps.promanager.dao.ProjectReportDao;
 import com.bizintelapps.promanager.entity.ProjectReport;
+import java.util.List;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -39,5 +40,20 @@ public class ProjectReportDaoImpl extends GenericDaoImpl<ProjectReport, Integer>
     @Override
     public ProjectReport findByOrganizationMonthAndYear(Integer organization, Integer month, Integer year) {
         return executeNamedQuerySingleResult("ProjectReport.findByOrganizationMonthAndYear", organization, month, year);
+    }
+
+    @Override
+    public List<ProjectReport> findByProject(Integer project) {
+        return executeNamedQueryList("ProjectReport.findByProject", null, project);
+    }
+
+    @Override
+    public List<ProjectReport> findByOrganization(Integer organization) {
+        return executeNamedQueryList("ProjectReport.findByOrganization", null, organization);
+    }
+
+    @Override
+    public Object findProjectSummary(Integer project) {
+        return executeNamedQueryReturnSingleObject("ProjectReport.findProjectSummary", project);
     }
 }

@@ -50,68 +50,60 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public void saveTask(TaskDto taskDto, String savedBy) {
-        // to create a task user should be part of the project or admin
-        // or user can create todo for other users
-        Users savedByUser = usersDao.findByUsername(savedBy);
-        Users assignedTo = null;
-        if (log.isDebugEnabled()) {
-            log.debug(taskDto.toString());
-        }
-        if (taskDto.getId() == null) {
-            Integer assign = taskDto.getAssignedToId();
-            if (assign != null) {
-                assignedTo = usersDao.read(taskDto.getAssignedToId());
-                taskDto.setAssignedDate(new Date());
-                taskDto.setAssignedById(savedByUser.getId());
+        try {
+            // to create a task user should be part of the project or admin
+            // or user can create todo for other users
+            Users savedByUser = usersDao.findByUsername(savedBy);
+            Users assignedTo = null;
+            if (log.isDebugEnabled()) {
+                log.debug(taskDto.toString());
             }
-            taskDto.setOwnerId(savedByUser.getId());
-            taskDto.setOwnerUsername(savedBy);
-            Task task = taskConverter.copyForCreate(taskDto, new Task(), savedByUser, assignedTo);
-            Project project = projectDao.findByNameAndOrganization(taskDto.getProjectName(), savedByUser.getOrganization().getId());
-            if (savedByUser.isIsAdministrator() || isUserProjectMember(savedByUser.getId(), project)) {
-                // user should be either admin or project member                
-                task.setProject(project);
-            }
-            taskDao.create(task);
-            reportService.processTask(null, taskDto);
-            sendTaskAlert(task);
-        } else { // only admin, owner, assigned or pm can update task
-            Task task = taskDao.read(taskDto.getId());            
-            if (savedByUser.isIsAdministrator() || task.getOwner().equals(savedByUser) ||
-                    isUserProjectManager(savedByUser.getId(), task.getProject())) {
-//                if (taskDto.getAssignedToId() != null && task.getAssignedTo() != null && !taskDto.getAssignedToId().equals(task.getAssignedTo().getId()) || (task.getAssignedTo() == null && taskDto.getAssignedById() != null)) {
-//                    assignedTo = usersDao.read(taskDto.getAssignedToId());
-//                    taskDto.setAssignedDate(new Date());
-//                    taskDto.setAssignedById(savedByUser.getId());
-//                    taskDto.setAssignedToUsername(assignedTo.getUsername());
-//                }
-                if ((taskDto.getAssignedToId() != null && task.getAssignedTo() == null) ||                        
-                        (taskDto.getAssignedToId() != null && task.getAssignedTo() != null && !taskDto.getAssignedById().equals(task.getAssignedTo().getId()))) {
+            if (taskDto.getId() == null) {
+                Integer assign = taskDto.getAssignedToId();
+                if (assign != null) {
                     assignedTo = usersDao.read(taskDto.getAssignedToId());
                     taskDto.setAssignedDate(new Date());
                     taskDto.setAssignedById(savedByUser.getId());
-                    taskDto.setAssignedToUsername(assignedTo.getUsername());
                 }
-//                } else if (taskDto.getAssignedToId() == null && task.getAssignedTo() != null) {
-//                    taskDto.setAssignedDate(new Date());
-//                    taskDto.setAssignedById(savedByUser.getId());
-//                    taskDto.setAssignedToUsername(assignedTo.getUsername());
-//                }
-                reportService.processTask(task, taskDto);
-                Task task1 = taskConverter.copyForUpdate(taskDto, task, savedByUser, assignedTo);
-                task1.setProject(projectDao.read(taskDto.getProjectId()));
-//                if (task.getAssignedTo() != null && !task.getAssignedTo().getId().equals(taskDto.getAssignedToId())) {
-//                    task.setAssignedTo(usersDao.findByUsername(taskDto.getAssignedToUsername()));
-//                }
-                taskDao.update(task1);
-            } else if (task.getAssignedTo() != null && task.getAssignedTo().equals(savedByUser)) {
-                reportService.processTask(task, taskDto);
-                Task task1 = taskConverter.copyForUpdateForAssignee(taskDto, task);
-                taskDao.update(task1);
-                sendTaskAlert(task1);
-            } else {
-                throw new ServiceRuntimeException("Illegal Action");
+                taskDto.setOwnerId(savedByUser.getId());
+                taskDto.setOwnerUsername(savedBy);
+                Task task = taskConverter.copyForCreate(taskDto, new Task(), savedByUser, assignedTo);
+                Project project = projectDao.findByNameAndOrganization(taskDto.getProjectName(), savedByUser.getOrganization().getId());
+                if (savedByUser.isIsAdministrator() || isUserProjectMember(savedByUser.getId(), project)) {
+                    // user should be either admin or project member                
+                    task.setProject(project);
+                }
+                taskDao.create(task);
+                reportService.processTask(null, taskDto);
+                sendTaskAlert(task);
+            } else { // only admin, owner, assigned or pm can update task
+                Task task = taskDao.read(taskDto.getId());
+                if (savedByUser.isIsAdministrator() || task.getOwner().equals(savedByUser) ||
+                        isUserProjectManager(savedByUser.getId(), task.getProject())) {
+                    if ((taskDto.getAssignedToId() != null && task.getAssignedTo() == null) ||
+                            (taskDto.getAssignedToId() != null && task.getAssignedTo() != null && !taskDto.getAssignedById().equals(task.getAssignedTo().getId()))) {
+                        assignedTo = usersDao.read(taskDto.getAssignedToId());
+                        taskDto.setAssignedDate(new Date());
+                        taskDto.setAssignedById(savedByUser.getId());
+                        taskDto.setAssignedToUsername(assignedTo.getUsername());
+                    }
+                    reportService.processTask(task, taskDto);
+                    Task task1 = taskConverter.copyForUpdate(taskDto, task, savedByUser, assignedTo);
+                    if (taskDto.getProjectId() != null) {
+                        task1.setProject(projectDao.read(taskDto.getProjectId()));
+                    }
+                    taskDao.update(task1);
+                } else if (task.getAssignedTo() != null && task.getAssignedTo().equals(savedByUser)) {
+                    reportService.processTask(task, taskDto);
+                    Task task1 = taskConverter.copyForUpdateForAssignee(taskDto, task);
+                    taskDao.update(task1);
+                    sendTaskAlert(task1);
+                } else {
+                    throw new ServiceRuntimeException("Illegal Action");
+                }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -124,19 +116,26 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public void deleteTask(Integer taskId, String deletedBy) {
-        Users users = usersDao.findByUsername(deletedBy);
-        Task task = taskDao.read(taskId);
-        // admins, owner or pm can delete a task
-        if (users.isIsAdministrator() || task.getOwner().equals(users) || isUserProjectManager(users.getId(), task.getProject())) {
-            taskDao.delete(task);
-            TaskDto dto = new TaskDto();
-            dto.setAssignedToId(null);
-            dto.setOwnerId(task.getOwner().getId());
-            dto.setEstimatedHours(task.getEstimatedHours());
-            //udpateReportForTaskUpdate(task, dto);
-            reportService.processTask(task, null);
-        } else {
-            throw new ServiceRuntimeException("Only Task Owner can delete task!");
+        try {
+            Users users = usersDao.findByUsername(deletedBy);
+            Task task = taskDao.read(taskId);
+            // admins, owner or pm can delete a task
+            if (users.isIsAdministrator() || task.getOwner().equals(users) || isUserProjectManager(users.getId(), task.getProject())) {
+                taskDao.delete(task);
+                TaskDto dto = new TaskDto();
+                dto.setAssignedToId(null);
+                dto.setOwnerId(task.getOwner().getId());
+                dto.setEstimatedHours(task.getEstimatedHours());
+                if (task.getProject() != null) {
+                    //dto.setProjectId(task.getProject().getId());
+                }
+                //udpateReportForTaskUpdate(task, dto);
+                reportService.processTask(task, dto);
+            } else {
+                throw new ServiceRuntimeException("Only Task Owner can delete task!");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -241,196 +240,7 @@ public class TaskServiceImpl implements TaskService {
     public void addTaskComment(Integer taskId, String comment, String requestedBy) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-//    //---------------------- private helper methods -------------------------//
-//    /**
-//     * when task is created update or insert an instance into UserReport & ProjectReport entity
-//     * for the creator, assigned, project
-//     * @param t
-//     */
-//    private void updateReportForTaskInsert(Task t) {
-//        Calendar c = Calendar.getInstance();
-//        UserReport userReport = userReportDao.findByUserMonthAndYear(t.getOwner().getId(), c.get(Calendar.MONTH), c.get(Calendar.YEAR));
-//        if (userReport == null) { // create new entity
-//            userReport = new UserReport(null, c.get(Calendar.MONTH), c.get(Calendar.YEAR), 0);
-//            userReport.setTotalCreated(1);
-//            userReport.setUser(t.getOwner().getId());
-//            userReportDao.create(userReport);
-//        } else { // update entity
-//            userReport.setTotalCreated(userReport.getTotalCreated() + 1);
-//            userReportDao.update(userReport);
-//        }
-//        if (t.getAssignedTo() != null && t.getAssignedTo().getId() != null) {
-//            UserReport userReport1 = userReportDao.findByUserMonthAndYear(t.getAssignedTo().getId(), c.get(Calendar.MONTH), c.get(Calendar.YEAR));
-//            if (userReport1 == null) { // new entity
-//                userReport1 = new UserReport(null, c.get(Calendar.MONTH), c.get(Calendar.YEAR), 0);
-//                userReport1.setUser(t.getAssignedTo().getId());
-//                if (t.getOwner().equals(t.getAssignedTo())) {
-//                    userReport1.setSelfAssigned(userReport1.getSelfAssigned() + 1);
-//                } else {
-//                    userReport1.setAssigned(userReport1.getAssigned() + 1);
-//                }
-//                userReport1.setTotalAssigned(userReport1.getTotalAssigned() + 1);
-//                userReport1.setEstimatedHours(userReport1.getEstimatedHours() + t.getEstimatedHours());
-//                userReportDao.create(userReport1);
-//            } else { //update entity
-//                userReport1.setUser(t.getAssignedTo().getId());
-//                if (t.getOwner().equals(t.getAssignedTo())) {
-//                    userReport1.setSelfAssigned(userReport1.getSelfAssigned() + 1);
-//                } else {
-//                    userReport1.setAssigned(userReport1.getAssigned() + 1);
-//                }
-//                userReport1.setTotalAssigned(userReport1.getTotalAssigned() + 1);
-//                userReport1.setEstimatedHours(userReport1.getEstimatedHours() + t.getEstimatedHours());
-//                userReportDao.update(userReport1);
-//            }
-//        }
-//
-//        if (t.getStatus().equals(TASK_STATUS_COMPLETED)) {
-//            UserReport userReport1 = userReportDao.findByUserMonthAndYear(t.getAssignedTo().getId(), c.get(Calendar.MONTH), c.get(Calendar.YEAR));
-//            userReport1.setTotalCompleted(userReport1.getTotalCompleted() + 1);
-//            userReport1.setHoursSpend(userReport1.getHoursSpend() + t.getSpendHours());
-//            userReportDao.update(userReport1);
-//        }
-//        updateProjectReportOnTaskInsert(t);
-//    }
-//
-//    private void updateProjectReportOnTaskInsert(Task t) {
-//        Calendar c = Calendar.getInstance();
-//        if (t.getProject() != null && t.getProject().getId() != null) {
-//            ProjectReport projectReport = projectReportDao.findByProjectMonthAndYear(t.getProject().getId(), c.get(Calendar.MONTH), c.get(Calendar.YEAR));
-//            if (projectReport == null) {
-//                // create new entity
-//                projectReport = new ProjectReport(null, 1, t.getEstimatedHours(), c.get(Calendar.MONTH), c.get(Calendar.YEAR), t.getProject().getId());
-//                if (t.getStatus().equals(TASK_STATUS_COMPLETED)) {
-//                    projectReport.setTaskFinished(1);
-//                    projectReport.setTimeSpend(t.getSpendHours());
-//                }
-//                projectReport.setEstimatedTime(t.getEstimatedHours());
-//                projectReportDao.create(projectReport);
-//            } else {
-//                // update entity
-//                if (t.getStatus().equals(TASK_STATUS_COMPLETED)) {
-//                    projectReport.setTaskFinished(projectReport.getTaskFinished() + 1);
-//                    projectReport.setTimeSpend(projectReport.getTimeSpend() + t.getSpendHours());
-//                }
-//                projectReport.setEstimatedTime(projectReport.getEstimatedTime() + t.getEstimatedHours());
-//                projectReportDao.update(projectReport);
-//            }
-//        } else {
-//            // todo
-//            ProjectReport projectReport = projectReportDao.findByOrganizationMonthAndYear(t.getOwner().getOrganization().getId(), c.get(Calendar.MONTH), c.get(Calendar.YEAR));
-//            if (projectReport == null) {
-//                // create new entity
-//                projectReport = new ProjectReport(null, 1, t.getEstimatedHours(), c.get(Calendar.MONTH), c.get(Calendar.YEAR), null);
-//                if (t.getStatus().equals(TASK_STATUS_COMPLETED)) {
-//                    projectReport.setTaskFinished(1);
-//                    projectReport.setTimeSpend(t.getSpendHours());
-//                }
-//                projectReport.setOrganization(t.getOwner().getOrganization().getId());
-//                projectReport.setEstimatedTime(t.getEstimatedHours());
-//                projectReportDao.create(projectReport);
-//            } else {
-//                // update entity
-//                if (t.getStatus().equals(TASK_STATUS_COMPLETED)) {
-//                    projectReport.setTaskFinished(projectReport.getTaskFinished() + 1);
-//                    projectReport.setTimeSpend(projectReport.getTimeSpend() + t.getSpendHours());
-//                }
-//                projectReport.setEstimatedTime(projectReport.getEstimatedTime() + t.getEstimatedHours());
-//                projectReportDao.update(projectReport);
-//            }
-//        }
-//    }
-//
-//    private void udpateReportForTaskUpdate(Task oldTask, TaskDto newTask) {
-//        Calendar c = Calendar.getInstance();
-//        if (oldTask.getAssignedTo() == null && newTask.getAssignedToId() != null) {
-//            UserReport userReport = userReportDao.findByUserMonthAndYear(newTask.getAssignedToId(), c.get(Calendar.MONTH), c.get(Calendar.YEAR));
-//            if (userReport != null) {
-//                if (newTask.getOwnerId().equals(newTask.getAssignedToId())) {
-//                    userReport.setCreatedSelfAssigned(userReport.getCreatedSelfAssigned() + 1);
-//                } else {
-//                    userReport.setAssigned(userReport.getAssigned() + 1);
-//                }
-//                userReport.setTotalAssigned(userReport.getTotalAssigned() + 1);
-//                userReport.setEstimatedHours(userReport.getEstimatedHours() + newTask.getEstimatedHours());
-//                userReportDao.update(userReport);
-//            } else {
-//                userReport = new UserReport(null, c.get(Calendar.MONTH), c.get(Calendar.YEAR), 0);
-//                userReport.setUser(newTask.getAssignedToId());
-//                if (newTask.getOwnerId().equals(newTask.getAssignedToId())) {
-//                    userReport.setCreatedSelfAssigned(userReport.getCreatedSelfAssigned() + 1);
-//                } else {
-//                    userReport.setAssigned(userReport.getAssigned() + 1);
-//                }
-//                userReport.setTotalAssigned(userReport.getTotalAssigned() + 1);
-//                userReport.setEstimatedHours(userReport.getEstimatedHours() + newTask.getEstimatedHours());
-//                userReportDao.update(userReport);
-//            }
-//        } else if (oldTask.getAssignedTo() != null && newTask.getAssignedToId() == null) {
-//            UserReport userReport = userReportDao.findByUserMonthAndYear(oldTask.getAssignedTo().getId(), c.get(Calendar.MONTH), c.get(Calendar.YEAR));
-//            if (userReport != null) {
-//                if (newTask.getOwnerId().equals(newTask.getAssignedToId())) {
-//                    userReport.setCreatedSelfAssigned(userReport.getCreatedSelfAssigned() - 1);
-//                } else {
-//                    userReport.setAssigned(userReport.getAssigned() - 1);
-//                }
-//                userReport.setTotalAssigned(userReport.getTotalAssigned() - 1);
-//                userReport.setEstimatedHours(userReport.getEstimatedHours() - newTask.getEstimatedHours());
-//                userReportDao.update(userReport);
-//            }
-//        } else if (oldTask.getAssignedTo() != null && newTask.getAssignedToId() != null && !oldTask.getAssignedTo().getId().equals(newTask.getAssignedToId())) {
-//            UserReport userReport = userReportDao.findByUserMonthAndYear(newTask.getAssignedToId(), c.get(Calendar.MONTH), c.get(Calendar.YEAR));
-//            if (userReport != null) {
-//                if (newTask.getOwnerId().equals(newTask.getAssignedToId())) {
-//                    userReport.setCreatedSelfAssigned(userReport.getCreatedSelfAssigned() + 1);
-//                } else {
-//                    userReport.setAssigned(userReport.getAssigned() + 1);
-//                }
-//                userReport.setTotalAssigned(userReport.getTotalAssigned() + 1);
-//                userReport.setEstimatedHours(userReport.getEstimatedHours() + newTask.getEstimatedHours());
-//                userReportDao.update(userReport);
-//            } else {
-//                userReport = new UserReport(null, c.get(Calendar.MONTH), c.get(Calendar.YEAR), 0);
-//                userReport.setUser(newTask.getAssignedToId());
-//                if (newTask.getOwnerId().equals(newTask.getAssignedToId())) {
-//                    userReport.setCreatedSelfAssigned(userReport.getCreatedSelfAssigned() + 1);
-//                } else {
-//                    userReport.setAssigned(userReport.getAssigned() + 1);
-//                }
-//                userReport.setTotalAssigned(userReport.getTotalAssigned() + 1);
-//                userReport.setEstimatedHours(userReport.getEstimatedHours() + newTask.getEstimatedHours());
-//                userReportDao.update(userReport);
-//            }
-//            userReport = userReportDao.findByUserMonthAndYear(oldTask.getAssignedTo().getId(), c.get(Calendar.MONTH), c.get(Calendar.YEAR));
-//            if (userReport != null) {
-//                if (newTask.getOwnerId().equals(newTask.getAssignedToId())) {
-//                    userReport.setCreatedSelfAssigned(userReport.getCreatedSelfAssigned() - 1);
-//                } else {
-//                    userReport.setAssigned(userReport.getAssigned() - 1);
-//                }
-//                userReport.setTotalAssigned(userReport.getTotalAssigned() - 1);
-//                userReport.setEstimatedHours(userReport.getEstimatedHours() - newTask.getEstimatedHours());
-//                userReportDao.update(userReport);
-//            }
-//        }
-//    }
-//
-//    private void updateReportForTaskComplete(Task t) {
-//        Calendar c = Calendar.getInstance();
-//        UserReport userReport = userReportDao.findByUserMonthAndYear(t.getAssignedTo().getId(), c.get(Calendar.MONTH), c.get(Calendar.YEAR));
-//        userReport.setTotalCompleted(userReport.getTotalCompleted() + 1);
-//        userReport.setHoursSpend(userReport.getHoursSpend() + t.getSpendHours());
-//        userReportDao.update(userReport);
-//        ProjectReport pr = null;
-//        if (t.getProject() != null && t.getProject().getId() != null) {
-//            pr = projectReportDao.findByProjectMonthAndYear(t.getProject().getId(), c.get(Calendar.MONTH), c.get(Calendar.YEAR));
-//        } else {
-//            pr = projectReportDao.findByOrganizationMonthAndYear(t.getOwner().getOrganization().getId(), c.get(Calendar.MONTH), c.get(Calendar.YEAR));
-//        }
-//        pr.setTaskFinished(pr.getTaskFinished() + 1);
-//        pr.setTimeSpend(pr.getTimeSpend() + t.getSpendHours());
-//        projectReportDao.update(pr);
-//    }
+    //---------------------- private helper methods -------------------------//
     /**
      *  helper method finds given user is a project manager
      * @param userId

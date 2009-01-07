@@ -41,7 +41,10 @@ import javax.persistence.Table;
     @NamedQuery(name = "UserReport.findByEstimatedHours", query = "SELECT u FROM UserReport u WHERE u.estimatedHours = :estimatedHours"),
     @NamedQuery(name = "UserReport.findByHoursSpend", query = "SELECT u FROM UserReport u WHERE u.hoursSpend = :hoursSpend"),
     @NamedQuery(name = "UserReport.findByTotalCompleted", query = "SELECT u FROM UserReport u WHERE u.totalCompleted = :totalCompleted"),
-    @NamedQuery(name = "UserReport.findByUserMonthAndYear", query = "SELECT u FROM UserReport u WHERE u.user = ?1 and u.month = ?2 and u.year = ?3")
+    @NamedQuery(name = "UserReport.findByUserMonthAndYear", query = "SELECT u FROM UserReport u WHERE u.user = ?1 and u.month = ?2 and u.year = ?3"),
+    @NamedQuery(name = "UserReport.findByUser", query = "SELECT u FROM UserReport u WHERE u.user = ?1"),
+    @NamedQuery(name = "UserReport.findUserSummary", query = "SELECT New com.bizintelapps.promanager.dto.UserReportDto (sum(u.totalCreated), sum(u.assigned), sum(u.selfAssigned), sum(u.totalAssigned), " +
+    "sum(u.estimatedHours), sum(u.hoursSpend), sum(u.totalCompleted), sum(u.createdSelfAssigned))  FROM UserReport u where u.user = ?1")
 })
 public class UserReport implements Serializable {
 
@@ -69,9 +72,9 @@ public class UserReport implements Serializable {
     private int totalCompleted = 0;
     @Column(name = "user", nullable = false)
     private int user;
-    @Column (name="created_self_assigned")
+    @Column(name = "created_self_assigned")
     private int createdSelfAssigned = 0;
-    
+
     public UserReport() {
     }
 
@@ -182,7 +185,6 @@ public class UserReport implements Serializable {
         this.createdSelfAssigned = createdSelfAssigned;
     }
 
-    
     @Override
     public int hashCode() {
         int hash = 0;

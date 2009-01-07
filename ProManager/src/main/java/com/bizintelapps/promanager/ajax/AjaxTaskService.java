@@ -72,9 +72,10 @@ public class AjaxTaskService {
      * 
      * @param taskId
      */
-    public void deleteTask(Integer taskId) {
+    public List<TaskDto> deleteTask(Integer taskId) {
         try {
             taskService.deleteTask(taskId, SecurityUtil.getUsername());
+            return getCurrentTask("Current Task");
         } catch (ServiceRuntimeException se) {
             log.error(se);
             throw se;

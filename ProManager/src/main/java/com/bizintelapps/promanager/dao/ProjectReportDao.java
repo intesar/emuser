@@ -17,6 +17,7 @@
 package com.bizintelapps.promanager.dao;
 
 import com.bizintelapps.promanager.entity.ProjectReport;
+import java.util.List;
 
 /**
  *
@@ -27,4 +28,10 @@ public interface ProjectReportDao extends GenericDao<ProjectReport, Integer> {
     ProjectReport findByProjectMonthAndYear(Integer project, Integer month, Integer year);
 
     ProjectReport findByOrganizationMonthAndYear(Integer organization, Integer month, Integer year);
+
+    List<ProjectReport> findByProject(Integer project);
+
+    List<ProjectReport> findByOrganization(Integer organization);
+    
+    Object findProjectSummary ( Integer project);
 }

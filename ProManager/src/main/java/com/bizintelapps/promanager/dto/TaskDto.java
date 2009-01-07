@@ -48,11 +48,12 @@ public class TaskDto {
     private String projectName;
     private Integer assignedToId;
     private String assignedToUsername;
+    private String assignedToName = "";
     private SimpleDateFormat simpleDateFormat;
     private boolean isOwner;
-    private double estimatedHours;
+    private double estimatedHours = 0.0;
     private String notificationEmails;
-    private double spendHours;
+    private double spendHours = 0.0;
     private Integer assignedById;
     private Date assignedDate;
 
@@ -69,7 +70,6 @@ public class TaskDto {
         this.assignedDate = assignedDate;
     }
 
-    
     public Integer getAssignedById() {
         return assignedById;
     }
@@ -78,7 +78,6 @@ public class TaskDto {
         this.assignedById = assignedById;
     }
 
-    
     public Integer getAssignedToId() {
         return assignedToId;
     }
@@ -93,6 +92,14 @@ public class TaskDto {
 
     public void setAssignedToUsername(String assignedToUsername) {
         this.assignedToUsername = assignedToUsername;
+    }
+
+    public String getAssignedToName() {
+        return assignedToName;
+    }
+
+    public void setAssignedToName(String assignedToName) {
+        this.assignedToName = assignedToName;
     }
 
     public Date getCompletedDate() {
