@@ -19,6 +19,7 @@ package com.bizintelapps.promanager.service;
 
 import com.bizintelapps.promanager.dao.PagingParams;
 import com.bizintelapps.promanager.dto.UsersDto;
+import com.bizintelapps.promanager.dto.UsersMinDto;
 import java.util.List;
 
 /**
@@ -33,7 +34,12 @@ public interface UsersService {
      */
     public List<UsersDto> getActiveUserList(String requestedBy);
     
-    
+    /**
+     * used for reports drop down
+     * @param requestedBy
+     * @return
+     */
+    public List<UsersMinDto> getUsersListforDropdown(String requestedBy);
     /**
      * creates
      * @param usersDto

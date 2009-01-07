@@ -19,6 +19,7 @@ package com.bizintelapps.promanager.ajax;
 import com.bizintelapps.mail.MailSender;
 import com.bizintelapps.promanager.service.UsersService;
 import com.bizintelapps.promanager.dto.UsersDto;
+import com.bizintelapps.promanager.dto.UsersMinDto;
 import com.bizintelapps.promanager.exceptions.ServiceRuntimeException;
 import java.util.List;
 import org.apache.commons.logging.Log;
@@ -133,8 +134,12 @@ public class AjaxUsersService {
             throw new ServiceRuntimeException(ERROR_MESSAGE);
         }
     }
+    
+    public List<UsersMinDto> getUsersListforDropdown() {
+        return usersService.getUsersListforDropdown(SecurityUtil.getUsername());
+    }
 
-    /**
+   /**
      * user object for given id
      * @param userId
      * @return

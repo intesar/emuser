@@ -35,8 +35,8 @@ public class AjaxReportService {
      * @param requestedBy
      * @return
      */
-    public List<UserReportDto> getUserReports(Integer user) {
-        return reportService.getUserReports(user, SecurityUtil.getUsername());
+    public List<UserReportDto> getUserReports(Integer user, Integer maxReports) {
+        return reportService.getUserReports(user, maxReports, SecurityUtil.getUsername());
     }
 
     /**
@@ -69,8 +69,12 @@ public class AjaxReportService {
      * @param requestedBy
      * @return
      */
-    public List<ProjectReportDto> getProjectReports(Integer project) {
-        return reportService.getProjectReports(project, SecurityUtil.getUsername());
+    public List<ProjectReportDto> getProjectReports(Integer project, Integer maxReports) {
+        ProjectReportDto dto = getProjectReportSummary(project);
+        dto.setTitle("Summary");
+        List<ProjectReportDto> dtos = reportService.getProjectReports(project, maxReports, SecurityUtil.getUsername());
+        dtos.add(dto);
+        return dtos;
     }
 
     /**

@@ -16,6 +16,7 @@
  */
 package com.bizintelapps.promanager.dao.impl;
 
+import com.bizintelapps.promanager.dao.PagingParams;
 import com.bizintelapps.promanager.dao.ProjectReportDao;
 import com.bizintelapps.promanager.entity.ProjectReport;
 import java.util.List;
@@ -43,8 +44,9 @@ public class ProjectReportDaoImpl extends GenericDaoImpl<ProjectReport, Integer>
     }
 
     @Override
-    public List<ProjectReport> findByProject(Integer project) {
-        return executeNamedQueryList("ProjectReport.findByProject", null, project);
+    public List<ProjectReport> findByProject(Integer project, int maxRecords) {
+        PagingParams<ProjectReport> pagingParams = new PagingParams<ProjectReport>(0, maxRecords, null);
+        return executeNamedQueryList("ProjectReport.findByProject", pagingParams, project);
     }
 
     @Override
