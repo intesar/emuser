@@ -159,7 +159,7 @@ public class GenericDaoImpl<T, PK extends Serializable> implements GenericDao<T,
         return (Long) executeNamedQueryReturnSingleObject(namedQuery, params);
     }
 
-    private Object executeNamedQueryReturnSingleObject(final String namedQuery, final Object... params) throws DataAccessException {
+    protected Object executeNamedQueryReturnSingleObject(final String namedQuery, final Object... params) throws DataAccessException {
         Query query = entityManager.createNamedQuery(namedQuery);
         int i = 1;
         for (Object param : params) {

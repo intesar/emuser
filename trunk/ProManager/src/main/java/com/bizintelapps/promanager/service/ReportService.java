@@ -16,8 +16,11 @@
  */
 package com.bizintelapps.promanager.service;
 
+import com.bizintelapps.promanager.dto.ProjectReportDto;
 import com.bizintelapps.promanager.dto.TaskDto;
+import com.bizintelapps.promanager.dto.UserReportDto;
 import com.bizintelapps.promanager.entity.Task;
+import java.util.List;
 
 /**
  *
@@ -25,114 +28,72 @@ import com.bizintelapps.promanager.entity.Task;
  */
 public interface ReportService {
 
-    public void processTask(Task task, TaskDto dto) ;
-            //    /**
-    //     * report includes 
-    //     * current open task for the user
-    //     * task assigned during start & end dates
-    //     * task completed during start & end dates
-    //     * total estimated hours for task during start & end dates for the user
-    //     * total spend time for completed task during start & end dates for the user
-    //     * total hours remaining on the non-completed task
-    //     *
-    //     * 
-    //     * @param userId
-    //     * @param requestedBy
-    //     * @param start  if null then current month 1st
-    //     * @param end if null then current month 31st
-    //     * @return
-    //     */
-    //    public UserReportDto getUserTaskReport(Integer userId, Date start, Date end, String requestedBy);
-    //
-    //    /**
-    //     * report includes
-    //     * total tasks created
-    //     * total task completed
-    //     * task open
-    //     * unassigned task
-    //     * total hours spend
-    //     * total hours pending
-    //     * allocated hours
-    //     *  
-    //     * @param projectId
-    //     * @param start if null then current month 1st
-    //     * @param end if null then current month 31st
-    //     * @param requestedBy
-    //     * @return
-    //     */
-    //    public ProjectReportDto getProjectTaskReport(Integer projectId, Date start, Date end, String requestedBy);
-    //
-    //    /**
-    //     * report includes 
-    //     * current open task for the user
-    //     * task assigned during start & end dates
-    //     * task completed during start & end dates
-    //     * total estimated hours for task during start & end dates for the user
-    //     * total spend time for completed task during start & end dates for the user
-    //     * total hours remaining on the non-completed task
-    //     *
-    //     * @param start  if null then current month 1st
-    //     * @param end if null then current month 31st
-    //     * @param requestedBy
-    //     * @return
-    //     */
-    //    public List<UserReportDto> getAllUsersTaskReport(Date start, Date end, String requestedBy);
-    //
-    //    /**
-    //     * report includes
-    //     * total tasks created
-    //     * total task completed
-    //     * task open
-    //     * unassigned task
-    //     * total hours spend
-    //     * total hours pending
-    //     * allocated hours
-    //     * 
-    //     * @param start if null then current month 1st
-    //     * @param end  if null then current month 31st
-    //     * @param requestedBy
-    //     * @return
-    //     */
-    //    public List<ProjectReportDto> getAllProjectTaskReport(Date start, Date end, String requestedBy);
-    //
-    //    /**
-    //     * 
-    //     * @param noOfUsers min 2 max 10
-    //     * @param start if null then current month 1st
-    //     * @param end if null then current month 31st
-    //     * @param requestedBy
-    //     * @return
-    //     */
-    //    public List<UserReportDto> getBusyUsersReport(int noOfUsers, Date start, Date end, String requestedBy);
-    //
-    //    /**
-    //     * 
-    //     * @param noOfProjects min 2 max 10
-    //     * @param start if null then current month 1st
-    //     * @param end if null then current month 31st
-    //     * @param requestedBy
-    //     * @return
-    //     */
-    //    public List<ProjectReportDto> getBusyProjectsReport(int noOfProjects, Date start, Date end, String requestedBy);
-    //
-    //    /**
-    //     * 
-    //     * @param noOfUsers  min 2 max 10
-    //     * @param start if null then current month 1st
-    //     * @param end if null then current month 31st
-    //     * @param requestedBy
-    //     * @return
-    //     */
-    //    public List<UserReportDto> getSlowUsersReport(int noOfUsers, Date start, Date end, String requestedBy);
-    //
-    //    /**
-    //     * 
-    //     * @param noOfProjects min 2 max 10
-    //     * @param start if null then current month 1st
-    //     * @param end if null then current month 31st
-    //     * @param requestedBy
-    //     * @return
-    //     */
-    //    public List<ProjectReportDto> getSlowProjectsReport(int noOfProjects, Date start, Date end, String requestedBy);
+    /**
+     * 
+     * @param task
+     * @param dto
+     */
+    public void processTask(Task task, TaskDto dto);
 
+    /**
+     * return list all all user reports
+     * @param user if null then get for requestedBy
+     * @param requestedBy
+     * @return
+     */
+    public List<UserReportDto> getUserReports(Integer user, String requestedBy);
+    
+    /**
+     * return summary of all user report
+     * @param user is null then get for requestedBy
+     * @param requestedBy
+     * @return
+     */
+    public UserReportDto getCurrentUserReport(Integer user, String requestedBy);
+    
+    /**
+     * returns complete summary
+     * @param user
+     * @param requestedBy
+     * @return
+     */
+    public UserReportDto getUserSummary ( Integer user, String requestedBy );
+    
+    /**
+     *  return list of reports for all users for the time period
+     * @param month
+     * @param year
+     * @param requestedBy
+     * @return
+     */
+    public List<UserReportDto> getAllUserReport(int month, int year, String requestedBy);
+
+    /**
+     * return list of reports for given project or todo
+     * @param project
+     * @param requestedBy
+     * @return
+     */
+    public List<ProjectReportDto> getProjectReports(Integer project, String requestedBy);
+
+    /**
+     * 
+     * return summary of project or todo 
+     * @param project
+     * @param requestedBy
+     * @return
+     */
+    public ProjectReportDto getProjectReportSummary(Integer project, String requestedBy);
+
+    /**
+     * current project summary
+     * @param project
+     * @param requestedBy
+     * @return
+     */
+    public ProjectReportDto getCurrentProjectReport(Integer project, String requestedBy);
+
+    
+    
+    
 }

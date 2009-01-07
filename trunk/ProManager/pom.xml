@@ -23,7 +23,7 @@
     <!-- xml & log4j file locations -->
     <properties>
         <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
-        <jdbc.url>jdbc:mysql://faceguard.org/pm</jdbc.url>
+        <jdbc.url>jdbc:mysql:///pm</jdbc.url>
         <jdbc.username>pm</jdbc.username>
         <jdbc.password>pm</jdbc.password>
         <logging.level>INFO</logging.level>

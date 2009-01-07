@@ -16,7 +16,11 @@
  */
 package com.bizintelapps.promanager.ajax;
 
+import com.bizintelapps.promanager.dto.ProjectReportDto;
+import com.bizintelapps.promanager.dto.UserReportDto;
 import com.bizintelapps.promanager.service.ReportService;
+import java.util.List;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -25,134 +29,76 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 public class AjaxReportService {
 
-//    /**
-//     * report includes 
-//     * current open task for the user
-//     * task assigned during start & end dates
-//     * task completed during start & end dates
-//     * total estimated hours for task during start & end dates for the user
-//     * total spend time for completed task during start & end dates for the user
-//     * total hours remaining on the non-completed task
-//     *
-//     * 
-//     * @param userId
-//     * @param requestedBy
-//     * @param start  if null then current month 1st
-//     * @param end if null then current month 31st
-//     * @return
-//     */
-//    public UserReportDto getUserTaskReport(Integer userId, Date start, Date end) {
-//        return reportService.getUserTaskReport(userId, start, end, SecurityUtil.getUsername());
-//    }
-//
-//    /**
-//     * report includes
-//     * total tasks created
-//     * total task completed
-//     * task open
-//     * unassigned task
-//     * total hours spend
-//     * total hours pending
-//     * allocated hours
-//     *  
-//     * @param projectId
-//     * @param start if null then current month 1st
-//     * @param end if null then current month 31st
-//     * @param requestedBy
-//     * @return
-//     */
-//    public ProjectReportDto getProjectTaskReport(Integer projectId, Date start, Date end) {
-//        return reportService.getProjectTaskReport(projectId, start, end, SecurityUtil.getUsername());
-//    }
-//
-//    /**
-//     * report includes 
-//     * current open task for the user
-//     * task assigned during start & end dates
-//     * task completed during start & end dates
-//     * total estimated hours for task during start & end dates for the user
-//     * total spend time for completed task during start & end dates for the user
-//     * total hours remaining on the non-completed task
-//     *
-//     * @param start  if null then current month 1st
-//     * @param end if null then current month 31st
-//     * @param requestedBy
-//     * @return
-//     */
-//    public List<UserReportDto> getAllUsersTaskReport(Date start, Date end) {
-//        return reportService.getAllUsersTaskReport(start, end, SecurityUtil.getUsername());
-//    }
-//
-//    /**
-//     * report includes
-//     * total tasks created
-//     * total task completed
-//     * task open
-//     * unassigned task
-//     * total hours spend
-//     * total hours pending
-//     * allocated hours
-//     * 
-//     * @param start if null then current month 1st
-//     * @param end  if null then current month 31st
-//     * @param requestedBy
-//     * @return
-//     */
-//    public List<ProjectReportDto> getAllProjectTaskReport(Date start, Date end) {
-//        return reportService.getAllProjectTaskReport(start, end, SecurityUtil.getUsername());
-//    }
-//
-//    /**
-//     * 
-//     * @param noOfUsers min 2 max 10
-//     * @param start if null then current month 1st
-//     * @param end if null then current month 31st
-//     * @param requestedBy
-//     * @return
-//     */
-//    public List<UserReportDto> getBusyUsersReport(int noOfUsers, Date start, Date end) {
-//        return reportService.getBusyUsersReport(noOfUsers, start, end, SecurityUtil.getUsername());
-//    }
-//
-//    /**
-//     * 
-//     * @param noOfProjects min 2 max 10
-//     * @param start if null then current month 1st
-//     * @param end if null then current month 31st
-//     * @param requestedBy
-//     * @return
-//     */
-//    public List<ProjectReportDto> getBusyProjectsReport(int noOfProjects, Date start, Date end) {
-//        return reportService.getBusyProjectsReport(noOfProjects, start, end, SecurityUtil.getUsername());
-//    }
-//
-//    /**
-//     * 
-//     * @param noOfUsers  min 2 max 10
-//     * @param start if null then current month 1st
-//     * @param end if null then current month 31st
-//     * @param requestedBy
-//     * @return
-//     */
-//    public List<UserReportDto> getSlowUsersReport(int noOfUsers, Date start, Date end) {
-//        return reportService.getSlowUsersReport(noOfUsers, start, end, SecurityUtil.getUsername());
-//    }
-//
-//    /**
-//     * 
-//     * @param noOfProjects min 2 max 10
-//     * @param start if null then current month 1st
-//     * @param end if null then current month 31st
-//     * @param requestedBy
-//     * @return
-//     */
-//    public List<ProjectReportDto> getSlowProjectsReport(int noOfProjects, Date start, Date end) {
-//        return reportService.getSlowProjectsReport(noOfProjects, start, end, SecurityUtil.getUsername());
-//    }
-//
-//    public void setReportService(ReportService reportService) {
-//        this.reportService = reportService;
-//    }
+    /**
+     * return list all all user reports
+     * @param user if null then get for requestedBy
+     * @param requestedBy
+     * @return
+     */
+    public List<UserReportDto> getUserReports(Integer user) {
+        return reportService.getUserReports(user, SecurityUtil.getUsername());
+    }
+
+    /**
+     * return summary of all user report
+     * @param user is null then get for requestedBy
+     * @param requestedBy
+     * @return
+     */
+    public UserReportDto getCurrentUserReport(Integer user) {
+        return reportService.getCurrentUserReport(user, SecurityUtil.getUsername());
+    }
+
+    public UserReportDto getUserReportSummary ( Integer user ) {
+        return reportService.getUserSummary(user, SecurityUtil.getUsername());
+    }
+    /**
+     *  return list of reports for all users for the time period
+     * @param month
+     * @param year
+     * @param requestedBy
+     * @return
+     */
+    public List<UserReportDto> getAllUserReport(int month, int year) {
+        return reportService.getAllUserReport(month, year, SecurityUtil.getUsername());
+    }
+
+    /**
+     * return list of reports for given project or todo
+     * @param project
+     * @param requestedBy
+     * @return
+     */
+    public List<ProjectReportDto> getProjectReports(Integer project) {
+        return reportService.getProjectReports(project, SecurityUtil.getUsername());
+    }
+
+    /**
+     * 
+     * return summary of project or todo 
+     * @param project
+     * @param requestedBy
+     * @return
+     */
+    public ProjectReportDto getProjectReportSummary(Integer project) {
+        return reportService.getProjectReportSummary(project, SecurityUtil.getUsername());
+    }
+
+    /**
+     * current project summary
+     * @param project
+     * @param requestedBy
+     * @return
+     */
+    public ProjectReportDto getCurrentProjectReport(Integer project) {
+        return reportService.getCurrentProjectReport(project, SecurityUtil.getUsername());
+    }
+
+    // --------------------------------------- setters --------------------- //
+    public void setReportService(ReportService reportService) {
+        this.reportService = reportService;
+    }
     @Autowired
     private ReportService reportService;
+    private Logger log = Logger.getLogger(getClass());
 }

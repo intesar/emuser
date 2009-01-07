@@ -19,15 +19,22 @@ package com.bizintelapps.promanager.service.impl;
 import com.bizintelapps.promanager.dao.ProjectReportDao;
 import com.bizintelapps.promanager.dao.UserReportDao;
 import com.bizintelapps.promanager.dao.UsersDao;
+import com.bizintelapps.promanager.dto.ProjectReportDto;
 import com.bizintelapps.promanager.dto.TaskDto;
+import com.bizintelapps.promanager.dto.UserReportDto;
+import com.bizintelapps.promanager.dtoa.ProjectReportDtoA;
+import com.bizintelapps.promanager.dtoa.UserReportDtoA;
 import com.bizintelapps.promanager.entity.Project;
 import com.bizintelapps.promanager.entity.ProjectReport;
 import com.bizintelapps.promanager.entity.Task;
 import com.bizintelapps.promanager.entity.UserReport;
+import com.bizintelapps.promanager.entity.Users;
 import com.bizintelapps.promanager.service.ReportService;
 import com.bizintelapps.promanager.service.TaskService;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,6 +54,116 @@ public class ReportServiceImpl implements ReportService {
         processTaskCompletion(task, dto);
     }
 
+    @Override
+    public List<UserReportDto> getUserReports(Integer user, String requestedBy) {
+        Users requestedUser = usersDao.findByUsername(requestedBy);
+        List<UserReportDto> dtos = new ArrayList<UserReportDto>();
+        if (user == null || user.equals(0)) {
+            user = requestedUser.getId();
+        }
+        // only admin, self can see graph
+        if (user.equals(requestedUser.getId()) || requestedUser.isIsAdministrator()) {
+            List<UserReport> list = userReportDao.findByUser(user);
+            // copy for display
+            for (UserReport ur : list) {
+                dtos.add(userReportDtoA.copyForDisplay(ur));
+            }
+        }
+        return dtos;
+    }
+
+    @Override
+    public UserReportDto getCurrentUserReport(Integer user, String requestedBy) {
+        Users requestedUser = usersDao.findByUsername(requestedBy);
+        UserReportDto dto = null;
+        if (user == null || user.equals(0)) {
+            user = requestedUser.getId();
+        }
+        // only admin, self can see graph
+        if (user.equals(requestedUser.getId()) || requestedUser.isIsAdministrator()) {
+            Calendar c = Calendar.getInstance();
+            int month = c.get(Calendar.MONTH);
+            int year = c.get(Calendar.YEAR);
+            UserReport userReport = userReportDao.findByUserMonthAndYear(user, month, year);
+            // copy for display
+            dto = userReportDtoA.copyForDisplay(userReport);
+        }
+        return dto;
+    }
+
+    @Override
+    public UserReportDto getUserSummary(Integer user, String requestedBy) {
+        Users requestedUser = usersDao.findByUsername(requestedBy);
+        UserReportDto dto = null;
+        if (user == null || user.equals(0)) {
+            user = requestedUser.getId();
+        }
+        // only admin, self can see graph
+        if (user.equals(requestedUser.getId()) || requestedUser.isIsAdministrator()) {
+            dto = (UserReportDto) userReportDao.findUserSummary(user);
+        }
+        return dto;
+    }
+
+    @Override
+    public List<UserReportDto> getAllUserReport(int month, int year, String requestedBy) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public List<ProjectReportDto> getProjectReports(Integer project, String requestedBy) {
+        Users requestedUser = usersDao.findByUsername(requestedBy);
+        Integer org = null;
+        List<ProjectReport> list = null;
+        List<ProjectReportDto> dtos = new ArrayList<ProjectReportDto>();
+        if (project == null || project.equals(0)) {
+            org = requestedUser.getOrganization().getId();
+            list = projectReportDao.findByOrganization(org);
+        } else {
+            list = projectReportDao.findByProject(project);
+        }
+        // copy for display
+        for (ProjectReport pr : list) {
+            dtos.add(projectReportDtoA.copyForDisplay(pr));
+        }
+        return dtos;
+    }
+
+    @Override
+    public ProjectReportDto getProjectReportSummary(Integer project, String requestedBy) {
+        Users requestedUser = usersDao.findByUsername(requestedBy);
+        ProjectReportDto dto = null;
+        Integer org = null;
+        if (project == null || project.equals(0)) {
+            org = requestedUser.getOrganization().getId();
+        //list = projectReportDao.findByOrganization(org);
+        } else {
+            dto = (ProjectReportDto) projectReportDao.findProjectSummary(project);
+        }
+        return dto;
+    }
+
+    @Override
+    public ProjectReportDto getCurrentProjectReport(Integer project, String requestedBy) {
+        Users requestedUser = usersDao.findByUsername(requestedBy);
+        Integer org = null;
+        ProjectReport list = null;
+        ProjectReportDto dto = null;
+        Calendar c = Calendar.getInstance();
+        int month = c.get(Calendar.MONTH);
+        int year = c.get(Calendar.YEAR);
+        if (project == null || project.equals(0)) {
+            org = requestedUser.getOrganization().getId();
+            list = projectReportDao.findByOrganizationMonthAndYear(org, month, year);
+        } else {
+            list = projectReportDao.findByProjectMonthAndYear(project, month, year);
+        }
+        // copy for display
+        dto = projectReportDtoA.copyForDisplay(list);
+        return dto;
+    }
+    // ------------------------------- private methods ---------------------//
+    // owner report is effect only when new task or task deleted
     private void processTaskOwner(Task t, TaskDto dto) {
         Calendar c = Calendar.getInstance();
         if (t == null && (dto != null && dto.getOwnerId() != null)) { // new task            
@@ -68,6 +185,7 @@ public class ReportServiceImpl implements ReportService {
         }
     }
 
+    // project report is efected only when task is added, deleted or changed
     private void processTaskProject(Task t, TaskDto dto) {
         if (t == null && (dto != null && dto.getOwnerId() != null)) { // new task       
             taskCreatedForProjectReport(dto);
@@ -84,9 +202,9 @@ public class ReportServiceImpl implements ReportService {
             }
         }
     }
-
+    // efects user_report on assineee added, removed or changed
     private void processTaskAssignee(Task t, TaskDto dto) {
-        if ((t != null && t.getAssignedTo() == null && dto.getAssignedToId() != null) || (t == null && (dto != null && dto.getAssignedToId() != null))) { // new task  assigned     
+        if ((t != null && t.getAssignedTo() == null && dto != null && dto.getAssignedToId() != null) || (t == null && (dto != null && dto.getAssignedToId() != null))) { // new task  assigned     
             addTaskAssigned(dto.getAssignedToId(), dto.getOwnerId(), dto.getAssignedById(), dto.getAssignedDate(), dto.getEstimatedHours());
         } else if (t != null && t.getAssignedTo() != null && (dto == null || dto != null && dto.getAssignedToId() == null)) {
             removeTaskAssigned(t.getAssignedTo().getId(), t.getOwner().getId(), t.getAssignedBy().getId(), t.getAssignedDate(), t.getEstimatedHours());
@@ -100,19 +218,37 @@ public class ReportServiceImpl implements ReportService {
         Calendar c = Calendar.getInstance();
         Integer org = usersDao.read(dto.getOwnerId()).getOrganization().getId();
         if ((t == null || !t.getStatus().equals(TaskService.TASK_STATUS_COMPLETED)) &&
-                dto.getStatus().equals(TaskService.TASK_STATUS_COMPLETED)) {
-            UserReport userReport = userReportDao.findByUserMonthAndYear(dto.getAssignedById(), c.get(Calendar.MONTH), c.get(Calendar.YEAR));
-            ProjectReport projectReport = null;
-            userReport = getUserReport(userReport, c, dto);
-            projectReport = getProjectReport(dto, c, projectReport, org);
-            projectReport.setTaskFinished(projectReport.getTaskFinished() + 1);
-            projectReport.setTimeSpend(projectReport.getTimeSpend() + dto.getSpendHours());
-            projectReport.setEstimatedTime(projectReport.getEstimatedTime() + dto.getEstimatedHours());
-            projectReportDao.update(projectReport);
+                dto.getStatus() != null && dto.getStatus().equals(TaskService.TASK_STATUS_COMPLETED)) {
+            UserReport userReport = null;
+            if (dto.getAssignedById() != null) {
+                userReport = userReportDao.findByUserMonthAndYear(dto.getAssignedToId(), c.get(Calendar.MONTH), c.get(Calendar.YEAR));
+                if (userReport == null) { // add entity to db
+                    userReport = new UserReport(dto.getAssignedToId(), c.get(Calendar.MONTH), c.get(Calendar.YEAR), 0);
+                    userReportDao.create(userReport);
+                }
+                userReport.setEstimatedHours(userReport.getEstimatedHours() - t.getEstimatedHours());
+            } else {
+                userReport = userReportDao.findByUserMonthAndYear(dto.getOwnerId(), c.get(Calendar.MONTH), c.get(Calendar.YEAR));
+                if (userReport == null) { // add entity to db this will happen on new month startups
+                    userReport = new UserReport(dto.getOwnerId(), c.get(Calendar.MONTH), c.get(Calendar.YEAR), 0);
+                    userReportDao.create(userReport);
+                }
+                userReport.setCreatedSelfAssigned(userReport.getCreatedSelfAssigned() + 1);
+                userReport.setTotalAssigned(userReport.getTotalAssigned() + 1);
+            }
+            //userReport = getUserReport(userReport, c, dto);
             userReport.setTotalCompleted(userReport.getTotalCompleted() + 1);
             userReport.setEstimatedHours(userReport.getEstimatedHours() + dto.getEstimatedHours());
             userReport.setHoursSpend(userReport.getHoursSpend() + dto.getSpendHours());
             userReportDao.update(userReport);
+            ProjectReport projectReport = null;
+            projectReport = getProjectReport(dto, c, projectReport, org);
+            projectReport.setTaskFinished(projectReport.getTaskFinished() + 1);
+            projectReport.setTimeSpend(projectReport.getTimeSpend() + dto.getSpendHours());
+            projectReport.setEstimatedTime(projectReport.getEstimatedTime() - t.getEstimatedHours());
+            projectReport.setEstimatedTime(projectReport.getEstimatedTime() + dto.getEstimatedHours());
+            projectReportDao.update(projectReport);
+
         } else if ((t != null && t.getStatus().equals(TaskService.TASK_STATUS_COMPLETED)) &&
                 !dto.getStatus().equals(TaskService.TASK_STATUS_COMPLETED)) {
             UserReport userReport = userReportDao.findByUserMonthAndYear(dto.getAssignedById(), c.get(Calendar.MONTH), c.get(Calendar.YEAR));
@@ -223,6 +359,7 @@ public class ReportServiceImpl implements ReportService {
             } else {
                 // update entity
                 projectReport.setTaskCreated(projectReport.getTaskCreated() + 1);
+                projectReport.setEstimatedTime(projectReport.getEstimatedTime() + dto.getEstimatedHours());
                 projectReportDao.update(projectReport);
             }
         }
@@ -242,6 +379,7 @@ public class ReportServiceImpl implements ReportService {
         }
         if (projectReport != null) {
             projectReport.setTaskCreated(projectReport.getTaskCreated() - 1);
+            projectReport.setEstimatedTime(projectReport.getEstimatedTime() - t.getEstimatedHours());
             projectReportDao.update(projectReport);
         }
     }
@@ -257,11 +395,23 @@ public class ReportServiceImpl implements ReportService {
     public void setUsersDao(UsersDao usersDao) {
         this.usersDao = usersDao;
     }
+
+    public void setProjectReportDtoA(ProjectReportDtoA projectReportDtoA) {
+        this.projectReportDtoA = projectReportDtoA;
+    }
+
+    public void setUserReportDtoA(UserReportDtoA userReportDtoA) {
+        this.userReportDtoA = userReportDtoA;
+    }
     @Autowired
     private ProjectReportDao projectReportDao;
     @Autowired
     private UserReportDao userReportDao;
     @Autowired
     private UsersDao usersDao;
+    @Autowired
+    private UserReportDtoA userReportDtoA;
+    @Autowired
+    private ProjectReportDtoA projectReportDtoA;
     private Logger log = Logger.getLogger(getClass());
 }

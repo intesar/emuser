@@ -35,9 +35,11 @@ public class TaskDtoA {
         if (task.getAssignedTo() != null) {
             if (task.getAssignedTo().getId().equals(requestedUserId)) {
                 taskDto.setAssignedToUsername("me");
+                taskDto.setAssignedToName("me");
             } else {
                 taskDto.setAssignedToUsername(task.getAssignedTo().getUsername());
-            }
+                taskDto.setAssignedToName(task.getAssignedTo().getFirstname() + " " +task.getAssignedTo().getLastname());
+            }            
             taskDto.setAssignedToId(task.getAssignedTo().getId());
             taskDto.setAssignedById(task.getAssignedBy().getId());
             taskDto.setAssignedDate(task.getAssignedDate());

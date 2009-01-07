@@ -16,31 +16,71 @@
  */
 package com.bizintelapps.promanager.dto;
 
-import java.util.Date;
-
 /**
  *
  * @author intesar
  */
 public class ProjectReportDto {
 
+    private int taskCreated = 0;
+    private Integer taskFinished = 0;
+    private Double estimatedTime = 0.0;
+    private Double timeSpend = 0.0;
+    private int month;
+    private int year;
+    private Integer project;
     private String projectName;
-    private Date startDate;
-    private String startDateFormated;
-    private int tasksCreated;
-    private int taskCompleted;
-    private int taskOpen;
-    private int unassignedTask;
-    private int totalHoursSpend;
-    private int totalHoursPending;
-    private int allocatedHours;
+    private Integer organization;
+    private String organizationName;
 
-    public int getAllocatedHours() {
-        return allocatedHours;
+    public ProjectReportDto() {
     }
 
-    public void setAllocatedHours(int allocatedHours) {
-        this.allocatedHours = allocatedHours;
+    public ProjectReportDto(Long taskCreated, Long taskFinished, Double estimatedTime, Double timeSpend) {
+        this.taskCreated = taskCreated.intValue();
+        this.taskFinished = taskFinished.intValue();
+        this.estimatedTime = estimatedTime;
+        this.timeSpend = timeSpend;
+    }
+
+    public Double getEstimatedTime() {
+        return estimatedTime;
+    }
+
+    public void setEstimatedTime(Double estimatedTime) {
+        this.estimatedTime = estimatedTime;
+    }
+
+    public int getMonth() {
+        return month;
+    }
+
+    public void setMonth(int month) {
+        this.month = month;
+    }
+
+    public Integer getOrganization() {
+        return organization;
+    }
+
+    public void setOrganization(Integer organization) {
+        this.organization = organization;
+    }
+
+    public String getOrganizationName() {
+        return organizationName;
+    }
+
+    public void setOrganizationName(String organizationName) {
+        this.organizationName = organizationName;
+    }
+
+    public Integer getProject() {
+        return project;
+    }
+
+    public void setProject(Integer project) {
+        this.project = project;
     }
 
     public String getProjectName() {
@@ -51,72 +91,35 @@ public class ProjectReportDto {
         this.projectName = projectName;
     }
 
-    public Date getStartDate() {
-        return startDate;
+    public int getTaskCreated() {
+        return taskCreated;
     }
 
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
+    public void setTaskCreated(int taskCreated) {
+        this.taskCreated = taskCreated;
     }
 
-    public String getStartDateFormated() {
-        return startDateFormated;
+    public Integer getTaskFinished() {
+        return taskFinished;
     }
 
-    public void setStartDateFormated(String startDateFormated) {
-        this.startDateFormated = startDateFormated;
+    public void setTaskFinished(Integer taskFinished) {
+        this.taskFinished = taskFinished;
     }
 
-    public int getTaskCompleted() {
-        return taskCompleted;
+    public Double getTimeSpend() {
+        return timeSpend;
     }
 
-    public void setTaskCompleted(int taskCompleted) {
-        this.taskCompleted = taskCompleted;
+    public void setTimeSpend(Double timeSpend) {
+        this.timeSpend = timeSpend;
     }
 
-    public int getTaskOpen() {
-        return taskOpen;
+    public int getYear() {
+        return year;
     }
 
-    public void setTaskOpen(int taskOpen) {
-        this.taskOpen = taskOpen;
-    }
-
-    public int getTasksCreated() {
-        return tasksCreated;
-    }
-
-    public void setTasksCreated(int tasksCreated) {
-        this.tasksCreated = tasksCreated;
-    }
-
-    public int getTotalHoursPending() {
-        return totalHoursPending;
-    }
-
-    public void setTotalHoursPending(int totalHoursPending) {
-        this.totalHoursPending = totalHoursPending;
-    }
-
-    public int getTotalHoursSpend() {
-        return totalHoursSpend;
-    }
-
-    public void setTotalHoursSpend(int totalHoursSpend) {
-        this.totalHoursSpend = totalHoursSpend;
-    }
-
-    public int getUnassignedTask() {
-        return unassignedTask;
-    }
-
-    public void setUnassignedTask(int unassignedTask) {
-        this.unassignedTask = unassignedTask;
-    }
-
-    @Override
-    public String toString() {
-        return projectName + startDateFormated;
+    public void setYear(int year) {
+        this.year = year;
     }
 }

@@ -246,6 +246,8 @@ public class UsersServiceImpl implements UsersService {
         return dtos;
     }
 
+    
+
     @Override
     public void enableDisableUser(Integer userId, boolean enabled, String changedBy) {
         log.debug("---- executing findByUsername with " + changedBy);

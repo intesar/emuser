@@ -18,6 +18,7 @@ package com.bizintelapps.promanager.ajax;
 
 import com.bizintelapps.promanager.dto.TaskDto;
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -50,5 +51,37 @@ public class AjaxTaskServiceTest extends BaseTest {
         taskDto.setTitle("title");        
         taskDto.setProjectName("demo");
         ajaxTaskService.saveTask(taskDto);    
+    }
+    
+    public void testUpdateTask1() {
+        List<TaskDto> list = ajaxTaskService.getCurrentTask("37");
+        TaskDto dto = list.get(0);
+        dto.setAssignedToId(7);
+        ajaxTaskService.saveTask(dto);
+        List<TaskDto> list1 = ajaxTaskService.getCurrentTask("37");
+        TaskDto dto1 = list1.get(0);
+        assertEquals(dto.getAssignedToId(), dto1.getAssignedToId());
+        
+    }
+    
+    public void testUpdateTask2() {
+        List<TaskDto> list = ajaxTaskService.getCurrentTask("37");
+        TaskDto dto = list.get(0);
+        dto.setProjectId(15);
+        ajaxTaskService.saveTask(dto);
+        List<TaskDto> list1 = ajaxTaskService.getCurrentTask("37");
+        TaskDto dto1 = list1.get(0);
+        assertEquals(dto.getProjectId(), dto1.getProjectId());
+        
+    }
+    
+    public void testDeleteTask() {
+        List<TaskDto> list = ajaxTaskService.getCurrentTask("37");
+        TaskDto dto = list.get(0);        
+        ajaxTaskService.deleteTask(dto.getId());
+        //List<TaskDto> list1 = ajaxTaskService.getCurrentTask("15");
+        //TaskDto dto1 = list1.get(0);
+        //assertEquals(dto, dto1);
+        
     }
 }

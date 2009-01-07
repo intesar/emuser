@@ -17,6 +17,7 @@
 package com.bizintelapps.promanager.dao;
 
 import com.bizintelapps.promanager.entity.UserReport;
+import java.util.List;
 
 /**
  *
@@ -25,4 +26,9 @@ import com.bizintelapps.promanager.entity.UserReport;
 public interface UserReportDao extends GenericDao<UserReport, Integer> {
 
     UserReport findByUserMonthAndYear(Integer user, Integer month, Integer year);
+    
+    List<UserReport> findByUser ( Integer user);    
+    
+    Object findUserSummary ( Integer user);
+    
 }

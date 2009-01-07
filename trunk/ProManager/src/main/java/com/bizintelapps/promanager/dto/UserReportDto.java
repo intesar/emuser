@@ -14,10 +14,7 @@
  *  limitations under the License.
  *  under the License.
  */
-
 package com.bizintelapps.promanager.dto;
-
-import java.util.Date;
 
 /**
  *
@@ -25,97 +22,134 @@ import java.util.Date;
  */
 public class UserReportDto {
 
+    private int month;
+    private int year;
+    private Integer totalCreated = 0;
+    private Integer assigned = 0;
+    private Integer selfAssigned = 0;
+    private Integer totalAssigned = 0;
+    private Double estimatedHours = 0.0;
+    private Double hoursSpend = 0.0;
+    private int totalCompleted = 0;
+    private int user;
     private String username;
-    private String firstname;
-    private String lastname;
-    private Date startDate;
-    private String startDateFomated;
-    private int totalOpenTask;
-    private int recentlyAssignedTask;
-    private int recentlyCompletedTask;
-    private int recentlyAllocatedHours;
-    private int recentlySpendHours;
-    private int hoursToFinish;
-    private double efficiency;
+    private String name;
+    private int createdSelfAssigned = 0;
+    private String reportDate;
+    private String[] months = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul",
+        "Aug", "Sep", "Oct", "Nov", "Dec"
+    };
 
-    public String getFirstname() {
-        return firstname;
+    public UserReportDto() {
+    }
+    
+    
+
+    public UserReportDto(Long totalCreated, Long assigned, Long selfAssigned, Long totalAssigned, Double estimatedHours, Double hoursSpend, Long totalCompleted, Long createdSelfAssigned) {
+        this.totalCreated = totalCreated.intValue();
+        this.assigned = assigned.intValue();
+        this.selfAssigned = selfAssigned.intValue();
+        this.totalAssigned = totalAssigned.intValue();
+        this.estimatedHours = estimatedHours;
+        this.hoursSpend = hoursSpend;
+        this.totalCompleted = totalCompleted.intValue();
+        this.createdSelfAssigned = createdSelfAssigned.intValue();
     }
 
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
+    public String getReportDate() {
+        return months[month] + " " + year;
     }
 
-    public int getHoursToFinish() {
-        return hoursToFinish;
+    public void setReportDate(String reportDate) {
+        this.reportDate = reportDate;
     }
 
-    public void setHoursToFinish(int hoursToFinish) {
-        this.hoursToFinish = hoursToFinish;
+    public Integer getAssigned() {
+        return assigned;
     }
 
-    public String getLastname() {
-        return lastname;
+    public void setAssigned(Integer assigned) {
+        this.assigned = assigned;
     }
 
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
+    public int getCreatedSelfAssigned() {
+        return createdSelfAssigned;
     }
 
-    public int getRecentlyAllocatedHours() {
-        return recentlyAllocatedHours;
+    public void setCreatedSelfAssigned(int createdSelfAssigned) {
+        this.createdSelfAssigned = createdSelfAssigned;
     }
 
-    public void setRecentlyAllocatedHours(int recentlyAllocatedHours) {
-        this.recentlyAllocatedHours = recentlyAllocatedHours;
+    public Double getEstimatedHours() {
+        return estimatedHours;
     }
 
-    public int getRecentlyAssignedTask() {
-        return recentlyAssignedTask;
+    public void setEstimatedHours(Double estimatedHours) {
+        this.estimatedHours = estimatedHours;
     }
 
-    public void setRecentlyAssignedTask(int recentlyAssignedTask) {
-        this.recentlyAssignedTask = recentlyAssignedTask;
+    public Double getHoursSpend() {
+        return hoursSpend;
     }
 
-    public int getRecentlyCompletedTask() {
-        return recentlyCompletedTask;
+    public void setHoursSpend(Double hoursSpend) {
+        this.hoursSpend = hoursSpend;
     }
 
-    public void setRecentlyCompletedTask(int recentlyCompletedTask) {
-        this.recentlyCompletedTask = recentlyCompletedTask;
+    public int getMonth() {
+        return month;
     }
 
-    public int getRecentlySpendHours() {
-        return recentlySpendHours;
+    public void setMonth(int month) {
+        this.month = month;
     }
 
-    public void setRecentlySpendHours(int recentlySpendHours) {
-        this.recentlySpendHours = recentlySpendHours;
+    public String getName() {
+        return name;
     }
 
-    public Date getStartDate() {
-        return startDate;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
+    public Integer getSelfAssigned() {
+        return selfAssigned;
     }
 
-    public String getStartDateFomated() {        
-        return startDateFomated;
+    public void setSelfAssigned(Integer selfAssigned) {
+        this.selfAssigned = selfAssigned;
     }
 
-    public void setStartDateFomated(String startDateFomated) {
-        this.startDateFomated = startDateFomated;
+    public Integer getTotalAssigned() {
+        return totalAssigned;
     }
 
-    public int getTotalOpenTask() {
-        return totalOpenTask;
+    public void setTotalAssigned(Integer totalAssigned) {
+        this.totalAssigned = totalAssigned;
     }
 
-    public void setTotalOpenTask(int totalOpenTask) {
-        this.totalOpenTask = totalOpenTask;
+    public int getTotalCompleted() {
+        return totalCompleted;
+    }
+
+    public void setTotalCompleted(int totalCompleted) {
+        this.totalCompleted = totalCompleted;
+    }
+
+    public Integer getTotalCreated() {
+        return totalCreated;
+    }
+
+    public void setTotalCreated(Integer totalCreated) {
+        this.totalCreated = totalCreated;
+    }
+
+    public int getUser() {
+        return user;
+    }
+
+    public void setUser(int user) {
+        this.user = user;
     }
 
     public String getUsername() {
@@ -126,23 +160,17 @@ public class UserReportDto {
         this.username = username;
     }
 
-    public double getEfficiency() {
-        return efficiency;
+    public int getYear() {
+        return year;
     }
 
-    public void setEfficiency(double efficiency) {
-        this.efficiency = efficiency;
+    public void setYear(int year) {
+        this.year = year;
     }
-    
-    
 
     @Override
     public String toString() {
-        return username + startDateFomated;
+        return "" + totalCreated + assigned + selfAssigned + totalAssigned + estimatedHours + hoursSpend + totalCompleted + createdSelfAssigned;
     }
     
-    
-    
-            
-            
 }
