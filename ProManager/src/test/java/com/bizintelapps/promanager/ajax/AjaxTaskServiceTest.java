@@ -79,9 +79,5 @@ public class AjaxTaskServiceTest extends BaseTest {
         List<TaskDto> list = ajaxTaskService.getCurrentTask("37");
         TaskDto dto = list.get(0);        
         ajaxTaskService.deleteTask(dto.getId());
-        //List<TaskDto> list1 = ajaxTaskService.getCurrentTask("15");
-        //TaskDto dto1 = list1.get(0);
-        //assertEquals(dto, dto1);
-        
     }
 }

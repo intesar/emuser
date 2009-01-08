@@ -78,6 +78,9 @@ public class UsersServiceImpl implements UsersService {
         Authorities authorities2 = new Authorities(null, users.getUsername(), Authorities.ROLE_USER);
         authoritiesDao.create(authorities1);
         authoritiesDao.create(authorities2);
+        String body = "Hello " + usersDto.getFirstname() + ", \n";
+        body += "Your account has been successfully created at Grow-Fast.com. You are all set to use Grow-Fast.com's professional services!";
+        mailSender.sendMail(new String[]{usersDto.getEmail()}, "Thank you for Signing Up at Grow-Fast.com", body);
     }
 
     @Override
@@ -93,7 +96,7 @@ public class UsersServiceImpl implements UsersService {
             List<Users> list = usersDao.findAll(null).getCurrentList();
             return usersConverter.copyAllForReportDropdown(list);
         } else {
-            return new ArrayList<UsersMinDto> ();
+            return new ArrayList<UsersMinDto>();
         }
     }
 
