@@ -93,7 +93,7 @@ public class UsersServiceImpl implements UsersService {
     public List<UsersMinDto> getUsersListforDropdown(String requestedBy) {
         Users u = usersDao.findByUsername(requestedBy);
         if (u.isIsAdministrator()) {
-            List<Users> list = usersDao.findAll(null).getCurrentList();
+            List<Users> list = usersDao.findByOrganizationId(u.getOrganization().getId());
             return usersConverter.copyAllForReportDropdown(list);
         } else {
             return new ArrayList<UsersMinDto>();
