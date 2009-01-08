@@ -101,7 +101,6 @@ http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
                 /view/reports.jsp*=ROLE_USER,ROLE_ADMIN
                 /view/settings.jsp*=ROLE_USER,ROLE_ADMIN
                 /view/users.jsp*=ROLE_USER,ROLE_ADMIN
-                /dwr/**=ROLE_ADMIN,ROLE_SUPER
             </value>
         </property>
     </bean>
