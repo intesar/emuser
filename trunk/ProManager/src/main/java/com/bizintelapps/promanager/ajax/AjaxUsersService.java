@@ -39,7 +39,7 @@ public class AjaxUsersService {
      * @return
      */
     public String signUp(UsersDto usersDto) {
-        String msg = " You have Successfully Signed Up! ";
+        String msg = " You have Successfully Signed Up, Please login with your Username/Email & Password! ";
         try {
             // this should handle create/update
             usersService.signUp(usersDto);

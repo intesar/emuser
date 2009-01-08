@@ -10,22 +10,8 @@
 
 <html>
     <head>
-        <title>Tasks - ProManager</title>
-        
-        <jsp:include page="include.jsp" />
-        <!--
-        <script src="../js/transendent-date-range-picker/init.js"  type="text/javascript"></script> 
-    <script type="text/javascript" src="../js/transendent-date-range-picker/ui.datepicker.js"></script>
-    <link href="../js/transendent-date-range-picker/demoPages.css"  media="screen" rel="Stylesheet" type="text/css" />
-    <link type="text/css" href="../js/transendent-date-range-picker/screen.css"  media="screen" rel="Stylesheet" />
-    -->
-    <!-- the following 2 links are for running this demo page -->
-    <!--
-    <script type="text/javascript" src="../js/transendent-date-range-picker/demoScripts.js" ></script>
-    <style type="text/css">
-        div.rangePicker { width: 250px; margin: .5em 0;}
-    </style>
-        -->
+        <title>Dashboard</title>        
+        <jsp:include page="include.jsp" />      
         <script type='text/javascript' src='../dwr/interface/AjaxTaskService.js'></script>
         <script type='text/javascript' src='../dwr/interface/AjaxProjectService.js'></script>
         <script type='text/javascript' src='../dwr/interface/AjaxUsersService.js'></script>
