@@ -14,7 +14,7 @@ $(document).ready(function() {
     var usersCache = {};
     var viewed = null;
     
-    var usersList = function ( users ) {
+    var usersList = function ( users ) {        
         displayList( users);
     }
     function displayList(users) {
@@ -30,7 +30,8 @@ $(document).ready(function() {
             if ( users[i].administrator ) {
                 administrator = "Y";
             }
-            var data = [ users[i].id, users[i].firstname + " " + users[i].lastname, active, administrator, "<a id='deleteUser" + users[i].id + "' class='deleteUser'>Delete</a>"];                                              
+            var data = [ users[i].id, users[i].firstname + " " + users[i].lastname, active, administrator,
+                "<img alt='Delete User' src='../images/delete.png' id='deleteUser" + users[i].id + "' class='deleteUser' />"];                                              
             usersCache[users[i].id] = users[i];
             dArray[i] = data;                                     
         }                                                         
@@ -42,7 +43,7 @@ $(document).ready(function() {
     AjaxUsersService.getUserList(usersList);
 
     // load div and check enabled to true
-    $('#createANewUser').click(function() {    
+    $('.createANewUser').click(function() {    
         $('#clear').trigger('click');
         viewed = null;
         $('#newEditContainer').modal({persist: true});
@@ -58,7 +59,7 @@ $(document).ready(function() {
         if ( confirm("Are you sure you want to delete " + user.firstname + " " + user.lastname + "?") ) {
             AjaxUsersService.deleteUser ( viewed, function ( users ) {
                 displayList( users);
-                alert(' User deleted sucessfully! ');            
+                $.jGrowl( user.firstname + " " + user.lastname +" deleted sucessfully!");
             });
         }
     });
@@ -92,6 +93,8 @@ $(document).ready(function() {
     });
     
     // executed on "create new project" button is clicked
+    var _u = null;
+    
     $('#saveUser').click(function() {
         var user1 = null;
         if ( viewed == null ) {
@@ -106,8 +109,14 @@ $(document).ready(function() {
         user1.lastname = $('#lastname').val();  
         user1.enabled = $('#enabled').attr('checked');
         user1.administrator = $('#administrator').attr('checked');               
-        AjaxUsersService.saveUser ( user1, usersList);            
+        AjaxUsersService.saveUser ( user1, saveUserCallback);               
+        _u = user1;
     });   
     
+    var saveUserCallback = function( users ) {
+        $.jGrowl( _u.firstname + " " + _u.lastname +" saved sucessfully!");    
+        _u = null;
+        displayList( users);        
+    }
     
 } );

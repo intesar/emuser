@@ -16,8 +16,11 @@
  */
 package com.bizintelapps.promanager.dto;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -58,7 +61,7 @@ public class TaskDto {
     private Date assignedDate;
 
     public TaskDto() {
-        String pattern = "MM/dd/yyyy";
+        String pattern = "dd MMM yyyy";
         simpleDateFormat = new SimpleDateFormat(pattern);
     }
 
@@ -246,7 +249,7 @@ public class TaskDto {
     }
 
     public void setCompletedDateFormat(String completedDateFormat) {
-        this.completedDateFormat = completedDateFormat;
+        this.completedDateFormat = completedDateFormat;        
     }
 
     public String getCreateDateFormat() {
@@ -261,14 +264,21 @@ public class TaskDto {
     }
 
     public String getDeadlineFormat() {
-        if (deadlineFormat != null) {
-            return simpleDateFormat.format(deadlineFormat);
+        if (deadline != null) {
+            return simpleDateFormat.format(deadline);
         }
         return deadlineFormat;
     }
 
     public void setDeadlineFormat(String deadlineFormat) {
         this.deadlineFormat = deadlineFormat;
+        if ( this.deadlineFormat != null ) {
+            try {
+                this.deadline = simpleDateFormat.parse(this.deadlineFormat);
+            } catch (ParseException ex) {
+                ex.printStackTrace();
+            }
+        }
     }
 
     public String getLastStatusChangedDateFormat() {

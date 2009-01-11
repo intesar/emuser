@@ -17,6 +17,8 @@
 package com.bizintelapps.promanager.ajax;
 
 import com.bizintelapps.promanager.dto.TaskDto;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -76,8 +78,24 @@ public class AjaxTaskServiceTest extends BaseTest {
     }
     
     public void testDeleteTask() {
-        List<TaskDto> list = ajaxTaskService.getCurrentTask("37");
+        List<TaskDto> list = ajaxTaskService.getCurrentTask("38");
         TaskDto dto = list.get(0);        
         ajaxTaskService.deleteTask(dto.getId());
+    }
+    
+    public void testDateFormat() {
+        String dt = "29 Jan 2009";
+        String pattern = "dd MMM yyyy";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        try {
+            System.out.println(" Date : " + simpleDateFormat.parse(dt));
+        } catch (ParseException ex) {
+            ex.printStackTrace();
+        }
+    }
+    
+    public void testChangeStatus() {
+        
+        ajaxTaskService.changeTaskStatus(43, "Completed");
     }
 }

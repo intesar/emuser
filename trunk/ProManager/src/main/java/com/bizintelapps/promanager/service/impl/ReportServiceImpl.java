@@ -226,17 +226,25 @@ public class ReportServiceImpl implements ReportService {
         if ((t == null || !t.getStatus().equals(TaskService.TASK_STATUS_COMPLETED)) &&
                 dto.getStatus() != null && dto.getStatus().equals(TaskService.TASK_STATUS_COMPLETED)) {
             UserReport userReport = null;
-            if (dto.getAssignedById() != null) {
+            if (dto.getAssignedToId() != null) {
                 userReport = userReportDao.findByUserMonthAndYear(dto.getAssignedToId(), c.get(Calendar.MONTH), c.get(Calendar.YEAR));
                 if (userReport == null) { // add entity to db
-                    userReport = new UserReport(dto.getAssignedToId(), c.get(Calendar.MONTH), c.get(Calendar.YEAR), 0);
+                    userReport = new UserReport(null, c.get(Calendar.MONTH), c.get(Calendar.YEAR), 0);
+                    userReport.setUser(dto.getAssignedToId());
                     userReportDao.create(userReport);
+                    //userReport = userReportDao.findByUserMonthAndYear(dto.getAssignedToId(), c.get(Calendar.MONTH), c.get(Calendar.YEAR));
                 }
-                userReport.setEstimatedHours(userReport.getEstimatedHours() - t.getEstimatedHours());
+                System.out.println ( " UserReport " + userReport );
+                System.out.println ( " eh" + userReport.getEstimatedHours());
+                System.out.println ( " teh " + t);
+                if (userReport.getEstimatedHours() != null && userReport.getEstimatedHours() > t.getEstimatedHours()) {
+                    userReport.setEstimatedHours(userReport.getEstimatedHours() - t.getEstimatedHours());
+                }
             } else {
                 userReport = userReportDao.findByUserMonthAndYear(dto.getOwnerId(), c.get(Calendar.MONTH), c.get(Calendar.YEAR));
                 if (userReport == null) { // add entity to db this will happen on new month startups
-                    userReport = new UserReport(dto.getOwnerId(), c.get(Calendar.MONTH), c.get(Calendar.YEAR), 0);
+                    userReport = new UserReport(null, c.get(Calendar.MONTH), c.get(Calendar.YEAR), 0);
+                    userReport.setUser(dto.getAssignedToId());
                     userReportDao.create(userReport);
                 }
                 userReport.setCreatedSelfAssigned(userReport.getCreatedSelfAssigned() + 1);
@@ -251,8 +259,8 @@ public class ReportServiceImpl implements ReportService {
             projectReport = getProjectReport(dto, c, projectReport, org);
             projectReport.setTaskFinished(projectReport.getTaskFinished() + 1);
             projectReport.setTimeSpend(projectReport.getTimeSpend() + dto.getSpendHours());
-            projectReport.setEstimatedTime(projectReport.getEstimatedTime() - t.getEstimatedHours());
-            projectReport.setEstimatedTime(projectReport.getEstimatedTime() + dto.getEstimatedHours());
+            //projectReport.setEstimatedTime(projectReport.getEstimatedTime() - t.getEstimatedHours());
+            //projectReport.setEstimatedTime(projectReport.getEstimatedTime() + dto.getEstimatedHours());
             projectReportDao.update(projectReport);
 
         } else if ((t != null && t.getStatus().equals(TaskService.TASK_STATUS_COMPLETED)) &&
@@ -355,7 +363,7 @@ public class ReportServiceImpl implements ReportService {
                 projectReportDao.update(projectReport);
             }
         } else {
-            Integer org = usersDao.findByUsername(dto.getOwnerUsername()).getOrganization().getId();
+            Integer org = usersDao.read(dto.getOwnerId()).getOrganization().getId();
             ProjectReport projectReport = projectReportDao.findByOrganizationMonthAndYear(org, c.get(Calendar.MONTH), c.get(Calendar.YEAR));
             if (projectReport == null) {
                 // create new entity

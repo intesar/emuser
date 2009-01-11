@@ -3,11 +3,9 @@ $(document).ready(function() {
     // checkout datatable plugin to understand below code
     oTable = $('#taskTable').dataTable( {             
         "sDom": '<"top"i>rt<"bottom"flp<"clear">',
-        "aoData": [null,null,null,null,null,{"sWidth":"250px"},null,{"sClass":"action","sType":"html"}]        
+        "aoData": [null,null,null,null,null,{"sWidth":"250px"},null]        
     } );
-    $('#taskTable tr').livequery(function() {
-        $(this).parent().tableHover();
-    });
+    
     /* Global variable for the DataTables object */
     var oTable;	
     /* Global var for counter */
@@ -16,70 +14,25 @@ $(document).ready(function() {
     var viewed = null;
     var projectDDCache = {};
     var usersDDCache = {};
-    // start 
-    var x1 = null;
-    var x21 = "<option>New</option>";
-    var x22 = "<option selected>New</option>";
-    var x31 = "<option>In Progress</option>";
-    var x32 = "<option selected>In Progress</option>";
-    var x41 = "<option>On Hold</option>";
-    var x42 = "<option selected>On Hold</option>";
-    var x51 = "<option>Completed</option>";
-    var x52 = "<option selected>Completed</option>";
-    var x6="</select>";        
-    function getStatusDD(status, id) {
-        x1 = "<select id="+ id +" class='statusDD'>";
-        if ( status == 'New') {
-            return x1 + x22 + x31 + x41 + x51 + x6;
-        }
-        else if ( status == 'In Progress') {
-            return x1 + x21 + x32 + x41 + x51 + x6;
-        }
-        else if ( status == 'On Hold') {
-            return x1 + x21 + x31 + x42 + x51 + x6;
-        }
-        else {
-            return x1 + x21 + x31 + x41 + x52 + x6;
-        }        
-    }
-    // end
-    // start 
-    var y1 = null;
-    var y21 = "<option>High</option>";
-    var y22 = "<option selected>High</option>";
-    var y31 = "<option>Medium</option>";
-    var y32 = "<option selected>Medium</option>";
-    var y41 = "<option>Low</option>";
-    var y42 = "<option selected>Low</option>";    
-    var y5 = "</select>";        
-    function getPriorityDD(priority, id) {
-        y1 = "<select id="+ id +"  class='priorityDD'>";
-        if ( priority == 'High') {
-            return y1 + y22 + y31 + y41 + y5;
-        }
-        else if ( priority == 'Medium') {
-            return y1 + y21 + y32 + y41 + y5;
-        }       
-        else {
-            return y1 + y21 + y31 + y42 + y5;
-        }        
-    }
-    // end
-    var taskList = function (tasks) {
+   
+    var taskList = function (tasks) {        
         var dArray = new Array();
         // Delete all the rows from table
         oTable.fnClearTable();
         for ( var i = 0 ; i < tasks.length; i++) {             
-            // create object            
-            //var statusRowDD = getStatusDD(tasks[i].status, tasks[i].id);
-            //var priorityRowDD = getPriorityDD ( tasks[i].priority, tasks[i].id);  
+            // create object                        
             var project = tasks[i].projectName; if ( project == null) project = "Todo";            
-            var deadline = tasks[i].deadlineFormat; if (deadline == null ) deadline = "NA";
-            var title = "<small>" + tasks[i].title + "<small>";
-            var assignedUser = "<small>" + tasks[i].assignedToName +"<small>" ;            
-            var data = [  "<small>" + tasks[i].id + "</small>" , "<small>" + tasks[i].status + "</small>", 
-                "<small>" + project + "</small>", assignedUser, "<small>" + tasks[i].priority + "</small>", title, 
-                "<small>" + deadline + "</small>", "<a id='deleteTask"+tasks[i].id +"' class='deleteTask' href='javascript:void(0);'>Delete</a>"];                                  
+            var deadline = tasks[i].deadlineFormat; if (deadline == null ) {deadline = "NA"} else {deadline = deadline.substr(0, 6);};
+            var title = tasks[i].title ;
+            var assignedUser = tasks[i].assignedToName; 
+            if ( assignedUser == 'me') {assignedUser = "<img src='../images/user.png' title='High' />";}
+            else if ( assignedUser == '') {assignedUser = "<img src='../images/add-user.png' title='High' />";}
+            var status = tasks[i].status;
+            if ( status == 'In Progress') {status = "<img src='../images/in_progress.png' title='High' />";}
+            else if ( status == 'Completed') {status = "<img src='../images/completed.png' title='High' />";}
+            var priority = tasks[i].priority;        
+            if ( priority == "High") { priority = "<img src='../images/high_priority.png' title='High' />";}
+            var data = [ tasks[i].id , status, project, assignedUser, priority, title, deadline];                                  
             tasksCache[tasks[i].id] = tasks[i];            
             dArray[i] = data;                
         }                   
@@ -87,59 +40,127 @@ $(document).ready(function() {
         oTable.fnAddData( dArray );
         // required by daatable plugin
         giCount++;
-        $('#taskTable').tableHover();
+        
     }
-    // executed onload
+    // executed onload returns current task
     AjaxTaskService.getCurrentTask("Current Task", taskList);
     
+    // priority change 
+    function changeTaskPriorityToHigh ( taskId) {
+        var task = tasksCache[taskId];
+        if ( task.priority != 'High') {
+            AjaxTaskService.changeTaskPriority(taskId, 'High', function() {                
+                $.jGrowl( "Task # " + taskId + " is marked High Priority!");
+            });
+        } else {
+            $.jGrowl( "Task # " + taskId + " is already has a High Priority!");
+        }
+    }
     // status change 
-    $('.statusDD').livequery ( 'change', function() {
-        AjaxTaskService.changeTaskStatus($(this).attr('id'), $(this).val());
-    });
-    // priority change
-    $('.priorityDD').livequery ( 'change', function() {
-        AjaxTaskService.changeTaskPriority($(this).attr('id'), $(this).val());        
-    });
+    function changeTaskStatus ( taskId, status) {
+        var task = tasksCache[taskId];
+        if ( task.status != status) {
+            AjaxTaskService.changeTaskStatus(taskId, status, function() {                
+                $.jGrowl( "Task # " + taskId + " is marked " + status + " !");
+            });
+        } else {
+            $.jGrowl( "Task # " + taskId + " is already " + status + " !");
+        }
+    }
+    
+    function deleteTask ( taskId ) {
+        var task = tasksCache[taskId];
+        if (task.isOwner == true ) {
+            AjaxTaskService.deleteTask ( taskId, function(data) {            
+                $.jGrowl( "Task # " + taskId + " deleted successfully!");
+                taskList(data);
+            });
+        }else {
+            $.jGrowl( 'Only Admin, Project Manager or Owner can delete task');
+            alert ('Only Admin, Project Manager or Owner can delete task');
+        }
+    }
+    function assignMe ( taskId ) {                
+        AjaxTaskService.assignTaskUser ( taskId, null, function() {            
+            $.jGrowl( "Task # " + taskId + " assigned successfully!");
+        });
+        
+    }
+    
     // executed on "create new project" link is clicked
-    $('#createANewTask').click(function() {    
-        $('#clear').trigger('click');
-        $('#newTaskContainer').modal();
+    $('.workspaceDiv').livequery ("click", function() {
+        $('#taskTableContainer').slideDown('fast');
+        $('#detailReports').slideUp('fast');
+        $('#newTaskContainer').slideUp('fast');
     });
+    $('.ReportsDiv').livequery ("click", function() {
+        $('#taskTableContainer').slideUp('fast');
+        $('#detailReports').slideDown('fast');
+        $('#newTaskContainer').slideUp('fast');
+    });
+    
+    $('.taskEditDiv').click(function() {    
+        $('#taskTableContainer').slideUp('fast');
+        $('#detailReports').slideUp('fast');
+        $('#newTaskContainer').slideDown('fast');
+    });
+    
+    $('#taskTable').livequery(function() {
+        $(this).tableHover();
+    });
+    
+    $("#deadline").date_input();
 
-    // open user in a modal for editing
-    $('#taskTable td').livequery( function () { 
-        $(this).not('.action').not('a').click(function () { 
-            viewed = $(this).parent().children()[7].firstChild.id.toString().substring(10);
-            var task = tasksCache[ viewed ];
-            $('#title').val(task.title);        
-            $('#estimatedHours').val(task.estimatedHours);
-            $('#hoursSpend').val(task.spendHours);
-            $('#notificationEmails').val(task.notificationEmails);
-            $('#description').val(task.description);
-            $('#projectDD').val(task.projectName);
-            $('#assingDD').val(task.assignedToUsername);
-            $('#priority').val(task.priority);
-            $('#status').val(task.status);
-            $('#deadline').val(task.deadlineFormat);
-            if ( task.isOwner == false ) {
-                $('#title').attr('disabled', true);
-                $('#estimatedHours').attr('disabled', true);                
-                $('#notificationEmails').attr('disabled', true);
-                $('#description').attr('disabled', true);
-                $('#projectDD').attr('disabled', true);
-                $('#assingDD').attr('disabled', true);                                
-                $('#deadline').attr('disabled', true);
-            }
-            $('#newTaskContainer').modal();
+    // Show menu when a list item is clicked
+    $("#taskTable td").livequery(function() {
+        $(this).contextMenu({
+            menu: 'myMenu'
+        }, function(action, el, pos) {
+            if ( action == 'edit') { var taskId = $(el).parent().children()[0].firstChild.data; showTaskForEdit(taskId);}
+            else if ( action == 'high') { var taskId = $(el).parent().children()[0].firstChild.data; changeTaskPriorityToHigh(taskId);}
+            else if ( action == 'inprogress') { var taskId = $(el).parent().children()[0].firstChild.data; changeTaskStatus(taskId, 'In Progress');}
+            else if ( action == 'completed') { var taskId = $(el).parent().children()[0].firstChild.data; changeTaskStatus(taskId, 'Completed');}
+            else if ( action == 'assignme') { var taskId = $(el).parent().children()[0].firstChild.data; assignMe(taskId);}
+            else if ( action == 'delete') { var taskId = $(el).parent().children()[0].firstChild.data; deleteTask(taskId);}
         });
     });
     
-
-    // executed on "delete" link is clicked
-    $('.deleteTask').livequery('click', function () {                                
-        var taskId = $(this).attr('id').toString().substring(10);      
-        AjaxTaskService.deleteTask ( taskId, taskList);
+    // open user in a modal for editinga
+    $('#taskTable td').livequery( function () { 
+        $(this).click(function () {             
+            var taskId = $(this).parent().children()[0].firstChild.data;            
+            showTaskForEdit( taskId );
+        });
     });
+    
+    function showTaskForEdit( taskId) {        
+        $('#clear').trigger('click');        
+        var task = tasksCache[ taskId ];
+        $('#title').val(task.title);        
+        $('#estimatedHours').val(task.estimatedHours);
+        $('#hoursSpend').val(task.spendHours);
+        $('#notificationEmails').val(task.notificationEmails);
+        $('#description').val(task.description);
+        $('#projectDD').val(task.projectName);
+        $('#assignToDD').val(task.assignedToUsername);
+        $('#priority').val(task.priority);
+        $('#status').val(task.status);
+        $('#deadline').val(task.deadlineFormat);
+        if ( task.isOwner == false ) {
+            $('#title').attr('disabled', true);
+            $('#estimatedHours').attr('disabled', true);                
+            $('#notificationEmails').attr('disabled', true);
+            $('#description').attr('disabled', true);
+            $('#projectDD').attr('disabled', true);
+            $('#assignToDD').attr('disabled', true);                                
+            $('#deadline').attr('disabled', true);
+        }            
+        $('#taskTableContainer').slideUp('fast');
+        $('#detailReports').slideUp('fast');
+        $('#newTaskContainer').slideDown('fast');
+        viewed = taskId;
+    }
+
     
     // executed on "clear" button is clicked
     $('#clear').click(function() {
@@ -154,7 +175,7 @@ $(document).ready(function() {
         $('#notificationEmails').attr('disabled', false);
         $('#description').attr('disabled', false);
         $('#projectDD').attr('disabled', false);
-        $('#assingDD').attr('disabled', false);                                
+        $('#assignToDD').attr('disabled', false);                                
         $('#deadline').attr('disabled', false);
     });
     // executed on "create new task" button is clicked
@@ -163,12 +184,8 @@ $(document).ready(function() {
         if ( viewed != null ) {
             task1 = tasksCache[viewed];
         }
-        //if (viewed != null && task1.isOwner == false) {            
-        // Admin, Owner, PM can change title, project, status, priority, assignTo, est hours, hours spend, notification, deadline, description
-        //assignTo can change status, priority, hoursSpend                                       
-        //}  else {// user can change everything on new task  
         if ( task1 == null) {
-            task1 = {id:null, title:null, deadline:null, priority:null, projectName:null, assignedToUsername:null, estimatedHours:null, notificationEmails:null, description:null};            
+            task1 = {id:null, title:null, deadline:null, deadlineFormat:null, priority:null, projectName:null, assignedToUsername:null, estimatedHours:null, notificationEmails:null, description:null};            
         }
         task1.title = $('#title').val();
         //task1.deadline = Date.parse($('#deadline').val());
@@ -176,7 +193,7 @@ $(document).ready(function() {
         var proj = $('#projectDD').val();
         if ( "Todo" != proj ) {
             task1.projectId = proj;
-            task1.projectName = projectDDCache[task1.projectId];
+            task1.projectName = projectDDCache[task1.projectId].projectName;
         }  else {
             task1.projectId = null;
             task1.projectName = null;
@@ -192,9 +209,14 @@ $(document).ready(function() {
             task1.assignedToUsername = null;
         }  
         task1.estimatedHours = $('#estimatedHours').val();
+        task1.deadlineFormat = $('#deadline').val();
         task1.notificationEmails = $('#notificationEmails').val();        
         task1.description = $('#description').val();        
-        AjaxTaskService.saveTask(task1, taskList);
+        AjaxTaskService.saveTask(task1, function (tasks) {
+            $.jGrowl( "Task saved successfully!");
+            viewed = null;
+            taskList(tasks);
+        });
         //$('#clear').trigger("click");
     });
          
@@ -217,7 +239,7 @@ $(document).ready(function() {
     
     
     
-    function displayProjectDDList(projectDDList) {
+    function displayProjectDDList(projectDDList) {        
         var options = "<option value='Todo'>Todo</option>";
         for ( var i = 0; i < projectDDList.length; i++ ) {
             options += "<option value='"+ projectDDList[i].projectId+"'>"+projectDDList[i].projectName + "</option>";
@@ -227,24 +249,23 @@ $(document).ready(function() {
     }
     $('#projectDD').livequery ('change', function() {
         var projectId =$(this).val();
-        //alert ( projectId );
-        //var x = projectDDCache;
-        var user = projectDDCache[projectId].users;
+        var _users = projectDDCache[projectId];
+        var users = _users.users;
         var options = "<option value='None'>None</option>";
-        for ( var i = 0; i < i.length; i++ ) {
-            options += "<option value='" + user[i].id + "'>" + user[i].firstname + " " + user[i].lastname + "</option>";
+        for ( var i = 0; i < users.length; i++ ) {
+            options += "<option value='" + users[i].id + "'>" + users[i].firstname + " " + users[i].lastname + "</option>";
         }
         $('#assignToDD').html (options );
     });
+    
     projectDDList = function ( projectDDListData ) {
         displayProjectDDList ( projectDDListData );
     }
-    
-    
+        
     AjaxProjectService.getProjectsForDropdown(projectDDList);
     
     function displayUsersDDList(usersDDList) {
-        var options = "<option value='None'>None</option>";
+        var options = "<option value='None'>None</option><option value='None'>me</option>";
         for ( var i = 0; i < usersDDList.length; i++ ) {
             options += "<option value='"+ usersDDList[i].id+"'>"+usersDDList[i].firstname + " " + usersDDList[i].lastname + "</option>";
             usersDDCache[usersDDList.id] = usersDDList[i];
@@ -256,13 +277,8 @@ $(document).ready(function() {
     }
     AjaxUsersService.getActiveUserList(usersDDList);
     
-    $("#deadline").datepicker({ 
-        minDate: 0, 
-        maxDate: 365 
-        //showOn: "both", 
-        //buttonImage: "templates/images/calendar.gif", 
-        //buttonImageOnly: true 
-    });
+    
+
     
     
     // --------------- reporting -----------------------------------//
@@ -285,7 +301,7 @@ $(document).ready(function() {
                 grid        : true,
                 data : [[tasksAssigned, tasksCompleted, hoursAssigned, hoursDone, myCreatedTask]],
                 axis_labels : [''],
-                legend : ['Tasks Assigned', 'Tasks Completed','Hours Assigned','Hours Done','My Created Tasks']
+                legend : ['Tasks Assigned '+tasksAssigned, 'Tasks Completed '+tasksCompleted,'Hours Assigned '+hoursAssigned,'Hours Done '+hoursDone,'My Created Tasks '+myCreatedTask]
             })).appendTo("#" + divId);	
         }
     }
@@ -294,14 +310,15 @@ $(document).ready(function() {
         displayReportFunction(data, "reportDiv");
     }
     
-    AjaxReportService.getUserReports(0, 3,displayReport);
+    AjaxReportService.getUserReports(0, 2, displayReport);
     //AjaxReportService.getUserReportSummary(0, displaySummaryReport);
-    $('#refreshReport').click(function() {        
-        AjaxReportService.getUserReports(0, 3, displayReport);
+    $('.refreshReport').click(function() {        
+        $.jGrowl( "Report refreshed successfully!");
+        AjaxReportService.getUserReports(0, 2, displayReport);
         //AjaxReportService.getUserReportSummary(0, displaySummaryReport);
     })
     
-} );
+});
 
 
     

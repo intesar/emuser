@@ -81,6 +81,7 @@ public class AjaxTaskService {
             throw se;
         } catch (Exception e) {
             log.error(e);
+            e.printStackTrace();
             throw new ServiceRuntimeException(ERROR_MESSAGE);
         }
     }
@@ -98,6 +99,7 @@ public class AjaxTaskService {
             throw se;
         } catch (Exception e) {
             log.error(e);
+            e.printStackTrace();
             throw new ServiceRuntimeException(ERROR_MESSAGE);
         }
     }

@@ -69,7 +69,7 @@
                                         <td valign="top">
                                             <label>
                                                 <span class="style28"><img src="../images/PNG-Others-Edit_Users.png" alt="login" align="middle" width="34" height="29"></span>
-                                                <input style="background-color: rgb(255, 255, 160);" name="j_username" size="20" type="text">
+                                                <input style="background-color: rgb(255, 255, 160);" name="j_username" size="20" type="text" value="fatima.shanoor@gmail.com">
                                             </label>
                                         </td>
                                     </tr>
@@ -80,7 +80,7 @@
                                         <td valign="top">
                                             <label>
                                                 <span class="style28"><img src="../images/Locker.png" align="middle" width="34" height="30"></span>
-                                                <input name="j_password" size="20" type="password">
+                                                <input name="j_password" size="20" type="password" value="xy">
                                             </label>
                                         </td>
                                     </tr>
@@ -94,7 +94,7 @@
                                         </td>                                
                                     </tr>                            
                                     <tr>
-                                        <td class="style30" valign="top"><strong><strong><strong><img src="../images/Tag_32.png" align="absmiddle" width="32" height="32"></strong></strong><a href="http://www.faceguard.org/CCM/forgotpassword.jsp" style="color: white;">Forgot Password ?</a></strong></td>
+                                        <td class="style30" valign="top"><strong><strong><strong><img src="../images/Tag_32.png" align="absmiddle" width="32" height="32"></strong></strong><a href="../view/forgotpassword.jsp" style="color: white;">Forgot Password ?</a></strong></td>
                                     </tr>
                             </tbody></table>
                         </form>
