@@ -30,9 +30,10 @@
                     <option>All Task</option>
                     <option>Find by Task ID</option>
                 </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <a id="printTaskTable" href='javascript:void(0);'>Print</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <a id="workspace_reports" href='javascript:void(0);'>Workspace|Reports</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <a id="createANewTask" href='javascript:void(0);'>New task</a>                        
+                
+                <img alt="Add" src="../images/task.png" class="workspaceDiv"></img><a class="workspaceDiv" href='javascript:void(0);'>Tasks</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <img alt="Add" src="../images/graph.png" class="ReportsDiv"></img><a class="ReportsDiv" href='javascript:void(0);'>Reports</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <img alt="Add" src="../images/add.gif" class="taskEditDiv"></img><a class="taskEditDiv" href='javascript:void(0);'>New task</a>                        
             </div>   
             <div id="taskTableContainer" align="left" > 
                 <div id="container">                                               
@@ -44,14 +45,13 @@
                                 <th>Project</th>
                                 <th>Assign-To</th>                                
                                 <th>Priority</th>
-                                <th>Title</th>                                
-                                <th>Date</th>                                                                
+                                <th>Title</th>                                                                                                                              
                                 <th></th>
                             </tr>
                         </thead>                
                         <tbody> 
                             <!-- this row is required by the datatable plugin to work -->
-                            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+                            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
                         </tbody>                
                     </table>   
                 </div>
@@ -64,13 +64,14 @@
                 <div id="reportsArea"></div>
             </div>
             
-            <div id="newTaskContainer" style="display:none" align="left">
+            <div id="newTaskContainer" style="display:none" align="center">
                 <div id="container">                    
                     <table>
                         <tr>
                             <td> <b>Title <font color="RED">*</font> </b><br>
-                            <input id="title" name="title" value="" maxlength="60" size="60" type="text"/>
+                            <input id="title" name="title" value="" maxlength="90" size="80" type="text"/>
                         </tr>
+                        <tr><td><br></td></tr>
                         <tr>
                             <table>
                                 <tr><td><b>Project</b></td><td><b>Assign-To</b></td><td><b>Priority</b></td><td><b>Status</b></td></tr>
@@ -98,34 +99,36 @@
                                     </td>
                                 </tr>
                             </table>
-                        </tr>                        
+                        </tr>             
+                        <tr><td><br></td></tr>
                         <tr>
                             <table>
                                 <tr><td><b>Est Hours</b></td><td><b>Hours Spend</b></td><td><b>Finish By</b></td></tr>
                                 <tr>
                                     <td> <input id="estimatedHours" name="estimatedHours" value="" maxlength="5" size="5" type="text" />
                                     <td> <input id="hoursSpend" name="hoursSpend" value="" maxlength="5" size="5" type="text" />
-                                    <td><input id="deadline" name="deadline" value="" type="text" size="10" maxlength="10"/><small>(mm/dd/yyyy)</small></td>
+                                    <td><input id="deadline" name="deadline" value="" type="text" size="10" maxlength="10" disabled/><small>(dd Mon yyyy)</small></td>
                                 </tr>
                             </table>
                         </tr>
+                        <tr><td><br></td></tr>
                         <tr>
                             <td> <b>Notification Emails</b><br>
                                 <input id="notificationEmails" name="notificationEmails" value="" size="50" type="text" /><small> (abc@example.com, ..)</small>                                
                             </td>
                         </tr>
+                        <tr><td><br></td></tr>
                         <tr>
                             <br>
                             <td><b>Description</b><br>
-                                <textarea id="description" rows="5" cols="50"></textarea>
+                                <textarea id="description" rows="5" cols="70"></textarea>
                             </td>
                         </tr>
                         <tr>                  
                             <br>
-                            <td>
-                                <input type="button" value="Refresh" id="clear"/>
-                                <input type="button" value="Save & Close" id="saveTask" class='simplemodal-close'/>                                
-                                <a href="javascript(0);">Add Comment</a>
+                            <td align="right">
+                                <input type="button" value="Clear" id="clear"/>                                
+                                <input type="button" value="Save" id="saveTask"/>                                
                             </td>   
                         </tr>  
                     </table>
@@ -134,10 +137,18 @@
         </div>
         
         <div id="rightDiv" >
-            <a id="refreshReport" href="javascript:void(0);">Refresh</a>
+            <img src="../images/refresh.png" class="refreshReport" />
+            <a class="refreshReport" href="javascript:void(0);">Refresh</a>
             <div id="reportDiv"></div>
             <div id="reportSummaryDiv"></div>            
         </div>        
-        
+        <ul id="myMenu" class="contextMenu">
+            <li class="edit"><a href="#edit">Edit</a></li>
+            <li class="high separator"><a href="#high">High Priority</a></li>
+            <li class="inprogress separator"><a href="#inprogress">In Progress</a></li>
+            <li class="completed"><a href="#completed">Completed</a></li>
+            <li class="assignme separator"><a href="#assignme">Assign Me</a></li>
+            <li class="delete separator"><a href="#delete">Delete</a></li>            
+        </ul>
     </body>
 </html>

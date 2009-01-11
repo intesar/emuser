@@ -21,11 +21,7 @@ $(document).ready(function() {
     AjaxUsersService.getUsersListforDropdown(displayUsersForReport);
     AjaxProjectService.getProjectsForDropdown(displayProjectDDList);
     
-    $('#workspace_reports').livequery ("click", function() {
-        $('#taskTableContainer').slideToggle('fast');
-        $('#detailReports').slideToggle('fast');
-    });
-    
+   
     
         
     $('#usersDDReports').livequery('change', function() {        
@@ -38,10 +34,12 @@ $(document).ready(function() {
     })
     
     displayReport1 = function( data) {
+        $.jGrowl( "User report loaded successfully!");
         displayReportFunction1(data, "reportsArea");
     }
     
     displayReport2 = function( data) {
+        $.jGrowl( "Project report loaded successfully!");
         displayReportFunction2(data, "reportsArea");
     }
     
@@ -61,7 +59,8 @@ $(document).ready(function() {
                 grid        : true,
                 data : [[tasksAssigned, tasksCompleted, hoursAssigned, hoursDone, myCreatedTask]],
                 axis_labels : [''],
-                legend : ['Tasks Assigned', 'Tasks Completed','Hours Assigned','Hours Done','My Created Tasks']
+                legend : ['Tasks Assigned ' + tasksAssigned, 'Tasks Completed '+tasksCompleted,
+                    'Hours Assigned '+hoursAssigned,'Hours Done '+hoursDone,'My Created Tasks ' +tasksCompleted]
             })).appendTo("#" + divId);	
         }
     }
@@ -82,7 +81,8 @@ $(document).ready(function() {
                 grid        : true,
                 data : [[tasksAssigned, tasksCompleted, hoursAssigned, hoursDone]],
                 axis_labels : [''],
-                legend : ['Tasks Created', 'Tasks Completed','Hours Assigned','Hours Done']
+                legend : ['Tasks Created ' +tasksAssigned, 'Tasks Completed '+tasksCompleted,
+                    'Hours Assigned '+hoursAssigned,'Hours Done '+hoursDone]
             })).appendTo("#" + divId);	
         }
     }

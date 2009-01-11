@@ -17,13 +17,13 @@
         
     </head>
     <body id="dt_example" class="example_alt_pagination" style="">
-        <jsp:include page="header.jsp" />
+        <jsp:include page="header_1.jsp" />
         <br>   
         <div id="leftDiv">
             <div id="userTableContainer"  align="center"> 
                 <div id="container">
                     <div align="right">
-                        <a id="createANewUser" href="javascript:void(0)">new user</a>                    
+                        <img alt="Add" src="../images/add.gif" class="createANewUser" ></img><a id="createANewUser" class="createANewUser" href="javascript:void(0)">New user</a>                    
                     </div>
                     <table id="usersTable" cellpadding="0" cellspacing="0" border="0" class="display" align="center">                        
                         <thead class="">

@@ -31,7 +31,7 @@
         </script>
     </head>
     <body  id="dt_example" class="example_alt_pagination">
-        <jsp:include page="header.jsp" />
+        <jsp:include page="header_3.jsp" />
         
         <div style="position:absolute; left:5%; top:10%; bottom:5%; width:70%; height:90%; ">
             <div id="newUserContainer"  align="center">

@@ -50,85 +50,78 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public void saveTask(TaskDto taskDto, String savedBy) {
-        try {
-            // to create a task user should be part of the project or admin
-            // or user can create todo for other users
-            Users savedByUser = usersDao.findByUsername(savedBy);
-            Users assignedTo = null;
-            if (log.isDebugEnabled()) {
-                log.debug(taskDto.toString());
+        // to create a task user should be part of the project or admin
+        // or user can create todo for other users
+        Users savedByUser = usersDao.findByUsername(savedBy);
+        Users assignedTo = null;
+        if (log.isDebugEnabled()) {
+            log.debug(taskDto.toString());
+        }
+        if (taskDto.getId() == null) {
+            Integer assign = taskDto.getAssignedToId();
+            if (assign != null) {
+                assignedTo = usersDao.read(taskDto.getAssignedToId());
+                taskDto.setAssignedDate(new Date());
+                taskDto.setAssignedById(savedByUser.getId());
             }
-            if (taskDto.getId() == null) {
-                Integer assign = taskDto.getAssignedToId();
-                if (assign != null) {
+            taskDto.setOwnerId(savedByUser.getId());
+            taskDto.setOwnerUsername(savedBy);
+            Task task = taskConverter.copyForCreate(taskDto, new Task(), savedByUser, assignedTo);
+            Project project = projectDao.findByNameAndOrganization(taskDto.getProjectName(), savedByUser.getOrganization().getId());
+            if (savedByUser.isIsAdministrator() || isUserProjectMember(savedByUser.getId(), project)) {
+                // user should be either admin or project member                
+                task.setProject(project);
+            }
+            taskDao.create(task);
+            reportService.processTask(null, taskDto);
+            sendTaskAlert(task);
+        } else { // only admin, owner, assigned or pm can update task
+            Task task = taskDao.read(taskDto.getId());
+            if (savedByUser.isIsAdministrator() || task.getOwner().equals(savedByUser) ||
+                    isUserProjectManager(savedByUser.getId(), task.getProject())) {
+                if ((taskDto.getAssignedToId() != null && task.getAssignedTo() == null) ||
+                        (taskDto.getAssignedToId() != null && task.getAssignedTo() != null && !taskDto.getAssignedById().equals(task.getAssignedTo().getId()))) {
                     assignedTo = usersDao.read(taskDto.getAssignedToId());
                     taskDto.setAssignedDate(new Date());
                     taskDto.setAssignedById(savedByUser.getId());
+                    taskDto.setAssignedToUsername(assignedTo.getUsername());
                 }
-                taskDto.setOwnerId(savedByUser.getId());
-                taskDto.setOwnerUsername(savedBy);
-                Task task = taskConverter.copyForCreate(taskDto, new Task(), savedByUser, assignedTo);
-                Project project = projectDao.findByNameAndOrganization(taskDto.getProjectName(), savedByUser.getOrganization().getId());
-                if (savedByUser.isIsAdministrator() || isUserProjectMember(savedByUser.getId(), project)) {
-                    // user should be either admin or project member                
-                    task.setProject(project);
+                reportService.processTask(task, taskDto);
+                Task task1 = taskConverter.copyForUpdate(taskDto, task, savedByUser, assignedTo);
+                if (taskDto.getProjectId() != null) {
+                    task1.setProject(projectDao.read(taskDto.getProjectId()));
                 }
-                taskDao.create(task);
-                reportService.processTask(null, taskDto);
-                sendTaskAlert(task);
-            } else { // only admin, owner, assigned or pm can update task
-                Task task = taskDao.read(taskDto.getId());
-                if (savedByUser.isIsAdministrator() || task.getOwner().equals(savedByUser) ||
-                        isUserProjectManager(savedByUser.getId(), task.getProject())) {
-                    if ((taskDto.getAssignedToId() != null && task.getAssignedTo() == null) ||
-                            (taskDto.getAssignedToId() != null && task.getAssignedTo() != null && !taskDto.getAssignedById().equals(task.getAssignedTo().getId()))) {
-                        assignedTo = usersDao.read(taskDto.getAssignedToId());
-                        taskDto.setAssignedDate(new Date());
-                        taskDto.setAssignedById(savedByUser.getId());
-                        taskDto.setAssignedToUsername(assignedTo.getUsername());
-                    }
-                    reportService.processTask(task, taskDto);
-                    Task task1 = taskConverter.copyForUpdate(taskDto, task, savedByUser, assignedTo);
-                    if (taskDto.getProjectId() != null) {
-                        task1.setProject(projectDao.read(taskDto.getProjectId()));
-                    }
-                    taskDao.update(task1);
-                } else if (task.getAssignedTo() != null && task.getAssignedTo().equals(savedByUser)) {
-                    reportService.processTask(task, taskDto);
-                    Task task1 = taskConverter.copyForUpdateForAssignee(taskDto, task);
-                    taskDao.update(task1);
-                    sendTaskAlert(task1);
-                } else {
-                    throw new ServiceRuntimeException("Illegal Action");
-                }
+                taskDao.update(task1);
+            } else if (task.getAssignedTo() != null && task.getAssignedTo().equals(savedByUser)) {
+                reportService.processTask(task, taskDto);
+                Task task1 = taskConverter.copyForUpdateForAssignee(taskDto, task);
+                taskDao.update(task1);
+                sendTaskAlert(task1);
+            } else {
+                throw new ServiceRuntimeException("Illegal Action");
             }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
+
     }
 
     @Override
     public void deleteTask(Integer taskId, String deletedBy) {
-        try {
-            Users users = usersDao.findByUsername(deletedBy);
-            Task task = taskDao.read(taskId);
-            // admins, owner or pm can delete a task
-            if (users.isIsAdministrator() || task.getOwner().equals(users) || isUserProjectManager(users.getId(), task.getProject())) {
-                taskDao.delete(task);
-                TaskDto dto = new TaskDto();
-                dto.setAssignedToId(null);
-                dto.setOwnerId(task.getOwner().getId());
-                dto.setEstimatedHours(task.getEstimatedHours());
-                if (task.getProject() != null) {
-                    //dto.setProjectId(task.getProject().getId());
+        Users users = usersDao.findByUsername(deletedBy);
+        Task task = taskDao.read(taskId);
+        // admins, owner or pm can delete a task
+        if (users.isIsAdministrator() || task.getOwner().equals(users) || isUserProjectManager(users.getId(), task.getProject())) {
+            taskDao.delete(task);
+            TaskDto dto = new TaskDto();
+            dto.setAssignedToId(null);
+            dto.setOwnerId(task.getOwner().getId());
+            dto.setEstimatedHours(task.getEstimatedHours());
+            if (task.getProject() != null) {
+                //dto.setProjectId(task.getProject().getId());
                 }
-                //udpateReportForTaskUpdate(task, dto);
-                reportService.processTask(task, dto);
-            } else {
-                throw new ServiceRuntimeException("Only Task Owner can delete task!");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+            //udpateReportForTaskUpdate(task, dto);
+            reportService.processTask(task, dto);
+        } else {
+            throw new ServiceRuntimeException("Only Task Owner can delete task!");
         }
     }
 
@@ -173,12 +166,18 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public void assignTaskUser(Integer taskId, Integer userId, String requestedBy) {
-        Users users = usersDao.read(userId);
         Users users1 = usersDao.findByUsername(requestedBy);
+        Users users = null;
+        if (userId == null) {
+            users = users1;
+        } else {
+            users = usersDao.read(userId);
+        }
+
         Task task = taskDao.read(taskId);
         TaskDto dto = new TaskDto();
         taskConverter.copyForDisplay(task, dto, false, false, users1.getId());
-        dto.setAssignedToId(userId);
+        dto.setAssignedToId(users.getId());
         dto.setAssignedDate(new Date());
         dto.setAssignedById(users1.getId());
         dto.setAssignedToUsername(users.getUsername());
@@ -192,7 +191,10 @@ public class TaskServiceImpl implements TaskService {
             throw new ServiceRuntimeException("Invalid Operation!");
         }
         task.setAssignedTo(users);
+        task.setAssignedDate(new Date());
+        task.setAssignedBy(users1);
         taskDao.update(task);
+        sendTaskAlert(task);
     }
 
     @Override
@@ -202,15 +204,25 @@ public class TaskServiceImpl implements TaskService {
         // admin, owner, assigned, or pm can change
         if (users1.isIsAdministrator() || task.getAssignedTo().equals(users1) || task.getOwner().equals(users1) || isUserProjectManager(users1.getId(), task.getProject())) {
             if (status.equals(TASK_STATUS_COMPLETED)) {
-                task.setSpendHours(task.getEstimatedHours());
+                if (task.getSpendHours() <= 0) {
+                    task.setSpendHours(task.getEstimatedHours());
+                }
+                task.setCompletedDate(new Date());
+                task.setStatus(status);
+                if ( task.getAssignedTo() == null ) {
+                    task.setAssignedBy(users1);
+                    task.setAssignedDate(new Date());
+                    task.setAssignedTo(users1);
+                }
                 //updateReportForTaskComplete(task);
                 TaskDto dto = new TaskDto();
                 taskConverter.copyForDisplay(task, dto, false, false, users1.getId());
                 dto.setStatus(status);
-                reportService.processTask(null, dto);
+                reportService.processTask(task, dto);
             }
             task.setStatus(status);
             taskDao.update(task);
+            sendTaskAlert(task);
         } else {
             throw new ServiceRuntimeException("Only Admin, Task Owner, Project Manager or Assigned-To can change task status");
         }
@@ -224,6 +236,7 @@ public class TaskServiceImpl implements TaskService {
         if (users1.isIsAdministrator() || task.getAssignedTo().equals(users1) || task.getOwner().equals(users1) || isUserProjectManager(users1.getId(), task.getProject())) {
             task.setPriority(priority);
             taskDao.update(task);
+            sendTaskAlert(task);
         } else {
             throw new ServiceRuntimeException("Only Admin, Task Owner, Project Manager or Assigned-To can change task priority");
         }

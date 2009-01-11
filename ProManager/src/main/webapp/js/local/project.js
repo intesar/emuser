@@ -21,7 +21,7 @@ $(document).ready(function() {
         for ( var i = 0 ; i < projects.length; i++ ) {  
             // create object
             var data = [ ""+projects[i].name, ""+projects[i].status, 
-                "<a id='deleteProject"+projects[i].id +"' class='deleteProject' href='javascript:void(0);'>Delete Project</a>--<a id='projectUsers"+projects[i].id +"' class='projectUsers' href='javascript:void(0);'>Members</a>"];                                  
+                "<img alt='delete project' src='../images/delete.png' id='deleteProject"+projects[i].id +"' class='deleteProject' /><img id='projectUsers"+projects[i].id +"' class='projectUsers' src='../images/users.png' />"];                                  
             projectCache[projects[i].id] = projects[i];
             dArray[i] = data;                                     
         }                   
@@ -41,7 +41,7 @@ $(document).ready(function() {
     AjaxProjectService.getProjectList(projectList);
     
     // executed on "create new project" link is clicked
-    $('#createANewProject').click(function() {                
+    $('.createANewProject').click(function() {                
         $('#newProjectContainer').modal();        
         $('#clear').trigger('click');        
     });
@@ -53,7 +53,8 @@ $(document).ready(function() {
         if ( confirm("Are you sure you want to delete " + proj.name + "?") ) {
             AjaxProjectService.deleteProject ( viewed, function ( data ) {
                 displayProjects (data);
-                alert("Project deleted successfully!");
+                $.jGrowl( proj.name +" deleted sucessfully!");
+                $.jGrowl( "Refreshing project list");
             });
         }
     });
@@ -67,6 +68,7 @@ $(document).ready(function() {
         viewed = null;
     });
     // executed on on Save & Close button is clicked, creates and saves a project
+    var _p = null;
     $('#saveProject').click(function() {
         var project1 = null;
         if ( viewed == null ) {
@@ -77,9 +79,15 @@ $(document).ready(function() {
         }
         project1.description = $('#description').val();        
         project1.status = $('#status').val();
-        AjaxProjectService.saveProject ( project1, projectList);
+        AjaxProjectService.saveProject ( project1, saveProjectCallback);
+        _p = project1;
     });
     
+    var saveProjectCallback = function ( projects ) {
+        $.jGrowl( _p.name +" saved sucessfully!");
+        $.jGrowl( "Refreshing project list");
+        displayProjects(projects);
+    }
     // open user in a modal for editing
     $('#projectTable td').livequery( function () { 
         $(this).not('.action').click(function () { 
@@ -101,8 +109,14 @@ $(document).ready(function() {
         viewed = $(this).attr('id').toString().substring(12);      
         _project = projectCache[viewed];    
         AjaxProjectService.getProjectUsers(viewed, projectUsersList);
+        $('#projectUsersDiv').slideToggle('fast');
+        $('#projectTableContainer').slideToggle('fast');
     });
     
+    $('.backToProjectList').livequery ('click', function() {
+        $('#projectUsersDiv').slideToggle('fast');
+        $('#projectTableContainer').slideToggle('fast');
+    });
     /* Global variable for the DataTables object */
     var puTable;	
     /* Global var for counter */
@@ -128,7 +142,7 @@ $(document).ready(function() {
             }            
             var data = [ projectUsers.projectName, "" + projectUsers.users[i].firstname + " " + projectUsers.users[i].lastname, 
                 manager + "  " +  managerAction, 
-                    "<a id='deleteProjectUser"+projectUsers.users[i].id +"' class='deleteProjectUser'  href='javascript:void(0);'>Remove User from Project</a>"];                                              
+                "<img src='../images/delete.png' id='deleteProjectUser"+projectUsers.users[i].id +"' class='deleteProjectUser'  />"];                                              
             dArray[i] = data;         
             projectUsersArray[projectUsers.users[i].id] = projectUsers.users[i];
         }                   
@@ -146,19 +160,31 @@ $(document).ready(function() {
     $('.addUserAsManager').livequery('click', function () { 
         viewedUser = $(this).attr('id').toString().substring(20);
         var username = projectUsersArray[viewedUser];
-        AjaxProjectService.saveUserToProject (viewed, username.username, true, projectUsersList);
+        AjaxProjectService.saveUserToProject (viewed, username.username, true, function(data) {
+            $.jGrowl( username.firstname + " " + username.lastname + " promoted as manager sucessfully!");
+            $.jGrowl( "Refreshing users list");
+            projectUsersList(data);
+        });
     });
     
     $('.removeUserAsManager').livequery('click', function () { 
         var viewedUser1 = $(this).attr('id').toString().substring(20);        
         var username1 = projectUsersArray[viewedUser1];
-        AjaxProjectService.saveUserToProject (viewed, username1.username, false, projectUsersList);
+        AjaxProjectService.saveUserToProject (viewed, username1.username, false, function(data) {
+            $.jGrowl( username1.firstname + " " + username1.lastname + " demoted as member sucessfully!");
+            $.jGrowl( "Refreshing users list");
+            projectUsersList(data);
+        });
     });
     
     $('.deleteProjectUser').livequery('click', function () { 
         var viewedUser1 = $(this).attr('id').toString().substring(17);
         var username1 = projectUsersArray[viewedUser1];
-        AjaxProjectService.deleteUserFromProject(viewed, username1.id, projectUsersList);
+        AjaxProjectService.deleteUserFromProject(viewed, username1.id, function(data) {
+            $.jGrowl( username1.firstname + " " + username1.lastname + " deleted sucessfully!");
+            $.jGrowl( "Refreshing users list");
+            projectUsersList(data);
+        });
     });
     
     $('displayAddUserToProject').livequery('click', function () { 
@@ -166,7 +192,7 @@ $(document).ready(function() {
     });
     
     // add projectUsers clicked
-    $('#saveProjectUsersLink').click (function() {
+    $('.saveProjectUsersLink').click (function() {
         if ( _project != null ) {
             $('#projectName').val(_project.name);
             $('#projectUsersSaveDiv').modal();
@@ -178,7 +204,11 @@ $(document).ready(function() {
     $('#addUserToProjectBtn').livequery('click', function () {         
         var username= $('#projectUsername').val();
         var manager = $('#manager').attr('checked');
-        AjaxProjectService.saveUserToProject (viewed, username, manager, projectUsersList); 
+        AjaxProjectService.saveUserToProject (viewed, username, manager, function(data) {
+            $.jGrowl( username + " added to project sucessfully!");
+            $.jGrowl( "Refreshing users list");
+            projectUsersList(data);
+        });
     });
     
 });
