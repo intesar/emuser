@@ -21,7 +21,7 @@ $(document).ready(function() {
         oTable.fnClearTable();
         for ( var i = 0 ; i < tasks.length; i++) {             
             // create object                        
-            var project = tasks[i].projectName; if ( project == null) project = "Todo";            
+            var project = tasks[i].projectName; if ( project == null) project = "<img src='../images/todo.png' title='Todo' />";            
             var deadline = tasks[i].deadlineFormat; if (deadline == null ) {deadline = "NA"} else {deadline = deadline.substr(0, 6);};
             var title = tasks[i].title ;
             var assignedUser = tasks[i].assignedToName; 
@@ -105,8 +105,8 @@ $(document).ready(function() {
         $('#newTaskContainer').slideDown('fast');
     });
     
-    $('#taskTable').livequery(function() {
-        $(this).tableHover();
+    $('#taskTable tbody tr').livequery(function() {
+        $(this).parent().parent().tableHover();
     });
     
     $("#deadline").date_input();
@@ -117,6 +117,7 @@ $(document).ready(function() {
             menu: 'myMenu'
         }, function(action, el, pos) {
             if ( action == 'edit') { var taskId = $(el).parent().children()[0].firstChild.data; showTaskForEdit(taskId);}
+            if ( action == 'new') { $('.taskEditDiv').trigger('click');}
             else if ( action == 'high') { var taskId = $(el).parent().children()[0].firstChild.data; changeTaskPriorityToHigh(taskId);}
             else if ( action == 'inprogress') { var taskId = $(el).parent().children()[0].firstChild.data; changeTaskStatus(taskId, 'In Progress');}
             else if ( action == 'completed') { var taskId = $(el).parent().children()[0].firstChild.data; changeTaskStatus(taskId, 'Completed');}

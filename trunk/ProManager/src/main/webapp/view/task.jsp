@@ -22,6 +22,7 @@
     </head>
     <body  id="dt_example" class="example_alt_pagination" style="width:100%; height:100%;">
         <jsp:include page="header.jsp" />                
+        <jsp:include page="banner.jsp" />       
         <div id='leftDiv' >
             <div align="center" >                         
                 <select name="projectStatusDropdown" id="projectStatusDropdown">
@@ -33,7 +34,7 @@
                 
                 <img alt="Add" src="../images/task.png" class="workspaceDiv"></img><a class="workspaceDiv" href='javascript:void(0);'>Tasks</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <img alt="Add" src="../images/graph.png" class="ReportsDiv"></img><a class="ReportsDiv" href='javascript:void(0);'>Reports</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <img alt="Add" src="../images/add.gif" class="taskEditDiv"></img><a class="taskEditDiv" href='javascript:void(0);'>New task</a>                        
+                <img alt="Add" src="../images/add.png" class="taskEditDiv"></img><a class="taskEditDiv" href='javascript:void(0);'>New task</a>                        
             </div>   
             <div id="taskTableContainer" align="left" > 
                 <div id="container">                                               
@@ -144,6 +145,7 @@
         </div>        
         <ul id="myMenu" class="contextMenu">
             <li class="edit"><a href="#edit">Edit</a></li>
+            <li class="new"><a href="#new">New</a></li>
             <li class="high separator"><a href="#high">High Priority</a></li>
             <li class="inprogress separator"><a href="#inprogress">In Progress</a></li>
             <li class="completed"><a href="#completed">Completed</a></li>

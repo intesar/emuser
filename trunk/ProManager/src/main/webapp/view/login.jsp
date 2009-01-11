@@ -109,26 +109,29 @@
                         <table bgcolor="#ffffff" border="1" bordercolor="#587498" rules="none" width="636" height="306">
                             <tbody>
                                 <tr>
-                                    <td width="232">
+                                    <td>
                                         <table>
                                             <tbody><tr>
-                                                    <th width="233"><div align="left">
-                                                            <p> Benefits....</p>
+                                                    <th><div align="left">
+                                                            <p> Improves ....</p>
                                                     </div></th>
                                                 </tr>
                                                 <tr>
-                                                    <td><div align="left"><img src="../images/right.jpg" width="24" height="23"><span class="style25"></span></div></td>
+                                                    <td><div align="left"><img src="../images/right.jpg" width="24" height="23"><span class="style25">Efficiency, Evaulates efforts and redirects energy to valuable goals</span></div></td>
                                                 </tr>
                                                 <tr>
-                                                    <td><div align="left"><img src="../images/right.jpg" width="24" height="23"><span class="style25"></span></div></td>
+                                                    <td><div align="left"><img src="../images/right.jpg" width="24" height="23"><span class="style25">Accuracy, evaluates all resources (Human, & other) </span></div></td>
                                                 </tr>
                                                 <tr>
-                                                    <td><div align="left"><img src="../images/right.jpg" width="24" height="23"><span class="style25"></span></div></td>
+                                                    <td><div align="left"><img src="../images/right.jpg" width="24" height="23"><span class="style25">Predictability, previous work can be used to forecast and predict future</span></div></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><div align="left"><img src="../images/right.jpg" width="24" height="23"><span class="style25">Accountability, allows individuals to take complete responsibility of task</span></div></td>
                                                 </tr>
                                             </tbody>
                                         </table>
                                     <p class="style3" align="center"> <a href="../view/signup.jsp">Sign Up</a> </p></td>
-                                    <td width="394"></td>
+                                    
                                 </tr>
                         </tbody></table>      
                         <div align="center">                        

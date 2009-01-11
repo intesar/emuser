@@ -25,13 +25,15 @@
 }
 
 #leftDiv {
-    position:absolute; left:2%; top:5%; bottom:5%; width:70%; height:90%;
+    position:absolute; left:2%; top:10%; bottom:5%; width:70%; height:80%;
 }
 
 #menuDiv {
     position:absolute; right:5%; top:1%; height:5%;
 }
-
+#bannerDiv {
+    position:absolute; left:2%; top:1%
+}
 #rightDiv {
     position:absolute; left:74%; top:15%; bottom:0; width:25%; height:75%;
 }
