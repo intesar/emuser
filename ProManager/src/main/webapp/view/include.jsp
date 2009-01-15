@@ -30,7 +30,7 @@
     }
     BODY {
         font-family: Verdana, Arial, Helvetica, sans-serif;
-        font-size: 11px;
+        font-size: 12px;
         background: #FFF;
         padding: 15px;
     }

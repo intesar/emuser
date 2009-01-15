@@ -10,7 +10,7 @@
 
 <html>
     <head>
-        <title>Dashboard</title>        
+        <title>Grow-Fast Dashboard</title>        
         <jsp:include page="include.jsp" />      
         <script type='text/javascript' src='../dwr/interface/AjaxTaskService.js'></script>
         <script type='text/javascript' src='../dwr/interface/AjaxProjectService.js'></script>
@@ -30,10 +30,10 @@
                     <option>Completed Task</option>
                     <option>All Task</option>
                     <option>Find by Task ID</option>
-                </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                
-                <img alt="Add" src="../images/task.png" class="workspaceDiv"></img><a class="workspaceDiv" href='javascript:void(0);'>Tasks</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <img alt="Add" src="../images/graph.png" class="ReportsDiv"></img><a class="ReportsDiv" href='javascript:void(0);'>Reports</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </select>&nbsp;
+                <img id='refreshTask' title='Refresh' src='../images/refresh.png' />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <img alt="Add" src="../images/task.png" class="workspaceDiv"></img><a class="workspaceDiv" href='javascript:void(0);'>Tasks Area</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <img alt="Add" src="../images/graph.png" class="ReportsDiv"></img><a class="ReportsDiv" href='javascript:void(0);'>Reports Area</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <img alt="Add" src="../images/add.png" class="taskEditDiv"></img><a class="taskEditDiv" href='javascript:void(0);'>New task</a>                        
             </div>   
             <div id="taskTableContainer" align="left" > 
@@ -47,7 +47,7 @@
                                 <th>Assign-To</th>                                
                                 <th>Priority</th>
                                 <th>Title</th>                                                                                                                              
-                                <th></th>
+                                <th>End By</th>
                             </tr>
                         </thead>                
                         <tbody> 

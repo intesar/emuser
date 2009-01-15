@@ -41,7 +41,7 @@ public class ReportServiceImplTest extends BaseTest {
      */
     public void testGetUserSummary() {
         Integer user = 7;
-        String requestedBy = "xy";
+        String requestedBy = "fatima.shanoor@gmail.com";
         UserReportDto result = instance.getUserSummary(user, requestedBy);
         assertNotNull(result);
 
@@ -49,7 +49,7 @@ public class ReportServiceImplTest extends BaseTest {
     
     public void testGetProjectReportSummary() {
         Integer project = 14;
-        String requestedBy = "xy";
+        String requestedBy = "fatima.shanoor@gmail.com";
         ProjectReportDto result = instance.getProjectReportSummary(project, requestedBy);
         System.out.println ("Est Time : " + result.getEstimatedTime() );
         assertNotNull(result.getEstimatedTime());

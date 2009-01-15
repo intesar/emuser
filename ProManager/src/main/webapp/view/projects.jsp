@@ -53,7 +53,7 @@
             <tr>                
                 <td><b>Status</b><br>
                     <select name="status" id="status">
-                        <option value="In Progess">In Progess</option>
+                        <option value="In Progress">In Progress</option>
                         <option value="On Hold">On Hold</option>
                         <option value="Completed">Completed</option>
                 </select></td>

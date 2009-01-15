@@ -51,7 +51,7 @@
     </head><body>
         <table align="center" bgcolor="#cc0001" border="0" bordercolor="#cc0001" width="830" height="28">
             <tbody><tr>
-                    <td width="824"><span class="style32">Grow-Fast Login </span></td>
+                    <td width="824"><span class="style32">Grow-Fast Login OpenSource</span></td>
                 </tr>
         </tbody></table>
         <table align="center" bgcolor="#ffffff" border="0" bordercolor="#cc0001" width="800" height="554">
@@ -127,6 +127,9 @@
                                                 </tr>
                                                 <tr>
                                                     <td><div align="left"><img src="../images/right.jpg" width="24" height="23"><span class="style25">Accountability, allows individuals to take complete responsibility of task</span></div></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><div align="left"><img src="../images/right.jpg" width="24" height="23"><span class="style25">Supported Browser (Firefox, Safari, Opera, Chrome)</span></div></td>
                                                 </tr>
                                             </tbody>
                                         </table>
