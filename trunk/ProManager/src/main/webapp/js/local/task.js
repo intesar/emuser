@@ -25,11 +25,11 @@ $(document).ready(function() {
             var deadline = tasks[i].deadlineFormat; if (deadline == null ) {deadline = "NA"} else {deadline = deadline.substr(0, 6);};
             var title = tasks[i].title ;
             var assignedUser = tasks[i].assignedToName; 
-            if ( assignedUser == 'me') {assignedUser = "<img src='../images/user.png' title='High' />";}
-            else if ( assignedUser == '') {assignedUser = "<img src='../images/add-user.png' title='High' />";}
+            if ( assignedUser == 'me') {assignedUser = "<img src='../images/user.png' title='Me' />";}
+            else if ( assignedUser == '') {assignedUser = "<img src='../images/add-user.png' title='None' />";}
             var status = tasks[i].status;
-            if ( status == 'In Progress') {status = "<img src='../images/in_progress.png' title='High' />";}
-            else if ( status == 'Completed') {status = "<img src='../images/completed.png' title='High' />";}
+            if ( status == 'In Progress') {status = "<img src='../images/in_progress.png' title='In Progress' />";}
+            else if ( status == 'Completed') {status = "<img src='../images/completed.png' title='Completed' />";}
             var priority = tasks[i].priority;        
             if ( priority == "High") { priority = "<img src='../images/high_priority.png' title='High' />";}
             var data = [ tasks[i].id , status, project, assignedUser, priority, title, deadline];                                  
