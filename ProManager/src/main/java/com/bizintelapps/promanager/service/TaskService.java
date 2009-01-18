@@ -57,6 +57,8 @@ public interface TaskService {
      * @return
      */
     public List<TaskDto> searchTasks(String statuses, String requestedBy);
+    
+    public List<TaskDto> searchTasks(String statuses, int max, String requestedBy);
 
     /**
      * user can only be assigned if its todo or project memeber

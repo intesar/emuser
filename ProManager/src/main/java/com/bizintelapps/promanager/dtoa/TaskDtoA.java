@@ -38,7 +38,7 @@ public class TaskDtoA {
                 taskDto.setAssignedToName("me");
             } else {
                 taskDto.setAssignedToUsername(task.getAssignedTo().getUsername());
-                taskDto.setAssignedToName(task.getAssignedTo().getFirstname() + " " +task.getAssignedTo().getLastname());
+                taskDto.setAssignedToName(task.getAssignedTo().getFirstname());// + " " +task.getAssignedTo().getLastname());
             }            
             taskDto.setAssignedToId(task.getAssignedTo().getId());
             taskDto.setAssignedById(task.getAssignedBy().getId());
@@ -98,7 +98,7 @@ public class TaskDtoA {
         task.setStatus(taskDto.getStatus());
         task.setSpendHours(taskDto.getSpendHours());
         if (taskDto.getStatus().equals(TaskService.TASK_STATUS_COMPLETED)) {
-            taskDto.setCompletedDate(task.getCompletedDate());
+            task.setCompletedDate(new Date());
         }
         return task;
     }
@@ -113,13 +113,13 @@ public class TaskDtoA {
      */
     public Task copyForUpdate(TaskDto taskDto, Task task, Users users, Users assignedTo) {
         task.setTitle(taskDto.getTitle());
-        task.setDeadline(taskDto.getCompletedDate());
-        task.setEstimatedHours(taskDto.getEstimatedHours());
-        task.setStatus(taskDto.getStatus());
+        task.setDeadline(taskDto.getDeadline());
+        task.setEstimatedHours(taskDto.getEstimatedHours());        
         task.setPriority(taskDto.getPriority());
         if (!task.getStatus().equals(TaskService.TASK_STATUS_COMPLETED) && taskDto.getStatus().equals(TaskService.TASK_STATUS_COMPLETED)) {
-            task.setCompletedDate(taskDto.getCompletedDate());
+            task.setCompletedDate(new Date());
         }
+        task.setStatus(taskDto.getStatus());
         task.setSpendHours(taskDto.getSpendHours());
         task.setDescription(taskDto.getDescription());
         task.setNotificationEmails(taskDto.getNotificationEmails());
@@ -138,12 +138,12 @@ public class TaskDtoA {
      * @param task
      * @return
      */
-    public Task copyForUpdateForAssignee(TaskDto taskDto, Task task) {
-        task.setStatus(taskDto.getStatus());
+    public Task copyForUpdateForAssignee(TaskDto taskDto, Task task) {        
         task.setPriority(taskDto.getPriority());
         if (!task.getStatus().equals(TaskService.TASK_STATUS_COMPLETED) && taskDto.getStatus().equals(TaskService.TASK_STATUS_COMPLETED)) {
             task.setCompletedDate(taskDto.getCompletedDate());
         }
+        task.setStatus(taskDto.getStatus());
         task.setSpendHours(taskDto.getSpendHours());
         task.setDescription(taskDto.getDescription());
         task.setLastStatusChangedDate(new Date());

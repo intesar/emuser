@@ -61,6 +61,7 @@
             <dwr:include method="addTaskComment" /><!-- user -->
             <dwr:include method="udpateTaskDescription" /><!-- user -->
             <dwr:include method="getCurrentTask" /><!-- user -->
+            <dwr:include method="getRecentCompletedTask" /> <!-- user -->
         </dwr:remote>
     </bean>
     <bean id="reportAjaxService" class="com.bizintelapps.promanager.ajax.AjaxReportService">

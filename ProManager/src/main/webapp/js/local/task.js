@@ -22,7 +22,7 @@ $(document).ready(function() {
         for ( var i = 0 ; i < tasks.length; i++) {             
             // create object                        
             var project = tasks[i].projectName; if ( project == null) project = "<img src='../images/todo.png' title='Todo' />";            
-            var deadline = tasks[i].deadlineFormat; if (deadline == null ) {deadline = "NA"} else {deadline = deadline.substr(0, 6);};
+            var deadline = tasks[i].deadlineFormat; if (deadline == null ) {deadline = "<img src='../images/empty-calendar.png' title='None' />"} else {deadline = deadline.substr(0, 6);};
             var title = tasks[i].title ;
             var assignedUser = tasks[i].assignedToName; 
             if ( assignedUser == 'me') {assignedUser = "<img src='../images/user.png' title='Me' />";}
@@ -154,7 +154,7 @@ $(document).ready(function() {
             $('#description').attr('disabled', true);
             $('#projectDD').attr('disabled', true);
             $('#assignToDD').attr('disabled', true);                                
-            $('#deadline').attr('disabled', true);
+            //$('#deadline').attr('disabled', true);
         }            
         $('#taskTableContainer').slideUp('fast');
         $('#detailReports').slideUp('fast');
@@ -172,12 +172,17 @@ $(document).ready(function() {
         $('#notificationEmails').val("");
         $('#description').val("");
         $('#title').attr('disabled', false);
+        $('#projectDD').val("Todo");
+        $('#assignToDD').val("None");
+        $('#priority').val("Medium");
+        $('#status').val("New");
+        $('#deadline').val("");
         $('#estimatedHours').attr('disabled', false);                
         $('#notificationEmails').attr('disabled', false);
         $('#description').attr('disabled', false);
         $('#projectDD').attr('disabled', false);
         $('#assignToDD').attr('disabled', false);                                
-        $('#deadline').attr('disabled', false);
+        //$('#deadline').attr('disabled', false);
     });
     // executed on "create new task" button is clicked
     $('#saveTask').click(function() {        
@@ -221,9 +226,23 @@ $(document).ready(function() {
         //$('#clear').trigger("click");
     });
          
-    $('#printTaskTable').click(function() {
-        $.jPrintArea($('#taskTableContainer'));
+    
+    $('#refreshTask').click(function() {
+        var selectedStatus = $('#projectStatusDropdown').val();       
+        if ( selectedStatus == 'Find by Task ID') {
+            var taskId = prompt("Enter Task ID : ", "");
+            AjaxTaskService.getCurrentTask(taskId, taskList);
+        } else {
+            AjaxTaskService.getCurrentTask(selectedStatus, taskList);
+        }
     });
+    setInterval(function() {
+        var selectedStatus = $('#projectStatusDropdown').val();       
+        if ( selectedStatus == 'Find by Task ID') {
+        } else {
+            AjaxTaskService.getCurrentTask(selectedStatus, taskList);
+        }
+    },30000);
     
     $('#projectStatusDropdown').change(function() {
         var selectedStatus = $(this).val();       
@@ -289,7 +308,7 @@ $(document).ready(function() {
     function displayReportFunction (data, divId) {
         $('#' + divId).empty();
         for ( var i = 0; i < data.length; i++ ) {
-            var title = data[i].reportDate;
+            var title = data[i].name + " " + data[i].reportDate;
             var tasksAssigned = data[i].totalAssigned;
             var tasksCompleted = data[i].totalCompleted;
             var hoursAssigned = data[i].estimatedHours;
@@ -311,12 +330,42 @@ $(document).ready(function() {
         displayReportFunction(data, "reportDiv");
     }
     
-    AjaxReportService.getUserReports(0, 2, displayReport);
-    //AjaxReportService.getUserReportSummary(0, displaySummaryReport);
-    $('.refreshReport').click(function() {        
-        $.jGrowl( "Report refreshed successfully!");
-        AjaxReportService.getUserReports(0, 2, displayReport);
-        //AjaxReportService.getUserReportSummary(0, displaySummaryReport);
+    var loadUserReport = function() {
+        // get user id randomly
+        AjaxReportService.getUserReports(-1, 1, displayReport);
+    }
+    
+    AjaxReportService.getUserReports(0, 1, displayReport);
+    
+    setInterval(function() {
+        loadUserReport();
+    },30000);
+    
+    // set timer for 30secs  
+    function loadNews() {
+        AjaxTaskService.getRecentCompletedTask ( 5, displayNews);
+    }
+    var displayNews = function(tasks) {
+        var content = "";
+        for ( var i = 0; i < tasks.length; i++ )  {
+            tasksCache[tasks[i].id] = tasks[i];
+            content += "<p>"
+                + "<a id='news" + tasks[i].id + "'  class='newsClass' >" + tasks[i].title + " </a> <br> "
+                + tasks[i].assignedToName + ", " 
+                + tasks[i].priority + ", Completed, # " + tasks[i].id
+                + "</p>";              
+        }
+        $('#rightBottomDiv').slideUp('slow').slideDown('slow').html( content );
+        
+    }
+    setInterval(function() {
+        loadNews();
+    },30000);
+    AjaxTaskService.getRecentCompletedTask ( 5, displayNews);
+    
+    $('.newsClass').livequery('click', function() {
+        var taskId = $(this).attr('id').substr(4);
+        showTaskForEdit(taskId);
     })
     
 });

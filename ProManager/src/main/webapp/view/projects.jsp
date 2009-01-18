@@ -9,13 +9,14 @@
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>        
-    <title>Project - ProManager</title>
+    <title>Grow-Fast - Projectr</title>
     <jsp:include page="include.jsp" />
     <script type="text/javascript" src="../dwr/interface/AjaxProjectService.js"></script>
     <script type="text/javascript" src="../js/local/project.js"></script>
 </head>
 <body  id="dt_example" class="example_alt_pagination">
 <jsp:include page="header_2.jsp" />
+<jsp:include page="banner.jsp" /> 
 <br>      
 <div id="leftDiv">
 <div id="projectTableContainer"  align="center"> 
@@ -81,9 +82,10 @@
 <div id="projectUsersDiv" align="center" style="left:5%;display:none">
 <div id="container">
 <div align="right">
-    <img alt="Project List" src="../images/project.png" class="backToProjectList" />
+    <img alt="Project List" src="../images/projectList.png" class="backToProjectList" ><a href="javascript:void(0);" class="backToProjectList">Back to Project List</a>
+    &nbsp;&nbsp;&nbsp;&nbsp;
     <img alt="Add" src="../images/add.gif" class="saveProjectUsersLink" />
-    <a id="saveProjectUsersLink" class="saveProjectUsersLink" href="javascript:void(0);">Add Project User</a>
+    <a id="saveProjectUsersLink" class="saveProjectUsersLink" href="javascript:void(0);">Add a User to member</a>
 </div>
 <table id="projectUsersTable"  cellpadding="0" cellspacing="0" border="0" class="display" >                        
     <thead>
