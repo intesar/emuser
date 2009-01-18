@@ -6,6 +6,7 @@
      <!-- 1. Setup two parameters:          -->
     <!--    a) Acegi's configuration file  -->
     <!--    b) Loggin configuration file   -->
+    <display-name>Enterprise Organizer</display-name>
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>
@@ -55,4 +56,7 @@
         <servlet-name>dwr-invoker</servlet-name>
         <url-pattern>/dwr/*</url-pattern>
     </servlet-mapping>
-</web-app>
+    <session-config>
+        <session-timeout>30</session-timeout>
+    </session-config>
+    </web-app>

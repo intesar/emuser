@@ -44,7 +44,7 @@ public class UserReportDtoA {
         dto.setYear(ur.getYear());
         dto.setUser(ur.getUser());
         Users u = usersDao.read(ur.getUser());
-        dto.setName(u.getFirstname() + " " + u.getLastname());
+        dto.setName(u.getFirstname());
         dto.setUsername(u.getUsername());
         return dto;
     }

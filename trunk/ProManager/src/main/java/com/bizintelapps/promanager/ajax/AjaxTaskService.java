@@ -155,6 +155,9 @@ public class AjaxTaskService {
 
     }
 
+    public List<TaskDto> getRecentCompletedTask (int max) {
+        return taskService.searchTasks("'Completed'", max, SecurityUtil.getUsername());
+    }
     /**
      * 
      * @return

@@ -10,7 +10,7 @@
 
 <html>
     <head>        
-        <title>Users - ProManager</title>
+        <title>Grow-Fast - Users</title>
         <jsp:include page="include.jsp" />
         <script type="text/javascript" src="../dwr/interface/AjaxUsersService.js"></script>
         <script type="text/javascript" src="../js/local/users.js"></script>
@@ -18,10 +18,11 @@
     </head>
     <body id="dt_example" class="example_alt_pagination" style="">
         <jsp:include page="header_1.jsp" />
+        <jsp:include page="banner.jsp" /> 
         <br>   
         <div id="leftDiv">
             <div id="userTableContainer"  align="center"> 
-                <div id="container">
+                <div id="container">                    
                     <div align="right">
                         <img alt="Add" src="../images/add.gif" class="createANewUser" ></img><a id="createANewUser" class="createANewUser" href="javascript:void(0)">New user</a>                    
                     </div>

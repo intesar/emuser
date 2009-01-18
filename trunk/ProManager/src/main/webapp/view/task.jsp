@@ -18,7 +18,7 @@
         <script type='text/javascript' src='../dwr/interface/AjaxReportService.js'></script>
         <script type='text/javascript' src='../js/lib/jgcharts.js'></script>
         <script type='text/javascript' src='../js/local/task.js'></script>  
-        <script type='text/javascript' src='../js/local/report.js'></script>
+        <script type='text/javascript' src='../js/local/report.js'></script>        
     </head>
     <body  id="dt_example" class="example_alt_pagination" style="width:100%; height:100%;">
         <jsp:include page="header.jsp" />                
@@ -32,16 +32,16 @@
                     <option>Find by Task ID</option>
                 </select>&nbsp;
                 <img id='refreshTask' title='Refresh' src='../images/refresh.png' />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <img alt="Add" src="../images/task.png" class="workspaceDiv"></img><a class="workspaceDiv" href='javascript:void(0);'>Tasks Area</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <img alt="Add" src="../images/graph.png" class="ReportsDiv"></img><a class="ReportsDiv" href='javascript:void(0);'>Reports Area</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <img alt="Add" src="../images/add.png" class="taskEditDiv"></img><a class="taskEditDiv" href='javascript:void(0);'>New task</a>                        
+                <img alt="Task Area" src="../images/task.png" class="workspaceDiv"></img><a class="workspaceDiv" href='javascript:void(0);'>Task Area</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <img alt="Report Area" src="../images/graph.png" class="ReportsDiv"></img><a class="ReportsDiv" href='javascript:void(0);'>Report Area</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <img alt="New Task" src="../images/add.png" class="taskEditDiv"></img><a class="taskEditDiv" href='javascript:void(0);'>New task</a>                        
             </div>   
             <div id="taskTableContainer" align="left" > 
                 <div id="container">                                               
                     <table   id="taskTable" cellpadding="0" cellspacing="0" border="0" class="display" >                        
                         <thead>
                             <tr>    
-                                <th>ID</th>
+                                <th>#</th>
                                 <th>Status</th>
                                 <th>Project</th>
                                 <th>Assign-To</th>                                
@@ -58,7 +58,8 @@
                 </div>
             </div>
             <div id="detailReports" align="center" style="display:none">   
-                <br>
+                <br><br>
+                <b>Users</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Projects</b><br>
                 <select id="usersDDReports"></select>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <select id="projectDDReports"></select>
@@ -81,7 +82,7 @@
                                         </select>
                                     </td>
                                     <td> 
-                                        <select name="assignToDD" id="assignToDD">     
+                                        <select name="assignToDD" id="assignToDD" multiple>     
                                         </select>
                                     </td>
                                     <td>
@@ -108,7 +109,7 @@
                                 <tr>
                                     <td> <input id="estimatedHours" name="estimatedHours" value="" maxlength="5" size="5" type="text" />
                                     <td> <input id="hoursSpend" name="hoursSpend" value="" maxlength="5" size="5" type="text" />
-                                    <td><input id="deadline" name="deadline" value="" type="text" size="10" maxlength="10" disabled/><small>(dd Mon yyyy)</small></td>
+                                    <td><input id="deadline" name="deadline" value="" type="text" size="10" maxlength="10" /><small>(dd Mon yyyy)</small></td>
                                 </tr>
                             </table>
                         </tr>
@@ -137,12 +138,16 @@
             </div>
         </div>
         
-        <div id="rightDiv" >
-            <img src="../images/refresh.png" class="refreshReport" />
-            <a class="refreshReport" href="javascript:void(0);">Refresh</a>
+        <div id="rightDiv">
+            <!--<img src="../images/refresh.png" class="refreshReport" />
+            <a class="refreshReport" href="javascript:void(0);">Refresh</a> -->
             <div id="reportDiv"></div>
             <div id="reportSummaryDiv"></div>            
         </div>        
+        
+        <div id="rightBottomDiv" title="Recently Completed Task">
+            
+        </div>
         <ul id="myMenu" class="contextMenu">
             <li class="edit"><a href="#edit">Edit</a></li>
             <li class="new"><a href="#new">New</a></li>

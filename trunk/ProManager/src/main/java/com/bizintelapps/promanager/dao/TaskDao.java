@@ -14,7 +14,6 @@
  *  limitations under the License.
  *  under the License.
  */
-
 package com.bizintelapps.promanager.dao;
 
 import com.bizintelapps.promanager.entity.Task;
@@ -24,10 +23,11 @@ import java.util.List;
  *
  * @author intesar
  */
-public interface TaskDao  extends GenericDao<Task, Integer> {
-    
+public interface TaskDao extends GenericDao<Task, Integer> {
+
     public List<Task> findByTaskStatusAndUserId(String status, String username);
-    
+
     public List<Task> search(String statuses, Integer userId);
 
+    public List<Task> search(String statuses, Integer userId, int max);
 }

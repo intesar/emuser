@@ -35,6 +35,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -71,6 +72,32 @@ public class ReportServiceImpl implements ReportService {
             for (UserReport ur : list) {
                 dtos.add(userReportDtoA.copyForDisplay(ur));
             }
+        }
+        return dtos;
+    }
+
+    @Override
+    public List<UserReportDto> getRandomUserReports(Integer maxReports, String requestedBy) {
+        if (maxReports == null || maxReports < 1) {
+            maxReports = 3;
+        }
+        Users requestedUser = usersDao.findByUsername(requestedBy);
+        List<UserReportDto> dtos = new ArrayList<UserReportDto>();
+        Integer userId = null;
+        // if admin get any user        
+        // else get self        
+        if (requestedUser.isIsAdministrator()) {
+            List<Users> users = usersDao.findByOrganizationId(requestedUser.getOrganization().getId());
+            Random r = new Random();
+            int randmonUser = r.nextInt(users.size());
+            userId = users.get(randmonUser).getId();
+        } else {
+            userId = requestedUser.getId();
+        }
+        List<UserReport> list = userReportDao.findByUser(userId, maxReports);
+        // copy for display
+        for (UserReport ur : list) {
+            dtos.add(userReportDtoA.copyForDisplay(ur));
         }
         return dtos;
     }
@@ -232,11 +259,11 @@ public class ReportServiceImpl implements ReportService {
                     userReport = new UserReport(null, c.get(Calendar.MONTH), c.get(Calendar.YEAR), 0);
                     userReport.setUser(dto.getAssignedToId());
                     userReportDao.create(userReport);
-                    //userReport = userReportDao.findByUserMonthAndYear(dto.getAssignedToId(), c.get(Calendar.MONTH), c.get(Calendar.YEAR));
+                //userReport = userReportDao.findByUserMonthAndYear(dto.getAssignedToId(), c.get(Calendar.MONTH), c.get(Calendar.YEAR));
                 }
-                System.out.println ( " UserReport " + userReport );
-                System.out.println ( " eh" + userReport.getEstimatedHours());
-                System.out.println ( " teh " + t);
+                System.out.println(" UserReport " + userReport);
+                System.out.println(" eh" + userReport.getEstimatedHours());
+                System.out.println(" teh " + t);
                 if (userReport.getEstimatedHours() != null && userReport.getEstimatedHours() > t.getEstimatedHours()) {
                     userReport.setEstimatedHours(userReport.getEstimatedHours() - t.getEstimatedHours());
                 }

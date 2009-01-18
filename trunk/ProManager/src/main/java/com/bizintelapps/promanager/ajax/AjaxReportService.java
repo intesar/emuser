@@ -36,6 +36,9 @@ public class AjaxReportService {
      * @return
      */
     public List<UserReportDto> getUserReports(Integer user, Integer maxReports) {
+        if ( user == -1 ) {
+            return reportService.getRandomUserReports(maxReports, SecurityUtil.getUsername());
+        }
         return reportService.getUserReports(user, maxReports, SecurityUtil.getUsername());
     }
 

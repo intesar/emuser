@@ -42,7 +42,9 @@ public interface ReportService {
      * @return
      */
     public List<UserReportDto> getUserReports(Integer user, Integer maxReports, String requestedBy);
-    
+
+    public List<UserReportDto> getRandomUserReports(Integer maxReports, String requestedBy);
+
     /**
      * return summary of all user report
      * @param user is null then get for requestedBy
@@ -50,15 +52,15 @@ public interface ReportService {
      * @return
      */
     public UserReportDto getCurrentUserReport(Integer user, String requestedBy);
-    
+
     /**
      * returns complete summary
      * @param user
      * @param requestedBy
      * @return
      */
-    public UserReportDto getUserSummary ( Integer user, String requestedBy );
-    
+    public UserReportDto getUserSummary(Integer user, String requestedBy);
+
     /**
      *  return list of reports for all users for the time period
      * @param month
@@ -92,8 +94,4 @@ public interface ReportService {
      * @return
      */
     public ProjectReportDto getCurrentProjectReport(Integer project, String requestedBy);
-
-    
-    
-    
 }

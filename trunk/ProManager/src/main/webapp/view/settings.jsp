@@ -6,7 +6,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
-        <title>Settings - ProManager</title>
+        <title>Grow-Fast - Settings</title>
         <jsp:include page="include.jsp" />
         <script type="text/javascript" src="../dwr/interface/AjaxUsersService.js"></script>
         <script type="text/javascript">
@@ -33,8 +33,11 @@
     <body  id="dt_example" class="example_alt_pagination">
         <jsp:include page="header_3.jsp" />
         
-        <div style="position:absolute; left:5%; top:10%; bottom:5%; width:70%; height:90%; ">
+        
+        <div style="position:absolute; left:5%; top:30%; bottom:5%; width:70%; height:90%; ">
+            
             <div id="newUserContainer"  align="center">
+                <a><h3> Change Password</h3></a>
                 <div id="container">                    
                     <table>                
                         <tr>

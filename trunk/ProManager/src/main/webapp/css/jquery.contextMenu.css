@@ -60,5 +60,5 @@
 .contextMenu LI.inprogress A { background-image: url(../images/in_progress.png); }
 .contextMenu LI.completed A { background-image: url(../images/completed.png); }
 .contextMenu LI.delete A { background-image: url(../images/delete.png); }
-.contextMenu LI.assignme A { background-image: url(../images/add-user.png); }
+.contextMenu LI.assignme A { background-image: url(../images/user.png); }
 

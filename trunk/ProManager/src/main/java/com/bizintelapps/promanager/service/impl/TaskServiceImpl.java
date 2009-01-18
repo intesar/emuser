@@ -152,6 +152,25 @@ public class TaskServiceImpl implements TaskService {
         }
         return list;
     }
+    
+    @Override
+    public List<TaskDto> searchTasks(String statuses, int max, String requestedBy) {
+        Users u = usersDao.findByUsername(requestedBy);
+        List<Task> tasks = taskDao.search(statuses, u.getId(), max);
+        // requestedBy if admin, pm or owner can udpate lot on task        
+        //List<TaskDto> dtos = taskConverter.copyAllForDisplay(tasks, u.isIsAdministrator(), u.getId());
+        List<TaskDto> list = new ArrayList<TaskDto>();
+        for (Task task : tasks) {
+            boolean isAdmin = false;
+            if (u.isIsAdministrator() || task.getOwner().equals(u) || task.getAssignedTo().equals(u) || isUserProjectManager(u.getId(), task.getProject())) {
+                isAdmin = true;
+            }
+            TaskDto taskDto = taskConverter.copyForDisplay(task, new TaskDto(), isAdmin, isUserProjectManager(u.getId(), task.getProject()), u.getId());
+            list.add(taskDto);
+        }
+        return list;
+    }
+    
     // only admin, owner, pm, assign-to can see task
     @Override
     public TaskDto getTask(Integer taskId, String requestedBy) {
@@ -207,9 +226,10 @@ public class TaskServiceImpl implements TaskService {
                 if (task.getSpendHours() <= 0) {
                     task.setSpendHours(task.getEstimatedHours());
                 }
-                task.setCompletedDate(new Date());
-                task.setStatus(status);
-                if ( task.getAssignedTo() == null ) {
+                if (!task.getStatus().equals(TASK_STATUS_COMPLETED)) {
+                    task.setCompletedDate(new Date());
+                }                
+                if (task.getAssignedTo() == null) {
                     task.setAssignedBy(users1);
                     task.setAssignedDate(new Date());
                     task.setAssignedTo(users1);

@@ -1,6 +1,3 @@
 <div id="bannerDiv">
-    <a>Grow-Fast    OpenSource 
-    <br>
-        Improves Efficency, Accuracy, Predictability, Accountability of Enterprises
-    </a>
+    <a><H3>Grow-Fast</H3></a>
 </div>
