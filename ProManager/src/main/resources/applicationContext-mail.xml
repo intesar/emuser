@@ -10,19 +10,26 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
             <list>
                 <ref bean="emailHostWrapper1" />
                 <ref bean="emailHostWrapper2" />
+                <ref bean="emailHostWrapper2" />
             </list>
         </property>
     </bean>
     <bean id="emailHostWrapper1" class="com.bizintelapps.mail.EmailHostWrapper">
         <property name="host" value="smtp.gmail.com" />
         <property name="port" value="465" />
-        <property name="from" value="face.guard3@bizintelapps.com" />
+        <property name="from" value="grow-fast1@bizintelapps.com" />
         <property name="password" value="Abbh1234" />
     </bean>
     <bean id="emailHostWrapper2" class="com.bizintelapps.mail.EmailHostWrapper">
         <property name="host" value="smtp.gmail.com" />
         <property name="port" value="465" />
-        <property name="from" value="face.guard4@bizintelapps.com" />
+        <property name="from" value="grow-fast2@bizintelapps.com" />
+        <property name="password" value="Abbh1234" />
+    </bean>
+    <bean id="emailHostWrapper3" class="com.bizintelapps.mail.EmailHostWrapper">
+        <property name="host" value="smtp.gmail.com" />
+        <property name="port" value="465" />
+        <property name="from" value="grow-fast3@bizintelapps.com" />
         <property name="password" value="Abbh1234" />
     </bean>
 </beans>

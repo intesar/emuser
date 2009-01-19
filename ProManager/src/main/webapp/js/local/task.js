@@ -143,7 +143,7 @@ $(document).ready(function() {
         $('#notificationEmails').val(task.notificationEmails);
         $('#description').val(task.description);
         $('#projectDD').val(task.projectName);
-        $('#assignToDD').val(task.assignedToUsername);
+        $('#assignToDD').val(task.assignedToId);
         $('#priority').val(task.priority);
         $('#status').val(task.status);
         $('#deadline').val(task.deadlineFormat);
@@ -205,24 +205,33 @@ $(document).ready(function() {
             task1.projectName = null;
         }  
         task1.status = $('#status').val();            
-        task1.spendHours = $('#hoursSpend').val();
-        var u = $('#assignToDD').val();
-        if ( u != "None") {
-            task1.assignedToId = u;
-            task1.assignedToUsername = usersDDCache[task1.assignedTo];
-        }else {
-            task1.assignedToId = null;
-            task1.assignedToUsername = null;
-        }  
+        task1.spendHours = $('#hoursSpend').val();        
         task1.estimatedHours = $('#estimatedHours').val();
         task1.deadlineFormat = $('#deadline').val();
         task1.notificationEmails = $('#notificationEmails').val();        
-        task1.description = $('#description').val();        
-        AjaxTaskService.saveTask(task1, function (tasks) {
-            $.jGrowl( "Task saved successfully!");
-            viewed = null;
-            taskList(tasks);
-        });
+        task1.description = $('#description').val();     
+        if ( $('#copyTask').is(":checked") ) {
+            var u1 = $('#assignToDD').val();
+            var userIds = u1.toString().split(",");
+            for ( var i = 0; i < userIds.length; i++ ) {                                
+                if ( userIds[i] > 0 ) {
+                    task1.assignedToId = userIds[i];                
+                    task1.assignedToUsername = usersDDCache[task1.assignedTo];
+                    AjaxTaskService.saveTask(task1);    
+                    viewed = null;                     
+                }                                                   
+            }            
+        } else {
+            var u = $('#assignToDD').val();
+            if ( u != "" && u.length > 0) {
+                task1.assignedToId = u;
+                task1.assignedToUsername = usersDDCache[task1.assignedTo];
+            }else {
+                task1.assignedToId = null;
+                task1.assignedToUsername = null;
+            }  
+            AjaxTaskService.saveTask(task1);
+        }
         //$('#clear').trigger("click");
     });
          
@@ -271,7 +280,7 @@ $(document).ready(function() {
         var projectId =$(this).val();
         var _users = projectDDCache[projectId];
         var users = _users.users;
-        var options = "<option value='None'>None</option>";
+        var options = "<option value='0'></option>";
         for ( var i = 0; i < users.length; i++ ) {
             options += "<option value='" + users[i].id + "'>" + users[i].firstname + " " + users[i].lastname + "</option>";
         }
@@ -284,20 +293,29 @@ $(document).ready(function() {
         
     AjaxProjectService.getProjectsForDropdown(projectDDList);
     
+   
     function displayUsersDDList(usersDDList) {
-        var options = "<option value='None'>None</option><option value='None'>me</option>";
+        var options = "<option value='0'></option>";
         for ( var i = 0; i < usersDDList.length; i++ ) {
             options += "<option value='"+ usersDDList[i].id+"'>"+usersDDList[i].firstname + " " + usersDDList[i].lastname + "</option>";
             usersDDCache[usersDDList.id] = usersDDList[i];
         }
-        $('#assignToDD').html(options);
+        $('#assignToDD').html(options);        
     }
     usersDDList = function ( usersDDListData ) {
         displayUsersDDList ( usersDDListData );
     }
     AjaxUsersService.getActiveUserList(usersDDList);
     
-    
+    $('#copyTask').click ( function() {
+        if ($(this).is(":checked")) {
+            $('#assignToDD').attr('multiple', 'multiple');
+            $('#assignToDD').attr('size', '3');
+        } else {
+            $('#assignToDD').removeAttr('multiple', 'multiple');
+            $('#assignToDD').removeAttr('size', '3');
+        }
+    })
 
     
     

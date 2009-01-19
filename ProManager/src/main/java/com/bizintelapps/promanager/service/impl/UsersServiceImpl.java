@@ -135,6 +135,8 @@ public class UsersServiceImpl implements UsersService {
                 authoritiesDao.create(authorities1);
             }
             authoritiesDao.create(authorities);
+            mailSender.sendMail(new String[]{users.getUsername()}, "Welcome " + users.getFirstname() + " " + users.getLastname() 
+                    + " your registration was Successfull!, your username/password is " + users.getUsername() + "/" + users.getUsername(), "");
         } else { // update state to db
             Users users = usersDao.read(usersDto.getId());
             // admin or self can update there records
@@ -166,8 +168,7 @@ public class UsersServiceImpl implements UsersService {
             usersConverter.copyForUpdate(usersDto, users);
             users.setLastUpdateDate(new Date());
             users.setLastUpdateUser(savedByUsers.getId());
-            usersDao.update(users);
-            mailSender.sendMail(new String[]{users.getUsername()}, "Welcome " + users.getFirstname() + " " + users.getLastname() + " your registration was Successfull!", "");
+            usersDao.update(users);            
             log.debug("--------- after updated ");
         }
     }
