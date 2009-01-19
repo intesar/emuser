@@ -30,16 +30,16 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author intesar
  */
 public class AjaxTaskService {
-
+    
+   
     /**
      * creates or updates a task
      * @param taskDto
      * @return
      */
-    public List<TaskDto> saveTask(TaskDto taskDto) {
+    public void saveTask(TaskDto taskDto) {
         try {
-            taskService.saveTask(taskDto, SecurityUtil.getUsername());
-            return getCurrentTask("Current Task");
+            taskService.saveTask(taskDto, SecurityUtil.getUsername());            
         } catch (ServiceRuntimeException se) {
             log.error(se);
             se.printStackTrace();
@@ -155,9 +155,10 @@ public class AjaxTaskService {
 
     }
 
-    public List<TaskDto> getRecentCompletedTask (int max) {
+    public List<TaskDto> getRecentCompletedTask(int max) {
         return taskService.searchTasks("'Completed'", max, SecurityUtil.getUsername());
     }
+
     /**
      * 
      * @return

@@ -34,12 +34,13 @@ public class TaskDtoA {
         taskDto.setId(task.getId());
         if (task.getAssignedTo() != null) {
             if (task.getAssignedTo().getId().equals(requestedUserId)) {
-                taskDto.setAssignedToUsername("me");
+                //taskDto.setAssignedToUsername("me");
                 taskDto.setAssignedToName("me");
             } else {
-                taskDto.setAssignedToUsername(task.getAssignedTo().getUsername());
+                //taskDto.setAssignedToUsername(task.getAssignedTo().getUsername());
                 taskDto.setAssignedToName(task.getAssignedTo().getFirstname());// + " " +task.getAssignedTo().getLastname());
-            }            
+            }
+            taskDto.setAssignedToUsername(task.getAssignedTo().getUsername());
             taskDto.setAssignedToId(task.getAssignedTo().getId());
             taskDto.setAssignedById(task.getAssignedBy().getId());
             taskDto.setAssignedDate(task.getAssignedDate());
@@ -114,7 +115,7 @@ public class TaskDtoA {
     public Task copyForUpdate(TaskDto taskDto, Task task, Users users, Users assignedTo) {
         task.setTitle(taskDto.getTitle());
         task.setDeadline(taskDto.getDeadline());
-        task.setEstimatedHours(taskDto.getEstimatedHours());        
+        task.setEstimatedHours(taskDto.getEstimatedHours());
         task.setPriority(taskDto.getPriority());
         if (!task.getStatus().equals(TaskService.TASK_STATUS_COMPLETED) && taskDto.getStatus().equals(TaskService.TASK_STATUS_COMPLETED)) {
             task.setCompletedDate(new Date());
@@ -128,7 +129,7 @@ public class TaskDtoA {
             task.setAssignedTo(assignedTo);
             task.setAssignedBy(users);
             task.setAssignedDate(new Date());
-        }        
+        }
         return task;
     }
 
@@ -138,7 +139,7 @@ public class TaskDtoA {
      * @param task
      * @return
      */
-    public Task copyForUpdateForAssignee(TaskDto taskDto, Task task) {        
+    public Task copyForUpdateForAssignee(TaskDto taskDto, Task task) {
         task.setPriority(taskDto.getPriority());
         if (!task.getStatus().equals(TaskService.TASK_STATUS_COMPLETED) && taskDto.getStatus().equals(TaskService.TASK_STATUS_COMPLETED)) {
             task.setCompletedDate(taskDto.getCompletedDate());

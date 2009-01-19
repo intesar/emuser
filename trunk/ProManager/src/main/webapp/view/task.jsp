@@ -10,8 +10,8 @@
 
 <html>
     <head>
-        <title>Grow-Fast Dashboard</title>        
-        <jsp:include page="include.jsp" />      
+        <title>Grow-Fast Dashboard</title>   
+        <jsp:include page="include.jsp" />   
         <script type='text/javascript' src='../dwr/interface/AjaxTaskService.js'></script>
         <script type='text/javascript' src='../dwr/interface/AjaxProjectService.js'></script>
         <script type='text/javascript' src='../dwr/interface/AjaxUsersService.js'></script>
@@ -76,15 +76,11 @@
                         <tr><td><br></td></tr>
                         <tr>
                             <table>
-                                <tr><td><b>Project</b></td><td><b>Assign-To</b></td><td><b>Priority</b></td><td><b>Status</b></td></tr>
-                                <tr><td>
+                                <tr><td><b>Project</b></td><td><b>Status</b></td><td><b>Priority</b></td><td><b>Assign-To</b></td><td><b>Assign Many</b></td></tr>
+                                <tr valign="top"><td>
                                         <select name="projectDD" id="projectDD">
                                         </select>
-                                    </td>
-                                    <td> 
-                                        <select name="assignToDD" id="assignToDD" multiple>     
-                                        </select>
-                                    </td>
+                                    </td>                                    
                                     <td>
                                         <select name="priority" id="priority">
                                             <option>Low</option>
@@ -98,6 +94,13 @@
                                             <option>On Hold</option>
                                             <option>Completed</option>
                                         </select>
+                                    </td>
+                                    <td>                                         
+                                        <select name="assignToDD" id="assignToDD" >                                          
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <input type="checkbox" id="copyTask" title="Copy Task">
                                     </td>
                                 </tr>
                             </table>
@@ -115,9 +118,8 @@
                         </tr>
                         <tr><td><br></td></tr>
                         <tr>
-                            <td> <b>Notification Emails</b><br>
-                                <input id="notificationEmails" name="notificationEmails" value="" size="50" type="text" /><small> (abc@example.com, ..)</small>                                
-                            </td>
+                            <td align="left"> <b>Notification Emails</b><small> (abc@example.com, ..)</small> <br> 
+                            <td><input id="notificationEmails" name="notificationEmails" value="" size="80" type="text" /></td>
                         </tr>
                         <tr><td><br></td></tr>
                         <tr>
