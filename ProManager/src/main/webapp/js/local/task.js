@@ -217,20 +217,27 @@ $(document).ready(function() {
                 if ( userIds[i] > 0 ) {
                     task1.assignedToId = userIds[i];                
                     task1.assignedToUsername = usersDDCache[task1.assignedTo];
-                    AjaxTaskService.saveTask(task1);    
-                    viewed = null;                     
+                    AjaxTaskService.saveTask(task1, function() {
+                        $('#clear').trigger("click");
+                        $.jGrowl( "Task saved successfully!");
+                        viewed = null;
+                    });                                             
                 }                                                   
             }            
         } else {
             var u = $('#assignToDD').val();
-            if ( u != "" && u.length > 0) {
+            if ( u != "0") {
                 task1.assignedToId = u;
                 task1.assignedToUsername = usersDDCache[task1.assignedTo];
             }else {
                 task1.assignedToId = null;
                 task1.assignedToUsername = null;
             }  
-            AjaxTaskService.saveTask(task1);
+            AjaxTaskService.saveTask(task1, function() {
+                $('#clear').trigger("click");
+                $.jGrowl( "Task saved successfully!");
+            });
+            
         }
         //$('#clear').trigger("click");
     });
@@ -251,7 +258,7 @@ $(document).ready(function() {
         } else {
             AjaxTaskService.getCurrentTask(selectedStatus, taskList);
         }
-    },30000);
+    },60000);
     
     $('#projectStatusDropdown').change(function() {
         var selectedStatus = $(this).val();       
@@ -357,7 +364,7 @@ $(document).ready(function() {
     
     setInterval(function() {
         loadUserReport();
-    },30000);
+    },60000);
     
     // set timer for 30secs  
     function loadNews() {
@@ -378,7 +385,7 @@ $(document).ready(function() {
     }
     setInterval(function() {
         loadNews();
-    },30000);
+    },60000);
     AjaxTaskService.getRecentCompletedTask ( 5, displayNews);
     
     $('.newsClass').livequery('click', function() {
