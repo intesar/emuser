@@ -73,12 +73,16 @@ $(document).ready(function() {
         var project1 = null;
         if ( viewed == null ) {
             project1 = {id:null, name:null, description:null, status:null};
-            project1.name = $('#name').val();        
+            project1.name = $.trim ( $('#name').val() );
         } else {
             project1 = projectCache[viewed];
         }
-        project1.description = $('#description').val();        
+        project1.description = $.trim ( $('#description').val() );
         project1.status = $('#status').val();
+        if ( project1.name.length < 1 ) {
+            alert ( " Project should have a name!");
+            return;
+        }
         AjaxProjectService.saveProject ( project1, saveProjectCallback);
         _p = project1;
     });
@@ -86,6 +90,7 @@ $(document).ready(function() {
     var saveProjectCallback = function ( projects ) {
         $.jGrowl( _p.name +" saved sucessfully!");
         $.jGrowl( "Refreshing project list");
+        $('#clear').trigger("click");
         displayProjects(projects);
     }
     // open user in a modal for editing
@@ -108,9 +113,10 @@ $(document).ready(function() {
     $('.projectUsers').livequery('click', function () {                                
         viewed = $(this).attr('id').toString().substring(12);      
         _project = projectCache[viewed];    
-        AjaxProjectService.getProjectUsers(viewed, projectUsersList);
+        AjaxProjectService.getProjectUsers(viewed, projectUsersList);        
         $('#projectUsersDiv').slideToggle('fast');
         $('#projectTableContainer').slideToggle('fast');
+        $('#projectUsersTable').attr("style", "width:800px");
     });
     
     $('.backToProjectList').livequery ('click', function() {
@@ -142,7 +148,7 @@ $(document).ready(function() {
             }            
             var data = [ projectUsers.projectName, "" + projectUsers.users[i].firstname + " " + projectUsers.users[i].lastname, 
                 manager + "  " +  managerAction, 
-                "<img src='../images/delete.png' id='deleteProjectUser"+projectUsers.users[i].id +"' class='deleteProjectUser'  />"];                                              
+                "<img src='../images/delete.png' id='deleteProjectUser"+projectUsers.users[i].id +"' class='deleteProjectUser'  /><a class='deleteProjectUser'>Remove User</a>"];
             dArray[i] = data;         
             projectUsersArray[projectUsers.users[i].id] = projectUsers.users[i];
         }                   

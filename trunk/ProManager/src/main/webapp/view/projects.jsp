@@ -71,8 +71,8 @@
             </tr>
             <tr>
                 <td>
-                    <input type="button" value="Cancel" id="clear"/>
-                    <input type="button" value="Save & Close" class='simplemodal-close' id="saveProject"/>                                                    
+                    <input type="button" value="Reset" id="clear"/>
+                    <input type="button" value="Save" id="saveProject"/>                                                    
                 </td>   
             </tr>                         
         </table>            
@@ -87,7 +87,7 @@
     <img alt="Add" src="../images/add.gif" class="saveProjectUsersLink" />
     <a id="saveProjectUsersLink" class="saveProjectUsersLink" href="javascript:void(0);">Add a User to project</a>
 </div>
-<table id="projectUsersTable"  cellpadding="0" cellspacing="0" border="0" class="display" >                        
+<table id="projectUsersTable"  cellpadding="0" cellspacing="0" border="0" class="display" >
     <thead>
         <tr>
             <th>Project</th>
