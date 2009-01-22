@@ -1,6 +1,6 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
-    <head> 
+    <head>
         <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
         <title>Grow-Fast</title>
         <style type="text/css">
@@ -47,7 +47,7 @@
             .style35 {font-size: 12px; color: #ffffff; }
             -->
         </style>
-        
+
     </head><body>
         <table align="center" bgcolor="#cc0001" border="0" bordercolor="#cc0001" width="830" height="28">
             <tbody><tr>
@@ -57,45 +57,46 @@
         <table align="center" bgcolor="#ffffff" border="0" bordercolor="#cc0001" width="800" height="554">
             <tbody><tr>
                     <td valign="top" width="100" height="550">
-                        
+
                         <form action="../j_acegi_security_check" method="post" id="login_form">
                             <table align="center" bgcolor="#cc0001" border="0" bordercolor="#cc0001" rules="none" width="188">
-                                
+
                                 <tbody><tr>
                                         <td valign="top" width="185"><span class="style28">Email:</span></td>
                                     </tr>
                                     <tr>
-                                        
+
                                         <td valign="top">
                                             <label>
                                                 <span class="style28"><img src="../images/PNG-Others-Edit_Users.png" alt="login" align="middle" width="34" height="29"></span>
-                                                <input style="background-color: rgb(255, 255, 160);" name="j_username" size="20" type="text" value="fatima.shanoor@gmail.com">
+                                                <input style="background-color: rgb(255, 255, 160);" name="j_username" size="20" type="text" value="">
                                             </label>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td class="style28" valign="top">Password:</td>                                        
+                                        <td class="style28" valign="top">Password:</td>
                                     </tr>
                                     <tr>
                                         <td valign="top">
                                             <label>
                                                 <span class="style28"><img src="../images/Locker.png" align="middle" width="34" height="30"></span>
-                                                <input name="j_password" size="20" type="password" value="xy">
+                                                <input name="j_password" size="20" type="password" value="">
                                             </label>
                                         </td>
                                     </tr>
-                                    <tr>                                        
+                                    <tr>
                                         <td class="style28"><input type="checkbox" name="_acegi_security_remember_me" checked="checked" />Remember Me</td>
                                         <td></td>
                                     </tr>
                                     <tr align="right">
                                         <td align="center" valign="top">
-                                            <input value="Sign In " name="Sign In" type="submit">                                            
-                                        </td>                                
-                                    </tr>                            
+                                            <input value="Sign In " name="Sign In" type="submit">
+                                        </td>
+                                    </tr>
                                     <tr>
                                         <td class="style30" valign="top"><strong><strong><strong><img src="../images/Tag_32.png" align="absmiddle" width="32" height="32"></strong></strong><a href="../view/forgotpassword.jsp" style="color: white;">Forgot Password ?</a></strong></td>
                                     </tr>
+
                             </tbody></table>
                         </form>
                     <p>&nbsp;</p></td>
@@ -133,22 +134,24 @@
                                                 </tr>
                                             </tbody>
                                         </table>
-                                    <p class="style3" align="center"> <a href="../view/signup.jsp">Sign Up</a> </p></td>
-                                    
+                                        <p class="style3" align="center">
+                                            <a href="../view/signup.jsp">Sign Up</a> | 
+                                            <a href="../j_acegi_security_check?j_username=fatima.shanoor@gmail.com&j_password=xy" >Checkout Demo Account</a>
+                                    </p></td>
                                 </tr>
-                        </tbody></table>      
-                        <div align="center">                        
+                        </tbody></table>
+                        <div align="center">
                             <a href="benefits.jsp" class="style9"> Benifits</a> |
-                            <a href="features.jsp" class="style9">Features</a> |                         
-                            <a href="testimonials.jsp" class="style9">Testimonials</a> | 
-                            <a href="suggestion.jsp" class="style9">Suggestion</a> |                         
-                            <a href="how-to.jsp" class="style9">Tutorials</a> 
-                            <a href="demo.jsp" class="style9">And Demo</a> |                         
+                            <a href="features.jsp" class="style9">Features</a> |
+                            <a href="testimonials.jsp" class="style9">Testimonials</a> |
+                            <a href="suggestion.jsp" class="style9">Suggestion</a> |
+                            <a href="how-to.jsp" class="style9">Tutorials</a>
+                            <a href="demo.jsp" class="style9">And Demo</a> |
                         </div>
                         <p class="style9" align="center"> <a href="http://faceguard.bizintelapps.com/index.php?option=com_contact&amp;view=contact&amp;id=1%3Acontact-bizintelapps&amp;catid=12%3Acontacts&amp;Itemid=62" class="style9">Contact Us</a> | USA 733.699.7898 | India 40.65764414</p>
                         <p class="style10 style2" align="center">
                     <span class="style2">©</span> <span class="style2">Copyrights</span> <span class="style2"><a href="http://www.bizintelapps.com/">BizIntelApps</a></span> <span class="style2">2008</span> <span class="style2">All</span> <span class="style2">Rights</span> <span class="style2">Reserved</span>. </p>    </td>
                 </tr>
         </tbody></table>
-        
+
 </body></html>

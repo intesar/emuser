@@ -261,7 +261,7 @@ $(document).ready(function() {
         } else {
             AjaxTaskService.getCurrentTask(selectedStatus, taskList);
         }
-    },60000);
+    },300000);
     
     $('#projectStatusDropdown').change(function() {
         var selectedStatus = $(this).val();       
