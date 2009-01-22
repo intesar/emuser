@@ -21,7 +21,7 @@ $(document).ready(function() {
         for ( var i = 0 ; i < projects.length; i++ ) {  
             // create object
             var data = [ ""+projects[i].name, ""+projects[i].status, 
-                "<img alt='delete project' src='../images/delete.png' id='deleteProject"+projects[i].id +"' class='deleteProject' /><a href='javascript:void(0);' id='deleteProject"+projects[i].id +"' class='deleteProject' >Delete</a>&nbsp;&nbsp;<img id='projectUsers"+projects[i].id +"' class='projectUsers' src='../images/users.png' /><a href='javascript:void(0);' class='projectUsers' id='projectUsers"+projects[i].id +"'>Memebers</a>"];                                  
+                "<img alt='delete project' src='../images/delete.png' id='deleteProject"+projects[i].id +"' class='deleteProject' /><a href='javascript:void(0);' id='deleteProject"+projects[i].id +"' class='deleteProject' >Delete</a>&nbsp;&nbsp;<img id='projectUsers"+projects[i].id +"' class='projectUsers' src='../images/users.png' /><a href='javascript:void(0);' class='projectUsers' id='projectUsers"+projects[i].id +"'>Members</a>"];                                  
             projectCache[projects[i].id] = projects[i];
             dArray[i] = data;                                     
         }                   
