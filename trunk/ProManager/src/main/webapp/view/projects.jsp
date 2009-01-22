@@ -85,7 +85,7 @@
     <img alt="Project List" src="../images/projectList.png" class="backToProjectList" ><a href="javascript:void(0);" class="backToProjectList">Back to Project List</a>
     &nbsp;&nbsp;&nbsp;&nbsp;
     <img alt="Add" src="../images/add.gif" class="saveProjectUsersLink" />
-    <a id="saveProjectUsersLink" class="saveProjectUsersLink" href="javascript:void(0);">Add a User to member</a>
+    <a id="saveProjectUsersLink" class="saveProjectUsersLink" href="javascript:void(0);">Add a User to project</a>
 </div>
 <table id="projectUsersTable"  cellpadding="0" cellspacing="0" border="0" class="display" >                        
     <thead>
