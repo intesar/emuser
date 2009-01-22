@@ -80,8 +80,8 @@
                             <td><br></td>
                         </tr>
                         <tr>
-                            <td><input type="button" value="Cancel" id="clear"/>   
-                            <input type="button" value="Save & Close" class='simplemodal-close' id="saveUser"/></td>                            
+                            <td><input type="button" value="Reset" id="clear"/>
+                            <input type="button" value="Save" class='' id="saveUser"/></td>                            
                             <td></td>
                         </tr>                         
                     </table>    

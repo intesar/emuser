@@ -4,7 +4,11 @@ $(document).ready(function() {
     oTable = $('#usersTable').dataTable( {
         //"sPaginationType": "full_numbers"  
         "sDom": '<"top"i>rt<"bottom"flp<"clear">',
-        "aoData": [{"bVisible":false},null,null,null,{"sClass":"action"}]
+        "aoData": [{
+            "bVisible":false
+        },null,null,null,{
+            "sClass":"action"
+        }]
     });
     
     /* Global variable for the DataTables object */
@@ -31,7 +35,7 @@ $(document).ready(function() {
                 administrator = "Y";
             }
             var data = [ users[i].id, users[i].firstname + " " + users[i].lastname, active, administrator,
-                "<img alt='Delete User' src='../images/delete.png' id='deleteUser" + users[i].id + "' class='deleteUser' />"];                                              
+            "<img alt='Delete User' src='../images/delete.png' id='deleteUser" + users[i].id + "' class='deleteUser' />"];
             usersCache[users[i].id] = users[i];
             dArray[i] = data;                                     
         }                                                         
@@ -46,7 +50,9 @@ $(document).ready(function() {
     $('.createANewUser').click(function() {    
         $('#clear').trigger('click');
         viewed = null;
-        $('#newEditContainer').modal({persist: true});
+        $('#newEditContainer').modal({
+            persist: true
+        });
         $('#enabled').attr('checked', 'checked');
         $('#email').attr('disabled', false);
     });
@@ -85,10 +91,18 @@ $(document).ready(function() {
             $('#email').attr('disabled', true);
             $('#firstname').val(user.firstname);
             $('#lastname').val(user.lastname);
-            if ( user.enabled == true ) {  $('#enabled').attr('checked', 'checked'); }
-            else { $('#enabled').removeAttr('checked', ''); }
-            if ( user.administrator == true) {  $('#administrator').attr('checked', 'checked'); }
-            else {  $('#administrator').removeAttr('checked');   }
+            if ( user.enabled == true ) {  
+                $('#enabled').attr('checked', 'checked');
+            }
+            else { 
+                $('#enabled').removeAttr('checked', '');
+            }
+            if ( user.administrator == true) {  
+                $('#administrator').attr('checked', 'checked');
+            }
+            else {  
+                $('#administrator').removeAttr('checked');
+            }
         });
     });
     
@@ -98,17 +112,29 @@ $(document).ready(function() {
     $('#saveUser').click(function() {
         var user1 = null;
         if ( viewed == null ) {
-            user1 = {id:null, firstname:null, lastname:null, password:null, username:null, email:null, 
-                enabled:'true', administrator:null};          
-            user1.username = $('#email').val();
+            user1 = {
+                id:null,
+                firstname:null,
+                lastname:null,
+                password:null,
+                username:null,
+                email:null,
+                enabled:'true', 
+                administrator:null
+            };
+            user1.username = $.trim ( $('#email').val() );
             user1.email = user1.username;                
         } else {
             user1 = usersCache[viewed];   
         }
-        user1.firstname = $('#firstname').val();
-        user1.lastname = $('#lastname').val();  
+        user1.firstname = $.trim ( $('#firstname').val() );
+        user1.lastname = $.trim ( $('#lastname').val() );
         user1.enabled = $('#enabled').attr('checked');
-        user1.administrator = $('#administrator').attr('checked');               
+        user1.administrator = $('#administrator').attr('checked');
+        if ( user1.username.length < 5 || user1.firstname.length < 2 || user1.lastname.length < 2 ) {
+            alert ( ' All fields are required! ');
+            return;
+        }
         AjaxUsersService.saveUser ( user1, saveUserCallback);               
         _u = user1;
     });   
@@ -116,6 +142,7 @@ $(document).ready(function() {
     var saveUserCallback = function( users ) {
         $.jGrowl( _u.firstname + " " + _u.lastname +" saved sucessfully!");    
         _u = null;
+        $('#clear').trigger('click');
         displayList( users);        
     }
     
