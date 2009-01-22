@@ -21,8 +21,15 @@ $(document).ready(function() {
     AjaxUsersService.getUsersListforDropdown(displayUsersForReport);
     AjaxProjectService.getProjectsForDropdown(displayProjectDDList);
     
+   $('#refreshUserReport').click(function() {
+       var userId = $('#usersDDReports').val();
+        AjaxReportService.getUserReports(userId, 3, displayReport1);
+   })
    
-    
+   $('#refreshProjectReport').click(function() {
+       var projectId = $('#projectDDReports').val();
+       AjaxReportService.getProjectReports(projectId, 3, displayReport2 );
+   })
         
     $('#usersDDReports').livequery('change', function() {        
         var userId = $(this).val();

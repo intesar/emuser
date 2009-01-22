@@ -59,10 +59,10 @@
             </div>
             <div id="detailReports" align="center" style="display:none">   
                 <br><br>
-                <b>Users</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Projects</b><br>
-                <select id="usersDDReports"></select>
+                <b>Users </b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Projects</b><br>
+                <select id="usersDDReports"></select><img id='refreshUserReport' title='Refresh' src='../images/refresh.png' />
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <select id="projectDDReports"></select>
+                <select id="projectDDReports"></select><img id='refreshProjectReport' title='Refresh' src='../images/refresh.png' />
                 <div id="reportsArea"></div>
             </div>
             
@@ -76,7 +76,7 @@
                         <tr><td><br></td></tr>
                         <tr>
                             <table>
-                                <tr><td><b>Project</b></td><td><b>Status</b></td><td><b>Priority</b></td><td><b>Assign-To</b></td><td><b>Assign Many</b></td></tr>
+                                <tr><td><b>Project</b></td><td><b>Priority</b></td><td><b>Status</b></td><td><b>Assign-To</b></td><td><b>Assign Many</b></td></tr>
                                 <tr valign="top"><td>
                                         <select name="projectDD" id="projectDD">
                                         </select>
