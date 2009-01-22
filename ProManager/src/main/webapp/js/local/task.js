@@ -193,7 +193,10 @@ $(document).ready(function() {
         if ( task1 == null) {
             task1 = {id:null, title:null, deadline:null, deadlineFormat:null, priority:null, projectName:null, assignedToUsername:null, estimatedHours:null, notificationEmails:null, description:null};            
         }
-        task1.title = $('#title').val();
+        task1.title = $.trim( $('#title').val() );
+        if ( task1.title.length < 1 ) {
+            alert ( " Title cannot be empty! ");
+        }
         //task1.deadline = Date.parse($('#deadline').val());
         task1.priority = $('#priority').val();
         var proj = $('#projectDD').val();
@@ -208,8 +211,8 @@ $(document).ready(function() {
         task1.spendHours = $('#hoursSpend').val();        
         task1.estimatedHours = $('#estimatedHours').val();
         task1.deadlineFormat = $('#deadline').val();
-        task1.notificationEmails = $('#notificationEmails').val();        
-        task1.description = $('#description').val();     
+        task1.notificationEmails = $.trim ( $('#notificationEmails').val() );
+        task1.description = $.trim ( $('#description').val() );
         if ( $('#copyTask').is(":checked") ) {
             var u1 = $('#assignToDD').val();
             var userIds = u1.toString().split(",");
