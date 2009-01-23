@@ -3,7 +3,9 @@ $(document).ready(function() {
     // checkout datatable plugin to understand below code
     oTable = $('#taskTable').dataTable( {             
         "sDom": '<"top"i>rt<"bottom"flp<"clear">',
-        "aoData": [null,null,null,null,null,{"sWidth":"250px"},null]        
+        "aoData": [null,null,null,null,null,{
+            "sWidth":"250px"
+        },null]
     } );
     
     /* Global variable for the DataTables object */
@@ -22,16 +24,31 @@ $(document).ready(function() {
         for ( var i = 0 ; i < tasks.length; i++) {             
             // create object                        
             var project = tasks[i].projectName; if ( project == null) project = "<img src='../images/todo.png' title='Todo' />";            
-            var deadline = tasks[i].deadlineFormat; if (deadline == null ) {deadline = "<img src='../images/empty-calendar.png' title='None' />"} else {deadline = deadline.substr(0, 6);};
+            var deadline = tasks[i].deadlineFormat; if (deadline == null ) {
+                deadline = "<img src='../images/empty-calendar.png' title='None' />"
+            } else {
+                deadline = deadline.substr(0, 6);
+            };
             var title = tasks[i].title ;
+            title += ' (' + tasks[i].estimatedHours + ')';
             var assignedUser = tasks[i].assignedToName; 
-            if ( assignedUser == 'me') {assignedUser = "<img src='../images/user.png' title='Me' />";}
-            else if ( assignedUser == '') {assignedUser = "<img src='../images/add-user.png' title='None' />";}
+            if ( assignedUser == 'me') {
+                assignedUser = "<img src='../images/user.png' title='Me' />";
+            }
+            else if ( assignedUser == '') {
+                assignedUser = "<img src='../images/add-user.png' title='None' />";
+            }
             var status = tasks[i].status;
-            if ( status == 'In Progress') {status = "<img src='../images/in_progress.png' title='In Progress' />";}
-            else if ( status == 'Completed') {status = "<img src='../images/completed.png' title='Completed' />";}
+            if ( status == 'In Progress') {
+                status = "<img src='../images/in_progress.png' title='In Progress' />";
+            }
+            else if ( status == 'Completed') {
+                status = "<img src='../images/completed.png' title='Completed' />";
+            }
             var priority = tasks[i].priority;        
-            if ( priority == "High") { priority = "<img src='../images/high_priority.png' title='High' />";}
+            if ( priority == "High") { 
+                priority = "<img src='../images/high_priority.png' title='High' />";
+            }
             var data = [ tasks[i].id , status, project, assignedUser, priority, title, deadline];                                  
             tasksCache[tasks[i].id] = tasks[i];            
             dArray[i] = data;                
@@ -116,13 +133,27 @@ $(document).ready(function() {
         $(this).contextMenu({
             menu: 'myMenu'
         }, function(action, el, pos) {
-            if ( action == 'edit') { var taskId = $(el).parent().children()[0].firstChild.data; showTaskForEdit(taskId);}
-            if ( action == 'new') { $('.taskEditDiv').trigger('click');}
-            else if ( action == 'high') { var taskId = $(el).parent().children()[0].firstChild.data; changeTaskPriorityToHigh(taskId);}
-            else if ( action == 'inprogress') { var taskId = $(el).parent().children()[0].firstChild.data; changeTaskStatus(taskId, 'In Progress');}
-            else if ( action == 'completed') { var taskId = $(el).parent().children()[0].firstChild.data; changeTaskStatus(taskId, 'Completed');}
-            else if ( action == 'assignme') { var taskId = $(el).parent().children()[0].firstChild.data; assignMe(taskId);}
-            else if ( action == 'delete') { var taskId = $(el).parent().children()[0].firstChild.data; deleteTask(taskId);}
+            if ( action == 'edit') { 
+                var taskId = $(el).parent().children()[0].firstChild.data; showTaskForEdit(taskId);
+            }
+            if ( action == 'new') { 
+                $('.taskEditDiv').trigger('click');
+            }
+            else if ( action == 'high') { 
+                var taskId = $(el).parent().children()[0].firstChild.data; changeTaskPriorityToHigh(taskId);
+            }
+            else if ( action == 'inprogress') { 
+                var taskId = $(el).parent().children()[0].firstChild.data; changeTaskStatus(taskId, 'In Progress');
+            }
+            else if ( action == 'completed') { 
+                var taskId = $(el).parent().children()[0].firstChild.data; changeTaskStatus(taskId, 'Completed');
+            }
+            else if ( action == 'assignme') { 
+                var taskId = $(el).parent().children()[0].firstChild.data; assignMe(taskId);
+            }
+            else if ( action == 'delete') { 
+                var taskId = $(el).parent().children()[0].firstChild.data; deleteTask(taskId);
+            }
         });
     });
     
@@ -154,7 +185,7 @@ $(document).ready(function() {
             $('#description').attr('disabled', true);
             $('#projectDD').attr('disabled', true);
             $('#assignToDD').attr('disabled', true);                                
-            //$('#deadline').attr('disabled', true);
+        //$('#deadline').attr('disabled', true);
         }            
         $('#taskTableContainer').slideUp('fast');
         $('#detailReports').slideUp('fast');
@@ -182,7 +213,7 @@ $(document).ready(function() {
         $('#description').attr('disabled', false);
         $('#projectDD').attr('disabled', false);
         $('#assignToDD').attr('disabled', false);                                
-        //$('#deadline').attr('disabled', false);
+    //$('#deadline').attr('disabled', false);
     });
     // executed on "create new task" button is clicked
     $('#saveTask').click(function() {        
@@ -191,7 +222,18 @@ $(document).ready(function() {
             task1 = tasksCache[viewed];
         }
         if ( task1 == null) {
-            task1 = {id:null, title:null, deadline:null, deadlineFormat:null, priority:null, projectName:null, assignedToUsername:null, estimatedHours:null, notificationEmails:null, description:null};            
+            task1 = {
+                id:null,
+                title:null,
+                deadline:null,
+                deadlineFormat:null,
+                priority:null,
+                projectName:null,
+                assignedToUsername:null,
+                estimatedHours:null,
+                notificationEmails:null,
+                description:null
+            };
         }
         task1.title = $.trim( $('#title').val() );
         if ( task1.title.length < 1 ) {
@@ -242,7 +284,7 @@ $(document).ready(function() {
             });
             
         }
-        //$('#clear').trigger("click");
+    //$('#clear').trigger("click");
     });
          
     
@@ -275,8 +317,6 @@ $(document).ready(function() {
     $('#advanceSearch').click(function() {
         $('#advanceSearchDiv').slideToggle('fast');
     });
-    
-    
     
     function displayProjectDDList(projectDDList) {        
         var options = "<option value='Todo'>Todo</option>";
@@ -326,13 +366,8 @@ $(document).ready(function() {
             $('#assignToDD').removeAttr('size', '3');
         }
     })
-
-    
-    
+   
     // --------------- reporting -----------------------------------//
-    
-    
-    
     function displayReportFunction (data, divId) {
         $('#' + divId).empty();
         for ( var i = 0; i < data.length; i++ ) {
@@ -378,10 +413,10 @@ $(document).ready(function() {
         for ( var i = 0; i < tasks.length; i++ )  {
             tasksCache[tasks[i].id] = tasks[i];
             content += "<p>"
-                + "<a id='news" + tasks[i].id + "'  class='newsClass' >" + tasks[i].title + " </a> <br> "
-                + tasks[i].assignedToName + ", " 
-                + tasks[i].priority + ", Completed, # " + tasks[i].id
-                + "</p>";              
+            + "<a id='news" + tasks[i].id + "'  class='newsClass' >" + tasks[i].title + " </a> <br> "
+            + tasks[i].assignedToName + ", "
+            + tasks[i].priority + ", Completed, # " + tasks[i].id
+            + "</p>";
         }
         $('#rightBottomDiv').slideUp('slow').slideDown('slow').html( content );
         
@@ -396,7 +431,17 @@ $(document).ready(function() {
         showTaskForEdit(taskId);
     })
     
+
+
+    // ------------------------------------ logged in name -----------------------
+    AjaxUsersService.getUserDetails(function (name){    
+        $('#welcomeDiv').html("<p>Welcome " + name.firstname + " " +name.lastname + "</p>");
+    });
+
+
+    
+    
+    
+
 });
-
-
     

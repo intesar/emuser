@@ -47,7 +47,7 @@
                                 <th>Assign-To</th>                                
                                 <th>Priority</th>
                                 <th>Title</th>                                                                                                                              
-                                <th>End By</th>
+                                <th>End By </th>
                             </tr>
                         </thead>                
                         <tbody> 
@@ -110,8 +110,8 @@
                             <table>
                                 <tr><td><b>Est Hours</b></td><td><b>Hours Spend</b></td><td><b>Finish By</b></td></tr>
                                 <tr>
-                                    <td> <input id="estimatedHours" name="estimatedHours" value="" maxlength="5" size="5" type="text" />
-                                    <td> <input id="hoursSpend" name="hoursSpend" value="" maxlength="5" size="5" type="text" />
+                                    <td> <input id="estimatedHours" name="estimatedHours" value="" maxlength="4" size="4" type="text" />
+                                    <td> <input id="hoursSpend" name="hoursSpend" value="" maxlength="4" size="4" type="text" />
                                     <td><input id="deadline" name="deadline" value="" type="text" size="10" maxlength="10" /><small>(dd Mon yyyy)</small></td>
                                 </tr>
                             </table>

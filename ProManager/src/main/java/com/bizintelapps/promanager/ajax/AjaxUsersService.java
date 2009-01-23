@@ -144,10 +144,9 @@ public class AjaxUsersService {
      * @param userId
      * @return
      */
-    public UsersDto getUserDetails(Integer userId) {
+    public UsersDto getUserDetails() {
         try {
-            // FIXME
-            throw new ServiceRuntimeException("Not Supported");
+            return usersService.getUserByUsername(SecurityUtil.getUsername());
         } catch (ServiceRuntimeException se) {
             log.error(se);
             throw se;
