@@ -32,7 +32,13 @@ $(document).ready(function () {
         };
             
         usersDto.firstname= $.trim ( $('#firstname').val() );
+        var x = usersDto.firstname.substr(0, 1).toUpperCase();
+        usersDto.firstname = x + usersDto.firstname.substr(1);
+        $('#firstname').val(usersDto.firstname);
         usersDto.lastname = $.trim ( $('#lastname').val() );
+        var y = usersDto.lastname.substr(0, 1).toUpperCase();
+        usersDto.lastname = y + usersDto.lastname.substr(1);
+        $('#lastname').val(usersDto.lastname);
         usersDto.username = $.trim ( $('#username').val() );
         usersDto.email = usersDto.username;
         usersDto.password = $('#password').val();
