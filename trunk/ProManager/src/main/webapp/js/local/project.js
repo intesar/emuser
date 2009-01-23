@@ -148,7 +148,7 @@ $(document).ready(function() {
             }            
             var data = [ projectUsers.projectName, "" + projectUsers.users[i].firstname + " " + projectUsers.users[i].lastname, 
                 manager + "  " +  managerAction, 
-                "<img src='../images/delete.png' id='deleteProjectUser"+projectUsers.users[i].id +"' class='deleteProjectUser'  /><a class='deleteProjectUser'>Remove User</a>"];
+                "<img src='../images/delete.png' id='deleteProjectUser"+projectUsers.users[i].id +"' class='deleteProjectUser'  /><a class='deleteProjectUser' id='deleteProjectUser"+projectUsers.users[i].id +"'>Remove User</a>"];
             dArray[i] = data;         
             projectUsersArray[projectUsers.users[i].id] = projectUsers.users[i];
         }                   

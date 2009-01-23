@@ -18,7 +18,6 @@ package com.bizintelapps.promanager.dao.impl;
 
 import com.bizintelapps.promanager.dao.PagingParams;
 import com.bizintelapps.promanager.dao.UserReportDao;
-import com.bizintelapps.promanager.dto.UserReportDto;
 import com.bizintelapps.promanager.entity.UserReport;
 import java.util.List;
 import org.springframework.stereotype.Repository;

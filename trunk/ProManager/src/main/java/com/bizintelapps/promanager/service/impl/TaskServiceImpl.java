@@ -109,7 +109,7 @@ public class TaskServiceImpl implements TaskService {
         Users users = usersDao.findByUsername(deletedBy);
         Task task = taskDao.read(taskId);
         // admins, owner or pm can delete a task
-        if (users.isIsAdministrator() || task.getOwner().equals(users) || isUserProjectManager(users.getId(), task.getProject())) {
+        if ( task.getOwner().equals(users) || isUserProjectManager(users.getId(), task.getProject())) {
             taskDao.delete(task);
             TaskDto dto = new TaskDto();
             dto.setAssignedToId(null);
@@ -139,12 +139,13 @@ public class TaskServiceImpl implements TaskService {
     public List<TaskDto> searchTasks(String statuses, String requestedBy) {
         Users u = usersDao.findByUsername(requestedBy);
         List<Task> tasks = taskDao.search(statuses, u.getId());
+        if ( tasks == null ) { tasks = new ArrayList(); }
         // requestedBy if admin, pm or owner can udpate lot on task        
         //List<TaskDto> dtos = taskConverter.copyAllForDisplay(tasks, u.isIsAdministrator(), u.getId());
         List<TaskDto> list = new ArrayList<TaskDto>();
         for (Task task : tasks) {
             boolean isAdmin = false;
-            if (u.isIsAdministrator() || task.getOwner().equals(u) || task.getAssignedTo().equals(u) || isUserProjectManager(u.getId(), task.getProject())) {
+            if ( task.getOwner().equals(u) || (task.getAssignedTo() != null && task.getAssignedBy().equals(u)) || isUserProjectManager(u.getId(), task.getProject())) {
                 isAdmin = true;
             }
             TaskDto taskDto = taskConverter.copyForDisplay(task, new TaskDto(), isAdmin, isUserProjectManager(u.getId(), task.getProject()), u.getId());
@@ -157,12 +158,13 @@ public class TaskServiceImpl implements TaskService {
     public List<TaskDto> searchTasks(String statuses, int max, String requestedBy) {
         Users u = usersDao.findByUsername(requestedBy);
         List<Task> tasks = taskDao.search(statuses, u.getId(), max);
+        if ( tasks == null ) { tasks = new ArrayList(); }
         // requestedBy if admin, pm or owner can udpate lot on task        
         //List<TaskDto> dtos = taskConverter.copyAllForDisplay(tasks, u.isIsAdministrator(), u.getId());
         List<TaskDto> list = new ArrayList<TaskDto>();
         for (Task task : tasks) {
             boolean isAdmin = false;
-            if (u.isIsAdministrator() || task.getOwner().equals(u) || task.getAssignedTo().equals(u) || isUserProjectManager(u.getId(), task.getProject())) {
+            if (task.getOwner().equals(u) || (task.getAssignedTo() != null && task.getAssignedBy().equals(u)) || isUserProjectManager(u.getId(), task.getProject())) {
                 isAdmin = true;
             }
             TaskDto taskDto = taskConverter.copyForDisplay(task, new TaskDto(), isAdmin, isUserProjectManager(u.getId(), task.getProject()), u.getId());
@@ -176,7 +178,7 @@ public class TaskServiceImpl implements TaskService {
     public TaskDto getTask(Integer taskId, String requestedBy) {
         Users u = usersDao.findByUsername(requestedBy);
         Task task = taskDao.read(taskId);
-        if (u.isIsAdministrator() || task.getOwner().equals(u) || task.getAssignedTo().equals(u) || isUserProjectManager(u.getId(), task.getProject())) {
+        if ( task.getOwner().equals(u) || task.getAssignedTo().equals(u) || isUserProjectManager(u.getId(), task.getProject())) {
             TaskDto taskDto = taskConverter.copyForDisplay(task, new TaskDto(), u.isIsAdministrator(), isUserProjectManager(u.getId(), task.getProject()), u.getId());
             return taskDto;
         }
@@ -221,7 +223,7 @@ public class TaskServiceImpl implements TaskService {
         Users users1 = usersDao.findByUsername(requestedBy);
         Task task = taskDao.read(taskId);
         // admin, owner, assigned, or pm can change
-        if (users1.isIsAdministrator() || task.getAssignedTo().equals(users1) || task.getOwner().equals(users1) || isUserProjectManager(users1.getId(), task.getProject())) {
+        if ( task.getAssignedTo().equals(users1) || task.getOwner().equals(users1) || isUserProjectManager(users1.getId(), task.getProject())) {
             if (status.equals(TASK_STATUS_COMPLETED)) {
                 if (task.getSpendHours() <= 0) {
                     task.setSpendHours(task.getEstimatedHours());
@@ -253,7 +255,7 @@ public class TaskServiceImpl implements TaskService {
         Users users1 = usersDao.findByUsername(requestedBy);
         Task task = taskDao.read(taskId);
         // admin, owner, assigned, or pm can change
-        if (users1.isIsAdministrator() || task.getAssignedTo().equals(users1) || task.getOwner().equals(users1) || isUserProjectManager(users1.getId(), task.getProject())) {
+        if ( task.getAssignedTo().equals(users1) || task.getOwner().equals(users1) || isUserProjectManager(users1.getId(), task.getProject())) {
             task.setPriority(priority);
             taskDao.update(task);
             sendTaskAlert(task);
@@ -267,6 +269,8 @@ public class TaskServiceImpl implements TaskService {
         throw new UnsupportedOperationException("Not supported yet.");
     }
     //---------------------- private helper methods -------------------------//
+
+
     /**
      *  helper method finds given user is a project manager
      * @param userId

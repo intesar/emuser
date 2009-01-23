@@ -95,6 +95,12 @@ public class ReportServiceImpl implements ReportService {
             userId = requestedUser.getId();
         }
         List<UserReport> list = userReportDao.findByUser(userId, maxReports);
+        if ( list == null || list.size() == 0 ) {
+            Calendar c = Calendar.getInstance();
+            UserReport up = new UserReport(userId, c.get(Calendar.MONTH), c.get(Calendar.YEAR), 0 );
+            up.setUser(userId);
+            list.add(up);
+        }
         // copy for display
         for (UserReport ur : list) {
             dtos.add(userReportDtoA.copyForDisplay(ur));
