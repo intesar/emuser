@@ -128,7 +128,13 @@ $(document).ready(function() {
             user1 = usersCache[viewed];   
         }
         user1.firstname = $.trim ( $('#firstname').val() );
+        var x = user1.firstname.substr(0, 1).toUpperCase();
+        user1.firstname = x + user1.firstname.substr(1);
+        $('#firstname').val(user1.firstname);
         user1.lastname = $.trim ( $('#lastname').val() );
+        var y = user1.lastname.substr(0, 1).toUpperCase();
+        user1.lastname = y + user1.lastname.substr(1);
+        $('#lastname').val(user1.lastname);
         user1.enabled = $('#enabled').attr('checked');
         user1.administrator = $('#administrator').attr('checked');
         if ( user1.username.length < 5 || user1.firstname.length < 2 || user1.lastname.length < 2 ) {

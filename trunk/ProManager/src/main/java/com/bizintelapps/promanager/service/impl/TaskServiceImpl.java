@@ -178,7 +178,7 @@ public class TaskServiceImpl implements TaskService {
     public TaskDto getTask(Integer taskId, String requestedBy) {
         Users u = usersDao.findByUsername(requestedBy);
         Task task = taskDao.read(taskId);
-        if ( task.getOwner().equals(u) || task.getAssignedTo().equals(u) || isUserProjectManager(u.getId(), task.getProject())) {
+        if ( task.getOwner().equals(u) || ( task.getAssignedTo() !=null && task.getAssignedTo().equals(u)) || isUserProjectManager(u.getId(), task.getProject())) {
             TaskDto taskDto = taskConverter.copyForDisplay(task, new TaskDto(), u.isIsAdministrator(), isUserProjectManager(u.getId(), task.getProject()), u.getId());
             return taskDto;
         }
@@ -223,7 +223,7 @@ public class TaskServiceImpl implements TaskService {
         Users users1 = usersDao.findByUsername(requestedBy);
         Task task = taskDao.read(taskId);
         // admin, owner, assigned, or pm can change
-        if ( task.getAssignedTo().equals(users1) || task.getOwner().equals(users1) || isUserProjectManager(users1.getId(), task.getProject())) {
+        if ( ( task.getAssignedTo() !=null && task.getAssignedTo().equals(users1)) || task.getOwner().equals(users1) || isUserProjectManager(users1.getId(), task.getProject())) {
             if (status.equals(TASK_STATUS_COMPLETED)) {
                 if (task.getSpendHours() <= 0) {
                     task.setSpendHours(task.getEstimatedHours());
@@ -255,7 +255,7 @@ public class TaskServiceImpl implements TaskService {
         Users users1 = usersDao.findByUsername(requestedBy);
         Task task = taskDao.read(taskId);
         // admin, owner, assigned, or pm can change
-        if ( task.getAssignedTo().equals(users1) || task.getOwner().equals(users1) || isUserProjectManager(users1.getId(), task.getProject())) {
+        if ( ( task.getAssignedTo() !=null && task.getAssignedTo().equals(users1)) || task.getOwner().equals(users1) || isUserProjectManager(users1.getId(), task.getProject())) {
             task.setPriority(priority);
             taskDao.update(task);
             sendTaskAlert(task);

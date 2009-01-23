@@ -3,7 +3,9 @@ $(document).ready(function() {
     // checkout datatable plugin to understand below code
     oTable = $('#projectTable').dataTable( {               
         "sDom": '<"top"i>rt<"bottom"flp<"clear">',
-        "aoData": [null,null,{"sClass":"action"}]
+        "aoData": [null,null,{
+            "sClass":"action"
+        }]
     } );
     
     /* Global variable for the DataTables object */
@@ -21,7 +23,7 @@ $(document).ready(function() {
         for ( var i = 0 ; i < projects.length; i++ ) {  
             // create object
             var data = [ ""+projects[i].name, ""+projects[i].status, 
-                "<img alt='delete project' src='../images/delete.png' id='deleteProject"+projects[i].id +"' class='deleteProject' /><a href='javascript:void(0);' id='deleteProject"+projects[i].id +"' class='deleteProject' >Delete</a>&nbsp;&nbsp;<img id='projectUsers"+projects[i].id +"' class='projectUsers' src='../images/users.png' /><a href='javascript:void(0);' class='projectUsers' id='projectUsers"+projects[i].id +"'>Members</a>"];                                  
+            "<img alt='delete project' src='../images/delete.png' id='deleteProject"+projects[i].id +"' class='deleteProject' /><a href='javascript:void(0);' id='deleteProject"+projects[i].id +"' class='deleteProject' >Delete</a>&nbsp;&nbsp;<img id='projectUsers"+projects[i].id +"' class='projectUsers' src='../images/users.png' /><a href='javascript:void(0);' class='projectUsers' id='projectUsers"+projects[i].id +"'>Members</a>"];
             projectCache[projects[i].id] = projects[i];
             dArray[i] = data;                                     
         }                   
@@ -72,8 +74,16 @@ $(document).ready(function() {
     $('#saveProject').click(function() {
         var project1 = null;
         if ( viewed == null ) {
-            project1 = {id:null, name:null, description:null, status:null};
+            project1 = {
+                id:null,
+                name:null,
+                description:null,
+                status:null
+            };
             project1.name = $.trim ( $('#name').val() );
+            var x = project1.name.substr(0, 1).toUpperCase();
+            project1.name = x + project1.name.substr(1);
+            $('#name').val(project1.name);
         } else {
             project1 = projectCache[viewed];
         }
@@ -147,8 +157,8 @@ $(document).ready(function() {
                 managerAction = "<a id='projectUserAsManager" + projectUsers.users[i].id + "' class='removeUserAsManager'  href='javascript:void(0);'>(Remove-As-Manager)</a>";
             }            
             var data = [ projectUsers.projectName, "" + projectUsers.users[i].firstname + " " + projectUsers.users[i].lastname, 
-                manager + "  " +  managerAction, 
-                "<img src='../images/delete.png' id='deleteProjectUser"+projectUsers.users[i].id +"' class='deleteProjectUser'  /><a class='deleteProjectUser' id='deleteProjectUser"+projectUsers.users[i].id +"'>Remove User</a>"];
+            manager + "  " +  managerAction,
+            "<img src='../images/delete.png' id='deleteProjectUser"+projectUsers.users[i].id +"' class='deleteProjectUser'  /><a class='deleteProjectUser' id='deleteProjectUser"+projectUsers.users[i].id +"'>Remove User</a>"];
             dArray[i] = data;         
             projectUsersArray[projectUsers.users[i].id] = projectUsers.users[i];
         }                   

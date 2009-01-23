@@ -130,7 +130,7 @@
                                                     <td><div align="left"><img src="../images/right.jpg" width="24" height="23"><span class="style25">Accountability, allows individuals to take complete responsibility of task</span></div></td>
                                                 </tr>
                                                 <tr>
-                                                    <td><div align="left"><img src="../images/right.jpg" width="24" height="23"><span class="style25">Download Supported Browser (<a href="http://www.firefox.com" >Firefox</a>, <a href="http://www.opera.com/">Opera</a>, <a href="http://www.apple.com/safari/">Safari</a>, <a href="http://www.google.com/chrome">Chrome</a>)</span></div></td>
+                                                    <td><div align="left"><img src="../images/right.jpg" width="24" height="23"><span class="style25">Download Supported Browser (<a href="http://www.firefox.com" >Firefox</a>, <a href="http://www.apple.com/safari/">Safari</a>, <a href="http://www.google.com/chrome">Chrome</a>)</span></div></td>
                                                 </tr>
                                             </tbody>
                                         </table>
