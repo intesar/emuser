@@ -79,8 +79,10 @@ public class UsersServiceImpl implements UsersService {
         authoritiesDao.create(authorities1);
         authoritiesDao.create(authorities2);
         String body = "Hello " + usersDto.getFirstname() + ", \n";
-        body += "Your account has been successfully created at Grow-Fast.com. You are all set to use Grow-Fast.com's professional services!";
-        mailSender.sendMail(new String[]{usersDto.getEmail()}, "Thank you for Signing Up at Grow-Fast.com", body);
+        body += "Your account has been successfully created at Grow-Fast.com. You are all set to use Grow-Fast's professional services! \n"
+                + "Grow-Fast is different, and commited towards enhancing work flow within Enterprises and Personal! "
+                + " Thanks, Grow-Fast Team";
+        mailSender.sendMail(new String[]{usersDto.getEmail()}, "Grow-Fast Commnuity Welcomes you!", body);
     }
 
     @Override

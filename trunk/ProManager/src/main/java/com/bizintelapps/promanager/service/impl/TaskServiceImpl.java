@@ -35,7 +35,9 @@ import com.bizintelapps.promanager.exceptions.ServiceRuntimeException;
 import com.bizintelapps.promanager.service.ReportService;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -109,7 +111,7 @@ public class TaskServiceImpl implements TaskService {
         Users users = usersDao.findByUsername(deletedBy);
         Task task = taskDao.read(taskId);
         // admins, owner or pm can delete a task
-        if ( task.getOwner().equals(users) || isUserProjectManager(users.getId(), task.getProject())) {
+        if (task.getOwner().equals(users) || isUserProjectManager(users.getId(), task.getProject())) {
             taskDao.delete(task);
             TaskDto dto = new TaskDto();
             dto.setAssignedToId(null);
@@ -139,26 +141,9 @@ public class TaskServiceImpl implements TaskService {
     public List<TaskDto> searchTasks(String statuses, String requestedBy) {
         Users u = usersDao.findByUsername(requestedBy);
         List<Task> tasks = taskDao.search(statuses, u.getId());
-        if ( tasks == null ) { tasks = new ArrayList(); }
-        // requestedBy if admin, pm or owner can udpate lot on task        
-        //List<TaskDto> dtos = taskConverter.copyAllForDisplay(tasks, u.isIsAdministrator(), u.getId());
-        List<TaskDto> list = new ArrayList<TaskDto>();
-        for (Task task : tasks) {
-            boolean isAdmin = false;
-            if ( task.getOwner().equals(u) || (task.getAssignedTo() != null && task.getAssignedBy().equals(u)) || isUserProjectManager(u.getId(), task.getProject())) {
-                isAdmin = true;
-            }
-            TaskDto taskDto = taskConverter.copyForDisplay(task, new TaskDto(), isAdmin, isUserProjectManager(u.getId(), task.getProject()), u.getId());
-            list.add(taskDto);
+        if (tasks == null) {
+            tasks = new ArrayList();
         }
-        return list;
-    }
-    
-    @Override
-    public List<TaskDto> searchTasks(String statuses, int max, String requestedBy) {
-        Users u = usersDao.findByUsername(requestedBy);
-        List<Task> tasks = taskDao.search(statuses, u.getId(), max);
-        if ( tasks == null ) { tasks = new ArrayList(); }
         // requestedBy if admin, pm or owner can udpate lot on task        
         //List<TaskDto> dtos = taskConverter.copyAllForDisplay(tasks, u.isIsAdministrator(), u.getId());
         List<TaskDto> list = new ArrayList<TaskDto>();
@@ -172,13 +157,33 @@ public class TaskServiceImpl implements TaskService {
         }
         return list;
     }
-    
+
+    @Override
+    public List<TaskDto> searchTasks(String statuses, int max, String requestedBy) {
+        Users u = usersDao.findByUsername(requestedBy);
+        List<Task> tasks = taskDao.search(statuses, u.getId(), max);
+        if (tasks == null) {
+            tasks = new ArrayList();
+        }
+        // requestedBy if admin, pm or owner can udpate lot on task        
+        //List<TaskDto> dtos = taskConverter.copyAllForDisplay(tasks, u.isIsAdministrator(), u.getId());
+        List<TaskDto> list = new ArrayList<TaskDto>();
+        for (Task task : tasks) {
+            boolean isAdmin = false;
+            if (task.getOwner().equals(u) || (task.getAssignedTo() != null && task.getAssignedBy().equals(u)) || isUserProjectManager(u.getId(), task.getProject())) {
+                isAdmin = true;
+            }
+            TaskDto taskDto = taskConverter.copyForDisplay(task, new TaskDto(), isAdmin, isUserProjectManager(u.getId(), task.getProject()), u.getId());
+            list.add(taskDto);
+        }
+        return list;
+    }
     // only admin, owner, pm, assign-to can see task
     @Override
     public TaskDto getTask(Integer taskId, String requestedBy) {
         Users u = usersDao.findByUsername(requestedBy);
         Task task = taskDao.read(taskId);
-        if ( task.getOwner().equals(u) || ( task.getAssignedTo() !=null && task.getAssignedTo().equals(u)) || isUserProjectManager(u.getId(), task.getProject())) {
+        if (task.getOwner().equals(u) || (task.getAssignedTo() != null && task.getAssignedTo().equals(u)) || isUserProjectManager(u.getId(), task.getProject())) {
             TaskDto taskDto = taskConverter.copyForDisplay(task, new TaskDto(), u.isIsAdministrator(), isUserProjectManager(u.getId(), task.getProject()), u.getId());
             return taskDto;
         }
@@ -223,26 +228,33 @@ public class TaskServiceImpl implements TaskService {
         Users users1 = usersDao.findByUsername(requestedBy);
         Task task = taskDao.read(taskId);
         // admin, owner, assigned, or pm can change
-        if ( ( task.getAssignedTo() !=null && task.getAssignedTo().equals(users1)) || task.getOwner().equals(users1) || isUserProjectManager(users1.getId(), task.getProject())) {
+        if ((task.getAssignedTo() != null && task.getAssignedTo().equals(users1)) || task.getOwner().equals(users1) || isUserProjectManager(users1.getId(), task.getProject())) {
             if (status.equals(TASK_STATUS_COMPLETED)) {
                 if (task.getSpendHours() <= 0) {
                     task.setSpendHours(task.getEstimatedHours());
                 }
                 if (!task.getStatus().equals(TASK_STATUS_COMPLETED)) {
                     task.setCompletedDate(new Date());
-                }                
-                if (task.getAssignedTo() == null) {
-                    task.setAssignedBy(users1);
-                    task.setAssignedDate(new Date());
-                    task.setAssignedTo(users1);
                 }
-                //updateReportForTaskComplete(task);
-                TaskDto dto = new TaskDto();
-                taskConverter.copyForDisplay(task, dto, false, false, users1.getId());
-                dto.setStatus(status);
-                reportService.processTask(task, dto);
+            }
+            //updateReportForTaskComplete(task);
+            TaskDto dto = new TaskDto();
+            taskConverter.copyForDisplay(task, dto, false, false, users1.getId());
+            dto.setStatus(status);
+            if ( task.getAssignedTo() == null ) {
+                dto.setAssignedById(users1.getId());
+                dto.setAssignedDate(new Date());
+                dto.setAssignedToId(users1.getId());                
+            }
+            reportService.processTask(task, dto);
+            //}
+            if (task.getAssignedTo() == null) {
+                task.setAssignedBy(users1);
+                task.setAssignedDate(new Date());
+                task.setAssignedTo(users1);
             }
             task.setStatus(status);
+            task.setLastStatusChangedDate(new Date());            
             taskDao.update(task);
             sendTaskAlert(task);
         } else {
@@ -255,7 +267,7 @@ public class TaskServiceImpl implements TaskService {
         Users users1 = usersDao.findByUsername(requestedBy);
         Task task = taskDao.read(taskId);
         // admin, owner, assigned, or pm can change
-        if ( ( task.getAssignedTo() !=null && task.getAssignedTo().equals(users1)) || task.getOwner().equals(users1) || isUserProjectManager(users1.getId(), task.getProject())) {
+        if ((task.getAssignedTo() != null && task.getAssignedTo().equals(users1)) || task.getOwner().equals(users1) || isUserProjectManager(users1.getId(), task.getProject())) {
             task.setPriority(priority);
             taskDao.update(task);
             sendTaskAlert(task);
@@ -269,8 +281,6 @@ public class TaskServiceImpl implements TaskService {
         throw new UnsupportedOperationException("Not supported yet.");
     }
     //---------------------- private helper methods -------------------------//
-
-
     /**
      *  helper method finds given user is a project manager
      * @param userId
@@ -310,17 +320,19 @@ public class TaskServiceImpl implements TaskService {
     }
 
     private void sendTaskAlert(Task task) {
-        List<String> list = new ArrayList<String>();
-        list.add(task.getOwner().getUsername());
+        Set<String> set = new HashSet<String>();
+        String subject = "";
+        set.add(task.getOwner().getUsername());
         String assignedTo = "N/A";
         if (task.getAssignedTo() != null) {
             assignedTo = task.getAssignedTo().getFirstname() + " " + task.getAssignedTo().getLastname();
-            list.add(task.getAssignedTo().getUsername());
+            subject += task.getAssignedTo().getFirstname() + ", ";
+            set.add(task.getAssignedTo().getUsername());
         }
         String assignedBy = "N/A";
         if (task.getAssignedBy() != null) {
             assignedBy = task.getAssignedBy().getFirstname() + " " + task.getAssignedBy().getLastname();
-            list.add(task.getAssignedBy().getUsername());
+            set.add(task.getAssignedBy().getUsername());
         }
         String project = "Todo";
         if (task.getProject() != null) {
@@ -329,14 +341,14 @@ public class TaskServiceImpl implements TaskService {
         if (task.getNotificationEmails() != null && task.getNotificationEmails().length() > 5) {
             String[] emails = task.getNotificationEmails().split(",");
             for (String email : emails) {
-                list.add(email);
+                set.add(email);
             }
         }
         String id = "New";
         if (task.getId() != null) {
             id = task.getId().toString();
         }
-        String subject = "Task # " + id;
+        subject += task.getTitle();
         String assignedDate = "N/A";
         if (task.getAssignedDate() != null) {
             assignedDate = task.getAssignedDate().toString();
@@ -350,15 +362,12 @@ public class TaskServiceImpl implements TaskService {
             completedDate = task.getCompletedDate().toString();
         }
         String body = "<table>" + "<tr><td>Task #</td><td>" + id + "</td></tr>" + "<tr><td>Title</td><td>" + task.getTitle() + "</td></tr>" + "<tr><td>Assigned To</td><td>" + assignedTo + "</td></tr>" + "<tr><td>Assigned On</td><td>" + assignedDate + "</td></tr>" + "<tr><td>Assigned By</td><td>" + assignedBy + "</td></tr>" + "<tr><td>Created By</td><td>" + task.getOwner().getFirstname() + " " + task.getOwner().getLastname() + "</td></tr>" + "<tr><td>Created On</td><td>" + task.getCreateDate() + "</td></tr>" + "<tr><td>Project</td><td>" + project + "</td></tr>" + "<tr><td>Status</td><td>" + task.getStatus() + "</td></tr>" + "<tr><td>Priority</td><td>" + task.getPriority() + "</td></tr>" + "<tr><td>Estimated Hours</td><td>" + task.getEstimatedHours() + "</td></tr>" + "<tr><td>Hours Spend</td><td>" + task.getSpendHours() + "</td></tr>" + "<tr><td>Finish By</td><td>" + deadline + "</td></tr>" + "<tr><td>Completed Date</td><td>" + completedDate + "</td></tr>" + "<tr><td>Description</td><td>" + task.getDescription() + "</td></tr>" + "</table>";
-        try {
-            log.debug("------------------------------- email ");
-            String[] tos = new String[list.size()];
+        try {            
+            String[] tos = new String[set.size()];
             int count = 0;
-            for (String s : list) {
-                System.out.println(" --------- " + s);
+            for (String s : set) {
                 tos[count++] = s;
             }
-            System.out.println(tos[0]);
             mailSender.sendMail(tos, subject, body);
         } catch (RuntimeException re) {
             re.printStackTrace();

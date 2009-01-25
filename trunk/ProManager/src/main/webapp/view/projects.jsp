@@ -21,7 +21,7 @@
 <div id="leftDiv">
 <div id="projectTableContainer"  align="center"> 
 <div id="container">
-<div align="right"><img alt="Add" src="../images/add.gif" class="createANewProject" /><a id="createANewProject" class="createANewProject" href="javascript:void(0)">New project</a></div>
+<div align="right"><img alt="Add" src="../images/add.gif" class="createANewProject" title="create a new project"/><a id="createANewProject" class="createANewProject" href="javascript:void(0)"  title="create a new project">New project</a></div>
 <table id="projectTable"  cellpadding="0" cellspacing="0" border="0" class="display" >                        
     <thead>
         <tr>
@@ -46,7 +46,7 @@
             </thead>
             <tr>
                 <td><b>Name <font color="RED">*</font></b><br>
-                <input id="name" name="name" value="" maxlength="40" type="text"></td>                                
+                <input id="name" name="name" value="" maxlength="40" type="text" title="project name should be unique"></td>                                
             </tr>
             <tr>
                 <td></td>                
@@ -84,8 +84,8 @@
 <div align="right">
     <img alt="Project List" src="../images/projectList.png" class="backToProjectList" ><a href="javascript:void(0);" class="backToProjectList">Back to Project List</a>
     &nbsp;&nbsp;&nbsp;&nbsp;
-    <img alt="Add" src="../images/add.gif" class="saveProjectUsersLink" />
-    <a id="saveProjectUsersLink" class="saveProjectUsersLink" href="javascript:void(0);">Add a User to project</a>
+    <img alt="Add" src="../images/add.gif" class="saveProjectUsersLink" title="existing user when added to project will be able to see and add task of this project"/>
+    <a id="saveProjectUsersLink" class="saveProjectUsersLink" href="javascript:void(0);" title="existing user when added to project will be able to see and add task of this project">Add a User to project</a>
 </div>
 <table id="projectUsersTable"  cellpadding="0" cellspacing="0" border="0" class="display" >
     <thead>
@@ -120,7 +120,7 @@
         </tr>
         <tr>
             <td><b>Username<font color="RED">*</font></b><br>
-            <input id="projectUsername" name="name" value="" maxlength="40" type="text"></td>                                
+            <input id="projectUsername" name="name" value="" maxlength="40" type="text" title="existing username/email"></td>                                
         </tr>
         <tr>
             <td></td>                
@@ -141,8 +141,6 @@
     </table>    
 </div>
 </div>
-
-
-<div id="rightDiv" ></div>
+<!-- <div id="rightDiv" ></div> -->
 </body>
 </html>
