@@ -25,9 +25,12 @@
         margin: 0px;
     }
     BODY {
-        font-family: Verdana, Arial, Helvetica, sans-serif;
-        font-size: 12px;
-        background: #FFF;
-        padding: 15px;
+        font-family:Arial,Helvetica,Verdana,sans-serif;
+        font-size:62.5%;
+        font-size-adjust:none;
+        font-style:normal;
+        font-variant:normal;
+        font-weight:normal;
+        line-height:1.6em;
     }
 </style>

@@ -25,16 +25,16 @@
         <jsp:include page="banner.jsp" />       
         <div id='leftDiv' >
             <div align="center" >                         
-                <select name="projectStatusDropdown" id="projectStatusDropdown">
+                <select name="projectStatusDropdown" id="projectStatusDropdown" title="Task Search by status">
                     <option>Current Task</option>
                     <option>Completed Task</option>
                     <option>All Task</option>
                     <option>Find by Task ID</option>
                 </select>&nbsp;
                 <img id='refreshTask' title='Refresh' src='../images/refresh.png' />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <img alt="Task Area" src="../images/task.png" class="workspaceDiv"></img><a class="workspaceDiv" href='javascript:void(0);'>Task Area</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <img alt="Report Area" src="../images/graph.png" class="ReportsDiv"></img><a class="ReportsDiv" href='javascript:void(0);'>Report Area</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <img alt="New Task" src="../images/add.png" class="taskEditDiv"></img><a class="taskEditDiv" href='javascript:void(0);'>New task</a>                        
+                <img alt="Task Area" title="Displays Tasks" src="../images/task.png" class="workspaceDiv"></img><a class="workspaceDiv" id="workspaceDivId">Task Area</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <img alt="Report Area" title="Displays Reports" src="../images/graph.png" class="ReportsDiv"></img><a class="ReportsDiv" id="reportsDivId" href='javascript:void(0);'>Report Area</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <img alt="New Task" title="Create new Task" src="../images/add.png" class="taskEditDiv"></img><a class="taskEditDiv" id="taskEditDivId" href='javascript:void(0);'>New task</a>                        
             </div>   
             <div id="taskTableContainer" align="left" > 
                 <div id="container">                                               
@@ -71,24 +71,24 @@
                     <table>
                         <tr>
                             <td> <b>Title <font color="RED">*</font> </b><br>
-                            <input id="title" name="title" value="" maxlength="90" size="80" type="text"/>
+                            <input id="title" name="title" value="" maxlength="90" size="80" type="text" title="Task summary"/>
                         </tr>
                         <tr><td><br></td></tr>
                         <tr>
                             <table>
                                 <tr><td><b>Project</b></td><td><b>Priority</b></td><td><b>Status</b></td><td><b>Assign-To</b></td><td><b>Assign Many</b></td></tr>
                                 <tr valign="top"><td>
-                                        <select name="projectDD" id="projectDD">
+                                        <select name="projectDD" id="projectDD" title="projects">
                                         </select>
                                     </td>                                    
                                     <td>
-                                        <select name="priority" id="priority">
+                                        <select name="priority" id="priority" title="priority">
                                             <option>Low</option>
                                             <option selected>Medium</option>
                                             <option>High</option>
                                         </select>
                                     </td>
-                                    <td><select name="status" id="status">
+                                    <td><select name="status" id="status" title="status">
                                             <option>New</option>
                                             <option>In Progress</option>
                                             <option>On Hold</option>
@@ -96,11 +96,11 @@
                                         </select>
                                     </td>
                                     <td>                                         
-                                        <select name="assignToDD" id="assignToDD" >                                          
+                                        <select name="assignToDD" id="assignToDD" title="users">                                          
                                         </select>
                                     </td>
                                     <td>
-                                        <input type="checkbox" id="copyTask" title="Copy Task">
+                                        <input type="checkbox" id="copyTask" title="Copy Task to other users">
                                     </td>
                                 </tr>
                             </table>
@@ -110,29 +110,29 @@
                             <table>
                                 <tr><td><b>Est Hours</b></td><td><b>Hours Spend</b></td><td><b>Finish By</b></td></tr>
                                 <tr>
-                                    <td> <input id="estimatedHours" name="estimatedHours" value="" maxlength="4" size="4" type="text" />
-                                    <td> <input id="hoursSpend" name="hoursSpend" value="" maxlength="4" size="4" type="text" />
-                                    <td><input id="deadline" name="deadline" value="" type="text" size="10" maxlength="10" /><small>(dd Mon yyyy)</small></td>
+                                    <td> <input id="estimatedHours" name="estimatedHours" value="" maxlength="4" size="4" type="text" title="estimated hours to finish task"/>
+                                    <td> <input id="hoursSpend" name="hoursSpend" value="" maxlength="4" size="4" type="text" title="actual time spend on task"/>
+                                    <td><input id="deadline" name="deadline" value="" type="text" size="10" maxlength="10" title="last date to finish task"/><small>(dd Mon yyyy)</small></td>
                                 </tr>
                             </table>
                         </tr>
                         <tr><td><br></td></tr>
                         <tr>
                             <td align="left"> <b>Notification Emails</b><small> (abc@example.com, ..)</small> <br> 
-                            <td><input id="notificationEmails" name="notificationEmails" value="" size="80" type="text" /></td>
+                            <td><input id="notificationEmails" name="notificationEmails" value="" size="80" type="text" title="email will be send to all addresses mentioned hear on this task progress"/></td>
                         </tr>
                         <tr><td><br></td></tr>
                         <tr>
                             <br>
                             <td><b>Description</b><br>
-                                <textarea id="description" rows="5" cols="70"></textarea>
+                                <textarea id="description" rows="5" cols="70" title="detail description and comments on this task"></textarea>
                             </td>
                         </tr>
                         <tr>                  
                             <br>
                             <td align="right">
-                                <input type="button" value="Clear" id="clear"/>                                
-                                <input type="button" value="Save" id="saveTask"/>                                
+                                <input type="button" value="Clear" id="clear" title="clear all fields"/>                                
+                                <input type="button" value="Save" id="saveTask" title="saves task information to database"/>                                
                             </td>   
                         </tr>  
                     </table>
@@ -143,7 +143,7 @@
         <div id="rightDiv">
             <!--<img src="../images/refresh.png" class="refreshReport" />
             <a class="refreshReport" href="javascript:void(0);">Refresh</a> -->
-            <div id="reportDiv"></div>
+            <div id="reportDiv" title="Randomly displays User Report"></div>
             <div id="reportSummaryDiv"></div>            
         </div>        
         

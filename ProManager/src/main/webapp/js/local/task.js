@@ -109,17 +109,26 @@ $(document).ready(function() {
         $('#taskTableContainer').slideDown('fast');
         $('#detailReports').slideUp('fast');
         $('#newTaskContainer').slideUp('fast');
+        $('#reportsDivId').attr('href','javascript:void(0)');
+        $('#taskEditDivId').attr('href','javascript:void(0)');
+        $('#workspaceDivId').removeAttr('href');
     });
     $('.ReportsDiv').livequery ("click", function() {
         $('#taskTableContainer').slideUp('fast');
         $('#detailReports').slideDown('fast');
         $('#newTaskContainer').slideUp('fast');
+        $('#workspaceDivId').attr('href','javascript:void(0)');
+        $('#taskEditDivId').attr('href','javascript:void(0)');
+        $('#reportsDivId').removeAttr('href');
     });
     
     $('.taskEditDiv').click(function() {    
         $('#taskTableContainer').slideUp('fast');
         $('#detailReports').slideUp('fast');
         $('#newTaskContainer').slideDown('fast');
+        $('#reportsDivId').attr('href','javascript:void(0);');
+        $('#workspaceDivId').attr('href','javascript:void(0);');
+        $('#taskEditDivId').removeAttr('href');
     });
     
     $('#taskTable tbody tr').livequery(function() {
