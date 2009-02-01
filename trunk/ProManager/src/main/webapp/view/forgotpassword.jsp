@@ -143,6 +143,7 @@
                     }
         </script>
     </head><body>
+        <br><br><br>
         <table style="border: 5px solid rgb(153, 0, 0); background: rgb(204, 0, 0) none repeat scroll 0% 0%; color: rgb(255, 255, 255); -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; border-collapse: collapse; width: 370px;" align="center" bgcolor="#cc0000" border="0" width="50%">
             <thead>
                 <tr>
@@ -158,11 +159,7 @@
                     <td></td>
                     <td><input value="Send Activation Code to My Email" onclick="recoverPassword();" type="submit"></td>
                 </tr>
-                <tr>
-                    <td>
-                        <a href="../view/login.jsp">Go to Login Page</a>
-                    </td>
-                </tr>
+                
         </tbody></table>
         <br>
         <table style="border: 5px solid rgb(153, 0, 0); background: rgb(204, 0, 0) none repeat scroll 0% 0%; color: rgb(255, 255, 255); -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; border-collapse: collapse; width: 370px;" align="center" bgcolor="#cc0000" border="0" width="50%">
@@ -191,6 +188,12 @@
                 <tr>
                     <td></td>
                     <td><input value="Reset My Password" onclick="resetPassword();" type="submit"></td>               
+                </tr>
+                <br><br>
+                <tr>
+                    <td>
+                        <a href="../view/login.jsp">Go to Login Page</a>
+                    </td>
                 </tr>
         </tbody></table>
     </body></html>

@@ -31,7 +31,7 @@ public interface ProjectReportDao extends GenericDao<ProjectReport, Integer> {
 
     List<ProjectReport> findByProject(Integer project, int maxRecords);
 
-    List<ProjectReport> findByOrganization(Integer organization);
+    List<ProjectReport> findByOrganizationForTodo(Integer organization, Integer maxRecords);
     
     Object findProjectSummary ( Integer project);
 }

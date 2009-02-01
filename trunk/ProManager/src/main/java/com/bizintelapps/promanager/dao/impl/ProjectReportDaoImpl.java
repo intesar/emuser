@@ -50,8 +50,9 @@ public class ProjectReportDaoImpl extends GenericDaoImpl<ProjectReport, Integer>
     }
 
     @Override
-    public List<ProjectReport> findByOrganization(Integer organization) {
-        return executeNamedQueryList("ProjectReport.findByOrganization", null, organization);
+    public List<ProjectReport> findByOrganizationForTodo(Integer organization, Integer maxRecords) {
+        PagingParams<ProjectReport> pagingParams = new PagingParams<ProjectReport>(0, maxRecords, null);
+        return executeNamedQueryList("ProjectReport.findByOrganizationForTodo", pagingParams, organization);
     }
 
     @Override

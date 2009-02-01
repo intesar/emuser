@@ -73,6 +73,9 @@ public class AjaxReportService {
      * @return
      */
     public List<ProjectReportDto> getProjectReports(Integer project, Integer maxReports) {
+        if ( project == -1 ) {
+            return reportService.getRandomProjectReports(maxReports, SecurityUtil.getUsername());
+        }
         ProjectReportDto dto = getProjectReportSummary(project);
         dto.setTitle("Summary");
         List<ProjectReportDto> dtos = reportService.getProjectReports(project, maxReports, SecurityUtil.getUsername());

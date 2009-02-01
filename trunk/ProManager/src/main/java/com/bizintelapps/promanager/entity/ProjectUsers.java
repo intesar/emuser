@@ -43,7 +43,8 @@ import javax.persistence.Version;
     @NamedQuery(name = "ProjectUsers.findByExpirationDate", query = "SELECT p FROM ProjectUsers p WHERE p.expirationDate = :expirationDate"),
     @NamedQuery(name = "ProjectUsers.findManagedProjectsByUserId", query = "SELECT p FROM ProjectUsers p WHERE p.isManager = true and p.users.id = ?1 "),
     @NamedQuery(name = "ProjectUsers.findByProjectStatusAndUserId", query = "SELECT p FROM ProjectUsers p WHERE p.project.status = ?1 and p.users.id = ?2 "),
-    @NamedQuery(name = "ProjectUsers.findByProjectIdAndUserId", query = "SELECT p FROM ProjectUsers p WHERE p.project.id = ?1 and p.users.id = ?2 ")
+    @NamedQuery(name = "ProjectUsers.findByProjectIdAndUserId", query = "SELECT p FROM ProjectUsers p WHERE p.project.id = ?1 and p.users.id = ?2 "),
+    @NamedQuery(name = "ProjectUsers.findByUserId", query = "SELECT p FROM ProjectUsers p WHERE p.users.id = ?1")
 })
 public class ProjectUsers implements Serializable {
 

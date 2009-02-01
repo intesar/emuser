@@ -40,7 +40,10 @@ public class ProjectUsersDaoImpl extends GenericDaoImpl<ProjectUsers, Integer> i
         throw new UnsupportedOperationException("Not supported yet.");
     }
     
-    
+    @Override
+    public List<ProjectUsers> findByUserId(Integer userId) {
+        return executeNamedQueryList("ProjectUsers.findByUserId", null, userId);
+    }
 
     @Override
     public List<ProjectUsers> findManagedProjectsByUserId(Integer userId) {

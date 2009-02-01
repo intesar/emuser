@@ -1,6 +1,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <link rel="stylesheet" type="text/css" media="screen" href="../css/demos.css" />
-<link rel="stylesheet" type="text/css" media="screen" href="../css/jq.css" />   
+<!--<link rel="stylesheet" type="text/css" media="screen" href="../css/jq.css" />   -->
 <link rel="stylesheet" type="text/css" media="screen" href="../css/basic.css" />     
 <link rel="stylesheet" type="text/css" media="screen" href="../css/style.css" />  
 <link rel="stylesheet" type="text/css" media="screen" href="../css/jquery.jgrowl.css" />  
@@ -26,7 +26,7 @@
     }
     BODY {
         font-family:Arial,Helvetica,Verdana,sans-serif;
-        font-size:62.5%;
+        font-size:11px;
         font-size-adjust:none;
         font-style:normal;
         font-variant:normal;
