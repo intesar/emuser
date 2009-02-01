@@ -41,7 +41,7 @@ import javax.persistence.Table;
     @NamedQuery(name = "ProjectReport.findByProject", query = "SELECT p FROM ProjectReport p WHERE p.project = ?1  order by p.year desc, p.month desc"),
     @NamedQuery(name = "ProjectReport.findByOrganizationForTodo", query = "SELECT p FROM ProjectReport p WHERE p.organization = ?1 and p.project is null"),
     @NamedQuery(name = "ProjectReport.findByProjectMonthAndYear", query = "SELECT p FROM ProjectReport p WHERE p.project = ?1 and p.month = ?2 and p.year = ?3"),
-    @NamedQuery(name = "ProjectReport.findByOrganizationMonthAndYear", query = "SELECT p FROM ProjectReport p WHERE p.organization = ?1 and p.month = ?2 and p.year = ?3"),
+    @NamedQuery(name = "ProjectReport.findByOrganizationMonthAndYear", query = "SELECT p FROM ProjectReport p WHERE p.organization = ?1 and p.month = ?2 and p.year = ?3 and p.project is null"),
     @NamedQuery(name = "ProjectReport.findProjectSummary", query = "SELECT NEW com.bizintelapps.promanager.dto.ProjectReportDto " +
     "(sum(p.taskCreated), sum(p.taskFinished), sum(p.estimatedTime), sum(p.timeSpend)) FROM ProjectReport p WHERE p.project = ?1 ")
 })
