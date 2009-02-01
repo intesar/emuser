@@ -79,6 +79,14 @@ public interface ReportService {
     public List<ProjectReportDto> getProjectReports(Integer project, Integer maxReports, String requestedBy);
 
     /**
+     *
+     * @param maxReports
+     * @param requestedBy
+     * @return random project report or todo report beloning to user
+     */
+    public List<ProjectReportDto> getRandomProjectReports(Integer maxReports, String requestedBy);
+
+    /**
      * 
      * return summary of project or todo 
      * @param project

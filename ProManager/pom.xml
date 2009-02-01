@@ -2,10 +2,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.bizintelapps</groupId>
-    <artifactId>ProManager</artifactId>
+    <artifactId>Grow-Fast</artifactId>
     <packaging>war</packaging>
     <version>1.0-SNAPSHOT</version>
-    <name>ProManager</name>
+    <name>Grow-Fast</name>
     <url>http://maven.apache.org</url>
  <!-- Developers -->
     <contributors>
@@ -23,9 +23,9 @@
     <!-- xml & log4j file locations -->
     <properties>
         <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
-        <jdbc.url>jdbc:mysql:///pm</jdbc.url>
-        <jdbc.username>pm</jdbc.username>
-        <jdbc.password>pm</jdbc.password>
+        <jdbc.url>jdbc:mysql://localhost:3306/pm</jdbc.url>
+        <jdbc.username>root</jdbc.username>
+        <jdbc.password>apple</jdbc.password>
         <logging.level>INFO</logging.level>
         <cache.type>SoftWeak</cache.type>
         <jdbc.read-connections.max>20</jdbc.read-connections.max>
@@ -51,7 +51,7 @@
                 <directory>src/test/resources</directory>
             </testResource>
         </testResources>
-        <finalName>ProTaskManagement</finalName>
+        <finalName>Grow-Fast</finalName>
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>

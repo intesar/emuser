@@ -2,6 +2,7 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * General page setup
  */
+/**
 #dt_example {
 	color:#333333;
 	font-family:"Lucida Grande",Verdana,Arial,Helvetica,sans-serif;
@@ -23,9 +24,9 @@
 	margin: 10px auto;
 	padding: 0;
 }
-
+**/
 #leftDiv {
-    position:absolute; left:2%; top:12%; bottom:5%; width:70%; height:80%;
+    position:absolute; left:2%; top:10%; bottom:5%; width:70%; height:80%;
 }
 
 #menuDiv {
@@ -42,7 +43,7 @@
     position:absolute; left:74%; top:12%; width:24%;border-width:thin; border-style:solid
 }
 #rightBottomDiv {
-    position:absolute; left:74%; top:50%; width:24%; bottom:2%; border-width:thin; border-style:solid
+    position:absolute; left:74%; top:50%; width:24%; border-width:thin; border-style:solid
 }
 #dt_example #footer {
 	margin: 50px auto 0 auto;
@@ -304,7 +305,8 @@ tfoot input.search_init {
 }
 
 .example_alt_pagination .dataTables_paginate {
-	width: 400px;
+	width: 55%;
+    text-align:center;
 }
 
 .example_alt_pagination div.dataTables_paginate span.paginate_button,

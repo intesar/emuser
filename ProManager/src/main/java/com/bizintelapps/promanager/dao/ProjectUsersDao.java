@@ -44,4 +44,11 @@ public interface ProjectUsersDao extends GenericDao<ProjectUsers, Integer> {
      * @return
      */
     public List<ProjectUsers> findByProjectStatusAndUserId ( String status, Integer userId);
+
+    /**
+     *
+     * @param userId
+     * @return all projects where user is a member of it
+     */
+    public List<ProjectUsers> findByUserId(Integer userId);
 }

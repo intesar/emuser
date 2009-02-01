@@ -17,6 +17,7 @@
 package com.bizintelapps.promanager.service.impl;
 
 import com.bizintelapps.promanager.dao.ProjectReportDao;
+import com.bizintelapps.promanager.dao.ProjectUsersDao;
 import com.bizintelapps.promanager.dao.UserReportDao;
 import com.bizintelapps.promanager.dao.UsersDao;
 import com.bizintelapps.promanager.dto.ProjectReportDto;
@@ -26,6 +27,7 @@ import com.bizintelapps.promanager.dtoa.ProjectReportDtoA;
 import com.bizintelapps.promanager.dtoa.UserReportDtoA;
 import com.bizintelapps.promanager.entity.Project;
 import com.bizintelapps.promanager.entity.ProjectReport;
+import com.bizintelapps.promanager.entity.ProjectUsers;
 import com.bizintelapps.promanager.entity.Task;
 import com.bizintelapps.promanager.entity.UserReport;
 import com.bizintelapps.promanager.entity.Users;
@@ -68,6 +70,12 @@ public class ReportServiceImpl implements ReportService {
         // only admin, self can see graph
         if (user.equals(requestedUser.getId()) || requestedUser.isIsAdministrator()) {
             List<UserReport> list = userReportDao.findByUser(user, maxReports);
+            if (list == null || list.size() == 0) {
+                Calendar c = Calendar.getInstance();
+                UserReport up = new UserReport(user, c.get(Calendar.MONTH), c.get(Calendar.YEAR), 0);
+                up.setUser(user);
+                list.add(up);
+            }
             // copy for display
             for (UserReport ur : list) {
                 dtos.add(userReportDtoA.copyForDisplay(ur));
@@ -94,18 +102,7 @@ public class ReportServiceImpl implements ReportService {
         } else {
             userId = requestedUser.getId();
         }
-        List<UserReport> list = userReportDao.findByUser(userId, maxReports);
-        if ( list == null || list.size() == 0 ) {
-            Calendar c = Calendar.getInstance();
-            UserReport up = new UserReport(userId, c.get(Calendar.MONTH), c.get(Calendar.YEAR), 0 );
-            up.setUser(userId);
-            list.add(up);
-        }
-        // copy for display
-        for (UserReport ur : list) {
-            dtos.add(userReportDtoA.copyForDisplay(ur));
-        }
-        return dtos;
+        return getUserReports(userId, maxReports, requestedBy);
     }
 
     @Override
@@ -157,7 +154,7 @@ public class ReportServiceImpl implements ReportService {
         List<ProjectReportDto> dtos = new ArrayList<ProjectReportDto>();
         if (project == null || project.equals(0)) {
             org = requestedUser.getOrganization().getId();
-            list = projectReportDao.findByOrganization(org);
+            list = projectReportDao.findByOrganizationForTodo(org, maxReports);
         } else {
             list = projectReportDao.findByProject(project, maxReports);
         }
@@ -169,13 +166,26 @@ public class ReportServiceImpl implements ReportService {
     }
 
     @Override
+    public List<ProjectReportDto> getRandomProjectReports(Integer maxReports, String requestedBy) {
+        Integer project = null;
+        Users requestedUser = usersDao.findByUsername(requestedBy);
+        List<ProjectUsers> projectUserses = projectUsersDao.findByUserId(requestedUser.getId());
+        Random r = new Random();
+        int randmonProject = r.nextInt(projectUserses.size() + 1); // +1 for TODO
+        if (randmonProject < projectUserses.size()) { // if randomProject >= size then its TODO
+            project = projectUserses.get(randmonProject).getProject().getId();
+        }
+        return getProjectReports(project, maxReports, requestedBy);
+    }
+
+    @Override
     public ProjectReportDto getProjectReportSummary(Integer project, String requestedBy) {
         Users requestedUser = usersDao.findByUsername(requestedBy);
         ProjectReportDto dto = null;
         Integer org = null;
         if (project == null || project.equals(0)) {
             org = requestedUser.getOrganization().getId();
-        //list = projectReportDao.findByOrganization(org);
+        //list = projectReportDao.findByOrganizationForTodo(org);
         } else {
             dto = (ProjectReportDto) projectReportDao.findProjectSummary(project);
         }
@@ -203,6 +213,7 @@ public class ReportServiceImpl implements ReportService {
     }
     // ------------------------------- private methods ---------------------//
     // owner report is effect only when new task or task deleted
+
     private void processTaskOwner(Task t, TaskDto dto) {
         Calendar c = Calendar.getInstance();
         if (t == null && (dto != null && dto.getOwnerId() != null)) { // new task            
@@ -242,6 +253,7 @@ public class ReportServiceImpl implements ReportService {
         }
     }
     // efects user_report on assineee added, removed or changed
+
     private void processTaskAssignee(Task t, TaskDto dto) {
         if ((t != null && t.getAssignedTo() == null && dto != null && dto.getAssignedToId() != null) || (t == null && (dto != null && dto.getAssignedToId() != null))) { // new task  assigned     
             addTaskAssigned(dto.getAssignedToId(), dto.getOwnerId(), dto.getAssignedById(), dto.getAssignedDate(), dto.getEstimatedHours());
@@ -431,6 +443,7 @@ public class ReportServiceImpl implements ReportService {
         }
     }
     // ------------------------- setters -------------------------------------//
+
     public void setProjectReportDao(ProjectReportDao projectReportDao) {
         this.projectReportDao = projectReportDao;
     }
@@ -450,6 +463,12 @@ public class ReportServiceImpl implements ReportService {
     public void setUserReportDtoA(UserReportDtoA userReportDtoA) {
         this.userReportDtoA = userReportDtoA;
     }
+
+    public void setProjectUsersDao(ProjectUsersDao projectUsersDao) {
+        this.projectUsersDao = projectUsersDao;
+    }
+    @Autowired
+    private ProjectUsersDao projectUsersDao;
     @Autowired
     private ProjectReportDao projectReportDao;
     @Autowired

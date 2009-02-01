@@ -1,5 +1,6 @@
 // this function is executed on load 	
 $(document).ready(function() {
+    $('#abbrevationsId').click(function() { $('#abbrevations').modal();});
     // checkout datatable plugin to understand below code
     oTable = $('#taskTable').dataTable( {             
         "sDom": '<"top"i>rt<"bottom"flp<"clear">',
@@ -28,7 +29,7 @@ $(document).ready(function() {
                 deadline = "<img src='../images/empty-calendar.png' title='None' />"
             } else {
                 deadline = deadline.substr(0, 6);
-            };
+            }
             var title = tasks[i].title ;
             title += ' (' + tasks[i].estimatedHours + ')';
             var assignedUser = tasks[i].assignedToName; 
@@ -142,26 +143,27 @@ $(document).ready(function() {
         $(this).contextMenu({
             menu: 'myMenu'
         }, function(action, el, pos) {
+            var taskId = null;
             if ( action == 'edit') { 
-                var taskId = $(el).parent().children()[0].firstChild.data; showTaskForEdit(taskId);
+                taskId = $(el).parent().children()[0].firstChild.data; showTaskForEdit(taskId);
             }
             if ( action == 'new') { 
                 $('.taskEditDiv').trigger('click');
             }
             else if ( action == 'high') { 
-                var taskId = $(el).parent().children()[0].firstChild.data; changeTaskPriorityToHigh(taskId);
+                taskId = $(el).parent().children()[0].firstChild.data; changeTaskPriorityToHigh(taskId);
             }
             else if ( action == 'inprogress') { 
-                var taskId = $(el).parent().children()[0].firstChild.data; changeTaskStatus(taskId, 'In Progress');
+                taskId = $(el).parent().children()[0].firstChild.data; changeTaskStatus(taskId, 'In Progress');
             }
             else if ( action == 'completed') { 
-                var taskId = $(el).parent().children()[0].firstChild.data; changeTaskStatus(taskId, 'Completed');
+                taskId = $(el).parent().children()[0].firstChild.data; changeTaskStatus(taskId, 'Completed');
             }
             else if ( action == 'assignme') { 
-                var taskId = $(el).parent().children()[0].firstChild.data; assignMe(taskId);
+                taskId = $(el).parent().children()[0].firstChild.data; assignMe(taskId);
             }
             else if ( action == 'delete') { 
-                var taskId = $(el).parent().children()[0].firstChild.data; deleteTask(taskId);
+                taskId = $(el).parent().children()[0].firstChild.data; deleteTask(taskId);
             }
         });
     });
@@ -377,7 +379,10 @@ $(document).ready(function() {
     })
    
     // --------------- reporting -----------------------------------//
-    function displayReportFunction (data, divId) {
+    
+    var displayReportId = 1; // 1 is user, 2 is project
+
+    function displayUserReportFunction (data, divId) {
         $('#' + divId).empty();
         for ( var i = 0; i < data.length; i++ ) {
             var title = data[i].name + " " + data[i].reportDate;
@@ -390,28 +395,56 @@ $(document).ready(function() {
             jQuery('<img>') 
             .attr('src', api.make({
                 title       : title, 
-                grid        : true,
                 data : [[tasksAssigned, tasksCompleted, hoursAssigned, hoursDone, myCreatedTask]],
                 axis_labels : [''],
                 legend : ['Tasks Assigned '+tasksAssigned, 'Tasks Completed '+tasksCompleted,'Hours Assigned '+hoursAssigned,'Hours Done '+hoursDone,'My Created Tasks '+myCreatedTask]
             })).appendTo("#" + divId);	
         }
     }
-    
-    displayReport = function( data) {
-        displayReportFunction(data, "reportDiv");
+
+    function displayProjectReportFunction (data, divId) {
+        $('#' + divId).empty();
+        for ( var i = 0; i < data.length; i++ ) {
+            var title = data[i].projectName + " " + data[i].reportDate;
+            var tasksAssigned = data[i].taskCreated;
+            var tasksCompleted = data[i].taskFinished;
+            var hoursAssigned = data[i].estimatedTime;
+            var hoursDone = data[i].timeSpend;
+            var api = new jGCharts.Api();
+            jQuery('<img>')
+            .attr('src', api.make({
+                title       : title,
+                data : [[tasksAssigned, tasksCompleted, hoursAssigned, hoursDone]],
+                axis_labels : [''],
+                legend : ['Tasks Assigned '+tasksAssigned, 'Tasks Completed '+tasksCompleted,'Hours Assigned '+hoursAssigned,'Hours Done '+hoursDone]
+            })).appendTo("#" + divId);
+        }
     }
     
-    var loadUserReport = function() {
-        // get user id randomly
-        AjaxReportService.getUserReports(-1, 1, displayReport);
+    displayUserReport = function( data) {
+        displayUserReportFunction(data, "reportDiv");
     }
-    
-    AjaxReportService.getUserReports(0, 1, displayReport);
-    
+    displayProjectReport = function( data) {
+        displayProjectReportFunction(data, "reportDiv");
+    }
+    var loadUserReport = function() {       
+        AjaxReportService.getUserReports(-1, 1, displayUserReport);  // get random user report
+    }    
+    var loadProjectReport = function() {       
+        AjaxReportService.getProjectReports(-1, 1, displayProjectReport);  // get radmon project report belonging to user
+    }
+    var loadUserOrProjectReport = function() {
+        if ( displayReportId == 1 ) { //
+            loadUserReport();
+            displayReportId = 2;
+        } else {
+            loadProjectReport();
+            displayReportId = 1;
+        }
+    }
     setInterval(function() {
-        loadUserReport();
-    },60000);
+        loadUserOrProjectReport();
+    },30000);
     
     // set timer for 30secs  
     function loadNews() {
@@ -427,13 +460,12 @@ $(document).ready(function() {
             + tasks[i].priority + ", Completed, # " + tasks[i].id
             + "</p>";
         }
-        $('#rightBottomDiv').slideUp('slow').slideDown('slow').html( content );
+        $('#rightBottomDiv').html( content );
         
     }
     setInterval(function() {
         loadNews();
-    },60000);
-    AjaxTaskService.getRecentCompletedTask ( 5, displayNews);
+    },30000);
     
     $('.newsClass').livequery('click', function() {
         var taskId = $(this).attr('id').substr(4);
@@ -446,11 +478,6 @@ $(document).ready(function() {
     AjaxUsersService.getUserDetails(function (name){    
         $('#welcomeDiv').html("<p>Welcome " + name.firstname + " " +name.lastname + "</p>");
     });
-
-
-    
-    
-    
 
 });
     

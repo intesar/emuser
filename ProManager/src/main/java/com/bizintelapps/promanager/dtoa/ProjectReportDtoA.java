@@ -39,6 +39,8 @@ public class ProjectReportDtoA {
         if (pr.getProject() != null) {
             Project p = projectDao.read(pr.getProject());
             dto.setProjectName(p.getName());
+        } else {
+            dto.setProjectName("Todo");
         }
         dto.setTaskCreated(pr.getTaskCreated());
         dto.setTaskFinished(pr.getTaskFinished());
