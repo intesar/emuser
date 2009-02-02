@@ -35,12 +35,12 @@
     </head><body>
         <div style="position:absolute; left:10%; top:10%; width:30%;">
             <form action="../j_acegi_security_check" method="post" id="login_form">
-                <pre>Sign In</pre>
+
                 <table>
-                    <tr><td>Email : </td><td><input name="j_username" size="20" type="text" value=""> <br></td></tr><tr></tr><tr></tr>
-                    <tr><td>Password : </td><td><input name="j_password" size="20" type="password" value=""> <br></td></tr><tr></tr><tr></tr>
-                    <tr><td></td><td><input type="checkbox" name="_acegi_security_remember_me" checked="checked" />Remember Me</td></tr><tr></tr><tr></tr>
-                    <tr><td><input value="Clear" name="Clear" type="reset"></td><td><input value="Sign In " name="Sign In" type="submit"></td></tr>
+                    <tr><td><small>Email : </small> </td><td><input name="j_username" size="20" type="text" value=""> <br></td></tr><tr></tr><tr></tr>
+                    <tr><td><small>Password : </small></td><td><input name="j_password" size="20" type="password" value=""> <br></td></tr><tr></tr><tr></tr>
+                    <tr><td></td><td><input type="checkbox" name="_acegi_security_remember_me" checked="checked" /><small>Remember Me</small></td></tr><tr></tr><tr></tr>
+                    <tr><td></td><td><input value="Clear" name="Clear" type="reset"><input value="Sign In " name="Sign In" type="submit"></td></tr>
                 </table>
             </form>
             <a href="../view/forgotpassword.jsp">Forgot Password ?</a> | <a href="../view/signup.jsp">Sign Up</a> | <a href="../j_acegi_security_check?j_username=fatima.shanoor@gmail.com&j_password=xy" >Demo</a>
