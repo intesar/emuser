@@ -256,11 +256,11 @@ public class ReportServiceImpl implements ReportService {
             Project p = t.getProject();
             Integer pId = dto.getProjectId();
             // p && Pid should not be same
-            if ((p == null && pId == null) || (p != null && pId != null && p.getId().equals(pId))) {
-            } else {
-                taskCreatedForProjectReport(dto);
-                taskDeletedForProjectReport(t);
-            }
+            //if ((p == null && pId == null) || (p != null && pId != null && p.getId().equals(pId))) {
+            //} else {
+            taskCreatedForProjectReport(dto);
+            taskDeletedForProjectReport(t);
+        //}
         }
     }
 
@@ -271,12 +271,12 @@ public class ReportServiceImpl implements ReportService {
      */
     private void processTaskAssignee(Task t, TaskDto dto) {
         if ((t != null && t.getAssignedTo() == null && dto != null && dto.getAssignedToId() != null) || (t == null && (dto != null && dto.getAssignedToId() != null))) { // new task  assigned     
-            addTaskAssigned(dto.getAssignedToId(), dto.getOwnerId(), dto.getAssignedById(), dto.getAssignedDate(), dto.getEstimatedHours());
+            addTaskAssigned(dto.getAssignedToId(), dto.getOwnerId(), dto.getAssignedById(), dto.getSpendHours(), dto.getEstimatedHours(), true, null);
         } else if (t != null && t.getAssignedTo() != null && (dto == null || dto != null && dto.getAssignedToId() == null)) {
-            removeTaskAssigned(t.getAssignedTo().getId(), t.getOwner().getId(), t.getAssignedBy().getId(), t.getAssignedDate(), t.getEstimatedHours());
-        } else if (t != null && dto != null && t.getAssignedTo() != null && dto.getAssignedToId() != null && (!t.getAssignedTo().getId().equals(dto.getAssignedToId()))) {
-            removeTaskAssigned(t.getAssignedTo().getId(), t.getOwner().getId(), t.getAssignedBy().getId(), t.getAssignedDate(), t.getEstimatedHours());
-            addTaskAssigned(dto.getAssignedToId(), dto.getOwnerId(), dto.getAssignedById(), dto.getAssignedDate(), dto.getEstimatedHours());
+            removeTaskAssigned(t.getAssignedTo().getId(), t.getOwner().getId(), t.getAssignedBy().getId(), t.getAssignedDate(), t.getEstimatedHours(), true, 0);
+        } else if (t != null && dto != null && t.getAssignedTo() != null && dto.getAssignedToId() != null) {
+            removeTaskAssigned(t.getAssignedTo().getId(), t.getOwner().getId(), t.getAssignedBy().getId(), t.getAssignedDate(), t.getEstimatedHours(), false, t.getSpendHours());
+            addTaskAssigned(dto.getAssignedToId(), dto.getOwnerId(), dto.getAssignedById(), dto.getSpendHours(), dto.getEstimatedHours(), false, dto.getAssignedDate());
         }
     }
 
@@ -297,18 +297,18 @@ public class ReportServiceImpl implements ReportService {
                     userReport = new UserReport(null, c.get(Calendar.MONTH), c.get(Calendar.YEAR), 0);
                     userReport.setUser(dto.getAssignedToId());
                     userReportDao.create(userReport);
-                    //userReport = userReportDao.findByUserMonthAndYear(dto.getAssignedToId(), c.get(Calendar.MONTH), c.get(Calendar.YEAR));
+                //userReport = userReportDao.findByUserMonthAndYear(dto.getAssignedToId(), c.get(Calendar.MONTH), c.get(Calendar.YEAR));
                 }
-                //if (userReport.getEstimatedHours() != null && userReport.getEstimatedHours() > t.getEstimatedHours()) {
-                //    userReport.setEstimatedHours(userReport.getEstimatedHours() - t.getEstimatedHours());
-                //}
+            //if (userReport.getEstimatedHours() != null && userReport.getEstimatedHours() > t.getEstimatedHours()) {
+            //    userReport.setEstimatedHours(userReport.getEstimatedHours() - t.getEstimatedHours());
+            //}
             } else {
                 userReport = userReportDao.findByUserMonthAndYear(dto.getOwnerId(), c.get(Calendar.MONTH), c.get(Calendar.YEAR));
                 if (userReport == null) { // add entity to db this will happen on new month startups
                     userReport = new UserReport(null, c.get(Calendar.MONTH), c.get(Calendar.YEAR), 0);
                     userReport.setUser(dto.getOwnerId());
                     userReportDao.create(userReport);
-                    //userReport = userReportDao.findByUserMonthAndYear(dto.getOwnerId(), c.get(Calendar.MONTH), c.get(Calendar.YEAR));
+                //userReport = userReportDao.findByUserMonthAndYear(dto.getOwnerId(), c.get(Calendar.MONTH), c.get(Calendar.YEAR));
                 }
                 userReport.setCreatedSelfAssigned(userReport.getCreatedSelfAssigned() + 1);
                 userReport.setTotalAssigned(userReport.getTotalAssigned() + 1);
@@ -382,14 +382,17 @@ public class ReportServiceImpl implements ReportService {
      * @param assignDate
      * @param eh
      */
-    private void addTaskAssigned(Integer userId, Integer ownerId, Integer assignedBy, Date assignDate, double eh) {
+    private void addTaskAssigned(Integer userId, Integer ownerId, Integer assignedBy, double hoursSpend, double eh, boolean isNew, Date dt) {
         Calendar c = Calendar.getInstance();
+        if (!isNew) {
+            c.setTime(dt);
+        }
         UserReport userReport1 = userReportDao.findByUserMonthAndYear(userId, c.get(Calendar.MONTH), c.get(Calendar.YEAR));
         if (userReport1 == null) { // new entity
             userReport1 = new UserReport(null, c.get(Calendar.MONTH), c.get(Calendar.YEAR), 0);
             userReport1.setUser(userId);
             userReportDao.create(userReport1);
-            //userReport1 = userReportDao.findByUserMonthAndYear(userId, c.get(Calendar.MONTH), c.get(Calendar.YEAR));
+        //userReport1 = userReportDao.findByUserMonthAndYear(userId, c.get(Calendar.MONTH), c.get(Calendar.YEAR));
         }
         if (ownerId.equals(userId) && assignedBy.equals(userId)) {
             userReport1.setCreatedSelfAssigned(userReport1.getCreatedSelfAssigned() + 1);
@@ -398,8 +401,10 @@ public class ReportServiceImpl implements ReportService {
         } else {
             userReport1.setAssigned(userReport1.getAssigned() + 1);
         }
+
         userReport1.setTotalAssigned(userReport1.getTotalAssigned() + 1);
         userReport1.setEstimatedHours(userReport1.getEstimatedHours() + eh);
+        userReport1.setHoursSpend(userReport1.getHoursSpend() + hoursSpend);
         userReportDao.update(userReport1);
     }
 
@@ -411,7 +416,7 @@ public class ReportServiceImpl implements ReportService {
      * @param assignDate
      * @param eh
      */
-    private void removeTaskAssigned(Integer userId, Integer ownerId, Integer assignedBy, Date assignDate, double eh) {
+    private void removeTaskAssigned(Integer userId, Integer ownerId, Integer assignedBy, Date assignDate, double eh, boolean isDelete, double hoursSpend) {
         Calendar c = Calendar.getInstance();
         c.setTime(assignDate);
         UserReport userReport1 = userReportDao.findByUserMonthAndYear(userId, c.get(Calendar.MONTH), c.get(Calendar.YEAR));
@@ -424,6 +429,9 @@ public class ReportServiceImpl implements ReportService {
         }
         userReport1.setTotalAssigned(userReport1.getTotalAssigned() - 1);
         userReport1.setEstimatedHours(userReport1.getEstimatedHours() - eh);
+        if (!isDelete) {
+            userReport1.setHoursSpend(userReport1.getHoursSpend() - hoursSpend);
+        }
         userReportDao.update(userReport1);
     }
 
@@ -438,10 +446,12 @@ public class ReportServiceImpl implements ReportService {
             if (projectReport == null) {// create new entity
                 projectReport = new ProjectReport(null, 1, dto.getEstimatedHours(), c.get(Calendar.MONTH), c.get(Calendar.YEAR), dto.getProjectId());
                 projectReport.setEstimatedTime(dto.getEstimatedHours());
+                projectReport.setTimeSpend(dto.getSpendHours());
                 projectReportDao.create(projectReport);
             } else {// update entity
                 projectReport.setTaskCreated(projectReport.getTaskCreated() + 1);
                 projectReport.setEstimatedTime(projectReport.getEstimatedTime() + dto.getEstimatedHours());
+                projectReport.setTimeSpend(projectReport.getTimeSpend() + dto.getSpendHours());
                 projectReportDao.update(projectReport);
             }
         } else { // Todo
@@ -450,11 +460,13 @@ public class ReportServiceImpl implements ReportService {
             if (projectReport == null) {// create new entity
                 projectReport = new ProjectReport(null, 1, dto.getEstimatedHours(), c.get(Calendar.MONTH), c.get(Calendar.YEAR), null);
                 projectReport.setEstimatedTime(dto.getEstimatedHours());
+                projectReport.setTimeSpend(dto.getSpendHours());
                 projectReport.setOrganization(org);
                 projectReportDao.create(projectReport);
             } else {// update entity
                 projectReport.setTaskCreated(projectReport.getTaskCreated() + 1);
                 projectReport.setEstimatedTime(projectReport.getEstimatedTime() + dto.getEstimatedHours());
+                projectReport.setTimeSpend(projectReport.getTimeSpend() + dto.getSpendHours());
                 projectReportDao.update(projectReport);
             }
         }
@@ -477,6 +489,7 @@ public class ReportServiceImpl implements ReportService {
         }
         projectReport.setTaskCreated(projectReport.getTaskCreated() - 1);
         projectReport.setEstimatedTime(projectReport.getEstimatedTime() - t.getEstimatedHours());
+        projectReport.setTimeSpend(projectReport.getTimeSpend() - t.getSpendHours());
         projectReportDao.update(projectReport);
     }
     // ------------------------- setters -------------------------------------//
