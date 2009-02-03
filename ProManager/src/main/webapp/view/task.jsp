@@ -107,70 +107,71 @@
                 <div id="reportsArea"></div>
             </div>
 
-            <div id="newTaskContainer" style="display:none" align="center">
+            <br>
+            <div id="newTaskContainer" style="display:none; border-width:thin; border-style:solid" align="center">
                 <div id="container">
                     <table>
                         <tr>
-                            <td> <b>Title <font color="RED">*</font> </b><br>
-                            <input id="title" name="title" value="" maxlength="90" size="80" type="text" title="Task summary"/>
+                            <td> <b>Title <font color="RED">*</font> </b></td><td>
+                                <input id="title" name="title" value="" maxlength="90" size="80" type="text" title="Task summary"/>
+                            </td>
                         </tr>
-                        <tr><td><br></td></tr>
+
+                        <tr><td><b>Project</b> </td>
+                                <td><select name="projectDD" id="projectDD" title="projects">
+                                </select>
+                            </td>
+                        </tr>
                         <tr>
-                            <table>
-                                <tr><td><b>Project</b></td><td><b>Priority</b></td><td><b>Status</b></td><td><b>Assign-To</b></td><td><b>Assign Many</b></td></tr>
-                                <tr valign="top"><td>
-                                        <select name="projectDD" id="projectDD" title="projects">
-                                        </select>
-                                    </td>
-                                    <td>
-                                        <select name="priority" id="priority" title="priority">
-                                            <option>Low</option>
-                                            <option selected>Medium</option>
-                                            <option>High</option>
-                                        </select>
-                                    </td>
-                                    <td><select name="status" id="status" title="status">
-                                            <option>New</option>
-                                            <option>In Progress</option>
-                                            <option>On Hold</option>
-                                            <option>Completed</option>
-                                        </select>
-                                    </td>
-                                    <td>
-                                        <select name="assignToDD" id="assignToDD" title="users">
-                                        </select>
-                                    </td>
-                                    <td>
-                                        <input type="checkbox" id="copyTask" title="Copy Task to other users">
-                                    </td>
-                                </tr>
-                            </table>
-                        </tr>
-                        <tr><td><br></td></tr>
+                        <td> <b>Priority</b> </td><td>
+                            <select name="priority" id="priority" title="priority">
+                                <option>Low</option>
+                                <option selected>Medium</option>
+                                <option>High</option>
+                            </select>
+                        </td>
+                        <tr> <td> <b> Status </b> </td><td>
+                            <select name="status" id="status" title="status">
+                                <option>New</option>
+                                <option>In Progress</option>
+                                <option>On Hold</option>
+                                <option>Completed</option>
+                            </select>
+                        </td>
                         <tr>
-                            <table>
-                                <tr><td><b>Est Hours</b></td><td><b>Hours Spend</b></td><td><b>Finish By</b></td></tr>
-                                <tr>
-                                    <td> <input id="estimatedHours" name="estimatedHours" value="" maxlength="4" size="4" type="text" title="estimated hours to finish task"/>
-                                    <td> <input id="hoursSpend" name="hoursSpend" value="" maxlength="4" size="4" type="text" title="actual time spend on task"/>
-                                    <td><input id="deadline" name="deadline" value="" type="text" size="10" maxlength="10" title="last date to finish task"/><small>(dd Mon yyyy)</small></td>
-                                </tr>
-                            </table>
+                            <td> <b> Assign-To</b></td><td>
+                                <select name="assignToDD" id="assignToDD" title="users">
+                                </select>
+                                <input type="checkbox" id="copyTask" title="Copy Task to other users"> <small> Copy Many </small>
+                            </td>
                         </tr>
-                        <tr><td><br></td></tr>
+                        <tr><td><b> Estimated Hours </b> </td><td>
+                                <input id="estimatedHours" name="estimatedHours" value="" maxlength="4" size="4" type="text" title="estimated hours to finish task"/> <small>(Cannot change once Estimated)</small>
+                            </td>
+                        </tr>
+
+                        <tr><td><b>Hours Spend</b></td><td>
+                                <input id="hoursSpend" name="hoursSpend" value="" maxlength="4" size="4" type="text" title="add time spend on task"/> &nbsp;&nbsp;&nbsp;
+                                <input id="totalHoursSpend" name="totalHoursSpend" value="" maxlength="4" size="4" type="text" title="total time spend on task" disabled/> <small>Total Hours spend</small>
+                        </td></tr>
+
+                        <tr><td><b>Finish By</b></td><td>
+                                <input id="deadline" name="deadline" value="" type="text" size="10" maxlength="10" title="last date to finish task" /><small>(dd Mon yyyy)</small>
+                            </td>
+                        </tr>
                         <tr>
-                            <td align="left"> <b>Notification Emails</b><small> (abc@example.com, ..)</small> <br>
-                            <td><input id="notificationEmails" name="notificationEmails" value="" size="80" type="text" title="email will be send to all addresses mentioned hear on this task progress"/></td>
+                            <td> <b>Notification Emails</b><small> (abc@example.com, ..)</small> </td><td>
+                            <input id="notificationEmails" name="notificationEmails" value="" maxlength="90" size="80" type="text" title="email will be send to all addresses mentioned hear on this task progress"/></td>
                         </tr>
-                        <tr><td><br></td></tr>
+                        
                         <tr>
                             <br>
-                            <td><b>Description</b><br>
+                            <td><b>Description</b></td><td>
                                 <textarea id="description" rows="5" cols="70" title="detail description and comments on this task"></textarea>
                             </td>
                         </tr>
                         <tr>
-                            <br>
+                            <td></td>
                             <td align="right">
                                 <input type="button" value="Clear" id="clear" title="clear all fields"/>
                                 <input type="button" value="Save" id="saveTask" title="saves task information to database"/>

@@ -181,7 +181,7 @@ $(document).ready(function() {
         var task = tasksCache[ taskId ];
         $('#title').val(task.title);        
         $('#estimatedHours').val(task.estimatedHours);
-        $('#hoursSpend').val(task.spendHours);
+        $('#totalHoursSpend').val(task.spendHours);
         $('#notificationEmails').val(task.notificationEmails);
         $('#description').val(task.description);
         $('#projectDD').val(task.projectName);
@@ -211,6 +211,7 @@ $(document).ready(function() {
         $('#title').val("");        
         $('#estimatedHours').val("");
         $('#hoursSpend').val("");
+        $('#totalHoursSpend').val("");
         $('#notificationEmails').val("");
         $('#description').val("");
         $('#title').attr('disabled', false);
