@@ -26,7 +26,7 @@
     }
     BODY {
         font-family:Arial,Helvetica,Verdana,sans-serif;
-        font-size:11px;
+        font-size:12px;
         font-size-adjust:none;
         font-style:normal;
         font-variant:normal;
