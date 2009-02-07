@@ -34,7 +34,8 @@
                 <img id='refreshTask' title='Refresh' src='../images/refresh.png' />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <img alt="Task Area" title="Displays Tasks" src="../images/task.png" class="workspaceDiv"></img><a class="workspaceDiv" id="workspaceDivId">Task Area</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <img alt="Report Area" title="Displays Reports" src="../images/graph.png" class="ReportsDiv"></img><a class="ReportsDiv" id="reportsDivId" href='javascript:void(0);'>Report Area</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <img alt="New Task" title="Create new Task" src="../images/add.png" class="taskEditDiv"></img><a class="taskEditDiv" id="taskEditDivId" href='javascript:void(0);'>New task</a>
+                <img alt="New Task" title="Create new Task" src="../images/add.png" class="taskEditDiv"></img><a class="taskEditDiv" id="taskEditDivId" href='javascript:void(0);'>New task</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <img alt="Help" title="Help" src="../images/info.png" class=""></img><a href="javascript:void(0);" id="abbrevationsId">Abbrevations</a>
             </div>
             <div id="taskTableContainer" align="left" >
                 <div id="container">
@@ -56,54 +57,15 @@
                         </tbody>
                     </table>
                 </div>
-                <a href="javascript:void(0);" id="abbrevationsId">Abbrevations</a>
-                <div id="abbrevations" style="display:none" align="center">
-                    <table>
-                        <tr>
-                            <td><img src="../images/in_progress.png" ></td>
-                            <td>Task status : In Progress</td>
-                        </tr>
-                        <tr>
-                            <td><img src="../images/completed.png" ></td>
-                            <td>Task status : Completed</td>
-                        </tr>
-                        <tr>
-                            <td><img src="../images/todo.png" ></td>
-                            <td>Todo</td>
-                        </tr>
-                        <tr>
-                            <td><img src="../images/user.png" ></td>
-                            <td>Task assigned to you</td>
-                        </tr>
-                        <tr>
-                            <td><img src="../images/add-user.png" ></td>
-                            <td>Task is not assigned</td>
-                        </tr>
-                        <tr>
-                            <td><img src="../images/high_priority.png" ></td>
-                            <td>Task Priority : High</td>
-                        </tr>
-                        <tr>
-                            <td><img src="../images/empty-calendar.png" ></td>
-                            <td>Task End Date : None</td>
-                        </tr>
-                        <tr>
-                            <td><img src="../images/refresh.png" ></td>
-                            <td>Refresh</td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                    </table>
-                </div>
+                
+                <jsp:include page="abbrevations.jsp" />
             </div>
             <div id="detailReports" align="center" style="display:none">
                 <br><br>
                 <b>Users </b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Projects</b><br>
-                <select id="usersDDReports"></select><img id='refreshUserReport' title='Refresh' src='../images/refresh.png' />
+                <select id="usersDDReports"></select>&nbsp;<img id='refreshUserReport' title='Refresh' src='../images/refresh.png' />
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <select id="projectDDReports"></select><img id='refreshProjectReport' title='Refresh' src='../images/refresh.png' />
+                <select id="projectDDReports"></select>&nbsp;<img id='refreshProjectReport' title='Refresh' src='../images/refresh.png' />
                 <div id="reportsArea"></div>
             </div>
 
@@ -146,7 +108,8 @@
                             </td>
                         </tr>
                         <tr><td><b> Estimated Hours </b> </td><td>
-                                <input id="estimatedHours" name="estimatedHours" value="" maxlength="4" size="4" type="text" title="estimated hours to finish task"/> <small>(Cannot change once Estimated)</small>
+                                <input id="estimatedHours" name="estimatedHours" value="" maxlength="4" size="4" type="text" title="estimated hours to finish task"/> &nbsp;&nbsp;&nbsp; 
+                                <input id="totalEstimatedHours" name="totalEstimatedHours" value="" maxlength="4" size="4" type="text" title="total Estimaged Hours" disabled/> <small>Total Estimated Hours</small>
                             </td>
                         </tr>
 
@@ -160,8 +123,9 @@
                             </td>
                         </tr>
                         <tr>
-                            <td> <b>Notification Emails</b><small> (abc@example.com, ..)</small> </td><td>
-                            <input id="notificationEmails" name="notificationEmails" value="" maxlength="90" size="80" type="text" title="email will be send to all addresses mentioned hear on this task progress"/></td>
+                            <td> <b>cc </b></td><td>
+                            <input id="notificationEmails" name="notificationEmails" value="" maxlength="90" size="80" type="text" title="email will be send to all addresses mentioned hear on this task progress"/>
+                            <small> (abc@example.com, ..)</small></td>
                         </tr>
                         
                         <tr>
@@ -171,9 +135,16 @@
                             </td>
                         </tr>
                         <tr>
+                            <br>
+                            <td><b></b> <img src="../images/comment.JPG" align="Comment" title="comment"/></td><td>
+                                <input id="comment" name="comment" value="" maxlength="90" size="80" type="text" title="Comments"/>
+                            </td>
+                        </tr>
+                        <tr>
                             <td></td>
                             <td align="right">
-                                <input type="button" value="Clear" id="clear" title="clear all fields"/>
+                                <input type="button" value="Clear" id="clear" title="clear all fields"/>&nbsp;
+                                <input type="button" value="Delete" id="delete" title="deletes task"/>&nbsp;
                                 <input type="button" value="Save" id="saveTask" title="saves task information to database"/>
                             </td>
                         </tr>
