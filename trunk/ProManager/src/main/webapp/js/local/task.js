@@ -26,7 +26,7 @@ $(document).ready(function() {
             // create object                        
             var project = tasks[i].projectName; if ( project == null) project = "<img src='../images/todo.png' title='Todo' />";            
             var deadline = tasks[i].deadlineFormat; if (deadline == null ) {
-                deadline = "<img src='../images/empty-calendar.png' title='None' />"
+                deadline = "";//<img src='../images/empty-calendar.png' title='None' />"
             } else {
                 deadline = deadline.substr(0, 6);
             }
@@ -98,6 +98,13 @@ $(document).ready(function() {
             alert ('Only Admin, Project Manager or Owner can delete task');
         }
     }
+
+    var taskIdViewed = null;
+
+    $('#delete').livequery('click', function() {
+        deleteTask(taskIdViewed);
+        taskIdViewed = null;
+    })
     function assignMe ( taskId ) {                
         AjaxTaskService.assignTaskUser ( taskId, null, function() {            
             $.jGrowl( "Task # " + taskId + " assigned successfully!");
@@ -130,6 +137,7 @@ $(document).ready(function() {
         $('#reportsDivId').attr('href','javascript:void(0);');
         $('#workspaceDivId').attr('href','javascript:void(0);');
         $('#taskEditDivId').removeAttr('href');
+        $('#clear').trigger('click');
     });
     
     $('#taskTable tbody tr').livequery(function() {
@@ -145,7 +153,7 @@ $(document).ready(function() {
         }, function(action, el, pos) {
             var taskId = null;
             if ( action == 'edit') { 
-                taskId = $(el).parent().children()[0].firstChild.data; showTaskForEdit(taskId);
+                taskId = $(el).parent().children()[0].firstChild.data; taskIdViewed = taskId; showTaskForEdit(taskId);
             }
             if ( action == 'new') { 
                 $('.taskEditDiv').trigger('click');
@@ -173,6 +181,7 @@ $(document).ready(function() {
         $(this).click(function () {             
             var taskId = $(this).parent().children()[0].firstChild.data;            
             showTaskForEdit( taskId );
+            taskIdViewed = taskId;
         });
     });
     
@@ -180,7 +189,7 @@ $(document).ready(function() {
         $('#clear').trigger('click');        
         var task = tasksCache[ taskId ];
         $('#title').val(task.title);        
-        $('#estimatedHours').val(task.estimatedHours);
+        $('#totalEstimatedHours').val(task.estimatedHours);
         $('#totalHoursSpend').val(task.spendHours);
         $('#notificationEmails').val(task.notificationEmails);
         $('#description').val(task.description);
@@ -190,14 +199,9 @@ $(document).ready(function() {
         $('#status').val(task.status);
         $('#deadline').val(task.deadlineFormat);
         if ( task.isOwner == false ) {
-            $('#title').attr('disabled', true);
-            $('#estimatedHours').attr('disabled', true);                
-            $('#notificationEmails').attr('disabled', true);
-            $('#description').attr('disabled', true);
-            $('#projectDD').attr('disabled', true);
-            $('#assignToDD').attr('disabled', true);                                
-        //$('#deadline').attr('disabled', true);
-        }            
+            setEnabled(true);
+        }
+        $('#comment').attr('disabled', false);
         $('#taskTableContainer').slideUp('fast');
         $('#detailReports').slideUp('fast');
         $('#newTaskContainer').slideDown('fast');
@@ -210,23 +214,31 @@ $(document).ready(function() {
         viewed = null;
         $('#title').val("");        
         $('#estimatedHours').val("");
+        $('#totalEstimatedHours').val("");
         $('#hoursSpend').val("");
         $('#totalHoursSpend').val("");
         $('#notificationEmails').val("");
-        $('#description').val("");
-        $('#title').attr('disabled', false);
+        $('#description').val("");        
         $('#projectDD').val("Todo");
         $('#assignToDD').val("None");
         $('#priority').val("Medium");
         $('#status').val("New");
         $('#deadline').val("");
-        $('#estimatedHours').attr('disabled', false);                
-        $('#notificationEmails').attr('disabled', false);
-        $('#description').attr('disabled', false);
-        $('#projectDD').attr('disabled', false);
-        $('#assignToDD').attr('disabled', false);                                
-    //$('#deadline').attr('disabled', false);
+        $('#comment').val("");
+        setEnabled(false);
     });
+
+    function setEnabled(flag) {
+        $('#title').attr('disabled', flag);
+        $('#projectDD').attr('disabled', flag);
+        $('#assignToDD').attr('disabled', flag);
+        $('#estimatedHours').attr('disabled', flag);
+        $('#notificationEmails').attr('disabled', flag);
+        $('#description').attr('disabled', flag);
+        $('#deadline').attr('disabled', flag);
+        $('#copyTask').attr('disabled', flag);
+        $('#comment').attr('disabled', !flag);
+    }
     // executed on "create new task" button is clicked
     $('#saveTask').click(function() {        
         var task1 = null;
@@ -244,7 +256,8 @@ $(document).ready(function() {
                 assignedToUsername:null,
                 estimatedHours:null,
                 notificationEmails:null,
-                description:null
+                description:null,
+                comment:null
             };
         }
         task1.title = $.trim( $('#title').val() );
@@ -267,6 +280,7 @@ $(document).ready(function() {
         task1.deadlineFormat = $('#deadline').val();
         task1.notificationEmails = $.trim ( $('#notificationEmails').val() );
         task1.description = $.trim ( $('#description').val() );
+        task1.comment = $.trim ( $('#comment').val() );
         if ( $('#copyTask').is(":checked") ) {
             var u1 = $('#assignToDD').val();
             var userIds = u1.toString().split(",");
@@ -295,8 +309,7 @@ $(document).ready(function() {
                 $.jGrowl( "Task saved successfully!");
             });
             
-        }
-    //$('#clear').trigger("click");
+        }    
     });
          
     
