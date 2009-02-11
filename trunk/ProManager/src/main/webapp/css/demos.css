@@ -37,7 +37,7 @@
 }
 
 #welcomeDiv {
-    position:absolute; left:30%; top:1%; height:2%
+    position:absolute; left:30%; top:0%; height:2%
 }
 #rightDiv {
     position:absolute; left:74%; top:12%; width:24%;border-width:thin; border-style:solid

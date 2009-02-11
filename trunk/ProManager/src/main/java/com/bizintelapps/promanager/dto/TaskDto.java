@@ -28,7 +28,7 @@ public class TaskDto {
 
     private Integer id;
     private String title;
-    private String description;
+    private String description = "";
     private Date deadline;
     private String deadlineFormat;
     private Date createDate;
@@ -57,6 +57,7 @@ public class TaskDto {
     private double spendHours = 0.0;
     private Integer assignedById;
     private Date assignedDate;
+    private String comment;
 
     public TaskDto() {
         String pattern = "dd MMM yyyy";
@@ -322,6 +323,15 @@ public class TaskDto {
         this.spendHours = spendHours;
     }
 
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {
@@ -351,4 +361,5 @@ public class TaskDto {
                 " completedDate " + completedDate + " createDate " + createDate + " deadline " + deadline + " id " + id + " estimatedHours " + estimatedHours + " isOwner " + isOwner +
                 " ownerId " + ownerId + " projectId " + projectId + " spendHours " + spendHours;
     }
+
 }
