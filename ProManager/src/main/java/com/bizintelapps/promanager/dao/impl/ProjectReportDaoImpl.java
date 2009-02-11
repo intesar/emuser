@@ -34,6 +34,11 @@ public class ProjectReportDaoImpl extends GenericDaoImpl<ProjectReport, Integer>
     }
 
     @Override
+    public ProjectReport findByOrganizationProjectMonthAndYear ( Integer organizationId, Integer projectId, Integer month, Integer year) {
+        return executeNamedQuerySingleResult("ProjectReport.findByOrganizationProjectMonthAndYear", organizationId, projectId, month, year);
+    }
+
+    @Override
     public ProjectReport findByProjectMonthAndYear(Integer project, Integer month, Integer year) {
         return executeNamedQuerySingleResult("ProjectReport.findByProjectMonthAndYear", project, month, year);
     }

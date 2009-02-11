@@ -17,14 +17,14 @@
         
     </head>
     <body id="dt_example" class="example_alt_pagination" style="">
-        <jsp:include page="header_1.jsp" />
+        <jsp:include page="header.jsp" />
         <jsp:include page="banner.jsp" /> 
         <br>   
         <div id="leftDiv">
             <div id="userTableContainer"  align="center"> 
                 <div id="container">                    
                     <div align="right">
-                        <img alt="Add" src="../images/add.gif" class="createANewUser" title="Add new user to enterprise"></img><a id="createANewUser" class="createANewUser" href="javascript:void(0)"  title="Add new user to enterprise">New user</a>                    
+                        <a id="createANewUser" class="createANewUser" href="javascript:void(0)"  title="Add new user to enterprise">New user</a>                    
                     </div>
                     <table id="usersTable" cellpadding="0" cellspacing="0" border="0" class="display" align="center">                        
                         <thead class="">

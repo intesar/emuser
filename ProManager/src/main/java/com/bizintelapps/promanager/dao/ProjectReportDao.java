@@ -25,6 +25,8 @@ import java.util.List;
  */
 public interface ProjectReportDao extends GenericDao<ProjectReport, Integer> {
 
+    ProjectReport findByOrganizationProjectMonthAndYear ( Integer organizationId, Integer projectId, Integer month, Integer year);
+
     ProjectReport findByProjectMonthAndYear(Integer project, Integer month, Integer year);
 
     ProjectReport findByOrganizationMonthAndYear(Integer organization, Integer month, Integer year);

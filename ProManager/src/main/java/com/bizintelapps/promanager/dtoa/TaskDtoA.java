@@ -20,6 +20,7 @@ import com.bizintelapps.promanager.entity.Task;
 import com.bizintelapps.promanager.dto.TaskDto;
 import com.bizintelapps.promanager.entity.Users;
 import com.bizintelapps.promanager.service.TaskService;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import org.springframework.stereotype.Component;
 
@@ -68,7 +69,7 @@ public class TaskDtoA {
         }
         taskDto.setStatus(task.getStatus());
         taskDto.setTitle(task.getTitle());
-        if (isAdmin || task.getOwner().getId().equals(requestedUserId) || pm) {
+        if (pm || task.getOwner().getId().equals(requestedUserId) ) {
             taskDto.setIsOwner(true);
         }
         return taskDto;
@@ -115,13 +116,13 @@ public class TaskDtoA {
     public Task copyForUpdate(TaskDto taskDto, Task task, Users users, Users assignedTo) {
         task.setTitle(taskDto.getTitle());
         task.setDeadline(taskDto.getDeadline());
-        task.setEstimatedHours(taskDto.getEstimatedHours());
+        task.setEstimatedHours(task.getEstimatedHours() + taskDto.getEstimatedHours());
         task.setPriority(taskDto.getPriority());
         if (!task.getStatus().equals(TaskService.TASK_STATUS_COMPLETED) && taskDto.getStatus().equals(TaskService.TASK_STATUS_COMPLETED)) {
             task.setCompletedDate(new Date());
         }
         task.setStatus(taskDto.getStatus());
-        task.setSpendHours(taskDto.getSpendHours());
+        task.setSpendHours(task.getSpendHours() + taskDto.getSpendHours());
         task.setDescription(taskDto.getDescription());
         task.setNotificationEmails(taskDto.getNotificationEmails());
         task.setLastStatusChangedDate(new Date());
@@ -130,6 +131,7 @@ public class TaskDtoA {
             task.setAssignedBy(users);
             task.setAssignedDate(new Date());
         }
+        addComment(taskDto, users, task);
         return task;
     }
 
@@ -139,15 +141,24 @@ public class TaskDtoA {
      * @param task
      * @return
      */
-    public Task copyForUpdateForAssignee(TaskDto taskDto, Task task) {
+    public Task copyForUpdateForAssignee(TaskDto taskDto, Task task, Users users) {
         task.setPriority(taskDto.getPriority());
         if (!task.getStatus().equals(TaskService.TASK_STATUS_COMPLETED) && taskDto.getStatus().equals(TaskService.TASK_STATUS_COMPLETED)) {
             task.setCompletedDate(taskDto.getCompletedDate());
         }
         task.setStatus(taskDto.getStatus());
-        task.setSpendHours(taskDto.getSpendHours());
-        task.setDescription(taskDto.getDescription());
+        task.setSpendHours(task.getSpendHours() + taskDto.getSpendHours());        
         task.setLastStatusChangedDate(new Date());
+        addComment(taskDto, users, task);
         return task;
+    }
+
+    private void addComment(TaskDto taskDto, Users users, Task task) {
+        if (taskDto.getComment() != null && taskDto.getComment().length() > 0) {
+            String pattern = "dd MMM yyyy";
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+            String comment = "\n" + "----------------------------------------" + "\n" + users.getFirstname() + " " + users.getLastname() + " " + simpleDateFormat.format(new Date()) + " \n " + taskDto.getComment();
+            task.setDescription(task.getDescription() + comment);
+        }
     }
 }

@@ -1,6 +1,8 @@
 // this function is executed on load 	
 $(document).ready(function() {
-    $('#abbrevationsId').click(function() { $('#abbrevations').modal();});
+    $('#abbrevationsId').click(function() { 
+        $('#abbrevations').modal();
+    });
     // checkout datatable plugin to understand below code
     oTable = $('#taskTable').dataTable( {             
         "sDom": '<"top"i>rt<"bottom"flp<"clear">',
@@ -45,6 +47,8 @@ $(document).ready(function() {
             }
             else if ( status == 'Completed') {
                 status = "<img src='../images/completed.png' title='Completed' />";
+            } else if ( status == 'On Hold') {
+                status = "<img src='../images/on-hold.png' title='On Hold' />";
             }
             var priority = tasks[i].priority;        
             if ( priority == "High") { 
@@ -91,6 +95,7 @@ $(document).ready(function() {
         if (task.isOwner == true ) {
             AjaxTaskService.deleteTask ( taskId, function(data) {            
                 $.jGrowl( "Task # " + taskId + " deleted successfully!");
+                $('#clear').trigger('click');
                 taskList(data);
             });
         }else {
@@ -119,13 +124,14 @@ $(document).ready(function() {
         $('#newTaskContainer').slideUp('fast');
         $('#reportsDivId').attr('href','javascript:void(0)');
         $('#taskEditDivId').attr('href','javascript:void(0)');
-        $('#workspaceDivId').removeAttr('href');
+        //$('#workspaceDivId').removeAttr('href');
+        $('#refreshTask').trigger('click');
     });
     $('.ReportsDiv').livequery ("click", function() {
         $('#taskTableContainer').slideUp('fast');
         $('#detailReports').slideDown('fast');
         $('#newTaskContainer').slideUp('fast');
-        $('#workspaceDivId').attr('href','javascript:void(0)');
+        //$('#workspaceDivId').attr('href','javascript:void(0)');
         $('#taskEditDivId').attr('href','javascript:void(0)');
         $('#reportsDivId').removeAttr('href');
     });
@@ -135,7 +141,7 @@ $(document).ready(function() {
         $('#detailReports').slideUp('fast');
         $('#newTaskContainer').slideDown('fast');
         $('#reportsDivId').attr('href','javascript:void(0);');
-        $('#workspaceDivId').attr('href','javascript:void(0);');
+        //$('#workspaceDivId').attr('href','javascript:void(0);');
         $('#taskEditDivId').removeAttr('href');
         $('#clear').trigger('click');
     });
@@ -240,7 +246,7 @@ $(document).ready(function() {
         $('#comment').attr('disabled', !flag);
     }
     // executed on "create new task" button is clicked
-    $('#saveTask').click(function() {        
+    $('.saveTask').click(function() {
         var task1 = null;
         if ( viewed != null ) {
             task1 = tasksCache[viewed];
@@ -263,6 +269,7 @@ $(document).ready(function() {
         task1.title = $.trim( $('#title').val() );
         if ( task1.title.length < 1 ) {
             alert ( " Title cannot be empty! ");
+            return;
         }
         //task1.deadline = Date.parse($('#deadline').val());
         task1.priority = $('#priority').val();
@@ -290,6 +297,7 @@ $(document).ready(function() {
                     task1.assignedToUsername = usersDDCache[task1.assignedTo];
                     AjaxTaskService.saveTask(task1, function() {
                         $('#clear').trigger("click");
+                        $('.workspaceDiv').trigger("click");
                         $.jGrowl( "Task saved successfully!");
                         viewed = null;
                     });                                             
@@ -306,20 +314,26 @@ $(document).ready(function() {
             }  
             AjaxTaskService.saveTask(task1, function() {
                 $('#clear').trigger("click");
+                $('.workspaceDiv').trigger("click");
                 $.jGrowl( "Task saved successfully!");
             });
             
         }    
-    });
-         
+    });  
     
     $('#refreshTask').click(function() {
         var selectedStatus = $('#projectStatusDropdown').val();       
         if ( selectedStatus == 'Find by Task ID') {
             var taskId = prompt("Enter Task ID : ", "");
-            AjaxTaskService.getCurrentTask(taskId, taskList);
+            AjaxTaskService.getCurrentTask(taskId, function (data) {
+                //$.jGrowl( "Refreshed successfully!");
+                taskList(data);
+            });
         } else {
-            AjaxTaskService.getCurrentTask(selectedStatus, taskList);
+            AjaxTaskService.getCurrentTask(selectedStatus, function (data) {
+                //$.jGrowl( "Refreshed successfully!");
+                taskList(data);
+            });
         }
     });
     setInterval(function() {

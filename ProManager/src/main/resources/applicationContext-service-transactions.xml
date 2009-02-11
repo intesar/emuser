@@ -24,9 +24,9 @@
     <tx:advice id="txAdvice" transaction-manager="transactionManager">
         <tx:attributes>                        
             <!-- get methods will not change database state -->
-            <tx:method name="get*" propagation="SUPPORTS" read-only="true"/>
+            <tx:method name="get*" propagation="REQUIRES_NEW" read-only="true"/>
             <!-- all other methods will be able to change database state -->
-            <tx:method name="*" propagation="REQUIRED" />       
+            <tx:method name="*" propagation="REQUIRES_NEW" />
             <!--<tx:method name="someOtherBusinessMethod" propagation="REQUIRES_NEW"/>-->
             <!--<tx:method name="*" propagation="SUPPORTS" read-only="true"/>-->
             <!-- <tx:method name="delete*" propagation="REQUIRES_NEW" /> -->

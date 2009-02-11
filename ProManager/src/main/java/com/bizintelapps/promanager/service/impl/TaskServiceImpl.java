@@ -96,7 +96,7 @@ public class TaskServiceImpl implements TaskService {
                 taskDao.update(task1);
             } else if (task.getAssignedTo() != null && task.getAssignedTo().equals(savedByUser)) {
                 reportService.processTask(task, taskDto);
-                Task task1 = taskConverter.copyForUpdateForAssignee(taskDto, task);
+                Task task1 = taskConverter.copyForUpdateForAssignee(taskDto, task, savedByUser);
                 taskDao.update(task1);
                 sendTaskAlert(task1);
             } else {

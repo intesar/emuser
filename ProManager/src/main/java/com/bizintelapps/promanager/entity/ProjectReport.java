@@ -41,6 +41,7 @@ import javax.persistence.Table;
     @NamedQuery(name = "ProjectReport.findByProject", query = "SELECT p FROM ProjectReport p WHERE p.project = ?1  order by p.year desc, p.month desc"),
     @NamedQuery(name = "ProjectReport.findByOrganizationForTodo", query = "SELECT p FROM ProjectReport p WHERE p.organization = ?1 and p.project is null"),
     @NamedQuery(name = "ProjectReport.findByProjectMonthAndYear", query = "SELECT p FROM ProjectReport p WHERE p.project = ?1 and p.month = ?2 and p.year = ?3"),
+    @NamedQuery(name = "ProjectReport.findByOrganizationProjectMonthAndYear", query = "SELECT p FROM ProjectReport p WHERE p.organization = ?1 and p.project = ?2 and p.month = ?3 and p.year = ?4"),
     @NamedQuery(name = "ProjectReport.findByOrganizationMonthAndYear", query = "SELECT p FROM ProjectReport p WHERE p.organization = ?1 and p.month = ?2 and p.year = ?3 and p.project is null"),
     @NamedQuery(name = "ProjectReport.findProjectSummary", query = "SELECT NEW com.bizintelapps.promanager.dto.ProjectReportDto " +
     "(sum(p.taskCreated), sum(p.taskFinished), sum(p.estimatedTime), sum(p.timeSpend)) FROM ProjectReport p WHERE p.project = ?1 ")
@@ -73,6 +74,15 @@ public class ProjectReport implements Serializable {
 
     public ProjectReport(Integer id) {
         this.id = id;
+    }
+
+
+    public ProjectReport(Integer id, Integer organization, Integer project, int month, int year) {
+        this.id = id;
+        this.organization = organization;
+        this.project = project;
+        this.month = month;
+        this.year = year;
     }
 
     public ProjectReport(Integer id, int taskCreated, Double estimatedTime, int month, int year, Integer project) {
