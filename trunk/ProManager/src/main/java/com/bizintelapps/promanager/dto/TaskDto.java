@@ -45,6 +45,7 @@ public class TaskDto {
     private String lastStatusChangedDateFormat;
     private Integer ownerId;
     private String ownerUsername;
+    private String ownerName;
     private Integer projectId;
     private String projectName;
     private Integer assignedToId;
@@ -174,6 +175,14 @@ public class TaskDto {
 
     public void setParentTask(Integer parentTask) {
         this.parentTask = parentTask;
+    }
+
+    public String getOwnerName() {
+        return ownerName;
+    }
+
+    public void setOwnerName(String ownerName) {
+        this.ownerName = ownerName;
     }
 
     public int getPercentageCompleted() {

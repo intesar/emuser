@@ -33,22 +33,8 @@
             });
         </script>
     </head><body>
-        <div style="position:absolute; left:10%; top:10%; width:25%; border-width:thin; border-style:solid" align="center">
-            <h3> Please Login </h3>
-            <form action="../j_acegi_security_check" method="post" id="login_form">
-                <table>
-                    <tr><td><small>Email : </small> </td><td><input name="j_username" size="30" type="text" value=""> <br></td></tr><tr></tr><tr></tr>
-                    <tr><td><small>Password : </small></td><td><input name="j_password" size="30" type="password" value=""> <br></td></tr><tr></tr><tr></tr>
-                    <tr><td></td><td><input type="checkbox" name="_acegi_security_remember_me" checked="checked" /><small>Remember Me</small></td></tr><tr></tr><tr></tr>
-                    <tr><td></td><td><input value="Clear" name="Clear" type="reset"><input value="Sign In " name="Sign In" type="submit"></td></tr>
-                </table>
-            </form>
-            <br>
-            <a href="../view/forgotpassword.jsp">Forgot Password ?</a> | <a href="../view/signup.jsp">Sign Up</a> | <a href="../j_acegi_security_check?j_username=fatima.shanoor@gmail.com&j_password=xy" >Demo</a>
-            <br>
-            <br>
-        </div>
-        <div id="faq" style="position:absolute; left:45%; top:10%; width:40%;">
+       
+        <div id="faq" style="position:absolute; left:10%; top:10%; width:40%;">
             <h2>Manage-Easy can help improves enterprises</h2>
             <div>
                 <div align="left"><img src="../images/right.jpg" width="24" height="23">Efficiency, Evaulates efforts and redirects energy to valuable goals</div>
@@ -123,5 +109,23 @@
                 Tested with 150,000 request with 0 transactions failing and 30 errors.
                 Average Response time # 200ms (YSlow)
             </div>
+        </div>
+
+         <div style="position:absolute; left:60%; top:10%; width:35%; border-width:thin; border-style:solid" align="center">
+            <h3><em> Manage-Easy Account Login </em></h3>
+            <form action="../j_acegi_security_check" method="post" id="login_form">
+                <table>
+                    <tr><td><small>Username: </small> </td><td><input name="j_username" size="40" type="text" value=""> <br></td></tr><tr></tr><tr></tr>
+                    <tr><td><small>Password: </small></td><td><input name="j_password" size="40" type="password" value=""> <br></td></tr><tr></tr><tr></tr>
+                    <tr><td></td><td><input type="checkbox" name="_acegi_security_remember_me" checked="checked" /><small>Remember me on this computer</small></td></tr><tr></tr><tr></tr>
+                    <tr><td></td><td><input value="Sign In " name="Sign In" type="submit" size="40"></td></tr>
+                </table>
+            </form>
+            <br>
+            <a href="../view/forgotpassword.jsp">Forgot your username or password?</a> &nbsp;&nbsp;
+            |&nbsp;&nbsp; <a href="../j_acegi_security_check?j_username=fatima.shanoor@gmail.com&j_password=xy" >Demo</a> &nbsp;&nbsp;
+            |&nbsp;&nbsp;<a href="../view/signup.jsp">Sign Up</a>
+            <br>
+            <br>
         </div>
 </body></html>

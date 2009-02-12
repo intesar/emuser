@@ -61,6 +61,7 @@ public class TaskDtoA {
         } else {
             taskDto.setOwnerUsername(task.getOwner().getUsername());
         }
+        taskDto.setOwnerName(task.getOwner().getFirstname() +" " + task.getOwner().getLastname());
         taskDto.setOwnerId(task.getOwner().getId());
         taskDto.setPriority(task.getPriority());
         if (task.getProject() != null) {
