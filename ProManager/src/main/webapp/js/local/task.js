@@ -186,11 +186,24 @@ $(document).ready(function() {
     $('#taskTable td').livequery( function () { 
         $(this).click(function () {             
             var taskId = $(this).parent().children()[0].firstChild.data;            
-            showTaskForEdit( taskId );
+            showTaskForView( taskId );
             taskIdViewed = taskId;
         });
     });
-    
+
+    function showTaskForView( taskId) {
+        $('#clear').trigger('click');
+        var task = tasksCache[ taskId ];
+        $('#titleV').val(task.title);
+        viewed = taskId;
+        $('#taskTableContainer').slideUp('fast');
+        $('#detailReports').slideUp('fast');
+        $('#newTaskContainer').slideUp('fast');
+        $('#taskViewContainer').slideDown('fast');
+    }
+    $('#editMode').livequery("click", function() {
+        showTaskForEdit(viewed);
+    })
     function showTaskForEdit( taskId) {        
         $('#clear').trigger('click');        
         var task = tasksCache[ taskId ];
@@ -210,6 +223,7 @@ $(document).ready(function() {
         $('#comment').attr('disabled', false);
         $('#taskTableContainer').slideUp('fast');
         $('#detailReports').slideUp('fast');
+        $('#taskViewContainer').slideUp('fast');
         $('#newTaskContainer').slideDown('fast');
         viewed = taskId;
     }
@@ -483,7 +497,7 @@ $(document).ready(function() {
         for ( var i = 0; i < tasks.length; i++ )  {
             tasksCache[tasks[i].id] = tasks[i];
             content += "<p>"
-            + "<a id='news" + tasks[i].id + "'  class='newsClass' >" + tasks[i].title + " </a> <br> "
+            + "<a id='news" + tasks[i].id + "'  class='newsClass' href='javascript:void();'>" + tasks[i].title + " </a> <br> "
             + tasks[i].assignedToName + ", "
             + tasks[i].priority + ", Completed, # " + tasks[i].id
             + "</p>";
