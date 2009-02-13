@@ -122,6 +122,7 @@ $(document).ready(function() {
         $('#taskTableContainer').slideDown('fast');
         $('#detailReports').slideUp('fast');
         $('#newTaskContainer').slideUp('fast');
+        $('#taskViewContainer').slideUp('fast');
         $('#reportsDivId').attr('href','javascript:void(0)');
         $('#taskEditDivId').attr('href','javascript:void(0)');
         //$('#workspaceDivId').removeAttr('href');
@@ -194,7 +195,27 @@ $(document).ready(function() {
     function showTaskForView( taskId) {
         $('#clear').trigger('click');
         var task = tasksCache[ taskId ];
-        $('#titleV').val(task.title);
+        var dynamicTable = "<table class='taskTable'><tr><th></th><th></th></tr><tbody>";
+        dynamicTable += "<tr><td class='taskLabel'>ID</td><td>" + task.id + "</td></tr>";
+        dynamicTable += "<tr><td class='taskLabel'>Title</td><td>" + task.title + "</td></tr>";
+        dynamicTable += "<tr><td class='taskLabel'>Status</td><td>" + task.status + "</td></tr>";
+        var projectName = (task.projectName!=null)? task.projectName : "Todo";
+        dynamicTable += "<tr><td class='taskLabel'>Project</td><td>" + projectName + "</td></tr>";
+        dynamicTable += "<tr><td class='taskLabel'>Priority</td><td>" + task.priority + "</td></tr>";
+        var assignedToName = (task.assignedToName!=null)?task.assignedToName : "";
+        dynamicTable += "<tr><td class='taskLabel'>Assign-To</td><td>" + assignedToName + "</td></tr>";
+        dynamicTable += "<tr><td class='taskLabel'>Estimated Hours</td><td>" + task.estimatedHours + "</td></tr>";
+        dynamicTable += "<tr><td class='taskLabel'>Hours Spend</td><td>" + task.spendHours + "</td></tr>";
+        var endBy = (task.deadlineFormat!=null)?task.deadlineFormat:"";
+        dynamicTable += "<tr><td class='taskLabel'>End By</td><td>" + endBy + "</td></tr>";
+        dynamicTable += "<tr><td class='taskLabel'>Create By</td><td>" + task.ownerName + "</td></tr>";
+        dynamicTable += "<tr><td class='taskLabel'>Create Date</td><td>" + task.createDateFormat + "</td></tr>";
+        var completedDate = (task.completedDate!=null)?task.completedDate:"";
+        dynamicTable += "<tr><td class='taskLabel'>Completed Date</td><td>" + completedDate + "</td></tr>";
+        dynamicTable += "<tr><td class='taskLabel'>Email cc</td><td>" + task.notificationEmails + "</td></tr>";
+        dynamicTable += "<tr><td class='taskLabel'>Description</td><td>" + task.description + "</td></tr>";
+        dynamicTable += "</tbody></table> <br><br>"
+        $('#taskViewDiv').html(dynamicTable);
         viewed = taskId;
         $('#taskTableContainer').slideUp('fast');
         $('#detailReports').slideUp('fast');
@@ -203,6 +224,10 @@ $(document).ready(function() {
     }
     $('#editMode').livequery("click", function() {
         showTaskForEdit(viewed);
+        $('#taskTableContainer').slideUp('fast');
+        $('#detailReports').slideUp('fast');
+        $('#newTaskContainer').slideDown('fast');
+        $('#taskViewContainer').slideUp('fast');
     })
     function showTaskForEdit( taskId) {        
         $('#clear').trigger('click');        

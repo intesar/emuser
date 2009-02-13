@@ -261,8 +261,8 @@ public class TaskDto {
     }
 
     public String getCreateDateFormat() {
-        if (createDateFormat != null) {
-            return simpleDateFormat.format(createDateFormat);
+        if (createDate != null) {
+            return simpleDateFormat.format(createDate);
         }
         return createDateFormat;
     }

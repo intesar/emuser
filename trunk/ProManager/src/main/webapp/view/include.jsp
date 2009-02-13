@@ -1,6 +1,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <link rel="stylesheet" type="text/css" media="screen" href="../css/demos.css" />
-<!--<link rel="stylesheet" type="text/css" media="screen" href="../css/jq.css" />   -->
+<link rel="stylesheet" type="text/css" media="screen" href="../css/table.css" /> 
 <link rel="stylesheet" type="text/css" media="screen" href="../css/basic.css" />     
 <link rel="stylesheet" type="text/css" media="screen" href="../css/style.css" />  
 <link rel="stylesheet" type="text/css" media="screen" href="../css/jquery.jgrowl.css" />  
