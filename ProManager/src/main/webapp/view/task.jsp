@@ -75,23 +75,16 @@
 
             <br>
             <div id="taskViewContainer" style="display:none; border-width:thin; border-style:solid" align="center">
-                <div align="right" style="position:relative; right:2%; top:2%; height:5%;">
-                    <a href="javascript:void();" id="editMode">Edit</a>&nbsp;&nbsp;
-                    <img alt="Task Area" title="Displays Tasks" src="../images/back.png" class="workspaceDiv"></img><a class="workspaceDiv" href="javascript:void(0);">Back</a>
-                </div>
-                <table>
-                    <tr>
-                        <td> Title </td><td>
-                            <label id="titleV">Hello</label>
-                        </td>
-                    </tr>
-
-                </table>
+                <div align="right" style="position:relative; right:5%; top:2%; height:5%;">
+                    <a href="javascript:void();" id="editMode">  Edit </a>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a class="workspaceDiv" href="javascript:void(0);"> Back </a>
+                </div>                
                 <br>
+                <div id="taskViewDiv"></div>
             </div>
             <div id="newTaskContainer" style="display:none; border-width:thin; border-style:solid" align="center">
                 <div align="right" style="position:relative; right:2%; top:2%; height:5%;">
-                    <img alt="Task Area" title="Displays Tasks" src="../images/back.png" class="workspaceDiv"></img><a class="workspaceDiv" href="javascript:void(0);">Back</a>
+                    <a class="workspaceDiv" href="javascript:void(0);">Back</a>
                 </div>
                 <table>
                     <tr>
@@ -100,24 +93,24 @@
                         <input type="button" value="Save" class="saveTask" title="saves task information to database"/> </td>
                     </tr>
                     <tr>
-                        <td> Title <font color="RED">*</font> </td><td>
+                        <td class="taskLabel"> Title <font color="RED">*</font> </td><td>
                             <input id="title" name="title" value="" maxlength="90" size="80" type="text" title="Task summary" style="width:600px"/>
                         </td>
                     </tr>
-                    <tr><td>Project</td>
+                    <tr><td class="taskLabel">Project</td>
                         <td><select name="projectDD" id="projectDD" title="projects" style="width:180px">
                             </select>
                         </td>
                     </tr>
                     <tr>
-                    <td>Priority</td><td>
+                    <td class="taskLabel">Priority</td><td>
                         <select name="priority" id="priority" title="priority" style="width:180px">
                             <option>Low</option>
                             <option selected>Medium</option>
                             <option>High</option>
                         </select>
                     </td>
-                    <tr> <td> Status </td><td>
+                    <tr class="taskLabel"> <td> Status </td><td>
                         <select name="status" id="status" title="status" style="width:180px">
                             <option>New</option>
                             <option>In Progress</option>
@@ -126,40 +119,37 @@
                         </select>
                     </td>
                     <tr>
-                        <td> Assign-To</td><td>
+                        <td class="taskLabel"> Assign-To</td><td>
                             <select name="assignToDD" id="assignToDD" title="users" style="width:180px">
                             </select>&nbsp;&nbsp;
                             <input type="checkbox" id="copyTask" title="Copy Task to other users"> <small>&nbsp; (Copy Many) </small>
                         </td>
                     </tr>
-                    <tr><td>Estimated Hours </td><td>
+                    <tr><td class="taskLabel">Estimated Hours </td><td>
                             <input id="estimatedHours" name="estimatedHours" value="" maxlength="4" size="4" type="text" title="estimated hours to finish task"  style="width:75px"/> &nbsp;&nbsp;&nbsp;
                             <input id="totalEstimatedHours" name="totalEstimatedHours" value="" maxlength="4" size="4" type="text" title="total Estimaged Hours" disabled  style="width:75px"/> <small>&nbsp; (Total Estimated Hours)</small>
                         </td>
                     </tr>
-
-                    <tr><td>Hours Spend</td><td>
+                    <tr><td class="taskLabel">Hours Spend</td><td>
                             <input id="hoursSpend" name="hoursSpend" value="" maxlength="4" size="4" type="text" title="add time spend on task"  style="width:75px"/> &nbsp;&nbsp;&nbsp;
                             <input id="totalHoursSpend" name="totalHoursSpend" value="" maxlength="4" size="4" type="text" title="total time spend on task" disabled  style="width:75px"/> <small>&nbsp; (Total Hours spend)</small>
                     </td></tr>
-
-                    <tr><td>Finish By</td><td>
+                    <tr><td class="taskLabel">Finish By</td><td>
                             <input id="deadline" name="deadline" value="" type="text" size="10" maxlength="10" title="last date to finish task"  style="width:175px"/><small>&nbsp; (dd Mon yyyy)</small>
                         </td>
                     </tr>
                     <tr>
-                        <td>Email cc </td><td>
+                        <td class="taskLabel">Email cc </td><td>
                             <input id="notificationEmails" name="notificationEmails" value="" maxlength="90" size="80" type="text" title="email will be send to all addresses mentioned hear on this task progress" style="width:600px"/>
                         </td>
                     </tr>
-
                     <tr>
-                        <td>Description</td><td>
+                        <td class="taskLabel">Description</td><td>
                             <textarea id="description" rows="5" cols="70" title="detail description and comments on this task" style="width:600px"></textarea>
                         </td>
                     </tr>
                     <tr>
-                        <td>Add comment</td><td>
+                        <td class="taskLabel">Add comment</td><td>
                             <input id="comment" name="comment" value="" maxlength="90" size="80" type="text" title="Comments" style="width:600px"/>
                         </td>
                     </tr>
