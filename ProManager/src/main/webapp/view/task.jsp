@@ -31,10 +31,9 @@
                     <option>All Task</option>
                     <option>Find by Task ID</option>
                 </select>&nbsp;
-                <img id='refreshTask' title='Refresh' src='../images/refresh.png' />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <img id='refreshTask' title='Refresh' src='../images/reset.gif' />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <a class="taskEditDiv" id="taskEditDivId" href='javascript:void(0);'>New task</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <a class="ReportsDiv" id="reportsDivId" href='javascript:void(0);'>Reports</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
+                <!--<a class="ReportsDiv" id="reportsDivId" href='javascript:void(0);'>Reports</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
             </div>
             <div id="taskTableContainer" align="left" >
                 <div id="container">
@@ -46,7 +45,7 @@
                                 <th>Project</th>
                                 <th>Assign-To</th>
                                 <th>Priority</th>
-                                <th>Title</th>
+                                <th>Summary</th>
                                 <th>End By </th>
                             </tr>
                         </thead>
@@ -61,7 +60,7 @@
             </div>
             <div id="detailReports" align="center" style="display:none; border-width:thin; border-style:solid">
                 <div align="right" style="position:relative; right:2%; top:2%; height:5%;">
-                    <img alt="Task Area" title="Displays Tasks" src="../images/back.png" class="workspaceDiv"></img><a class="workspaceDiv" href="javascript:void(0);">Back</a>
+                    <img alt="Task Area" title="Displays Tasks" src="../images/back.png" class="workspaceDiv"></img><a class="workspaceDiv" href="javascript:void(0);"> Close </a>
                 </div>
                 <br>
                 <table>
@@ -77,23 +76,27 @@
             <div id="taskViewContainer" style="display:none; border-width:thin; border-style:solid" align="center">
                 <div align="right" style="position:relative; right:5%; top:2%; height:5%;">
                     <a href="javascript:void();" id="editMode">  Edit </a>&nbsp;&nbsp;&nbsp;&nbsp;
-                    <a class="workspaceDiv" href="javascript:void(0);"> Back </a>
-                </div>                
+                    <a class="workspaceDiv" href="javascript:void(0);"> Close </a>
+                </div>
                 <br>
                 <div id="taskViewDiv"></div>
             </div>
             <div id="newTaskContainer" style="display:none; border-width:thin; border-style:solid" align="center">
                 <div align="right" style="position:relative; right:2%; top:2%; height:5%;">
-                    <a class="workspaceDiv" href="javascript:void(0);">Back</a>
+                    <a class="workspaceDiv" href="javascript:void(0);"> Close </a>
                 </div>
                 <table>
                     <tr>
                         <td></td>
                         <td align="right">
-                        <input type="button" value="Save" class="saveTask" title="saves task information to database"/> </td>
+                        <input type="button" value="Save" class="saveTask" title="saves task information to database"  style="width:100px" /> </td>
+                    </tr>
+                    <tr><td class="taskLabel">ID</td><td>
+                            <input id="id" name="id" value="" type="text" size="10" maxlength="10" title="Task ID" disabled="disabled"  style="width:175px"/>
+                        </td>
                     </tr>
                     <tr>
-                        <td class="taskLabel"> Title <font color="RED">*</font> </td><td>
+                        <td class="taskLabel"> Summary <font color="RED">*</font> </td><td>
                             <input id="title" name="title" value="" maxlength="90" size="80" type="text" title="Task summary" style="width:600px"/>
                         </td>
                     </tr>
@@ -155,10 +158,10 @@
                     </tr>
                     <tr>
                         <td></td>
-                        <td align="right">
-                            <input type="button" value="Clear" id="clear" title="clear all fields"/>&nbsp;
-                            <input type="button" value="Delete" id="delete" title="deletes task"/>&nbsp;
-                            <input type="button" value="Save" class="saveTask" title="saves task information to database"/>
+                        <td align="right">                            
+                            <a href="javascript:void(0);" id="delete" title="deletes task">Delete Task</a>&nbsp;&nbsp;
+                            <input type="button" value="Clear" id="clear" title="clear all fields"/>&nbsp;&nbsp;
+                            <input type="button" value="Save" class="saveTask" title="saves task information to database" style="width:100px" />
                         </td>
                     </tr>
                 </table>
@@ -167,15 +170,20 @@
         </div>
 
         <div id="rightDiv">
-            <div id="reportDiv" title="Random User & Project Report, changes every 30 secs">
-                <pre>Loading User|Project Reports ...</pre>
+            <select id="reportsSelect" style="width:180px"></select>&nbsp;&nbsp;&nbsp;
+            <input type="checkbox" name="randomReports" id="randomReports" value="ON" checked="checked" /><font face="Arial, sans-serif" color="#6f6f6f" size="-1"> random</font>
+            <div id="graphDiv">
+                <div id="reportDiv" title="Random User & Project Report, changes every 30 secs">
+                    <pre>Loading User|Project Reports ...</pre>
+                    <pre>Automatically updates</pre>
+                </div>
+            </div>
+            <br>
+            <font face="Arial, sans-serif" color="#6f6f6f" size="-1"> Recent Completed</font>
+            <div id="newsDiv" title="Recent completed task">
+                <pre>Loading recent completed Task ...</pre>
                 <pre>Automatically updates</pre>
             </div>
-        </div>
-        <br>
-        <div id="rightBottomDiv" title="Recent completed task">
-            <pre>Loading recent completed Task ...</pre>
-            <pre>Automatically updates</pre>
         </div>
         <ul id="myMenu" class="contextMenu">
             <li class="edit"><a href="#edit">Edit</a></li>

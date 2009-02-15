@@ -40,10 +40,13 @@
     position:absolute; left:30%; top:0%; height:2%
 }
 #rightDiv {
-    position:absolute; left:74%; top:13%; width:24%;border-width:thin; border-style:solid
+    position:absolute; left:74%; top:13%; width:24%;
 }
-#rightBottomDiv {
-    position:absolute; left:74%; top:50%; width:24%; border-width:thin; border-style:solid
+#graphDiv {
+    border-width:thin; border-style:solid
+}
+#newsDiv {
+    border-width:thin; border-style:solid
 }
 #dt_example #footer {
 	margin: 50px auto 0 auto;
