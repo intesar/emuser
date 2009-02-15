@@ -113,8 +113,7 @@ $(document).ready(function() {
     function assignMe ( taskId ) {                
         AjaxTaskService.assignTaskUser ( taskId, null, function() {            
             $.jGrowl( "Task # " + taskId + " assigned successfully!");
-        });
-        
+        });        
     }
     
     // executed on "create new project" link is clicked
@@ -122,28 +121,20 @@ $(document).ready(function() {
         $('#taskTableContainer').slideDown('fast');
         $('#detailReports').slideUp('fast');
         $('#newTaskContainer').slideUp('fast');
-        $('#taskViewContainer').slideUp('fast');
-        $('#reportsDivId').attr('href','javascript:void(0)');
-        $('#taskEditDivId').attr('href','javascript:void(0)');
-        //$('#workspaceDivId').removeAttr('href');
-        $('#refreshTask').trigger('click');
+        $('#taskViewContainer').slideUp('fast');        
     });
     $('.ReportsDiv').livequery ("click", function() {
         $('#taskTableContainer').slideUp('fast');
         $('#detailReports').slideDown('fast');
         $('#newTaskContainer').slideUp('fast');
-        //$('#workspaceDivId').attr('href','javascript:void(0)');
-        $('#taskEditDivId').attr('href','javascript:void(0)');
-        $('#reportsDivId').removeAttr('href');
+        $('#taskViewContainer').slideUp('fast');                
     });
     
     $('.taskEditDiv').click(function() {    
         $('#taskTableContainer').slideUp('fast');
         $('#detailReports').slideUp('fast');
         $('#newTaskContainer').slideDown('fast');
-        $('#reportsDivId').attr('href','javascript:void(0);');
-        //$('#workspaceDivId').attr('href','javascript:void(0);');
-        $('#taskEditDivId').removeAttr('href');
+        $('#taskViewContainer').slideUp('fast');
         $('#clear').trigger('click');
     });
     
@@ -195,9 +186,9 @@ $(document).ready(function() {
     function showTaskForView( taskId) {
         $('#clear').trigger('click');
         var task = tasksCache[ taskId ];
-        var dynamicTable = "<table class='taskTable'><tr><th></th><th></th></tr><tbody>";
+        var dynamicTable = "<table class='taskTable' style='width:80%'><tr><th></th><th></th></tr><tbody>";
         dynamicTable += "<tr><td class='taskLabel'>ID</td><td>" + task.id + "</td></tr>";
-        dynamicTable += "<tr><td class='taskLabel'>Title</td><td>" + task.title + "</td></tr>";
+        dynamicTable += "<tr><td class='taskLabel'>Summary</td><td>" + task.title + "</td></tr>";
         dynamicTable += "<tr><td class='taskLabel'>Status</td><td>" + task.status + "</td></tr>";
         var projectName = (task.projectName!=null)? task.projectName : "Todo";
         dynamicTable += "<tr><td class='taskLabel'>Project</td><td>" + projectName + "</td></tr>";
@@ -232,6 +223,7 @@ $(document).ready(function() {
     function showTaskForEdit( taskId) {        
         $('#clear').trigger('click');        
         var task = tasksCache[ taskId ];
+        $('#id').val(task.id);
         $('#title').val(task.title);        
         $('#totalEstimatedHours').val(task.estimatedHours);
         $('#totalHoursSpend').val(task.spendHours);
@@ -257,6 +249,7 @@ $(document).ready(function() {
     // executed on "clear" button is clicked
     $('#clear').click(function() {
         viewed = null;
+        $('#id').val("");
         $('#title').val("");        
         $('#estimatedHours').val("");
         $('#totalEstimatedHours').val("");
@@ -307,7 +300,7 @@ $(document).ready(function() {
         }
         task1.title = $.trim( $('#title').val() );
         if ( task1.title.length < 1 ) {
-            alert ( " Title cannot be empty! ");
+            alert ( " Summary cannot be empty! ");
             return;
         }
         //task1.deadline = Date.parse($('#deadline').val());
@@ -337,6 +330,7 @@ $(document).ready(function() {
                     AjaxTaskService.saveTask(task1, function() {
                         $('#clear').trigger("click");
                         $('.workspaceDiv').trigger("click");
+                        $('#refreshTask').trigger('click');
                         $.jGrowl( "Task saved successfully!");
                         viewed = null;
                     });                                             
@@ -354,6 +348,7 @@ $(document).ready(function() {
             AjaxTaskService.saveTask(task1, function() {
                 $('#clear').trigger("click");
                 $('.workspaceDiv').trigger("click");
+                $('#refreshTask').trigger('click');
                 $.jGrowl( "Task saved successfully!");
             });
             
@@ -361,16 +356,20 @@ $(document).ready(function() {
     });  
     
     $('#refreshTask').click(function() {
-        var selectedStatus = $('#projectStatusDropdown').val();       
+        $(this).attr("src", "../images/animated_reset.gif")
+        var selectedStatus = $('#projectStatusDropdown').val();
+        $('')
         if ( selectedStatus == 'Find by Task ID') {
             var taskId = prompt("Enter Task ID : ", "");
             AjaxTaskService.getCurrentTask(taskId, function (data) {
-                //$.jGrowl( "Refreshed successfully!");
+                $('#refreshTask').attr("src", "../images/reset.gif")
+                $.jGrowl( "Refreshed successfully!");
                 taskList(data);
             });
         } else {
             AjaxTaskService.getCurrentTask(selectedStatus, function (data) {
-                //$.jGrowl( "Refreshed successfully!");
+                $('#refreshTask').attr("src", "../images/reset.gif")
+                $.jGrowl( "Refreshed successfully!");
                 taskList(data);
             });
         }
@@ -489,10 +488,10 @@ $(document).ready(function() {
     }
     
     displayUserReport = function( data) {
-        displayUserReportFunction(data, "reportDiv");
+        displayUserReportFunction(data, "graphDiv");
     }
     displayProjectReport = function( data) {
-        displayProjectReportFunction(data, "reportDiv");
+        displayProjectReportFunction(data, "graphDiv");
     }
     var loadUserReport = function() {       
         AjaxReportService.getUserReports(-1, 1, displayUserReport);  // get random user report
@@ -522,12 +521,12 @@ $(document).ready(function() {
         for ( var i = 0; i < tasks.length; i++ )  {
             tasksCache[tasks[i].id] = tasks[i];
             content += "<p>"
-            + "<a id='news" + tasks[i].id + "'  class='newsClass' href='javascript:void();'>" + tasks[i].title + " </a> <br> "
+            + "<a id='news" + tasks[i].id + "'  class='newsClass' href='javascript:void(0);'>" + tasks[i].title + " </a> <br> "
             + tasks[i].assignedToName + ", "
             + tasks[i].priority + ", Completed, # " + tasks[i].id
             + "</p>";
         }
-        $('#rightBottomDiv').html( content );
+        $('#newsDiv').html( content );
         
     }
     setInterval(function() {
@@ -536,7 +535,7 @@ $(document).ready(function() {
     
     $('.newsClass').livequery('click', function() {
         var taskId = $(this).attr('id').substr(4);
-        showTaskForEdit(taskId);
+        showTaskForView(taskId);
     })
     
 
