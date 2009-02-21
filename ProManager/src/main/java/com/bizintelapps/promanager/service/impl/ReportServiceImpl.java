@@ -59,7 +59,7 @@ public class ReportServiceImpl implements ReportService {
         //processTaskUpdate(dto);// updates project_report's estimated_time, time_spend and user_report's estimated_time, time_spend (when task is updated)
         } catch (Exception e) {
             e.printStackTrace();
-            throw new RuntimeException();
+            //throw new RuntimeException();
         }
     }
 

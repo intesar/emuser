@@ -21,13 +21,13 @@
 <div id="leftDiv">
 <div id="projectTableContainer"  align="center"> 
 <div id="container">
-<div align="right"><a id="createANewProject" class="createANewProject" href="javascript:void(0)"  title="create a new project">New project</a></div>
+<div align="right"><a id="createANewProject" class="createANewProject" href="javascript:void(0)"  title="create a new project">Add new project</a></div>
 <table id="projectTable"  cellpadding="0" cellspacing="0" border="0" class="display" >                        
     <thead>
         <tr>
-            <th>Name</th>                                                            
-            <th>Status</th>   
-            <th>Action</th>
+            <th>Name</th>
+            <th>Status</th>
+            <th>Members</th>            
         </tr>
     </thead>                
     <!-- required by plugin-->
@@ -37,6 +37,7 @@
 </div>
 
 <div id="newProjectContainer" style="display:none" align="center">
+    <br>
     <div id="container">        
         <table>
             <thead>
@@ -71,7 +72,8 @@
             </tr>
             <tr>
                 <td>
-                    <input type="button" value="Reset" id="clear"/>
+                    <a href="javascript:void(0);" class="deleteProject">Delete</a>
+                    <input type="button" value="clear" id="clear"/>
                     <input type="button" value="Save" id="saveProject"/>                                                    
                 </td>   
             </tr>                         
@@ -82,10 +84,10 @@
 <div id="projectUsersDiv" align="center" style="left:5%;display:none">
 <div id="container">
 <div align="right">
-    <a href="javascript:void(0);" class="backToProjectList">Back to Project List</a>
+    <a href="javascript:void(0);" class="backToProjectList">Back to project list</a>
     &nbsp;&nbsp;&nbsp;&nbsp;
     
-    <a id="saveProjectUsersLink" class="saveProjectUsersLink" href="javascript:void(0);" title="existing user when added to project will be able to see and add task of this project">Add a User to project</a>
+    <a id="saveProjectUsersLink" class="saveProjectUsersLink" href="javascript:void(0);" title="existing user when added to project will be able to see and add task of this project">Add user to project</a>
 </div>
 <table id="projectUsersTable"  cellpadding="0" cellspacing="0" border="0" class="display" >
     <thead>
@@ -104,6 +106,7 @@
 </div>
 <br>
 <div id="projectUsersSaveDiv" style="display:none" align="center">
+    <br>
     <table>
         <thead>
             <tr>

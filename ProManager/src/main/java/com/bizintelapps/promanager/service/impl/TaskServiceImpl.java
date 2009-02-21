@@ -33,6 +33,7 @@ import com.bizintelapps.promanager.dto.TaskDto;
 import com.bizintelapps.promanager.exceptions.ServiceRuntimeException;
 
 import com.bizintelapps.promanager.service.ReportService;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -179,6 +180,7 @@ public class TaskServiceImpl implements TaskService {
         return list;
     }
     // only admin, owner, pm, assign-to can see task
+
     @Override
     public TaskDto getTask(Integer taskId, String requestedBy) {
         Users u = usersDao.findByUsername(requestedBy);
@@ -241,10 +243,10 @@ public class TaskServiceImpl implements TaskService {
             TaskDto dto = new TaskDto();
             taskConverter.copyForDisplay(task, dto, false, false, users1.getId());
             dto.setStatus(status);
-            if ( task.getAssignedTo() == null ) {
+            if (task.getAssignedTo() == null) {
                 dto.setAssignedById(users1.getId());
                 dto.setAssignedDate(new Date());
-                dto.setAssignedToId(users1.getId());                
+                dto.setAssignedToId(users1.getId());
             }
             reportService.processTask(task, dto);
             //}
@@ -254,7 +256,7 @@ public class TaskServiceImpl implements TaskService {
                 task.setAssignedTo(users1);
             }
             task.setStatus(status);
-            task.setLastStatusChangedDate(new Date());            
+            task.setLastStatusChangedDate(new Date());
             taskDao.update(task);
             sendTaskAlert(task);
         } else {
@@ -281,6 +283,7 @@ public class TaskServiceImpl implements TaskService {
         throw new UnsupportedOperationException("Not supported yet.");
     }
     //---------------------- private helper methods -------------------------//
+
     /**
      *  helper method finds given user is a project manager
      * @param userId
@@ -319,61 +322,63 @@ public class TaskServiceImpl implements TaskService {
         return false;
     }
 
+    /**
+     * prepares html email for task
+     * @param task
+     */
     private void sendTaskAlert(Task task) {
-        Set<String> set = new HashSet<String>();
+        Set<String> to = new HashSet<String>();
         String subject = "";
-        set.add(task.getOwner().getUsername());
-        String assignedTo = "N/A";
-        if (task.getAssignedTo() != null) {
-            assignedTo = task.getAssignedTo().getFirstname() + " " + task.getAssignedTo().getLastname();
-            subject += task.getAssignedTo().getFirstname() + ", ";
-            set.add(task.getAssignedTo().getUsername());
+        to.add(task.getOwner().getUsername());
+        String assignedTo = getName(task.getAssignedTo());
+        subject += (task.getAssignedTo() != null) ? task.getAssignedTo().getFirstname() + ", " : "";
+        if ((task.getAssignedTo() != null)) {
+            to.add(task.getAssignedTo().getUsername());
         }
-        String assignedBy = "N/A";
+        String assignedBy = getName(task.getAssignedBy());
         if (task.getAssignedBy() != null) {
-            assignedBy = task.getAssignedBy().getFirstname() + " " + task.getAssignedBy().getLastname();
-            set.add(task.getAssignedBy().getUsername());
+            to.add(task.getAssignedBy().getUsername());
         }
-        String project = "Todo";
-        if (task.getProject() != null) {
-            project = task.getProject().getName();
-        }
+        String createdBy = getName(task.getOwner());
+        String project = (task.getProject() != null) ? task.getProject().getName() : "Todo";
         if (task.getNotificationEmails() != null && task.getNotificationEmails().length() > 5) {
             String[] emails = task.getNotificationEmails().split(",");
             for (String email : emails) {
-                set.add(email);
+                to.add(email);
             }
         }
-        String id = "New";
-        if (task.getId() != null) {
-            id = task.getId().toString();
-        }
+        String id = (task.getId() != null) ? task.getId().toString() : "New";
         subject += task.getTitle();
-        String assignedDate = "N/A";
-        if (task.getAssignedDate() != null) {
-            assignedDate = task.getAssignedDate().toString();
-        }
-        String deadline = "N/A";
-        if (task.getDeadline() != null) {
-            deadline = task.getDeadline().toString();
-        }
-        String completedDate = "N/A";
-        if (task.getCompletedDate() != null) {
-            completedDate = task.getCompletedDate().toString();
-        }
-        String body = "<table>" + "<tr><td>Task #</td><td>" + id + "</td></tr>" + "<tr><td>Title</td><td>" + task.getTitle() + "</td></tr>" + "<tr><td>Assigned To</td><td>" + assignedTo + "</td></tr>" + "<tr><td>Assigned On</td><td>" + assignedDate + "</td></tr>" + "<tr><td>Assigned By</td><td>" + assignedBy + "</td></tr>" + "<tr><td>Created By</td><td>" + task.getOwner().getFirstname() + " " + task.getOwner().getLastname() + "</td></tr>" + "<tr><td>Created On</td><td>" + task.getCreateDate() + "</td></tr>" + "<tr><td>Project</td><td>" + project + "</td></tr>" + "<tr><td>Status</td><td>" + task.getStatus() + "</td></tr>" + "<tr><td>Priority</td><td>" + task.getPriority() + "</td></tr>" + "<tr><td>Estimated Hours</td><td>" + task.getEstimatedHours() + "</td></tr>" + "<tr><td>Hours Spend</td><td>" + task.getSpendHours() + "</td></tr>" + "<tr><td>Finish By</td><td>" + deadline + "</td></tr>" + "<tr><td>Completed Date</td><td>" + completedDate + "</td></tr>" + "<tr><td>Description</td><td>" + task.getDescription() + "</td></tr>" + "</table>";
-        try {            
-            String[] tos = new String[set.size()];
-            int count = 0;
-            for (String s : set) {
-                tos[count++] = s;
-            }
+        String assignedDate = getFormatedDate(task.getAssignedDate());
+        String deadline = getFormatedDate(task.getDeadline());
+        String completedDate = getFormatedDate(task.getCompletedDate());
+        String body = "<table>" + "<tr><td>Task #</td><td>" + id + "</td></tr>" + "<tr><td>Summary</td><td>" + task.getTitle() + "</td></tr>" + "<tr><td>Assigned To</td><td>" + assignedTo + "</td></tr>" + "<tr><td>Assigned On</td><td>" + assignedDate + "</td></tr>" + "<tr><td>Assigned By</td><td>" + assignedBy + "</td></tr>" + "<tr><td>Created By</td><td>" + createdBy + "</td></tr>" + "<tr><td>Created On</td><td>" + getFormatedDate(task.getCreateDate()) + "</td></tr>" + "<tr><td>Project</td><td>" + project + "</td></tr>" + "<tr><td>Status</td><td>" + task.getStatus() + "</td></tr>" + "<tr><td>Priority</td><td>" + task.getPriority() + "</td></tr>" + "<tr><td>Estimated Time</td><td>" + task.getEstimatedHours() + "</td></tr>" + "<tr><td>Time Spend</td><td>" + task.getSpendHours() + "</td></tr>" + "<tr><td>Finish By</td><td>" + deadline + "</td></tr>" + "<tr><td>Completed On</td><td>" + completedDate + "</td></tr>" + "<tr><td>Description</td><td>" + task.getDescription() + "</td></tr>" + "</table>";
+        try {
+            String[] tos = new String[1];
+            tos = to.toArray(tos);
             mailSender.sendMail(tos, subject, body);
         } catch (RuntimeException re) {
             re.printStackTrace();
         }
     }
+
+    private String getFormatedDate(Date date) {
+        String pattern = "dd MMM yyyy";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        if (date != null) {
+            try {
+                return simpleDateFormat.format(date);
+            } catch (Exception e) {
+            }
+        }
+        return "N/A";
+    }
+
+    private String getName(Users users) {
+        return (users != null) ? users.getFirstname() + " " + users.getLastname() : "N/A";
+    }
     //----------------------- getters & setters--------------------------//
+
     public void setProjectDao(ProjectDao projectDao) {
         this.projectDao = projectDao;
     }

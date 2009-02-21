@@ -24,7 +24,7 @@
             <div id="userTableContainer"  align="center"> 
                 <div id="container">                    
                     <div align="right">
-                        <a id="createANewUser" class="createANewUser" href="javascript:void(0)"  title="Add new user to enterprise">New user</a>                    
+                        <a id="createANewUser" class="createANewUser" href="javascript:void(0)"  title="Add new user to enterprise">Add new user</a>
                     </div>
                     <table id="usersTable" cellpadding="0" cellspacing="0" border="0" class="display" align="center">                        
                         <thead class="">
@@ -46,7 +46,7 @@
             
             <div id="newEditContainer" style="display:none" align="center">
                 <div id="container" align="center" >
-                    <!--<a id="backToUserList"><font size="1"><< </font>Back to user list</a><br><br>-->
+                    <br><br>
                     <table>                
                         <tr>
                             <td><b>Firstname<font color="RED">*</font></b><br>
