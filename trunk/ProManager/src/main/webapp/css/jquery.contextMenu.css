@@ -56,6 +56,7 @@
 
 .contextMenu LI.edit A { background-image: url(../images/page_white_edit.png); }
 .contextMenu LI.new A { background-image: url(../images/add.png); }
+.contextMenu LI.view A { background-image: url(../images/view.png); }
 .contextMenu LI.high A { background-image: url(../images/high_priority.png); }
 .contextMenu LI.inprogress A { background-image: url(../images/in_progress.png); }
 .contextMenu LI.completed A { background-image: url(../images/completed.png); }

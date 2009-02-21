@@ -38,7 +38,7 @@
         </script>
     </head><body>
 
-        <div style="position:absolute; left:30%; top:10%;  border-width:thin; border-style:solid" align="center" >
+        <div style="position:absolute; left:30%; top:10%; border:1px solid #BBC1B4; border-width:thin; border-style:solid" align="center" >
             <div style="left:20%; top:10%; right:10%;" align="center">
                 <table>
                     <thead>
@@ -59,7 +59,7 @@
             </div>
         </div>
 
-        <div  style="position:absolute; left:30%; top:30%;  border-width:thin; border-style:solid" align="left">
+        <div  style="position:absolute; left:30%; top:30%; border:1px solid #BBC1B4; border-width:thin; border-style:solid" align="left">
             <table>
                 <thead>
                     <tr>

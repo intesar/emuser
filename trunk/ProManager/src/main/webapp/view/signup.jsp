@@ -9,7 +9,7 @@
     <body>
 
 
-        <div style="position:absolute; left:15%; top:10%; width:60%;  border-width:thin; border-style:solid" align="center" >
+        <div style="position:absolute; left:15%; top:10%; width:60%; border:1px solid #BBC1B4; border-width:thin; border-style:solid" align="center" >
             <h3><em>Sign up for free new Account</em></h3>
             <table>
                 <tbody>
