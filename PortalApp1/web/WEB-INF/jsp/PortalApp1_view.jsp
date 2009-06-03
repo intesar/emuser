@@ -10,5 +10,5 @@
 --%>
 
 <b>
-    PortalApp1 - VIEW MODE -- Changed -- again
+    PortalApp1 - VIEW MODE -- Changed -- again --
 </b>
