@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<portlet-app xmlns='http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd' version='2.0'>
+	<portlet>
+		<description>QuestionBank</description>
+		<portlet-name>QuestionBank</portlet-name>
+		<display-name>QuestionBank</display-name>
+		<portlet-class>com.cisco.portlet.QuestionBank</portlet-class>
+		<expiration-cache>0</expiration-cache>
+		<supports>
+			<mime-type>text/html</mime-type>
+			<portlet-mode>VIEW</portlet-mode>
+			<portlet-mode>EDIT</portlet-mode>
+			<portlet-mode>HELP</portlet-mode>
+		</supports>
+		<resource-bundle>com.cisco.portlet.messages</resource-bundle>
+		<portlet-info>
+			<title>QuestionBank</title>
+			<short-title>QuestionBank</short-title>
+		</portlet-info>
+	</portlet>
+</portlet-app>
