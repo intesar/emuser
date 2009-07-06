@@ -17,6 +17,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -116,4 +117,8 @@ public class UserBookmarks implements Serializable {
         return "com.cisco.questionbank.entity.UserBookmarks[id=" + id + "]";
     }
 
+    @PrePersist
+    public void prePersist() {
+        setCreateDate(new Date());
+    }
 }

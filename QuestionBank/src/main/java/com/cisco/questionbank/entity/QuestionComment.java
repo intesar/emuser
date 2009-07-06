@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.cisco.questionbank.entity;
 
 import java.io.Serializable;
@@ -18,6 +17,7 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -30,6 +30,7 @@ import javax.persistence.TemporalType;
 @Table(name = "question_comment", catalog = "question_bank", schema = "")
 @NamedQueries({@NamedQuery(name = "QuestionComment.findAll", query = "SELECT q FROM QuestionComment q"), @NamedQuery(name = "QuestionComment.findById", query = "SELECT q FROM QuestionComment q WHERE q.id = :id"), @NamedQuery(name = "QuestionComment.findByCommentedUser", query = "SELECT q FROM QuestionComment q WHERE q.commentedUser = :commentedUser"), @NamedQuery(name = "QuestionComment.findByCommentDate", query = "SELECT q FROM QuestionComment q WHERE q.commentDate = :commentDate")})
 public class QuestionComment implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -130,4 +131,8 @@ public class QuestionComment implements Serializable {
         return "com.cisco.questionbank.entity.QuestionComment[id=" + id + "]";
     }
 
+    @PrePersist
+    public void prePersist() {
+        setCommentDate(new Date());
+    }
 }
