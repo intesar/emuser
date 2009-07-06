@@ -34,25 +34,8 @@ public class QuestionServiceImpl implements QuestionService {
         question.setIncorrectChoice2(incorrectChoice2);
         question.setIncorrectChoice3(incorrectChoice3);
         question.setExplanation(explanation);
-        //question.setCreateDate(new Date());
         question.setCreatedBy(user);
-        //question.setModifiedDate(new Date());
         questionDao.create(question);
-
-    }
-
-    public List<Question> getMyQuestions(String createdBy) {
-        List<Question> list = null;
-        list = questionDao.findByCreatedBy(createdBy);
-        return list;
-    }
-
-    public void deleteQuestion(Integer id, String user) {
-        Question question = questionDao.findById(id);
-        if (!user.equals(question.getCreatedBy())) {
-            throw new RuntimeException("Only Admin or Owner can delete a question");
-        }
-        questionDao.delete(question);
 
     }
 
@@ -61,7 +44,7 @@ public class QuestionServiceImpl implements QuestionService {
             String explanation, String user) {
         Question question = questionDao.findById(id);
         // update question with new values
-        // todo check user is createdBy
+        // check user is createdBy
         if (!user.equals(question.getCreatedBy())) {
             throw new RuntimeException("Only Admin or Owner can delete a question");
         }
@@ -75,38 +58,33 @@ public class QuestionServiceImpl implements QuestionService {
 
     }
 
-    public List getQuestions() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void deleteQuestion(Integer id, String user) {
+        Question question = questionDao.findById(id);
+        if (!user.equals(question.getCreatedBy())) {
+            throw new RuntimeException("Only Admin or Owner can delete a question");
+        }
+        questionDao.delete(question);
+
     }
 
     public void addComment(Integer questionId, String comment, String user) {
+        Question question = questionDao.findById(questionId);
         QuestionComment questionComment = new QuestionComment();
         questionComment.setCommentText(comment);
         questionComment.setCommentedUser(user);
-        Question question = questionDao.findById(questionId);
+        questionComment.setQuestionId(question);
         question.getQuestionCommentList().add(questionComment);
         questionDao.update(question);
     }
 
     public void incrementRank(Integer questionId, String user) {
+        Question question = questionDao.findById(questionId);
         QuestionRank questionRank = new QuestionRank();
         questionRank.setRankedUser(user);
-        Question question = questionDao.findById(questionId);
+        questionRank.setQuestionId(question);
         question.getQuestionRankList().add(questionRank);
         // update rank in pre update
         questionDao.update(question);
-    }
-
-    public void markDuplicate(Integer questionId, String duplidateText) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public List getHighRankQuestions() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public List search(String txt) {
-        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     public void bookmark(Integer questionId, String user) {
@@ -116,6 +94,28 @@ public class QuestionServiceImpl implements QuestionService {
         userBookmarks.setUser(user);
         question.getUserBookmarksList().add(userBookmarks);
         questionDao.update(question);
+    }
+
+    public List<Question> getMyQuestions(String createdBy) {
+        List<Question> list = null;
+        list = questionDao.findByCreatedBy(createdBy);
+        return list;
+    }
+
+    public List<Question> getQuestions() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void markDuplicate(Integer questionId, String duplidateText) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public List<Question> getHighRankQuestions() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public List<Question> search(String txt) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     public Question getRandomQuestion() {

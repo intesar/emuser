@@ -39,7 +39,8 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "Question.findByModifiedDate", query = "SELECT q FROM Question q WHERE q.modifiedDate = :modifiedDate"),
     @NamedQuery(name = "Question.findByCreatedBy", query = "SELECT q FROM Question q WHERE q.createdBy = :createdBy"),
     @NamedQuery(name = "Question.findByRank", query = "SELECT q FROM Question q WHERE q.rank = :rank"),
-    @NamedQuery(name = "Question.findByIsDeleted", query = "SELECT q FROM Question q WHERE q.isDeleted = :isDeleted")
+    @NamedQuery(name = "Question.findByIsDeleted", query = "SELECT q FROM Question q WHERE q.isDeleted = :isDeleted"),
+    @NamedQuery(name = "Question.findCount", query = "SELECT count(q) FROM Question q")
 })
 public class Question implements Serializable {
     private static final long serialVersionUID = 1L;

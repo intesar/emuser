@@ -4,6 +4,7 @@
  */
 package com.cisco.questionbank.ajax;
 
+import com.cisco.questionbank.entity.Question;
 import com.cisco.questionbank.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -21,6 +22,11 @@ public class QuestionServiceAjax {
         questionService.addQuestion(questionText, correctChoice, incorrectChoice1,
                 incorrectChoice2, incorrectChoice3, explanation, user);
     }
+
+    public Question getRandomQuestion() {
+        return questionService.getRandomQuestion();
+    }
+    // getters and setters
 
     public void setQuestionService(QuestionService questionService) {
         this.questionService = questionService;
