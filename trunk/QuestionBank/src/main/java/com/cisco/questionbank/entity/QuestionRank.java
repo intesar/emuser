@@ -17,6 +17,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -114,6 +115,11 @@ public class QuestionRank implements Serializable {
     @Override
     public String toString() {
         return "com.cisco.questionbank.entity.QuestionRank[id=" + id + "]";
+    }
+
+    @PrePersist
+    public void prePersist() {
+        setRankDate(new Date());
     }
 
 }
