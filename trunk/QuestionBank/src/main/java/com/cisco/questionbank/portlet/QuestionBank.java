@@ -1,4 +1,4 @@
-package com.cisco.portlet;
+package com.cisco.questionbank.portlet;
 import javax.portlet.GenericPortlet;
 import javax.portlet.ActionRequest;
 import javax.portlet.RenderRequest;
