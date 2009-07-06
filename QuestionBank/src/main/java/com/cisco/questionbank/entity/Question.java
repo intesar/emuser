@@ -6,6 +6,7 @@
 package com.cisco.questionbank.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
@@ -80,7 +81,7 @@ public class Question implements Serializable {
     private String createdBy;
     @Basic(optional = false)
     @Column(name = "rank", nullable = false)
-    private int rank;
+    private int rank = 0;
     @Basic(optional = false)
     @Column(name = "is_deleted", nullable = false)
     private short isDeleted;
@@ -88,15 +89,15 @@ public class Question implements Serializable {
     @Column(name = "delete_reason", length = 65535)
     private String deleteReason;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "questionId")
-    private List<QuestionTag> questionTagList;
+    private List<QuestionTag> questionTagList = new ArrayList<QuestionTag> ();
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "questionId")
-    private List<QuestionComment> questionCommentList;
+    private List<QuestionComment> questionCommentList = new ArrayList<QuestionComment> ();
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "questionId")
-    private List<QuestionRank> questionRankList;
+    private List<QuestionRank> questionRankList = new ArrayList<QuestionRank> ();
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "questionId")
-    private List<QuestionDuplicate> questionDuplicateList;
+    private List<QuestionDuplicate> questionDuplicateList = new ArrayList<QuestionDuplicate> ();
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "questionId")
-    private List<UserBookmarks> userBookmarksList;
+    private List<UserBookmarks> userBookmarksList = new ArrayList<UserBookmarks> ();
 
     public Question() {
     }
@@ -294,6 +295,7 @@ public class Question implements Serializable {
     @PreUpdate
     public void preUpdate() {
         setModifiedDate(new Date());
+        setRank(getQuestionRankList().size());
     }
 
 }
