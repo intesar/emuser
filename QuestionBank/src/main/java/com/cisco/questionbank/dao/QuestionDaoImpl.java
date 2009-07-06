@@ -36,6 +36,11 @@ public class QuestionDaoImpl implements QuestionDao {
 
     public Question findById(Integer id) {
         return (Question) entityManager.createNamedQuery("Question.findById").setParameter("id", id).getSingleResult();
+
+    }
+
+    public Long findCount() {
+        return (Long) entityManager.createNamedQuery("").getSingleResult();
     }
     //private final Log log = LogFactory.getLog(getClass());
     // default FinderNamingStrategy can be overriden in Spring config

@@ -11,6 +11,7 @@ import com.cisco.questionbank.entity.QuestionComment;
 import com.cisco.questionbank.entity.QuestionRank;
 import com.cisco.questionbank.entity.UserBookmarks;
 import java.util.List;
+import java.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,9 +24,8 @@ public class QuestionServiceImpl implements QuestionService {
 
     public void addQuestion(String questionText, String correctChoice,
             String incorrectChoice1, String incorrectChoice2, String incorrectChoice3,
-            String explanation) {
+            String explanation, String user) {
 
-        System.out.println(" inside addQuestion....");
         // create a new question and add to db
         Question question = new Question();
         question.setQuestionText(questionText);
@@ -35,7 +35,7 @@ public class QuestionServiceImpl implements QuestionService {
         question.setIncorrectChoice3(incorrectChoice3);
         question.setExplanation(explanation);
         //question.setCreateDate(new Date());
-        question.setCreatedBy("inmohamm");
+        question.setCreatedBy(user);
         //question.setModifiedDate(new Date());
         questionDao.create(question);
 
@@ -47,17 +47,24 @@ public class QuestionServiceImpl implements QuestionService {
         return list;
     }
 
-    public void deleteQuestion(Integer id) {
+    public void deleteQuestion(Integer id, String user) {
         Question question = questionDao.findById(id);
+        if (!user.equals(question.getCreatedBy())) {
+            throw new RuntimeException("Only Admin or Owner can delete a question");
+        }
         questionDao.delete(question);
+
     }
 
     public void udpateQuestion(Integer id, String questionText, String correctChoice,
             String incorrectChoice1, String incorrectChoice2, String incorrectChoice3,
-            String explanation) {
+            String explanation, String user) {
         Question question = questionDao.findById(id);
         // update question with new values
         // todo check user is createdBy
+        if (!user.equals(question.getCreatedBy())) {
+            throw new RuntimeException("Only Admin or Owner can delete a question");
+        }
         question.setQuestionText(questionText);
         question.setCorrectChoice(correctChoice);
         question.setIncorrectChoice1(incorrectChoice1);
@@ -65,6 +72,7 @@ public class QuestionServiceImpl implements QuestionService {
         question.setIncorrectChoice3(incorrectChoice3);
         question.setExplanation(explanation);
         questionDao.update(question);
+
     }
 
     public List getQuestions() {
@@ -108,6 +116,21 @@ public class QuestionServiceImpl implements QuestionService {
         userBookmarks.setUser(user);
         question.getUserBookmarksList().add(userBookmarks);
         questionDao.update(question);
+    }
+
+    public Question getRandomQuestion() {
+        Question question = null;
+        Long count = questionDao.findCount();
+        Random random = new Random();
+        do {
+            try {
+                int id = random.nextInt(count.intValue());
+                question = questionDao.findById(id);
+            } catch (RuntimeException re) {
+                re.printStackTrace();
+            }
+        } while (question == null);
+        return question;
     }
 
     // getter and setters
