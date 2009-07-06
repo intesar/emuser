@@ -22,4 +22,6 @@ public interface QuestionDao {
     public List<Question> findByCreatedBy(String user);
 
     public Question findById(Integer id);
+
+    public Long findCount();
 }
