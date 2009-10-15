@@ -4,12 +4,10 @@
  */
 package com.chatroom.service;
 
-import java.util.Collection;
 
 import javax.servlet.http.HttpSession;
-import org.directwebremoting.WebContext;
-import org.directwebremoting.WebContextFactory;
-import org.directwebremoting.proxy.dwr.Util;
+import org.directwebremoting.Browser;
+import org.directwebremoting.ScriptSessions;
 
 /**
  *
@@ -21,15 +19,21 @@ public class ChatService {
         System.out.println(" ChatService instantiated...");
     }
 
-    public static void add(String message, HttpSession session) {
-        WebContext webContext = WebContextFactory.get();
-        String currentPage = webContext.getCurrentPage();
-        Collection sessions = webContext.getScriptSessionsByPage(currentPage);
-        Util utilAll = new Util(sessions);
+    public static void add(final String message, HttpSession session) {
+//        WebContext webContext = WebContextFactory.get();
+//        String currentPage = webContext.getCurrentPage();
+//        Collection sessions = webContext.getScriptSessionsByPage(currentPage);
+//        Util utilAll = new Util(sessions);
         String screenName = (String) session.getAttribute("chat_user_screen_name");
         if (screenName == null) {
             screenName = "annonymouse";
         }
-        utilAll.addFunctionCall("broadcastMessage", screenName + ": " + message);
+        final String name = screenName;
+        Browser.withCurrentPage(new Runnable() {
+            public void run() {
+                ScriptSessions.addFunctionCall("broadcastMessage", name + ": " + message);
+            }
+        });
+//        utilAll.addFunctionCall("broadcastMessage", screenName + ": " + message);
     }
 }
